@@ -9,7 +9,7 @@
     "url": "https://github.com/moarwick/elm-webpack-starter"
   },
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --content-base src/",
+    "start": "webpack-dev-server --hot --inline --content-base src/ --host 0.0.0.0",
     "build": "rimraf dist && webpack",
     "watch": "webpack --watch"
   },
@@ -22,16 +22,16 @@
     "elm-hot-loader": "^0.3.2",
     "elm-webpack-loader": "^3.0.3",
     "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.9.0",
+    "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.17.0",
     "node-sass": "^3.7.0",
     "postcss-loader": "^0.9.1",
     "rimraf": "^2.5.2",
-    "sass-loader": "^4.0.0",
+    "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.1"
+    "webpack-merge": "^0.13.0"
   }
 }
