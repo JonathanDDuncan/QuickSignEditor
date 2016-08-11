@@ -22,7 +22,7 @@ subscriptions _ =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update action model =
     case action of
-        Increment ->
+         Increment ->
             ( { model | counter = model.counter + 1 }
             , Cmd.none
             )

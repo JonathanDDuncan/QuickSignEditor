@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import String
 import Hello.Types  exposing (..)
 
-
+  
 root : Model -> Html Msg
 root model =
     div []
