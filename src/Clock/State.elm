@@ -14,11 +14,11 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-   Time.every second Tick
+    Time.every second Tick
 
 
-update :  Msg -> Model -> Model 
-update msg model   =
+update : Msg -> Model -> Model
+update msg model =
     case msg of
         Tick newTime ->
-          Debug.log "NewTime"     newTime
+            newTime

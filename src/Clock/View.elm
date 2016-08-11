@@ -5,7 +5,6 @@ import Clock.Types exposing (..)
 import Time exposing (Time, second)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
-import Debug
 
 
 -- You may need these latter
@@ -24,11 +23,11 @@ root : Clock.Types.Model -> Html Msg
 root model =
     let
         angle =
-            turns (Time.inMinutes   model) 
+            turns (Time.inMinutes model)
 
         handX =
-            toString (50 + 40 * (cos ( Debug.log "angle" angle)))
- 
+            toString (50 + 40 * (cos (angle)))
+
         handY =
             toString (50 + 40 * sin angle)
     in
