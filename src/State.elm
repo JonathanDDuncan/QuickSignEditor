@@ -19,7 +19,7 @@ subscriptions : Types.Model -> Sub Types.Msg
 subscriptions model =
     Sub.batch
         [ Clock.State.subscriptions model.clock |> Sub.map Clock
-        ]
+        ] 
 
 
 update : Types.Msg -> Types.Model -> ( Types.Model, Cmd Types.Msg )
