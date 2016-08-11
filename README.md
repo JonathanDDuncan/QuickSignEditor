@@ -58,7 +58,7 @@ npm run build
 
 
 ### Changelog
-**Ver 0.6.3**
+**Ver 0.6.4**
 * Changed from  Html.beginnerProgram { model = model, view = view, update = update } to main =
     Html.App.program { init = State.init, update = State.update, subscriptions = State.subscriptions, view = View.root} to be able to do more than just beginner exercices 
 * Refactored the code to use the same structure as Kris Jenkins http://blog.jenkster.com/2016/04/how-i-structure-elm-apps.html
