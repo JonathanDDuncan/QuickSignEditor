@@ -1,3 +1,5 @@
+This is a modified version of elm-webpack-starter which has been modified to use http://blog.jenkster.com/2016/04/how-i-structure-elm-apps.html sugggestions and 
+   Html.App.program instead of Html.beginnerProgram which won't get you very far.
 # elm-webpack-starter
 
 A simple Webpack setup for writing [Elm](http://elm-lang.org/) apps:
@@ -35,6 +37,16 @@ npm start
 * Get coding! The entry point file is `src/Main.elm`
 * Browser will refresh automatically on any file changes..
 
+* Can now access the page from other devices on the network changing these lines
+ in package.json
+    -     "start": "webpack-dev-server --hot --inline --content-base src/",
+    +     "start": "webpack-dev-server --hot --inline --content-base src/ --host 0.0.0.0",
+and webpack.config.js 
+ -       'webpack-dev-server/client?http://localhost:8080',
+ +       'webpack-dev-server/client?http://0.0.0.0:8080',
+
+ Browser to your ip address followed by :8080 to view on another device.
+ i.e. http://192.168.0.10:8080
 
 ### Build & bundle for prod:
 ```
@@ -46,6 +58,16 @@ npm run build
 
 
 ### Changelog
+**Ver 0.6.3**
+* Changed from  Html.beginnerProgram { model = model, view = view, update = update } to main =
+    Html.App.program { init = State.init, update = State.update, subscriptions = State.subscriptions, view = View.root} to be able to do more than just beginner exercices 
+* Refactored the code to use the same structure as Kris Jenkins http://blog.jenkster.com/2016/04/how-i-structure-elm-apps.html
+* Created a Feature folder to copy and change name to create new features easily.
+* Made the Hello Model into a record so that it is part why to a real aplication
+* Renamed "main" to "starter"
+* Moved Jumbotron and Hello to their own feature folders and set them up
+* Access to dev server from other devices via your ip address followed by :8080
+
 
 **Ver 0.6.2**
 * Use `copy-webpack-plugin` instead of `cp` to copy files (Windows compatible)
