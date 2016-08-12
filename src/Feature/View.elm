@@ -1,7 +1,7 @@
 module Feature.View exposing (root)
 
 import Html exposing (..)
-import Types exposing (..)
+import Feature.Types exposing (..)
 
 
 -- You may need these latter

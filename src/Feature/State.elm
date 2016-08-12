@@ -6,8 +6,8 @@ module Feature.State exposing (..)
 import Feature.Types exposing (..)
 
 
-initialState : ( Feature.Types.Model, Cmd Feature.Types.Msg )
-initialState =
+init : ( Feature.Types.Model, Cmd Feature.Types.Msg )
+init =
     ( { field = 0
       }
     , Cmd.none
