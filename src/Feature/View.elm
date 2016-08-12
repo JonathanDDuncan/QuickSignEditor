@@ -19,5 +19,5 @@ import Feature.Types exposing (..)
 root : Model -> Html Msg
 root model =
     div []
-        [ text "This is where the views go"
+        [ text "Put the view here"
         ]

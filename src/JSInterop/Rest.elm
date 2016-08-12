@@ -1,1 +1,0 @@
-module JSInterop.Rest exposing (..)
