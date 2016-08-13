@@ -1,16 +1,10 @@
 module Feature.Types exposing (..)
 
--- Import types of subfeatures
--- import Widget.Types
--- Model is in all Types files.
+-- import SubFeatures.Types
 
 
 type alias Model =
     { field : Int }
-
-
-
--- Msg is in all Types files.
 
 
 type Msg
