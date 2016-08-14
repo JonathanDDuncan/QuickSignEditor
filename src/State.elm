@@ -1,4 +1,4 @@
-module State exposing (..)
+module State exposing (init, update, subscriptions)
 
 import Types exposing (..)
 
@@ -41,8 +41,4 @@ update action model =
 
 --To nest update of feature
 --  FeatureMsg action ->
---           Feature.State.liftMe .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg action model
--- where
--- Feature.State.liftMe is
--- liftMe get set fwd =
---     lift get set fwd update
+--          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Feature.State.update action model

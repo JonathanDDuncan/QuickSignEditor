@@ -1,13 +1,16 @@
-module Feature.State exposing (init, update, liftMe, subscriptions)
+module Feature.State exposing (init, update, subscriptions)
 
 -- only includes Rest functions that are really needed
 -- import Rest exposing (..)
 -- import Ports exposing (..)
+-- if you have sub components
+-- import PlatformHelpers exposing (..)
 
-import PlatformHelpers exposing (..)
 import Feature.Types exposing (..)
- 
+
+
 -- import SubFeatures.State
+
 
 init : ( Feature.Types.Model, Cmd Feature.Types.Msg )
 init =
@@ -27,20 +30,6 @@ update action model =
             ( { model | field = 0 }
             , Cmd.none
             )
-
-
-
---To nest update of feature
---  SubFeatureMsg action ->
---           SubFeature.State.liftMe .subFeatureFieldName (\m x -> { m | subFeatureFieldName = x })  SubFeatureMsg action model
--- where
--- SubFeature.State.liftMe is
--- liftMe get set fwd =
---     lift get set fwd update
-
-
-liftMe get set fwd =
-    lift get set fwd update
 
 
 subscriptions : Feature.Types.Model -> Sub Feature.Types.Msg

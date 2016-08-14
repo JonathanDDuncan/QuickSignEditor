@@ -1,6 +1,8 @@
-module Types exposing (Model, Msg)
+module Types exposing (..)
 
 -- import Feature.Types
+
+
 type alias Model =
     { field :
         Int
