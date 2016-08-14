@@ -1,13 +1,14 @@
 module View exposing (root)
 
 import Html exposing (..)
+import Html.App as App exposing (..)
 import Types exposing (..)
+import Overlay.View
+
+
 -- import Feature.View exposing (root)
+
 
 root : Model -> Html Msg
 root model =
-    div []
-        [ text "This is text"
-        -- Nest another view by adding
-        -- App.map FeatureMsg (Feature.View.root model.featureFieldName)
-        ]
+    App.map Overlay (Overlay.View.root model.overlay)

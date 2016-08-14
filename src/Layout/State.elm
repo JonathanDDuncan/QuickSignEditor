@@ -1,4 +1,4 @@
-module Feature.State exposing (init, update, subscriptions)
+module Layout.State exposing (init, update, subscriptions)
 
 -- only includes Rest functions that are really needed
 -- import Rest exposing (..)
@@ -6,27 +6,24 @@ module Feature.State exposing (init, update, subscriptions)
 -- if you have sub components
 -- import PlatformHelpers exposing (..)
 
-import Feature.Types exposing (..)
+import Layout.Types exposing (..)
 
 
--- import SubFeatures.State
+-- import SubLayouts.State
 
 
-init : ( Feature.Types.Model, Cmd Feature.Types.Msg )
+init : ( Model, Cmd Msg )
 init =
     ( { field = 0
       }
-      -- To initiate feature state
-      --  { featureFieldName = fst Feature.State.init
-      --  }
     , Cmd.none
     )
 
 
-update : Feature.Types.Msg -> Feature.Types.Model -> ( Feature.Types.Model, Cmd Feature.Types.Msg )
+update : Layout.Types.Msg -> Layout.Types.Model -> ( Layout.Types.Model, Cmd Layout.Types.Msg )
 update action model =
     case action of
-        FeatureMessage ->
+        LayoutMessage ->
             ( { model | field = 0 }
             , Cmd.none
             )
@@ -38,7 +35,7 @@ update action model =
 --          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Feature.State.update action model
 
 
-subscriptions : Feature.Types.Model -> Sub Feature.Types.Msg
+subscriptions : Layout.Types.Model -> Sub Layout.Types.Msg
 subscriptions _ =
     Sub.none
 
@@ -46,5 +43,5 @@ subscriptions _ =
 
 -- To nest subscriptions
 -- Sub.batch
---       [ SubFeature.State.subscriptions model.subfeatureFieldName |> Sub.map SubFeatureMsg
+--       [ SubLayout.State.subscriptions model.subLayoutFieldName |> Sub.map SubLayoutMsg
 --       ]
