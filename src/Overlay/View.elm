@@ -18,4 +18,6 @@ root model =
             , App.map Layout (Layout.View.root model.layout)
             ]
     else
-        div [] []
+        div []
+            [ button [ onClick Show ] [ text "Show" ]
+            ]

@@ -31,6 +31,9 @@ update msg model =
         Hide ->
             ( { model | show = False }, Cmd.none )
 
+        Show ->
+            ( { model | show = True }, Cmd.none )
+
         Layout action ->
             lift .layout (\m x -> { m | layout = x }) Layout Layout.State.update action model
 

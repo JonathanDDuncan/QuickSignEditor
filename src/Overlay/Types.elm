@@ -11,4 +11,5 @@ type alias Model =
 
 type Msg
     = Hide
+    | Show
     | Layout Layout.Types.Msg
