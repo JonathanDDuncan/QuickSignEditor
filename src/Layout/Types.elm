@@ -2,13 +2,29 @@ module Layout.Types exposing (..)
 
 -- import SubLayouts.Types
 
+import Material
+
 
 type alias Model =
-    { field : Int }
+    { count : Int
+    , mdl :
+        Material.Model
+        -- Boilerplate: model store for any and all Mdl components you use.
+    }
+
+
+
+-- ACTION, UPDATE
 
 
 type Msg
-    = LayoutMessage
+    = Increase
+    | Reset
+    | Mdl (Material.Msg Msg)
+
+
+type alias Mdl =
+    Material.Model
 
 
 

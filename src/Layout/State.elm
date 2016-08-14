@@ -7,26 +7,53 @@ module Layout.State exposing (init, update, subscriptions)
 -- import PlatformHelpers exposing (..)
 
 import Layout.Types exposing (..)
+import Material
 
 
 -- import SubLayouts.State
+-- init : ( Model, Cmd Msg )
+-- init =
+--     ( { field = 0
+--       }
+--     , Cmd.none
+-- )
 
 
-init : ( Model, Cmd Msg )
+init : Model
 init =
-    ( { field = 0
-      }
-    , Cmd.none
-    )
+    { count = 0
+    , mdl =
+        Material.model
+        -- Boilerplate: Always use this initial Mdl model store.
+    }
 
 
-update : Layout.Types.Msg -> Layout.Types.Model -> ( Layout.Types.Model, Cmd Layout.Types.Msg )
-update action model =
-    case action of
-        LayoutMessage ->
-            ( { model | field = 0 }
+
+-- update : Layout.Types.Msg -> Layout.Types.Model -> ( Layout.Types.Model, Cmd Layout.Types.Msg )
+-- update action model =
+--     case action of
+--         LayoutMessage ->
+--             ( { model | field = 0 }
+--             , Cmd.none
+--             )
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Increase ->
+            ( { model | count = model.count + 1 }
             , Cmd.none
             )
+
+        Reset ->
+            ( { model | count = 0 }
+            , Cmd.none
+            )
+
+        -- Boilerplate: Mdl action handler.
+        Mdl msg' ->
+            Material.update msg' model
 
 
 
