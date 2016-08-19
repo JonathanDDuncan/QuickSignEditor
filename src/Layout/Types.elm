@@ -13,10 +13,6 @@ type alias Model =
     }
 
 
-
--- ACTION, UPDATE
-
-
 type Msg
     = Increase
     | Reset

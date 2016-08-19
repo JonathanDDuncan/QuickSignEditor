@@ -10,15 +10,6 @@ import Layout.Types exposing (..)
 import Material
 
 
--- import SubLayouts.State
--- init : ( Model, Cmd Msg )
--- init =
---     ( { field = 0
---       }
---     , Cmd.none
--- )
-
-
 init : Model
 init =
     { count = 0
@@ -26,16 +17,6 @@ init =
         Material.model
         -- Boilerplate: Always use this initial Mdl model store.
     }
-
-
-
--- update : Layout.Types.Msg -> Layout.Types.Model -> ( Layout.Types.Model, Cmd Layout.Types.Msg )
--- update action model =
---     case action of
---         LayoutMessage ->
---             ( { model | field = 0 }
---             , Cmd.none
---             )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

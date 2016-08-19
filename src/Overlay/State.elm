@@ -15,8 +15,7 @@ import Layout.State
 
 init : ( Model, Cmd Msg )
 init =
-    ( { layout =
-            Layout.State.init
+    ( { layout = Layout.State.init
       , show = True
       }
     , Cmd.none
