@@ -7,29 +7,29 @@ module DisplaySW.State exposing (init, update, subscriptions)
 -- import PlatformHelpers exposing (..)
 
 import DisplaySW.Types exposing (..)
+import Ports as Ports exposing (..)
+import Debug
 
 
 -- import SubDisplaySWs.State
 
 
-init : ( DisplaySW.Types.Model, Cmd DisplaySW.Types.Msg )
+init : ( Model, Cmd Msg )
 init =
-    ( { field = 0
-      }
-      -- To initiate DisplaySW state
-      --  { DisplaySWFieldName = fst DisplaySW.State.init
-      --  }
-    , Cmd.none
-    )
+    ( Model "" [], Cmd.none )
 
 
 update : DisplaySW.Types.Msg -> DisplaySW.Types.Model -> ( DisplaySW.Types.Model, Cmd DisplaySW.Types.Msg )
 update action model =
     case action of
-        DisplaySWMessage ->
-            ( { model | field = 0 }
-            , Cmd.none
-            )
+        Change newWord ->
+            ( Model newWord [], Cmd.none )
+
+        Check ->
+            ( model, Ports.check <| Debug.log "Word to Check" model.word )
+
+        Suggest newSuggestions ->
+            ( Model model.word <| Debug.log "New suggestions" newSuggestions, Cmd.none )
 
 
 
@@ -38,9 +38,9 @@ update action model =
 --          lift .DisplaySWFieldName (\m x -> { m | DisplaySWFieldName = x })  DisplaySWMsg DisplaySW.State.update action model
 
 
-subscriptions : DisplaySW.Types.Model -> Sub DisplaySW.Types.Msg
-subscriptions _ =
-    Sub.none
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    suggestions Suggest
 
 
 

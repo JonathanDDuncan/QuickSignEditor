@@ -1,6 +1,8 @@
 module DisplaySW.View exposing (root)
 
-import Svg exposing (..)
+import Html exposing (..)
+import Html.Events exposing (..)
+import Svg as Svg exposing (svg)
 import Svg.Attributes exposing (..)
 import DisplaySW.Types exposing (..)
 
@@ -8,17 +10,25 @@ import DisplaySW.Types exposing (..)
 --import SubDisplaySW.View exposing (root)
 
 
-root : Model -> Svg Msg
+root : Model -> Html Msg
 root model =
-    svg
-        [ version "1.1"
-        , x "0"
-        , y "0"
-        , viewBox "0 0 500 500"
-        ]
-        [ g [ transform "translate(100,100)" ]
-            [ text' [ class "sym-fill", Svg.Attributes.style "pointer-events:none;font-family:'SignWriting 2010 Filling';font-size:30px;fill:white;" ] [ text "\x1DA3E" ]
-            , text' [ class "sym-line", Svg.Attributes.style "pointer-events:none;font-family:'SignWriting 2010';font-size:30px;fill:black;" ] [ text "\x1DA3E" ]
+    div []
+        [ div []
+            [ input [ onInput Change ] []
+            , button [ onClick Check ] [ text "Check" ]
+            , Svg.svg
+                [ version "1.1"
+                , x "0"
+                , y "0"
+                , viewBox "0 0 500 500"
+                ]
+                [ Svg.g [ transform "translate(100,100)" ]
+                    [ --  text' [ class "sym-fill", Svg.Attributes.style "pointer-events:none;font-family:'SignWriting 2010 Filling';font-size:30px;fill:white;" ] [ text "\x1DA3E" ]
+                      -- , text' [ class "sym-line", Svg.Attributes.style "pointer-events:none;font-family:'SignWriting 2010';font-size:30px;fill:black;" ] [ text "\x1DA3E" ]
+                      Svg.text' [ class "sym-fill", Svg.Attributes.style "pointer-events:none;font-family:'SignWriting 2010 Filling';font-size:30px;fill:white;" ] [ text model.suggestions ]
+                    , Svg.text' [ class "sym-line", Svg.Attributes.style "pointer-events:none;font-family:'SignWriting 2010';font-size:30px;fill:black;" ] [ text model.suggestions ]
+                    ]
+                ]
             ]
         ]
 

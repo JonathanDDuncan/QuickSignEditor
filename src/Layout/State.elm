@@ -131,6 +131,7 @@ subscriptions : Layout.Types.Model -> Sub Layout.Types.Msg
 subscriptions model =
     Sub.batch
         [ WindowSize.State.subscriptions model.window |> Sub.map Window
+        , DisplaySW.State.subscriptions model.signbox |> Sub.map SignBox
         ]
 
 

@@ -53,10 +53,12 @@ type alias DrawerModel =
 -- Plus any library function to run on the types
 
 
+iswidescreen : Model -> Bool
 iswidescreen model =
     model.window.windowSize.width > model.widescreen
 
 
+ismediumscreen : Model -> Bool
 ismediumscreen model =
     model.window.windowSize.width
         > model.mediumscreen

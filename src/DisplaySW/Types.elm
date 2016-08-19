@@ -4,11 +4,15 @@ module DisplaySW.Types exposing (..)
 
 
 type alias Model =
-    { field : Int }
+    { word : String
+    , suggestions : String
+    }
 
 
 type Msg
-    = DisplaySWMessage
+    = Change String
+    | Check
+    | Suggest String
 
 
 
