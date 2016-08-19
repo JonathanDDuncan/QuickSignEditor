@@ -48,3 +48,12 @@ type alias DrawerModel =
 
 -- Plus any other types unique to this Layout
 -- Plus any library function to run on the types
+
+
+iswidescreen model =
+    model.window.windowSize.width > model.widescreen
+
+
+ismediumscreen model =
+    model.window.windowSize.width
+        > model.mediumscreen
