@@ -14,9 +14,9 @@ import WindowSize.View
 
 root : Model -> Html Msg
 root model =
-    div [ class "container" ]
+    div [  ]
         [ div
-            [ class "container" ]
+            [   ]
             [ leftspace model
             , centerspace model
             , rightspace model
