@@ -51,7 +51,7 @@ update msg model =
             )
 
         Window action ->
-            lift .window (\m x -> { m | window = x, containerHeight = getcontainerheight m, rightdrawer = (\m x -> { m | height = x }) m.rightdrawer (getcontainerheight m) }) Window WindowSize.State.update action model
+            lift .window windowSizeSetter Window WindowSize.State.update action model
 
         RightDrawer action ->
             lift .rightdrawer (\m x -> { m | rightdrawer = x }) RightDrawer Drawer.State.update action model
@@ -61,9 +61,22 @@ update msg model =
             Material.update msg' model
 
 
-getcontainerheight : Model -> Int
-getcontainerheight model =
-    model.window.windowSize.height - model.footerheight
+windowSizeSetter =
+    (\m x ->
+        let
+            containerheight =
+                getcontainerheight m x
+        in
+            { m | window = x, containerHeight = containerheight, rightdrawer = setdrawerSize m containerheight }
+    )
+
+
+setdrawerSize model containerheight =
+    (\m y x -> { m | height = y, fullwidth = x }) model.rightdrawer containerheight model.window.windowSize.width
+
+
+getcontainerheight model x =
+    x.windowSize.height - model.footerheight
 
 
 

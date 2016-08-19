@@ -15,7 +15,7 @@ import Material.Icon as Icon
 
 root : Model -> Html Msg
 root model =
-    div [ class "drawer", style [ ( "width", drawerWidth model ++ "px" ), ( "height", toString model.height ++ "px" ) ] ]
+    div [ class "drawer", style [ ( "width", drawerWidth model ), ( "height", toString model.height ++ "px" ) ] ]
         [ Button.render
             Mdl
             [ 1 ]
@@ -37,7 +37,10 @@ root model =
 
 drawerWidth : Model -> String
 drawerWidth model =
-    if model.showing then
-        toString model.fullwidth
+    if model.active then
+        if model.showing then
+            toString model.fullwidth ++ "px"
+        else
+            toString model.alwaysShowpx ++ "px"
     else
-        toString model.alwaysShowpx
+        toString 0 ++ "px"
