@@ -13,8 +13,8 @@ import Material.Button as Button
 import Material.Icon as Icon
 
 
-root : Model -> Html Msg
-root model =
+root : Model -> Html Msg -> Html Msg
+root model child =
     div [ class "drawer", style [ ( "width", drawerWidth model ), ( "height", toString model.height ++ "px" ) ] ]
         [ Button.render
             Mdl
@@ -32,6 +32,7 @@ root model =
             , Button.onClick Show
             ]
             [ Icon.i "cancel" ]
+        , child
         ]
 
 

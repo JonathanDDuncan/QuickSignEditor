@@ -16,6 +16,9 @@ type alias Model =
         Int
     , containerHeight :
         Int
+    , widescreen : Int
+    , mediumscreen :
+        Int
         -- Boilerplate: model store for any and all Mdl components you use.
     }
 

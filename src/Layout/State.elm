@@ -15,7 +15,9 @@ import PlatformHelpers exposing (lift)
 
 init : ( Model, Cmd Msg )
 init =
-    ( { count = 0
+    ( { count =
+            0
+            -- Boilerplate: Always use this initial Mdl model store.
       , mdl =
             Material.model
       , window =
@@ -26,7 +28,8 @@ init =
             100
       , containerHeight =
             800
-            -- Boilerplate: Always use this initial Mdl model store.
+      , widescreen = 1000
+      , mediumscreen = 600
       }
     , Cmd.map Window (snd WindowSize.State.init)
     )
