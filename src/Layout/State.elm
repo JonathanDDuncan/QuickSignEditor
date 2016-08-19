@@ -9,7 +9,6 @@ module Layout.State exposing (init, update, subscriptions)
 import Layout.Types exposing (..)
 import Material
 import WindowSize.State
-import Drawer.State
 import PlatformHelpers exposing (lift)
 
 
@@ -23,7 +22,7 @@ init =
       , window =
             fst WindowSize.State.init
       , rightdrawer =
-            fst Drawer.State.init
+            fst drawerinit
       , footerheight =
             100
       , containerHeight =
@@ -32,6 +31,21 @@ init =
       , mediumscreen = 600
       }
     , Cmd.map Window (snd WindowSize.State.init)
+    )
+
+
+drawerinit : ( DrawerModel, Cmd Msg )
+drawerinit =
+    ( { active = True
+      , showing = False
+      , alwaysShowpx = 50
+      , fullwidth = 200
+      , height = 800
+      }
+      -- To initiate Drawer state
+      --  { DrawerFieldName = fst Drawer.State.init
+      --  }
+    , Cmd.none
     )
 
 
@@ -56,8 +70,15 @@ update msg model =
         Window action ->
             lift .window windowSizeSetter Window WindowSize.State.update action model
 
-        RightDrawer action ->
-            lift .rightdrawer (\m x -> { m | rightdrawer = x }) RightDrawer Drawer.State.update action model
+        DrawerShow ->
+            ( { model | rightdrawer = setdrawerShowing model.rightdrawer True }
+            , Cmd.none
+            )
+
+        DrawerHide ->
+            ( { model | rightdrawer = setdrawerShowing model.rightdrawer False }
+            , Cmd.none
+            )
 
         -- Boilerplate: Mdl action handler.
         Mdl msg' ->
@@ -70,12 +91,24 @@ windowSizeSetter =
             containerheight =
                 getcontainerheight m x
         in
-            { m | window = x, containerHeight = containerheight, rightdrawer = setdrawerSize m containerheight }
+            { m | window = x, containerHeight = containerheight, rightdrawer = setdrawerSize m.rightdrawer containerheight m.window.windowSize.width (getdraweractive m) }
     )
 
 
-setdrawerSize model containerheight =
-    (\m y x -> { m | height = y, fullwidth = x }) model.rightdrawer containerheight model.window.windowSize.width
+setdrawerSize : DrawerModel -> Int -> Int -> Bool -> DrawerModel
+setdrawerSize model containerheight fullwidth active =
+    { model | height = containerheight, fullwidth = fullwidth, active = active }
+
+
+getdraweractive model =
+    if model.window.windowSize.width <= model.widescreen then
+        True
+    else
+        False
+
+
+setdrawerShowing model showing =
+    { model | showing = showing }
 
 
 getcontainerheight model x =

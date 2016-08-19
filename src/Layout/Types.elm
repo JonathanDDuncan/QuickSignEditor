@@ -4,14 +4,13 @@ module Layout.Types exposing (..)
 
 import Material
 import WindowSize.Types
-import Drawer.Types
 
 
 type alias Model =
     { count : Int
     , mdl : Material.Model
     , window : WindowSize.Types.Model
-    , rightdrawer : Drawer.Types.Model
+    , rightdrawer : DrawerModel
     , footerheight :
         Int
     , containerHeight :
@@ -28,12 +27,22 @@ type Msg
     | Reset
     | HideOverlay
     | Window WindowSize.Types.Msg
-    | RightDrawer Drawer.Types.Msg
+    | DrawerShow
+    | DrawerHide
     | Mdl (Material.Msg Msg)
 
 
 type alias Mdl =
     Material.Model
+
+
+type alias DrawerModel =
+    { active : Bool
+    , showing : Bool
+    , fullwidth : Int
+    , alwaysShowpx : Int
+    , height : Int
+    }
 
 
 

@@ -11,7 +11,6 @@ import Layout.Types exposing (..)
 import Material.Button as Button
 import Material.Icon as Icon
 import WindowSize.View
-import Drawer.View
 import Debug
 
 
@@ -29,11 +28,11 @@ root model =
 screenlayout : Model -> Html Msg
 screenlayout model =
     if model.window.windowSize.width > model.widescreen then
-        widescreen <| Debug.log "WideScreen" model
+        widescreen model
     else if model.window.windowSize.width > model.mediumscreen then
-        mediumscreen <| Debug.log "MediumScreen" model
+        mediumscreen model
     else
-        smallscreen <| Debug.log "Smallscreen" model
+        smallscreen model
 
 
 widescreen : Model -> Html Msg
@@ -52,7 +51,7 @@ mediumscreen model =
         []
         [ centerspace model
         , rightspace model
-          -- , App.map RightDrawer (Drawer.View.root model.rightdrawer (leftspace model))
+        , drawer model (leftspace model)
         ]
 
 
@@ -61,15 +60,22 @@ smallscreen model =
     div
         []
         [ centerspace model
-          -- , App.map RightDrawer
-          --     (Drawer.View.root model.rightdrawer
-          --         (div
-          --             []
-          --             [ App.map leftspace model
-          --             , App.map rightspace model
-          --             ]
-          --         )
-          --     )
+        , drawer model
+            (div
+                []
+                [ div
+                    [ style
+                        [ ( "background-color", "orange" ) ]
+                    ]
+                    [ leftspace model ]
+                , div
+                    [ style
+                        [ ( "background-color", "purple" )
+                        ]
+                    ]
+                    [ rightspace model ]
+                ]
+            )
         ]
 
 
@@ -82,31 +88,53 @@ mysignBox model =
 rightspace : Model -> Html Msg
 rightspace model =
     div
-        [ class "rightspace"
+        [ if iswidescreen model || ismediumscreen model then
+            class "rightspace"
+          else
+            class ""
         , style
-            [ ( "height", toString model.containerHeight ++ "px" )
+            [ ( "height", rightspaceHeight model )
             , ( "width", rightspaceWidth model )
             , ( "margin-left", rightspaceMarginLeft model )
             ]
         ]
-        [ mysignBox model
+        [ text "This is the rightspace area"
+        , mysignBox model
         , App.map Window (WindowSize.View.root model.window)
         ]
 
 
+rightspaceHeight model =
+    if iswidescreen model then
+        toString model.containerHeight ++ "px"
+    else if ismediumscreen model then
+        "auto"
+    else
+        "auto"
+
+
 rightspaceWidth model =
-    if model.window.windowSize.width > model.widescreen then
+    if iswidescreen model then
         toString 30 ++ "%"
-    else if model.window.windowSize.width > model.mediumscreen then
+    else if ismediumscreen model then
         toString 50 ++ "%"
     else
         toString 100 ++ "%"
 
 
+iswidescreen model =
+    model.window.windowSize.width > model.widescreen
+
+
+ismediumscreen model =
+    model.window.windowSize.width
+        > model.mediumscreen
+
+
 rightspaceMarginLeft model =
-    if model.window.windowSize.width > model.widescreen then
+    if iswidescreen model then
         toString 70 ++ "%"
-    else if model.window.windowSize.width > model.mediumscreen then
+    else if ismediumscreen model then
         toString 50 ++ "%"
     else
         toString 0
@@ -115,9 +143,12 @@ rightspaceMarginLeft model =
 leftspace : Model -> Html Msg
 leftspace model =
     div
-        [ class "leftspace"
+        [ if iswidescreen model then
+            class "leftspace"
+          else
+            class ""
         , style
-            [ ( "height", toString model.containerHeight ++ "px" )
+            [ ( "height", leftspaceHeight model )
             , ( "width", leftspaceWidth model )
             ]
         ]
@@ -129,13 +160,23 @@ leftspace model =
             , Button.onClick HideOverlay
             ]
             [ Icon.i "cancel" ]
+        , text "This is the leftspace area"
         ]
 
 
+leftspaceHeight model =
+    if iswidescreen model then
+        toString model.containerHeight ++ "px"
+    else if ismediumscreen model then
+        toString model.containerHeight ++ "px"
+    else
+        "auto"
+
+
 leftspaceWidth model =
-    if model.window.windowSize.width > model.widescreen then
+    if iswidescreen model then
         toString 30 ++ "%"
-    else if model.window.windowSize.width > model.mediumscreen then
+    else if ismediumscreen model then
         toString 100 ++ "%"
     else
         toString 100 ++ "%"
@@ -151,22 +192,22 @@ centerspace model =
             , ( "margin-left", centerspaceMarginLeft model )
             ]
         ]
-        []
+        [ text "This is the centerspace area" ]
 
 
 centerspaceWidth model =
-    if model.window.windowSize.width > model.widescreen then
+    if iswidescreen model then
         toString 40 ++ "%"
-    else if model.window.windowSize.width > model.mediumscreen then
+    else if ismediumscreen model then
         toString 50 ++ "%"
     else
         toString 100 ++ "%"
 
 
 centerspaceMarginLeft model =
-    if model.window.windowSize.width > model.widescreen then
+    if iswidescreen model then
         toString 30 ++ "%"
-    else if model.window.windowSize.width > model.mediumscreen then
+    else if ismediumscreen model then
         toString 0
     else
         toString 0
@@ -178,6 +219,51 @@ stickyFooter model =
         [ class "footer", style [ ( "height", toString (model.footerheight) ++ "px" ) ] ]
         [ text "this is the sticky footer"
         ]
+
+
+drawer : Model -> Html Msg -> Html Msg
+drawer model child =
+    div
+        [ class "drawer"
+        , style
+            [ ( "width", drawerWidth model.rightdrawer )
+            , ( "height", toString model.rightdrawer.height ++ "px" )
+            ]
+        ]
+        [ if model.rightdrawer.showing then
+            Button.render
+                Mdl
+                [ 1 ]
+                model.mdl
+                [ Button.icon
+                , Button.onClick DrawerHide
+                ]
+                [ Icon.i "chevron_right" ]
+          else
+            Button.render
+                Mdl
+                [ 2 ]
+                model.mdl
+                [ Button.icon
+                , Button.onClick DrawerShow
+                ]
+                [ Icon.i "chevron_left" ]
+        , if model.rightdrawer.showing then
+            child
+          else
+            div [] []
+        ]
+
+
+drawerWidth : DrawerModel -> String
+drawerWidth model =
+    if model.active then
+        if model.showing then
+            toString model.fullwidth ++ "px"
+        else
+            toString model.alwaysShowpx ++ "px"
+    else
+        toString 0 ++ "px"
 
 
 

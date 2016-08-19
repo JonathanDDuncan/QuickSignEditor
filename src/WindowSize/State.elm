@@ -9,7 +9,6 @@ module WindowSize.State exposing (init, update, subscriptions)
 import WindowSize.Types exposing (..)
 import Task
 import Window
-import Debug
 
 
 -- import SubWindows.State
@@ -29,7 +28,7 @@ update msg model =
     case msg of
         Resize newSize ->
             ( { model
-                | windowSize = Debug.log "newSize" newSize
+                | windowSize = newSize
               }
             , Cmd.none
             )
