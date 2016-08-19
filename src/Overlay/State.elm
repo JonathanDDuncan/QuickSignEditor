@@ -7,26 +7,25 @@ module Overlay.State exposing (init, update, subscriptions)
 
 import PlatformHelpers exposing (..)
 import Overlay.Types exposing (..)
+import Layout.Types exposing (..)
 import Layout.State
 
 
 -- import SubOverlays.State
 
 
-init : ( Model, Cmd Msg )
+init : ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
 init =
-    ( { layout = Layout.State.init
+    ( { layout = fst Layout.State.init
       , show = True
       }
-    , Cmd.none
+    , Cmd.map Layout (snd Layout.State.init)
     )
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Overlay.Types.Msg -> Overlay.Types.Model -> ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
 update msg model =
     case msg of
-        -- Layout msg ->
-        --     ( { model | layout = Layout.State.update msg model.layout }, Cmd.none )
         Hide ->
             ( { model | show = False }, Cmd.none )
 
@@ -34,7 +33,23 @@ update msg model =
             ( { model | show = True }, Cmd.none )
 
         Layout action ->
-            lift .layout (\m x -> { m | layout = x }) Layout Layout.State.update action model
+            layoutactions action model
+
+
+layoutactions : Layout.Types.Msg -> Overlay.Types.Model -> ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
+layoutactions action model =
+    case action of
+        HideOverlay ->
+            ( { model | show = False }, Cmd.none )
+
+        _ ->
+            lift
+                .layout
+                (\m x -> { m | layout = x })
+                Layout
+                Layout.State.update
+                action
+                model
 
 
 
@@ -44,8 +59,10 @@ update msg model =
 
 
 subscriptions : Overlay.Types.Model -> Sub Overlay.Types.Msg
-subscriptions _ =
-    Sub.none
+subscriptions model =
+    Sub.batch
+        [ Layout.State.subscriptions model.layout |> Sub.map Layout
+        ]
 
 
 

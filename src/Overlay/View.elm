@@ -12,10 +12,7 @@ root : Model -> Html Msg
 root model =
     if model.show then
         div [ class "overlay" ]
-            [ div []
-                [ button [ onClick Hide ] [ text "Hide" ]
-                ]
-            , App.map Layout (Layout.View.root model.layout)
+            [ App.map Layout (Layout.View.root model.layout)
             ]
     else
         div []

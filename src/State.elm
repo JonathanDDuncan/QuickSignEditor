@@ -15,13 +15,15 @@ init =
       -- To initiate feature state
       --  { featureFieldName = fst Feature.State.init
       --  }
-    , Cmd.none
+    , Cmd.map Overlay (snd Overlay.State.init)
     )
 
 
 subscriptions : Types.Model -> Sub Types.Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ Overlay.State.subscriptions model.overlay |> Sub.map Overlay
+        ]
 
 
 

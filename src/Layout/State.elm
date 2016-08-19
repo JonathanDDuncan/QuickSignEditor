@@ -8,15 +8,23 @@ module Layout.State exposing (init, update, subscriptions)
 
 import Layout.Types exposing (..)
 import Material
+import WindowSize.State
+import PlatformHelpers exposing (lift)
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
-    { count = 0
-    , mdl =
-        Material.model
-        -- Boilerplate: Always use this initial Mdl model store.
-    }
+    ( { count = 0
+      , mdl =
+            Material.model
+      , window =
+            fst WindowSize.State.init
+      , footerheight =
+            100
+            -- Boilerplate: Always use this initial Mdl model store.
+      }
+    , Cmd.map Window (snd WindowSize.State.init)
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -32,6 +40,14 @@ update msg model =
             , Cmd.none
             )
 
+        HideOverlay ->
+            ( model
+            , Cmd.none
+            )
+
+        Window action ->
+            lift .window (\m x -> { m | window = x }) Window WindowSize.State.update action model
+
         -- Boilerplate: Mdl action handler.
         Mdl msg' ->
             Material.update msg' model
@@ -44,8 +60,10 @@ update msg model =
 
 
 subscriptions : Layout.Types.Model -> Sub Layout.Types.Msg
-subscriptions _ =
-    Sub.none
+subscriptions model =
+    Sub.batch
+        [ WindowSize.State.subscriptions model.window |> Sub.map Window
+        ]
 
 
 
