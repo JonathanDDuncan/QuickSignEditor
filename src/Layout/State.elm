@@ -9,6 +9,7 @@ module Layout.State exposing (init, update, subscriptions)
 import Layout.Types exposing (..)
 import Material
 import WindowSize.State
+import Drawer.State
 import PlatformHelpers exposing (lift)
 
 
@@ -19,8 +20,12 @@ init =
             Material.model
       , window =
             fst WindowSize.State.init
+      , rightdrawer =
+            fst Drawer.State.init
       , footerheight =
             100
+      , containerHeight =
+            800
             -- Boilerplate: Always use this initial Mdl model store.
       }
     , Cmd.map Window (snd WindowSize.State.init)
@@ -46,11 +51,19 @@ update msg model =
             )
 
         Window action ->
-            lift .window (\m x -> { m | window = x }) Window WindowSize.State.update action model
+            lift .window (\m x -> { m | window = x, containerHeight = getcontainerheight m, rightdrawer = (\m x -> { m | height = x }) m.rightdrawer (getcontainerheight m) }) Window WindowSize.State.update action model
+
+        RightDrawer action ->
+            lift .rightdrawer (\m x -> { m | rightdrawer = x }) RightDrawer Drawer.State.update action model
 
         -- Boilerplate: Mdl action handler.
         Mdl msg' ->
             Material.update msg' model
+
+
+getcontainerheight : Model -> Int
+getcontainerheight model =
+    model.window.windowSize.height - model.footerheight
 
 
 

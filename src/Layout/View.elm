@@ -11,15 +11,18 @@ import Layout.Types exposing (..)
 import Material.Button as Button
 import Material.Icon as Icon
 import WindowSize.View
+import Drawer.View
+
 
 root : Model -> Html Msg
 root model =
-    div [  ]
+    div []
         [ div
-            [   ]
+            []
             [ leftspace model
             , centerspace model
             , rightspace model
+            , App.map RightDrawer (Drawer.View.root model.rightdrawer)
             ]
         , stickyFooter model
         ]
@@ -33,15 +36,15 @@ mysignBox model =
 
 rightspace : Model -> Html Msg
 rightspace model =
-    div [ class "rightspace", style [ ( "height", toString (model.window.windowSize.height - model.footerheight) ++ "px" ) ] ]
+    div [ class "rightspace", style [ ( "height", toString model.containerHeight ++ "px" ) ] ]
         [ mysignBox model
-        , App.map Window (WindowSize.View.root model.window) 
+        , App.map Window (WindowSize.View.root model.window)
         ]
 
 
 leftspace : Model -> Html Msg
 leftspace model =
-    div [ class "leftspace", style [ ( "height", toString (model.window.windowSize.height - model.footerheight) ++ "px" ) ] ]
+    div [ class "leftspace", style [ ( "height", toString model.containerHeight ++ "px" ) ] ]
         [ Button.render
             Mdl
             [ 0 ]
@@ -55,13 +58,19 @@ leftspace model =
 
 centerspace : Model -> Html Msg
 centerspace model =
-    div [ class "centerspace", style [ ( "height", toString (model.window.windowSize.height - model.footerheight) ++ "px" ) ] ]
+    div [ class "centerspace", style [ ( "height", toString model.containerHeight ++ "px" ) ] ]
         []
 
 
 stickyFooter : Model -> Html Msg
 stickyFooter model =
     div
-        [ class "footer" ,style [ ( "height", toString (  model.footerheight) ++ "px" ) ]]
+        [ class "footer", style [ ( "height", toString (model.footerheight) ++ "px" ) ] ]
         [ text "this is the sticky footer"
         ]
+
+
+
+-- containerHeight : Model -> Int
+-- containerHeight model =
+--     model.window.windowSize.height - model.footerheight

@@ -40,3 +40,11 @@
          margin-left: 70%;
          z-index: 10;
      }
+     
+     .drawer {
+         background-color: green;
+         position: fixed;
+         top: 0;
+         right: 0;
+         z-index: 10;
+     }
