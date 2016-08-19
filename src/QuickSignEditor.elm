@@ -1,9 +1,9 @@
-module Starter exposing (..)
+module QuickSignEditor exposing (..)
 
 import Html.App
 import State
 import View
- 
+
 
 main : Program Never
 main =
@@ -12,4 +12,4 @@ main =
         , update = State.update
         , subscriptions = State.subscriptions
         , view = View.root
-        }  
+        }
