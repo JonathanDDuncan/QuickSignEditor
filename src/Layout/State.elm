@@ -9,6 +9,7 @@ module Layout.State exposing (init, update, subscriptions)
 import Layout.Types exposing (..)
 import Material
 import WindowSize.State
+import DisplaySW.State
 import PlatformHelpers exposing (lift)
 
 
@@ -21,6 +22,8 @@ init =
             Material.model
       , window =
             fst WindowSize.State.init
+      , signbox =
+            fst DisplaySW.State.init
       , rightdrawer =
             fst drawerinit
       , footerheight =
@@ -69,6 +72,9 @@ update msg model =
 
         Window action ->
             lift .window windowSizeSetter Window WindowSize.State.update action model
+
+        SignBox action ->
+            lift .signbox (\m x -> { m | signbox = x }) SignBox DisplaySW.State.update action model
 
         DrawerShow ->
             ( { model | rightdrawer = setdrawerShowing model.rightdrawer True }

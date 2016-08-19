@@ -1,8 +1,10 @@
 module Layout.CenterSpace exposing (centerspace)
 
 import Html exposing (..)
+import Html.App as App exposing (..)
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
+import DisplaySW.View
 
 
 centerspace : Model -> Html Msg
@@ -15,7 +17,9 @@ centerspace model =
             , ( "margin-left", centerspaceMarginLeft model )
             ]
         ]
-        [ text "This is the centerspace area" ]
+        [ text "This is the centerspace area"
+        , App.map SignBox (DisplaySW.View.root model.signbox)
+        ]
 
 
 centerspaceWidth : Model -> String
