@@ -8,15 +8,11 @@ var app = Elm.QuickSignEditor.embed(document.getElementById('quicksigneditor'));
 
 
 //subscribe javacript functions to Elm command ports
-app.ports.check.subscribe(function(word) {
-    var suggestions = sw10.pua(word);
-    //send values to Elm subscription ports
-    app.ports.suggestions.send(suggestions);
-});
+app.ports.requestSign.subscribe(function(word) {
+    try {
+        var sign = sw10.symbolsList(word);
+        //send values to Elm subscription ports
+        app.ports.receiveSign.send(sign);
+    } catch (e) { console.log(e) }
 
-
-app.ports.getpua.subscribe(function(symbol) {
-    var pua = sw10.pua(symbol);
-    //send values to Elm subscription ports
-    app.ports.puaresult.send(pua);
 });

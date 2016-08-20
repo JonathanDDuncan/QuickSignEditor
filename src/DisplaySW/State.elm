@@ -8,7 +8,6 @@ module DisplaySW.State exposing (init, update, subscriptions)
 
 import DisplaySW.Types exposing (..)
 import Ports as Ports exposing (..)
-import Debug
 
 
 -- import SubDisplaySWs.State
@@ -16,20 +15,47 @@ import Debug
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "" [], Cmd.none )
+    ( Model "" signinit, Cmd.none )
+
+
+signinit : Sign
+signinit =
+    { width = 0
+    , height = 0
+    , text = ""
+    , x = 0
+    , y = 0
+    , backfill = ""
+    , syms = [ symbolinit ]
+    , laned = False
+    , left = 0
+    }
+
+
+symbolinit : Symbol
+symbolinit =
+    { x = 0
+    , y = 0
+    , fontsize = 0
+    , nwcolor = ""
+    , pua = ""
+    , code = 0
+    , key = ""
+    , nbcolor = ""
+    }
 
 
 update : DisplaySW.Types.Msg -> DisplaySW.Types.Model -> ( DisplaySW.Types.Model, Cmd DisplaySW.Types.Msg )
 update action model =
     case action of
         Change newWord ->
-            ( Model newWord [], Cmd.none )
+            ( Model newWord signinit, Cmd.none )
 
-        Check ->
-            ( model, Ports.check <| Debug.log "Word to Check" model.word )
+        RequestSign ->
+            ( model, Ports.requestSign model.word )
 
-        Suggest newSuggestions ->
-            ( Model model.word <| Debug.log "New suggestions" newSuggestions, Cmd.none )
+        SetSign newSuggestions ->
+            ( Model model.word newSuggestions, Cmd.none )
 
 
 
@@ -40,7 +66,7 @@ update action model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    suggestions Suggest
+    receiveSign SetSign
 
 
 

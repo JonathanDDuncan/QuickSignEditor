@@ -1,15 +1,12 @@
 port module Ports exposing (..)
 
+import DisplaySW.Types exposing (..)
+
+
 -- Ports go here like this
 
 
-port check : String -> Cmd msg
+port requestSign : String -> Cmd msg
 
 
-port suggestions : (String -> msg) -> Sub msg
-
-
-port getpua : String -> Cmd msg
-
-
-port puaresult : (String -> msg) -> Sub msg
+port receiveSign : (Sign -> msg) -> Sub msg

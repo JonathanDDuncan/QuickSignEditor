@@ -44,3 +44,17 @@
          right: 0;
          z-index: 10;
      }
+     
+     .sym-fill {
+         pointer-events: none;
+         font-family: 'SignWriting 2010 Filling';
+         font-size: 30px;
+         fill: white;
+     }
+     
+     .sym-line {
+         pointer-events: none;
+         font-family: 'SignWriting 2010';
+         font-size: 30px;
+         fill: black;
+     }

@@ -5,14 +5,39 @@ module DisplaySW.Types exposing (..)
 
 type alias Model =
     { word : String
-    , suggestions : String
+    , suggestions : Sign
     }
 
 
 type Msg
     = Change String
-    | Check
-    | Suggest String
+    | RequestSign
+    | SetSign Sign
+
+
+type alias Sign =
+    { width : Int
+    , height : Int
+    , text : String
+    , x : Int
+    , y : Int
+    , backfill : String
+    , syms : List Symbol
+    , laned : Bool
+    , left : Int
+    }
+
+
+type alias Symbol =
+    { x : Int
+    , y : Int
+    , fontsize : Int
+    , nwcolor : String
+    , pua : String
+    , code : Int
+    , key : String
+    , nbcolor : String
+    }
 
 
 
