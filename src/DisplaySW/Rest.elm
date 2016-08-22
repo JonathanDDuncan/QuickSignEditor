@@ -10,6 +10,7 @@ import Json.Encode
 import Json.Decode exposing ((:=))
 import DisplaySW.Types exposing (..)
 import Json.Decode.Extra exposing ((|:))
+import SW.Types exposing (..)
 
 
 decodeSign : Json.Decode.Decoder Sign

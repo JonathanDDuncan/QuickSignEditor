@@ -2,10 +2,12 @@ module DisplaySW.Types exposing (..)
 
 -- import SubDisplaySWs.Types
 
+import SW.Types exposing (..)
+
 
 type alias Model =
-    { word : String
-    , suggestions : Sign
+    { fsw : String
+    , sign : Sign
     }
 
 
@@ -13,31 +15,6 @@ type Msg
     = Change String
     | RequestSign
     | SetSign Sign
-
-
-type alias Sign =
-    { width : Int
-    , height : Int
-    , text : String
-    , x : Int
-    , y : Int
-    , backfill : String
-    , syms : List Symbol
-    , laned : Bool
-    , left : Int
-    }
-
-
-type alias Symbol =
-    { x : Int
-    , y : Int
-    , fontsize : Int
-    , nwcolor : String
-    , pua : String
-    , code : Int
-    , key : String
-    , nbcolor : String
-    }
 
 
 

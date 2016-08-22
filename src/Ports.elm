@@ -1,6 +1,6 @@
 port module Ports exposing (..)
 
-import DisplaySW.Types exposing (..)
+import SW.Types exposing (..)
 
 
 -- Ports go here like this

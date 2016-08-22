@@ -8,6 +8,7 @@ module DisplaySW.State exposing (init, update, subscriptions)
 
 import DisplaySW.Types exposing (..)
 import Ports as Ports exposing (..)
+import SW.Types exposing (..)
 
 
 -- import SubDisplaySWs.State
@@ -52,10 +53,10 @@ update action model =
             ( Model newWord signinit, Cmd.none )
 
         RequestSign ->
-            ( model, Ports.requestSign model.word )
+            ( model, Ports.requestSign model.fsw )
 
         SetSign newSuggestions ->
-            ( Model model.word newSuggestions, Cmd.none )
+            ( Model model.fsw newSuggestions, Cmd.none )
 
 
 

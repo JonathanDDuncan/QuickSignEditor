@@ -5,6 +5,7 @@ import Html.Events exposing (..)
 import Svg as Svg exposing (svg)
 import Svg.Attributes exposing (..)
 import DisplaySW.Types exposing (..)
+import SW.Types exposing (..)
 
 
 --import SubDisplaySW.View exposing (root)
@@ -16,20 +17,25 @@ root model =
         [ div []
             [ input [ onInput Change ] []
             , button [ onClick RequestSign ] [ text "RequestSign" ]
-            , Svg.svg
-                [ version "1.1"
-                , x "0"
-                , y "0"
-                , viewBox "0 0 500 500"
-                ]
-                (List.map displaySymbol model.suggestions.syms)
+            , signView model.sign
             ]
         ]
 
 
-displaySymbol : Symbol -> Svg.Svg a
-displaySymbol symbol =
-    Svg.g [ transform <| "translate(" ++ toString (symbol.x - 200) ++ "," ++ toString (symbol.y - 200) ++ ")" ]
+signView : Sign -> Svg.Svg a
+signView sign =
+    Svg.svg
+        [ version "1.1"
+        , width <| toString sign.width
+        , height <| toString sign.height
+        , viewBox (toString (500 - sign.width // 2) ++ " " ++ toString (500 - sign.height // 2) ++ " " ++ toString sign.width ++ " " ++ toString sign.height)
+        ]
+        (List.map symbolView sign.syms)
+
+
+symbolView : Symbol -> Svg.Svg a
+symbolView symbol =
+    Svg.g [ transform <| "translate(" ++ toString (symbol.x) ++ "," ++ toString (symbol.y) ++ ")" ]
         [ Svg.text'
             [ class "sym-fill"
             ]
