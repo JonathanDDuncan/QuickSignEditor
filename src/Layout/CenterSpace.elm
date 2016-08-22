@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.App as App exposing (..)
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
-import DisplaySW.View
+import SWEditor.View
 
 
 centerspace : Model -> Html Msg
@@ -13,23 +13,13 @@ centerspace model =
         [ class "centerspace"
         , style
             [ ( "height", toString model.containerHeight ++ "px" )
-            , ( "width", centerspaceWidth model )
+            , ( "width", toString model.centerspacepercentage ++ "%" )
             , ( "margin-left", centerspaceMarginLeft model )
             ]
         ]
         [ text "This is the centerspace area"
-        , App.map SignBox (DisplaySW.View.root model.signbox)
+        , App.map SignBox (SWEditor.View.root model.signbox 200 300)
         ]
-
-
-centerspaceWidth : Model -> String
-centerspaceWidth model =
-    if iswidescreen model then
-        toString 40 ++ "%"
-    else if ismediumscreen model then
-        toString 50 ++ "%"
-    else
-        toString 100 ++ "%"
 
 
 centerspaceMarginLeft : Model -> String

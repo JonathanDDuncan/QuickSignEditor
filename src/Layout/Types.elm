@@ -4,21 +4,27 @@ module Layout.Types exposing (..)
 
 import Material
 import WindowSize.Types
-import DisplaySW.Types
+import SWEditor.Types
 
 
 type alias Model =
     { count : Int
     , mdl : Material.Model
     , window : WindowSize.Types.Model
-    , signbox : DisplaySW.Types.Model
+    , signbox : SWEditor.Types.Model
     , rightdrawer : DrawerModel
     , footerheight :
         Int
     , containerHeight :
         Int
-    , widescreen : Int
-    , mediumscreen :
+    , widescreenwidth : Int
+    , mediumscreenwidth :
+        Int
+    , rightspacepercentage :
+        Int
+    , centerspacepercentage :
+        Int
+    , leftspacepercentage :
         Int
         -- Boilerplate: model store for any and all Mdl components you use.
     }
@@ -29,7 +35,7 @@ type Msg
     | Reset
     | HideOverlay
     | Window WindowSize.Types.Msg
-    | SignBox DisplaySW.Types.Msg
+    | SignBox SWEditor.Types.Msg
     | DrawerShow
     | DrawerHide
     | Mdl (Material.Msg Msg)
@@ -55,10 +61,10 @@ type alias DrawerModel =
 
 iswidescreen : Model -> Bool
 iswidescreen model =
-    model.window.windowSize.width > model.widescreen
+    model.window.windowSize.width > model.widescreenwidth
 
 
 ismediumscreen : Model -> Bool
 ismediumscreen model =
     model.window.windowSize.width
-        > model.mediumscreen
+        > model.mediumscreenwidth

@@ -9,7 +9,7 @@ module Layout.State exposing (init, update, subscriptions)
 import Layout.Types exposing (..)
 import Material
 import WindowSize.State
-import DisplaySW.State
+import SWEditor.State
 import PlatformHelpers exposing (lift)
 
 
@@ -23,15 +23,18 @@ init =
       , window =
             fst WindowSize.State.init
       , signbox =
-            fst DisplaySW.State.init
+            fst SWEditor.State.init
       , rightdrawer =
             fst drawerinit
       , footerheight =
             100
       , containerHeight =
             800
-      , widescreen = 1000
-      , mediumscreen = 600
+      , widescreenwidth = 1000
+      , mediumscreenwidth = 600
+      , rightspacepercentage = 30
+      , centerspacepercentage = 40
+      , leftspacepercentage = 30
       }
     , Cmd.map Window (snd WindowSize.State.init)
     )
@@ -74,7 +77,7 @@ update msg model =
             lift .window windowSizeSetter Window WindowSize.State.update action model
 
         SignBox action ->
-            lift .signbox (\m x -> { m | signbox = x }) SignBox DisplaySW.State.update action model
+            lift .signbox (\m x -> { m | signbox = x }) SignBox SWEditor.State.update action model
 
         DrawerShow ->
             ( { model | rightdrawer = setdrawerShowing model.rightdrawer True }
@@ -97,8 +100,44 @@ windowSizeSetter =
             containerheight =
                 getcontainerheight m x
         in
-            { m | window = x, containerHeight = containerheight, rightdrawer = setdrawerSize m.rightdrawer containerheight m.window.windowSize.width (getdraweractive m) }
+            { m
+                | window = x
+                , containerHeight = containerheight
+                , rightdrawer = setdrawerSize m.rightdrawer containerheight m.window.windowSize.width (getdraweractive m)
+                , rightspacepercentage = rightspacePercentage m
+                , centerspacepercentage = centerspacePercentage m
+                , leftspacepercentage = leftspacePercentage m
+            }
     )
+
+
+rightspacePercentage model =
+    if iswidescreen model then
+        30
+    else if ismediumscreen model then
+        50
+    else
+        100
+
+
+centerspacePercentage : Model -> Int
+centerspacePercentage model =
+    if iswidescreen model then
+        40
+    else if ismediumscreen model then
+        50
+    else
+        100
+
+
+leftspacePercentage : Model -> Int
+leftspacePercentage model =
+    if iswidescreen model then
+        30
+    else if ismediumscreen model then
+        100
+    else
+        100
 
 
 setdrawerSize : DrawerModel -> Int -> Int -> Bool -> DrawerModel
@@ -107,7 +146,7 @@ setdrawerSize model containerheight fullwidth active =
 
 
 getdraweractive model =
-    if model.window.windowSize.width <= model.widescreen then
+    if model.window.windowSize.width <= model.widescreenwidth then
         True
     else
         False
@@ -131,7 +170,7 @@ subscriptions : Layout.Types.Model -> Sub Layout.Types.Msg
 subscriptions model =
     Sub.batch
         [ WindowSize.State.subscriptions model.window |> Sub.map Window
-        , DisplaySW.State.subscriptions model.signbox |> Sub.map SignBox
+        , SWEditor.State.subscriptions model.signbox |> Sub.map SignBox
         ]
 
 

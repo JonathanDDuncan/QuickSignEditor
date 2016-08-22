@@ -16,7 +16,7 @@ leftspace model =
             class ""
         , style
             [ ( "height", leftspaceHeight model )
-            , ( "width", leftspaceWidth model )
+            , ( "width", toString model.leftspacepercentage ++ "%" )
             ]
         ]
         [ Button.render
@@ -39,13 +39,3 @@ leftspaceHeight model =
         toString model.containerHeight ++ "px"
     else
         "auto"
-
-
-leftspaceWidth : Model -> String
-leftspaceWidth model =
-    if iswidescreen model then
-        toString 30 ++ "%"
-    else if ismediumscreen model then
-        toString 100 ++ "%"
-    else
-        toString 100 ++ "%"

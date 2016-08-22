@@ -16,7 +16,7 @@ rightspace model =
             class ""
         , style
             [ ( "height", rightspaceHeight model )
-            , ( "width", rightspaceWidth model )
+            , ( "width", toString model.rightspacepercentage ++ "%" )
             , ( "margin-left", rightspaceMarginLeft model )
             ]
         ]
@@ -30,18 +30,9 @@ rightspaceHeight model =
     if iswidescreen model then
         toString model.containerHeight ++ "px"
     else if ismediumscreen model then
-        "auto"
+        toString model.containerHeight ++ "px"
     else
         "auto"
-
-
-rightspaceWidth model =
-    if iswidescreen model then
-        toString 30 ++ "%"
-    else if ismediumscreen model then
-        toString 50 ++ "%"
-    else
-        toString 100 ++ "%"
 
 
 rightspaceMarginLeft model =

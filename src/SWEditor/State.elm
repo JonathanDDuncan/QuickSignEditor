@@ -1,4 +1,4 @@
-module DisplaySW.State exposing (init, update, subscriptions)
+module SWEditor.State exposing (init, update, subscriptions)
 
 -- only includes Rest functions that are really needed
 -- import Rest exposing (..)
@@ -6,12 +6,12 @@ module DisplaySW.State exposing (init, update, subscriptions)
 -- if you have sub components
 -- import PlatformHelpers exposing (..)
 
-import DisplaySW.Types exposing (..)
+import SWEditor.Types exposing (..)
 import Ports as Ports exposing (..)
 import SW.Types exposing (..)
 
 
--- import SubDisplaySWs.State
+-- import SubSWEditors.State
 
 
 init : ( Model, Cmd Msg )
@@ -48,7 +48,7 @@ symbolinit =
     }
 
 
-update : DisplaySW.Types.Msg -> DisplaySW.Types.Model -> ( DisplaySW.Types.Model, Cmd DisplaySW.Types.Msg )
+update : SWEditor.Types.Msg -> SWEditor.Types.Model -> ( SWEditor.Types.Model, Cmd SWEditor.Types.Msg )
 update action model =
     case action of
         Change newWord ->
@@ -62,9 +62,9 @@ update action model =
 
 
 
---To nest update of DisplaySW
---  DisplaySWMsg action ->
---          lift .DisplaySWFieldName (\m x -> { m | DisplaySWFieldName = x })  DisplaySWMsg DisplaySW.State.update action model
+--To nest update of SWEditor
+--  SWEditorMsg action ->
+--          lift .SWEditorFieldName (\m x -> { m | SWEditorFieldName = x })  SWEditorMsg SWEditor.State.update action model
 
 
 subscriptions : Model -> Sub Msg
@@ -75,5 +75,5 @@ subscriptions model =
 
 -- To nest subscriptions
 -- Sub.batch
---       [ SubDisplaySW.State.subscriptions model.subDisplaySWFieldName |> Sub.map SubDisplaySWMsg
+--       [ SubSWEditor.State.subscriptions model.subSWEditorFieldName |> Sub.map SubSWEditorMsg
 --       ]

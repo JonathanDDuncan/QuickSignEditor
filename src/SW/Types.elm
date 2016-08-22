@@ -19,6 +19,8 @@ type alias Sign =
 type alias Symbol =
     { x : Int
     , y : Int
+    , width : Int
+    , height : Int
     , fontsize : Int
     , nwcolor : String
     , pua : String

@@ -1,14 +1,12 @@
-module DisplaySW.Rest exposing (..)
+module SW.Rest exposing (..)
 
 -- import Http exposing (Error)
 -- import Json.Decode exposing (..)
 -- import Task
 -- import Types exposing (..)
--- import DisplaySW.Types exposing (..)
 
 import Json.Encode
 import Json.Decode exposing ((:=))
-import DisplaySW.Types exposing (..)
 import Json.Decode.Extra exposing ((|:))
 import SW.Types exposing (..)
 
@@ -47,6 +45,8 @@ decodeSymbol =
     Json.Decode.succeed Symbol
         |: ("x" := Json.Decode.int)
         |: ("y" := Json.Decode.int)
+        |: ("width" := Json.Decode.int)
+        |: ("height" := Json.Decode.int)
         |: ("fontsize" := Json.Decode.int)
         |: ("nwcolor" := Json.Decode.string)
         |: ("pua" := Json.Decode.string)
@@ -60,6 +60,8 @@ encodeSymbol record =
     Json.Encode.object
         [ ( "x", Json.Encode.int <| record.x )
         , ( "y", Json.Encode.int <| record.y )
+        , ( "width", Json.Encode.int <| record.width )
+        , ( "height", Json.Encode.int <| record.height )
         , ( "fontsize", Json.Encode.int <| record.fontsize )
         , ( "nwcolor", Json.Encode.string <| record.nwcolor )
         , ( "pua", Json.Encode.string <| record.pua )
