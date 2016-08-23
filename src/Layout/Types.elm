@@ -13,21 +13,21 @@ type alias Model =
     , window : WindowSize.Types.Model
     , signbox : SWEditor.Types.Model
     , rightdrawer : DrawerModel
-    , footerheight :
-        Int
-    , containerHeight :
-        Int
+    , footerheight : Int
+    , containerHeight : Int
     , widescreenwidth : Int
-    , mediumscreenwidth :
-        Int
-    , rightspacepercentage :
-        Int
-    , centerspacepercentage :
-        Int
-    , leftspacepercentage :
-        Int
-        -- Boilerplate: model store for any and all Mdl components you use.
+    , mediumscreenwidth : Int
+    , rightspacepercentage : Int
+    , centerspacepercentage : Int
+    , leftspacepercentage : Int
+    , rightspacemarginleftpercentage : Int
+    , centerspacemarginleftpercentage : Int
+    , drawerwidth : Int
     }
+
+
+
+-- Model mdl Boilerplate: model store for any and all Mdl components you use.
 
 
 type Msg

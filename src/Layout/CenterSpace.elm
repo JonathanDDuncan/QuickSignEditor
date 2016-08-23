@@ -14,19 +14,9 @@ centerspace model =
         , style
             [ ( "height", toString model.containerHeight ++ "px" )
             , ( "width", toString model.centerspacepercentage ++ "%" )
-            , ( "margin-left", centerspaceMarginLeft model )
+            , ( "margin-left", toString model.centerspacemarginleftpercentage ++ "%" )
             ]
         ]
         [ text "This is the centerspace area"
         , App.map SignBox (SWEditor.View.root model.signbox 200 300)
         ]
-
-
-centerspaceMarginLeft : Model -> String
-centerspaceMarginLeft model =
-    if iswidescreen model then
-        toString 30 ++ "%"
-    else if ismediumscreen model then
-        toString 0
-    else
-        toString 0

@@ -28,7 +28,7 @@ type alias Symbol =
     , key : String
     , nbcolor : String
     }
-
+ 
 
 
 -- Plus any other types unique to this DisplaySW
