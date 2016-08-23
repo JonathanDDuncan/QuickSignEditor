@@ -17,7 +17,7 @@ import Window
 init : ( Model, Cmd Msg )
 init =
     ( { windowSize =
-            Window.Size 0 0
+            Window.Size 1200 600
       }
     , Task.perform (\_ -> Idle) (\x -> Resize x) Window.size
     )
