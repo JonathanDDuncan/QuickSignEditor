@@ -61,10 +61,19 @@ type alias DrawerModel =
 
 iswidescreen : Model -> Bool
 iswidescreen model =
-    model.window.windowSize.width > model.widescreenwidth
+    iswidescreenexplicit model.window.windowSize.width model.widescreenwidth
+
+
+iswidescreenexplicit : Int -> Int -> Bool
+iswidescreenexplicit width widescreenwidth =
+    width > widescreenwidth
 
 
 ismediumscreen : Model -> Bool
 ismediumscreen model =
-    model.window.windowSize.width
-        > model.mediumscreenwidth
+    ismediumscreenexplicit model.window.windowSize.width model.mediumscreenwidth
+
+
+ismediumscreenexplicit : Int -> Int -> Bool
+ismediumscreenexplicit width mediumscreenwidth =
+    width > mediumscreenwidth

@@ -94,65 +94,67 @@ windowSizeSetter =
     (\m x ->
         let
             containerheight =
-                getcontainerheight m x
+                getcontainerheight m x.windowSize.height
+            rdrawer = setdrawerSize m.rightdrawer containerheight windowwidth (getdraweractive m)
+            windowwidth = x.windowSize.width
         in
             { m
                 | window = x
                 , containerHeight = containerheight
-                , rightdrawer = setdrawerSize m.rightdrawer containerheight m.window.windowSize.width (getdraweractive m)
-                , rightspacepercentage = rightspacePercentage m
-                , rightspacemarginleftpercentage = rightspaceMarginLeftPercentage m
-                , centerspacepercentage = centerspacePercentage m
-                , centerspacemarginleftpercentage = centerspaceMarginLeftPercentage m
-                , leftspacepercentage = leftspacePercentage m
-                , drawerwidth = drawerWidth m.rightdrawer
+                , rightdrawer = rdrawer
+                , rightspacepercentage = rightspacePercentage m windowwidth
+                , rightspacemarginleftpercentage = rightspaceMarginLeftPercentage m windowwidth
+                , centerspacepercentage = centerspacePercentage m windowwidth
+                , centerspacemarginleftpercentage = centerspaceMarginLeftPercentage m windowwidth
+                , leftspacepercentage = leftspacePercentage m windowwidth
+                , drawerwidth = drawerWidth rdrawer.active rdrawer.showing rdrawer.fullwidth rdrawer.alwaysShowpx
             }
     )
  
-rightspaceMarginLeftPercentage : Model -> Int
-rightspaceMarginLeftPercentage model =
-    if iswidescreen model then
+rightspaceMarginLeftPercentage : Model -> Int -> Int
+rightspaceMarginLeftPercentage model windowwidth=
+    if iswidescreenexplicit windowwidth model.widescreenwidth then
         70
-    else if ismediumscreen model then
+    else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         50
     else
         0
 
-rightspacePercentage : Model -> Int
-rightspacePercentage model =
-    if iswidescreen model then
+rightspacePercentage : Model -> Int -> Int
+rightspacePercentage model windowwidth =
+    if iswidescreenexplicit windowwidth model.widescreenwidth then
         30
-    else if ismediumscreen model then
+    else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         50
     else
         100
 
 
-centerspacePercentage : Model -> Int
-centerspacePercentage model =
-    if iswidescreen model then
+centerspacePercentage : Model -> Int -> Int
+centerspacePercentage model windowwidth =
+    if iswidescreenexplicit windowwidth model.widescreenwidth then
         40
-    else if ismediumscreen model then
+    else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         50
     else
         100
 
 
-centerspaceMarginLeftPercentage : Model -> Int
-centerspaceMarginLeftPercentage model =
-    if iswidescreen model then
+centerspaceMarginLeftPercentage : Model -> Int -> Int
+centerspaceMarginLeftPercentage model  windowwidth=
+    if iswidescreenexplicit windowwidth model.widescreenwidth then
         30
-    else if ismediumscreen model then
+    else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         0
     else
         0
 
 
-leftspacePercentage : Model -> Int
-leftspacePercentage model =
-    if iswidescreen model then
+leftspacePercentage : Model -> Int -> Int
+leftspacePercentage model windowwidth =
+    if iswidescreenexplicit windowwidth model.widescreenwidth then
         30
-    else if ismediumscreen model then
+    else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         100
     else
         100
@@ -163,13 +165,13 @@ setdrawerSize model containerheight fullwidth active =
     { model | height = containerheight, fullwidth = fullwidth, active = active }
 
 
-drawerWidth : DrawerModel -> Int
-drawerWidth model =
-    if model.active then
-        if model.showing then
-            model.fullwidth
+drawerWidth : Bool -> Bool -> Int -> Int -> Int 
+drawerWidth active showing fullwidth alwaysShowpx =
+    if  active then
+        if showing then
+            fullwidth
         else
-            model.alwaysShowpx
+            alwaysShowpx
     else
         0
 
@@ -184,9 +186,9 @@ setdrawerShowing: DrawerModel -> Bool -> DrawerModel
 setdrawerShowing model showing =
     { model | showing = showing }
 
-getcontainerheight: Model ->WindowSize.Types.Model -> Int
-getcontainerheight model x =
-    x.windowSize.height - model.footerheight
+getcontainerheight: Model ->Int -> Int
+getcontainerheight model windowheight =
+    windowheight - model.footerheight
 
 
 
