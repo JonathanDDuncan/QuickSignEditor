@@ -93,8 +93,7 @@ windowSizeSetter: Model -> WindowSize.Types.Model -> Model
 windowSizeSetter =
     (\m x ->
         let
-            containerheight =
-                getcontainerheight m x.windowSize.height
+            containerheight = getcontainerheight m x.windowSize.height
             rdrawer = setdrawerSize m.rightdrawer containerheight windowwidth (getdraweractive m)
             windowwidth = x.windowSize.width
         in

@@ -9,6 +9,7 @@ module SWEditor.State exposing (init, update, subscriptions)
 import SWEditor.Types exposing (..)
 import Ports as Ports exposing (..)
 import SW.Types exposing (..)
+import Mouse exposing (Position)
 
 
 -- import SubSWEditors.State
@@ -16,7 +17,7 @@ import SW.Types exposing (..)
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "" signinit, Cmd.none )
+    ( Model "" signinit (Position 200 200) Nothing, Cmd.none )
 
 
 signinit : Sign
@@ -49,27 +50,44 @@ symbolinit =
 
 
 update : SWEditor.Types.Msg -> SWEditor.Types.Model -> ( SWEditor.Types.Model, Cmd SWEditor.Types.Msg )
-update action model =
+update action ({ position, drag } as model) =
     case action of
-        Change newWord ->
-            ( Model newWord signinit, Cmd.none )
+        Change newfsw ->
+            ( { model | fsw = newfsw, sign = signinit }, Cmd.none )
 
         RequestSign ->
             ( model, Ports.requestSign model.fsw )
 
-        SetSign newSuggestions ->
-            ( Model model.fsw newSuggestions, Cmd.none )
+        SetSign newsign ->
+            ( { model | sign = newsign }, Cmd.none )
+
+        DragStart xy ->
+            ( { model | position = position, drag = (Just (Drag xy xy)) }, Cmd.none )
+
+        DragAt xy ->
+            ( { model | position = position, drag = (Maybe.map (\{ start } -> Drag start xy) drag) }, Cmd.none )
+
+        DragEnd _ ->
+            ( { model | position = (SWEditor.Types.getPosition model), drag = Nothing }, Cmd.none )
 
 
 
---To nest update of SWEditor
+-- updateHelp : SWEditor.Types.Msg -> SWEditor.Types.Model -> SWEditor.Types.Model
+-- updateHelp msg ({ position, drag } as model) =
+--     case msg of
+--         DragStart xy ->
+--             { model | position = position, drag = (Just (Drag xy xy)) }
+--         DragAt xy ->
+--             { model | position = position, drag = (Maybe.map (\{ start } -> Drag start xy) drag) }
+--         DragEnd _ ->
+--             { model | position = (SWEditor.Types.getPosition model), drag = Nothing }
 --  SWEditorMsg action ->
 --          lift .SWEditorFieldName (\m x -> { m | SWEditorFieldName = x })  SWEditorMsg SWEditor.State.update action model
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    receiveSign SetSign
+    Sub.batch [ Mouse.moves DragAt, Mouse.ups DragEnd, receiveSign SetSign ]
 
 
 
