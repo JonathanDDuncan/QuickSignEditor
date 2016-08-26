@@ -31,25 +31,6 @@ root model parentwidth parentheight =
                 [ input [ onInput Change, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
                 , signView model.sign parentwidth parentheight dragoffset
-                , div
-                    [ onMouseDownDrag
-                    , Html.Attributes.style
-                        [ "background-color" => "#3C8D2F"
-                        , "cursor" => "move"
-                        , "width" => "100px"
-                        , "height" => "100px"
-                        , "border-radius" => "4px"
-                        , "position" => "absolute"
-                        , "left" => px realPosition.x
-                        , "top" => px realPosition.y
-                        , "color" => "white"
-                        , "display" => "flex"
-                        , "align-items" => "center"
-                        , "justify-content" => "center"
-                        ]
-                    ]
-                    [ text "Drag Me!"
-                    ]
                 ]
             ]
 
@@ -85,8 +66,8 @@ symbolView symbol parentwidth parentheight dragoffset =
     in
         div
             [ Html.Attributes.class ""
-            , onMouseDownDrag  
-            , onClick (Select symbol.id)
+            , onMouseDownDrag
+            , onMouseUp (Select symbol.id)
             , Html.Attributes.style
                 [ "left" => (centeredvalue symbol.x symbol.selected offsetx signboxmidWidth)
                 , "top" => (centeredvalue symbol.y symbol.selected offsety signboxmidHeight)
@@ -99,7 +80,17 @@ symbolView symbol parentwidth parentheight dragoffset =
 
 centeredvalue : Int -> Bool -> Int -> Int -> String
 centeredvalue val selected dragoffset mid =
-    toString (val - 500 + (if selected then dragoffset else 0) + mid) ++ "px"
+    toString
+        (val
+            - 500
+            + (if selected then
+                dragoffset
+               else
+                0
+              )
+            + mid
+        )
+        ++ "px"
 
 
 symbolsvg : EditorSymbol -> Html Msg
@@ -149,4 +140,3 @@ onMouseDownDrag =
 px : Int -> String
 px number =
     toString number ++ "px"
-

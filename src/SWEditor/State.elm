@@ -17,7 +17,7 @@ import Debug
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" signinit (Position 200 200) Nothing 0, Cmd.none )
+    ( Model "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" signinit (Position 200 200) Nothing False 0, Cmd.none )
 
 
 signinit : EditorSign
@@ -74,27 +74,39 @@ update action ({ position, drag } as model) =
             ( { model | position = position, drag = (Just (Drag xy xy)) }, Cmd.none )
 
         DragAt xy ->
-            ( { model | position = position, drag = (Maybe.map (\{ start } -> Drag start xy) drag) }, Cmd.none )
+            let
+                { offsetx, offsety } =
+                    getOffset model
+            in
+                ( { model
+                    | position = position
+                    , drag = (Maybe.map (\{ start } -> Drag start xy) drag)
+                    , justdragged =
+                        if offsetx == 0 && offsety == 0 then
+                            False
+                        else
+                            True
+                  }
+                , Cmd.none
+                )
 
         DragEnd _ ->
-            ( { model | position = (SWEditor.Types.getPosition model), sign = Debug.log "UpdateSign" <| updateSignDrag model, drag = Nothing }, Cmd.none )
+            ( { model | position = (SWEditor.Types.getPosition model), sign = updateSignDrag model, drag = Nothing, justdragged = False }, Cmd.none )
 
         Select id ->
-            let
-                toggleSelection sign symbol =
-                    if sign.id == id then
-                        { symbol | selected = not symbol.selected }
-                    else
-                        symbol
-            in
-                { model | sign = selectSymbol id model.sign, drag = Nothing }
-                    ! []
+            { model | sign = selectSymbol (Debug.log "JustDragged" model.justdragged) id model.sign }
+                ! []
 
-getlastuid: EditorSign -> Int
+
+getlastuid : EditorSign -> Int
 getlastuid editorSign =
-        case maximumBy .id editorSign.syms  of  
-            Nothing -> 0
-            Just sign -> sign.id 
+    case maximumBy .id editorSign.syms of
+        Nothing ->
+            0
+
+        Just sign ->
+            sign.id
+
 
 maximumBy : (a -> comparable) -> List a -> Maybe a
 maximumBy f ls =
@@ -113,14 +125,14 @@ maximumBy f ls =
                 Nothing
 
 
-selectSymbol : Int -> EditorSign -> EditorSign
-selectSymbol id sign =
-    { sign | syms = List.map (toggleSymbolSelection id) sign.syms }
+selectSymbol : Bool -> Int -> EditorSign -> EditorSign
+selectSymbol justdragged id sign =
+    { sign | syms = List.map (toggleSymbolSelection justdragged id) sign.syms }
 
 
-toggleSymbolSelection : Int -> EditorSymbol -> EditorSymbol
-toggleSymbolSelection id symbol =
-    if symbol.id == id then
+toggleSymbolSelection : Bool -> Int -> EditorSymbol -> EditorSymbol
+toggleSymbolSelection justdragged id symbol =
+    if symbol.id == id && not justdragged then
         { symbol | selected = not symbol.selected }
     else
         symbol
@@ -157,37 +169,6 @@ moveSymbol offset symbol =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch [ Mouse.moves DragAt, Mouse.ups DragEnd, receiveSign SetSign ]
-
-
-toEditorSign sign id =
-    { signinit
-        | width = sign.width
-        , height = sign.height
-        , text = sign.text
-        , x = sign.x
-        , y = sign.y
-        , backfill = sign.backfill
-        , syms = List.indexedMap (toEditorSymbol  id) sign.syms
-        , laned = sign.laned
-        , left = sign.left
-    }
-
-
-toEditorSymbol id index symbol =
-    { symbolinit
-        | x = symbol.x
-        , y = symbol.y
-        , width = symbol.width
-        , height = symbol.height
-        , fontsize = symbol.fontsize
-        , nwcolor = symbol.nwcolor
-        , pua = symbol.pua
-        , code = symbol.code
-        , key = symbol.key
-        , nbcolor = symbol.nbcolor
-        , selected = False
-        , id = id + index + 1
-    }
 
 
 

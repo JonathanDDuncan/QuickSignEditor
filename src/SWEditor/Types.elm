@@ -11,6 +11,7 @@ type alias Model =
     , sign : EditorSign
     , position : Position
     , drag : Maybe Drag
+    , justdragged : Bool
     , uid : Int
     }
 
@@ -85,3 +86,34 @@ getOffset { position, drag } =
             Offset
                 (current.x - start.x)
                 (current.y - start.y)
+
+
+toEditorSign : Sign -> Int -> EditorSign
+toEditorSign sign id =
+    { width = sign.width
+    , height = sign.height
+    , text = sign.text
+    , x = sign.x
+    , y = sign.y
+    , backfill = sign.backfill
+    , syms = List.indexedMap (toEditorSymbol id) sign.syms
+    , laned = sign.laned
+    , left = sign.left
+    }
+
+
+toEditorSymbol : Int -> Int -> Symbol -> EditorSymbol
+toEditorSymbol id index symbol =
+    { x = symbol.x
+    , y = symbol.y
+    , width = symbol.width
+    , height = symbol.height
+    , fontsize = symbol.fontsize
+    , nwcolor = symbol.nwcolor
+    , pua = symbol.pua
+    , code = symbol.code
+    , key = symbol.key
+    , nbcolor = symbol.nbcolor
+    , selected = False
+    , id = id + index + 1
+    }
