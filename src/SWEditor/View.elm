@@ -6,7 +6,6 @@ import Html.Attributes exposing (..)
 import Svg as Svg exposing (svg)
 import Svg.Attributes exposing (..)
 import SWEditor.Types exposing (..)
-import SW.Types exposing (..)
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
 
@@ -23,14 +22,17 @@ root model parentwidth parentheight =
     let
         realPosition =
             getPosition model
+
+        dragoffset =
+            SWEditor.Types.getOffset model
     in
         div []
             [ div []
-                [ input [ onInput Change , value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"] [  ]
+                [ input [ onInput Change, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
-                , signView model.sign parentwidth parentheight
+                , signView model.sign parentwidth parentheight dragoffset
                 , div
-                    [ onMouseDown
+                    [ onMouseDownDrag
                     , Html.Attributes.style
                         [ "background-color" => "#3C8D2F"
                         , "cursor" => "move"
@@ -52,8 +54,8 @@ root model parentwidth parentheight =
             ]
 
 
-signView : Sign -> Int -> Int -> Html Msg
-signView sign parentwidth parentheight =
+signView : EditorSign -> Int -> Int -> Offset -> Html Msg
+signView sign parentwidth parentheight dragoffset =
     div
         [ Html.Attributes.style
             [ "background-color" => "teal"
@@ -61,29 +63,33 @@ signView sign parentwidth parentheight =
             , "height" => "500px"
             ]
         ]
-        (List.map (symbolViewParentSize parentwidth parentheight) sign.syms)
+        (List.map (symbolViewParentSize parentwidth parentheight dragoffset) sign.syms)
 
 
-symbolViewParentSize : Int -> Int -> Symbol -> Html Msg
-symbolViewParentSize parentwidth parentheight sign =
-    symbolView sign parentwidth parentheight
+symbolViewParentSize : Int -> Int -> Offset -> EditorSymbol -> Html Msg
+symbolViewParentSize parentwidth parentheight dragoffset sign =
+    symbolView sign parentwidth parentheight dragoffset
 
 
-symbolView : Symbol -> Int -> Int -> Html Msg
-symbolView symbol parentwidth parentheight =
+symbolView : EditorSymbol -> Int -> Int -> Offset -> Html Msg
+symbolView symbol parentwidth parentheight dragoffset =
     let
         signboxmidWidth =
             parentwidth // 2
 
         signboxmidHeight =
             parentheight // 2
+
+        { offsetx, offsety } =
+            dragoffset
     in
         div
-            [ Html.Attributes.class "" 
-            ,onMouseDown
-            , Html.Attributes.style  
-                [ "left" => (centeredvalue symbol.x signboxmidWidth)
-                , "top" => (centeredvalue symbol.y signboxmidHeight)
+            [ Html.Attributes.class ""
+            , onMouseDownDrag  
+            , onClick (Select symbol.id)
+            , Html.Attributes.style
+                [ "left" => (centeredvalue symbol.x symbol.selected offsetx signboxmidWidth)
+                , "top" => (centeredvalue symbol.y symbol.selected offsety signboxmidHeight)
                 , "position" => "absolute"
                 ]
             ]
@@ -91,14 +97,19 @@ symbolView symbol parentwidth parentheight =
             ]
 
 
-centeredvalue : Int -> Int -> String
-centeredvalue val mid =
-    toString (val - 500 + mid) ++ "px"  
+centeredvalue : Int -> Bool -> Int -> Int -> String
+centeredvalue val selected dragoffset mid =
+    toString (val - 500 + (if selected then dragoffset else 0) + mid) ++ "px"
 
 
-symbolsvg : Symbol -> Html Msg
+symbolsvg : EditorSymbol -> Html Msg
 symbolsvg symbol =
-    Svg.svg [ Svg.Attributes.height <| toString symbol.height, viewBox <| viewboxStr symbol, Svg.Attributes.width <| toString symbol.width, Svg.Attributes.name "http://www.w3.org/2000/svg" ]
+    Svg.svg
+        [ Svg.Attributes.height <| toString symbol.height
+        , viewBox <| viewboxStr symbol
+        , Svg.Attributes.width <| toString symbol.width
+        , Svg.Attributes.name "http://www.w3.org/2000/svg"
+        ]
         [ node "text"
             [ Svg.Attributes.style "font-size:0%;" ]
             [ text symbol.key ]
@@ -106,29 +117,36 @@ symbolsvg symbol =
             [ Svg.text'
                 [ Svg.Attributes.class "sym-fill"
                 , fontSize <| toString symbol.fontsize
-                , fill symbol.nbcolor
+                , Svg.Attributes.style <| "fill:" ++ symbol.nwcolor
                 ]
                 [ text symbol.pua ]
             , Svg.text'
                 [ Svg.Attributes.class "sym-line"
                 , fontSize <| toString symbol.fontsize
-                , fill symbol.nwcolor
+                , Svg.Attributes.style <|
+                    "fill:"
+                        ++ (if symbol.selected then
+                                "blue"
+                            else
+                                symbol.nbcolor
+                           )
                 ]
                 [ text symbol.pua ]
             ]
         ]
 
 
-viewboxStr : Symbol -> String
+viewboxStr : EditorSymbol -> String
 viewboxStr symbol =
     toString symbol.x ++ " " ++ toString symbol.y ++ " " ++ toString symbol.width ++ " " ++ " " ++ toString symbol.height
 
 
-onMouseDown : Attribute Msg
-onMouseDown =
+onMouseDownDrag : Attribute Msg
+onMouseDownDrag =
     on "mousedown" (Json.map DragStart Mouse.position)
 
 
 px : Int -> String
 px number =
     toString number ++ "px"
+

@@ -29,7 +29,12 @@ type alias Symbol =
     , nbcolor : String
     }
  
+type alias Selectable a =
+  { a | selected : Bool }
 
+type alias Idable a =
+  { a | id : Int }
 
+idrecord id a = {a  | id = id}
 -- Plus any other types unique to this DisplaySW
 -- Plus any library function to run on the types
