@@ -9,11 +9,11 @@ import Mouse exposing (Position)
 type alias Model =
     { fsw : String
     , sign : EditorSign
-    , position : Position
+    , xy : Position
     , drag : Maybe Drag
-    , justdragged : Bool
     , rectanglestart : Position
     , rectangleend : Position
+    , rectangleselecting : Bool
     , uid : Int
     }
 
@@ -51,13 +51,12 @@ type Msg
     = Change String
     | RequestSign
     | SetSign Sign
-    | DragStart Position
     | DragAt Position
     | DragEnd Position
     | DrawRectangleStart Position
     | DrawRectangleAt Position
     | DrawRectangleEnd Position
-    | Select Int
+    | SymbolMouseDown Int
 
 
 
@@ -66,10 +65,10 @@ type Msg
 
 
 getPosition : Model -> Position
-getPosition ({ position, drag } as model) =
+getPosition ({ xy, drag } as model) =
     case drag of
         Nothing ->
-            position
+            xy
 
         Just { start, current } ->
             let
@@ -77,12 +76,12 @@ getPosition ({ position, drag } as model) =
                     getOffset model
             in
                 Position
-                    (position.x + offsetx)
-                    (position.y + offsety)
+                    (xy.x + offsetx)
+                    (xy.y + offsety)
 
 
 getOffset : Model -> Offset
-getOffset { position, drag } =
+getOffset { drag } =
     case drag of
         Nothing ->
             Offset 0 0
@@ -91,6 +90,18 @@ getOffset { position, drag } =
             Offset
                 (current.x - start.x)
                 (current.y - start.y)
+
+
+getOffset' : Model -> Position -> Offset
+getOffset' { drag } pos =
+    case drag of
+        Nothing ->
+            Offset 0 0
+
+        Just { start, current } ->
+            Offset
+                (pos.x - start.x)
+                (pos.y - start.y)
 
 
 toEditorSign : Sign -> Int -> EditorSign

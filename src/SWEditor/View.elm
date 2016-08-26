@@ -25,26 +25,28 @@ root model parentwidth parentheight =
 
         dragoffset =
             SWEditor.Types.getOffset model
-    in 
-        div [ onMouseDownRectangle ]
+    in
+        div []
             [ div []
                 [ input [ onInput Change, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
                 , signView model.sign parentwidth parentheight dragoffset
                 ]
-            , div 
-                [ Html.Attributes.style
-                    [ "left" => (toString ( Basics.min model.rectanglestart.x model.rectangleend.x)   ++ "px")
-                    , "top" => (toString ( Basics.min model.rectanglestart.y model.rectangleend.y ) ++ "px")
-                    , "width" => ((toString ((Basics.max model.rectanglestart.x model.rectangleend.x) - (Basics.min model.rectanglestart.x model.rectangleend.x))) ++ "px")
-                    , "height" => ((toString ((Basics.max model.rectanglestart.y model.rectangleend.y) - (Basics.min model.rectanglestart.y model.rectangleend.y))) ++ "px")
-                    , "position" => "absolute"
-                    , "border-style" => "dashed"
-                    , "border-width" => "2px"
-                    , "background-color" => "darkgoldenrod"
+            , if model.rectangleselecting then
+                div
+                    [ Html.Attributes.style
+                        [ "left" => px (Basics.min model.rectanglestart.x model.rectangleend.x)
+                        , "top" => px (Basics.min model.rectanglestart.y model.rectangleend.y)
+                        , "width" => px ((Basics.max model.rectanglestart.x model.rectangleend.x) - (Basics.min model.rectanglestart.x model.rectangleend.x))
+                        , "height" => px ((Basics.max model.rectanglestart.y model.rectangleend.y) - (Basics.min model.rectanglestart.y model.rectangleend.y))
+                        , "position" => "absolute"
+                        , "border-style" => "dashed"
+                        , "border-width" => "1px"
+                        ]
                     ]
-                ]
-                []
+                    []
+              else
+                div [] []
             ]
 
 
@@ -56,6 +58,7 @@ signView sign parentwidth parentheight dragoffset =
             , "width" => "100%"
             , "height" => "500px"
             ]
+        , onMouseDownRectangle
         ]
         (List.map (symbolViewParentSize parentwidth parentheight dragoffset) sign.syms)
 
@@ -76,11 +79,13 @@ symbolView symbol parentwidth parentheight dragoffset =
 
         { offsetx, offsety } =
             dragoffset
+
+        id =
+            symbol.id
     in
         div
             [ Html.Attributes.class ""
-            , onMouseDownDrag
-            , onMouseUp (Select symbol.id)
+            , onMouseDownnoBubble symbol.id
             , Html.Attributes.style
                 [ "left" => (centeredvalue symbol.x symbol.selected offsetx signboxmidWidth)
                 , "top" => (centeredvalue symbol.y symbol.selected offsety signboxmidHeight)
@@ -93,7 +98,7 @@ symbolView symbol parentwidth parentheight dragoffset =
 
 centeredvalue : Int -> Bool -> Int -> Int -> String
 centeredvalue val selected dragoffset mid =
-    toString
+    px
         (val
             - 500
             + (if selected then
@@ -103,7 +108,6 @@ centeredvalue val selected dragoffset mid =
               )
             + mid
         )
-        ++ "px"
 
 
 symbolsvg : EditorSymbol -> Html Msg
@@ -145,14 +149,27 @@ viewboxStr symbol =
     toString symbol.x ++ " " ++ toString symbol.y ++ " " ++ toString symbol.width ++ " " ++ " " ++ toString symbol.height
 
 
-onMouseDownDrag : Attribute Msg
-onMouseDownDrag =
-    on "mousedown" (Json.map DragStart Mouse.position)
+
+-- onMouseDownDrag : Attribute Msg
+-- onMouseDownDrag =
+--     on "mousedown" (Json.map DragStart Mouse.position)
 
 
 onMouseDownRectangle : Attribute Msg
 onMouseDownRectangle =
-    on "mousedown" (Json.map DrawRectangleStart Mouse.position)
+    onWithOptions "mousedown" noBubble (Json.map DrawRectangleStart Mouse.position)
+
+
+noBubble : Options
+noBubble =
+    { stopPropagation = True
+    , preventDefault = True
+    }
+
+
+onMouseDownnoBubble : Int -> Attribute Msg
+onMouseDownnoBubble id =
+    onWithOptions "mousedown" noBubble (Json.succeed (SymbolMouseDown id))
 
 
 px : Int -> String
