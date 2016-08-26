@@ -17,7 +17,17 @@ import Debug
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" signinit (Position 200 200) Nothing False 0, Cmd.none )
+    ( { fsw = "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
+      , sign = signinit
+      , position = (Position 200 200)
+      , drag = Nothing
+      , justdragged = False
+      , rectanglestart = Position 10000000000000000 100000000000000000
+      , rectangleend = Position 100000000000000 10000000000000
+      , uid = 0
+      }
+    , Cmd.none
+    )
 
 
 signinit : EditorSign
@@ -92,6 +102,15 @@ update action ({ position, drag } as model) =
 
         DragEnd _ ->
             ( { model | position = (SWEditor.Types.getPosition model), sign = updateSignDrag model, drag = Nothing, justdragged = False }, Cmd.none )
+
+        DrawRectangleStart xy ->
+            ( { model | rectanglestart = Debug.log "Start xy" xy }, Cmd.none )
+
+        DrawRectangleAt xy ->
+                ( { model | rectangleend =  Debug.log "At xy" xy }, Cmd.none )
+
+        DrawRectangleEnd _ ->
+            ( { model | rectangleend =  Debug.log "End xy" Position 0 0}, Cmd.none )
 
         Select id ->
             { model | sign = selectSymbol (Debug.log "JustDragged" model.justdragged) id model.sign }
@@ -168,7 +187,7 @@ moveSymbol offset symbol =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch [ Mouse.moves DragAt, Mouse.ups DragEnd, receiveSign SetSign ]
+    Sub.batch [ Mouse.moves DragAt, Mouse.ups DragEnd, Mouse.moves DrawRectangleAt, Mouse.ups DrawRectangleEnd, receiveSign SetSign ]
 
 
 

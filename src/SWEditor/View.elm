@@ -25,13 +25,26 @@ root model parentwidth parentheight =
 
         dragoffset =
             SWEditor.Types.getOffset model
-    in
-        div []
+    in 
+        div [ onMouseDownRectangle ]
             [ div []
                 [ input [ onInput Change, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
                 , signView model.sign parentwidth parentheight dragoffset
                 ]
+            , div 
+                [ Html.Attributes.style
+                    [ "left" => (toString ( Basics.min model.rectanglestart.x model.rectangleend.x)   ++ "px")
+                    , "top" => (toString ( Basics.min model.rectanglestart.y model.rectangleend.y ) ++ "px")
+                    , "width" => ((toString ((Basics.max model.rectanglestart.x model.rectangleend.x) - (Basics.min model.rectanglestart.x model.rectangleend.x))) ++ "px")
+                    , "height" => ((toString ((Basics.max model.rectanglestart.y model.rectangleend.y) - (Basics.min model.rectanglestart.y model.rectangleend.y))) ++ "px")
+                    , "position" => "absolute"
+                    , "border-style" => "dashed"
+                    , "border-width" => "2px"
+                    , "background-color" => "darkgoldenrod"
+                    ]
+                ]
+                []
             ]
 
 
@@ -135,6 +148,11 @@ viewboxStr symbol =
 onMouseDownDrag : Attribute Msg
 onMouseDownDrag =
     on "mousedown" (Json.map DragStart Mouse.position)
+
+
+onMouseDownRectangle : Attribute Msg
+onMouseDownRectangle =
+    on "mousedown" (Json.map DrawRectangleStart Mouse.position)
 
 
 px : Int -> String

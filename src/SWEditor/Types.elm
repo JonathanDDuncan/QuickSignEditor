@@ -12,6 +12,8 @@ type alias Model =
     , position : Position
     , drag : Maybe Drag
     , justdragged : Bool
+    , rectanglestart : Position
+    , rectangleend : Position
     , uid : Int
     }
 
@@ -52,6 +54,9 @@ type Msg
     | DragStart Position
     | DragAt Position
     | DragEnd Position
+    | DrawRectangleStart Position
+    | DrawRectangleAt Position
+    | DrawRectangleEnd Position
     | Select Int
 
 
