@@ -92,8 +92,8 @@ getOffset { viewposition, drag } =
 
         Just { start, current } ->
             Offset
-                (current.x - start.x + viewposition.x)
-                (current.y - start.y + viewposition.y)
+                (current.x - start.x)
+                (current.y - start.y)
 
 
 getOffset' : Model -> Position -> Offset

@@ -68,10 +68,14 @@ update : SWEditor.Types.Msg -> SWEditor.Types.Model -> ( SWEditor.Types.Model, C
 update action ({ drag } as model) =
     case action of
         Change newfsw ->
-            ( { model | fsw = newfsw, sign = signinit }, Cmd.none )
+            ( { model | fsw = newfsw, sign = signinit }, Cmd.none ) |> andThen update (RequestElementPosition "signView")
 
         RequestSign ->
-            ( model, Ports.requestSign model.fsw )
+            let
+                result =
+                    Ports.requestElementPosition "signView"
+            in
+                ( model, Ports.requestSign model.fsw )
 
         SetSign newsign ->
             let
@@ -147,10 +151,10 @@ centerSign : Model -> EditorSign -> EditorSign
 centerSign model sign =
     let
         width =
-            300
+            model.viewposition.width
 
         height =
-            300
+            model.viewposition.height
 
         bounding =
             getSignBounding sign
@@ -226,11 +230,14 @@ selectIntersected rectangle model symbol =
             getsymbolRectangle symbol
 
         selectRectangle =
-            { rectangle | x = rectangle.x 
-            - model.viewposition.x 
-            , y = rectangle.y  
-             - model.viewposition.y 
-             }
+            { rectangle
+                | x =
+                    rectangle.x
+                        - model.viewposition.x
+                , y =
+                    rectangle.y
+                        - model.viewposition.y
+            }
     in
         if Debug.log "intersect" (intersect (Debug.log "Select Rect" selectRectangle) (Debug.log "Symbol Rect" symbolrect)) then
             { symbol | selected = True }
