@@ -57,26 +57,18 @@ signView sign parentwidth parentheight dragoffset =
             [ "background-color" => "teal"
             , "width" => "100%"
             , "height" => "500px"
+            , "position" => "relative"
             ]
+        , Html.Attributes.id "signView"
         , onMouseDownRectangle
         ]
-        (List.map (symbolViewParentSize parentwidth parentheight dragoffset) sign.syms)
+        (List.map (symbolView parentwidth parentheight dragoffset) sign.syms)
 
 
-symbolViewParentSize : Int -> Int -> Offset -> EditorSymbol -> Html Msg
-symbolViewParentSize parentwidth parentheight dragoffset sign =
-    symbolView sign parentwidth parentheight dragoffset
-
-
-symbolView : EditorSymbol -> Int -> Int -> Offset -> Html Msg
-symbolView symbol parentwidth parentheight dragoffset =
+symbolView : Int -> Int -> Offset -> EditorSymbol -> Html Msg
+symbolView parentwidth parentheight dragoffset symbol =
     let
-        signboxmidWidth =
-            parentwidth // 2
-
-        signboxmidHeight =
-            parentheight // 2
-
+      
         { offsetx, offsety } =
             dragoffset
 
@@ -87,8 +79,8 @@ symbolView symbol parentwidth parentheight dragoffset =
             [ Html.Attributes.class ""
             , onMouseDownnoBubble symbol.id
             , Html.Attributes.style
-                [ "left" => (centeredvalue symbol.x symbol.selected offsetx signboxmidWidth)
-                , "top" => (centeredvalue symbol.y symbol.selected offsety signboxmidHeight)
+                [ "left" => (centeredvalue symbol.x symbol.selected offsetx)
+                , "top" => (centeredvalue symbol.y symbol.selected offsety)
                 , "position" => "absolute"
                 ]
             ]
@@ -96,17 +88,16 @@ symbolView symbol parentwidth parentheight dragoffset =
             ]
 
 
-centeredvalue : Int -> Bool -> Int -> Int -> String
-centeredvalue val selected dragoffset mid =
+centeredvalue : Int -> Bool -> Int -> String
+centeredvalue val selected dragoffset =
     px
         (val
-            - 500
+           
             + (if selected then
                 dragoffset
                else
                 0
               )
-            + mid
         )
 
 

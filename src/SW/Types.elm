@@ -37,6 +37,14 @@ type alias Selectable a =
 type alias Idable a =
     { a | id : Int }
 
+type alias NamedPosition =
+    { x : Int
+    , y : Int
+    , width : Int
+    , height : Int
+    , name : String
+    }
+
 
 
 -- Plus any other types unique to this DisplaySW

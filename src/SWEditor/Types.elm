@@ -11,6 +11,7 @@ type alias Model =
     , sign : EditorSign
     , xy : Position
     , drag : Maybe Drag
+    , viewposition : NamedPosition
     , rectanglestart : Position
     , rectangleend : Position
     , rectangleselecting : Bool
@@ -51,6 +52,9 @@ type Msg
     = Change String
     | RequestSign
     | SetSign Sign
+    | RequestElementPosition String
+    | ReceiveElementPosition NamedPosition
+    | SelectSignsInRectangle
     | DragAt Position
     | DragEnd Position
     | DrawRectangleStart Position
@@ -81,15 +85,15 @@ getPosition ({ xy, drag } as model) =
 
 
 getOffset : Model -> Offset
-getOffset { drag } =
+getOffset { viewposition, drag } =
     case drag of
         Nothing ->
             Offset 0 0
 
         Just { start, current } ->
             Offset
-                (current.x - start.x)
-                (current.y - start.y)
+                (current.x - start.x + viewposition.x + 250)
+                (current.y - start.y + viewposition.y + 250)
 
 
 getOffset' : Model -> Position -> Offset
