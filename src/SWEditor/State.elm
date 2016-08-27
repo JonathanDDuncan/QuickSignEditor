@@ -13,6 +13,7 @@ import Debug
 import SWEditor.Rectangle exposing (..)
 import Update.Extra exposing (..)
 
+
 -- import SubSWEditors.State
 
 
@@ -25,7 +26,7 @@ init =
       , rectanglestart = Position 0 0
       , rectangleend = Position 0 0
       , rectangleselecting = False
-      , viewposition = { name = "", x = 0, y= 0, width = 0, height = 0}
+      , viewposition = { name = "", x = 0, y = 0, width = 0, height = 0 }
       , uid = 0
       }
     , Cmd.none
@@ -75,7 +76,7 @@ update action ({ drag } as model) =
         SetSign newsign ->
             let
                 editorSign =
-                   centerSign model (toEditorSign newsign model.uid) 
+                    centerSign model (toEditorSign newsign model.uid)
 
                 lastuid =
                     getlastuid editorSign
@@ -86,11 +87,11 @@ update action ({ drag } as model) =
             ( model, Ports.requestElementPosition elementid )
 
         ReceiveElementPosition namedposition ->
-         { model | viewposition = Debug.log "View Position" namedposition } ! [] |>  andThen update SelectSignsInRectangle
+            { model | viewposition = Debug.log "View Position" namedposition } ! [] |> andThen update SelectSignsInRectangle
 
         SelectSignsInRectangle ->
-                ( { model | rectangleend = Debug.log "DrawRectangleEnd xy" Position 0 0, rectangleselecting = False, sign = selectSymbolsIntersection (rectangleSelect model) model.sign }, Cmd.none )
-      
+            ( { model | rectangleend = Debug.log "DrawRectangleEnd xy" Position 0 0, rectangleselecting = False, sign = selectSymbolsIntersection (rectangleSelect model) model }, Cmd.none )
+
         SymbolMouseDown id ->
             let
                 foundSymbol =
@@ -118,16 +119,12 @@ update action ({ drag } as model) =
                     )
 
         DragAt xy ->
-            let
-                { offsetx, offsety } =
-                    getOffset' model xy
-            in
-                ( { model
-                    | xy = xy
-                    , drag = (Maybe.map (\{ start } -> Drag start (Debug.log "DragAt xy" xy)) drag)
-                  }
-                , Cmd.none
-                )
+            ( { model
+                | xy = xy
+                , drag = (Maybe.map (\{ start } -> Drag start (Debug.log "DragAt xy" xy)) drag)
+              }
+            , Cmd.none
+            )
 
         DragEnd _ ->
             ( { model | xy = (SWEditor.Types.getPosition model), sign = updateSignDrag model, drag = (Debug.log "DragEnd" Nothing) }, Cmd.none )
@@ -143,60 +140,97 @@ update action ({ drag } as model) =
             ( { model | rectangleend = Debug.log "DrawRectangleAt xy" xy }, Cmd.none )
 
         DrawRectangleEnd _ ->
-               model   ! [] |>  andThen update (RequestElementPosition "signView")
+            model ! [] |> andThen update (RequestElementPosition "signView")
 
-centerSign: Model  -> EditorSign -> EditorSign
-centerSign model  sign  =
-    let width = 300
-        height = 300
 
-        bounding = getSignBounding sign
+centerSign : Model -> EditorSign -> EditorSign
+centerSign model sign =
+    let
+        width =
+            300
 
-        currentxcenter = bounding.x + bounding.width //2
-        currentycenter = bounding.y + bounding.height //2
+        height =
+            300
 
-        desiredxcenter = width //2
-        desiredycenter = height //2
+        bounding =
+            getSignBounding sign
 
-        movex =  Debug.log "desiredxcenter" desiredxcenter - Debug.log "currentxcenter" currentxcenter
-        movey =  Debug.log "desiredycenter" desiredycenter - Debug.log "currentycenter" currentycenter
+        currentxcenter =
+            bounding.x + bounding.width // 2
 
-        newsignx = model.sign.x + movex
-        newsigny = model.sign.y + movey
+        currentycenter =
+            bounding.y + bounding.height // 2
 
+        desiredxcenter =
+            width // 2
+
+        desiredycenter =
+            height // 2
+
+        movex =
+            Debug.log "desiredxcenter" desiredxcenter - Debug.log "currentxcenter" currentxcenter
+
+        movey =
+            Debug.log "desiredycenter" desiredycenter - Debug.log "currentycenter" currentycenter
+
+        newsignx =
+            model.sign.x + movex
+
+        newsigny =
+            model.sign.y + movey
     in
-        {sign | x = newsignx, y = newsigny , syms = moveSymbols movex movey sign.syms}
+        { sign | x = newsignx, y = newsigny, syms = moveSymbols movex movey sign.syms }
 
-getSignBounding: EditorSign -> Rect
+
+getSignBounding : EditorSign -> Rect
 getSignBounding sign =
-    let x1 = List.foldr  (\s -> min s.x )  10000 sign.syms  
-        y1 = List.foldr  (\s -> min s.y )  10000 sign.syms  
-        x2 = List.foldr (\s -> max (s.x + s.width) ) 0  sign.syms  
-        y2 = List.foldr  (\s -> max (s.y + s.height)) 0 sign.syms
+    let
+        x1 =
+            List.foldr (\s -> min s.x) 10000 sign.syms
+
+        y1 =
+            List.foldr (\s -> min s.y) 10000 sign.syms
+
+        x2 =
+            List.foldr (\s -> max (s.x + s.width)) 0 sign.syms
+
+        y2 =
+            List.foldr (\s -> max (s.y + s.height)) 0 sign.syms
     in
-        { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }  
+        { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
 
-moveSymbols: Int ->Int -> List EditorSymbol -> List EditorSymbol
+
+moveSymbols : Int -> Int -> List EditorSymbol -> List EditorSymbol
 moveSymbols movex movey symbols =
-    List.map (moveSymbol  movex movey) symbols
-
-moveSymbol: Int ->Int -> EditorSymbol -> EditorSymbol
-moveSymbol  movex movey  symbol =
-     {symbol | x = symbol.x + movex , y = symbol.y + movey }
-
-selectSymbolsIntersection : Rect -> EditorSign -> EditorSign
-selectSymbolsIntersection rectangle sign =
-    { sign | syms = List.map (selectIntersected rectangle) sign.syms }
+    List.map (moveSymbol movex movey) symbols
 
 
-selectIntersected : Rect -> EditorSymbol -> EditorSymbol
-selectIntersected rectangle symbol =
+moveSymbol : Int -> Int -> EditorSymbol -> EditorSymbol
+moveSymbol movex movey symbol =
+    { symbol | x = symbol.x + movex, y = symbol.y + movey }
+
+
+selectSymbolsIntersection : Rect -> Model -> EditorSign
+selectSymbolsIntersection rectangle model =
+    let
+        sign =
+            model.sign
+    in
+        { sign | syms = List.map (selectIntersected rectangle model) sign.syms }
+
+
+selectIntersected : Rect -> Model -> EditorSymbol -> EditorSymbol
+selectIntersected rectangle model symbol =
     let
         symbolrect =
             getsymbolRectangle symbol
 
         selectRectangle =
-            { rectangle | x = rectangle.x , y = rectangle.y   }
+            { rectangle | x = rectangle.x 
+            - model.viewposition.x 
+            , y = rectangle.y  
+             - model.viewposition.y 
+             }
     in
         if Debug.log "intersect" (intersect (Debug.log "Select Rect" selectRectangle) (Debug.log "Symbol Rect" symbolrect)) then
             { symbol | selected = True }
@@ -246,7 +280,8 @@ rectangleSelect model =
         y2 =
             max model.rectanglestart.y model.rectangleend.y
 
-        offset = getOffset model
+        offset =
+            getOffset model
     in
         { x = x1 + offset.offsetx
         , y = y1 + offset.offsety

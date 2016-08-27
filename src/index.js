@@ -19,15 +19,13 @@ app.ports.requestSign.subscribe(function(fsw) {
 app.ports.requestElementPosition.subscribe(function(id) {
     try {
         var element = document.getElementById(id);
-        var x = element.offsetLeft;
-        var y = element.offsetTop;
 
         var result = {};
         result.name = id;
-        result.x = x;
-        result.y = y;
-        result.width = y;
-        result.height = y;
+        result.x = element.offsetLeft;
+        result.y = element.offsetTop;
+        result.width = element.offsetWidth;
+        result.height = element.offsetHeight;
 
         //send values to Elm subscription ports
         app.ports.receiveElementPosition.send(result);
