@@ -32,21 +32,23 @@ root model parentwidth parentheight =
                 , button [ onClick RequestSign ] [ text "Editor" ]
                 , signView model.sign parentwidth parentheight dragoffset
                 ]
-            , if model.rectangleselecting then
-                div
-                    [ Html.Attributes.style
-                        [ "left" => px (Basics.min model.rectanglestart.x model.rectangleend.x)
-                        , "top" => px (Basics.min model.rectanglestart.y model.rectangleend.y)
-                        , "width" => px ((Basics.max model.rectanglestart.x model.rectangleend.x) - (Basics.min model.rectanglestart.x model.rectangleend.x))
-                        , "height" => px ((Basics.max model.rectanglestart.y model.rectangleend.y) - (Basics.min model.rectanglestart.y model.rectangleend.y))
-                        , "position" => "absolute"
-                        , "border-style" => "dashed"
-                        , "border-width" => "1px"
+            , case model.editormode of
+                RectangleSelect ->
+                    div
+                        [ Html.Attributes.style
+                            [ "left" => px (Basics.min model.rectanglestart.x model.rectangleend.x)
+                            , "top" => px (Basics.min model.rectanglestart.y model.rectangleend.y)
+                            , "width" => px ((Basics.max model.rectanglestart.x model.rectangleend.x) - (Basics.min model.rectanglestart.x model.rectangleend.x))
+                            , "height" => px ((Basics.max model.rectanglestart.y model.rectangleend.y) - (Basics.min model.rectanglestart.y model.rectangleend.y))
+                            , "position" => "absolute"
+                            , "border-style" => "dashed"
+                            , "border-width" => "1px"
+                            ]
                         ]
-                    ]
-                    []
-              else
-                div [] []
+                        []
+
+                _ ->
+                    div [] []
             ]
 
 
@@ -60,7 +62,7 @@ signView sign parentwidth parentheight dragoffset =
             , "position" => "relative"
             ]
         , Html.Attributes.id "signView"
-        -- , onMouseDownRectangle
+          -- , onMouseDownRectangle
         ]
         (List.map (symbolView parentwidth parentheight dragoffset) sign.syms)
 
@@ -68,7 +70,6 @@ signView sign parentwidth parentheight dragoffset =
 symbolView : Int -> Int -> Offset -> EditorSymbol -> Html Msg
 symbolView parentwidth parentheight dragoffset symbol =
     let
-      
         { offsetx, offsety } =
             dragoffset
 
@@ -77,7 +78,7 @@ symbolView parentwidth parentheight dragoffset symbol =
     in
         div
             [ Html.Attributes.class ""
-            -- , onMouseDownnoBubble symbol.id
+              -- , onMouseDownnoBubble symbol.id
             , Html.Attributes.style
                 [ "left" => (centeredvalue symbol.x symbol.selected offsetx)
                 , "top" => (centeredvalue symbol.y symbol.selected offsety)
@@ -92,7 +93,6 @@ centeredvalue : Int -> Bool -> Int -> String
 centeredvalue val selected dragoffset =
     px
         (val
-           
             + (if selected then
                 dragoffset
                else
@@ -150,7 +150,7 @@ onMouseDownRectangle : Attribute Msg
 onMouseDownRectangle =
     onWithOptions "mousedown" noBubble (Json.map DrawRectangleStart Mouse.position)
 
- 
+
 noBubble : Options
 noBubble =
     { stopPropagation = True

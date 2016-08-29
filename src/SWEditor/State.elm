@@ -23,10 +23,13 @@ init =
       , sign = signinit
       , xy = (Position 0 0)
       , drag = Nothing
+      , dragstart = Position 0 0
+      , dragend = Position 0 0
+      , dragsign = signinit
       , rectanglestart = Position 0 0
       , rectangleend = Position 0 0
-      , rectangleselecting = False
       , windowresized = False
+      , editormode = Awaiting
       , viewposition = { name = "", x = 0, y = 0, width = 0, height = 0 }
       , uid = 0
       }
@@ -75,7 +78,7 @@ update action ({ drag } as model) =
             ( model, Ports.requestSign model.fsw )
 
         SetSign newsign ->
-            let 
+            let
                 editorSign =
                     centerSign model (toEditorSign newsign model.uid)
 
@@ -91,13 +94,13 @@ update action ({ drag } as model) =
             { model | viewposition = Debug.log "View Position" namedposition } ! [] |> andThen update CenterSign
 
         UpdateSignViewPosition ->
-            model ! [] |> andThen update (RequestElementPosition "signView")
+            { model | windowresized = False } ! [] |> andThen update (RequestElementPosition "signView")
 
         CenterSign ->
             ( { model | sign = centerSign model model.sign }, Cmd.none )
 
         SelectSignsInRectangle ->
-            ( { model | rectangleend = Debug.log "DrawRectangleEnd xy" Position 0 0, rectangleselecting = False, sign = selectSymbolsIntersection (rectangleSelect model) model }, Cmd.none )
+            ( { model | rectangleend = Debug.log "DrawRectangleEnd xy" Position 0 0, sign = selectSymbolsIntersection (rectangleSelect model) model }, Cmd.none )
 
         SymbolMouseDown id ->
             let
@@ -136,18 +139,60 @@ update action ({ drag } as model) =
         DragEnd _ ->
             ( { model | xy = (SWEditor.Types.getPosition model), sign = updateSignDrag model, drag = (Debug.log "DragEnd" Nothing) }, Cmd.none )
 
+        RectangleSelectMode ->
+            ( { model | editormode = RectangleSelect, rectanglestart = model.xy }, Cmd.none )
+
+        StartDragging ->
+            ( { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign }, Cmd.none )
+
+        DragSelected ->
+            let
+                newsign =
+                    dragsign model
+            in
+                ( { model | sign = newsign }, Cmd.none )
+
+        EndDragging ->
+            ( { model | editormode = Awaiting }, Cmd.none )
+
+        EndRectangleSelect ->
+            let
+                selectrectangle =
+                    rectangleSelect model
+
+                newsign =
+                    selectSymbolsIntersection selectrectangle model
+            in
+                ( { model | editormode = Awaiting, sign = newsign }, Cmd.none )
+
         DrawRectangleStart xy ->
             let
                 { offsetx, offsety } =
                     getOffset model
             in
-                ( { model | rectanglestart = Debug.log "DrawRectangleStart xy" xy, rectangleselecting = True, sign = unselectSymbols model.sign }, Cmd.none )
+                ( { model | rectanglestart = Debug.log "DrawRectangleStart xy" xy, sign = unselectSymbols model.sign }, Cmd.none )
 
         DrawRectangleAt xy ->
             ( { model | rectangleend = Debug.log "DrawRectangleAt xy" xy }, Cmd.none )
 
         DrawRectangleEnd _ ->
             model ! [] |> andThen update UpdateSignViewPosition
+
+        SelectSymbol id ->
+            let
+                sign =
+                    model.sign
+
+                symbols =
+                    selectId id sign.syms
+
+                newsign =
+                    { sign | syms = symbols }
+            in
+                ( { model | sign = newsign }, Cmd.none )
+
+        UnSelectSymbols ->
+            ( { model | sign = unselectSymbols model.sign }, Cmd.none )
 
         MouseDown position ->
             let
@@ -162,8 +207,29 @@ update action ({ drag } as model) =
 
                 symbolsunderposition =
                     Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
+
+                howmanysymbolsunderposition =
+                    List.length symbolsunderposition
+
+                selectedsymbols =
+                    countselectedsymbols symbolsunderposition
+
+                firstsymbol =
+                    List.head symbolsunderposition
+
+                firstsymbolid =
+                    symbolId firstsymbol
             in
-                model ! []
+                model
+                    ! []
+                    |> filter (selectedsymbols > 0 && withinsignview)
+                        (andThen update (StartDragging))
+                    |> filter (howmanysymbolsunderposition == 1 && withinsignview)
+                        (andThen update (SelectSymbol firstsymbolid))
+                    |> filter (howmanysymbolsunderposition == 0 && withinsignview)
+                        (andThen update (UnSelectSymbols)
+                            >> andThen update RectangleSelectMode
+                        )
 
         MouseUp position ->
             let
@@ -179,26 +245,100 @@ update action ({ drag } as model) =
                 symbolsunderposition =
                     Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
             in
-                model ! []
+                model
+                    ! []
+                    |> filter (model.editormode == RectangleSelect)
+                        (andThen update EndRectangleSelect)
+                    |> filter (model.editormode == Dragging)
+                        (andThen update EndDragging)
 
         MouseMove position ->
             let
                 dbg =
-                    Debug.log "MouseMove position" position
+                    position
 
                 signviewposition =
-                    Debug.log "signviewposition" (signViewPosition position model)
+                    signViewPosition position model
 
                 withinsignview =
-                    Debug.log "signviewposition" (withinSignView signviewposition model)
+                    withinSignView signviewposition model
 
                 symbolsunderposition =
-                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
+                    symbolsUnderPosition signviewposition model.sign
             in
-                model
+                { model | xy = position, rectangleend = position, dragend = position }
                     ! []
                     |> filter (model.windowresized)
                         (andThen update UpdateSignViewPosition)
+                    |> filter (model.editormode == Dragging)
+                        (andThen update DragSelected)
+
+dragsign: Model -> EditorSign
+dragsign model =
+    let
+        dragoffset =
+            Offset (model.dragend.x - model.dragstart.x) (model.dragend.y - model.dragstart.y)
+
+        sign =
+            model.dragsign
+
+        symbols =
+            dragSymbols dragoffset sign.syms
+    in
+        { sign | syms = symbols }
+
+dragSymbols: Offset -> List EditorSymbol -> List EditorSymbol 
+dragSymbols offset symbols =
+    List.map
+        (\symbol ->
+            if symbol.selected then
+                { symbol | x = symbol.x + offset.offsetx, y = symbol.y + offset.offsety }
+            else
+                symbol
+        )
+        symbols
+
+
+selectsymbol : Maybe EditorSymbol -> List EditorSymbol -> List EditorSymbol
+selectsymbol symbol symbols =
+    let
+        symbolid =
+            symbolId symbol
+    in
+        selectId symbolid symbols
+
+
+symbolId : Maybe EditorSymbol -> Int
+symbolId symbol =
+    case symbol of
+        Nothing ->
+            0
+
+        Just symb ->
+            symb.id
+
+
+countselectedsymbols : List EditorSymbol -> Int
+countselectedsymbols symbols =
+    List.length
+        (List.filter
+            (\symbol ->
+                symbol.selected
+            )
+            symbols
+        )
+
+
+selectId : Int -> List EditorSymbol -> List EditorSymbol
+selectId id symbols =
+    List.map
+        (\symbol ->
+            if symbol.id == id then
+                { symbol | selected = True }
+            else
+                symbol
+        )
+        symbols
 
 
 signViewPosition : Position -> Model -> Position
@@ -245,10 +385,10 @@ centerSign model sign =
             height // 2
 
         movex =
-            Debug.log "desiredxcenter" desiredxcenter - Debug.log "currentxcenter" currentxcenter
+            desiredxcenter - currentxcenter
 
         movey =
-            Debug.log "desiredycenter" desiredycenter - Debug.log "currentycenter" currentycenter
+            desiredycenter - currentycenter
 
         newsignx =
             model.sign.x + movex
@@ -312,7 +452,7 @@ selectIntersected rectangle model symbol =
                         - model.viewposition.y
             }
     in
-        if Debug.log "intersect" (intersect (Debug.log "Select Rect" selectRectangle) (Debug.log "Symbol Rect" symbolrect)) then
+        if intersect selectRectangle symbolrect then
             { symbol | selected = True }
         else
             symbol

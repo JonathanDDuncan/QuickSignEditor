@@ -11,11 +11,14 @@ type alias Model =
     , sign : EditorSign
     , xy : Position
     , drag : Maybe Drag
+    , dragstart : Position
+    , dragend : Position
+    , dragsign : EditorSign
     , viewposition : NamedPosition
     , rectanglestart : Position
     , rectangleend : Position
-    , rectangleselecting : Bool
     , windowresized : Bool
+    , editormode : EditorMode
     , uid : Int
     }
 
@@ -67,6 +70,19 @@ type Msg
     | MouseUp Position
     | MouseMove Position
     | UpdateSignViewPosition
+    | SelectSymbol Int
+    | UnSelectSymbols
+    | RectangleSelectMode
+    | EndRectangleSelect
+    | StartDragging
+    | DragSelected
+    | EndDragging
+
+
+type EditorMode
+    = Awaiting
+    | RectangleSelect
+    | Dragging
 
 
 
