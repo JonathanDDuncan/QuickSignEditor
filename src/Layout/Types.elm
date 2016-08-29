@@ -35,7 +35,7 @@ type Msg
     | Reset
     | HideOverlay
     | Window WindowSize.Types.Msg
-    | SignBox SWEditor.Types.Msg
+    | SWEditor SWEditor.Types.Msg
     | DrawerShow
     | DrawerHide
     | Mdl (Material.Msg Msg)

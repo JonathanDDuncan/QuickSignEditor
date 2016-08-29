@@ -60,7 +60,7 @@ signView sign parentwidth parentheight dragoffset =
             , "position" => "relative"
             ]
         , Html.Attributes.id "signView"
-        , onMouseDownRectangle
+        -- , onMouseDownRectangle
         ]
         (List.map (symbolView parentwidth parentheight dragoffset) sign.syms)
 
@@ -77,7 +77,7 @@ symbolView parentwidth parentheight dragoffset symbol =
     in
         div
             [ Html.Attributes.class ""
-            , onMouseDownnoBubble symbol.id
+            -- , onMouseDownnoBubble symbol.id
             , Html.Attributes.style
                 [ "left" => (centeredvalue symbol.x symbol.selected offsetx)
                 , "top" => (centeredvalue symbol.y symbol.selected offsety)
@@ -150,7 +150,7 @@ onMouseDownRectangle : Attribute Msg
 onMouseDownRectangle =
     onWithOptions "mousedown" noBubble (Json.map DrawRectangleStart Mouse.position)
 
-
+ 
 noBubble : Options
 noBubble =
     { stopPropagation = True

@@ -15,6 +15,7 @@ type alias Model =
     , rectanglestart : Position
     , rectangleend : Position
     , rectangleselecting : Bool
+    , windowresized : Bool
     , uid : Int
     }
 
@@ -61,6 +62,11 @@ type Msg
     | DrawRectangleAt Position
     | DrawRectangleEnd Position
     | SymbolMouseDown Int
+    | CenterSign
+    | MouseDown Position
+    | MouseUp Position
+    | MouseMove Position
+    | UpdateSignViewPosition
 
 
 

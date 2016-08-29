@@ -20,10 +20,13 @@ app.ports.requestElementPosition.subscribe(function(id) {
     try {
         var element = document.getElementById(id);
 
+        var bodyRect = document.body.getBoundingClientRect(),
+            elemRect = element.getBoundingClientRect();
+
         var result = {};
         result.name = id;
-        result.x = element.offsetLeft;
-        result.y = element.offsetTop;
+        result.x = Math.trunc(elemRect.left - bodyRect.left);
+        result.y = Math.trunc(elemRect.top - bodyRect.top);
         result.width = element.offsetWidth;
         result.height = element.offsetHeight;
 
