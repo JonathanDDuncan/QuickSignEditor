@@ -24,11 +24,9 @@ root model =
             rectangleStartCurrent model
     in
         div []
-            [ div []
-                [ input [ onInput ChangeFSW, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
-                , button [ onClick RequestSign ] [ text "Editor" ]
-                , signView model.sign
-                ]
+            [ input [ onInput ChangeFSW, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
+            , button [ onClick RequestSign ] [ text "Editor" ]
+            , signView model.sign
             , case model.editormode of
                 RectangleSelect ->
                     div
@@ -94,11 +92,6 @@ symbolView symbol =
             ]
             [ text symbol.pua ]
         ]
-
-
-viewboxStr : EditorSymbol -> String
-viewboxStr symbol =
-    toString symbol.x ++ " " ++ toString symbol.y ++ " " ++ toString symbol.width ++ " " ++ " " ++ toString symbol.height
 
 
 px : Int -> String
