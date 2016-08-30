@@ -1,6 +1,8 @@
 module SWEditor.Select exposing (..)
 
 import SWEditor.Types exposing (..)
+import SWEditor.EditorSign exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 unselectSymbols : EditorSign -> EditorSign

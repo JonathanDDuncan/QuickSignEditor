@@ -1,8 +1,7 @@
 effect module Touch.TouchEvents
     where { subscription = MySub }
     exposing
-        ( Position
-        , position
+        ( position
         , clicks
         , moves
         , downs
@@ -31,19 +30,10 @@ import Dom.LowLevel as Dom
 import Json.Decode as Json exposing ((:=))
 import Process
 import Task exposing (Task)
+import SW.Types exposing (..)
 
 
 -- POSITIONS
-
-
-{-| The position of the mouse relative to the whole document. So if you are
-scrolled down a bunch, you are still getting a coordinate relative to the
-very top left corner of the *whole* document.
--}
-type alias Position =
-    { x : Int
-    , y : Int
-    }
 
 
 {-| The decoder used to extract a `Position` from a JavaScript mouse event.

@@ -14,6 +14,9 @@ import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.Drag exposing (..)
 import SWEditor.Select exposing (..)
+import SWEditor.EditorSign exposing (..)
+import SWEditor.EditorSymbol exposing (..)
+import SW.Types exposing (..)
 
 
 -- import SubSWEditors.State
@@ -79,7 +82,7 @@ update action model =
         SetSign newsign ->
             let
                 editorSign =
-                    centerSign model (toEditorSign newsign model.uid)
+                    toEditorSign newsign model.uid
 
                 lastuid =
                     getlastuid editorSign
@@ -96,7 +99,7 @@ update action model =
             { model | windowresized = False } ! [] |> andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            { model | sign = centerSign model model.sign } ! []
+            { model | sign = centerSign model.viewposition model.sign } ! []
 
         StartDragging ->
             { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
@@ -124,9 +127,9 @@ update action model =
             --     dbg =
             --         Debug.log "TouchDown position" position
             --     signviewposition =
-            --         Debug.log "signviewposition" (signViewPosition position model)
+            --         Debug.log "signviewposition" (signViewPosition position model.viewposition)
             --     withinsignview =
-            --         Debug.log "signviewposition" (withinSignView signviewposition model)
+            --         Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
             --     symbolsunderposition =
             --         Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
             -- in
@@ -137,9 +140,9 @@ update action model =
             --     dbg =
             --         Debug.log "TouchUp position" position
             --     signviewposition =
-            --         Debug.log "signviewposition" (signViewPosition position model)
+            --         Debug.log "signviewposition" (signViewPosition position model.viewposition)
             --     withinsignview =
-            --         Debug.log "signviewposition" (withinSignView signviewposition model)
+            --         Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
             --     symbolsunderposition =
             --         Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
             -- in
@@ -148,13 +151,13 @@ update action model =
         MouseDown position ->
             let
                 signviewposition =
-                    Debug.log "signviewposition" (signViewPosition position model)
+                    Debug.log "signviewposition" (signViewPosition position model.viewposition)
 
                 withinsignview =
-                    Debug.log "signviewposition" (withinSignView signviewposition model)
+                    Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
 
                 symbolsunderposition =
-                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
+                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign.syms)
 
                 howmanysymbolsunderposition =
                     List.length symbolsunderposition
@@ -182,13 +185,13 @@ update action model =
         MouseUp position ->
             let
                 signviewposition =
-                    Debug.log "signviewposition" (signViewPosition position model)
+                    Debug.log "signviewposition" (signViewPosition position model.viewposition)
 
                 withinsignview =
-                    Debug.log "signviewposition" (withinSignView signviewposition model)
+                    Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
 
                 symbolsunderposition =
-                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
+                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign.syms)
             in
                 model
                     ! []
@@ -200,13 +203,13 @@ update action model =
         MouseMove position ->
             let
                 signviewposition =
-                    signViewPosition position model
+                    signViewPosition position model.viewposition
 
                 withinsignview =
-                    withinSignView signviewposition model
+                    withinSignView signviewposition model.viewposition
 
                 symbolsunderposition =
-                    symbolsUnderPosition signviewposition model.sign
+                    symbolsUnderPosition signviewposition model.sign.syms
             in
                 { model | xy = signviewposition }
                     ! []

@@ -7,6 +7,8 @@ import Svg as Svg exposing (svg)
 import Svg.Attributes exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
+import SWEditor.EditorSign exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 --import SubSWEditor.View exposing (root)
