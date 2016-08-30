@@ -58,3 +58,8 @@
          font-size: 30px;
          fill: black;
      }
+     
+     .disablePanZoom {
+         -ms-touch-action: none;
+         touch-action: none;
+     }

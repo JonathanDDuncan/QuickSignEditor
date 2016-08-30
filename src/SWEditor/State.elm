@@ -8,10 +8,10 @@ module SWEditor.State exposing (init, update, subscriptions)
 
 import SWEditor.Types exposing (..)
 import Ports as Ports exposing (..)
-import Mouse exposing (Position)
 import Debug
 import SWEditor.Rectangle exposing (..)
 import Update.Extra exposing (..)
+import Touch.TouchEvents as Events exposing (..)
 
 
 -- import SubSWEditors.State
@@ -158,25 +158,12 @@ update action ({ drag } as model) =
         EndRectangleSelect ->
             let
                 selectrectangle =
-                    rectangleSelect model
+                    Debug.log "selectrectangle" (rectangleSelect model)
 
                 newsign =
                     selectSymbolsIntersection selectrectangle model
             in
                 ( { model | editormode = Awaiting, sign = newsign }, Cmd.none )
-
-        DrawRectangleStart xy ->
-            let
-                { offsetx, offsety } =
-                    getOffset model
-            in
-                ( { model | rectanglestart = Debug.log "DrawRectangleStart xy" xy, sign = unselectSymbols model.sign }, Cmd.none )
-
-        DrawRectangleAt xy ->
-            ( { model | rectangleend = Debug.log "DrawRectangleAt xy" xy }, Cmd.none )
-
-        DrawRectangleEnd _ ->
-            model ! [] |> andThen update UpdateSignViewPosition
 
         SelectSymbol id ->
             let
@@ -193,6 +180,40 @@ update action ({ drag } as model) =
 
         UnSelectSymbols ->
             ( { model | sign = unselectSymbols model.sign }, Cmd.none )
+
+        TouchDown position ->
+            let
+                dbg =
+                    Debug.log "TouchDown position" position
+
+                signviewposition =
+                    Debug.log "signviewposition" (signViewPosition position model)
+
+                withinsignview =
+                    Debug.log "signviewposition" (withinSignView signviewposition model)
+
+                symbolsunderposition =
+                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
+            in
+                model
+                    ! []
+
+        TouchUp position ->
+            let
+                dbg =
+                    Debug.log "TouchUp position" position
+
+                signviewposition =
+                    Debug.log "signviewposition" (signViewPosition position model)
+
+                withinsignview =
+                    Debug.log "signviewposition" (withinSignView signviewposition model)
+
+                symbolsunderposition =
+                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
+            in
+                model
+                    ! []
 
         MouseDown position ->
             let
@@ -266,14 +287,15 @@ update action ({ drag } as model) =
                 symbolsunderposition =
                     symbolsUnderPosition signviewposition model.sign
             in
-                { model | xy = position, rectangleend = position, dragend = position }
+                { model | xy = signviewposition, rectangleend = signviewposition, dragend = signviewposition }
                     ! []
                     |> filter (model.windowresized)
                         (andThen update UpdateSignViewPosition)
                     |> filter (model.editormode == Dragging)
                         (andThen update DragSelected)
 
-dragsign: Model -> EditorSign
+
+dragsign : Model -> EditorSign
 dragsign model =
     let
         dragoffset =
@@ -287,7 +309,8 @@ dragsign model =
     in
         { sign | syms = symbols }
 
-dragSymbols: Offset -> List EditorSymbol -> List EditorSymbol 
+
+dragSymbols : Offset -> List EditorSymbol -> List EditorSymbol
 dragSymbols offset symbols =
     List.map
         (\symbol ->
@@ -433,11 +456,11 @@ selectSymbolsIntersection rectangle model =
         sign =
             model.sign
     in
-        { sign | syms = List.map (selectIntersected rectangle model) sign.syms }
+        { sign | syms = List.map (selectIntersected rectangle) sign.syms }
 
 
-selectIntersected : Rect -> Model -> EditorSymbol -> EditorSymbol
-selectIntersected rectangle model symbol =
+selectIntersected : Rect -> EditorSymbol -> EditorSymbol
+selectIntersected rectangle symbol =
     let
         symbolrect =
             getsymbolRectangle symbol
@@ -446,10 +469,8 @@ selectIntersected rectangle model symbol =
             { rectangle
                 | x =
                     rectangle.x
-                        - model.viewposition.x
                 , y =
                     rectangle.y
-                        - model.viewposition.y
             }
     in
         if intersect selectRectangle symbolrect then
@@ -483,31 +504,6 @@ getsymbolRectangle symbol =
     , width = symbol.width
     , height = symbol.height
     }
-
-
-rectangleSelect : Model -> Rect
-rectangleSelect model =
-    let
-        x1 =
-            min model.rectanglestart.x model.rectangleend.x
-
-        x2 =
-            max model.rectanglestart.x model.rectangleend.x
-
-        y1 =
-            min model.rectanglestart.y model.rectangleend.y
-
-        y2 =
-            max model.rectanglestart.y model.rectangleend.y
-
-        offset =
-            getOffset model
-    in
-        { x = x1 + offset.offsetx
-        , y = y1 + offset.offsety
-        , width = x2 - x1
-        , height = y2 - y1
-        }
 
 
 getlastuid : EditorSign -> Int
@@ -596,9 +592,12 @@ moveSymbolOffset offset symbol =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ Mouse.downs MouseDown
-        , Mouse.moves MouseMove
-        , Mouse.ups MouseUp
+        [ Events.downs MouseDown
+        , Events.moves MouseMove
+        , Events.ups MouseUp
+        , Events.touchdowns TouchDown
+        , Events.touchmoves MouseMove
+        , Events.touchups TouchUp
         , receiveSign SetSign
         , receiveElementPosition ReceiveElementPosition
         ]

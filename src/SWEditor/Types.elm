@@ -3,7 +3,8 @@ module SWEditor.Types exposing (..)
 -- import SubSWEditors.Types
 
 import SW.Types exposing (..)
-import Mouse exposing (Position)
+import Touch.TouchEvents exposing (..)
+import SWEditor.Rectangle exposing (..)
 
 
 type alias Model =
@@ -61,11 +62,10 @@ type Msg
     | SelectSignsInRectangle
     | DragAt Position
     | DragEnd Position
-    | DrawRectangleStart Position
-    | DrawRectangleAt Position
-    | DrawRectangleEnd Position
     | SymbolMouseDown Int
     | CenterSign
+    | TouchDown Position
+    | TouchUp Position
     | MouseDown Position
     | MouseUp Position
     | MouseMove Position
@@ -159,3 +159,25 @@ toEditorSymbol id index symbol =
     , selected = False
     , id = id + index + 1
     }
+
+
+rectangleSelect : Model -> Rect
+rectangleSelect model =
+    let
+        x1 =
+            min model.rectanglestart.x model.rectangleend.x
+
+        x2 =
+            max model.rectanglestart.x model.rectangleend.x
+
+        y1 =
+            min model.rectanglestart.y model.rectangleend.y
+
+        y2 =
+            max model.rectanglestart.y model.rectangleend.y
+    in
+        { x = x1
+        , y = y1
+        , width = x2 - x1
+        , height = y2 - y1
+        }

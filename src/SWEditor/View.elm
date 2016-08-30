@@ -20,26 +20,23 @@ import Mouse exposing (Position)
 root : Model -> Int -> Int -> Html Msg
 root model parentwidth parentheight =
     let
-        realPosition =
-            getPosition model
-
-        dragoffset =
-            SWEditor.Types.getOffset model
+        selectrectangle =
+            rectangleSelect model
     in
         div []
             [ div []
                 [ input [ onInput Change, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
-                , signView model.sign parentwidth parentheight dragoffset
+                , signView model.sign parentwidth parentheight
                 ]
             , case model.editormode of
                 RectangleSelect ->
                     div
                         [ Html.Attributes.style
-                            [ "left" => px (Basics.min model.rectanglestart.x model.rectangleend.x)
-                            , "top" => px (Basics.min model.rectanglestart.y model.rectangleend.y)
-                            , "width" => px ((Basics.max model.rectanglestart.x model.rectangleend.x) - (Basics.min model.rectanglestart.x model.rectangleend.x))
-                            , "height" => px ((Basics.max model.rectanglestart.y model.rectangleend.y) - (Basics.min model.rectanglestart.y model.rectangleend.y))
+                            [ "left" => px (selectrectangle.x)
+                            , "top" => px (selectrectangle.y + model.viewposition.y)
+                            , "width" => px (selectrectangle.width)
+                            , "height" => px (selectrectangle.height)
                             , "position" => "absolute"
                             , "border-style" => "dashed"
                             , "border-width" => "1px"
@@ -52,8 +49,8 @@ root model parentwidth parentheight =
             ]
 
 
-signView : EditorSign -> Int -> Int -> Offset -> Html Msg
-signView sign parentwidth parentheight dragoffset =
+signView : EditorSign -> Int -> Int -> Html Msg
+signView sign parentwidth parentheight =
     div
         [ Html.Attributes.style
             [ "background-color" => "teal"
@@ -62,17 +59,15 @@ signView sign parentwidth parentheight dragoffset =
             , "position" => "relative"
             ]
         , Html.Attributes.id "signView"
+        , Html.Attributes.class "disablePanZoom"
           -- , onMouseDownRectangle
         ]
-        (List.map (symbolView parentwidth parentheight dragoffset) sign.syms)
+        (List.map (symbolView parentwidth parentheight) sign.syms)
 
 
-symbolView : Int -> Int -> Offset -> EditorSymbol -> Html Msg
-symbolView parentwidth parentheight dragoffset symbol =
+symbolView : Int -> Int -> EditorSymbol -> Html Msg
+symbolView parentwidth parentheight symbol =
     let
-        { offsetx, offsety } =
-            dragoffset
-
         id =
             symbol.id
     in
@@ -80,25 +75,13 @@ symbolView parentwidth parentheight dragoffset symbol =
             [ Html.Attributes.class ""
               -- , onMouseDownnoBubble symbol.id
             , Html.Attributes.style
-                [ "left" => (centeredvalue symbol.x symbol.selected offsetx)
-                , "top" => (centeredvalue symbol.y symbol.selected offsety)
+                [ "left" => px symbol.x
+                , "top" => px symbol.y
                 , "position" => "absolute"
                 ]
             ]
             [ symbolsvg symbol
             ]
-
-
-centeredvalue : Int -> Bool -> Int -> String
-centeredvalue val selected dragoffset =
-    px
-        (val
-            + (if selected then
-                dragoffset
-               else
-                0
-              )
-        )
 
 
 symbolsvg : EditorSymbol -> Html Msg
@@ -144,11 +127,6 @@ viewboxStr symbol =
 -- onMouseDownDrag : Attribute Msg
 -- onMouseDownDrag =
 --     on "mousedown" (Json.map DragStart Mouse.position)
-
-
-onMouseDownRectangle : Attribute Msg
-onMouseDownRectangle =
-    onWithOptions "mousedown" noBubble (Json.map DrawRectangleStart Mouse.position)
 
 
 noBubble : Options
