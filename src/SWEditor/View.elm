@@ -3,8 +3,6 @@ module SWEditor.View exposing (root)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
-import Svg as Svg exposing (svg)
-import Svg.Attributes exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.EditorSign exposing (..)
@@ -68,53 +66,33 @@ signView sign =
 
 symbolView : EditorSymbol -> Html Msg
 symbolView symbol =
-    let
-        id =
-            symbol.id
-    in
-        div
-            [ Html.Attributes.class ""
-            , Html.Attributes.style
-                [ "left" => px symbol.x
-                , "top" => px symbol.y
-                , "position" => "absolute"
-                ]
+    span
+        [ Html.Attributes.style
+            [ "left" => px symbol.x
+            , "top" => px symbol.y
+            , "position" => "absolute"
             ]
-            [ symbolsvg symbol
-            ]
-
-
-symbolsvg : EditorSymbol -> Html Msg
-symbolsvg symbol =
-    Svg.svg
-        [ Svg.Attributes.height <| toString symbol.height
-        , viewBox <| viewboxStr symbol
-        , Svg.Attributes.width <| toString symbol.width
-        , Svg.Attributes.name "http://www.w3.org/2000/svg"
         ]
-        [ node "text"
-            [ Svg.Attributes.style "font-size:0%;" ]
-            [ text symbol.key ]
-        , Svg.g [ transform ("translate(" ++ toString symbol.x ++ "," ++ toString symbol.y ++ ")") ]
-            [ Svg.text'
-                [ Svg.Attributes.class "sym-fill"
-                , fontSize <| toString symbol.fontsize
-                , Svg.Attributes.style <| "fill:" ++ symbol.nwcolor
+        [ span
+            [ Html.Attributes.class "sym-fill"
+            , Html.Attributes.style
+                [ "color"
+                    => symbol.nwcolor
                 ]
-                [ text symbol.pua ]
-            , Svg.text'
-                [ Svg.Attributes.class "sym-line"
-                , fontSize <| toString symbol.fontsize
-                , Svg.Attributes.style <|
-                    "fill:"
-                        ++ (if symbol.selected then
-                                "blue"
-                            else
-                                symbol.nbcolor
-                           )
-                ]
-                [ text symbol.pua ]
             ]
+            [ text symbol.pua ]
+        , span
+            [ Html.Attributes.class "sym-line"
+            , Html.Attributes.style
+                [ "color"
+                    => (if symbol.selected then
+                            "blue"
+                        else
+                            symbol.nbcolor
+                       )
+                ]
+            ]
+            [ text symbol.pua ]
         ]
 
 
