@@ -21,7 +21,7 @@ root : Model -> Int -> Int -> Html Msg
 root model parentwidth parentheight =
     let
         selectrectangle =
-            rectangleSelect model
+            rectangleStartCurrent model
     in
         div []
             [ div []

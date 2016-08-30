@@ -6,38 +6,17 @@ import SWEditor.Rectangle exposing (..)
 
 rectangleselect : Model -> EditorSign
 rectangleselect model =
-    selectSymbolsIntersection (rectangleSelect model) model
+    selectSymbolsIntersection (rectangleStartCurrent model) model.sign
 
 
-rectangleSelect : Model -> Rect
-rectangleSelect model =
-    let
-        x1 =
-            min model.rectanglestart.x model.xy.x
-
-        x2 =
-            max model.rectanglestart.x model.xy.x
-
-        y1 =
-            min model.rectanglestart.y model.xy.y
-
-        y2 =
-            max model.rectanglestart.y model.xy.y
-    in
-        { x = x1
-        , y = y1
-        , width = x2 - x1
-        , height = y2 - y1
-        }
+rectangleStartCurrent : Model -> Rect
+rectangleStartCurrent model =
+    rect model.rectanglestart.x model.xy.x model.rectanglestart.y model.xy.y
 
 
-selectSymbolsIntersection : Rect -> Model -> EditorSign
-selectSymbolsIntersection rectangle model =
-    let
-        sign =
-            model.sign
-    in
-        { sign | syms = List.map (selectIntersected rectangle) sign.syms }
+selectSymbolsIntersection : Rect -> EditorSign -> EditorSign
+selectSymbolsIntersection rectangle sign =
+    { sign | syms = List.map (selectIntersected rectangle) sign.syms }
 
 
 selectIntersected : Rect -> EditorSymbol -> EditorSymbol
@@ -46,15 +25,15 @@ selectIntersected rectangle symbol =
         symbolrect =
             getsymbolRectangle symbol
 
-        selectRectangle =
-            { rectangle
-                | x =
-                    rectangle.x
-                , y =
-                    rectangle.y
-            }
+        -- selectRectangle =
+        --     { rectangle
+        --         | x =
+        --             rectangle.x
+        --         , y =
+        --             rectangle.y
+        --     }
     in
-        if intersect selectRectangle symbolrect then
+        if intersect rectangle symbolrect then
             { symbol | selected = True }
         else
             symbol

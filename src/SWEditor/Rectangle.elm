@@ -25,3 +25,25 @@ intersect rect1 rect2 =
             rect2.y + rect2.height
     in
         rect1.x < rect2x2 && rect1x2 > rect2.x && rect1.y < rect2y2 && rect1y2 > rect2.y
+
+
+rect : Int -> Int -> Int -> Int -> Rect
+rect px1 px2 py1 py2 =
+    let
+        x1 =
+            min px1 px2
+
+        x2 =
+            max px1 px2
+
+        y1 =
+            min py1 py2
+
+        y2 =
+            max py1 py2
+    in
+        { x = x1
+        , y = y1
+        , width = x2 - x1
+        , height = y2 - y1
+        }
