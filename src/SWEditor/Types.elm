@@ -54,15 +54,11 @@ type alias Drag =
 
 
 type Msg
-    = Change String
+    = ChangeFSW String
     | RequestSign
     | SetSign Sign
     | RequestElementPosition String
     | ReceiveElementPosition NamedPosition
-    | SelectSignsInRectangle
-    | DragAt Position
-    | DragEnd Position
-    | SymbolMouseDown Int
     | CenterSign
     | TouchDown Position
     | TouchUp Position
@@ -72,7 +68,7 @@ type Msg
     | UpdateSignViewPosition
     | SelectSymbol Int
     | UnSelectSymbols
-    | RectangleSelectMode
+    | StartRectangleSelect
     | EndRectangleSelect
     | StartDragging
     | DragSelected

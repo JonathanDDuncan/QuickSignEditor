@@ -7,7 +7,6 @@ import Svg as Svg exposing (svg)
 import Svg.Attributes exposing (..)
 import SWEditor.Types exposing (..)
 import Json.Decode as Json exposing ((:=))
-import Mouse exposing (Position)
 
 
 --import SubSWEditor.View exposing (root)
@@ -25,7 +24,7 @@ root model parentwidth parentheight =
     in
         div []
             [ div []
-                [ input [ onInput Change, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
+                [ input [ onInput ChangeFSW, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
                 , signView model.sign parentwidth parentheight
                 ]
@@ -136,9 +135,10 @@ noBubble =
     }
 
 
-onMouseDownnoBubble : Int -> Attribute Msg
-onMouseDownnoBubble id =
-    onWithOptions "mousedown" noBubble (Json.succeed (SymbolMouseDown id))
+
+-- onMouseDownnoBubble : Int -> Attribute Msg
+-- onMouseDownnoBubble id =
+--     onWithOptions "mousedown" noBubble (Json.succeed (SymbolMouseDown id))
 
 
 px : Int -> String
