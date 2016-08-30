@@ -6,7 +6,7 @@ import Html.Attributes exposing (..)
 import Svg as Svg exposing (svg)
 import Svg.Attributes exposing (..)
 import SWEditor.Types exposing (..)
-import Json.Decode as Json exposing ((:=))
+import SWEditor.RectangleSelect exposing (..)
 
 
 --import SubSWEditor.View exposing (root)
@@ -59,7 +59,6 @@ signView sign parentwidth parentheight =
             ]
         , Html.Attributes.id "signView"
         , Html.Attributes.class "disablePanZoom"
-          -- , onMouseDownRectangle
         ]
         (List.map (symbolView parentwidth parentheight) sign.syms)
 
@@ -72,7 +71,6 @@ symbolView parentwidth parentheight symbol =
     in
         div
             [ Html.Attributes.class ""
-              -- , onMouseDownnoBubble symbol.id
             , Html.Attributes.style
                 [ "left" => px symbol.x
                 , "top" => px symbol.y
@@ -120,25 +118,6 @@ symbolsvg symbol =
 viewboxStr : EditorSymbol -> String
 viewboxStr symbol =
     toString symbol.x ++ " " ++ toString symbol.y ++ " " ++ toString symbol.width ++ " " ++ " " ++ toString symbol.height
-
-
-
--- onMouseDownDrag : Attribute Msg
--- onMouseDownDrag =
---     on "mousedown" (Json.map DragStart Mouse.position)
-
-
-noBubble : Options
-noBubble =
-    { stopPropagation = True
-    , preventDefault = True
-    }
-
-
-
--- onMouseDownnoBubble : Int -> Attribute Msg
--- onMouseDownnoBubble id =
---     onWithOptions "mousedown" noBubble (Json.succeed (SymbolMouseDown id))
 
 
 px : Int -> String
