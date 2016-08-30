@@ -182,6 +182,7 @@ type alias Msg =
     }
 
 
+(&>) : Task a b -> Task a c -> Task a c
 (&>) t1 t2 =
     t1 `Task.andThen` \_ -> t2
 

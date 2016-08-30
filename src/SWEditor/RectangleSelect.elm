@@ -13,16 +13,16 @@ rectangleSelect : Model -> Rect
 rectangleSelect model =
     let
         x1 =
-            min model.rectanglestart.x model.rectangleend.x
+            min model.rectanglestart.x model.xy.x
 
         x2 =
-            max model.rectanglestart.x model.rectangleend.x
+            max model.rectanglestart.x model.xy.x
 
         y1 =
-            min model.rectanglestart.y model.rectangleend.y
+            min model.rectanglestart.y model.xy.y
 
         y2 =
-            max model.rectanglestart.y model.rectangleend.y
+            max model.rectanglestart.y model.xy.y
     in
         { x = x1
         , y = y1

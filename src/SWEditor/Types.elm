@@ -11,13 +11,10 @@ type alias Model =
     { fsw : String
     , sign : EditorSign
     , xy : Position
-    , drag : Maybe Drag
     , dragstart : Position
-    , dragend : Position
     , dragsign : EditorSign
     , viewposition : NamedPosition
     , rectanglestart : Position
-    , rectangleend : Position
     , windowresized : Bool
     , editormode : EditorMode
     , uid : Int
@@ -84,46 +81,15 @@ type EditorMode
 
 -- Plus any other types unique to this SWEditor
 -- Plus any library function to run on the types
-
-
-getPosition : Model -> Position
-getPosition ({ xy, drag } as model) =
-    case drag of
-        Nothing ->
-            xy
-
-        Just { start, current } ->
-            let
-                { offsetx, offsety } =
-                    getOffset model
-            in
-                Position
-                    (xy.x + offsetx)
-                    (xy.y + offsety)
-
-
-getOffset : Model -> Offset
-getOffset { viewposition, drag } =
-    case drag of
-        Nothing ->
-            Offset 0 0
-
-        Just { start, current } ->
-            Offset
-                (current.x - start.x)
-                (current.y - start.y)
-
-
-getOffset' : Model -> Position -> Offset
-getOffset' { drag } pos =
-    case drag of
-        Nothing ->
-            Offset 0 0
-
-        Just { start, current } ->
-            Offset
-                (pos.x - start.x)
-                (pos.y - start.y)
+-- getOffset : Model -> Offset
+-- getOffset { viewposition, drag } =
+--     case drag of
+--         Nothing ->
+--             Offset 0 0
+--         Just { start, current } ->
+--             Offset
+--                 (current.x - start.x)
+--                 (current.y - start.y)
 
 
 toEditorSign : Sign -> Int -> EditorSign
@@ -187,6 +153,7 @@ countselectedsymbols symbols =
         )
 
 
+centerSign : Model -> EditorSign -> EditorSign
 centerSign model sign =
     let
         width =

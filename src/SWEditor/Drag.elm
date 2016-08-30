@@ -7,7 +7,7 @@ dragsign : Model -> EditorSign
 dragsign model =
     let
         dragoffset =
-            Offset (model.dragend.x - model.dragstart.x) (model.dragend.y - model.dragstart.y)
+            Offset (model.xy.x - model.dragstart.x) (model.xy.y - model.dragstart.y)
 
         sign =
             model.dragsign

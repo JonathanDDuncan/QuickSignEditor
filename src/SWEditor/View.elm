@@ -12,6 +12,7 @@ import SWEditor.RectangleSelect exposing (..)
 --import SubSWEditor.View exposing (root)
 
 
+(=>) : a -> b -> ( a, b )
 (=>) =
     (,)
 

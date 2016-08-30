@@ -11,7 +11,6 @@ import Debug
 import Update.Extra exposing (..)
 import Touch.TouchEvents as Events exposing (..)
 import SWEditor.Types exposing (..)
-import SWEditor.Rectangle exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.Drag exposing (..)
 import SWEditor.Select exposing (..)
@@ -24,13 +23,10 @@ init : ( Model, Cmd Msg )
 init =
     ( { fsw = "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
       , sign = signinit
-      , xy = (Position 0 0)
-      , drag = Nothing
+      , xy = Position 0 0
       , dragstart = Position 0 0
-      , dragend = Position 0 0
       , dragsign = signinit
       , rectanglestart = Position 0 0
-      , rectangleend = Position 0 0
       , windowresized = False
       , editormode = Awaiting
       , viewposition = { name = "", x = 0, y = 0, width = 0, height = 0 }
@@ -72,7 +68,7 @@ symbolinit =
 
 
 update : SWEditor.Types.Msg -> SWEditor.Types.Model -> ( SWEditor.Types.Model, Cmd SWEditor.Types.Msg )
-update action ({ drag } as model) =
+update action model =
     case action of
         ChangeFSW newfsw ->
             { model | fsw = newfsw, sign = signinit } ! []
@@ -212,7 +208,7 @@ update action ({ drag } as model) =
                 symbolsunderposition =
                     symbolsUnderPosition signviewposition model.sign
             in
-                { model | xy = signviewposition, rectangleend = signviewposition, dragend = signviewposition }
+                { model | xy = signviewposition }
                     ! []
                     |> filter (model.windowresized)
                         (andThen update UpdateSignViewPosition)
