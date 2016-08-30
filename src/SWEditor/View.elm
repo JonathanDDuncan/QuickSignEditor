@@ -19,8 +19,8 @@ import SWEditor.EditorSymbol exposing (..)
     (,)
 
 
-root : Model -> Int -> Int -> Html Msg
-root model parentwidth parentheight =
+root : Model -> Html Msg
+root model =
     let
         selectrectangle =
             rectangleStartCurrent model
@@ -29,7 +29,7 @@ root model parentwidth parentheight =
             [ div []
                 [ input [ onInput ChangeFSW, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
                 , button [ onClick RequestSign ] [ text "Editor" ]
-                , signView model.sign parentwidth parentheight
+                , signView model.sign
                 ]
             , case model.editormode of
                 RectangleSelect ->
@@ -51,8 +51,8 @@ root model parentwidth parentheight =
             ]
 
 
-signView : EditorSign -> Int -> Int -> Html Msg
-signView sign parentwidth parentheight =
+signView : EditorSign -> Html Msg
+signView sign =
     div
         [ Html.Attributes.style
             [ "background-color" => "teal"
@@ -63,11 +63,11 @@ signView sign parentwidth parentheight =
         , Html.Attributes.id "signView"
         , Html.Attributes.class "disablePanZoom"
         ]
-        (List.map (symbolView parentwidth parentheight) sign.syms)
+        (List.map (symbolView) sign.syms)
 
 
-symbolView : Int -> Int -> EditorSymbol -> Html Msg
-symbolView parentwidth parentheight symbol =
+symbolView : EditorSymbol -> Html Msg
+symbolView symbol =
     let
         id =
             symbol.id

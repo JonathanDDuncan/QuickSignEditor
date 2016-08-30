@@ -3,10 +3,7 @@ module SWEditor.Types exposing (..)
 -- import SubSWEditors.Types
 
 import SW.Types exposing (..)
-import Touch.TouchEvents exposing (..)
-import SWEditor.Rectangle exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 
 
 type alias Model =

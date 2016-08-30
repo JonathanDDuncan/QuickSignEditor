@@ -19,5 +19,5 @@ centerspace model =
         ]
         [ text "This is the centerspace area"
         , App.map SWEditor
-            (SWEditor.View.root model.signbox ((model.centerspacepercentage * model.window.windowSize.width) // 100) model.containerHeight)
+            (SWEditor.View.root model.signbox)
         ]
