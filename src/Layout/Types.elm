@@ -5,6 +5,7 @@ module Layout.Types exposing (..)
 import Material
 import WindowSize.Types
 import SWEditor.Types
+import Keyboard.Types
 
 
 type alias Model =
@@ -12,6 +13,7 @@ type alias Model =
     , mdl : Material.Model
     , window : WindowSize.Types.Model
     , signbox : SWEditor.Types.Model
+    , keyboard : Keyboard.Types.Model
     , rightdrawer : DrawerModel
     , footerheight : Int
     , containerHeight : Int
@@ -36,6 +38,7 @@ type Msg
     | HideOverlay
     | Window WindowSize.Types.Msg
     | SWEditor SWEditor.Types.Msg
+    | Keyboard Keyboard.Types.Msg
     | DrawerShow
     | DrawerHide
     | Mdl (Material.Msg Msg)

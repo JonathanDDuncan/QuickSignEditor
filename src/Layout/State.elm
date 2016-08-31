@@ -12,6 +12,7 @@ import WindowSize.State
 import WindowSize.Types
 import SWEditor.State
 import PlatformHelpers exposing (lift)
+import Keyboard.State
 
 
 -- Boilerplate: Always use this initial Mdl model store.
@@ -23,8 +24,9 @@ init =
       , mdl = Material.model
       , window = fst WindowSize.State.init
       , signbox = fst SWEditor.State.init
+      , keyboard = fst Keyboard.State.init
       , rightdrawer = fst drawerinit
-      , footerheight = 100
+      , footerheight = 200
       , containerHeight = 800
       , widescreenwidth = 1000
       , mediumscreenwidth = 600
@@ -77,6 +79,9 @@ update msg model =
 
         SWEditor action ->
             lift .signbox (\m x -> { m | signbox = x }) SWEditor SWEditor.State.update action model
+
+        Keyboard action ->
+            lift .keyboard (\m x -> { m | keyboard = x }) Keyboard Keyboard.State.update action model
 
         DrawerShow ->
             ( { model | rightdrawer = setdrawerShowing model.rightdrawer True }
@@ -219,6 +224,7 @@ subscriptions model =
     Sub.batch
         [ WindowSize.State.subscriptions model.window |> Sub.map Window
         , SWEditor.State.subscriptions model.signbox |> Sub.map SWEditor
+        , Keyboard.State.subscriptions model.keyboard |> Sub.map Keyboard
         ]
 
 
