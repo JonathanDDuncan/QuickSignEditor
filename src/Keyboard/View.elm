@@ -4,7 +4,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Keyboard.Types exposing (..)
 import Array exposing (..)
-import Dict exposing (..)
 
 
 --import SubFeature.View exposing (root)
@@ -22,7 +21,7 @@ root model =
             ]
         , div
             [ class "arrows", style [ ( "width", "14%" ) ] ]
-            [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "17%" ) ] ]
+            [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "15.5%" ) ] ]
                 [ row model [61..63]
                 , row model [64..66]
                 ]
@@ -35,9 +34,9 @@ root model =
             [ class "numeric", style [ ( "width", "20%" ) ] ]
             [ row model [71..73]
             , row model [74..77]
-            , row model [78..81]
-            , row model [82..85]
-            , row model [86..87]
+            , row model [78..80]
+            , row model [81..83]
+            , row model [84..86]
             ]
         ]
 
@@ -54,29 +53,17 @@ nkey model n =
         [ span []
             []
         , span []
-            [ text <| getKeyString n model ]
+            [ text <| getKeyDisplay n model ]
         ]
 
 
-getKeyCode : Int -> Model -> Int
-getKeyCode n model =
+getKeyDisplay : Int -> Model -> String
+getKeyDisplay n model =
     let
         keycode =
-            nth n model.keyboardlayout.codes
+            Maybe.withDefault { code = 0, display = "", keypress = None } (nth n model.keyboardlayout.keys)
     in
-        Maybe.withDefault 0 keycode
-
-
-getKeyString : Int -> Model -> String
-getKeyString n model =
-    let
-        keycode =
-            Maybe.withDefault 0 (nth n model.keyboardlayout.codes)
-
-        keystring =
-            Dict.get keycode model.keycodedictionary
-    in
-        Maybe.withDefault (toString keycode) keystring
+        keycode.display
 
 
 nth : Int -> List a -> Maybe a

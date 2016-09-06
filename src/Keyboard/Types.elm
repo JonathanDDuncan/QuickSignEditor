@@ -17,8 +17,25 @@ type Msg
 
 type alias KeyboardLayout =
     { name : String
-    , codes : List Int
+    , keys : List Key
     }
+
+
+type alias Key =
+    { display : String
+    , code : Int
+    , keypress : Keypress
+    }
+
+
+type Keypress
+    = None
+    | Insert
+    | Delete
+    | PgUp
+    | PgDown
+    | Home
+    | End
 
 
 type alias KeyCodeDictionary =
