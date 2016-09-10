@@ -8,11 +8,13 @@ import Dict
 type alias Model =
     { keyboardlayout : KeyboardLayout
     , keycodedictionary : Dict.Dict Int String
+    , keyboardhistory : List String
     }
 
 
 type Msg
     = FeatureMessage
+    | KeyClicked Int
 
 
 type alias KeyboardLayout =

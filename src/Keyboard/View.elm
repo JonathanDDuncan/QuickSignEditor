@@ -2,8 +2,11 @@ module Keyboard.View exposing (root)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Keyboard.Types exposing (..)
 import Array exposing (..)
+import String
+import Json.Decode as Json
 
 
 --import SubFeature.View exposing (root)
@@ -12,7 +15,9 @@ import Array exposing (..)
 root : Model -> Html Msg
 root model =
     div [ class "keyboard" ]
-        [ div [ class "alphabetic", style [ ( "width", "66%" ) ] ]
+        [ text (String.concat model.keyboardhistory)
+        , div
+            [ class "alphabetic", style [ ( "width", "66%" ) ] ]
             [ row model [1..14]
             , row model [15..28]
             , row model [29..41]
@@ -49,7 +54,7 @@ row model nums =
 
 nkey : Model -> Int -> Html Msg
 nkey model n =
-    div [ class "key" ]
+    div [ class "key", onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
         [ span []
             []
         , span []
@@ -74,3 +79,8 @@ nth i list =
 createkeys : Model -> List Int -> List (Html Msg)
 createkeys model nums =
     List.map (\n -> nkey model n) nums
+
+
+onTouchStart : msg -> Attribute msg
+onTouchStart message =
+    on "touchstart" (Json.succeed message)
