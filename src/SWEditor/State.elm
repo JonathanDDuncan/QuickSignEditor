@@ -99,7 +99,7 @@ update action model =
             { model | windowresized = False } ! [] |> andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            { model | sign = centerSign model.viewposition model.sign } ! []
+            { model | sign = centerSignViewposition model.viewposition model.sign } ! []
 
         StartDragging ->
             { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []

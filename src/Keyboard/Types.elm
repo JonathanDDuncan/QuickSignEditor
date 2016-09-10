@@ -3,6 +3,7 @@ module Keyboard.Types exposing (..)
 -- import SubFeatures.Types
 
 import Dict
+import SWEditor.Types
 
 
 type alias Model =
@@ -15,6 +16,7 @@ type alias Model =
 type Msg
     = FeatureMessage
     | KeyClicked Int
+    | Display SWEditor.Types.Msg
 
 
 type alias KeyboardLayout =

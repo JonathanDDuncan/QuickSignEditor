@@ -176,3 +176,17 @@
                 left: 2px;
                 bottom: 7px;
             }
+            /*scale svg to size of parent */
+            
+            .scaletoparent {
+                position: absolute;
+                display: block;
+                top: 2.5%;
+                bottom: 2.5%;
+                left: 2.5%;
+                right: 2.5%;
+                margin: auto;
+                max-width: 95%;
+                max-height: 95%;
+                cursor: default;
+            }

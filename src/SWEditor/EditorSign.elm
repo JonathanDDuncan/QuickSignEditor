@@ -32,8 +32,8 @@ toEditorSign sign id =
     }
 
 
-centerSign : NamedPosition -> EditorSign -> EditorSign
-centerSign viewposition sign =
+centerSignViewposition : NamedPosition -> EditorSign -> EditorSign
+centerSignViewposition viewposition sign =
     let
         width =
             viewposition.width
@@ -41,6 +41,18 @@ centerSign viewposition sign =
         height =
             viewposition.height
 
+        desiredxcenter =
+            width // 2
+
+        desiredycenter =
+            height // 2
+    in
+        centerSign desiredxcenter desiredycenter sign
+
+
+centerSign : Int -> Int -> EditorSign -> EditorSign
+centerSign desiredxcenter desiredycenter sign =
+    let
         bounding =
             getSignBounding sign
 
@@ -49,12 +61,6 @@ centerSign viewposition sign =
 
         currentycenter =
             bounding.y + bounding.height // 2
-
-        desiredxcenter =
-            width // 2
-
-        desiredycenter =
-            height // 2
 
         movex =
             desiredxcenter - currentxcenter
@@ -69,6 +75,21 @@ centerSign viewposition sign =
             sign.y + movey
     in
         { sign | x = newsignx, y = newsigny, syms = moveSymbols movex movey sign.syms }
+
+
+centerSignSmallest : EditorSign -> EditorSign
+centerSignSmallest sign =
+    let
+        bounding =
+            getSignBounding sign
+
+        desiredxcenter =
+            bounding.width // 2
+
+        desiredycenter =
+            bounding.height // 2
+    in
+        centerSign desiredxcenter desiredycenter sign
 
 
 getSignBounding : EditorSign -> Rect

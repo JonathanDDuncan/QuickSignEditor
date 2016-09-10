@@ -58,6 +58,11 @@ update action model =
             , Cmd.none
             )
 
+        Display ->
+            ( model
+            , Cmd.none
+            )
+
 
 
 --To nest update of Keyboard
