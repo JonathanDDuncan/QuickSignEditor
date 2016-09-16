@@ -196,3 +196,8 @@
                     top: 6px;
                     margin: auto;
                 }
+                
+                .symbol {
+                    position: absolute;
+                    font-size: 30px;
+                }

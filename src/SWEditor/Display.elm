@@ -34,11 +34,10 @@ extractColor symbol =
 symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String } -> Html Msg
 symbolView nbcolor symbol =
     span
-        [ style
+        [ class "symbol"
+        , style
             [ "left" => px symbol.x
             , "top" => px symbol.y
-            , "position" => "absolute"
-            , "font-size" => "30px"
             ]
         ]
         [ span

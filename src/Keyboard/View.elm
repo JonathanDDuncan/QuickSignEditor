@@ -63,14 +63,24 @@ createkeys model nums sign footerwidth =
 
 nkey : Model -> Int -> EditorSign -> Int -> Html Msg
 nkey model n sign footerwidth =
-    div [ class "key", onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
-        [ div [ class "scaletoparent", style [ "text-align" => "center" ] ]
-            [ App.map
-                Display
-                (SWEditor.Display.signView sign [ style [ "transform" => ("scale(" ++ (calcscale sign 30 (minkeywidth footerwidth)) ++ ")"), "display" => "inline-block" ] ])
+    let
+        leftmargin =
+            17
+
+        scale =
+            calcscale sign 30 ((minkeywidth footerwidth) - leftmargin)
+
+        width =
+            round (toFloat sign.width * scale)
+    in
+        div [ class "key", onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
+            [ div [ class "scaletoparent" ]
+                [ App.map
+                    Display
+                    (SWEditor.Display.signView sign [ style [ "transform" => ("scale(" ++ toString scale ++ ")"), "margin-left" => px leftmargin ] ])
+                ]
+            , span [] [ text <| getKeyDisplay n model ]
             ]
-        , span [] [ text <| getKeyDisplay n model ]
-        ]
 
 
 minkeywidth : Int -> Float
@@ -78,7 +88,7 @@ minkeywidth footerwidth =
     toFloat footerwidth * 0.66 * 0.063 - 3
 
 
-calcscale : { a | height : Int, width : Int } -> Float -> Float -> String
+calcscale : { a | height : Int, width : Int } -> Float -> Float -> Float
 calcscale sign height width =
     let
         availableWidth =
@@ -96,7 +106,7 @@ calcscale sign height width =
         scale =
             Basics.min (availableWidth / toFloat contentWidth) (availableHeight / toFloat contentHeight)
     in
-        toString scale
+        scale
 
 
 calcscaleheigth : { a | height : Int, width : Int } -> Float -> String
