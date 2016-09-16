@@ -58,7 +58,7 @@ update action model =
             , Cmd.none
             )
 
-        Display ->
+        Display msg ->
             ( model
             , Cmd.none
             )

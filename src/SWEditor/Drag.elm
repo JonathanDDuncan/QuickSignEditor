@@ -16,8 +16,11 @@ dragsign model =
 
         symbols =
             dragSymbols dragoffset sign.syms
+
+        bounds =
+            getSignBounding symbols
     in
-        { sign | syms = symbols }
+        { sign | syms = symbols, width = bounds.width, height = bounds.height, x = bounds.x, y = bounds.y }
 
 
 dragSymbols : Offset -> List EditorSymbol -> List EditorSymbol

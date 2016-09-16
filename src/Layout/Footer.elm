@@ -12,5 +12,5 @@ stickyFooter : Layout.Types.Model -> Html Layout.Types.Msg
 stickyFooter model =
     div
         [ class "footer", style [ ( "height", toString (model.footerheight) ++ "px" ) ] ]
-        [ App.map Keyboard (Keyboard.View.root model.keyboard <| centerSignSmallest model.signbox.sign)
+        [ App.map Keyboard (Keyboard.View.root model.keyboard (centerSignSmallest model.signbox.sign) model.window.windowSize.width)
         ]

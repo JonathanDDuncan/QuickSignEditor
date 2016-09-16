@@ -33,29 +33,28 @@ extractColor symbol =
 
 symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String } -> Html Msg
 symbolView nbcolor symbol =
-    svg []
+    span
+        [ style
+            [ "left" => px symbol.x
+            , "top" => px symbol.y
+            , "position" => "absolute"
+            , "font-size" => "30px"
+            ]
+        ]
         [ span
-            [ style
-                [ "left" => px symbol.x
-                , "top" => px symbol.y
-                , "position" => "absolute"
+            [ class "sym-fill"
+            , style
+                [ "color"
+                    => symbol.nwcolor
                 ]
             ]
-            [ span
-                [ class "sym-fill"
-                , style
-                    [ "color"
-                        => symbol.nwcolor
-                    ]
+            [ text symbol.pua ]
+        , span
+            [ class "sym-line"
+            , style
+                [ "color"
+                    => (nbcolor)
                 ]
-                [ text symbol.pua ]
-            , span
-                [ class "sym-line"
-                , style
-                    [ "color"
-                        => (nbcolor)
-                    ]
-                ]
-                [ text symbol.pua ]
             ]
+            [ text symbol.pua ]
         ]

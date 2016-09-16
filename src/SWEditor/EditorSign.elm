@@ -54,7 +54,7 @@ centerSign : Int -> Int -> EditorSign -> EditorSign
 centerSign desiredxcenter desiredycenter sign =
     let
         bounding =
-            getSignBounding sign
+            getSignBounding sign.syms
 
         currentxcenter =
             bounding.x + bounding.width // 2
@@ -81,7 +81,7 @@ centerSignSmallest : EditorSign -> EditorSign
 centerSignSmallest sign =
     let
         bounding =
-            getSignBounding sign
+            getSignBounding sign.syms
 
         desiredxcenter =
             bounding.width // 2
@@ -92,20 +92,20 @@ centerSignSmallest sign =
         centerSign desiredxcenter desiredycenter sign
 
 
-getSignBounding : EditorSign -> Rect
-getSignBounding sign =
+getSignBounding : List EditorSymbol -> Rect
+getSignBounding symbols =
     let
         x1 =
-            List.foldr (\s -> min s.x) 10000 sign.syms
+            List.foldr (\s -> min s.x) 10000 symbols
 
         y1 =
-            List.foldr (\s -> min s.y) 10000 sign.syms
+            List.foldr (\s -> min s.y) 10000 symbols
 
         x2 =
-            List.foldr (\s -> max (s.x + s.width)) 0 sign.syms
+            List.foldr (\s -> max (s.x + s.width)) 0 symbols
 
         y2 =
-            List.foldr (\s -> max (s.y + s.height)) 0 sign.syms
+            List.foldr (\s -> max (s.y + s.height)) 0 symbols
     in
         { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
 

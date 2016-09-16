@@ -10,66 +10,108 @@ import String
 import Json.Decode as Json
 import SWEditor.Display exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (..)
+import ViewHelper.ViewExtra exposing (..)
 
 
 --import SubFeature.View exposing (root)
 
 
-root : Model -> EditorSign -> Html Msg
-root model sign =
+root : Model -> EditorSign -> Int -> Html Msg
+root model sign footerwidth =
     div [ class "keyboard" ]
         [ text (String.concat model.keyboardhistory)
         , div
             [ class "alphabetic", style [ ( "width", "66%" ) ] ]
-            [ row model [1..14] sign
-            , row model [15..28] sign
-            , row model [29..41] sign
-            , row model [42..53] sign
-            , row model [54..60] sign
+            [ row model [1..14] sign footerwidth
+            , row model [15..28] sign footerwidth
+            , row model [29..41] sign footerwidth
+            , row model [42..53] sign footerwidth
+            , row model [54..60] sign footerwidth
             ]
         , div
             [ class "arrows", style [ ( "width", "14%" ) ] ]
             [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "15.5%" ) ] ]
-                [ row model [61..63] sign
-                , row model [64..66] sign
+                [ row model [61..63] sign footerwidth
+                , row model [64..66] sign footerwidth
                 ]
             , div [ style [ ( "height", "40%" ) ] ]
-                [ row model [67..67] sign
-                , row model [68..70] sign
+                [ row model [67..67] sign footerwidth
+                , row model [68..70] sign footerwidth
                 ]
             ]
         , div
             [ class "numeric", style [ ( "width", "20%" ) ] ]
-            [ row model [71..73] sign
-            , row model [74..77] sign
-            , row model [78..80] sign
-            , row model [81..83] sign
-            , row model [84..86] sign
+            [ row model [71..73] sign footerwidth
+            , row model [74..77] sign footerwidth
+            , row model [78..80] sign footerwidth
+            , row model [81..83] sign footerwidth
+            , row model [84..86] sign footerwidth
             ]
         ]
 
 
-row : Model -> List Int -> EditorSign -> Html Msg
-row model nums sign =
+row : Model -> List Int -> EditorSign -> Int -> Html Msg
+row model nums sign footerwidth =
     div [ class "row" ]
-        (createkeys model nums sign)
+        (createkeys model nums sign footerwidth)
 
 
-createkeys : Model -> List Int -> EditorSign -> List (Html Msg)
-createkeys model nums sign =
-    List.map (\n -> nkey model n sign) nums
+createkeys : Model -> List Int -> EditorSign -> Int -> List (Html Msg)
+createkeys model nums sign footerwidth =
+    List.map (\n -> nkey model n sign footerwidth) nums
 
 
-nkey : Model -> Int -> EditorSign -> Html Msg
-nkey model n sign =
+nkey : Model -> Int -> EditorSign -> Int -> Html Msg
+nkey model n sign footerwidth =
     div [ class "key", onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
-        [ App.map
-            Display
-            (SWEditor.Display.signView sign [ class "scaletoparent" ])
-        , span []
-            [ text <| getKeyDisplay n model ]
+        [ div [ class "scaletoparent", style [ "text-align" => "center" ] ]
+            [ App.map
+                Display
+                (SWEditor.Display.signView sign [ style [ "transform" => ("scale(" ++ (calcscale sign 30 (minkeywidth footerwidth)) ++ ")"), "display" => "inline-block" ] ])
+            ]
+        , span [] [ text <| getKeyDisplay n model ]
         ]
+
+
+minkeywidth : Int -> Float
+minkeywidth footerwidth =
+    toFloat footerwidth * 0.66 * 0.063 - 3
+
+
+calcscale : { a | height : Int, width : Int } -> Float -> Float -> String
+calcscale sign height width =
+    let
+        availableWidth =
+            width
+
+        contentWidth =
+            sign.width
+
+        availableHeight =
+            height
+
+        contentHeight =
+            sign.height
+
+        scale =
+            Basics.min (availableWidth / toFloat contentWidth) (availableHeight / toFloat contentHeight)
+    in
+        toString scale
+
+
+calcscaleheigth : { a | height : Int, width : Int } -> Float -> String
+calcscaleheigth sign height =
+    let
+        availableHeight =
+            height
+
+        contentHeight =
+            sign.height
+
+        scale =
+            availableHeight / toFloat contentHeight
+    in
+        Debug.log "Scale" (toString scale)
 
 
 getKeyDisplay : Int -> Model -> String
