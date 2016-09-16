@@ -17,6 +17,7 @@ import Keyboard.KeyboardLayouts exposing (..)
 init : ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
 init =
     ( { keyboardlayout = querty
+      , keyboarddisplay = fingerspellingQueryAsl
       , keycodedictionary = keycodes
       , keyboardhistory = []
       }

@@ -2,6 +2,70 @@ module Keyboard.KeyboardLayouts exposing (..)
 
 import Keyboard.Types exposing (..)
 import Dict exposing (..)
+import SW.State exposing (..)
+import SWEditor.EditorSign exposing (..)
+
+
+fingerspellingQueryAsl :
+    { keys : List { code : number, keypress : Keypress, sign : EditorSign }
+    , name : String
+    }
+fingerspellingQueryAsl =
+    { name = "quertyASL", keys = keyboardDisplay querty.keys aslTemplate }
+
+
+keyboardDisplay :
+    List a
+    -> b
+    -> List { code : number, keypress : Keypress, sign : EditorSign }
+keyboardDisplay keyboardlayout keyboardtemplate =
+    let
+        display =
+            List.map (createKeyDisplay keyboardtemplate) keyboardlayout
+    in
+        display
+
+
+createKeyDisplay :
+    b
+    -> c
+    -> { code : number, keypress : Keypress, sign : EditorSign }
+createKeyDisplay keyboardtemplate key =
+    { sign = SW.State.signinit
+    , code = 0
+    , keypress = None
+    }
+
+
+aslTemplate : List { fsw : String, letter : String, sign : Maybe EditorSign }
+aslTemplate =
+    [ { letter = "A", fsw = "M507x507S1f720487x492", sign = Nothing }
+    , { letter = "B", fsw = "M507x507S14720493x485", sign = Nothing }
+    , { letter = "C", fsw = "M508x507S16d20491x487", sign = Nothing }
+    , { letter = "D", fsw = "M508x507S10120492x477", sign = Nothing }
+    , { letter = "E", fsw = "M507x507S14a20492x492", sign = Nothing }
+    , { letter = "F", fsw = "M513x507S1ce20491x477", sign = Nothing }
+    , { letter = "G", fsw = "M507x507S1f000478x492", sign = Nothing }
+    , { letter = "H", fsw = "M507x507S11502477x492", sign = Nothing }
+    , { letter = "I", fsw = "M513x507S19220492x488", sign = Nothing }
+    , { letter = "J", fsw = "M513x507S19220492x488S2a20c476x472", sign = Nothing }
+    , { letter = "K", fsw = "M507x507S14020478x477", sign = Nothing }
+    , { letter = "L", fsw = "M508x507S1dc20484x477", sign = Nothing }
+    , { letter = "M", fsw = "M507x507S18d20487x482", sign = Nothing }
+    , { letter = "N", fsw = "M507x507S11920486x481", sign = Nothing }
+    , { letter = "O", fsw = "M508x507S17620492x491", sign = Nothing }
+    , { letter = "P", fsw = "M510x509S14051479x485", sign = Nothing }
+    , { letter = "Q", fsw = "M511x509S1f051481x486", sign = Nothing }
+    , { letter = "R", fsw = "M507x507S11a20492x477", sign = Nothing }
+    , { letter = "S", fsw = "M507x507S20320492x492", sign = Nothing }
+    , { letter = "T", fsw = "M508x507S1fb20493x488", sign = Nothing }
+    , { letter = "U", fsw = "M507x507S11520492x477", sign = Nothing }
+    , { letter = "V", fsw = "M508x507S10e20493x477", sign = Nothing }
+    , { letter = "W", fsw = "M509x507S18620491x478", sign = Nothing }
+    , { letter = "X", fsw = "M508x507S10620487x481", sign = Nothing }
+    , { letter = "Y", fsw = "M514x507S19a20486x487", sign = Nothing }
+    , { letter = "Z", fsw = "M528x507S10020492x477S2450a497x473", sign = Nothing }
+    ]
 
 
 querty : KeyboardLayout

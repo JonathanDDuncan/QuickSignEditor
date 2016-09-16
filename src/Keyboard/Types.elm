@@ -4,10 +4,13 @@ module Keyboard.Types exposing (..)
 
 import Dict
 import SWEditor.Types
+import SWEditor.EditorSign exposing (..)
+import SW.Types exposing (..)
 
 
 type alias Model =
     { keyboardlayout : KeyboardLayout
+    , keyboarddisplay : KeyboardDisplay
     , keycodedictionary : Dict.Dict Int String
     , keyboardhistory : List String
     }
@@ -25,8 +28,32 @@ type alias KeyboardLayout =
     }
 
 
+type alias KeyboardDisplay =
+    { name : String
+    , keys : List KeyDisplay
+    }
+
+
+type alias FingerSpellingTemplate =
+    List FingerSpellingLetterTemplate
+
+
+type alias FingerSpellingLetterTemplate =
+    { letter : String
+    , fsw : String
+    , sign : Maybe Sign
+    }
+
+
 type alias Key =
     { display : String
+    , code : Int
+    , keypress : Keypress
+    }
+
+
+type alias KeyDisplay =
+    { sign : EditorSign
     , code : Int
     , keypress : Keypress
     }
