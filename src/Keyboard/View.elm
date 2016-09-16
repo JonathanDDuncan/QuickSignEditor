@@ -10,7 +10,6 @@ import String
 import Json.Decode as Json
 import SWEditor.Display exposing (..)
 import SWEditor.EditorSign exposing (..)
-import ViewHelper.ViewExtra exposing (..)
 
 
 --import SubFeature.View exposing (root)
@@ -77,7 +76,7 @@ nkey model n sign footerwidth =
             [ div [ class "scaletoparent" ]
                 [ App.map
                     Display
-                    (SWEditor.Display.signView sign [ style [ "transform" => ("scale(" ++ toString scale ++ ")"), "margin-left" => px leftmargin ] ])
+                    (SWEditor.Display.scaledSignView sign scale leftmargin)
                 ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
@@ -107,21 +106,6 @@ calcscale sign height width =
             Basics.min (availableWidth / toFloat contentWidth) (availableHeight / toFloat contentHeight)
     in
         scale
-
-
-calcscaleheigth : { a | height : Int, width : Int } -> Float -> String
-calcscaleheigth sign height =
-    let
-        availableHeight =
-            height
-
-        contentHeight =
-            sign.height
-
-        scale =
-            availableHeight / toFloat contentHeight
-    in
-        Debug.log "Scale" (toString scale)
 
 
 getKeyDisplay : Int -> Model -> String

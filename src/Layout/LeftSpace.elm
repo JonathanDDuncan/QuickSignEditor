@@ -31,7 +31,6 @@ leftspace model =
             ]
             [ Icon.i "cancel" ]
         , text "This is the leftspace area"
-        , div [ class "key" ] [ div [ class "scaletoparent" ] [ App.map SWEditor (SWEditor.Display.signView (centerSignSmallest model.signbox.sign) []) ] ]
         ]
 
 

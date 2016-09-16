@@ -1,4 +1,4 @@
-module SWEditor.Display exposing (signView, symbolView)
+module SWEditor.Display exposing (signView, symbolView, scaledSignView)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -57,3 +57,22 @@ symbolView nbcolor symbol =
             ]
             [ text symbol.pua ]
         ]
+
+
+scaledSignView :
+    { b
+        | syms :
+            List
+                { a
+                    | nbcolor : String
+                    , nwcolor : String
+                    , pua : String
+                    , x : Int
+                    , y : Int
+                }
+    }
+    -> Float
+    -> Int
+    -> Html SWEditor.Types.Msg
+scaledSignView sign scale leftmargin =
+    signView sign [ style [ "transform" => ("scale(" ++ toString scale ++ ")"), "margin-left" => px leftmargin ] ]
