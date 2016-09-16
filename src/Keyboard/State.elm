@@ -17,7 +17,7 @@ import Keyboard.KeyboardLayouts exposing (..)
 init : ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
 init =
     ( { keyboardlayout = querty
-      , keycodedictionary = keytext
+      , keycodedictionary = keycodes
       , keyboardhistory = []
       }
       -- To initiate Keyboard state
