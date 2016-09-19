@@ -29,6 +29,7 @@ type alias Offset =
 type Msg
     = ChangeFSW String
     | RequestSign
+    | RequestSignMakerSign
     | SetSign Sign
     | RequestElementPosition String
     | ReceiveElementPosition NamedPosition

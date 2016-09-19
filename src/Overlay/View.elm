@@ -15,6 +15,6 @@ root model =
             [ App.map Layout (Layout.View.root model.layout)
             ]
     else
-        div []
-            [ button [ onClick Show ] [ text "Show" ]
+        div [ class "readytoshow" ]
+            [ button [ onClick Show ] [ text "Quick" ]
             ]

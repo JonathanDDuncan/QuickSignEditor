@@ -9,7 +9,13 @@ import SW.Types exposing (..)
 port requestSign : String -> Cmd msg
 
 
+port requestSignMakerSign : String -> Cmd msg
+
+
 port receiveSign : (Sign -> msg) -> Sub msg
+
+
+port receiveSignMakerSign : (Sign -> msg) -> Sub msg
 
 
 port requestElementPosition : String -> Cmd msg

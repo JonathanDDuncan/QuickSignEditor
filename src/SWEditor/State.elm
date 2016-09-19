@@ -79,6 +79,9 @@ update action model =
         RequestSign ->
             ( model, Ports.requestSign model.fsw )
 
+        RequestSignMakerSign ->
+            ( model, Ports.requestSignMakerSign "" )
+
         SetSign newsign ->
             let
                 editorSign =

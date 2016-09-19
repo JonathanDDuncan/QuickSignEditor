@@ -42,6 +42,17 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 
 });
+app.ports.requestSignMakerSign.subscribe(function(str) {
+    try {
+        var fsw = signmaker.vm.fsw("");
+        console.log(fsw)
+        var sign = sw10.symbolsList(fsw);
+        //send values to Elm subscription ports
+        app.ports.receiveSign.send(sign);
+    } catch (e) { console.log(e) }
+
+});
+
 
 function touchHandler(event) {
     var touches = event.changedTouches,
