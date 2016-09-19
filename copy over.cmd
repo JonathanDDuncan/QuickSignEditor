@@ -1,5 +1,5 @@
-del C:\Users\Jonathan\Documents\Freelance\SignWriterStudio\signmaker\lib\elm.js
-move .\dist\*.js  C:\Users\Jonathan\Documents\Freelance\SignWriterStudio\signmaker\lib\elm.js
-copy .\src\styles\*.css  C:\Users\Jonathan\Documents\Freelance\SignWriterStudio\signmaker\css\
+del src\signmaker\lib\elm.js
+move .\dist\*.js  src\signmaker\lib\elm.js
+copy .\src\styles\*.css  src\signmaker\css\
  
 pause
