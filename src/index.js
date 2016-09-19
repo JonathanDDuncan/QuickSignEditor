@@ -36,6 +36,13 @@ app.ports.requestElementPosition.subscribe(function(id) {
 
 });
 
+app.ports.shareFsw.subscribe(function(fsw) {
+    try {
+        signmaker.vm.load(fsw)
+    } catch (e) { console.log(e) }
+
+});
+
 function touchHandler(event) {
     var touches = event.changedTouches,
         first = touches[0],

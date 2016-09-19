@@ -9,6 +9,8 @@ import PlatformHelpers exposing (..)
 import Overlay.Types exposing (..)
 import Layout.Types exposing (..)
 import Layout.State
+import Ports exposing (..)
+import SWEditor.EditorSign exposing (..)
 
 
 -- import SubOverlays.State
@@ -41,6 +43,13 @@ layoutactions action model =
     case action of
         HideOverlay ->
             ( { model | show = False }, Cmd.none )
+
+        ShareFsw ->
+            let
+                fsw =
+                    SWEditor.EditorSign.getFsw model.layout.signbox.sign
+            in
+                ( { model | show = False }, Ports.shareFsw fsw )
 
         _ ->
             lift

@@ -74,6 +74,11 @@ update msg model =
             , Cmd.none
             )
 
+        ShareFsw ->
+            ( model
+            , Cmd.none
+            )
+
         Window action ->
             lift .window windowSizeSetter Window WindowSize.State.update action model
 

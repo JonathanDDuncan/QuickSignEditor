@@ -3,6 +3,7 @@ module SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
+import Convert.ConvertFsw exposing (..)
 
 
 type alias EditorSign =
@@ -118,3 +119,32 @@ getlastuid editorSign =
 
         Just sign ->
             sign.id
+
+
+getFsw : EditorSign -> String
+getFsw editorSign =
+    let
+        centered =
+            centerSign 500 500 editorSign
+
+        boundingbox =
+            "M" ++ toString (centered.x + centered.width) ++ "x" ++ toString (centered.y + centered.height)
+
+        -- M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468
+        symbols =
+            List.foldr (++) "" (List.map symbolsFsw centered.syms)
+
+        fsw =
+            boundingbox ++ symbols
+    in
+        fsw
+
+
+
+-- Todo check keyfromcode and use instead
+-- (Convert.ConvertFsw.keyfromcode symbol.code) ++ toString symbol.x ++ "x" ++ toString symbol.y
+
+
+symbolsFsw : { c | key : String, x : a, y : b } -> String
+symbolsFsw symbol =
+    symbol.key ++ toString symbol.x ++ "x" ++ toString symbol.y

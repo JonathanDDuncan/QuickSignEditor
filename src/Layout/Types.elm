@@ -36,6 +36,7 @@ type Msg
     = Increase
     | Reset
     | HideOverlay
+    | ShareFsw
     | Window WindowSize.Types.Msg
     | SWEditor SWEditor.Types.Msg
     | Keyboard Keyboard.Types.Msg

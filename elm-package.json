@@ -19,6 +19,7 @@
         "elm-lang/window": "1.0.0 <= v < 2.0.0",
         "evancz/elm-http": "3.0.1 <= v < 4.0.0",
         "evancz/elm-markdown": "3.0.0 <= v < 4.0.0",
+        "fredcy/elm-parseint": "1.3.0 <= v < 2.0.0",
         "knledg/touch-events": "1.0.1 <= v < 2.0.0"
     },
     "elm-version": "0.17.0 <= v < 0.18.0"

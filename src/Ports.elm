@@ -16,3 +16,6 @@ port requestElementPosition : String -> Cmd msg
 
 
 port receiveElementPosition : (NamedPosition -> msg) -> Sub msg
+
+
+port shareFsw : String -> Cmd msg
