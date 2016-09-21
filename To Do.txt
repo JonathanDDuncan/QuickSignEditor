@@ -1,5 +1,6 @@
 To Do
 
+Add QuickSignEditor to SignWriter Studio
 Add fingerspelling layout to keyboard
 Add Manequin chooser
 Do smooth draw when first symbol selected
