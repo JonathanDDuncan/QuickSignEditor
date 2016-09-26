@@ -38,24 +38,20 @@ app.ports.requestElementPosition.subscribe(function(id) {
 
 app.ports.shareFsw.subscribe(function(fsw) {
     try {
-        console.log("value of fsw")
-        console.log(fsw)
         if ("signmaker" in window) {
-            console.log("signmaker loaded")
             signmaker.vm.load(fsw)
         } else {
-            console.log("signmaker not loaded")
             window.resultFSW = fsw
             console.log("value of window.resultFSW")
             console.log(window.resultFSW)
+
+            callbackObj.setFsw(fsw);
         }
 
     } catch (e) { console.log(e) }
 
 });
-app.ports.requestSignMakerSign.subscribe(getFSW);
-
-function getFSW(str) {
+app.ports.requestSignMakerSign.subscribe(function(str) {
     try {
 
         if ("signmaker" in window) {
@@ -77,7 +73,9 @@ function getFSW(str) {
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
 
-}
+});
+
+
 
 function touchHandler(event) {
     var touches = event.changedTouches,
