@@ -5,7 +5,7 @@ require('./styles/main.scss');
 //To change aplication name change the three words Starter in the next two line and in the div in index.html
 var Elm = require('./QuickSignEditor');
 var app = Elm.QuickSignEditor.embed(document.getElementById('quicksigneditor'));
-
+window.app = app;
 
 //subscribe javacript functions to Elm command ports
 app.ports.requestSign.subscribe(function(fsw) {
@@ -38,21 +38,46 @@ app.ports.requestElementPosition.subscribe(function(id) {
 
 app.ports.shareFsw.subscribe(function(fsw) {
     try {
-        signmaker.vm.load(fsw)
+        console.log("value of fsw")
+        console.log(fsw)
+        if ("signmaker" in window) {
+            console.log("signmaker loaded")
+            signmaker.vm.load(fsw)
+        } else {
+            console.log("signmaker not loaded")
+            window.resultFSW = fsw
+            console.log("value of window.resultFSW")
+            console.log(window.resultFSW)
+        }
+
     } catch (e) { console.log(e) }
 
 });
-app.ports.requestSignMakerSign.subscribe(function(str) {
+app.ports.requestSignMakerSign.subscribe(getFSW);
+
+function getFSW(str) {
     try {
-        var fsw = signmaker.vm.fsw("");
-        console.log(fsw)
+
+        if ("signmaker" in window) {
+            console.log("signmaker loaded")
+            var fsw = signmaker.vm.fsw("");
+            console.log(fsw)
+        } else {
+            console.log("signmaker not loaded")
+            console.log("value of window.initialFSW")
+            console.log(window.initialFSW)
+
+            var fsw = window.initialFSW
+        }
+
         var sign = sw10.symbolsList(fsw);
-        //send values to Elm subscription ports
+        console.log("value of sign")
+        console.log(sign)
+            //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
 
-});
-
+}
 
 function touchHandler(event) {
     var touches = event.changedTouches,

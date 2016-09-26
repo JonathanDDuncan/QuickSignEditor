@@ -1,13 +1,14 @@
 To Do
 
 Add QuickSignEditor to SignWriter Studio
+Add load fsw from SignMaker as soon as loaded
 Add fingerspelling layout to keyboard
 Add Manequin chooser
-Do smooth draw when first symbol selected
+Do smooth drag when first symbol selected
 Add color choooser
 Add align right left
 Add Bring to top or bottom
-Add load fsw from SignMaker as soon as loaded
+
 Commands from keyboard
 
 
