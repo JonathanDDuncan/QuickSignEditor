@@ -48,7 +48,7 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 });
 
-app.ports.requestSignMakerSign.subscribe(function(str) {
+app.ports.requestSignfromOtherApp.subscribe(function(str) {
     try {
 
         if ("signmaker" in window) {
