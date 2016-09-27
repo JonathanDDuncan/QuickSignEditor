@@ -1,7 +1,6 @@
 To Do
 
-Add QuickSignEditor to SignWriter Studio
-Add load fsw from SignMaker as soon as loaded
+Center sign properly when loaded from SignMaker
 Add fingerspelling layout to keyboard
 Add Manequin chooser
 Do smooth drag when first symbol selected

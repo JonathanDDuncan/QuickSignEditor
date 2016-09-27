@@ -16,6 +16,7 @@ app.ports.requestSign.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 
 });
+
 app.ports.requestElementPosition.subscribe(function(id) {
     try {
         var element = document.getElementById(id);
@@ -42,46 +43,31 @@ app.ports.shareFsw.subscribe(function(fsw) {
             signmaker.vm.load(fsw)
         } else {
             window.resultFSW = fsw
-            console.log("value of window.resultFSW")
-            console.log(window.resultFSW)
-
             callbackObj.setFsw(fsw);
         }
-
     } catch (e) { console.log(e) }
-
 });
+
 app.ports.requestSignMakerSign.subscribe(function(str) {
     try {
 
         if ("signmaker" in window) {
-            console.log("signmaker loaded")
             var fsw = signmaker.vm.fsw("");
-            console.log(fsw)
         } else {
-            console.log("signmaker not loaded")
-            console.log("value of window.initialFSW")
-            console.log(window.initialFSW)
-
             var fsw = window.initialFSW
         }
 
         var sign = sw10.symbolsList(fsw);
-        console.log("value of sign")
-        console.log(sign)
-            //send values to Elm subscription ports
+
+        //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
-
 });
-
-
 
 function touchHandler(event) {
     var touches = event.changedTouches,
         first = touches[0],
         type = "";
-
     switch (event.type) {
         case "touchstart":
             type = "mousedown";

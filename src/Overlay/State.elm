@@ -32,7 +32,7 @@ update msg model =
             ( { model | show = False }, Cmd.none )
 
         Show ->
-            ( { model | show = True }, Cmd.none )
+            ( { model | show = True }, Ports.requestSignMakerSign "" )
 
         Layout action ->
             layoutactions action model
