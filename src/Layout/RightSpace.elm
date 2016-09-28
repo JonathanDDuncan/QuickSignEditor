@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.App as App exposing (..)
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
-import WindowSize.View
+import MainChooser.View
 
 
 rightspace : Model -> Html Msg
@@ -20,9 +20,7 @@ rightspace model =
             , ( "margin-left", toString model.rightspacemarginleftpercentage ++ "%" )
             ]
         ]
-        [ text "This is the rightspace area"
-          -- , mysignBox model
-        , App.map Window (WindowSize.View.root model.window)
+        [ App.map MainChooser (MainChooser.View.root model.mainchooser)
         ]
 
 
