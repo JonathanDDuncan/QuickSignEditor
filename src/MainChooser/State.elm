@@ -7,6 +7,7 @@ module MainChooser.State exposing (init, update, subscriptions)
 -- import PlatformHelpers exposing (..)
 
 import MainChooser.Types exposing (..)
+import Ports exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -14,17 +15,13 @@ import MainChooser.Types exposing (..)
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
-    ( { choosings = initchoosings
+    ( { choosings = []
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
     , Cmd.none
     )
-
-
-initchoosings =
-    [ {} ]
 
 
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
@@ -35,6 +32,15 @@ update action model =
             , Cmd.none
             )
 
+        RequestInitialChoosings ->
+            ( model
+            , Ports.requestInitialChoosings ""
+            )
+
+        ReceiveInitialChoosings choosings ->
+            ( {model | choosings = choosings}
+            , Cmd.none
+            )
 
 
 --To nest update of MainChooser
@@ -43,10 +49,15 @@ update action model =
 
 
 subscriptions : MainChooser.Types.Model -> Sub MainChooser.Types.Msg
-subscriptions _ =
-    Sub.none
+subscriptions = 
+    Sub.batch
+        [ 
+            receiveInitialChoosings ReceiveInitialChoosings
+        
+        ]
+    
 
-
+receiveInitialChoosings
 
 -- To nest subscriptions
 -- Sub.batch

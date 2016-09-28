@@ -48,22 +48,40 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 });
 
-app.ports.requestSignfromOtherApp.subscribe(function(str) {
+// app.ports.requestSignfromOtherApp.subscribe(function(str) {
+//     try {
+
+//         if ("signmaker" in window) {
+//             var fsw = signmaker.vm.fsw("");
+//         } else {
+//             var fsw = window.initialFSW
+//         }
+
+//         var sign = sw10.symbolsList(fsw);
+
+//         //send values to Elm subscription ports
+//         app.ports.receiveSign.send(sign);
+//     } catch (e) { console.log(e) }
+// });
+
+app.ports.requestInitialChoosings.subscribe(function(str) {
     try {
-
-        if ("signmaker" in window) {
-            var fsw = signmaker.vm.fsw("");
-        } else {
-            var fsw = window.initialFSW
-        }
-
+        var fsw = "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468";
         var sign = sw10.symbolsList(fsw);
+        var offset1 = {};
+        offset1.x = 10;
+        offset1.y = 20;
 
+        var choosing = {};
+        choosing.displaySign = sign;
+        choosing.valuestoAdd = sign.syms;
+        choosing.value = 101;
+        choosing.offset = offset1;
+        var choosings = [choosing];
         //send values to Elm subscription ports
-        app.ports.receiveSign.send(sign);
+        app.ports.receiveInitialChoosings.send(choosings);
     } catch (e) { console.log(e) }
 });
-
 app.ports.requestSignfromOtherApp.subscribe(requestSign);
 
 function requestSign(str) {

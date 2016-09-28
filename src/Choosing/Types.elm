@@ -2,14 +2,13 @@ module Choosing.Types exposing (..)
 
 -- import SubChoosings.Types
 
-import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Types exposing (..)
+import SW.Types exposing (..)
 
 
 type alias Model =
-    { displaySign : EditorSign
-    , valuestoAdd : List EditorSymbol
+    { displaySign : Sign
+    , valuestoAdd : List Symbol
     , value : Int
     , offset : Offset
     }

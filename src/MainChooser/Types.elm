@@ -11,6 +11,8 @@ type alias Model =
 
 type Msg
     = MainChooserMessage
+    | RequestInitialChoosings
+    | ReceiveInitialChoosings List Choosing.Model
 
 
 
