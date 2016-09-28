@@ -1,6 +1,9 @@
 To Do
 
-Center sign properly when loaded from SignMaker
+Get Choosings List for Chooser
+Drag drop Choosing onto signArea
+click Choosings to get more specific
+
 Add fingerspelling layout to keyboard
 Add Manequin chooser
 Do smooth drag when first symbol selected
