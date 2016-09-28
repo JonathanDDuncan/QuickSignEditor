@@ -25,3 +25,6 @@ port receiveElementPosition : (NamedPosition -> msg) -> Sub msg
 
 
 port shareFsw : String -> Cmd msg
+
+
+port requestSignfromOtherAppDelayed : String -> Cmd msg

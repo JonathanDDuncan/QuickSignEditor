@@ -64,6 +64,33 @@ app.ports.requestSignfromOtherApp.subscribe(function(str) {
     } catch (e) { console.log(e) }
 });
 
+app.ports.requestSignfromOtherApp.subscribe(requestSign);
+
+function requestSign(str) {
+    try {
+
+        if ("signmaker" in window) {
+            var fsw = signmaker.vm.fsw("");
+        } else {
+            var fsw = window.initialFSW
+        }
+
+        var sign = sw10.symbolsList(fsw);
+
+        //send values to Elm subscription ports
+        app.ports.receiveSign.send(sign);
+    } catch (e) { console.log(e) }
+}
+
+function requestSignDelayed(str) {
+    try {
+        window.setTimeout(requestSign, 15);
+
+    } catch (e) { console.log(e) }
+}
+app.ports.requestSignfromOtherAppDelayed.subscribe(requestSignDelayed);
+
+
 function touchHandler(event) {
     var touches = event.changedTouches,
         first = touches[0],

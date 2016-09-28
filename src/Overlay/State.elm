@@ -32,7 +32,7 @@ update msg model =
             ( { model | show = False }, Cmd.none )
 
         Show ->
-            ( { model | show = True }, Ports.requestSignfromOtherApp "" )
+            ( { model | show = True }, Ports.requestSignfromOtherAppDelayed "" )
 
         Layout action ->
             layoutactions action model

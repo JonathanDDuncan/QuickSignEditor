@@ -21,16 +21,23 @@ type alias EditorSign =
 
 toEditorSign : Sign -> Int -> EditorSign
 toEditorSign sign id =
-    { width = sign.width
-    , height = sign.height
-    , text = sign.text
-    , x = sign.x
-    , y = sign.y
-    , backfill = sign.backfill
-    , syms = List.indexedMap (toEditorSymbol id) sign.syms
-    , laned = sign.laned
-    , left = sign.left
-    }
+    let
+        editorsymbols =
+            List.indexedMap (toEditorSymbol id) sign.syms
+
+        boundingbox =
+            getSignBounding editorsymbols
+    in
+        { width = boundingbox.width
+        , height = boundingbox.height
+        , text = sign.text
+        , x = boundingbox.x
+        , y = boundingbox.y
+        , backfill = sign.backfill
+        , syms = editorsymbols
+        , laned = sign.laned
+        , left = sign.left
+        }
 
 
 centerSignViewposition : NamedPosition -> EditorSign -> EditorSign
