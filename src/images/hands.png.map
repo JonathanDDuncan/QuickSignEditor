@@ -1,0 +1,5870 @@
+{
+  "images": [
+    {
+      "name": "/hands/1c410.png",
+      "width": 26,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 1
+    },
+    {
+      "name": "/hands/10130.png",
+      "width": 28,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 66
+    },
+    {
+      "name": "/hands/10540.png",
+      "width": 48,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 113
+    },
+    {
+      "name": "/hands/10730.png",
+      "width": 27,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 158
+    },
+    {
+      "name": "/hands/10a00.png",
+      "width": 32,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 203
+    },
+    {
+      "name": "/hands/10b10.png",
+      "width": 26,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 263
+    },
+    {
+      "name": "/hands/10c20.png",
+      "width": 29,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 323
+    },
+    {
+      "name": "/hands/10e00.png",
+      "width": 30,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 381
+    },
+    {
+      "name": "/hands/10f30.png",
+      "width": 34,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 448
+    },
+    {
+      "name": "/hands/11040.png",
+      "width": 43,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 487
+    },
+    {
+      "name": "/hands/11230.png",
+      "width": 28,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 533
+    },
+    {
+      "name": "/hands/11400.png",
+      "width": 27,
+      "height": 68,
+      "offsetX": 1,
+      "offsetY": 584
+    },
+    {
+      "name": "/hands/11510.png",
+      "width": 23,
+      "height": 68,
+      "offsetX": 1,
+      "offsetY": 653
+    },
+    {
+      "name": "/hands/11630.png",
+      "width": 27,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 722
+    },
+    {
+      "name": "/hands/11800.png",
+      "width": 26,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 773
+    },
+    {
+      "name": "/hands/11930.png",
+      "width": 29,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 838
+    },
+    {
+      "name": "/hands/11b30.png",
+      "width": 31,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 889
+    },
+    {
+      "name": "/hands/11c50.png",
+      "width": 48,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 940
+    },
+    {
+      "name": "/hands/11e40.png",
+      "width": 47,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 990
+    },
+    {
+      "name": "/hands/12030.png",
+      "width": 43,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 1040
+    },
+    {
+      "name": "/hands/12150.png",
+      "width": 45,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 1084
+    },
+    {
+      "name": "/hands/12340.png",
+      "width": 38,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 1126
+    },
+    {
+      "name": "/hands/12500.png",
+      "width": 32,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 1176
+    },
+    {
+      "name": "/hands/12620.png",
+      "width": 34,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 1240
+    },
+    {
+      "name": "/hands/12800.png",
+      "width": 31,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 1305
+    },
+    {
+      "name": "/hands/12910.png",
+      "width": 30,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 1367
+    },
+    {
+      "name": "/hands/12a30.png",
+      "width": 40,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 1422
+    },
+    {
+      "name": "/hands/12b40.png",
+      "width": 54,
+      "height": 31,
+      "offsetX": 1,
+      "offsetY": 1475
+    },
+    {
+      "name": "/hands/12c50.png",
+      "width": 56,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 1507
+    },
+    {
+      "name": "/hands/12e40.png",
+      "width": 47,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 1547
+    },
+    {
+      "name": "/hands/13040.png",
+      "width": 34,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 1586
+    },
+    {
+      "name": "/hands/13230.png",
+      "width": 51,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 1632
+    },
+    {
+      "name": "/hands/13440.png",
+      "width": 49,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 1681
+    },
+    {
+      "name": "/hands/13640.png",
+      "width": 47,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 1722
+    },
+    {
+      "name": "/hands/13850.png",
+      "width": 46,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 1768
+    },
+    {
+      "name": "/hands/13a40.png",
+      "width": 40,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 1815
+    },
+    {
+      "name": "/hands/13e10.png",
+      "width": 39,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 1861
+    },
+    {
+      "name": "/hands/13e20.png",
+      "width": 37,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 1914
+    },
+    {
+      "name": "/hands/13e30.png",
+      "width": 41,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 1975
+    },
+    {
+      "name": "/hands/13e40.png",
+      "width": 51,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 2027
+    },
+    {
+      "name": "/hands/13e50.png",
+      "width": 65,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 2073
+    },
+    {
+      "name": "/hands/13f00.png",
+      "width": 28,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 2116
+    },
+    {
+      "name": "/hands/13f10.png",
+      "width": 38,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 2173
+    },
+    {
+      "name": "/hands/13f20.png",
+      "width": 41,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 2227
+    },
+    {
+      "name": "/hands/13f30.png",
+      "width": 36,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 2282
+    },
+    {
+      "name": "/hands/13f40.png",
+      "width": 47,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 2337
+    },
+    {
+      "name": "/hands/13f50.png",
+      "width": 52,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 2380
+    },
+    {
+      "name": "/hands/14000.png",
+      "width": 30,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 2422
+    },
+    {
+      "name": "/hands/14010.png",
+      "width": 36,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 2489
+    },
+    {
+      "name": "/hands/14020.png",
+      "width": 36,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 2557
+    },
+    {
+      "name": "/hands/14030.png",
+      "width": 37,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 2625
+    },
+    {
+      "name": "/hands/14040.png",
+      "width": 47,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 2678
+    },
+    {
+      "name": "/hands/14050.png",
+      "width": 63,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 2726
+    },
+    {
+      "name": "/hands/14100.png",
+      "width": 28,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 2774
+    },
+    {
+      "name": "/hands/14110.png",
+      "width": 35,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 2832
+    },
+    {
+      "name": "/hands/14120.png",
+      "width": 37,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 2890
+    },
+    {
+      "name": "/hands/14130.png",
+      "width": 41,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 2951
+    },
+    {
+      "name": "/hands/14140.png",
+      "width": 46,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 3003
+    },
+    {
+      "name": "/hands/14150.png",
+      "width": 53,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 3046
+    },
+    {
+      "name": "/hands/14200.png",
+      "width": 31,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 3090
+    },
+    {
+      "name": "/hands/14210.png",
+      "width": 41,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 3157
+    },
+    {
+      "name": "/hands/14220.png",
+      "width": 39,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 3224
+    },
+    {
+      "name": "/hands/14230.png",
+      "width": 38,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 3291
+    },
+    {
+      "name": "/hands/14240.png",
+      "width": 49,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 3349
+    },
+    {
+      "name": "/hands/14250.png",
+      "width": 54,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 3397
+    },
+    {
+      "name": "/hands/14300.png",
+      "width": 32,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 3444
+    },
+    {
+      "name": "/hands/14310.png",
+      "width": 40,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 3506
+    },
+    {
+      "name": "/hands/14320.png",
+      "width": 35,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 3568
+    },
+    {
+      "name": "/hands/14330.png",
+      "width": 37,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 3630
+    },
+    {
+      "name": "/hands/14340.png",
+      "width": 41,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 3682
+    },
+    {
+      "name": "/hands/14350.png",
+      "width": 50,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 3725
+    },
+    {
+      "name": "/hands/14400.png",
+      "width": 40,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 3766
+    },
+    {
+      "name": "/hands/14410.png",
+      "width": 21,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 3831
+    },
+    {
+      "name": "/hands/14420.png",
+      "width": 33,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 3896
+    },
+    {
+      "name": "/hands/14430.png",
+      "width": 34,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 3962
+    },
+    {
+      "name": "/hands/14440.png",
+      "width": 43,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 4005
+    },
+    {
+      "name": "/hands/14450.png",
+      "width": 46,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 4049
+    },
+    {
+      "name": "/hands/14500.png",
+      "width": 34,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 4093
+    },
+    {
+      "name": "/hands/14510.png",
+      "width": 31,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 4160
+    },
+    {
+      "name": "/hands/14520.png",
+      "width": 35,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 4227
+    },
+    {
+      "name": "/hands/14530.png",
+      "width": 33,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 4292
+    },
+    {
+      "name": "/hands/14540.png",
+      "width": 57,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 4340
+    },
+    {
+      "name": "/hands/14550.png",
+      "width": 52,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 4388
+    },
+    {
+      "name": "/hands/14600.png",
+      "width": 37,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 4432
+    },
+    {
+      "name": "/hands/14610.png",
+      "width": 37,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 4495
+    },
+    {
+      "name": "/hands/14620.png",
+      "width": 37,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 4558
+    },
+    {
+      "name": "/hands/14630.png",
+      "width": 36,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 4611
+    },
+    {
+      "name": "/hands/14640.png",
+      "width": 49,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 4662
+    },
+    {
+      "name": "/hands/14650.png",
+      "width": 55,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 4701
+    },
+    {
+      "name": "/hands/14700.png",
+      "width": 24,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 4738
+    },
+    {
+      "name": "/hands/14710.png",
+      "width": 22,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 4799
+    },
+    {
+      "name": "/hands/14720.png",
+      "width": 24,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 4860
+    },
+    {
+      "name": "/hands/14730.png",
+      "width": 25,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 4922
+    },
+    {
+      "name": "/hands/14740.png",
+      "width": 41,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 4962
+    },
+    {
+      "name": "/hands/14750.png",
+      "width": 40,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 5001
+    },
+    {
+      "name": "/hands/14800.png",
+      "width": 25,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 5038
+    },
+    {
+      "name": "/hands/14810.png",
+      "width": 23,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 5098
+    },
+    {
+      "name": "/hands/14820.png",
+      "width": 28,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 5158
+    },
+    {
+      "name": "/hands/14830.png",
+      "width": 24,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 5219
+    },
+    {
+      "name": "/hands/14840.png",
+      "width": 51,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 5257
+    },
+    {
+      "name": "/hands/14850.png",
+      "width": 50,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 5300
+    },
+    {
+      "name": "/hands/14900.png",
+      "width": 26,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 5338
+    },
+    {
+      "name": "/hands/14910.png",
+      "width": 23,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 5395
+    },
+    {
+      "name": "/hands/14920.png",
+      "width": 27,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 5453
+    },
+    {
+      "name": "/hands/14930.png",
+      "width": 28,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 5510
+    },
+    {
+      "name": "/hands/14940.png",
+      "width": 46,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 5550
+    },
+    {
+      "name": "/hands/14950.png",
+      "width": 41,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 5596
+    },
+    {
+      "name": "/hands/14a00.png",
+      "width": 23,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 5640
+    },
+    {
+      "name": "/hands/14a10.png",
+      "width": 23,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 5688
+    },
+    {
+      "name": "/hands/14a20.png",
+      "width": 25,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 5734
+    },
+    {
+      "name": "/hands/14a30.png",
+      "width": 26,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 5780
+    },
+    {
+      "name": "/hands/14a40.png",
+      "width": 42,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 5822
+    },
+    {
+      "name": "/hands/14a50.png",
+      "width": 45,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 5864
+    },
+    {
+      "name": "/hands/14b00.png",
+      "width": 34,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 5906
+    },
+    {
+      "name": "/hands/14b10.png",
+      "width": 41,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 5960
+    },
+    {
+      "name": "/hands/14b20.png",
+      "width": 43,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 6014
+    },
+    {
+      "name": "/hands/14b30.png",
+      "width": 31,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 6068
+    },
+    {
+      "name": "/hands/14b40.png",
+      "width": 66,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 6124
+    },
+    {
+      "name": "/hands/14b50.png",
+      "width": 60,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 6169
+    },
+    {
+      "name": "/hands/14c00.png",
+      "width": 47,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 6216
+    },
+    {
+      "name": "/hands/14c10.png",
+      "width": 22,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 6278
+    },
+    {
+      "name": "/hands/14c20.png",
+      "width": 46,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 6343
+    },
+    {
+      "name": "/hands/14c30.png",
+      "width": 40,
+      "height": 32,
+      "offsetX": 1,
+      "offsetY": 6403
+    },
+    {
+      "name": "/hands/14c40.png",
+      "width": 32,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 6436
+    },
+    {
+      "name": "/hands/14c50.png",
+      "width": 47,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 6481
+    },
+    {
+      "name": "/hands/14d10.png",
+      "width": 47,
+      "height": 26,
+      "offsetX": 1,
+      "offsetY": 6516
+    },
+    {
+      "name": "/hands/14d11.png",
+      "width": 34,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 6543
+    },
+    {
+      "name": "/hands/14d12.png",
+      "width": 24,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 6585
+    },
+    {
+      "name": "/hands/14d13.png",
+      "width": 42,
+      "height": 29,
+      "offsetX": 1,
+      "offsetY": 6631
+    },
+    {
+      "name": "/hands/14d14.png",
+      "width": 48,
+      "height": 23,
+      "offsetX": 1,
+      "offsetY": 6661
+    },
+    {
+      "name": "/hands/14d15.png",
+      "width": 40,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 6685
+    },
+    {
+      "name": "/hands/14e00.png",
+      "width": 48,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 6721
+    },
+    {
+      "name": "/hands/14e10.png",
+      "width": 27,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 6776
+    },
+    {
+      "name": "/hands/14e20.png",
+      "width": 42,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 6832
+    },
+    {
+      "name": "/hands/14e30.png",
+      "width": 43,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 6884
+    },
+    {
+      "name": "/hands/14e40.png",
+      "width": 42,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 6922
+    },
+    {
+      "name": "/hands/14e50.png",
+      "width": 46,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 6970
+    },
+    {
+      "name": "/hands/14f10.png",
+      "width": 42,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 7005
+    },
+    {
+      "name": "/hands/14f11.png",
+      "width": 30,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 7036
+    },
+    {
+      "name": "/hands/14f12.png",
+      "width": 22,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 7075
+    },
+    {
+      "name": "/hands/14f13.png",
+      "width": 38,
+      "height": 31,
+      "offsetX": 1,
+      "offsetY": 7117
+    },
+    {
+      "name": "/hands/14f14.png",
+      "width": 45,
+      "height": 24,
+      "offsetX": 1,
+      "offsetY": 7149
+    },
+    {
+      "name": "/hands/14f15.png",
+      "width": 36,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 7174
+    },
+    {
+      "name": "/hands/15000.png",
+      "width": 33,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 7216
+    },
+    {
+      "name": "/hands/15010.png",
+      "width": 26,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 7273
+    },
+    {
+      "name": "/hands/15020.png",
+      "width": 35,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 7333
+    },
+    {
+      "name": "/hands/15030.png",
+      "width": 32,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 7391
+    },
+    {
+      "name": "/hands/15040.png",
+      "width": 37,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 7435
+    },
+    {
+      "name": "/hands/15050.png",
+      "width": 43,
+      "height": 32,
+      "offsetX": 1,
+      "offsetY": 7476
+    },
+    {
+      "name": "/hands/15110.png",
+      "width": 42,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 7509
+    },
+    {
+      "name": "/hands/15111.png",
+      "width": 38,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 7545
+    },
+    {
+      "name": "/hands/15112.png",
+      "width": 34,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 7587
+    },
+    {
+      "name": "/hands/15113.png",
+      "width": 42,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 7625
+    },
+    {
+      "name": "/hands/15114.png",
+      "width": 40,
+      "height": 28,
+      "offsetX": 1,
+      "offsetY": 7661
+    },
+    {
+      "name": "/hands/15115.png",
+      "width": 38,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 7690
+    },
+    {
+      "name": "/hands/15200.png",
+      "width": 33,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 7732
+    },
+    {
+      "name": "/hands/15210.png",
+      "width": 34,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 7792
+    },
+    {
+      "name": "/hands/15220.png",
+      "width": 35,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 7856
+    },
+    {
+      "name": "/hands/15230.png",
+      "width": 40,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 7918
+    },
+    {
+      "name": "/hands/15240.png",
+      "width": 34,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 7956
+    },
+    {
+      "name": "/hands/15250.png",
+      "width": 42,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 7996
+    },
+    {
+      "name": "/hands/15300.png",
+      "width": 34,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 8035
+    },
+    {
+      "name": "/hands/15310.png",
+      "width": 33,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 8091
+    },
+    {
+      "name": "/hands/15320.png",
+      "width": 35,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 8155
+    },
+    {
+      "name": "/hands/15330.png",
+      "width": 33,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 8216
+    },
+    {
+      "name": "/hands/15340.png",
+      "width": 36,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 8262
+    },
+    {
+      "name": "/hands/15350.png",
+      "width": 41,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 8302
+    },
+    {
+      "name": "/hands/15400.png",
+      "width": 33,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 8337
+    },
+    {
+      "name": "/hands/15410.png",
+      "width": 32,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 8401
+    },
+    {
+      "name": "/hands/15420.png",
+      "width": 35,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 8464
+    },
+    {
+      "name": "/hands/15430.png",
+      "width": 33,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 8527
+    },
+    {
+      "name": "/hands/15440.png",
+      "width": 41,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 8578
+    },
+    {
+      "name": "/hands/15450.png",
+      "width": 37,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 8622
+    },
+    {
+      "name": "/hands/15500.png",
+      "width": 37,
+      "height": 58,
+      "offsetX": 1,
+      "offsetY": 8657
+    },
+    {
+      "name": "/hands/15510.png",
+      "width": 27,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 8716
+    },
+    {
+      "name": "/hands/15520.png",
+      "width": 34,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 8777
+    },
+    {
+      "name": "/hands/15530.png",
+      "width": 32,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 8833
+    },
+    {
+      "name": "/hands/15540.png",
+      "width": 50,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 8879
+    },
+    {
+      "name": "/hands/15550.png",
+      "width": 57,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 8928
+    },
+    {
+      "name": "/hands/15600.png",
+      "width": 28,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 8973
+    },
+    {
+      "name": "/hands/15610.png",
+      "width": 34,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 9022
+    },
+    {
+      "name": "/hands/15620.png",
+      "width": 32,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 9076
+    },
+    {
+      "name": "/hands/15630.png",
+      "width": 27,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 9129
+    },
+    {
+      "name": "/hands/15640.png",
+      "width": 45,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 9167
+    },
+    {
+      "name": "/hands/15650.png",
+      "width": 44,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 9206
+    },
+    {
+      "name": "/hands/15700.png",
+      "width": 37,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 9237
+    },
+    {
+      "name": "/hands/15710.png",
+      "width": 43,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 9280
+    },
+    {
+      "name": "/hands/15720.png",
+      "width": 41,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 9326
+    },
+    {
+      "name": "/hands/15730.png",
+      "width": 31,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 9366
+    },
+    {
+      "name": "/hands/15740.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 9418
+    },
+    {
+      "name": "/hands/15750.png",
+      "width": 44,
+      "height": 31,
+      "offsetX": 1,
+      "offsetY": 9461
+    },
+    {
+      "name": "/hands/15800.png",
+      "width": 52,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 9493
+    },
+    {
+      "name": "/hands/15810.png",
+      "width": 37,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 9544
+    },
+    {
+      "name": "/hands/15820.png",
+      "width": 45,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 9593
+    },
+    {
+      "name": "/hands/15830.png",
+      "width": 44,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 9638
+    },
+    {
+      "name": "/hands/15840.png",
+      "width": 43,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 9691
+    },
+    {
+      "name": "/hands/15850.png",
+      "width": 47,
+      "height": 31,
+      "offsetX": 1,
+      "offsetY": 9746
+    },
+    {
+      "name": "/hands/15900.png",
+      "width": 40,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 9778
+    },
+    {
+      "name": "/hands/15910.png",
+      "width": 38,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 9830
+    },
+    {
+      "name": "/hands/15920.png",
+      "width": 40,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 9879
+    },
+    {
+      "name": "/hands/15930.png",
+      "width": 33,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 9918
+    },
+    {
+      "name": "/hands/15940.png",
+      "width": 49,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 9964
+    },
+    {
+      "name": "/hands/15950.png",
+      "width": 49,
+      "height": 28,
+      "offsetX": 1,
+      "offsetY": 10008
+    },
+    {
+      "name": "/hands/15a00.png",
+      "width": 33,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 10037
+    },
+    {
+      "name": "/hands/15a10.png",
+      "width": 19,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 10104
+    },
+    {
+      "name": "/hands/15a20.png",
+      "width": 33,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 10169
+    },
+    {
+      "name": "/hands/15a30.png",
+      "width": 32,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 10231
+    },
+    {
+      "name": "/hands/15a40.png",
+      "width": 32,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 10269
+    },
+    {
+      "name": "/hands/15a50.png",
+      "width": 44,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 10311
+    },
+    {
+      "name": "/hands/15b00.png",
+      "width": 20,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 10350
+    },
+    {
+      "name": "/hands/15b10.png",
+      "width": 31,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 10411
+    },
+    {
+      "name": "/hands/15b20.png",
+      "width": 29,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 10477
+    },
+    {
+      "name": "/hands/15b30.png",
+      "width": 53,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 10519
+    },
+    {
+      "name": "/hands/15c10.png",
+      "width": 37,
+      "height": 27,
+      "offsetX": 1,
+      "offsetY": 10559
+    },
+    {
+      "name": "/hands/15c11.png",
+      "width": 29,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 10587
+    },
+    {
+      "name": "/hands/15c12.png",
+      "width": 23,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 10626
+    },
+    {
+      "name": "/hands/15c13.png",
+      "width": 45,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 10668
+    },
+    {
+      "name": "/hands/15c14.png",
+      "width": 45,
+      "height": 24,
+      "offsetX": 1,
+      "offsetY": 10699
+    },
+    {
+      "name": "/hands/15c15.png",
+      "width": 39,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 10724
+    },
+    {
+      "name": "/hands/15d00.png",
+      "width": 41,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 10760
+    },
+    {
+      "name": "/hands/15d10.png",
+      "width": 17,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 10828
+    },
+    {
+      "name": "/hands/15d20.png",
+      "width": 41,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 10891
+    },
+    {
+      "name": "/hands/15d30.png",
+      "width": 39,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 10954
+    },
+    {
+      "name": "/hands/15d40.png",
+      "width": 34,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 10990
+    },
+    {
+      "name": "/hands/15d50.png",
+      "width": 59,
+      "height": 31,
+      "offsetX": 1,
+      "offsetY": 11039
+    },
+    {
+      "name": "/hands/15e10.png",
+      "width": 44,
+      "height": 21,
+      "offsetX": 1,
+      "offsetY": 11071
+    },
+    {
+      "name": "/hands/15e11.png",
+      "width": 28,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 11093
+    },
+    {
+      "name": "/hands/15e12.png",
+      "width": 18,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 11134
+    },
+    {
+      "name": "/hands/15e13.png",
+      "width": 46,
+      "height": 29,
+      "offsetX": 1,
+      "offsetY": 11179
+    },
+    {
+      "name": "/hands/15e14.png",
+      "width": 43,
+      "height": 22,
+      "offsetX": 1,
+      "offsetY": 11209
+    },
+    {
+      "name": "/hands/15e15.png",
+      "width": 36,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 11232
+    },
+    {
+      "name": "/hands/15f00.png",
+      "width": 34,
+      "height": 58,
+      "offsetX": 1,
+      "offsetY": 11267
+    },
+    {
+      "name": "/hands/15f10.png",
+      "width": 15,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 11326
+    },
+    {
+      "name": "/hands/15f20.png",
+      "width": 35,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 11386
+    },
+    {
+      "name": "/hands/15f30.png",
+      "width": 33,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 11448
+    },
+    {
+      "name": "/hands/15f40.png",
+      "width": 26,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 11486
+    },
+    {
+      "name": "/hands/15f50.png",
+      "width": 37,
+      "height": 23,
+      "offsetX": 1,
+      "offsetY": 11527
+    },
+    {
+      "name": "/hands/16000.png",
+      "width": 27,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 11551
+    },
+    {
+      "name": "/hands/16010.png",
+      "width": 35,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 11608
+    },
+    {
+      "name": "/hands/16020.png",
+      "width": 29,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 11670
+    },
+    {
+      "name": "/hands/16030.png",
+      "width": 28,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 11735
+    },
+    {
+      "name": "/hands/16040.png",
+      "width": 32,
+      "height": 33,
+      "offsetX": 1,
+      "offsetY": 11780
+    },
+    {
+      "name": "/hands/16050.png",
+      "width": 34,
+      "height": 33,
+      "offsetX": 1,
+      "offsetY": 11814
+    },
+    {
+      "name": "/hands/16100.png",
+      "width": 38,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 11848
+    },
+    {
+      "name": "/hands/16110.png",
+      "width": 17,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 11899
+    },
+    {
+      "name": "/hands/16120.png",
+      "width": 36,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 11952
+    },
+    {
+      "name": "/hands/16130.png",
+      "width": 36,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 12004
+    },
+    {
+      "name": "/hands/16140.png",
+      "width": 30,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 12041
+    },
+    {
+      "name": "/hands/16150.png",
+      "width": 40,
+      "height": 26,
+      "offsetX": 1,
+      "offsetY": 12086
+    },
+    {
+      "name": "/hands/16200.png",
+      "width": 28,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 12113
+    },
+    {
+      "name": "/hands/16210.png",
+      "width": 16,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 12162
+    },
+    {
+      "name": "/hands/16220.png",
+      "width": 27,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 12211
+    },
+    {
+      "name": "/hands/16230.png",
+      "width": 27,
+      "height": 33,
+      "offsetX": 1,
+      "offsetY": 12260
+    },
+    {
+      "name": "/hands/16240.png",
+      "width": 42,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 12294
+    },
+    {
+      "name": "/hands/16250.png",
+      "width": 46,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 12335
+    },
+    {
+      "name": "/hands/16300.png",
+      "width": 38,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 12371
+    },
+    {
+      "name": "/hands/16310.png",
+      "width": 15,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 12425
+    },
+    {
+      "name": "/hands/16320.png",
+      "width": 38,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 12480
+    },
+    {
+      "name": "/hands/16330.png",
+      "width": 35,
+      "height": 32,
+      "offsetX": 1,
+      "offsetY": 12535
+    },
+    {
+      "name": "/hands/16340.png",
+      "width": 49,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 12568
+    },
+    {
+      "name": "/hands/16350.png",
+      "width": 53,
+      "height": 31,
+      "offsetX": 1,
+      "offsetY": 12615
+    },
+    {
+      "name": "/hands/16400.png",
+      "width": 34,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 12647
+    },
+    {
+      "name": "/hands/16410.png",
+      "width": 14,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 12705
+    },
+    {
+      "name": "/hands/16420.png",
+      "width": 33,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 12766
+    },
+    {
+      "name": "/hands/16430.png",
+      "width": 31,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 12826
+    },
+    {
+      "name": "/hands/16440.png",
+      "width": 47,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 12864
+    },
+    {
+      "name": "/hands/16450.png",
+      "width": 55,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 12906
+    },
+    {
+      "name": "/hands/16500.png",
+      "width": 36,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 12946
+    },
+    {
+      "name": "/hands/16510.png",
+      "width": 17,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 13003
+    },
+    {
+      "name": "/hands/16520.png",
+      "width": 38,
+      "height": 58,
+      "offsetX": 1,
+      "offsetY": 13064
+    },
+    {
+      "name": "/hands/16530.png",
+      "width": 37,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 13123
+    },
+    {
+      "name": "/hands/16540.png",
+      "width": 52,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 13163
+    },
+    {
+      "name": "/hands/16550.png",
+      "width": 41,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 13212
+    },
+    {
+      "name": "/hands/16600.png",
+      "width": 25,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 13250
+    },
+    {
+      "name": "/hands/16610.png",
+      "width": 22,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 13299
+    },
+    {
+      "name": "/hands/16620.png",
+      "width": 33,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 13357
+    },
+    {
+      "name": "/hands/16630.png",
+      "width": 31,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 13413
+    },
+    {
+      "name": "/hands/16640.png",
+      "width": 45,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 13448
+    },
+    {
+      "name": "/hands/16650.png",
+      "width": 50,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 13489
+    },
+    {
+      "name": "/hands/16700.png",
+      "width": 38,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 13530
+    },
+    {
+      "name": "/hands/16710.png",
+      "width": 29,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 13584
+    },
+    {
+      "name": "/hands/16720.png",
+      "width": 38,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 13637
+    },
+    {
+      "name": "/hands/16730.png",
+      "width": 38,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 13691
+    },
+    {
+      "name": "/hands/16740.png",
+      "width": 46,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 13727
+    },
+    {
+      "name": "/hands/16750.png",
+      "width": 63,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 13777
+    },
+    {
+      "name": "/hands/16800.png",
+      "width": 25,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 13812
+    },
+    {
+      "name": "/hands/16810.png",
+      "width": 22,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 13859
+    },
+    {
+      "name": "/hands/16820.png",
+      "width": 26,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 13905
+    },
+    {
+      "name": "/hands/16830.png",
+      "width": 29,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 13955
+    },
+    {
+      "name": "/hands/16840.png",
+      "width": 41,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 13991
+    },
+    {
+      "name": "/hands/16850.png",
+      "width": 42,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 14032
+    },
+    {
+      "name": "/hands/16900.png",
+      "width": 25,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 14067
+    },
+    {
+      "name": "/hands/16910.png",
+      "width": 30,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 14125
+    },
+    {
+      "name": "/hands/16920.png",
+      "width": 36,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 14183
+    },
+    {
+      "name": "/hands/16930.png",
+      "width": 29,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 14237
+    },
+    {
+      "name": "/hands/16940.png",
+      "width": 32,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 14277
+    },
+    {
+      "name": "/hands/16950.png",
+      "width": 41,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 14320
+    },
+    {
+      "name": "/hands/16a00.png",
+      "width": 24,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 14361
+    },
+    {
+      "name": "/hands/16a10.png",
+      "width": 22,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 14407
+    },
+    {
+      "name": "/hands/16a20.png",
+      "width": 26,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 14455
+    },
+    {
+      "name": "/hands/16a30.png",
+      "width": 23,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 14503
+    },
+    {
+      "name": "/hands/16a40.png",
+      "width": 52,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 14541
+    },
+    {
+      "name": "/hands/16a50.png",
+      "width": 29,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 14584
+    },
+    {
+      "name": "/hands/16b00.png",
+      "width": 25,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 14621
+    },
+    {
+      "name": "/hands/16b10.png",
+      "width": 22,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 14666
+    },
+    {
+      "name": "/hands/16b20.png",
+      "width": 29,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 14715
+    },
+    {
+      "name": "/hands/16b30.png",
+      "width": 26,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 14765
+    },
+    {
+      "name": "/hands/16b40.png",
+      "width": 51,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 14803
+    },
+    {
+      "name": "/hands/16b50.png",
+      "width": 53,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 14848
+    },
+    {
+      "name": "/hands/16c00.png",
+      "width": 19,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 14889
+    },
+    {
+      "name": "/hands/16c10.png",
+      "width": 32,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 14939
+    },
+    {
+      "name": "/hands/16c20.png",
+      "width": 33,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 14990
+    },
+    {
+      "name": "/hands/16c30.png",
+      "width": 28,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 15037
+    },
+    {
+      "name": "/hands/16c40.png",
+      "width": 42,
+      "height": 33,
+      "offsetX": 1,
+      "offsetY": 15068
+    },
+    {
+      "name": "/hands/16c50.png",
+      "width": 41,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 15102
+    },
+    {
+      "name": "/hands/16d00.png",
+      "width": 26,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 15138
+    },
+    {
+      "name": "/hands/16d10.png",
+      "width": 27,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 15188
+    },
+    {
+      "name": "/hands/16d20.png",
+      "width": 31,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 15238
+    },
+    {
+      "name": "/hands/16d30.png",
+      "width": 29,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 15288
+    },
+    {
+      "name": "/hands/16d40.png",
+      "width": 47,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 15324
+    },
+    {
+      "name": "/hands/16d50.png",
+      "width": 43,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 15367
+    },
+    {
+      "name": "/hands/16e00.png",
+      "width": 34,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 15403
+    },
+    {
+      "name": "/hands/16e10.png",
+      "width": 29,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 15454
+    },
+    {
+      "name": "/hands/16e20.png",
+      "width": 34,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 15503
+    },
+    {
+      "name": "/hands/16e30.png",
+      "width": 38,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 15551
+    },
+    {
+      "name": "/hands/16e40.png",
+      "width": 55,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 15594
+    },
+    {
+      "name": "/hands/16e50.png",
+      "width": 63,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 15650
+    },
+    {
+      "name": "/hands/16f00.png",
+      "width": 42,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 15694
+    },
+    {
+      "name": "/hands/16f10.png",
+      "width": 35,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 15745
+    },
+    {
+      "name": "/hands/16f20.png",
+      "width": 39,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 15795
+    },
+    {
+      "name": "/hands/16f30.png",
+      "width": 41,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 15846
+    },
+    {
+      "name": "/hands/16f40.png",
+      "width": 59,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 15893
+    },
+    {
+      "name": "/hands/16f50.png",
+      "width": 69,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 15953
+    },
+    {
+      "name": "/hands/17000.png",
+      "width": 30,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 15999
+    },
+    {
+      "name": "/hands/17010.png",
+      "width": 24,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 16059
+    },
+    {
+      "name": "/hands/17020.png",
+      "width": 29,
+      "height": 58,
+      "offsetX": 1,
+      "offsetY": 16120
+    },
+    {
+      "name": "/hands/17030.png",
+      "width": 30,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 16179
+    },
+    {
+      "name": "/hands/17040.png",
+      "width": 45,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 16224
+    },
+    {
+      "name": "/hands/17050.png",
+      "width": 49,
+      "height": 32,
+      "offsetX": 1,
+      "offsetY": 16260
+    },
+    {
+      "name": "/hands/17100.png",
+      "width": 29,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 16293
+    },
+    {
+      "name": "/hands/17110.png",
+      "width": 28,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 16344
+    },
+    {
+      "name": "/hands/17120.png",
+      "width": 29,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 16394
+    },
+    {
+      "name": "/hands/17130.png",
+      "width": 29,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 16443
+    },
+    {
+      "name": "/hands/17140.png",
+      "width": 52,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 16485
+    },
+    {
+      "name": "/hands/17150.png",
+      "width": 57,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 16528
+    },
+    {
+      "name": "/hands/17200.png",
+      "width": 24,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 16564
+    },
+    {
+      "name": "/hands/17210.png",
+      "width": 30,
+      "height": 58,
+      "offsetX": 1,
+      "offsetY": 16621
+    },
+    {
+      "name": "/hands/17220.png",
+      "width": 36,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 16680
+    },
+    {
+      "name": "/hands/17230.png",
+      "width": 32,
+      "height": 33,
+      "offsetX": 1,
+      "offsetY": 16736
+    },
+    {
+      "name": "/hands/17240.png",
+      "width": 46,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 16770
+    },
+    {
+      "name": "/hands/17250.png",
+      "width": 61,
+      "height": 34,
+      "offsetX": 1,
+      "offsetY": 16812
+    },
+    {
+      "name": "/hands/17300.png",
+      "width": 33,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 16847
+    },
+    {
+      "name": "/hands/17310.png",
+      "width": 42,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 16904
+    },
+    {
+      "name": "/hands/17320.png",
+      "width": 42,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 16961
+    },
+    {
+      "name": "/hands/17330.png",
+      "width": 32,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 17018
+    },
+    {
+      "name": "/hands/17340.png",
+      "width": 47,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 17067
+    },
+    {
+      "name": "/hands/17350.png",
+      "width": 53,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 17110
+    },
+    {
+      "name": "/hands/17400.png",
+      "width": 29,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 17155
+    },
+    {
+      "name": "/hands/17410.png",
+      "width": 33,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 17209
+    },
+    {
+      "name": "/hands/17420.png",
+      "width": 32,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 17262
+    },
+    {
+      "name": "/hands/17430.png",
+      "width": 26,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 17313
+    },
+    {
+      "name": "/hands/17440.png",
+      "width": 52,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 17362
+    },
+    {
+      "name": "/hands/17450.png",
+      "width": 44,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 17408
+    },
+    {
+      "name": "/hands/17500.png",
+      "width": 29,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 17453
+    },
+    {
+      "name": "/hands/17510.png",
+      "width": 36,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 17503
+    },
+    {
+      "name": "/hands/17520.png",
+      "width": 33,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 17554
+    },
+    {
+      "name": "/hands/17530.png",
+      "width": 27,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 17603
+    },
+    {
+      "name": "/hands/17540.png",
+      "width": 50,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 17653
+    },
+    {
+      "name": "/hands/17550.png",
+      "width": 48,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 17699
+    },
+    {
+      "name": "/hands/17600.png",
+      "width": 28,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 17742
+    },
+    {
+      "name": "/hands/17610.png",
+      "width": 29,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 17792
+    },
+    {
+      "name": "/hands/17620.png",
+      "width": 31,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 17842
+    },
+    {
+      "name": "/hands/17630.png",
+      "width": 25,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 17891
+    },
+    {
+      "name": "/hands/17640.png",
+      "width": 48,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 17927
+    },
+    {
+      "name": "/hands/17650.png",
+      "width": 61,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 17966
+    },
+    {
+      "name": "/hands/17700.png",
+      "width": 30,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 18006
+    },
+    {
+      "name": "/hands/17710.png",
+      "width": 36,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 18055
+    },
+    {
+      "name": "/hands/17720.png",
+      "width": 37,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 18104
+    },
+    {
+      "name": "/hands/17730.png",
+      "width": 25,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 18150
+    },
+    {
+      "name": "/hands/17740.png",
+      "width": 44,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 18190
+    },
+    {
+      "name": "/hands/17750.png",
+      "width": 37,
+      "height": 28,
+      "offsetX": 1,
+      "offsetY": 18227
+    },
+    {
+      "name": "/hands/17800.png",
+      "width": 47,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 18256
+    },
+    {
+      "name": "/hands/17810.png",
+      "width": 40,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 18304
+    },
+    {
+      "name": "/hands/17820.png",
+      "width": 39,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 18352
+    },
+    {
+      "name": "/hands/17830.png",
+      "width": 38,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 18404
+    },
+    {
+      "name": "/hands/17840.png",
+      "width": 49,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 18443
+    },
+    {
+      "name": "/hands/17850.png",
+      "width": 62,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 18495
+    },
+    {
+      "name": "/hands/17900.png",
+      "width": 32,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 18532
+    },
+    {
+      "name": "/hands/17910.png",
+      "width": 33,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 18574
+    },
+    {
+      "name": "/hands/17920.png",
+      "width": 31,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 18616
+    },
+    {
+      "name": "/hands/17930.png",
+      "width": 29,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 18661
+    },
+    {
+      "name": "/hands/17940.png",
+      "width": 57,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 18692
+    },
+    {
+      "name": "/hands/17950.png",
+      "width": 57,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 18731
+    },
+    {
+      "name": "/hands/17a00.png",
+      "width": 29,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 18767
+    },
+    {
+      "name": "/hands/17a10.png",
+      "width": 39,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 18814
+    },
+    {
+      "name": "/hands/17a20.png",
+      "width": 36,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 18859
+    },
+    {
+      "name": "/hands/17a30.png",
+      "width": 30,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 18908
+    },
+    {
+      "name": "/hands/17a40.png",
+      "width": 51,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 18954
+    },
+    {
+      "name": "/hands/17a50.png",
+      "width": 54,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 18998
+    },
+    {
+      "name": "/hands/17b00.png",
+      "width": 30,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 19044
+    },
+    {
+      "name": "/hands/17b10.png",
+      "width": 40,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 19104
+    },
+    {
+      "name": "/hands/17b20.png",
+      "width": 42,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 19166
+    },
+    {
+      "name": "/hands/17b30.png",
+      "width": 35,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 19224
+    },
+    {
+      "name": "/hands/17b40.png",
+      "width": 41,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 19260
+    },
+    {
+      "name": "/hands/17b50.png",
+      "width": 51,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 19300
+    },
+    {
+      "name": "/hands/17c00.png",
+      "width": 29,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 19340
+    },
+    {
+      "name": "/hands/17c10.png",
+      "width": 41,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 19405
+    },
+    {
+      "name": "/hands/17c20.png",
+      "width": 35,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 19469
+    },
+    {
+      "name": "/hands/17c30.png",
+      "width": 29,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 19533
+    },
+    {
+      "name": "/hands/17c40.png",
+      "width": 44,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 19580
+    },
+    {
+      "name": "/hands/17c50.png",
+      "width": 39,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 19630
+    },
+    {
+      "name": "/hands/17d00.png",
+      "width": 30,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 19675
+    },
+    {
+      "name": "/hands/17d10.png",
+      "width": 41,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 19730
+    },
+    {
+      "name": "/hands/17d20.png",
+      "width": 36,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 19782
+    },
+    {
+      "name": "/hands/17d30.png",
+      "width": 26,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 19833
+    },
+    {
+      "name": "/hands/17d40.png",
+      "width": 52,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 19891
+    },
+    {
+      "name": "/hands/17d50.png",
+      "width": 47,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 19934
+    },
+    {
+      "name": "/hands/17e00.png",
+      "width": 28,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 19981
+    },
+    {
+      "name": "/hands/17e10.png",
+      "width": 39,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 20039
+    },
+    {
+      "name": "/hands/17e20.png",
+      "width": 41,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 20096
+    },
+    {
+      "name": "/hands/17e30.png",
+      "width": 27,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 20154
+    },
+    {
+      "name": "/hands/17e40.png",
+      "width": 45,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 20209
+    },
+    {
+      "name": "/hands/17e50.png",
+      "width": 38,
+      "height": 32,
+      "offsetX": 1,
+      "offsetY": 20253
+    },
+    {
+      "name": "/hands/17f00.png",
+      "width": 42,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 20286
+    },
+    {
+      "name": "/hands/17f10.png",
+      "width": 24,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 20351
+    },
+    {
+      "name": "/hands/17f20.png",
+      "width": 41,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 20416
+    },
+    {
+      "name": "/hands/17f30.png",
+      "width": 45,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 20481
+    },
+    {
+      "name": "/hands/17f40.png",
+      "width": 50,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 20529
+    },
+    {
+      "name": "/hands/17f50.png",
+      "width": 51,
+      "height": 23,
+      "offsetX": 1,
+      "offsetY": 20586
+    },
+    {
+      "name": "/hands/18000.png",
+      "width": 43,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 20610
+    },
+    {
+      "name": "/hands/18010.png",
+      "width": 39,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 20652
+    },
+    {
+      "name": "/hands/18020.png",
+      "width": 33,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 20695
+    },
+    {
+      "name": "/hands/18030.png",
+      "width": 35,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 20736
+    },
+    {
+      "name": "/hands/18040.png",
+      "width": 36,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 20783
+    },
+    {
+      "name": "/hands/18050.png",
+      "width": 43,
+      "height": 28,
+      "offsetX": 1,
+      "offsetY": 20825
+    },
+    {
+      "name": "/hands/18100.png",
+      "width": 32,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 20854
+    },
+    {
+      "name": "/hands/18110.png",
+      "width": 23,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 20916
+    },
+    {
+      "name": "/hands/18120.png",
+      "width": 30,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 20978
+    },
+    {
+      "name": "/hands/18130.png",
+      "width": 34,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 21040
+    },
+    {
+      "name": "/hands/18140.png",
+      "width": 36,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 21084
+    },
+    {
+      "name": "/hands/18150.png",
+      "width": 42,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 21133
+    },
+    {
+      "name": "/hands/18200.png",
+      "width": 32,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 21179
+    },
+    {
+      "name": "/hands/18210.png",
+      "width": 35,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 21231
+    },
+    {
+      "name": "/hands/18220.png",
+      "width": 32,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 21283
+    },
+    {
+      "name": "/hands/18230.png",
+      "width": 32,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 21331
+    },
+    {
+      "name": "/hands/18240.png",
+      "width": 38,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 21385
+    },
+    {
+      "name": "/hands/18250.png",
+      "width": 41,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 21433
+    },
+    {
+      "name": "/hands/18300.png",
+      "width": 31,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 21481
+    },
+    {
+      "name": "/hands/18310.png",
+      "width": 35,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 21534
+    },
+    {
+      "name": "/hands/18320.png",
+      "width": 32,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 21586
+    },
+    {
+      "name": "/hands/18330.png",
+      "width": 30,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 21635
+    },
+    {
+      "name": "/hands/18340.png",
+      "width": 38,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 21684
+    },
+    {
+      "name": "/hands/18350.png",
+      "width": 32,
+      "height": 32,
+      "offsetX": 1,
+      "offsetY": 21732
+    },
+    {
+      "name": "/hands/18400.png",
+      "width": 30,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 21765
+    },
+    {
+      "name": "/hands/18410.png",
+      "width": 36,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 21809
+    },
+    {
+      "name": "/hands/18420.png",
+      "width": 34,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 21853
+    },
+    {
+      "name": "/hands/18430.png",
+      "width": 30,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 21899
+    },
+    {
+      "name": "/hands/18440.png",
+      "width": 47,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 21939
+    },
+    {
+      "name": "/hands/18450.png",
+      "width": 50,
+      "height": 30,
+      "offsetX": 1,
+      "offsetY": 21970
+    },
+    {
+      "name": "/hands/18500.png",
+      "width": 32,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 22001
+    },
+    {
+      "name": "/hands/18510.png",
+      "width": 37,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 22058
+    },
+    {
+      "name": "/hands/18520.png",
+      "width": 38,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 22115
+    },
+    {
+      "name": "/hands/18530.png",
+      "width": 27,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 22169
+    },
+    {
+      "name": "/hands/18540.png",
+      "width": 50,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 22211
+    },
+    {
+      "name": "/hands/18550.png",
+      "width": 50,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 22256
+    },
+    {
+      "name": "/hands/18600.png",
+      "width": 27,
+      "height": 60,
+      "offsetX": 1,
+      "offsetY": 22301
+    },
+    {
+      "name": "/hands/18610.png",
+      "width": 24,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 22362
+    },
+    {
+      "name": "/hands/18620.png",
+      "width": 27,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 22425
+    },
+    {
+      "name": "/hands/18630.png",
+      "width": 25,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 22488
+    },
+    {
+      "name": "/hands/18640.png",
+      "width": 41,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 22535
+    },
+    {
+      "name": "/hands/18650.png",
+      "width": 50,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 22587
+    },
+    {
+      "name": "/hands/18700.png",
+      "width": 31,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 22633
+    },
+    {
+      "name": "/hands/18710.png",
+      "width": 26,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 22697
+    },
+    {
+      "name": "/hands/18720.png",
+      "width": 29,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 22761
+    },
+    {
+      "name": "/hands/18730.png",
+      "width": 28,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 22825
+    },
+    {
+      "name": "/hands/18740.png",
+      "width": 40,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 22870
+    },
+    {
+      "name": "/hands/18750.png",
+      "width": 53,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 22916
+    },
+    {
+      "name": "/hands/18800.png",
+      "width": 33,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 22961
+    },
+    {
+      "name": "/hands/18810.png",
+      "width": 38,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23024
+    },
+    {
+      "name": "/hands/18820.png",
+      "width": 33,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23087
+    },
+    {
+      "name": "/hands/18830.png",
+      "width": 30,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 23150
+    },
+    {
+      "name": "/hands/18840.png",
+      "width": 50,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 23193
+    },
+    {
+      "name": "/hands/18850.png",
+      "width": 51,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 23242
+    },
+    {
+      "name": "/hands/18900.png",
+      "width": 32,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23287
+    },
+    {
+      "name": "/hands/18910.png",
+      "width": 31,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23350
+    },
+    {
+      "name": "/hands/18920.png",
+      "width": 30,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23413
+    },
+    {
+      "name": "/hands/18930.png",
+      "width": 29,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 23476
+    },
+    {
+      "name": "/hands/18940.png",
+      "width": 50,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 23524
+    },
+    {
+      "name": "/hands/18950.png",
+      "width": 25,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 23572
+    },
+    {
+      "name": "/hands/18a00.png",
+      "width": 42,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23619
+    },
+    {
+      "name": "/hands/18a10.png",
+      "width": 30,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23682
+    },
+    {
+      "name": "/hands/18a20.png",
+      "width": 42,
+      "height": 62,
+      "offsetX": 1,
+      "offsetY": 23745
+    },
+    {
+      "name": "/hands/18a30.png",
+      "width": 41,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 23808
+    },
+    {
+      "name": "/hands/18a40.png",
+      "width": 36,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 23847
+    },
+    {
+      "name": "/hands/18a50.png",
+      "width": 43,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 23893
+    },
+    {
+      "name": "/hands/18b00.png",
+      "width": 33,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 23934
+    },
+    {
+      "name": "/hands/18b10.png",
+      "width": 31,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 23996
+    },
+    {
+      "name": "/hands/18b20.png",
+      "width": 33,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 24058
+    },
+    {
+      "name": "/hands/18b30.png",
+      "width": 29,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 24120
+    },
+    {
+      "name": "/hands/18b40.png",
+      "width": 48,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 24168
+    },
+    {
+      "name": "/hands/18b50.png",
+      "width": 58,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 24216
+    },
+    {
+      "name": "/hands/18c00.png",
+      "width": 29,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 24265
+    },
+    {
+      "name": "/hands/18c10.png",
+      "width": 26,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 24331
+    },
+    {
+      "name": "/hands/18c20.png",
+      "width": 29,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 24397
+    },
+    {
+      "name": "/hands/18c30.png",
+      "width": 28,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 24463
+    },
+    {
+      "name": "/hands/18c40.png",
+      "width": 44,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 24511
+    },
+    {
+      "name": "/hands/18c50.png",
+      "width": 48,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 24559
+    },
+    {
+      "name": "/hands/18d00.png",
+      "width": 32,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 24607
+    },
+    {
+      "name": "/hands/18d10.png",
+      "width": 41,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 24663
+    },
+    {
+      "name": "/hands/18d20.png",
+      "width": 38,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 24719
+    },
+    {
+      "name": "/hands/18d30.png",
+      "width": 34,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 24775
+    },
+    {
+      "name": "/hands/18d40.png",
+      "width": 51,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 24831
+    },
+    {
+      "name": "/hands/18d50.png",
+      "width": 45,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 24874
+    },
+    {
+      "name": "/hands/18e00.png",
+      "width": 48,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 24918
+    },
+    {
+      "name": "/hands/18e10.png",
+      "width": 25,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 24982
+    },
+    {
+      "name": "/hands/18e20.png",
+      "width": 48,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 25046
+    },
+    {
+      "name": "/hands/18e30.png",
+      "width": 47,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 25110
+    },
+    {
+      "name": "/hands/18e40.png",
+      "width": 45,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 25151
+    },
+    {
+      "name": "/hands/18e50.png",
+      "width": 66,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 25200
+    },
+    {
+      "name": "/hands/18f00.png",
+      "width": 48,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 25239
+    },
+    {
+      "name": "/hands/18f10.png",
+      "width": 36,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 25303
+    },
+    {
+      "name": "/hands/18f20.png",
+      "width": 45,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 25367
+    },
+    {
+      "name": "/hands/18f30.png",
+      "width": 46,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 25431
+    },
+    {
+      "name": "/hands/18f40.png",
+      "width": 57,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 25486
+    },
+    {
+      "name": "/hands/18f50.png",
+      "width": 70,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 25536
+    },
+    {
+      "name": "/hands/19000.png",
+      "width": 47,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 25581
+    },
+    {
+      "name": "/hands/19010.png",
+      "width": 35,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 25647
+    },
+    {
+      "name": "/hands/19020.png",
+      "width": 42,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 25713
+    },
+    {
+      "name": "/hands/19030.png",
+      "width": 48,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 25779
+    },
+    {
+      "name": "/hands/19040.png",
+      "width": 54,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 25824
+    },
+    {
+      "name": "/hands/19050.png",
+      "width": 68,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 25877
+    },
+    {
+      "name": "/hands/19100.png",
+      "width": 28,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 25921
+    },
+    {
+      "name": "/hands/19110.png",
+      "width": 35,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 25976
+    },
+    {
+      "name": "/hands/19120.png",
+      "width": 34,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 26034
+    },
+    {
+      "name": "/hands/19130.png",
+      "width": 30,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 26090
+    },
+    {
+      "name": "/hands/19140.png",
+      "width": 39,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 26141
+    },
+    {
+      "name": "/hands/19150.png",
+      "width": 39,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 26187
+    },
+    {
+      "name": "/hands/19200.png",
+      "width": 28,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 26235
+    },
+    {
+      "name": "/hands/19210.png",
+      "width": 27,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 26290
+    },
+    {
+      "name": "/hands/19220.png",
+      "width": 29,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 26346
+    },
+    {
+      "name": "/hands/19230.png",
+      "width": 28,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 26402
+    },
+    {
+      "name": "/hands/19240.png",
+      "width": 34,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 26439
+    },
+    {
+      "name": "/hands/19250.png",
+      "width": 34,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 26484
+    },
+    {
+      "name": "/hands/19300.png",
+      "width": 28,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 26527
+    },
+    {
+      "name": "/hands/19310.png",
+      "width": 28,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 26583
+    },
+    {
+      "name": "/hands/19320.png",
+      "width": 29,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 26640
+    },
+    {
+      "name": "/hands/19330.png",
+      "width": 28,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 26698
+    },
+    {
+      "name": "/hands/19340.png",
+      "width": 36,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 26742
+    },
+    {
+      "name": "/hands/19350.png",
+      "width": 33,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 26788
+    },
+    {
+      "name": "/hands/19400.png",
+      "width": 28,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 26834
+    },
+    {
+      "name": "/hands/19410.png",
+      "width": 33,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 26890
+    },
+    {
+      "name": "/hands/19420.png",
+      "width": 31,
+      "height": 58,
+      "offsetX": 1,
+      "offsetY": 26948
+    },
+    {
+      "name": "/hands/19430.png",
+      "width": 31,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 27007
+    },
+    {
+      "name": "/hands/19440.png",
+      "width": 43,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 27051
+    },
+    {
+      "name": "/hands/19450.png",
+      "width": 38,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 27094
+    },
+    {
+      "name": "/hands/19500.png",
+      "width": 30,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 27141
+    },
+    {
+      "name": "/hands/19510.png",
+      "width": 33,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 27198
+    },
+    {
+      "name": "/hands/19520.png",
+      "width": 33,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 27254
+    },
+    {
+      "name": "/hands/19530.png",
+      "width": 27,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 27312
+    },
+    {
+      "name": "/hands/19540.png",
+      "width": 40,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 27352
+    },
+    {
+      "name": "/hands/19550.png",
+      "width": 34,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 27393
+    },
+    {
+      "name": "/hands/19600.png",
+      "width": 30,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 27434
+    },
+    {
+      "name": "/hands/19610.png",
+      "width": 40,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 27494
+    },
+    {
+      "name": "/hands/19620.png",
+      "width": 36,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 27556
+    },
+    {
+      "name": "/hands/19630.png",
+      "width": 33,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 27616
+    },
+    {
+      "name": "/hands/19640.png",
+      "width": 51,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 27665
+    },
+    {
+      "name": "/hands/19650.png",
+      "width": 39,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 27706
+    },
+    {
+      "name": "/hands/19700.png",
+      "width": 27,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 27754
+    },
+    {
+      "name": "/hands/19710.png",
+      "width": 26,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 27804
+    },
+    {
+      "name": "/hands/19720.png",
+      "width": 32,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 27859
+    },
+    {
+      "name": "/hands/19730.png",
+      "width": 26,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 27911
+    },
+    {
+      "name": "/hands/19740.png",
+      "width": 44,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 27951
+    },
+    {
+      "name": "/hands/19750.png",
+      "width": 38,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 27991
+    },
+    {
+      "name": "/hands/19800.png",
+      "width": 30,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 28030
+    },
+    {
+      "name": "/hands/19810.png",
+      "width": 30,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 28088
+    },
+    {
+      "name": "/hands/19820.png",
+      "width": 32,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 28146
+    },
+    {
+      "name": "/hands/19830.png",
+      "width": 30,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 28203
+    },
+    {
+      "name": "/hands/19840.png",
+      "width": 42,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 28249
+    },
+    {
+      "name": "/hands/19850.png",
+      "width": 38,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 28292
+    },
+    {
+      "name": "/hands/19900.png",
+      "width": 29,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 28337
+    },
+    {
+      "name": "/hands/19910.png",
+      "width": 29,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 28393
+    },
+    {
+      "name": "/hands/19920.png",
+      "width": 28,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 28447
+    },
+    {
+      "name": "/hands/19930.png",
+      "width": 31,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 28501
+    },
+    {
+      "name": "/hands/19940.png",
+      "width": 38,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 28542
+    },
+    {
+      "name": "/hands/19950.png",
+      "width": 35,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 28583
+    },
+    {
+      "name": "/hands/19a00.png",
+      "width": 51,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 28626
+    },
+    {
+      "name": "/hands/19a10.png",
+      "width": 30,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 28678
+    },
+    {
+      "name": "/hands/19a20.png",
+      "width": 52,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 28727
+    },
+    {
+      "name": "/hands/19a30.png",
+      "width": 48,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 28774
+    },
+    {
+      "name": "/hands/19a40.png",
+      "width": 51,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 28814
+    },
+    {
+      "name": "/hands/19a50.png",
+      "width": 51,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 28868
+    },
+    {
+      "name": "/hands/19b00.png",
+      "width": 47,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 28908
+    },
+    {
+      "name": "/hands/19b10.png",
+      "width": 33,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 28957
+    },
+    {
+      "name": "/hands/19b20.png",
+      "width": 42,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 29009
+    },
+    {
+      "name": "/hands/19b30.png",
+      "width": 46,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 29059
+    },
+    {
+      "name": "/hands/19b40.png",
+      "width": 49,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 29102
+    },
+    {
+      "name": "/hands/19b50.png",
+      "width": 54,
+      "height": 33,
+      "offsetX": 1,
+      "offsetY": 29149
+    },
+    {
+      "name": "/hands/19c00.png",
+      "width": 56,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 29183
+    },
+    {
+      "name": "/hands/19c10.png",
+      "width": 32,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 29245
+    },
+    {
+      "name": "/hands/19c20.png",
+      "width": 56,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 29307
+    },
+    {
+      "name": "/hands/19c30.png",
+      "width": 51,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 29369
+    },
+    {
+      "name": "/hands/19c40.png",
+      "width": 43,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 29412
+    },
+    {
+      "name": "/hands/19c50.png",
+      "width": 60,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 29464
+    },
+    {
+      "name": "/hands/19d00.png",
+      "width": 47,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 29507
+    },
+    {
+      "name": "/hands/19d10.png",
+      "width": 39,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 29574
+    },
+    {
+      "name": "/hands/19d20.png",
+      "width": 45,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 29641
+    },
+    {
+      "name": "/hands/19d30.png",
+      "width": 49,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 29709
+    },
+    {
+      "name": "/hands/19d40.png",
+      "width": 54,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 29758
+    },
+    {
+      "name": "/hands/19d50.png",
+      "width": 69,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 29810
+    },
+    {
+      "name": "/hands/19e00.png",
+      "width": 35,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 29852
+    },
+    {
+      "name": "/hands/19e10.png",
+      "width": 38,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 29906
+    },
+    {
+      "name": "/hands/19e20.png",
+      "width": 38,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 29963
+    },
+    {
+      "name": "/hands/19e30.png",
+      "width": 35,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 30013
+    },
+    {
+      "name": "/hands/19e40.png",
+      "width": 51,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 30063
+    },
+    {
+      "name": "/hands/19e50.png",
+      "width": 59,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 30105
+    },
+    {
+      "name": "/hands/19f00.png",
+      "width": 36,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 30141
+    },
+    {
+      "name": "/hands/19f10.png",
+      "width": 37,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 30199
+    },
+    {
+      "name": "/hands/19f20.png",
+      "width": 39,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 30255
+    },
+    {
+      "name": "/hands/19f30.png",
+      "width": 33,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 30307
+    },
+    {
+      "name": "/hands/19f40.png",
+      "width": 52,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 30358
+    },
+    {
+      "name": "/hands/19f50.png",
+      "width": 50,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 30397
+    },
+    {
+      "name": "/hands/1a000.png",
+      "width": 32,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 30434
+    },
+    {
+      "name": "/hands/1a010.png",
+      "width": 28,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 30499
+    },
+    {
+      "name": "/hands/1a020.png",
+      "width": 31,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 30564
+    },
+    {
+      "name": "/hands/1a030.png",
+      "width": 31,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 30629
+    },
+    {
+      "name": "/hands/1a040.png",
+      "width": 45,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 30673
+    },
+    {
+      "name": "/hands/1a050.png",
+      "width": 39,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 30714
+    },
+    {
+      "name": "/hands/1a100.png",
+      "width": 34,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 30757
+    },
+    {
+      "name": "/hands/1a110.png",
+      "width": 36,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 30822
+    },
+    {
+      "name": "/hands/1a120.png",
+      "width": 33,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 30887
+    },
+    {
+      "name": "/hands/1a130.png",
+      "width": 34,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 30952
+    },
+    {
+      "name": "/hands/1a140.png",
+      "width": 47,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 30996
+    },
+    {
+      "name": "/hands/1a150.png",
+      "width": 52,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 31039
+    },
+    {
+      "name": "/hands/1a200.png",
+      "width": 36,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 31081
+    },
+    {
+      "name": "/hands/1a210.png",
+      "width": 47,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 31147
+    },
+    {
+      "name": "/hands/1a220.png",
+      "width": 43,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 31213
+    },
+    {
+      "name": "/hands/1a230.png",
+      "width": 31,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 31279
+    },
+    {
+      "name": "/hands/1a240.png",
+      "width": 52,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 31330
+    },
+    {
+      "name": "/hands/1a250.png",
+      "width": 55,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 31377
+    },
+    {
+      "name": "/hands/1a300.png",
+      "width": 40,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 31420
+    },
+    {
+      "name": "/hands/1a310.png",
+      "width": 41,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 31488
+    },
+    {
+      "name": "/hands/1a320.png",
+      "width": 35,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 31556
+    },
+    {
+      "name": "/hands/1a330.png",
+      "width": 32,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 31624
+    },
+    {
+      "name": "/hands/1a340.png",
+      "width": 44,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 31675
+    },
+    {
+      "name": "/hands/1a350.png",
+      "width": 50,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 31727
+    },
+    {
+      "name": "/hands/1a400.png",
+      "width": 34,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 31772
+    },
+    {
+      "name": "/hands/1a410.png",
+      "width": 24,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 31840
+    },
+    {
+      "name": "/hands/1a420.png",
+      "width": 35,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 31908
+    },
+    {
+      "name": "/hands/1a430.png",
+      "width": 36,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 31976
+    },
+    {
+      "name": "/hands/1a440.png",
+      "width": 39,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 32025
+    },
+    {
+      "name": "/hands/1a450.png",
+      "width": 40,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 32078
+    },
+    {
+      "name": "/hands/1a500.png",
+      "width": 38,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 32123
+    },
+    {
+      "name": "/hands/1a510.png",
+      "width": 31,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 32187
+    },
+    {
+      "name": "/hands/1a520.png",
+      "width": 36,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 32251
+    },
+    {
+      "name": "/hands/1a530.png",
+      "width": 33,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 32315
+    },
+    {
+      "name": "/hands/1a540.png",
+      "width": 41,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 32360
+    },
+    {
+      "name": "/hands/1a550.png",
+      "width": 47,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 32410
+    },
+    {
+      "name": "/hands/1a600.png",
+      "width": 33,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 32453
+    },
+    {
+      "name": "/hands/1a610.png",
+      "width": 40,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 32520
+    },
+    {
+      "name": "/hands/1a620.png",
+      "width": 42,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 32587
+    },
+    {
+      "name": "/hands/1a630.png",
+      "width": 37,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 32654
+    },
+    {
+      "name": "/hands/1a640.png",
+      "width": 52,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 32708
+    },
+    {
+      "name": "/hands/1a650.png",
+      "width": 55,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 32754
+    },
+    {
+      "name": "/hands/1a700.png",
+      "width": 45,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 32794
+    },
+    {
+      "name": "/hands/1a710.png",
+      "width": 36,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 32856
+    },
+    {
+      "name": "/hands/1a720.png",
+      "width": 36,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 32920
+    },
+    {
+      "name": "/hands/1a730.png",
+      "width": 43,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 32984
+    },
+    {
+      "name": "/hands/1a740.png",
+      "width": 45,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 33034
+    },
+    {
+      "name": "/hands/1a750.png",
+      "width": 56,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 33087
+    },
+    {
+      "name": "/hands/1a800.png",
+      "width": 33,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 33135
+    },
+    {
+      "name": "/hands/1a810.png",
+      "width": 37,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 33201
+    },
+    {
+      "name": "/hands/1a820.png",
+      "width": 29,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 33267
+    },
+    {
+      "name": "/hands/1a830.png",
+      "width": 33,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 33333
+    },
+    {
+      "name": "/hands/1a840.png",
+      "width": 50,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 33382
+    },
+    {
+      "name": "/hands/1a850.png",
+      "width": 42,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 33427
+    },
+    {
+      "name": "/hands/1a900.png",
+      "width": 35,
+      "height": 68,
+      "offsetX": 1,
+      "offsetY": 33474
+    },
+    {
+      "name": "/hands/1a910.png",
+      "width": 27,
+      "height": 68,
+      "offsetX": 1,
+      "offsetY": 33543
+    },
+    {
+      "name": "/hands/1a920.png",
+      "width": 32,
+      "height": 68,
+      "offsetX": 1,
+      "offsetY": 33612
+    },
+    {
+      "name": "/hands/1a930.png",
+      "width": 35,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 33681
+    },
+    {
+      "name": "/hands/1a940.png",
+      "width": 43,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 33734
+    },
+    {
+      "name": "/hands/1a950.png",
+      "width": 41,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 33788
+    },
+    {
+      "name": "/hands/1aa00.png",
+      "width": 34,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 33844
+    },
+    {
+      "name": "/hands/1aa10.png",
+      "width": 31,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 33911
+    },
+    {
+      "name": "/hands/1aa20.png",
+      "width": 34,
+      "height": 67,
+      "offsetX": 1,
+      "offsetY": 33978
+    },
+    {
+      "name": "/hands/1aa30.png",
+      "width": 34,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 34046
+    },
+    {
+      "name": "/hands/1aa40.png",
+      "width": 38,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 34095
+    },
+    {
+      "name": "/hands/1aa50.png",
+      "width": 41,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 34146
+    },
+    {
+      "name": "/hands/1ab00.png",
+      "width": 51,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 34195
+    },
+    {
+      "name": "/hands/1ab10.png",
+      "width": 21,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 34261
+    },
+    {
+      "name": "/hands/1ab20.png",
+      "width": 47,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 34327
+    },
+    {
+      "name": "/hands/1ab30.png",
+      "width": 47,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 34393
+    },
+    {
+      "name": "/hands/1ab40.png",
+      "width": 41,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 34435
+    },
+    {
+      "name": "/hands/1ab50.png",
+      "width": 57,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 34490
+    },
+    {
+      "name": "/hands/1ac00.png",
+      "width": 32,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 34535
+    },
+    {
+      "name": "/hands/1ac10.png",
+      "width": 37,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 34587
+    },
+    {
+      "name": "/hands/1ac20.png",
+      "width": 29,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 34645
+    },
+    {
+      "name": "/hands/1ac30.png",
+      "width": 32,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 34701
+    },
+    {
+      "name": "/hands/1ac40.png",
+      "width": 45,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 34754
+    },
+    {
+      "name": "/hands/1ac50.png",
+      "width": 45,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 34796
+    },
+    {
+      "name": "/hands/1ad00.png",
+      "width": 30,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 34841
+    },
+    {
+      "name": "/hands/1ad10.png",
+      "width": 37,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 34898
+    },
+    {
+      "name": "/hands/1ad20.png",
+      "width": 35,
+      "height": 56,
+      "offsetX": 1,
+      "offsetY": 34955
+    },
+    {
+      "name": "/hands/1ad30.png",
+      "width": 35,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 35012
+    },
+    {
+      "name": "/hands/1ad40.png",
+      "width": 42,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 35058
+    },
+    {
+      "name": "/hands/1ad50.png",
+      "width": 45,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 35099
+    },
+    {
+      "name": "/hands/1ae00.png",
+      "width": 29,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 35140
+    },
+    {
+      "name": "/hands/1ae10.png",
+      "width": 28,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 35198
+    },
+    {
+      "name": "/hands/1ae20.png",
+      "width": 26,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 35256
+    },
+    {
+      "name": "/hands/1ae30.png",
+      "width": 35,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 35314
+    },
+    {
+      "name": "/hands/1ae40.png",
+      "width": 38,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 35360
+    },
+    {
+      "name": "/hands/1ae50.png",
+      "width": 35,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 35398
+    },
+    {
+      "name": "/hands/1af00.png",
+      "width": 29,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 35443
+    },
+    {
+      "name": "/hands/1af10.png",
+      "width": 26,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 35495
+    },
+    {
+      "name": "/hands/1af20.png",
+      "width": 30,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 35547
+    },
+    {
+      "name": "/hands/1af30.png",
+      "width": 25,
+      "height": 40,
+      "offsetX": 1,
+      "offsetY": 35599
+    },
+    {
+      "name": "/hands/1af40.png",
+      "width": 41,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 35640
+    },
+    {
+      "name": "/hands/1af50.png",
+      "width": 46,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 35680
+    },
+    {
+      "name": "/hands/1b000.png",
+      "width": 33,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 35719
+    },
+    {
+      "name": "/hands/1b010.png",
+      "width": 29,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 35785
+    },
+    {
+      "name": "/hands/1b020.png",
+      "width": 36,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 35851
+    },
+    {
+      "name": "/hands/1b030.png",
+      "width": 35,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 35917
+    },
+    {
+      "name": "/hands/1b040.png",
+      "width": 40,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 35971
+    },
+    {
+      "name": "/hands/1b050.png",
+      "width": 35,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 36018
+    },
+    {
+      "name": "/hands/1b100.png",
+      "width": 34,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 36069
+    },
+    {
+      "name": "/hands/1b110.png",
+      "width": 36,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 36134
+    },
+    {
+      "name": "/hands/1b120.png",
+      "width": 38,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 36199
+    },
+    {
+      "name": "/hands/1b130.png",
+      "width": 33,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 36264
+    },
+    {
+      "name": "/hands/1b140.png",
+      "width": 44,
+      "height": 39,
+      "offsetX": 1,
+      "offsetY": 36311
+    },
+    {
+      "name": "/hands/1b150.png",
+      "width": 50,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 36351
+    },
+    {
+      "name": "/hands/1b200.png",
+      "width": 34,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 36396
+    },
+    {
+      "name": "/hands/1b210.png",
+      "width": 37,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 36463
+    },
+    {
+      "name": "/hands/1b220.png",
+      "width": 37,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 36530
+    },
+    {
+      "name": "/hands/1b230.png",
+      "width": 37,
+      "height": 54,
+      "offsetX": 1,
+      "offsetY": 36597
+    },
+    {
+      "name": "/hands/1b240.png",
+      "width": 46,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 36652
+    },
+    {
+      "name": "/hands/1b250.png",
+      "width": 35,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 36697
+    },
+    {
+      "name": "/hands/1b300.png",
+      "width": 27,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 36751
+    },
+    {
+      "name": "/hands/1b310.png",
+      "width": 38,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 36818
+    },
+    {
+      "name": "/hands/1b320.png",
+      "width": 38,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 36885
+    },
+    {
+      "name": "/hands/1b330.png",
+      "width": 34,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 36952
+    },
+    {
+      "name": "/hands/1b340.png",
+      "width": 50,
+      "height": 36,
+      "offsetX": 1,
+      "offsetY": 37005
+    },
+    {
+      "name": "/hands/1b350.png",
+      "width": 35,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 37042
+    },
+    {
+      "name": "/hands/1b400.png",
+      "width": 30,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 37086
+    },
+    {
+      "name": "/hands/1b410.png",
+      "width": 27,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 37148
+    },
+    {
+      "name": "/hands/1b420.png",
+      "width": 27,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 37214
+    },
+    {
+      "name": "/hands/1b430.png",
+      "width": 30,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 37280
+    },
+    {
+      "name": "/hands/1b440.png",
+      "width": 42,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 37330
+    },
+    {
+      "name": "/hands/1b450.png",
+      "width": 39,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 37374
+    },
+    {
+      "name": "/hands/1b500.png",
+      "width": 30,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 37422
+    },
+    {
+      "name": "/hands/1b510.png",
+      "width": 28,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 37488
+    },
+    {
+      "name": "/hands/1b520.png",
+      "width": 26,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 37554
+    },
+    {
+      "name": "/hands/1b530.png",
+      "width": 36,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 37620
+    },
+    {
+      "name": "/hands/1b540.png",
+      "width": 34,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 37669
+    },
+    {
+      "name": "/hands/1b550.png",
+      "width": 41,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 37712
+    },
+    {
+      "name": "/hands/1b600.png",
+      "width": 29,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 37762
+    },
+    {
+      "name": "/hands/1b610.png",
+      "width": 24,
+      "height": 53,
+      "offsetX": 1,
+      "offsetY": 37814
+    },
+    {
+      "name": "/hands/1b620.png",
+      "width": 28,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 37868
+    },
+    {
+      "name": "/hands/1b630.png",
+      "width": 26,
+      "height": 37,
+      "offsetX": 1,
+      "offsetY": 37921
+    },
+    {
+      "name": "/hands/1b640.png",
+      "width": 36,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 37959
+    },
+    {
+      "name": "/hands/1b650.png",
+      "width": 39,
+      "height": 35,
+      "offsetX": 1,
+      "offsetY": 38001
+    },
+    {
+      "name": "/hands/1b700.png",
+      "width": 26,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 38037
+    },
+    {
+      "name": "/hands/1b710.png",
+      "width": 26,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 38099
+    },
+    {
+      "name": "/hands/1b720.png",
+      "width": 27,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 38166
+    },
+    {
+      "name": "/hands/1b730.png",
+      "width": 28,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 38233
+    },
+    {
+      "name": "/hands/1b740.png",
+      "width": 41,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 38282
+    },
+    {
+      "name": "/hands/1b750.png",
+      "width": 30,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 38325
+    },
+    {
+      "name": "/hands/1b800.png",
+      "width": 47,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 38372
+    },
+    {
+      "name": "/hands/1b810.png",
+      "width": 26,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 38432
+    },
+    {
+      "name": "/hands/1b820.png",
+      "width": 45,
+      "height": 59,
+      "offsetX": 1,
+      "offsetY": 38492
+    },
+    {
+      "name": "/hands/1b830.png",
+      "width": 49,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 38552
+    },
+    {
+      "name": "/hands/1b840.png",
+      "width": 52,
+      "height": 61,
+      "offsetX": 1,
+      "offsetY": 38605
+    },
+    {
+      "name": "/hands/1b850.png",
+      "width": 63,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 38667
+    },
+    {
+      "name": "/hands/1b900.png",
+      "width": 30,
+      "height": 52,
+      "offsetX": 1,
+      "offsetY": 38717
+    },
+    {
+      "name": "/hands/1b910.png",
+      "width": 30,
+      "height": 57,
+      "offsetX": 1,
+      "offsetY": 38770
+    },
+    {
+      "name": "/hands/1b920.png",
+      "width": 29,
+      "height": 55,
+      "offsetX": 1,
+      "offsetY": 38828
+    },
+    {
+      "name": "/hands/1b930.png",
+      "width": 32,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 38884
+    },
+    {
+      "name": "/hands/1b940.png",
+      "width": 43,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 38929
+    },
+    {
+      "name": "/hands/1b950.png",
+      "width": 37,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 38975
+    },
+    {
+      "name": "/hands/1ba00.png",
+      "width": 31,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 39021
+    },
+    {
+      "name": "/hands/1ba10.png",
+      "width": 28,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 39085
+    },
+    {
+      "name": "/hands/1ba20.png",
+      "width": 35,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 39149
+    },
+    {
+      "name": "/hands/1ba30.png",
+      "width": 31,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 39213
+    },
+    {
+      "name": "/hands/1ba40.png",
+      "width": 42,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 39258
+    },
+    {
+      "name": "/hands/1ba50.png",
+      "width": 38,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 39306
+    },
+    {
+      "name": "/hands/1bb00.png",
+      "width": 41,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 39352
+    },
+    {
+      "name": "/hands/1bb10.png",
+      "width": 36,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 39418
+    },
+    {
+      "name": "/hands/1bb20.png",
+      "width": 39,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 39484
+    },
+    {
+      "name": "/hands/1bb30.png",
+      "width": 36,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 39550
+    },
+    {
+      "name": "/hands/1bb40.png",
+      "width": 47,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 39598
+    },
+    {
+      "name": "/hands/1bb50.png",
+      "width": 40,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 39647
+    },
+    {
+      "name": "/hands/1bc00.png",
+      "width": 32,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 39696
+    },
+    {
+      "name": "/hands/1bc10.png",
+      "width": 32,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 39761
+    },
+    {
+      "name": "/hands/1bc20.png",
+      "width": 31,
+      "height": 64,
+      "offsetX": 1,
+      "offsetY": 39826
+    },
+    {
+      "name": "/hands/1bc30.png",
+      "width": 32,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 39891
+    },
+    {
+      "name": "/hands/1bc40.png",
+      "width": 49,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 39940
+    },
+    {
+      "name": "/hands/1bc50.png",
+      "width": 39,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 39983
+    },
+    {
+      "name": "/hands/1bd00.png",
+      "width": 27,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 40032
+    },
+    {
+      "name": "/hands/1bd10.png",
+      "width": 30,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 40099
+    },
+    {
+      "name": "/hands/1bd20.png",
+      "width": 33,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 40166
+    },
+    {
+      "name": "/hands/1bd30.png",
+      "width": 33,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 40233
+    },
+    {
+      "name": "/hands/1bd40.png",
+      "width": 54,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 40282
+    },
+    {
+      "name": "/hands/1bd50.png",
+      "width": 53,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 40329
+    },
+    {
+      "name": "/hands/1be00.png",
+      "width": 27,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 40376
+    },
+    {
+      "name": "/hands/1be10.png",
+      "width": 32,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 40442
+    },
+    {
+      "name": "/hands/1be20.png",
+      "width": 34,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 40508
+    },
+    {
+      "name": "/hands/1be30.png",
+      "width": 32,
+      "height": 51,
+      "offsetX": 1,
+      "offsetY": 40574
+    },
+    {
+      "name": "/hands/1be40.png",
+      "width": 47,
+      "height": 45,
+      "offsetX": 1,
+      "offsetY": 40626
+    },
+    {
+      "name": "/hands/1be50.png",
+      "width": 38,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 40672
+    },
+    {
+      "name": "/hands/1bf00.png",
+      "width": 30,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 40722
+    },
+    {
+      "name": "/hands/1bf10.png",
+      "width": 35,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 40788
+    },
+    {
+      "name": "/hands/1bf20.png",
+      "width": 36,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 40854
+    },
+    {
+      "name": "/hands/1bf30.png",
+      "width": 33,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 40920
+    },
+    {
+      "name": "/hands/1bf40.png",
+      "width": 47,
+      "height": 47,
+      "offsetX": 1,
+      "offsetY": 40970
+    },
+    {
+      "name": "/hands/1bf50.png",
+      "width": 50,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 41018
+    },
+    {
+      "name": "/hands/1c000.png",
+      "width": 28,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 41068
+    },
+    {
+      "name": "/hands/1c010.png",
+      "width": 34,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 41134
+    },
+    {
+      "name": "/hands/1c020.png",
+      "width": 36,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 41200
+    },
+    {
+      "name": "/hands/1c030.png",
+      "width": 33,
+      "height": 48,
+      "offsetX": 1,
+      "offsetY": 41266
+    },
+    {
+      "name": "/hands/1c040.png",
+      "width": 45,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 41315
+    },
+    {
+      "name": "/hands/1c050.png",
+      "width": 51,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 41357
+    },
+    {
+      "name": "/hands/1c100.png",
+      "width": 26,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 41399
+    },
+    {
+      "name": "/hands/1c110.png",
+      "width": 44,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 41466
+    },
+    {
+      "name": "/hands/1c120.png",
+      "width": 43,
+      "height": 66,
+      "offsetX": 1,
+      "offsetY": 41533
+    },
+    {
+      "name": "/hands/1c130.png",
+      "width": 32,
+      "height": 50,
+      "offsetX": 1,
+      "offsetY": 41600
+    },
+    {
+      "name": "/hands/1c140.png",
+      "width": 48,
+      "height": 41,
+      "offsetX": 1,
+      "offsetY": 41651
+    },
+    {
+      "name": "/hands/1c150.png",
+      "width": 46,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 41693
+    },
+    {
+      "name": "/hands/1c200.png",
+      "width": 32,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 41736
+    },
+    {
+      "name": "/hands/1c210.png",
+      "width": 37,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 41802
+    },
+    {
+      "name": "/hands/1c220.png",
+      "width": 33,
+      "height": 65,
+      "offsetX": 1,
+      "offsetY": 41868
+    },
+    {
+      "name": "/hands/1c230.png",
+      "width": 33,
+      "height": 49,
+      "offsetX": 1,
+      "offsetY": 41934
+    },
+    {
+      "name": "/hands/1c240.png",
+      "width": 49,
+      "height": 42,
+      "offsetX": 1,
+      "offsetY": 41984
+    },
+    {
+      "name": "/hands/1c250.png",
+      "width": 46,
+      "height": 44,
+      "offsetX": 1,
+      "offsetY": 42027
+    },
+    {
+      "name": "/hands/1c300.png",
+      "width": 31,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 42072
+    },
+    {
+      "name": "/hands/1c310.png",
+      "width": 37,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 42136
+    },
+    {
+      "name": "/hands/1c320.png",
+      "width": 34,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 42200
+    },
+    {
+      "name": "/hands/1c330.png",
+      "width": 31,
+      "height": 46,
+      "offsetX": 1,
+      "offsetY": 42264
+    },
+    {
+      "name": "/hands/1c340.png",
+      "width": 46,
+      "height": 38,
+      "offsetX": 1,
+      "offsetY": 42311
+    },
+    {
+      "name": "/hands/1c350.png",
+      "width": 44,
+      "height": 43,
+      "offsetX": 1,
+      "offsetY": 42350
+    },
+    {
+      "name": "/hands/1c400.png",
+      "width": 50,
+      "height": 63,
+      "offsetX": 1,
+      "offsetY": 42394
+    }
+  ]
+}
