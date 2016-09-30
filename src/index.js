@@ -48,27 +48,12 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 });
 
-// app.ports.requestSignfromOtherApp.subscribe(function(str) {
-//     try {
-
-//         if ("signmaker" in window) {
-//             var fsw = signmaker.vm.fsw("");
-//         } else {
-//             var fsw = window.initialFSW
-//         }
-
-//         var sign = sw10.symbolsList(fsw);
-
-//         //send values to Elm subscription ports
-//         app.ports.receiveSign.send(sign);
-//     } catch (e) { console.log(e) }
-// });
 
 app.ports.requestInitialChoosings.subscribe(function(str) {
     try {
         console.log("requestInitialChoosings called")
-        var choosing1 = getchoosing("M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468", 10, 20)
-        var choosing2 = getchoosing("M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468", 50, 60)
+        var choosing1 = getchoosing("M518x518S2ff00482x483", 10, 20)
+        var choosing2 = getchoosing("M512x516S14c00489x485", 50, 60)
 
         //send values to Elm subscription ports
         app.ports.receiveInitialChoosings.send([choosing1, choosing2]);

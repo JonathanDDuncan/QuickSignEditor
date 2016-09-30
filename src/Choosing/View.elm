@@ -16,7 +16,7 @@ root : Choosing.Types.Model -> Html Choosing.Types.Msg
 root model =
     div
         []
-        [ App.map Choosing.Types.Display (Debug.log "sign" (SWEditor.Display.signView model.displaySign (attributes1 model)))
+        [ App.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign (attributes1 model))
         ]
 
 
@@ -24,7 +24,7 @@ attributes1 : Choosing.Types.Model -> List (Attribute SWEditor.Types.Msg)
 attributes1 model =
     [ Html.Attributes.style
         [ "position" => "relative"
-        , "left" => Debug.log "offsetx" (px model.offset.offsetx)
-        , "top" => Debug.log "offsety" (px model.offset.offsety)
+        , "left" => px model.offset.offsetx
+        , "top" => px model.offset.offsety
         ]
     ]

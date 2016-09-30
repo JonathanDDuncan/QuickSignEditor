@@ -46,9 +46,9 @@ update action model =
         ReceiveInitialChoosings choosings ->
             let
                 choosings1 =
-                    List.map (Choosing.Types.toModel 0) (Debug.log "choosings" choosings)
+                    List.map (Choosing.Types.toModel 0) choosings
             in
-                ( Debug.log "choosings1" choosings1
+                ( choosings1
                 , Cmd.none
                 )
 
