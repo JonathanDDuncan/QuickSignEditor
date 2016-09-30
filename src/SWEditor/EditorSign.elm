@@ -40,17 +40,21 @@ toEditorSign sign id =
 
         boundingbox =
             getSignBounding editorsymbols
+
+        centeredSmallest =
+            centerSignSmallest
+                { width = boundingbox.width
+                , height = boundingbox.height
+                , text = sign.text
+                , x = boundingbox.x
+                , y = boundingbox.y
+                , backfill = sign.backfill
+                , syms = editorsymbols
+                , laned = sign.laned
+                , left = sign.left
+                }
     in
-        { width = boundingbox.width
-        , height = boundingbox.height
-        , text = sign.text
-        , x = boundingbox.x
-        , y = boundingbox.y
-        , backfill = sign.backfill
-        , syms = editorsymbols
-        , laned = sign.laned
-        , left = sign.left
-        }
+        centeredSmallest
 
 
 centerSignViewposition : NamedPosition -> EditorSign -> EditorSign

@@ -235,6 +235,7 @@ subscriptions model =
         [ WindowSize.State.subscriptions model.window |> Sub.map Window
         , SWEditor.State.subscriptions model.signbox |> Sub.map SWEditor
         , Keyboard.State.subscriptions model.keyboard |> Sub.map Keyboard
+        , MainChooser.State.subscriptions model.mainchooser |> Sub.map MainChooser
         ]
 
 

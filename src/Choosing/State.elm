@@ -36,6 +36,11 @@ update action model =
             , Cmd.none
             )
 
+        Display msg ->
+            ( model
+            , Cmd.none
+            )
+
 
 
 --To nest update of feature

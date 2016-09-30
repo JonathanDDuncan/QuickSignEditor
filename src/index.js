@@ -66,22 +66,31 @@ app.ports.shareFsw.subscribe(function(fsw) {
 
 app.ports.requestInitialChoosings.subscribe(function(str) {
     try {
-        var fsw = "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468";
-        var sign = sw10.symbolsList(fsw);
-        var offset1 = {};
-        offset1.offsetx = 10;
-        offset1.offsety = 20;
-
-        var choosing = {};
-        choosing.displaySign = sign;
-        choosing.valuestoAdd = sign.syms;
-        choosing.value = 101;
-        choosing.offset = offset1;
+        console.log("requestInitialChoosings called")
+        var choosing1 = getchoosing("M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468", 10, 20)
+        var choosing2 = getchoosing("M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468", 50, 60)
 
         //send values to Elm subscription ports
-        app.ports.receiveInitialChoosings.send([choosing]);
+        app.ports.receiveInitialChoosings.send([choosing1, choosing2]);
     } catch (e) { console.log(e) }
 });
+
+function getchoosing(fsw, offsetx, offsety) {
+
+    var sign = sw10.symbolsList(fsw);
+    var offset1 = {};
+    offset1.offsetx = offsetx;
+    offset1.offsety = offsety;
+
+    var choosing = {};
+    choosing.displaySign = sign;
+    choosing.valuestoAdd = sign.syms;
+    choosing.value = 101;
+    choosing.offset = offset1;
+
+    return choosing;
+}
+
 app.ports.requestSignfromOtherApp.subscribe(requestSign);
 
 function requestSign(str) {

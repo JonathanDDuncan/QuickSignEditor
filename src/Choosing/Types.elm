@@ -20,14 +20,16 @@ type alias Model =
 type alias ImportModel =
     { displaySign :
         Sign
-        -- , valuestoAdd : List Symbol
-        -- , value : Int
-        -- , offset : Offset
+    , valuestoAdd : List Symbol
+    , value :
+        Int
+    , offset : Offset
     }
 
 
 type Msg
     = ChoosingMessage
+    | Display SWEditor.Types.Msg
 
 
 
@@ -41,16 +43,13 @@ toModel id importmodel =
         sign =
             SWEditor.EditorSign.toEditorSign importmodel.displaySign id
 
-        -- symbols =
-        --     List.indexedMap (SWEditor.EditorSymbol.toEditorSymbol id)
-        --         importmodel.valuestoAdd
+        symbols =
+            List.indexedMap (SWEditor.EditorSymbol.toEditorSymbol id)
+                importmodel.valuestoAdd
     in
         { displaySign =
             sign
-            -- , valuestoAdd = symbols
-            -- , value = importmodel.value
-            -- , offset = importmodel.offset
-        , valuestoAdd = []
-        , value = 101
-        , offset = Offset 0 1
+        , valuestoAdd = symbols
+        , value = importmodel.value
+        , offset = importmodel.offset
         }

@@ -6,13 +6,14 @@ import Choosing.Types as Choosing
 
 
 type alias Model =
-    { choosings : List Choosing.Model }
+    List Choosing.Model
 
 
 type Msg
     = MainChooserMessage
     | RequestInitialChoosings
     | ReceiveInitialChoosings (List Choosing.ImportModel)
+    | Choosing Choosing.Msg
 
 
 

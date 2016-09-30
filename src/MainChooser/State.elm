@@ -17,8 +17,7 @@ import Choosing.Types exposing (..)
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
-    ( { choosings = [ fst (Choosing.State.init 5 6 7) ]
-      }
+    ( [ fst (Choosing.State.init 5 6 7) ]
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
@@ -34,6 +33,11 @@ update action model =
             , Cmd.none
             )
 
+        Choosing msg ->
+            ( model
+            , Cmd.none
+            )
+
         RequestInitialChoosings ->
             ( model
             , Ports.requestInitialChoosings ""
@@ -44,7 +48,7 @@ update action model =
                 choosings1 =
                     List.map (Choosing.Types.toModel 0) (Debug.log "choosings" choosings)
             in
-                ( { model | choosings = choosings1 }
+                ( Debug.log "choosings1" choosings1
                 , Cmd.none
                 )
 
