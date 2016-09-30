@@ -14,6 +14,7 @@ import SWEditor.State
 import PlatformHelpers exposing (lift)
 import Keyboard.State
 import MainChooser.State
+import Ports exposing (..)
 
 
 -- Boilerplate: Always use this initial Mdl model store.
@@ -77,6 +78,11 @@ update msg model =
             )
 
         ShareFsw ->
+            ( model
+            , Cmd.none
+            )
+
+        PleaseShareFsw action ->
             ( model
             , Cmd.none
             )
@@ -236,6 +242,7 @@ subscriptions model =
         , SWEditor.State.subscriptions model.signbox |> Sub.map SWEditor
         , Keyboard.State.subscriptions model.keyboard |> Sub.map Keyboard
         , MainChooser.State.subscriptions model.mainchooser |> Sub.map MainChooser
+        , pleaseShareFsw PleaseShareFsw
         ]
 
 

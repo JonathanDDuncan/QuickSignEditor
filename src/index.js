@@ -136,4 +136,9 @@ function init() {
     document.addEventListener("touchend", touchHandler, true);
     document.addEventListener("touchcancel", touchHandler, true);
 }
+
+window.onunload = function() {
+    app.ports.pleaseShareFsw.send("");
+}
+
 init();

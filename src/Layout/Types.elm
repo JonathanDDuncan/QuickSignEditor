@@ -39,6 +39,7 @@ type Msg
     | Reset
     | HideOverlay
     | ShareFsw
+    | PleaseShareFsw String
     | Window WindowSize.Types.Msg
     | SWEditor SWEditor.Types.Msg
     | Keyboard Keyboard.Types.Msg

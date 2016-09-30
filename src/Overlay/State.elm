@@ -51,6 +51,13 @@ layoutactions action model =
             in
                 ( { model | show = False }, Ports.shareFsw fsw )
 
+        PleaseShareFsw msg ->
+            let
+                fsw =
+                    Debug.log "PleaseShareFsw" SWEditor.EditorSign.getFsw model.layout.signbox.sign
+            in
+                ( model, Ports.shareFsw fsw )
+
         _ ->
             lift
                 .layout
