@@ -8,6 +8,23 @@ type alias EditorSymbol =
     Idable (Selectable (Symbol))
 
 
+symbolinit : EditorSymbol
+symbolinit =
+    { x = 0
+    , y = 0
+    , width = 0
+    , height = 0
+    , fontsize = 0
+    , nwcolor = ""
+    , pua = ""
+    , code = 0
+    , key = ""
+    , nbcolor = ""
+    , selected = False
+    , id = 0
+    }
+
+
 toEditorSymbol : Int -> Int -> Symbol -> EditorSymbol
 toEditorSymbol id index symbol =
     { x = symbol.x

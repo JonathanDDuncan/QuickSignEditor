@@ -8,15 +8,16 @@ module Choosing.State exposing (init, update, subscriptions)
 
 import Choosing.Types exposing (..)
 import SWEditor.Types exposing (..)
+import SWEditor.EditorSign as EditorSign exposing (..)
 
 
 -- import SubChoosings.State
 
 
-init : ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
+init : Int -> Int -> Int -> ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
 init code x y =
-    ( { displaySign = EditorSign
-      , valuestoAdd = List EditorSymbol
+    ( { displaySign = EditorSign.signinit
+      , valuestoAdd = []
       , value = code
       , offset = Offset x y
       }
@@ -31,7 +32,7 @@ update : Choosing.Types.Msg -> Choosing.Types.Model -> ( Choosing.Types.Model, C
 update action model =
     case action of
         ChoosingMessage ->
-            ( { model | field = 0 }
+            ( model
             , Cmd.none
             )
 

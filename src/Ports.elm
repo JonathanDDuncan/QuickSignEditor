@@ -19,7 +19,7 @@ port requestSignfromOtherApp : String -> Cmd msg
 port receiveSignfromOtherApp : (Sign -> msg) -> Sub msg
 
 
-port receiveInitialChoosings : (List Choosing.Model -> msg) -> Sub msg
+port receiveInitialChoosings : (List Choosing.ImportModel -> msg) -> Sub msg
 
 
 port requestElementPosition : String -> Cmd msg

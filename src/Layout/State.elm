@@ -13,6 +13,7 @@ import WindowSize.Types
 import SWEditor.State
 import PlatformHelpers exposing (lift)
 import Keyboard.State
+import MainChooser.State
 
 
 -- Boilerplate: Always use this initial Mdl model store.
@@ -25,6 +26,7 @@ init =
       , window = fst WindowSize.State.init
       , signbox = fst SWEditor.State.init
       , keyboard = fst Keyboard.State.init
+      , mainchooser = fst MainChooser.State.init
       , rightdrawer = fst drawerinit
       , footerheight = 176
       , containerHeight = 800
@@ -87,6 +89,9 @@ update msg model =
 
         Keyboard action ->
             lift .keyboard (\m x -> { m | keyboard = x }) Keyboard Keyboard.State.update action model
+
+        MainChooser action ->
+            lift .mainchooser (\m x -> { m | mainchooser = x }) MainChooser MainChooser.State.update action model
 
         DrawerShow ->
             ( { model | rightdrawer = setdrawerShowing model.rightdrawer True }

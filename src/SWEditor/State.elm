@@ -39,37 +39,6 @@ init =
     )
 
 
-signinit : EditorSign
-signinit =
-    { width = 0
-    , height = 0
-    , text = ""
-    , x = 0
-    , y = 0
-    , backfill = ""
-    , syms = [ symbolinit ]
-    , laned = False
-    , left = 0
-    }
-
-
-symbolinit : EditorSymbol
-symbolinit =
-    { x = 0
-    , y = 0
-    , width = 0
-    , height = 0
-    , fontsize = 0
-    , nwcolor = ""
-    , pua = ""
-    , code = 0
-    , key = ""
-    , nbcolor = ""
-    , selected = False
-    , id = 0
-    }
-
-
 update : SWEditor.Types.Msg -> SWEditor.Types.Model -> ( SWEditor.Types.Model, Cmd SWEditor.Types.Msg )
 update action model =
     case action of

@@ -3,7 +3,6 @@ module SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
-import Convert.ConvertFsw exposing (..)
 
 
 type alias EditorSign =
@@ -16,6 +15,20 @@ type alias EditorSign =
     , syms : List EditorSymbol
     , laned : Bool
     , left : Int
+    }
+
+
+signinit : EditorSign
+signinit =
+    { width = 0
+    , height = 0
+    , text = ""
+    , x = 0
+    , y = 0
+    , backfill = ""
+    , syms = []
+    , laned = False
+    , left = 0
     }
 
 

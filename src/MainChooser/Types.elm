@@ -12,7 +12,7 @@ type alias Model =
 type Msg
     = MainChooserMessage
     | RequestInitialChoosings
-    | ReceiveInitialChoosings List Choosing.Model
+    | ReceiveInitialChoosings (List Choosing.ImportModel)
 
 
 

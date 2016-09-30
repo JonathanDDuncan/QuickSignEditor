@@ -69,17 +69,17 @@ app.ports.requestInitialChoosings.subscribe(function(str) {
         var fsw = "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468";
         var sign = sw10.symbolsList(fsw);
         var offset1 = {};
-        offset1.x = 10;
-        offset1.y = 20;
+        offset1.offsetx = 10;
+        offset1.offsety = 20;
 
         var choosing = {};
         choosing.displaySign = sign;
         choosing.valuestoAdd = sign.syms;
         choosing.value = 101;
         choosing.offset = offset1;
-        var choosings = [choosing];
+
         //send values to Elm subscription ports
-        app.ports.receiveInitialChoosings.send(choosings);
+        app.ports.receiveInitialChoosings.send([choosing]);
     } catch (e) { console.log(e) }
 });
 app.ports.requestSignfromOtherApp.subscribe(requestSign);
