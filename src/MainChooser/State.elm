@@ -17,7 +17,7 @@ import Choosing.Types exposing (..)
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
-    ( [ fst (Choosing.State.init 5 6 7) ]
+    ( [ fst (Choosing.State.init 5 6 8) ]
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
