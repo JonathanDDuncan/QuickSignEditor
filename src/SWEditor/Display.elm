@@ -14,6 +14,7 @@ signView :
                     | nbcolor : String
                     , nwcolor : String
                     , pua : String
+                    , size : Float
                     , x : Int
                     , y : Int
                 }
@@ -26,17 +27,18 @@ signView sign attr =
         (List.map extractColor sign.syms)
 
 
-extractColor : { a | nbcolor : String, nwcolor : String, pua : String, x : Int, y : Int } -> Html Msg
+extractColor : { a | nbcolor : String, nwcolor : String, pua : String, x : Int, y : Int, size : Float } -> Html Msg
 extractColor symbol =
     symbolView symbol.nbcolor symbol
 
 
-symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String } -> Html Msg
+symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String, size : Float } -> Html Msg
 symbolView nbcolor symbol =
     span
         [ class "symbol"
         , style
-            [ "left" => px symbol.x
+            [ scale symbol.sze
+            , "left" => px symbol.x
             , "top" => px symbol.y
             ]
         ]
@@ -67,6 +69,7 @@ scaledSignView :
                     | nbcolor : String
                     , nwcolor : String
                     , pua : String
+                    , size : Float
                     , x : Int
                     , y : Int
                 }
@@ -74,5 +77,10 @@ scaledSignView :
     -> Float
     -> Int
     -> Html SWEditor.Types.Msg
-scaledSignView sign scale leftmargin =
-    signView sign [ style [ "transform" => ("scale(" ++ toString scale ++ ")"), "margin-left" => px leftmargin ] ]
+scaledSignView sign size leftmargin =
+    signView sign [ style [ scale size, "margin-left" => px leftmargin ] ]
+
+
+scale : Float -> ( String, String )
+scale size =
+    "transform" => ("scale(" ++ toString size ++ ")")

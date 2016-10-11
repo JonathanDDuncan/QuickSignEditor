@@ -31,6 +31,7 @@ symbolinit =
     , width = 0
     , height = 0
     , fontsize = 0
+    , size = 1
     , nwcolor = ""
     , pua = ""
     , code = 0
