@@ -52,13 +52,82 @@ app.ports.shareFsw.subscribe(function(fsw) {
 app.ports.requestInitialChoosings.subscribe(function(str) {
     try {
         console.log("requestInitialChoosings called")
-        var choosing1 = getchoosing("M595x704S31430495x510S33e10498x524S30a40513x498S30a50492x498S2ff00481x490S33110507x509S36a10497x541S36d00478x558S37601543x560S37609460x560S14c10551x555S14c18449x552S36d00482x601S20500571x542S21600547x542S22800466x544S2f700558x519S22a00439x646S22e00578x587S23800456x641S24200475x641S24b00503x638S25500534x642S28800437x678S29200460x673S2a200480x673S2a600508x676S2b800554x673S2e300528x672S2ed00563x587S2f100451x528S2f500564x650S33000473x491S36b10461x454S36c00491x447S38500532x443S37e0f443x545--D01_0080ff,ff80c0_D02_0080ff,ff80c0_D03_0080ff,ff80c0_D04_0080ff,ff80c0_D05_0080ff,ff80c0_D06_0080ff,ff80c0_D33_0080ff,ff80c0_D34_17c1d5,da1249_D35_17c1d5,da1249_D36_17c1d5,da1249_Z01,1.21Z02,1.45Z05,1.51Z07,1.27Z08,1.6Z09,1.6Z10,1.6Z13,1.48Z30,0.79Z33,1.48Z34,0.79Z35,0.79Z36,0.79", 0, 0)
+        var fsw = "M595x704S31430495x510S33e10498x524S30a40513x498S30a50492x498S2ff00481x490S33110507x509S36a10497x541S36d00478x558S37601543x560S37609460x560S14c10551x555S14c18449x552S36d00482x601S20500571x542S21600547x542S22800466x544S2f700558x519S22a00439x646S22e00578x587S23800456x641S24200475x641S24b00503x638S25500534x642S28800437x678S29200460x673S2a200480x673S2a600508x676S2b800554x673S2e300528x672S2ed00563x587S2f100451x528S2f500564x650S33000473x491S36b10461x454S36c00491x447S38500532x443S37e0f443x545--Z01,1.21Z02,1.45Z05,1.51Z07,1.27Z08,1.6Z09,1.6Z10,1.6Z13,1.48Z30,0.79Z33,1.48Z34,0.79Z35,0.79Z36,0.79"
+        var choosing1 = [getchoosing(fsw, 0, 0)]
 
+        var choosings = getchoosings(fsw);
         console.log([choosing1]);
         //send values to Elm subscription ports
-        app.ports.receiveInitialChoosings.send([choosing1]);
+        app.ports.receiveInitialChoosings.send(choosings);
     } catch (e) { console.log(e) }
 });
+
+function getchoosings(fsw) {
+
+    var sign = sw10.symbolsList(fsw);
+    var x = 10;
+    var y = 20;
+    var signs = splitintosigns(sign);
+    var choosings = [];
+
+    signs.forEach(function(newsign) {
+        choosings.push(getchoosingsign(newsign, x, y));
+    });
+    return choosings;
+}
+
+function splitintosigns(sign) {
+    var newsigns = [];
+    sign.syms.forEach(function(symbol) {
+        newsigns.push(createnewsign(symbol, 500 - sign.x, 500 - sign.y));
+    });
+
+
+    return newsigns;
+}
+
+function createnewsign(symbol, x, y) {
+    var sign = {};
+    sign.syms = [];
+    sign.syms.push(symbol);
+
+    sign.backfill =
+        "";
+    sign.height = symbol.height;
+    sign.laned = false;
+    sign.left = 0;
+    sign.width = symbol.width;
+
+    sign.x = parseInt(symbol.x + x);
+
+    sign.y = parseInt(symbol.y + y);
+    sign.text = "";
+    return sign;
+}
+
+function getchoosingsign(sign, x, y) {
+
+
+    var offset1 = {};
+    offset1.offsetx = sign.x - 500 + x;
+    offset1.offsety = sign.y - 500 + y;
+
+    var choosing = {};
+    choosing.displaySign = sign;
+    choosing.valuestoAdd = sign.syms;
+    choosing.value = getchoosingvalue(choosing.valuestoAdd);
+    choosing.offset = offset1;
+    console.log(JSON.stringify(sign.syms));
+    return choosing;
+}
+
+function getchoosingvalue(values) {
+    var code = 0;
+    values.forEach(function(value) {
+        code = value.code;
+    });
+    return code;
+}
 
 function getchoosing(fsw, offsetx, offsety) {
 
@@ -72,7 +141,7 @@ function getchoosing(fsw, offsetx, offsety) {
     choosing.valuestoAdd = sign.syms;
     choosing.value = 101;
     choosing.offset = offset1;
-
+    console.log(JSON.stringify(sign.syms));
     return choosing;
 }
 

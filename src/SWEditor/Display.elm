@@ -37,7 +37,7 @@ symbolView nbcolor symbol =
     span
         [ class "symbol"
         , style
-            [ scale symbol.sze
+            [ scale symbol.size
             , "left" => px symbol.x
             , "top" => px symbol.y
             ]
