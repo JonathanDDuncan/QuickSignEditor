@@ -20,7 +20,7 @@ displayChoosings model =
 
 displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
 displayChoosing choosing =
-    App.map Choosing (Choosing.View.root choosing)
+    div [ onClick (Clicked choosing.value) ] [ App.map Choosing (Choosing.View.root choosing) ]
 
 
 root : MainChooser.Types.Model -> Html MainChooser.Types.Msg

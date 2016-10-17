@@ -14,6 +14,7 @@ type Msg
     | RequestInitialChoosings
     | ReceiveInitialChoosings (List Choosing.ImportModel)
     | Choosing Choosing.Msg
+    | Clicked Int
 
 
 

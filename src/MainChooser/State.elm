@@ -52,6 +52,15 @@ update action model =
                 , Cmd.none
                 )
 
+        Clicked clickvalue ->
+            let
+                choosings1 =
+                    Debug.log "clickvalue" clickvalue
+            in
+                ( model
+                , Cmd.none
+                )
+
 
 
 --To nest update of MainChooser
