@@ -17,12 +17,35 @@ import Choosing.Types exposing (..)
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
-    ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ], clicked = "" }
+    ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ]
+      , clicked = ""
+      , handgroupchoosings = handgroupchoosingsinit
+      }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
-    , Ports.requestInitialChoosings ""
+    , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
+
+
+handgroupchoosingsinit =
+    { fistbabycommon = List.map (Choosing.Types.toModel 0) []
+    , fistringcommon = List.map (Choosing.Types.toModel 0) []
+    , fistmiddlecommon = List.map (Choosing.Types.toModel 0) []
+    , fistindexcommon = List.map (Choosing.Types.toModel 0) []
+    , fistthumbcommon = List.map (Choosing.Types.toModel 0) []
+    , circlethumbcommon = List.map (Choosing.Types.toModel 0) []
+    , circleindexcommon = List.map (Choosing.Types.toModel 0) []
+    , circleringcommon = List.map (Choosing.Types.toModel 0) []
+    , circlebabycommon = List.map (Choosing.Types.toModel 0) []
+    , cupbabycommon = List.map (Choosing.Types.toModel 0) []
+    , cupthumbcommon = List.map (Choosing.Types.toModel 0) []
+    , cupindexcommon = List.map (Choosing.Types.toModel 0) []
+    , anglethumbcommon = List.map (Choosing.Types.toModel 0) []
+    , anglebabycommon = List.map (Choosing.Types.toModel 0) []
+    , flatthumbcommon = List.map (Choosing.Types.toModel 0) []
+    , flatbabycommon = List.map (Choosing.Types.toModel 0) []
+    }
 
 
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
@@ -46,11 +69,18 @@ update action model =
         ReceiveInitialChoosings choosings ->
             let
                 choosings1 =
-                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) ""
+                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) handgroupchoosingsinit ""
             in
                 ( choosings1
                 , Cmd.none
                 )
+
+        ReceiveInitialGroupHandChoosings handgroupchoosings ->
+            let
+                converted =
+                    convertGroupHandChoosings handgroupchoosings
+            in
+                ( { model | handgroupchoosings = converted }, Cmd.none )
 
         Clicked clickvalue ->
             let
@@ -74,6 +104,7 @@ subscriptions : MainChooser.Types.Model -> Sub MainChooser.Types.Msg
 subscriptions model =
     Sub.batch
         [ receiveInitialChoosings ReceiveInitialChoosings
+        , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
         ]
 
 
