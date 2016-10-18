@@ -17,11 +17,11 @@ import Choosing.Types exposing (..)
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
-    ( [ fst (Choosing.State.init 5 6 8) ]
+    ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ], clicked = "" }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
-    , Cmd.none
+    , Ports.requestInitialChoosings ""
     )
 
 
@@ -46,7 +46,7 @@ update action model =
         ReceiveInitialChoosings choosings ->
             let
                 choosings1 =
-                    List.map (Choosing.Types.toModel 0) choosings
+                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) ""
             in
                 ( choosings1
                 , Cmd.none
@@ -57,7 +57,9 @@ update action model =
                 choosings1 =
                     Debug.log "clickvalue" clickvalue
             in
-                ( model
+                ( { model
+                    | clicked = clickvalue
+                  }
                 , Cmd.none
                 )
 

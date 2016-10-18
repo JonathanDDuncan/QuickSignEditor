@@ -14,11 +14,11 @@ import SWEditor.EditorSign as EditorSign exposing (..)
 -- import SubChoosings.State
 
 
-init : Int -> Int -> Int -> ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
-init code x y =
+init : String -> Int -> Int -> ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
+init key x y =
     ( { displaySign = EditorSign.signinit
       , valuestoAdd = []
-      , value = code
+      , value = key
       , offset = Offset x y
       }
       -- To initiate feature state

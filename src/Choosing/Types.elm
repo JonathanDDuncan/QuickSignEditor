@@ -12,17 +12,15 @@ import SW.Types exposing (..)
 type alias Model =
     { displaySign : SWEditor.EditorSign.EditorSign
     , valuestoAdd : List SWEditor.EditorSymbol.EditorSymbol
-    , value : Int
+    , value : String
     , offset : Offset
     }
 
 
 type alias ImportModel =
-    { displaySign :
-        Sign
+    { displaySign : Sign
     , valuestoAdd : List Symbol
-    , value :
-        Int
+    , value : String
     , offset : Offset
     }
 

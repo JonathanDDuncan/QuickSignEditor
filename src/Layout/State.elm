@@ -40,7 +40,10 @@ init =
       , rightspacemarginleftpercentage = 70
       , drawerwidth = 0
       }
-    , Cmd.map Window (snd WindowSize.State.init)
+    , Cmd.batch
+        [ Cmd.map Window (snd WindowSize.State.init)
+        , Cmd.map MainChooser (snd MainChooser.State.init)
+        ]
     )
 
 

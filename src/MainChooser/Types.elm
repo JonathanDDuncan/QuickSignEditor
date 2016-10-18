@@ -6,7 +6,9 @@ import Choosing.Types as Choosing
 
 
 type alias Model =
-    List Choosing.Model
+    { choosings : List Choosing.Model
+    , clicked : String
+    }
 
 
 type Msg
@@ -14,7 +16,7 @@ type Msg
     | RequestInitialChoosings
     | ReceiveInitialChoosings (List Choosing.ImportModel)
     | Choosing Choosing.Msg
-    | Clicked Int
+    | Clicked String
 
 
 

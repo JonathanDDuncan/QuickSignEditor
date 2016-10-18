@@ -12,10 +12,10 @@ import Choosing.Types exposing (..)
 
 
 displayChoosings :
-    List Choosing.Types.Model
+    MainChooser.Types.Model
     -> List (Html MainChooser.Types.Msg)
 displayChoosings model =
-    List.map displayChoosing model
+    List.map displayChoosing model.choosings
 
 
 displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
@@ -26,7 +26,6 @@ displayChoosing choosing =
 root : MainChooser.Types.Model -> Html MainChooser.Types.Msg
 root model =
     div []
-        [ button [ onClick RequestInitialChoosings ] [ text "Setup Chooser" ]
-        , div []
+        [ div []
             (displayChoosings model)
         ]

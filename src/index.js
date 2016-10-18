@@ -64,13 +64,15 @@ function getchoosings(fsw) {
 
     var sign = sw10.symbolsList(fsw);
     var x = 10;
-    var y = 20;
+    var y = 10;
     var signs = splitintosigns(sign);
+
     var choosings = [];
 
     signs.forEach(function(newsign) {
         choosings.push(getchoosingsign(newsign, x, y));
     });
+
     return choosings;
 }
 
@@ -120,11 +122,11 @@ function getchoosingsign(sign, x, y) {
 }
 
 function getchoosingvalue(values) {
-    var code = 0;
+    var key = 0;
     values.forEach(function(value) {
-        code = value.code;
+        key = value.key;
     });
-    return code;
+    return key;
 }
 
 function getchoosing(fsw, offsetx, offsety) {
