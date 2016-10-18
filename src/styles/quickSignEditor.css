@@ -208,3 +208,26 @@
                     right: 0px;
                     z-index: 10;
                 }
+                
+                .choosing {
+                    position: relative;
+                    display: inline-block;
+                    height: 33px;
+                    /*min-width: 33px;*/
+                    line-height: 40px;
+                    border-radius: 2px;
+                    text-align: center;
+                    word-wrap: break-word;
+                    font-size: 10px;
+                    cursor: pointer;
+                    box-shadow: rgba(0, 0, 0, .15) 0px 0px 5px inset;
+                }
+                
+                .fifths {
+                    position: relative;
+                    display: inline-block;
+                    background-color: yellow;
+                    border-radius: 2px;
+                    cursor: pointer;
+                    box-shadow: rgba(0, 0, 0, .15) 0px 0px 5px inset;
+                }

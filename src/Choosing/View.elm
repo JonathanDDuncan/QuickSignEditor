@@ -1,4 +1,4 @@
-module Choosing.View exposing (root)
+module Choosing.View exposing (root, normal)
 
 import Html exposing (..)
 import Html.App as App exposing (..)
@@ -20,6 +20,14 @@ root model =
         ]
 
 
+normal : Choosing.Types.Model -> Html Choosing.Types.Msg
+normal model =
+    div
+        []
+        [ App.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign (normal1 model))
+        ]
+
+
 attributes1 : Choosing.Types.Model -> List (Attribute SWEditor.Types.Msg)
 attributes1 model =
     [ Html.Attributes.style
@@ -28,3 +36,8 @@ attributes1 model =
         , "top" => px model.offset.offsety
         ]
     ]
+
+
+normal1 : Choosing.Types.Model -> List (Attribute SWEditor.Types.Msg)
+normal1 model =
+    []
