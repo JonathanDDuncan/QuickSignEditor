@@ -24,7 +24,7 @@ normal : Choosing.Types.Model -> Html Choosing.Types.Msg
 normal model =
     div
         []
-        [ App.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign (normal1 model))
+        [ App.map Choosing.Types.Display (SWEditor.Display.noScaleSignView model.displaySign)
         ]
 
 

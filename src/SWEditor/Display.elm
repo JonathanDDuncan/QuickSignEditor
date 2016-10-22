@@ -1,4 +1,4 @@
-module SWEditor.Display exposing (signView, symbolView, scaledSignView)
+module SWEditor.Display exposing (signView, symbolView, scaledSignView, noScaleSignView)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -79,6 +79,24 @@ scaledSignView :
     -> Html SWEditor.Types.Msg
 scaledSignView sign size leftmargin =
     signView sign [ style [ scale size, "margin-left" => px leftmargin ] ]
+
+
+noScaleSignView :
+    { b
+        | syms :
+            List
+                { a
+                    | nbcolor : String
+                    , nwcolor : String
+                    , pua : String
+                    , size : Float
+                    , x : Int
+                    , y : Int
+                }
+    }
+    -> Html SWEditor.Types.Msg
+noScaleSignView sign =
+    signView sign [ style [ scale 1, "margin-left" => px 0 ] ]
 
 
 scale : Float -> ( String, String )
