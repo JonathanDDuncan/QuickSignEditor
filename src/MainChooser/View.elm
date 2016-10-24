@@ -29,11 +29,10 @@ displayhandChoosing choosing =
             (Maybe.withDefault SWEditor.EditorSymbol.symbolinit (List.head choosing.displaySign.syms)).key
     in
         div [ onClick (Clicked choosing.value), class "choosing", style [ "height" => px (choosing.displaySign.height + 1) ] ]
-            [ App.map Choosing (Choosing.View.normal choosing)
-            , a [ class "tooltip", href "#" ]
-                [ text "SSS"
+            [ a [ class "tooltip", href "#" ]
+                [ App.map Choosing (Choosing.View.normal choosing)
                 , span []
-                    [ div [ class (handpngcss key), attribute "style" "float:left;" ]
+                    [ span [ class (handpngcss key), attribute "style" "float:left;" ]
                         []
                     ]
                 ]
@@ -42,7 +41,7 @@ displayhandChoosing choosing =
 
 handpngcss : String -> String
 handpngcss key =
-    "hands-" ++ String.slice 1 4 key ++ "10"
+    String.toLower "hands-" ++ String.slice 1 4 key ++ "10"
 
 
 root : MainChooser.Types.Model -> Html MainChooser.Types.Msg
