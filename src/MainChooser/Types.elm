@@ -3,6 +3,7 @@ module MainChooser.Types exposing (..)
 -- import SubMainChoosers.Types
 
 import Choosing.Types as Choosing
+import SWEditor.Types exposing (..)
 
 
 type alias Model =
@@ -80,6 +81,7 @@ type Msg
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
     | Choosing Choosing.Msg
     | Clicked String
+    | SymbolView SWEditor.Types.Msg
 
 
 
