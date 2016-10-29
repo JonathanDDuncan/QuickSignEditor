@@ -82,6 +82,7 @@ type Msg
     | Choosing Choosing.Msg
     | Clicked String
     | SymbolView SWEditor.Types.Msg
+    | SignView SWEditor.Types.Msg
 
 
 

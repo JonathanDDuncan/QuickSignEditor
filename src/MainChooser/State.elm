@@ -28,6 +28,24 @@ init =
     )
 
 
+handgroupchoosingsinit :
+    { anglebabycommon : List Choosing.Types.Model
+    , anglethumbcommon : List Choosing.Types.Model
+    , circlebabycommon : List Choosing.Types.Model
+    , circleindexcommon : List Choosing.Types.Model
+    , circleringcommon : List Choosing.Types.Model
+    , circlethumbcommon : List Choosing.Types.Model
+    , cupbabycommon : List Choosing.Types.Model
+    , cupindexcommon : List Choosing.Types.Model
+    , cupthumbcommon : List Choosing.Types.Model
+    , fistbabycommon : List Choosing.Types.Model
+    , fistindexcommon : List Choosing.Types.Model
+    , fistmiddlecommon : List Choosing.Types.Model
+    , fistringcommon : List Choosing.Types.Model
+    , fistthumbcommon : List Choosing.Types.Model
+    , flatbabycommon : List Choosing.Types.Model
+    , flatthumbcommon : List Choosing.Types.Model
+    }
 handgroupchoosingsinit =
     { fistbabycommon = List.map (Choosing.Types.toModel 0) []
     , fistringcommon = List.map (Choosing.Types.toModel 0) []
@@ -92,6 +110,11 @@ update action model =
                   }
                 , Cmd.none
                 )
+
+        SymbolView msg ->
+            ( model
+            , Cmd.none
+            )
 
 
 

@@ -12,6 +12,7 @@ import Exts.Html exposing (..)
 import Exts.List exposing (..)
 import String exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SW.SymbolConverter exposing (..)
 
 
 handgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
