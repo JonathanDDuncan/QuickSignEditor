@@ -23,10 +23,10 @@ root : MainChooser.Types.Model -> Html MainChooser.Types.Msg
 root model =
     div []
         [ div
-            [ style [ "display" => "inline-block", "margin-top" => "5px" ] ]
+            [  ]
             (List.map displayChoosing model.choosings)
         , div
-            [ style [ "width" => "50%", "height" => "150px", "margin-left" => "50%", "margin-top" => "5px" ] ]
+            [ style [ "width" => "50%",  "margin-left" => "50%","height" => "250px" , "margin-top" => "5px" ] ]
             [ choosesubgroupchooser model
             ]
         , div
