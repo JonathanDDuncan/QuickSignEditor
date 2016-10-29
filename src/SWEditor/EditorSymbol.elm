@@ -2,6 +2,7 @@ module SWEditor.EditorSymbol exposing (..)
 
 import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
+import SW.SymbolConverter exposing (..)
 
 
 type alias EditorSymbol =
@@ -42,6 +43,38 @@ toEditorSymbol id index symbol =
     , selected = False
     , id = id + index + 1
     }
+
+
+getSymbolEditor : Int -> Int -> Int -> EditorSymbol
+getSymbolEditor group fill rotation =
+    let
+        base =
+            group + 255
+
+        key =
+            SW.SymbolConverter.key base fill rotation
+
+        pua =
+            SW.SymbolConverter.pua key
+
+        code =
+            SW.SymbolConverter.codefromkey key
+
+        symbol =
+            { x = 0
+            , y = 0
+            , width = 20
+            , height = 20
+            , fontsize = 30
+            , size = 1
+            , nwcolor = "white"
+            , pua = pua
+            , code = code
+            , key = key
+            , nbcolor = "black"
+            }
+    in
+        toEditorSymbol 0 0 symbol
 
 
 getsymbolRectangle : EditorSymbol -> Rect

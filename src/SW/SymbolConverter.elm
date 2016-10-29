@@ -29,7 +29,7 @@ code base fill rotation =
 key : Int -> Int -> Int -> String
 key base fill rotation =
     "S" ++ dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1)
-
+--  "S" ++ (ParseInt.toRadix' 16 base) ++ (ParseInt.toRadix' 16 (fill - 1)) ++ (ParseInt.toRadix' 16 (rotation - 1))
 
 dectoHex : Int -> String
 dectoHex value =
