@@ -19,6 +19,7 @@ init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
     ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ]
       , clicked = ""
+      , selectedcolumn = 1
       , handgroupchoosings = handgroupchoosingsinit
       }
       -- To initiate MainChooser state
@@ -87,7 +88,7 @@ update action model =
         ReceiveInitialChoosings choosings ->
             let
                 choosings1 =
-                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) handgroupchoosingsinit ""
+                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) handgroupchoosingsinit "" 1
             in
                 ( choosings1
                 , Cmd.none
@@ -113,6 +114,17 @@ update action model =
 
         SymbolView msg ->
             ( model
+            , Cmd.none
+            )
+            
+        SignView msg ->
+            ( model
+            , Cmd.none
+            )
+        SelectedColumn column ->
+            ( { model
+                | selectedcolumn = column
+              }
             , Cmd.none
             )
 

@@ -10,6 +10,7 @@ type alias Model =
     { choosings : List Choosing.Model
     , handgroupchoosings : HandGroupModel
     , clicked : String
+    , selectedcolumn: Int
     }
 
 
@@ -83,7 +84,8 @@ type Msg
     | Clicked String
     | SymbolView SWEditor.Types.Msg
     | SignView SWEditor.Types.Msg
-
+    | SelectedColumn Int
+ 
 
 
 -- Plus any other types unique to this feature
