@@ -4,7 +4,7 @@ module MainChooser.Types exposing (..)
 
 import Choosing.Types as Choosing
 import SWEditor.Types exposing (..)
-
+import SW.Types exposing (..)
 
 type alias Model =
     { choosings :
@@ -14,7 +14,8 @@ type alias Model =
     , selectedcolumn : Int
     , groupselected : Int
     }
- 
+
+
 type alias HandGroupImportModel =
     { chooseritemvalues : List ChooserItemValue
     , basechooseritems : List BaseChooserItem
@@ -25,6 +26,7 @@ type alias ChooserItemValue =
     { choosertype : String
     , name : String
     , value : Int
+    , symbolgroup : String
     }
 
 
@@ -63,6 +65,7 @@ type alias ChooserItem =
 type alias HandGroupModel =
     List ChooserItem
 
+
 type Msg
     = MainChooserMessage
     | RequestInitialChoosings
@@ -74,6 +77,7 @@ type Msg
     | SignView SWEditor.Types.Msg
     | SelectedColumn Int
     | GroupSelected Int
+    | DragSymbol Code
 
 
 

@@ -100,7 +100,12 @@ update action model =
               }
             , Cmd.none
             )
- 
+
+        DragSymbol code ->
+            ( model
+            , cmdDragSymbol code
+            )
+
 handgroupchoosings chooserclassification =
     let
         itemsvalues =

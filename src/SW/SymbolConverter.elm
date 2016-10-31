@@ -23,13 +23,12 @@ base code =
 
 code : Base -> Fill -> Rotation -> Code
 code base fill rotation =
-    96 * (base - 256) + 16 * (fill - 1) + rotation
+  0x100000 +  96 * (base- 256) + 16 * (fill) + rotation +1
 
 
 key : Base -> Fill -> Rotation -> Key
 key base fill rotation =
     "S" ++ dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1)
---  "S" ++ (ParseInt.toRadix' 16 base) ++ (ParseInt.toRadix' 16 (fill - 1)) ++ (ParseInt.toRadix' 16 (rotation - 1))
 
 dectoHex : Int -> String
 dectoHex value =

@@ -10,6 +10,7 @@ import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 
+
 generalsymbolchooser : Base -> List Fill -> a -> Int -> Html Msg
 generalsymbolchooser base validfills validrotations selectedcolumn =
     table
@@ -53,7 +54,7 @@ generalsymbolonecolumn base symbolcol rotation1 rotation2 =
 
 generalsymbolrow : Base -> List Fill -> Rotation -> List (Html MainChooser.Types.Msg)
 generalsymbolrow base validfills rotation =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol  base  fill rotation) ]) validfills
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol base fill rotation) ]) validfills
 
 
 generalsymbolcol : Base -> Fill -> Rotation -> Html MainChooser.Types.Msg
@@ -67,15 +68,17 @@ generalsymbolcol base fill rotation =
             }
     in
         -- App.map SymbolView (symbolView "" symbol)
-        App.map SignView
-            (signView sign
-                [ Html.Attributes.style
-                    [ "position" => "relative"
-                    , "left" => px 0
-                    , "top" => px 0
-                    , "width" => px 20
-                    , "height" => px 20
-                    , "margin" => "5px"
+        span [ onMouseDown (DragSymbol symbol.code) ]
+            [ App.map SignView
+                (signView sign
+                    [ Html.Attributes.style
+                        [ "position" => "relative"
+                        , "left" => px 0
+                        , "top" => px 0
+                        , "width" => px 20
+                        , "height" => px 20
+                        , "margin" => "5px"
+                        ]
                     ]
-                ]
-            )
+                )
+            ]

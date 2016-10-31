@@ -45,3 +45,7 @@ port requestInitialChoosings : String -> Cmd msg
 
 
 port requestInitialGroupHandChoosings : String -> Cmd msg
+
+port cmdDragSymbol : Int -> Cmd msg
+
+port subDragSymbol : (Int -> msg) -> Sub msg

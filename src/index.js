@@ -81,6 +81,10 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
 
     } catch (e) { console.log(e) }
 });
+app.ports.cmdDragSymbol.subscribe(function(code) {
+    console.log("requestInitialGroupHandChoosings called " + code)
+    app.ports.subDragSymbol.send(code);
+});
 
 var getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
