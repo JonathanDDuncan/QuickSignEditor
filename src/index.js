@@ -70,11 +70,11 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
                     alert("Something went wrong chooserclassification: " + err);
                 } else {
                     // alert("Your query count: " + data.ChooserValues.count);
-                    var choosings = getgrouphandchoosings();
-                    console.log(choosings)
-                        //send values to Elm subscription ports
-                        // var choosings1 = data.
-                    app.ports.receiveInitialGroupHandChoosings.send(choosings);
+                    // var choosings = getgrouphandchoosings();
+                    // console.log(choosings)
+                    //send values to Elm subscription ports
+                    // var choosings1 = data.
+                    app.ports.receiveInitialGroupHandChoosings.send(data);
                 }
             });
 

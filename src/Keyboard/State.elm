@@ -55,7 +55,7 @@ update action model =
             )
 
         KeyClicked n ->
-            ( { model | keyboardhistory = Debug.log "keyboard history" (toString n :: model.keyboardhistory) }
+            ( { model | keyboardhistory =  (toString n :: model.keyboardhistory) }
             , Cmd.none
             )
 

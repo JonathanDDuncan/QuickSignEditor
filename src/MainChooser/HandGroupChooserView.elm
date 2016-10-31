@@ -28,16 +28,16 @@ handgroupchooser model =
             , flatrowchooser model maxheight
             ]
 
-
+ 
 fistrowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
 fistrowchooser model choosingshigh =
     tr
-        []
-        [ column 1 1 choosingshigh model.handgroupchoosings.fistthumbcommon
-        , column 1 2 choosingshigh model.handgroupchoosings.fistindexcommon
-        , column 1 3 choosingshigh model.handgroupchoosings.fistmiddlecommon
-        , column 1 4 choosingshigh model.handgroupchoosings.fistringcommon
-        , column 1 5 choosingshigh model.handgroupchoosings.fistbabycommon
+        [] [
+        -- column 1 1 choosingshigh model.handgroupchoosings.fistthumbcommon
+        -- , column 1 2 choosingshigh model.handgroupchoosings.fistindexcommon
+        -- , column 1 3 choosingshigh model.handgroupchoosings.fistmiddlecommon
+        -- , column 1 4 choosingshigh model.handgroupchoosings.fistringcommon
+        -- , column 1 5 choosingshigh model.handgroupchoosings.fistbabycommon
         ]
 
 
@@ -61,11 +61,12 @@ circlerowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
 circlerowchooser model choosingshigh =
     tr
         []
-        [ column 2 1 choosingshigh model.handgroupchoosings.circlethumbcommon
-        , column 2 2 choosingshigh model.handgroupchoosings.circleindexcommon
-        , spacercolumn
-        , column 2 4 choosingshigh model.handgroupchoosings.circleringcommon
-        , column 2 5 choosingshigh model.handgroupchoosings.circlebabycommon
+        [
+        --      column 2 1 choosingshigh model.handgroupchoosings.circlethumbcommon
+        -- , column 2 2 choosingshigh model.handgroupchoosings.circleindexcommon
+        -- , spacercolumn
+        -- , column 2 4 choosingshigh model.handgroupchoosings.circleringcommon
+        -- , column 2 5 choosingshigh model.handgroupchoosings.circlebabycommon
         ]
 
 
@@ -73,11 +74,12 @@ cuprowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
 cuprowchooser model choosingshigh =
     tr
         []
-        [ column 3 1 choosingshigh model.handgroupchoosings.cupthumbcommon
-        , column 3 2 choosingshigh model.handgroupchoosings.cupindexcommon
-        , spacercolumn
-        , spacercolumn
-        , column 3 5 choosingshigh model.handgroupchoosings.cupbabycommon
+        [ 
+        --     column 3 1 choosingshigh model.handgroupchoosings.cupthumbcommon
+        -- , column 3 2 choosingshigh model.handgroupchoosings.cupindexcommon
+        -- , spacercolumn
+        -- , spacercolumn
+        -- , column 3 5 choosingshigh model.handgroupchoosings.cupbabycommon
         ]
 
 
@@ -85,11 +87,12 @@ anglerowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
 anglerowchooser model choosingshigh =
     tr
         []
-        [ column 4 1 choosingshigh model.handgroupchoosings.anglethumbcommon
-        , spacercolumn
-        , spacercolumn
-        , spacercolumn
-        , column 4 5 choosingshigh model.handgroupchoosings.anglebabycommon
+        [ 
+        --     column 4 1 choosingshigh model.handgroupchoosings.anglethumbcommon
+        -- , spacercolumn
+        -- , spacercolumn
+        -- , spacercolumn
+        -- , column 4 5 choosingshigh model.handgroupchoosings.anglebabycommon
         ]
 
 
@@ -97,11 +100,12 @@ flatrowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
 flatrowchooser model choosingshigh =
     tr
         []
-        [ column 5 1 choosingshigh model.handgroupchoosings.flatthumbcommon
-        , spacercolumn
-        , spacercolumn
-        , spacercolumn
-        , column 5 5 choosingshigh model.handgroupchoosings.flatbabycommon
+        [ 
+        --     column 5 1 choosingshigh model.handgroupchoosings.flatthumbcommon
+        -- , spacercolumn
+        -- , spacercolumn
+        -- , spacercolumn
+        -- , column 5 5 choosingshigh model.handgroupchoosings.flatbabycommon
         ]
 
 

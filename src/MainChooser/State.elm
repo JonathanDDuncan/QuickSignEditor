@@ -19,8 +19,9 @@ init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
     ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ]
       , clicked = ""
-      , selectedcolumn = 1
-      , handgroupchoosings = handgroupchoosingsinit
+      , selectedcolumn =
+            1
+            --   , handgroupchoosings = handgroupchoosingsinit
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
@@ -29,42 +30,25 @@ init =
     )
 
 
-handgroupchoosingsinit :
-    { anglebabycommon : List Choosing.Types.Model
-    , anglethumbcommon : List Choosing.Types.Model
-    , circlebabycommon : List Choosing.Types.Model
-    , circleindexcommon : List Choosing.Types.Model
-    , circleringcommon : List Choosing.Types.Model
-    , circlethumbcommon : List Choosing.Types.Model
-    , cupbabycommon : List Choosing.Types.Model
-    , cupindexcommon : List Choosing.Types.Model
-    , cupthumbcommon : List Choosing.Types.Model
-    , fistbabycommon : List Choosing.Types.Model
-    , fistindexcommon : List Choosing.Types.Model
-    , fistmiddlecommon : List Choosing.Types.Model
-    , fistringcommon : List Choosing.Types.Model
-    , fistthumbcommon : List Choosing.Types.Model
-    , flatbabycommon : List Choosing.Types.Model
-    , flatthumbcommon : List Choosing.Types.Model
-    }
-handgroupchoosingsinit =
-    { fistbabycommon = List.map (Choosing.Types.toModel 0) []
-    , fistringcommon = List.map (Choosing.Types.toModel 0) []
-    , fistmiddlecommon = List.map (Choosing.Types.toModel 0) []
-    , fistindexcommon = List.map (Choosing.Types.toModel 0) []
-    , fistthumbcommon = List.map (Choosing.Types.toModel 0) []
-    , circlethumbcommon = List.map (Choosing.Types.toModel 0) []
-    , circleindexcommon = List.map (Choosing.Types.toModel 0) []
-    , circleringcommon = List.map (Choosing.Types.toModel 0) []
-    , circlebabycommon = List.map (Choosing.Types.toModel 0) []
-    , cupbabycommon = List.map (Choosing.Types.toModel 0) []
-    , cupthumbcommon = List.map (Choosing.Types.toModel 0) []
-    , cupindexcommon = List.map (Choosing.Types.toModel 0) []
-    , anglethumbcommon = List.map (Choosing.Types.toModel 0) []
-    , anglebabycommon = List.map (Choosing.Types.toModel 0) []
-    , flatthumbcommon = List.map (Choosing.Types.toModel 0) []
-    , flatbabycommon = List.map (Choosing.Types.toModel 0) []
-    }
+
+-- handgroupchoosingsinit =
+--     { fistbabycommon = List.map (Choosing.Types.toModel 0) []
+--     , fistringcommon = List.map (Choosing.Types.toModel 0) []
+--     , fistmiddlecommon = List.map (Choosing.Types.toModel 0) []
+--     , fistindexcommon = List.map (Choosing.Types.toModel 0) []
+--     , fistthumbcommon = List.map (Choosing.Types.toModel 0) []
+--     , circlethumbcommon = List.map (Choosing.Types.toModel 0) []
+--     , circleindexcommon = List.map (Choosing.Types.toModel 0) []
+--     , circleringcommon = List.map (Choosing.Types.toModel 0) []
+--     , circlebabycommon = List.map (Choosing.Types.toModel 0) []
+--     , cupbabycommon = List.map (Choosing.Types.toModel 0) []
+--     , cupthumbcommon = List.map (Choosing.Types.toModel 0) []
+--     , cupindexcommon = List.map (Choosing.Types.toModel 0) []
+--     , anglethumbcommon = List.map (Choosing.Types.toModel 0) []
+--     , anglebabycommon = List.map (Choosing.Types.toModel 0) []
+--     , flatthumbcommon = List.map (Choosing.Types.toModel 0) []
+--     , flatbabycommon = List.map (Choosing.Types.toModel 0) []
+--     }
 
 
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
@@ -88,23 +72,26 @@ update action model =
         ReceiveInitialChoosings choosings ->
             let
                 choosings1 =
-                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) handgroupchoosingsinit "" 1
+                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) "" 1
             in
                 ( choosings1
                 , Cmd.none
                 )
-
-        ReceiveInitialGroupHandChoosings handgroupchoosings ->
+ 
+        ReceiveInitialGroupHandChoosings chooserclassification ->
             let
-                converted =
-                    convertGroupHandChoosings handgroupchoosings
+                handgroupchoosings =
+                  handgroupchoosings chooserclassification
             in
-                ( { model | handgroupchoosings = converted }, Cmd.none )
+                -- ( { model | handgroupchoosings = converted }, Cmd.none )
+                ( model
+                , Cmd.none
+                )
 
         Clicked clickvalue ->
             let
                 choosings1 =
-                    Debug.log "clickvalue" clickvalue
+                    clickvalue
             in
                 ( { model
                     | clicked = clickvalue
@@ -116,11 +103,12 @@ update action model =
             ( model
             , Cmd.none
             )
-            
+
         SignView msg ->
             ( model
             , Cmd.none
             )
+
         SelectedColumn column ->
             ( { model
                 | selectedcolumn = column
@@ -128,6 +116,11 @@ update action model =
             , Cmd.none
             )
 
+handgroupchoosings chooserclassification =
+    let itemsvalues = List.filter (\item -> item.choosertype == "handgroupchooser") chooserclassification.chooseritemvalues
+        basechooseritems = List.filter (\item -> item.groupchooser == "handgroupchooser") chooserclassification.basechooseritems
+        handgroupchoosings =         
+    in
 
 
 --To nest update of MainChooser

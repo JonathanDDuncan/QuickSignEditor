@@ -123,13 +123,13 @@ update action model =
         MouseDown position ->
             let
                 signviewposition =
-                    Debug.log "signviewposition" (signViewPosition position model.viewposition)
+                     (signViewPosition position model.viewposition)
 
                 withinsignview =
-                    Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
+                     (withinSignView signviewposition model.viewposition)
 
                 symbolsunderposition =
-                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign.syms)
+                    (symbolsUnderPosition signviewposition model.sign.syms)
 
                 howmanysymbolsunderposition =
                     List.length symbolsunderposition
@@ -157,13 +157,13 @@ update action model =
         MouseUp position ->
             let
                 signviewposition =
-                    Debug.log "signviewposition" (signViewPosition position model.viewposition)
+                   (signViewPosition position model.viewposition)
 
                 withinsignview =
-                    Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
+                    (withinSignView signviewposition model.viewposition)
 
                 symbolsunderposition =
-                    Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign.syms)
+                  (symbolsUnderPosition signviewposition model.sign.syms)
             in
                 model
                     ! []

@@ -110,7 +110,7 @@ puahextext : String -> String
 puahextext key =
     let
         base =
-            Debug.log "hexbaseFromKey key" (hexbaseFromKey key)
+            (hexbaseFromKey key)
 
         puabase =
             base + puabasestart
@@ -129,15 +129,15 @@ puahextext key =
     in
         dectoHex puabase ++ dectoHex puafill ++ dectoHex puarotation
 
-
+lefthalf : Int -> Int
 lefthalf value =
     hextoDec "D800" + (Bitwise.shiftRight (value - (hextoDec "10000")) 10)
 
-
+righthalf : Int -> Int
 righthalf value =
     hextoDec "DC00" + (Bitwise.and (value - (hextoDec "10000")) (hextoDec "03FF"))
 
-
+puaChar1 : Int -> String
 puaChar1 value =
     String.fromChar (Char.fromCode <| lefthalf value) ++ String.fromChar (Char.fromCode <| righthalf value)
 
