@@ -12,17 +12,16 @@ import SWEditor.Display exposing (signView)
 
 generalsymbolchooser group validfills validrotations selectedcolumn =
     let
-        a = 5
+        a =
+            5
+
         -- group =
         --     1
-
         -- -- model.selectedgroup
         -- validfills =
         --     [1..6]
-
         -- validrotations =
         --     [1..16]
-
         -- selectedcolumn =
         --     5
     in
@@ -53,15 +52,21 @@ generalsymbolchooser group validfills validrotations selectedcolumn =
 
 generalsymbolonecolumn : Int -> Int -> Int -> Int -> List (Html MainChooser.Types.Msg)
 generalsymbolonecolumn group symbolcol rotation1 rotation2 =
-    [ td [] [  generalsymbolcol group rotation1 symbolcol ]
-    , td [] []
-    , td [] [ generalsymbolcol group rotation2 symbolcol ]
+    [ td
+        []
+        [ generalsymbolcol group rotation1 symbolcol ]
+    , td
+        []
+        []
+    , td
+        []
+        [ generalsymbolcol group rotation2 symbolcol ]
     ]
 
 
 columnselector : Int -> List Int -> Int -> Html Msg
 columnselector group validfills firstrow =
-    tr [] ( generalsymbolrow group validfills firstrow)
+    tr [] (generalsymbolrow group validfills firstrow)
 
 
 generalsymbolchooser2 : MainChooser.Types.Model -> Html MainChooser.Types.Msg
@@ -105,7 +110,7 @@ generalsymbolchooser2 model =
 
 generalsymbolrow : Int -> List Int -> Int -> List (Html MainChooser.Types.Msg)
 generalsymbolrow group validfills rotation =
-    List.map (\fill -> td [onClick (SelectedColumn fill)] [ (generalsymbolcol group rotation fill) ]) validfills
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol group rotation fill) ]) validfills
 
 
 generalsymbolcol : Int -> Int -> Int -> Html MainChooser.Types.Msg

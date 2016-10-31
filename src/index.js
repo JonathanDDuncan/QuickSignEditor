@@ -63,12 +63,39 @@ app.ports.requestInitialChoosings.subscribe(function(str) {
 app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
     try {
         console.log("requestInitialGroupHandChoosings called")
-        var choosings = getgrouphandchoosings();
-        console.log(choosings)
-            //send values to Elm subscription ports
-        app.ports.receiveInitialGroupHandChoosings.send(choosings);
+
+        getJSON("chooserclassification.json",
+            function(err, data) {
+                if (err != null) {
+                    alert("Something went wrong chooserclassification: " + err);
+                } else {
+                    // alert("Your query count: " + data.ChooserValues.count);
+                    var choosings = getgrouphandchoosings();
+                    console.log(choosings)
+                        //send values to Elm subscription ports
+                        // var choosings1 = data.
+                    app.ports.receiveInitialGroupHandChoosings.send(choosings);
+                }
+            });
+
+
     } catch (e) { console.log(e) }
 });
+
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("get", url, true);
+    xhr.responseType = "json";
+    xhr.onload = function() {
+        var status = xhr.status;
+        if (status == 200) {
+            callback(null, xhr.response);
+        } else {
+            callback(status);
+        }
+    };
+    xhr.send();
+};
 
 function getchoosings(fsw) {
 
