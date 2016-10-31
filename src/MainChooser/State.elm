@@ -19,17 +19,15 @@ init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
     ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ]
       , clicked = ""
-      , selectedcolumn =
-            1
-              , handgroupchoosings = []
-      }
+      , selectedcolumn = 1
+      , handgroupchoosings = []
+      , groupselected = 256
+      } 
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
-
- 
 
 
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
@@ -51,12 +49,12 @@ update action model =
             )
 
         ReceiveInitialChoosings choosings1 ->
-                ( { model
-                    | choosings =  List.map (toModel 0) choosings1
-                  }
-                , Cmd.none
-                )
- 
+            ( { model
+                | choosings = List.map (toModel 0) choosings1
+              }
+            , Cmd.none
+            )
+
         ReceiveInitialGroupHandChoosings chooserclassification ->
             let
                 handgroupchoosings1 =
@@ -67,7 +65,7 @@ update action model =
                   }
                 , Cmd.none
                 )
- 
+
         Clicked clickvalue ->
             let
                 choosings1 =
@@ -96,7 +94,13 @@ update action model =
             , Cmd.none
             )
 
-
+        GroupSelected base ->
+            ( { model
+                | groupselected = base
+              }
+            , Cmd.none
+            )
+ 
 handgroupchoosings chooserclassification =
     let
         itemsvalues =
@@ -111,15 +115,18 @@ handgroupchoosings chooserclassification =
         handgroupchoosings =
             List.map (\item -> creategroupchoosing chooservalue itemsvalues item) basechooseritems
     in
-        Debug.log "handgroupchoosings" handgroupchoosings
+         handgroupchoosings
 
-
+getchooservalue
+    : String
+    -> List { a | choosertype : String, name : String, value : number }
+    -> number
 getchooservalue choosername itemsvalues =
     default choosername .value <|
         List.head <|
             List.filter (\item -> (item.choosertype == "groupchooser") && (item.name == choosername)) itemsvalues
 
-
+default : String -> (a -> number) -> Maybe a -> number
 default text func val =
     case val of
         Just n ->
@@ -144,7 +151,7 @@ creategroupchoosing chooservalue itemsvalues item =
     , rank = item.rank
     }
 
-
+getvalue : String -> List { a | name : String, value : Int } -> Int
 getvalue name itemsvalues =
     default name .value <|
         List.head <|

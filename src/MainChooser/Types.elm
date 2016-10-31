@@ -12,30 +12,9 @@ type alias Model =
     , handgroupchoosings : HandGroupModel
     , clicked : String
     , selectedcolumn : Int
+    , groupselected : Int
     }
-
-
-
--- type alias HandGroupImportModel =
---     { fistbabycommon : List Choosing.ImportModel
---     , fistringcommon : List Choosing.ImportModel
---     , fistmiddlecommon : List Choosing.ImportModel
---     , fistindexcommon : List Choosing.ImportModel
---     , fistthumbcommon : List Choosing.ImportModel
---     , circlethumbcommon : List Choosing.ImportModel
---     , circleindexcommon : List Choosing.ImportModel
---     , circleringcommon : List Choosing.ImportModel
---     , circlebabycommon : List Choosing.ImportModel
---     , cupbabycommon : List Choosing.ImportModel
---     , cupthumbcommon : List Choosing.ImportModel
---     , cupindexcommon : List Choosing.ImportModel
---     , anglethumbcommon : List Choosing.ImportModel
---     , anglebabycommon : List Choosing.ImportModel
---     , flatthumbcommon : List Choosing.ImportModel
---     , flatbabycommon : List Choosing.ImportModel
---     }
-
-
+ 
 type alias HandGroupImportModel =
     { chooseritemvalues : List ChooserItemValue
     , basechooseritems : List BaseChooserItem
@@ -94,6 +73,7 @@ type Msg
     | SymbolView SWEditor.Types.Msg
     | SignView SWEditor.Types.Msg
     | SelectedColumn Int
+    | GroupSelected Int
 
 
 

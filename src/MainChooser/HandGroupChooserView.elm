@@ -87,7 +87,7 @@ displayhandChoosing chooseritem =
             chooseritem.base
 
         fill =
-            1
+            2
 
         rotation =
             0
@@ -98,7 +98,7 @@ displayhandChoosing chooseritem =
         sign =
             { syms = [ symbol ] }
     in
-        div [ onClick (Clicked chooseritem.symbolkey), class "choosing", style [ "height" => px 20 ] ]
+        div [ onClick (GroupSelected chooseritem.base), class "choosing", style [ "height" => px 20 ] ]
             [ a [ class "tooltip", href "#" ]
                 [ App.map SignView
                     (signView sign
@@ -106,9 +106,9 @@ displayhandChoosing chooseritem =
                             [ "position" => "relative"
                             , "left" => px 0
                             , "top" => px 0
-                            , "width" => px 20
-                            , "height" => px 20
-                            , "margin" => "2px"
+                            , "width" => px 44
+                            , "height" => px 44
+                            , "margin" => "4px"
                             ]
                         ]
                     )

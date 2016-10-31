@@ -53,7 +53,7 @@ generalsymbolonecolumn base symbolcol rotation1 rotation2 =
 
 generalsymbolrow : Base -> List Fill -> Rotation -> List (Html MainChooser.Types.Msg)
 generalsymbolrow base validfills rotation =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol (Debug.log "base" base)  (Debug.log "fill" fill) rotation) ]) validfills
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol  base  fill rotation) ]) validfills
 
 
 generalsymbolcol : Base -> Fill -> Rotation -> Html MainChooser.Types.Msg

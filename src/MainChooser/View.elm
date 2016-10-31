@@ -27,8 +27,8 @@ root model =
             ]
         , div
             [ class "generalsymbolchooser", style [ "display" => "inline-block", "margin-top" => "5px" ] ]
-            [ generalsymbolchooser 256 [1..6] [1..16] model.selectedcolumn
-            ]
+            [ generalsymbolchooser model.groupselected [1..6] [1..16] model.selectedcolumn
+            ] 
         ]
 
 
