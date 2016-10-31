@@ -21,7 +21,7 @@ init =
       , clicked = ""
       , selectedcolumn =
             1
-            --   , handgroupchoosings = handgroupchoosingsinit
+              , handgroupchoosings = []
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
@@ -29,26 +29,7 @@ init =
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
 
-
-
--- handgroupchoosingsinit =
---     { fistbabycommon = List.map (Choosing.Types.toModel 0) []
---     , fistringcommon = List.map (Choosing.Types.toModel 0) []
---     , fistmiddlecommon = List.map (Choosing.Types.toModel 0) []
---     , fistindexcommon = List.map (Choosing.Types.toModel 0) []
---     , fistthumbcommon = List.map (Choosing.Types.toModel 0) []
---     , circlethumbcommon = List.map (Choosing.Types.toModel 0) []
---     , circleindexcommon = List.map (Choosing.Types.toModel 0) []
---     , circleringcommon = List.map (Choosing.Types.toModel 0) []
---     , circlebabycommon = List.map (Choosing.Types.toModel 0) []
---     , cupbabycommon = List.map (Choosing.Types.toModel 0) []
---     , cupthumbcommon = List.map (Choosing.Types.toModel 0) []
---     , cupindexcommon = List.map (Choosing.Types.toModel 0) []
---     , anglethumbcommon = List.map (Choosing.Types.toModel 0) []
---     , anglebabycommon = List.map (Choosing.Types.toModel 0) []
---     , flatthumbcommon = List.map (Choosing.Types.toModel 0) []
---     , flatbabycommon = List.map (Choosing.Types.toModel 0) []
---     }
+ 
 
 
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
@@ -69,25 +50,24 @@ update action model =
             , Ports.requestInitialChoosings ""
             )
 
-        ReceiveInitialChoosings choosings ->
-            let
-                choosings1 =
-                    MainChooser.Types.Model (List.map (Choosing.Types.toModel 0) choosings) "" 1
-            in
-                ( choosings1
+        ReceiveInitialChoosings choosings1 ->
+                ( { model
+                    | choosings =  List.map (toModel 0) choosings1
+                  }
                 , Cmd.none
                 )
  
         ReceiveInitialGroupHandChoosings chooserclassification ->
             let
-                handgroupchoosings =
-                  handgroupchoosings chooserclassification
+                handgroupchoosings1 =
+                    handgroupchoosings chooserclassification
             in
-                -- ( { model | handgroupchoosings = converted }, Cmd.none )
-                ( model
+                ( { model
+                    | handgroupchoosings = handgroupchoosings1
+                  }
                 , Cmd.none
                 )
-
+ 
         Clicked clickvalue ->
             let
                 choosings1 =
@@ -116,11 +96,60 @@ update action model =
             , Cmd.none
             )
 
+
 handgroupchoosings chooserclassification =
-    let itemsvalues = List.filter (\item -> item.choosertype == "handgroupchooser") chooserclassification.chooseritemvalues
-        basechooseritems = List.filter (\item -> item.groupchooser == "handgroupchooser") chooserclassification.basechooseritems
-        handgroupchoosings =         
+    let
+        itemsvalues =
+            List.filter (\item -> item.choosertype == "handgroupchooser") chooserclassification.chooseritemvalues
+
+        basechooseritems =
+            List.filter (\item -> item.groupchooser == "handgroupchooser") chooserclassification.basechooseritems
+
+        chooservalue =
+            getchooservalue "handgroupchooser" itemsvalues
+
+        handgroupchoosings =
+            List.map (\item -> creategroupchoosing chooservalue itemsvalues item) basechooseritems
     in
+        Debug.log "handgroupchoosings" handgroupchoosings
+
+
+getchooservalue choosername itemsvalues =
+    default choosername .value <|
+        List.head <|
+            List.filter (\item -> (item.choosertype == "groupchooser") && (item.name == choosername)) itemsvalues
+
+
+default text func val =
+    case val of
+        Just n ->
+            func n
+
+        Nothing ->
+            Debug.log (text ++ " not found") 0
+
+
+creategroupchoosing chooservalue itemsvalues item =
+    { base = item.base
+    , name = item.name
+    , symbolid = item.symbolid
+    , symbolkey = item.symbolkey
+    , unicodepua = item.unicodepua
+    , validfills = item.validfills
+    , validrotations = item.validrotations
+    , groupchooser = chooservalue
+    , common = item.common
+    , subgroup1 = getvalue item.subgroup1 itemsvalues
+    , subgroup2 = getvalue item.subgroup2 itemsvalues
+    , rank = item.rank
+    }
+
+
+getvalue name itemsvalues =
+    default name .value <|
+        List.head <|
+            List.filter (\item -> item.name == name) itemsvalues
+
 
 
 --To nest update of MainChooser

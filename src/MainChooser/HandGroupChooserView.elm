@@ -6,12 +6,11 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import Choosing.View exposing (..)
-import Choosing.Types exposing (..)
 import Exts.Html exposing (..)
 import Exts.List exposing (..)
 import String exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SWEditor.Display exposing (signView)
 
 
 handgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
@@ -19,97 +18,48 @@ handgroupchooser model =
     let
         maxheight =
             3
+
+        rowvalues =
+            List.sort <| unique <| List.map (\item -> item.subgroup1) model.handgroupchoosings
     in
         table []
-            [ fistrowchooser model maxheight
-            , circlerowchooser model maxheight
-            , cuprowchooser model maxheight
-            , anglerowchooser model maxheight
-            , flatrowchooser model maxheight
+            (List.map (\row -> rowchooser row model.handgroupchoosings maxheight) rowvalues)
+
+
+rowchooser row handgroupchoosings maxheight =
+    let
+        items =
+            List.filter (\item -> item.subgroup1 == row) handgroupchoosings
+
+        colvalues =
+            List.sort <| unique <| List.map (\item -> item.subgroup2) handgroupchoosings
+    in
+        tr
+            []
+            (List.map (\col -> column row col maxheight items) colvalues)
+
+
+column : Int -> Int -> Int -> HandGroupModel -> Html MainChooser.Types.Msg
+column cat col choosingshigh choosings =
+    let
+        items =
+            List.filter (\item -> item.subgroup2 == col && item.common == True) choosings
+    in
+        td
+            [ class "chosercolumn"
+            , style
+                [ "background-color" => (bkcolor cat col) ]
+            ]
+            [ span
+                []
+                (List.map
+                    (handcolumn)
+                    (nomorethan choosingshigh items)
+                )
             ]
 
- 
-fistrowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
-fistrowchooser model choosingshigh =
-    tr
-        [] [
-        -- column 1 1 choosingshigh model.handgroupchoosings.fistthumbcommon
-        -- , column 1 2 choosingshigh model.handgroupchoosings.fistindexcommon
-        -- , column 1 3 choosingshigh model.handgroupchoosings.fistmiddlecommon
-        -- , column 1 4 choosingshigh model.handgroupchoosings.fistringcommon
-        -- , column 1 5 choosingshigh model.handgroupchoosings.fistbabycommon
-        ]
 
-
-column : Int -> Int -> Int -> List Choosing.Types.Model -> Html MainChooser.Types.Msg
-column cat col choosingshigh choosings =
-    td
-        [ class "chosercolumn"
-        , style
-            [ "background-color" => (bkcolor cat col) ]
-        ] 
-        [ span
-            []
-            (List.map
-                (handcolumn)
-                (nomorethan choosingshigh choosings)
-            )
-        ]
-
-
-circlerowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
-circlerowchooser model choosingshigh =
-    tr
-        []
-        [
-        --      column 2 1 choosingshigh model.handgroupchoosings.circlethumbcommon
-        -- , column 2 2 choosingshigh model.handgroupchoosings.circleindexcommon
-        -- , spacercolumn
-        -- , column 2 4 choosingshigh model.handgroupchoosings.circleringcommon
-        -- , column 2 5 choosingshigh model.handgroupchoosings.circlebabycommon
-        ]
-
-
-cuprowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
-cuprowchooser model choosingshigh =
-    tr
-        []
-        [ 
-        --     column 3 1 choosingshigh model.handgroupchoosings.cupthumbcommon
-        -- , column 3 2 choosingshigh model.handgroupchoosings.cupindexcommon
-        -- , spacercolumn
-        -- , spacercolumn
-        -- , column 3 5 choosingshigh model.handgroupchoosings.cupbabycommon
-        ]
-
-
-anglerowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
-anglerowchooser model choosingshigh =
-    tr
-        []
-        [ 
-        --     column 4 1 choosingshigh model.handgroupchoosings.anglethumbcommon
-        -- , spacercolumn
-        -- , spacercolumn
-        -- , spacercolumn
-        -- , column 4 5 choosingshigh model.handgroupchoosings.anglebabycommon
-        ]
-
-
-flatrowchooser : MainChooser.Types.Model -> Int -> Html MainChooser.Types.Msg
-flatrowchooser model choosingshigh =
-    tr
-        []
-        [ 
-        --     column 5 1 choosingshigh model.handgroupchoosings.flatthumbcommon
-        -- , spacercolumn
-        -- , spacercolumn
-        -- , spacercolumn
-        -- , column 5 5 choosingshigh model.handgroupchoosings.flatbabycommon
-        ]
-
-
-handcolumn : List Choosing.Types.Model -> Html MainChooser.Types.Msg
+handcolumn : HandGroupModel -> Html MainChooser.Types.Msg
 handcolumn choosings =
     span
         [ style
@@ -130,17 +80,40 @@ spacercolumn =
         [ text nbsp ]
 
 
-displayhandChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
-displayhandChoosing choosing =
+displayhandChoosing : ChooserItem -> Html MainChooser.Types.Msg
+displayhandChoosing chooseritem =
     let
-        key =
-            (Maybe.withDefault SWEditor.EditorSymbol.symbolinit (List.head choosing.displaySign.syms)).key
+        base =
+            chooseritem.base
+
+        fill =
+            1
+
+        rotation =
+            0
+
+        symbol =
+            getSymbolEditor base fill rotation
+
+        sign =
+            { syms = [ symbol ] }
     in
-        div [ onClick (Clicked choosing.value), class "choosing", style [ "height" => px (choosing.displaySign.height + 1) ] ]
+        div [ onClick (Clicked chooseritem.symbolkey), class "choosing", style [ "height" => px 20 ] ]
             [ a [ class "tooltip", href "#" ]
-                [ App.map Choosing (Choosing.View.normal choosing)
+                [ App.map SignView
+                    (signView sign
+                        [ Html.Attributes.style
+                            [ "position" => "relative"
+                            , "left" => px 0
+                            , "top" => px 0
+                            , "width" => px 20
+                            , "height" => px 20
+                            , "margin" => "2px"
+                            ]
+                        ]
+                    )
                 , span []
-                    [ span [ class (handpngcss key), attribute "style" "float:left;" ]
+                    [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "float:left;" ]
                         []
                     ]
                 ]

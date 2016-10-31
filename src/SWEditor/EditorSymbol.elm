@@ -46,11 +46,8 @@ toEditorSymbol id index symbol =
 
 
 getSymbolEditor : Int -> Int -> Int -> EditorSymbol
-getSymbolEditor group fill rotation =
+getSymbolEditor base fill rotation =
     let
-        base =
-            group + 255
-
         key =
             SW.SymbolConverter.key base fill rotation
 

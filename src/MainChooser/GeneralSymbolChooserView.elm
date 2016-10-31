@@ -10,114 +10,100 @@ import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 
 
-generalsymbolchooser group validfills validrotations selectedcolumn =
-    let
-        a =
-            5
-
-        -- group =
-        --     1
-        -- -- model.selectedgroup
-        -- validfills =
-        --     [1..6]
-        -- validrotations =
-        --     [1..16]
-        -- selectedcolumn =
-        --     5
-    in
-        table
+generalsymbolchooser base validfills validrotations selectedcolumn =
+    table
+        [ Html.Attributes.style
+            [ "width" => "50%"
+            , "height" => px 100
+            , "margin" => "5px"
+            ]
+        ]
+        [ columnselector base validfills (Maybe.withDefault 1 (List.head validrotations))
+        , tr
             [ Html.Attributes.style
-                [ "width" => "50%"
-                , "height" => px 100
-                , "margin" => "5px"
+                [ "height" => px 10
                 ]
             ]
-            [ columnselector group validfills (Maybe.withDefault 1 (List.head validrotations))
-            , tr
-                [ Html.Attributes.style
-                    [ "height" => px 10
-                    ]
-                ]
-                []
-            , tr [] (generalsymbolonecolumn group selectedcolumn 1 9)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 2 10)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 3 11)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 4 12)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 5 13)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 6 14)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 7 15)
-            , tr [] (generalsymbolonecolumn group selectedcolumn 8 16)
-            ]
+            []
+        , tr [] (generalsymbolonecolumn base selectedcolumn 1 9)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 2 10)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 3 11)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 4 12)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 5 13)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 6 14)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 7 15)
+        , tr [] (generalsymbolonecolumn base selectedcolumn 8 16)
+        ]
 
 
 generalsymbolonecolumn : Int -> Int -> Int -> Int -> List (Html MainChooser.Types.Msg)
-generalsymbolonecolumn group symbolcol rotation1 rotation2 =
+generalsymbolonecolumn base symbolcol rotation1 rotation2 =
     [ td
         []
-        [ generalsymbolcol group rotation1 symbolcol ]
+        [ generalsymbolcol base rotation1 symbolcol ]
     , td
         []
         []
     , td
         []
-        [ generalsymbolcol group rotation2 symbolcol ]
+        [ generalsymbolcol base rotation2 symbolcol ]
     ]
 
 
 columnselector : Int -> List Int -> Int -> Html Msg
-columnselector group validfills firstrow =
-    tr [] (generalsymbolrow group validfills firstrow)
+columnselector base validfills firstrow =
+    tr [] (generalsymbolrow base validfills firstrow)
 
 
-generalsymbolchooser2 : MainChooser.Types.Model -> Html MainChooser.Types.Msg
-generalsymbolchooser2 model =
-    let
-        group =
-            1
+-- generalsymbolchooser2 : MainChooser.Types.Model -> Html MainChooser.Types.Msg
+-- generalsymbolchooser2 model =
+--     let
+--         base =
+--             256
 
-        -- model.selectedgroup
-        validfills =
-            [1..6]
+--         -- model.selectedbase
+--         validfills =
+--             [1..6]
 
-        validrotations =
-            [1..16]
-    in
-        table
-            [ Html.Attributes.style
-                [ "width" => "50%"
-                , "height" => px 100
-                , "margin" => "5px"
-                ]
-            ]
-            [ tr [] (generalsymbolrow group validfills 1)
-            , tr [] (generalsymbolrow group validfills 2)
-            , tr [] (generalsymbolrow group validfills 3)
-            , tr [] (generalsymbolrow group validfills 4)
-            , tr [] (generalsymbolrow group validfills 5)
-            , tr [] (generalsymbolrow group validfills 6)
-            , tr [] (generalsymbolrow group validfills 7)
-            , tr [] (generalsymbolrow group validfills 8)
-            , tr [] (generalsymbolrow group validfills 9)
-            , tr [] (generalsymbolrow group validfills 10)
-            , tr [] (generalsymbolrow group validfills 11)
-            , tr [] (generalsymbolrow group validfills 12)
-            , tr [] (generalsymbolrow group validfills 13)
-            , tr [] (generalsymbolrow group validfills 14)
-            , tr [] (generalsymbolrow group validfills 15)
-            , tr [] (generalsymbolrow group validfills 16)
-            ]
+--         validrotations =
+--             [1..16]
+--     in
+--         table
+--             [ Html.Attributes.style
+--                 [ "width" => "50%"
+--                 , "height" => px 100
+--                 , "margin" => "5px"
+--                 ]
+--             ]
+--             [ tr [] (generalsymbolrow base validfills 1)
+--             , tr [] (generalsymbolrow base validfills 2)
+--             , tr [] (generalsymbolrow base validfills 3)
+--             , tr [] (generalsymbolrow base validfills 4)
+--             , tr [] (generalsymbolrow base validfills 5)
+--             , tr [] (generalsymbolrow base validfills 6)
+--             , tr [] (generalsymbolrow base validfills 7)
+--             , tr [] (generalsymbolrow base validfills 8)
+--             , tr [] (generalsymbolrow base validfills 9)
+--             , tr [] (generalsymbolrow base validfills 10)
+--             , tr [] (generalsymbolrow base validfills 11)
+--             , tr [] (generalsymbolrow base validfills 12)
+--             , tr [] (generalsymbolrow base validfills 13)
+--             , tr [] (generalsymbolrow base validfills 14)
+--             , tr [] (generalsymbolrow base validfills 15)
+--             , tr [] (generalsymbolrow base validfills 16)
+--             ]
 
 
 generalsymbolrow : Int -> List Int -> Int -> List (Html MainChooser.Types.Msg)
-generalsymbolrow group validfills rotation =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol group rotation fill) ]) validfills
+generalsymbolrow base validfills rotation =
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol base fill rotation ) ]) validfills
 
 
 generalsymbolcol : Int -> Int -> Int -> Html MainChooser.Types.Msg
-generalsymbolcol group rotation fill =
+generalsymbolcol base fill rotation  =
     let
         symbol =
-            getSymbolEditor group fill rotation
+            getSymbolEditor base fill rotation
 
         sign =
             { syms = [ symbol ]

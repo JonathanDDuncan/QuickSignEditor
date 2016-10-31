@@ -9,7 +9,7 @@ import SWEditor.Types exposing (..)
 type alias Model =
     { choosings :
         List Choosing.Model
-        -- , handgroupchoosings : HandGroupModel
+    , handgroupchoosings : HandGroupModel
     , clicked : String
     , selectedcolumn : Int
     }
@@ -47,8 +47,8 @@ type alias ChooserItemValue =
     , name : String
     , value : Int
     }
- 
-     
+
+
 type alias BaseChooserItem =
     { base : Int
     , name : String
@@ -57,35 +57,35 @@ type alias BaseChooserItem =
     , unicodepua : String
     , validfills : String
     , validrotations : String
-    , handpng : String
-    , symbolpng : String
     , groupchooser : String
     , common : Bool
     , subgroup1 : String
     , subgroup2 : String
     , rank : Int
-    } 
+    }
 
-    
 
--- type alias HandGroupModel =
---     { fistbabycommon : List Choosing.Model
---     , fistringcommon : List Choosing.Model
---     , fistmiddlecommon : List Choosing.Model
---     , fistindexcommon : List Choosing.Model
---     , fistthumbcommon : List Choosing.Model
---     , circlethumbcommon : List Choosing.Model
---     , circleindexcommon : List Choosing.Model
---     , circleringcommon : List Choosing.Model
---     , circlebabycommon : List Choosing.Model
---     , cupbabycommon : List Choosing.Model
---     , cupthumbcommon : List Choosing.Model
---     , cupindexcommon : List Choosing.Model
---     , anglethumbcommon : List Choosing.Model
---     , anglebabycommon : List Choosing.Model
---     , flatthumbcommon : List Choosing.Model
---     , flatbabycommon : List Choosing.Model
---     }
+type alias ChooserItem =
+    { base : Int
+    , name : String
+    , symbolid : String
+    , symbolkey : String
+    , unicodepua : String
+    , validfills : String
+    , validrotations : String
+    , groupchooser : Int
+    , common : Bool
+    , subgroup1 : Int
+    , subgroup2 : Int
+    , rank : Int
+    }
+
+
+type alias HandGroupModel =
+    List ChooserItem
+
+
+
 -- convertGroupHandChoosings : HandGroupImportModel -> HandGroupModel
 -- convertGroupHandChoosings handgroupchoosings =
 --     { fistbabycommon = List.map (Choosing.toModel 0) handgroupchoosings.fistbabycommon
