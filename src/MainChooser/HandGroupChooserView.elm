@@ -98,17 +98,18 @@ displayhandChoosing chooseritem =
         sign =
             { syms = [ symbol ] }
     in
-        div [ onClick (GroupSelected chooseritem.base), class "choosing", style [ "height" => px 20 ] ]
+        div
+            [ onClick (GroupSelected chooseritem.base)
+            , class "choosing"
+            ]
             [ a [ class "tooltip", href "#" ]
                 [ App.map SignView
                     (signView sign
                         [ Html.Attributes.style
                             [ "position" => "relative"
-                            , "left" => px 0
-                            , "top" => px 0
-                            , "width" => px 44
-                            , "height" => px 44
-                            , "margin" => "4px"
+                               , "transform" => "scale(1)"
+                            , "margin" => "2px"
+                            , "height" => "100%"
                             ]
                         ]
                     )
