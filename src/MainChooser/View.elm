@@ -9,10 +9,6 @@ import Choosing.View exposing (..)
 import Choosing.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.HandGroupChooserView exposing (..)
-import SWEditor.Display exposing (..)
-import SWEditor.EditorSymbol exposing (..)
-import SW.SymbolConverter exposing (..)
-import ParseInt as ParseInt exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
 
 
@@ -31,7 +27,7 @@ root model =
             ]
         , div
             [ class "generalsymbolchooser", style [ "display" => "inline-block", "margin-top" => "5px" ] ]
-            [ generalsymbolchooser 1 [1..6] [1..16] model.selectedcolumn
+            [ generalsymbolchooser 256 [1..6] [1..16] model.selectedcolumn
             ]
         ]
 

@@ -84,29 +84,6 @@ type alias ChooserItem =
 type alias HandGroupModel =
     List ChooserItem
 
-
-
--- convertGroupHandChoosings : HandGroupImportModel -> HandGroupModel
--- convertGroupHandChoosings handgroupchoosings =
---     { fistbabycommon = List.map (Choosing.toModel 0) handgroupchoosings.fistbabycommon
---     , fistringcommon = List.map (Choosing.toModel 0) handgroupchoosings.fistringcommon
---     , fistmiddlecommon = List.map (Choosing.toModel 0) handgroupchoosings.fistmiddlecommon
---     , fistindexcommon = List.map (Choosing.toModel 0) handgroupchoosings.fistindexcommon
---     , fistthumbcommon = List.map (Choosing.toModel 0) handgroupchoosings.fistthumbcommon
---     , circlethumbcommon = List.map (Choosing.toModel 0) handgroupchoosings.circlethumbcommon
---     , circleindexcommon = List.map (Choosing.toModel 0) handgroupchoosings.circleindexcommon
---     , circleringcommon = List.map (Choosing.toModel 0) handgroupchoosings.circleringcommon
---     , circlebabycommon = List.map (Choosing.toModel 0) handgroupchoosings.circlebabycommon
---     , cupbabycommon = List.map (Choosing.toModel 0) handgroupchoosings.cupbabycommon
---     , cupthumbcommon = List.map (Choosing.toModel 0) handgroupchoosings.cupthumbcommon
---     , cupindexcommon = List.map (Choosing.toModel 0) handgroupchoosings.cupindexcommon
---     , anglethumbcommon = List.map (Choosing.toModel 0) handgroupchoosings.anglethumbcommon
---     , anglebabycommon = List.map (Choosing.toModel 0) handgroupchoosings.anglebabycommon
---     , flatthumbcommon = List.map (Choosing.toModel 0) handgroupchoosings.flatthumbcommon
---     , flatbabycommon = List.map (Choosing.toModel 0) handgroupchoosings.flatbabycommon
---     }
-
-
 type Msg
     = MainChooserMessage
     | RequestInitialChoosings

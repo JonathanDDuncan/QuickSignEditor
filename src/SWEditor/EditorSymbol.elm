@@ -45,7 +45,7 @@ toEditorSymbol id index symbol =
     }
 
 
-getSymbolEditor : Int -> Int -> Int -> EditorSymbol
+getSymbolEditor : Base -> Fill -> Rotation -> EditorSymbol
 getSymbolEditor base fill rotation =
     let
         key =

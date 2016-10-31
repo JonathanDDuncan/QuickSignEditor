@@ -8,8 +8,9 @@ import ViewHelper.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
+import SW.Types exposing (..)
 
-
+generalsymbolchooser : Base -> List Fill -> a -> Int -> Html Msg
 generalsymbolchooser base validfills validrotations selectedcolumn =
     table
         [ Html.Attributes.style
@@ -18,7 +19,7 @@ generalsymbolchooser base validfills validrotations selectedcolumn =
             , "margin" => "5px"
             ]
         ]
-        [ columnselector base validfills (Maybe.withDefault 1 (List.head validrotations))
+        [ tr [] (generalsymbolrow base validfills 1)
         , tr
             [ Html.Attributes.style
                 [ "height" => px 10
@@ -36,71 +37,27 @@ generalsymbolchooser base validfills validrotations selectedcolumn =
         ]
 
 
-generalsymbolonecolumn : Int -> Int -> Int -> Int -> List (Html MainChooser.Types.Msg)
+generalsymbolonecolumn : Base -> Int -> Int -> Int -> List (Html MainChooser.Types.Msg)
 generalsymbolonecolumn base symbolcol rotation1 rotation2 =
     [ td
         []
-        [ generalsymbolcol base rotation1 symbolcol ]
+        [ generalsymbolcol base symbolcol rotation1 ]
     , td
         []
         []
     , td
         []
-        [ generalsymbolcol base rotation2 symbolcol ]
+        [ generalsymbolcol base symbolcol rotation2 ]
     ]
 
 
-columnselector : Int -> List Int -> Int -> Html Msg
-columnselector base validfills firstrow =
-    tr [] (generalsymbolrow base validfills firstrow)
-
-
--- generalsymbolchooser2 : MainChooser.Types.Model -> Html MainChooser.Types.Msg
--- generalsymbolchooser2 model =
---     let
---         base =
---             256
-
---         -- model.selectedbase
---         validfills =
---             [1..6]
-
---         validrotations =
---             [1..16]
---     in
---         table
---             [ Html.Attributes.style
---                 [ "width" => "50%"
---                 , "height" => px 100
---                 , "margin" => "5px"
---                 ]
---             ]
---             [ tr [] (generalsymbolrow base validfills 1)
---             , tr [] (generalsymbolrow base validfills 2)
---             , tr [] (generalsymbolrow base validfills 3)
---             , tr [] (generalsymbolrow base validfills 4)
---             , tr [] (generalsymbolrow base validfills 5)
---             , tr [] (generalsymbolrow base validfills 6)
---             , tr [] (generalsymbolrow base validfills 7)
---             , tr [] (generalsymbolrow base validfills 8)
---             , tr [] (generalsymbolrow base validfills 9)
---             , tr [] (generalsymbolrow base validfills 10)
---             , tr [] (generalsymbolrow base validfills 11)
---             , tr [] (generalsymbolrow base validfills 12)
---             , tr [] (generalsymbolrow base validfills 13)
---             , tr [] (generalsymbolrow base validfills 14)
---             , tr [] (generalsymbolrow base validfills 15)
---             , tr [] (generalsymbolrow base validfills 16)
---             ]
-
-
-generalsymbolrow : Int -> List Int -> Int -> List (Html MainChooser.Types.Msg)
+generalsymbolrow : Base -> List Fill -> Rotation -> List (Html MainChooser.Types.Msg)
 generalsymbolrow base validfills rotation =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol base fill rotation ) ]) validfills
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol (Debug.log "base" base)  (Debug.log "fill" fill) rotation) ]) validfills
 
 
-generalsymbolcol : Int -> Int -> Int -> Html MainChooser.Types.Msg
-generalsymbolcol base fill rotation  =
+generalsymbolcol : Base -> Fill -> Rotation -> Html MainChooser.Types.Msg
+generalsymbolcol base fill rotation =
     let
         symbol =
             getSymbolEditor base fill rotation

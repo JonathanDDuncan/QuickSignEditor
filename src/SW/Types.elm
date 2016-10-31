@@ -47,6 +47,12 @@ type alias NamedPosition =
     , name : String
     }
 
+type alias Base = Int
+type alias Fill = Int
+type alias Rotation = Int
+type alias Code = Int  
+type alias Key = String  
+
 
 {-| The position of the mouse relative to the whole document. So if you are
 scrolled down a bunch, you are still getting a coordinate relative to the
