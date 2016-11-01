@@ -6152,7 +6152,7 @@
       "common" : false,
       "subgroup1" : "forwarddiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 342,
       "groupchoosername" : ""
     },
@@ -6170,7 +6170,7 @@
       "common" : false,
       "subgroup1" : "forwarddiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 343,
       "groupchoosername" : ""
     },
@@ -6188,7 +6188,7 @@
       "common" : false,
       "subgroup1" : "forwarddiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 344,
       "groupchoosername" : ""
     },
@@ -6206,7 +6206,7 @@
       "common" : false,
       "subgroup1" : "forwarddiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 345,
       "groupchoosername" : ""
     },
@@ -6224,7 +6224,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 346,
       "groupchoosername" : ""
     },
@@ -6242,7 +6242,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 347,
       "groupchoosername" : ""
     },
@@ -6260,7 +6260,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 348,
       "groupchoosername" : ""
     },
@@ -6278,7 +6278,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 349,
       "groupchoosername" : ""
     },
@@ -6296,7 +6296,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 350,
       "groupchoosername" : ""
     },
@@ -6314,7 +6314,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 351,
       "groupchoosername" : ""
     },
@@ -6332,7 +6332,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 352,
       "groupchoosername" : ""
     },
@@ -6350,7 +6350,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 353,
       "groupchoosername" : ""
     },
@@ -6368,7 +6368,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 354,
       "groupchoosername" : ""
     },
@@ -6386,7 +6386,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 355,
       "groupchoosername" : ""
     },
@@ -6404,7 +6404,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 356,
       "groupchoosername" : ""
     },
@@ -6422,7 +6422,7 @@
       "common" : false,
       "subgroup1" : "backdiagonal",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 357,
       "groupchoosername" : ""
     },
@@ -7862,7 +7862,7 @@
       "common" : false,
       "subgroup1" : "",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 437,
       "groupchoosername" : ""
     },
@@ -7880,7 +7880,7 @@
       "common" : false,
       "subgroup1" : "",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 438,
       "groupchoosername" : ""
     },
@@ -7898,7 +7898,7 @@
       "common" : false,
       "subgroup1" : "",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "diagonal",
       "rank" : 439,
       "groupchoosername" : ""
     },
@@ -13385,6 +13385,24 @@
     {
       "choosertype" : "mouvrotation",
       "name" : "twistshake",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "wallplane",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "floorplane",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "diagonal",
       "value" : 3,
       "symbolgroup" : ""
     }

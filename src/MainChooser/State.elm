@@ -23,10 +23,12 @@ init =
       , selectedcolumn = 1
       , handgroupchoosings = []
       , allgroupchoosings =
-           [ { basesymbol = ""
-            , choosings = []
-            }]
+            [ { basesymbol = ""
+              , choosings = []
+              }
+            ]
       , groupselected = 256
+      , handgroupfilter = 1
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
@@ -101,7 +103,7 @@ update action model =
 
         GroupSelected base ->
             ( { model
-                | groupselected = base
+                | groupselected = Debug.log "GroupSelected base" base
               }
             , Cmd.none
             )
@@ -111,16 +113,21 @@ update action model =
             , cmdDragSymbol code
             )
 
+        FilterHandGroup value ->
+            ( { model
+                | handgroupfilter = Debug.log "FilterHandGroup value" value
+              }
+            , Cmd.none
+            )
+
 
 allgroupchoosings chooserclassification =
     let
-      
         basesymbols =
             List.sort <| unique <| List.filter (\value -> value /= "") <| List.map (\item -> item.symbolgroup) chooserclassification.chooseritemvalues
 
         allgroupchoosings1 =
             List.map (\basesymbol1 -> { basesymbol = basesymbol1, choosings = getchoosings basesymbol1 chooserclassification.chooseritemvalues chooserclassification.basechooseritems }) basesymbols
-
     in
         allgroupchoosings1
 
@@ -136,8 +143,11 @@ getchoosings symbolgroup chooseritemvalues basechooseritems =
         itemsvalues =
             List.filter (\chooseritemvalue -> List.any (is chooseritemvalue.choosertype) groupchoosers) chooseritemvalues
 
+        planeitemsvalues =
+            List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "plane") chooseritemvalues
+
         converted =
-            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues item) items
+            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues planeitemsvalues item) items
     in
         converted
 
@@ -146,10 +156,6 @@ is str1 str2 =
     str1 == str2
 
 
-getchooservalue :
-    String
-    -> List { a | choosertype : String, name : String, value : number }
-    -> number
 getchooservalue choosername itemsvalues =
     default choosername .value <|
         List.head <|
@@ -166,7 +172,7 @@ default text func val =
             Debug.log (text ++ " not found") 0
 
 
-creategroupchoosing chooservalue itemsvalues item =
+creategroupchoosing chooservalue itemsvalues planeitemsvalues item =
     { base = item.base
     , name = item.name
     , symbolid = item.symbolid
@@ -178,6 +184,7 @@ creategroupchoosing chooservalue itemsvalues item =
     , common = item.common
     , subgroup1 = getvalue item.subgroup1 itemsvalues
     , subgroup2 = getvalue item.subgroup2 itemsvalues
+    , plane = getvalue item.plane planeitemsvalues
     , rank = item.rank
     }
 

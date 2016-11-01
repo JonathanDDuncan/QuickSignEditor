@@ -14,7 +14,7 @@ type alias Model =
     , allgroupchoosings : AllGroupChoosings
     , clicked : String
     , selectedcolumn : Int
-    , groupselected : Int
+    , groupselected : Int, handgroupfilter: Int
     }
 
 
@@ -44,6 +44,7 @@ type alias BaseChooserItem =
     , common : Bool
     , subgroup1 : String
     , subgroup2 : String
+    , plane : String
     , rank : Int
     }
 
@@ -60,6 +61,7 @@ type alias ChooserItem =
     , common : Bool
     , subgroup1 : Int
     , subgroup2 : Int
+    , plane : Int
     , rank : Int
     }
 
@@ -75,7 +77,7 @@ type alias GroupChoosing =
         { basesymbol : String
         , choosings : List ChooserItem
         }
-        
+
 type Msg
     = MainChooserMessage
     | RequestInitialChoosings
@@ -88,6 +90,7 @@ type Msg
     | SelectedColumn Int
     | GroupSelected Int
     | DragSymbol Code
+    | FilterHandGroup Int
 
 
 

@@ -21,16 +21,17 @@ root : MainChooser.Types.Model -> Html MainChooser.Types.Msg
 root model =
     div []
         [ div
-            [  ]
-            (List.map displayChoosing model.choosings)
-        , div
-            [ style [ "width" => "50%",  "margin-left" => "50%","height" => "250px" , "margin-top" => "5px" ] ]
-            [ choosesubgroupchooser model
-            ]
-        , div
-            [ class "generalsymbolchooser", style [ "display" => "inline-block", "margin-top" => "5px" ] ]
+            [ style [  "height" => "250px"   ] ]
+            (List.map displayChoosing model.choosings) 
+             , div
+            [ class "generalsymbolchooser", style [ "display" => "inline-block", "margin-top" => "5px", "float" => "left"] ]
             [ generalsymbolchooser model.groupselected [1..6] [1..16] model.selectedcolumn
+            ] ,
+       div
+            [ style ["position" => "absolute", "width" => "300px", "left" => "-50px","top" => "0px", "margin-left" => "50%","height" => "550px" , "margin-top" => "5px", "overflow-y" => "scroll", "overflow-x" => "scroll" ] ]
+            [ choosesubgroupchooser model 
             ] 
+      
         ]
 
 
@@ -46,9 +47,9 @@ choosesubgroupchooser model =
     in
     case basesymbol of
         "S14c" ->
-            handgroupchooser <| getchoosings basesymbol model.allgroupchoosings
+            handgroupchooser model.handgroupfilter <| getchoosings basesymbol model.allgroupchoosings
  
-        _ ->
+        _ -> 
             generalgroupchooser <| getchoosings basesymbol model.allgroupchoosings
 
 getchoosings : a -> List { c | basesymbol : a, choosings : List b } -> List b

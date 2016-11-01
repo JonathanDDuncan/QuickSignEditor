@@ -31,7 +31,7 @@ rowchooser row choosings maxheight =
             List.filter (\item -> item.subgroup1 == row) choosings
 
         colvalues =
-            List.sort <| unique <| List.map (\item -> item.subgroup2) choosings
+            List.sort <| unique <| List.map (\item ->   item.plane) choosings
     in
         tr
             []
@@ -40,19 +40,21 @@ rowchooser row choosings maxheight =
 
 column : Int -> Int -> Int -> List ChooserItem -> Html MainChooser.Types.Msg
 column cat col choosingshigh choosings =
-  
-        td 
-            [ class "chosercolumn"
-            , style
-                [ "background-color" => (bkcolor cat col) ]
+ let
+   choosingsforcolumn = List.filter (\item -> item.plane == col )choosings
+ in
+   
+    td
+        [ class "chosercolumn"
+        , style
+            [ "background-color" => (bkcolor cat col) ]
+        ]
+        [ span
+            []
+            [ handcolumn
+                choosingsforcolumn
             ]
-            [ span
-                []
-                
-            [handcolumn
-            choosings]
-             
-            ]
+        ]
 
 
 handcolumn : List ChooserItem -> Html MainChooser.Types.Msg
@@ -93,22 +95,16 @@ displayhandChoosing chooseritem =
             [ onClick (GroupSelected chooseritem.base)
             , class "choosing"
             ]
-            [ a [ class "tooltip", href "#" ]
-                [ App.map SignView
-                    (signView sign
-                        [ Html.Attributes.style
-                            [ "position" => "relative"
-                            , "transform" => "scale(1)"
-                            , "margin" => "2px"
-                            , "height" => "100%"
-                            ]
+            [ App.map SignView
+                (signView sign
+                    [ Html.Attributes.style
+                        [ "position" => "relative"
+                        , "transform" => "scale(1)"
+                        , "margin" => "2px"
+                        , "height" => "100%"
                         ]
-                    )
-                , span []
-                    [ span [ attribute "style" "float:left;" ]
-                        []
                     ]
-                ]
+                )
             ]
 
 

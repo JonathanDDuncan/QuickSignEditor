@@ -13,8 +13,8 @@ import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Display exposing (signView)
 
 
-handgroupchooser : List ChooserItem  -> Html MainChooser.Types.Msg
-handgroupchooser handgroupchoosings =
+handgroupchooser : Int -> List ChooserItem -> Html MainChooser.Types.Msg
+handgroupchooser handgroupfilter handgroupchoosings =
     let
         maxheight =
             3
@@ -22,11 +22,14 @@ handgroupchooser handgroupchoosings =
         rowvalues =
             List.sort <| unique <| List.map (\item -> item.subgroup1) handgroupchoosings
     in
-        table []
-            (List.map (\row -> rowchooser row handgroupchoosings maxheight) rowvalues)
+        div []
+            [ div [] [ button [ onClick (FilterHandGroup 1) ] [ text "common" ], button [ onClick (FilterHandGroup 2) ] [ text "not common" ], button [ onClick (FilterHandGroup 3) ] [ text " all" ] ]
+            , table []
+                (List.map (\row -> rowchooser handgroupfilter row handgroupchoosings maxheight) rowvalues)
+            ]
 
 
-rowchooser row handgroupchoosings maxheight =
+rowchooser handgroupfilter row handgroupchoosings maxheight =
     let
         items =
             List.filter (\item -> item.subgroup1 == row) handgroupchoosings
@@ -36,14 +39,22 @@ rowchooser row handgroupchoosings maxheight =
     in
         tr
             []
-            (List.map (\col -> column row col maxheight items) colvalues)
+            (List.map (\col -> column handgroupfilter row col maxheight items) colvalues)
 
 
-column : Int -> Int -> Int -> HandGroupModel -> Html MainChooser.Types.Msg
-column cat col choosingshigh choosings =
+column : Int -> Int -> Int -> Int -> HandGroupModel -> Html MainChooser.Types.Msg
+column handgroupfilter cat col choosingshigh choosings =
     let
         items =
-            List.filter (\item -> item.subgroup2 == col && item.common == True) choosings
+            case handgroupfilter of
+                2 ->
+                    List.filter (\item -> item.subgroup2 == col && item.common == False) choosings
+
+                3 ->
+                    List.filter (\item -> item.subgroup2 == col) choosings
+
+                _ ->
+                    List.filter (\item -> item.subgroup2 == col && item.common == True) choosings
     in
         td
             [ class "chosercolumn"
@@ -107,7 +118,7 @@ displayhandChoosing chooseritem =
                     (signView sign
                         [ Html.Attributes.style
                             [ "position" => "relative"
-                               , "transform" => "scale(1)"
+                            , "transform" => "scale(1)"
                             , "margin" => "2px"
                             , "height" => "100%"
                             ]
