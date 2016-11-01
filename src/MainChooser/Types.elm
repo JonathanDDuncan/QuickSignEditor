@@ -6,10 +6,12 @@ import Choosing.Types as Choosing
 import SWEditor.Types exposing (..)
 import SW.Types exposing (..)
 
+
 type alias Model =
     { choosings :
         List Choosing.Model
     , handgroupchoosings : HandGroupModel
+    , allgroupchoosings : AllGroupChoosings
     , clicked : String
     , selectedcolumn : Int
     , groupselected : Int
@@ -66,6 +68,14 @@ type alias HandGroupModel =
     List ChooserItem
 
 
+type alias AllGroupChoosings =
+    List GroupChoosing
+
+type alias GroupChoosing =
+        { basesymbol : String
+        , choosings : List ChooserItem
+        }
+        
 type Msg
     = MainChooserMessage
     | RequestInitialChoosings

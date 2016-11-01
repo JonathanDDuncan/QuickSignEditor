@@ -1,4 +1,4 @@
-module MainChooser.HandGroupChooserView exposing (handgroupchooser)
+module MainChooser.GeneralGroupChooserView exposing (generalgroupchooser)
 
 import Html exposing (..)
 import Html.App as App exposing (..)
@@ -8,69 +8,60 @@ import MainChooser.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Exts.Html exposing (..)
 import Exts.List exposing (..)
-import String exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Display exposing (signView)
 
 
-handgroupchooser : List ChooserItem  -> Html MainChooser.Types.Msg
-handgroupchooser handgroupchoosings =
+generalgroupchooser : List ChooserItem -> Html MainChooser.Types.Msg
+generalgroupchooser choosings =
     let
         maxheight =
             3
 
         rowvalues =
-            List.sort <| unique <| List.map (\item -> item.subgroup1) handgroupchoosings
+            List.sort <| unique <| List.map (\item -> item.subgroup1) choosings
     in
         table []
-            (List.map (\row -> rowchooser row handgroupchoosings maxheight) rowvalues)
+            (List.map (\row -> rowchooser row choosings maxheight) rowvalues)
 
 
-rowchooser row handgroupchoosings maxheight =
+rowchooser row choosings maxheight =
     let
         items =
-            List.filter (\item -> item.subgroup1 == row) handgroupchoosings
+            List.filter (\item -> item.subgroup1 == row) choosings
 
         colvalues =
-            List.sort <| unique <| List.map (\item -> item.subgroup2) handgroupchoosings
+            List.sort <| unique <| List.map (\item -> item.subgroup2) choosings
     in
         tr
             []
             (List.map (\col -> column row col maxheight items) colvalues)
 
 
-column : Int -> Int -> Int -> HandGroupModel -> Html MainChooser.Types.Msg
+column : Int -> Int -> Int -> List ChooserItem -> Html MainChooser.Types.Msg
 column cat col choosingshigh choosings =
-    let
-        items =
-            List.filter (\item -> item.subgroup2 == col && item.common == True) choosings
-    in
-        td
+  
+        td 
             [ class "chosercolumn"
             , style
                 [ "background-color" => (bkcolor cat col) ]
             ]
             [ span
                 []
-                (List.map
-                    (handcolumn)
-                    (nomorethan choosingshigh items)
-                )
+                
+            [handcolumn
+            choosings]
+             
             ]
 
 
-handcolumn : HandGroupModel -> Html MainChooser.Types.Msg
+handcolumn : List ChooserItem -> Html MainChooser.Types.Msg
 handcolumn choosings =
     span
         [ style
             [ "width" => "23px", "float" => "left", "margin-top" => "5px" ]
         ]
-        (List.map (displayhandChoosing) choosings)
-
-
-nomorethan : Int -> List a -> List (List a)
-nomorethan num choosings =
-    chunk num choosings
+        (List.map displayhandChoosing choosings)
 
 
 spacercolumn : Html MainChooser.Types.Msg
@@ -87,10 +78,10 @@ displayhandChoosing chooseritem =
             chooseritem.base
 
         fill =
-            2
+            1
 
         rotation =
-            0
+            1
 
         symbol =
             getSymbolEditor base fill rotation
@@ -107,23 +98,18 @@ displayhandChoosing chooseritem =
                     (signView sign
                         [ Html.Attributes.style
                             [ "position" => "relative"
-                               , "transform" => "scale(1)"
+                            , "transform" => "scale(1)"
                             , "margin" => "2px"
                             , "height" => "100%"
                             ]
                         ]
                     )
                 , span []
-                    [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "float:left;" ]
+                    [ span [ attribute "style" "float:left;" ]
                         []
                     ]
                 ]
             ]
-
-
-handpngcss : String -> String
-handpngcss key =
-    String.toLower "hands-" ++ String.slice 1 4 key ++ "10"
 
 
 bkcolor : number -> number' -> String

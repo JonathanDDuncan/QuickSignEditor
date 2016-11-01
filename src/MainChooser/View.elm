@@ -1,6 +1,7 @@
 module MainChooser.View exposing (root)
 
 import Html exposing (..)
+import String exposing (..)
 import Html.App as App exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -9,6 +10,7 @@ import Choosing.View exposing (..)
 import Choosing.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.HandGroupChooserView exposing (..)
+import MainChooser.GeneralGroupChooserView exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
 
 
@@ -39,17 +41,27 @@ displayChoosing choosing =
 
 choosesubgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
 choosesubgroupchooser model =
-    case model.clicked of
-        "S14c10" ->
-            handgroupchooser model
+    let basesymbol = String.slice 0 4 model.clicked 
 
-        "S14c18" ->
-            handgroupchooser model
-
+    in
+    case basesymbol of
+        "S14c" ->
+            handgroupchooser <| getchoosings basesymbol model.allgroupchoosings
+ 
         _ ->
-            nogroupchooser model
+            generalgroupchooser <| getchoosings basesymbol model.allgroupchoosings
 
-
+getchoosings : a -> List { c | basesymbol : a, choosings : List b } -> List b
+getchoosings basesymbol allgroupchoosings =
+  let firstfound =  List.head <| List.filter (\agc -> agc.basesymbol == basesymbol) allgroupchoosings
+      choosings = case firstfound    of
+        Just groupchoosings ->
+            groupchoosings.choosings
+        Nothing ->
+            []    
+  in
+     choosings
+ 
 
 -- "margin-left" => (toString (20 * (col - 1)) ++ "%"),
 

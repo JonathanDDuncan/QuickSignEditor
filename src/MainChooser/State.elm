@@ -10,6 +10,7 @@ import MainChooser.Types exposing (..)
 import Ports exposing (..)
 import Choosing.State exposing (..)
 import Choosing.Types exposing (..)
+import Exts.List exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -21,8 +22,12 @@ init =
       , clicked = ""
       , selectedcolumn = 1
       , handgroupchoosings = []
+      , allgroupchoosings =
+           [ { basesymbol = ""
+            , choosings = []
+            }]
       , groupselected = 256
-      } 
+      }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
       --  }
@@ -57,11 +62,11 @@ update action model =
 
         ReceiveInitialGroupHandChoosings chooserclassification ->
             let
-                handgroupchoosings1 =
-                    handgroupchoosings chooserclassification
+                allgroupchoosings1 =
+                    allgroupchoosings chooserclassification
             in
                 ( { model
-                    | handgroupchoosings = handgroupchoosings1
+                    | allgroupchoosings = allgroupchoosings1
                   }
                 , Cmd.none
                 )
@@ -106,30 +111,50 @@ update action model =
             , cmdDragSymbol code
             )
 
-handgroupchoosings chooserclassification =
+
+allgroupchoosings chooserclassification =
     let
-        itemsvalues =
-            List.filter (\item -> item.choosertype == "handgroupchooser") chooserclassification.chooseritemvalues
+      
+        basesymbols =
+            List.sort <| unique <| List.filter (\value -> value /= "") <| List.map (\item -> item.symbolgroup) chooserclassification.chooseritemvalues
 
-        basechooseritems =
-            List.filter (\item -> item.groupchooser == "handgroupchooser") chooserclassification.basechooseritems
+        allgroupchoosings1 =
+            List.map (\basesymbol1 -> { basesymbol = basesymbol1, choosings = getchoosings basesymbol1 chooserclassification.chooseritemvalues chooserclassification.basechooseritems }) basesymbols
 
-        chooservalue =
-            getchooservalue "handgroupchooser" itemsvalues
-
-        handgroupchoosings =
-            List.map (\item -> creategroupchoosing chooservalue itemsvalues item) basechooseritems
     in
-         handgroupchoosings
+        allgroupchoosings1
 
-getchooservalue
-    : String
+
+getchoosings symbolgroup chooseritemvalues basechooseritems =
+    let
+        groupchoosers =
+            List.sort <| unique <| List.map (\item -> item.name) <| List.filter (\item -> item.choosertype == "groupchooser" && item.symbolgroup == symbolgroup) chooseritemvalues
+
+        items =
+            List.filter (\basechooseritem -> List.any (is basechooseritem.groupchooser) groupchoosers) basechooseritems
+
+        itemsvalues =
+            List.filter (\chooseritemvalue -> List.any (is chooseritemvalue.choosertype) groupchoosers) chooseritemvalues
+
+        converted =
+            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues item) items
+    in
+        converted
+
+
+is str1 str2 =
+    str1 == str2
+
+
+getchooservalue :
+    String
     -> List { a | choosertype : String, name : String, value : number }
     -> number
 getchooservalue choosername itemsvalues =
     default choosername .value <|
         List.head <|
             List.filter (\item -> (item.choosertype == "groupchooser") && (item.name == choosername)) itemsvalues
+
 
 default : String -> (a -> number) -> Maybe a -> number
 default text func val =
@@ -155,6 +180,7 @@ creategroupchoosing chooservalue itemsvalues item =
     , subgroup2 = getvalue item.subgroup2 itemsvalues
     , rank = item.rank
     }
+
 
 getvalue : String -> List { a | name : String, value : Int } -> Int
 getvalue name itemsvalues =
