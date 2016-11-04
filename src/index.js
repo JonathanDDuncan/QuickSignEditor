@@ -62,7 +62,8 @@ app.ports.requestInitialChoosings.subscribe(function(str) {
 
 app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
     try {
-        console.log("requestInitialGroupHandChoosings called")
+        console.log("requestInitialGroupHandChoosings called");
+        chooserclassification.symbolsizes = symbolsizes;
         app.ports.receiveInitialGroupHandChoosings.send(chooserclassification);
 
     } catch (e) { console.log(e) }
