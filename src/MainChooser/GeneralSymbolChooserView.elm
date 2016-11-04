@@ -9,9 +9,9 @@ import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
+ 
 
-
-generalsymbolchooser : ChooserItem -> Int -> Html Msg
+generalsymbolchooser : ChooserItem -> Fill -> Html Msg
 generalsymbolchooser choosing selectedcolumn =
     let
         vf =
@@ -22,34 +22,38 @@ generalsymbolchooser choosing selectedcolumn =
         column = if isValidRotation selectedcolumn vf then
                     selectedcolumn
                 else
-                    1
-            
-    in
-        table
-            [ Html.Attributes.style
-                [ "width" => "50%"
-                , "height" => px 100
-                , "margin" => "5px"
-                ]
-            ]
-            [ tr [] (generalsymbolrow choosing.base vf 1)
-            , tr
+                    1    
+    in 
+        div [] [  table
                 [ Html.Attributes.style
-                    [ "height" => px 10
+                    [ "width" => "50%"
+                    , "height" => px 100
+                    , "margin" => "5px"
                     ]
                 ]
-                []
-            , tr [] (generalsymbolonecolumn choosing.base column 1 (Debug.log "validrotations"vr))
-            , tr [] (generalsymbolonecolumn choosing.base column 2 vr)
-            , tr [] (generalsymbolonecolumn choosing.base column 3 vr)
-            , tr [] (generalsymbolonecolumn choosing.base column 4 vr)
-            , tr [] (generalsymbolonecolumn choosing.base column 5 vr)
-            , tr [] (generalsymbolonecolumn choosing.base column 6 vr)
-            , tr [] (generalsymbolonecolumn choosing.base column 7 vr)
-            , tr [] (generalsymbolonecolumn choosing.base column 8 vr)
-            ]
+                [ tr [] (generalsymbolrow choosing.base vf 1)
+               
+                   ]
+                    ,  table
+                [ Html.Attributes.style
+                    [ "width" => "100%"
+                    , "height" => px 100
+                    , "margin" => "5px"
+                    ]
+                ]
+                [
+                    tr [] (generalsymbolonecolumn choosing.base column 1 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 2 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 3 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 4 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 5 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 6 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 7 vr)
+                    , tr [] (generalsymbolonecolumn choosing.base column 8 vr)
+                ]
+            ] 
 
-
+getvalidfills : String -> List Fill
 getvalidfills validfillsstring =
     case validfillsstring of
         "1 - 6" ->
@@ -74,9 +78,12 @@ getvalidfills validfillsstring =
             [ 2 ]
 
         _ ->
-            []
+            let a = Debug.log "Could not match valid fills string"  validfillsstring 
+            in
+                []
 
 
+getvalidrotations : String -> List Rotation
 getvalidrotations validrotationsstring =
     case validrotationsstring of
         "1 - 16" ->
@@ -107,6 +114,8 @@ getvalidrotations validrotationsstring =
             [1..9]
 
         _ ->
+            let a = Debug.log "Could not match valid rotations string"  validrotationsstring 
+            in
             []
 
 
@@ -127,18 +136,24 @@ generalsymbolonecolumn base symbolcol rotation validrotations =
     in
         [ if showrotation1 then
             td
-                []
-                [ generalsymbolcol base symbolcol rotation ]
+                [  ]
+                [ (generalsymbolcol base symbolcol rotation) ]
           else
             blanktd
         , blanktd
         , if showrotation2 then
             td
-                []
+                [   Html.Attributes.style
+
+                        [ "text-align" => "center","display" => "block"
+                         ,"width" => "45%"
+                        ]]
                 [ generalsymbolcol base symbolcol rotation2 ]
           else
             blanktd
         ]
+
+ 
 
 blanktd : Html a      
 blanktd =

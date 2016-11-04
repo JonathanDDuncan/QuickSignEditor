@@ -131,7 +131,7 @@ function getchoosingsign(sign, x, y) {
     choosing.valuestoAdd = sign.syms;
     choosing.value = getchoosingvalue(choosing.valuestoAdd);
     choosing.offset = offset1;
-    console.log(JSON.stringify(sign.syms));
+    // console.log(JSON.stringify(sign.syms));
     return choosing;
 }
 
@@ -155,7 +155,7 @@ function getchoosing(fsw, offsetx, offsety) {
     choosing.valuestoAdd = sign.syms;
     choosing.value = 101;
     choosing.offset = offset1;
-    console.log(JSON.stringify(sign.syms));
+    // console.log(JSON.stringify(sign.syms));
     return choosing;
 }
 

@@ -35,8 +35,8 @@ init =
       --  }
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
- 
- 
+
+
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 update action model =
     case action of
@@ -169,7 +169,10 @@ default text func val =
             func n
 
         Nothing ->
-            Debug.log (text ++ " not found") 0
+            if text /= "" then
+                Debug.log (text ++ " not found") 0
+            else
+                0
 
 
 creategroupchoosing chooservalue itemsvalues planeitemsvalues item =
