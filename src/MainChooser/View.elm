@@ -25,11 +25,11 @@ root model =
             (List.map displayChoosing model.choosings) 
              , div
             [ class "generalsymbolchooser", style [ "display" => "inline-block", "margin-top" => "5px", "float" => "left"] ]
-            [ generalsymbolchooser model.groupselected [1..6] [1..16] model.selectedcolumn
+            [ generalsymbolchooser model.groupselected model.selectedcolumn
             ] ,
        div
             [ style ["position" => "absolute", "width" => "300px", "left" => "-50px","top" => "0px", "margin-left" => "50%","height" => "550px" , "margin-top" => "5px", "overflow-y" => "scroll", "overflow-x" => "scroll" ] ]
-            [ choosesubgroupchooser model 
+            [ choosesubgroupchooser model
             ] 
       
         ]
@@ -39,8 +39,7 @@ displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
 displayChoosing choosing =
     div [ onClick (Clicked choosing.value) ] [ App.map Choosing (Choosing.View.root choosing) ]
 
-
-choosesubgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
+ 
 choosesubgroupchooser model =
     let basesymbol = String.slice 0 4 model.clicked 
 

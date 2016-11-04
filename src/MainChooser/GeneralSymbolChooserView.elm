@@ -11,45 +11,143 @@ import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 
 
-generalsymbolchooser : Base -> List Fill -> a -> Int -> Html Msg
-generalsymbolchooser base validfills validrotations selectedcolumn =
-    table
-        [ Html.Attributes.style
-            [ "width" => "50%"
-            , "height" => px 100
-            , "margin" => "5px"
-            ]
-        ]
-        [ tr [] (generalsymbolrow base validfills 1)
-        , tr
+generalsymbolchooser : ChooserItem -> Int -> Html Msg
+generalsymbolchooser choosing selectedcolumn =
+    let
+        vf =
+            getvalidfills choosing.validfills
+
+        vr =
+            getvalidrotations choosing.validrotations
+        column = if isValidRotation selectedcolumn vf then
+                    selectedcolumn
+                else
+                    1
+            
+    in
+        table
             [ Html.Attributes.style
-                [ "height" => px 10
+                [ "width" => "50%"
+                , "height" => px 100
+                , "margin" => "5px"
                 ]
             ]
+            [ tr [] (generalsymbolrow choosing.base vf 1)
+            , tr
+                [ Html.Attributes.style
+                    [ "height" => px 10
+                    ]
+                ]
+                []
+            , tr [] (generalsymbolonecolumn choosing.base column 1 (Debug.log "validrotations"vr))
+            , tr [] (generalsymbolonecolumn choosing.base column 2 vr)
+            , tr [] (generalsymbolonecolumn choosing.base column 3 vr)
+            , tr [] (generalsymbolonecolumn choosing.base column 4 vr)
+            , tr [] (generalsymbolonecolumn choosing.base column 5 vr)
+            , tr [] (generalsymbolonecolumn choosing.base column 6 vr)
+            , tr [] (generalsymbolonecolumn choosing.base column 7 vr)
+            , tr [] (generalsymbolonecolumn choosing.base column 8 vr)
+            ]
+
+
+getvalidfills validfillsstring =
+    case validfillsstring of
+        "1 - 6" ->
+            [1..6]
+
+        "1 - 4" ->
+            [1..4]
+
+        "1, 2" ->
+            [1..2]
+
+        "1 - 3" ->
+            [1..3]
+
+        "1 - 5" ->
+            [1..5]
+
+        "1" ->
+            [ 1 ]
+
+        "2" ->
+            [ 2 ]
+
+        _ ->
             []
-        , tr [] (generalsymbolonecolumn base selectedcolumn 1 9)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 2 10)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 3 11)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 4 12)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 5 13)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 6 14)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 7 15)
-        , tr [] (generalsymbolonecolumn base selectedcolumn 8 16)
+
+
+getvalidrotations validrotationsstring =
+    case validrotationsstring of
+        "1 - 16" ->
+            [1..16]
+
+        "1 - 8" ->
+            [1..8]
+
+        "1" ->
+            [ 1 ]
+
+        "1 - 4" ->
+            [1..4]
+
+        "1, 2, 4, 5, 6, 8" ->
+            [ 1, 2, 4, 5, 6, 8 ]
+
+        "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16" ->
+            [ 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 ]
+
+        "1 - 6" ->
+            [1..6]
+
+        "1, 2" ->
+            [1..2]
+
+        "1 - 9" ->
+            [1..9]
+
+        _ ->
+            []
+
+
+generalsymbolonecolumn : Base -> Int -> Int -> List Rotation -> List (Html MainChooser.Types.Msg)
+generalsymbolonecolumn base symbolcol rotation validrotations =
+    let
+        rotation1 =
+            rotation
+
+        rotation2 =
+            rotation + 8
+
+        showrotation1 =
+            isValidRotation rotation1 validrotations
+
+        showrotation2 =
+            isValidRotation rotation2 validrotations
+    in
+        [ if showrotation1 then
+            td
+                []
+                [ generalsymbolcol base symbolcol rotation ]
+          else
+            blanktd
+        , blanktd
+        , if showrotation2 then
+            td
+                []
+                [ generalsymbolcol base symbolcol rotation2 ]
+          else
+            blanktd
         ]
 
+blanktd : Html a      
+blanktd =
+    td       []
+                []
 
-generalsymbolonecolumn : Base -> Int -> Int -> Int -> List (Html MainChooser.Types.Msg)
-generalsymbolonecolumn base symbolcol rotation1 rotation2 =
-    [ td
-        []
-        [ generalsymbolcol base symbolcol rotation1 ]
-    , td
-        []
-        []
-    , td
-        []
-        [ generalsymbolcol base symbolcol rotation2 ]
-    ]
+isValidRotation : a -> List a -> Bool
+isValidRotation rotation  validrotations =
+    List.any (( ==) rotation) validrotations 
 
 
 generalsymbolrow : Base -> List Fill -> Rotation -> List (Html MainChooser.Types.Msg)

@@ -28,7 +28,7 @@ handgroupchooser handgroupfilter handgroupchoosings =
                 (List.map (\row -> rowchooser handgroupfilter row handgroupchoosings maxheight) rowvalues)
             ]
 
-
+ 
 rowchooser handgroupfilter row handgroupchoosings maxheight =
     let
         items =
@@ -110,7 +110,7 @@ displayhandChoosing chooseritem =
             { syms = [ symbol ] }
     in
         div
-            [ onClick (GroupSelected chooseritem.base)
+            [ onClick (GroupSelected chooseritem )
             , class "choosing"
             ]
             [ a [ class "tooltip", href "#" ]

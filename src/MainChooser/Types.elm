@@ -14,7 +14,8 @@ type alias Model =
     , allgroupchoosings : AllGroupChoosings
     , clicked : String
     , selectedcolumn : Int
-    , groupselected : Int, handgroupfilter: Int
+    , groupselected : ChooserItem
+    , handgroupfilter : Int
     }
 
 
@@ -66,6 +67,21 @@ type alias ChooserItem =
     }
 
 
+chooseriteminit =
+    { base = 256
+    , name = "Index"
+    , symbolid = "01-01-001-01"
+    , symbolkey = "S100"
+    , unicodepua = "U+FD830"
+    , validfills = "1 - 6"
+    , validrotations = "1 - 16"
+    , groupchooser = 1
+    , common = True
+    , subgroup1 = 1
+    , subgroup2 = 2
+    , plane = 1
+    , rank = 1
+    }
 type alias HandGroupModel =
     List ChooserItem
 
@@ -73,10 +89,12 @@ type alias HandGroupModel =
 type alias AllGroupChoosings =
     List GroupChoosing
 
+
 type alias GroupChoosing =
-        { basesymbol : String
-        , choosings : List ChooserItem
-        }
+    { basesymbol : String
+    , choosings : List ChooserItem
+    }
+
 
 type Msg
     = MainChooserMessage
@@ -88,7 +106,7 @@ type Msg
     | SymbolView SWEditor.Types.Msg
     | SignView SWEditor.Types.Msg
     | SelectedColumn Int
-    | GroupSelected Int
+    | GroupSelected ChooserItem
     | DragSymbol Code
     | FilterHandGroup Int
 

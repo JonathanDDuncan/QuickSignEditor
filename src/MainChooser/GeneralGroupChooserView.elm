@@ -55,7 +55,7 @@ column cat col choosingshigh choosings =
                 choosingsforcolumn
             ]
         ]
-
+ 
 
 handcolumn : List ChooserItem -> Html MainChooser.Types.Msg
 handcolumn choosings =
@@ -91,8 +91,8 @@ displayhandChoosing chooseritem =
         sign =
             { syms = [ symbol ] }
     in
-        div
-            [ onClick (GroupSelected chooseritem.base)
+        div 
+            [ onClick (GroupSelected chooseritem)
             , class "choosing"
             ]
             [ App.map SignView

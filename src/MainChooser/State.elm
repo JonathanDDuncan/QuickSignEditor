@@ -27,7 +27,7 @@ init =
               , choosings = []
               }
             ]
-      , groupselected = 256
+      , groupselected = chooseriteminit
       , handgroupfilter = 1
       }
       -- To initiate MainChooser state
@@ -35,8 +35,8 @@ init =
       --  }
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
-
-
+ 
+ 
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 update action model =
     case action of
@@ -101,9 +101,9 @@ update action model =
             , Cmd.none
             )
 
-        GroupSelected base ->
+        GroupSelected choosing ->
             ( { model
-                | groupselected = Debug.log "GroupSelected base" base
+                | groupselected = Debug.log "GroupSelected choosing" choosing
               }
             , Cmd.none
             )
