@@ -90,7 +90,7 @@ update action model =
             { model | editormode = Awaiting, sign = rectangleselect model } ! []
 
         SelectSymbol id ->
-            { model | sign = selectSymbolId id model } ! []
+            { model | sign = selectSymbolId id model } ! []  |> andThen update (StartDragging)
 
         UnSelectSymbols ->
             { model | sign = unselectSymbols model.sign } ! []
