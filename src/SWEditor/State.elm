@@ -200,14 +200,16 @@ update action model =
 
                 sign1 =
                      unselectSymbols model.sign
-
+ 
                 sign =
                     { sign1 
-                        | syms = List.append sign1.syms  [ { symbol | x = model.xy.x, y = model.xy.y } ]
+                        | syms = List.append sign1.syms  [ { symbol | x = model.xy.x, y = model.xy.y, id = model.uid + 1 } ]
                       
-                    }
+                    } 
+                lastuid =
+                    getlastuid <| Debug.log "SetSign editorSign" sign
             in
-                { model | editormode = Dragging, dragstart = Debug.log "dragstart model.xy" model.xy, dragsign = sign } ! []
+                { model | uid = lastuid, editormode = Dragging, dragstart = Debug.log "dragstart model.xy" model.xy, dragsign = sign } ! []
 
 
 
