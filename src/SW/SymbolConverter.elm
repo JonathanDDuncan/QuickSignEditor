@@ -6,20 +6,19 @@ import Char as Char exposing (..)
 import Bitwise as Bitwise exposing (..)
 import SW.Types exposing (..)
 
-rotation : Code -> Rotation
+rotation : Int -> Int
 rotation code =
-    code % 16
+    (code - 0x100000 ) % 16
 
 
-fill : Code -> Fill
+fill : Int -> Int
 fill code =
-    (code // 16) % 6 + 1
+    ((code - 0x100000 ) // 16) % 6 + 1
 
 
-base : Code -> Base
+base : Int -> Int
 base code =
-    (code // 96) + 256
-
+    ((code - 0x100000 ) // 96) + 256 
 
 code : Base -> Fill -> Rotation -> Code
 code base fill rotation =
