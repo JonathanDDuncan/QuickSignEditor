@@ -24,7 +24,7 @@ generalsymbolchooser choosing selectedcolumn =
                 else
                     1    
     in 
-        div [] [  table
+        div [attribute "ondragstart" "return false;", attribute "ondrop" "return false;"] [  table
                 [ Html.Attributes.style
                     [ "width" => "50%"
                     , "height" => px 100
@@ -174,7 +174,7 @@ generalsymbolcol : Base -> Fill -> Rotation -> Html MainChooser.Types.Msg
 generalsymbolcol base fill rotation =
     let
         symbol =
-            getSymbolEditor base fill rotation
+            getSymbolEditorBaseFillRotation base fill rotation
 
         sign =
             { syms = [ symbol ]

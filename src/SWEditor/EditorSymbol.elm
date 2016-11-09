@@ -45,12 +45,27 @@ toEditorSymbol id index symbol =
     }
 
 
-getSymbolEditor : Base -> Fill -> Rotation -> EditorSymbol
-getSymbolEditor base fill rotation =
+getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> EditorSymbol
+getSymbolEditorBaseFillRotation base fill rotation =
     let
         key =
             SW.SymbolConverter.key base fill rotation
+    in
+        getSymbolEditorKey key
 
+
+getSymbolEditorCode : Code -> EditorSymbol
+getSymbolEditorCode code =
+    let
+        key =
+            SW.SymbolConverter.keyfromcode code
+    in
+        getSymbolEditorKey key
+
+
+getSymbolEditorKey : Key -> EditorSymbol
+getSymbolEditorKey key =
+    let
         pua =
             SW.SymbolConverter.pua key
 

@@ -86,7 +86,7 @@ displayhandChoosing chooseritem =
             1
 
         symbol =
-            getSymbolEditor base fill rotation
+            getSymbolEditorBaseFillRotation base fill rotation
 
         sign =
             { syms = [ symbol ] }

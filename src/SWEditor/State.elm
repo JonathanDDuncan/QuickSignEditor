@@ -19,6 +19,7 @@ import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SW.SymbolConverter exposing (..)
 
+
 -- import SubSWEditors.State
 
 
@@ -57,7 +58,7 @@ update action model =
                     toEditorSign newsign model.uid
 
                 lastuid =
-                    getlastuid editorSign
+                    getlastuid <| Debug.log "SetSign editorSign" editorSign
             in
                 { model | sign = editorSign, uid = lastuid } ! [] |> andThen update UpdateSignViewPosition
 
@@ -123,10 +124,10 @@ update action model =
         MouseDown position ->
             let
                 signviewposition =
-                     (signViewPosition position model.viewposition)
+                    (signViewPosition position model.viewposition)
 
                 withinsignview =
-                     (withinSignView signviewposition model.viewposition)
+                    (withinSignView signviewposition model.viewposition)
 
                 symbolsunderposition =
                     (symbolsUnderPosition signviewposition model.sign.syms)
@@ -157,13 +158,13 @@ update action model =
         MouseUp position ->
             let
                 signviewposition =
-                   (signViewPosition position model.viewposition)
+                    (signViewPosition position model.viewposition)
 
                 withinsignview =
                     (withinSignView signviewposition model.viewposition)
 
                 symbolsunderposition =
-                  (symbolsUnderPosition signviewposition model.sign.syms)
+                    (symbolsUnderPosition signviewposition model.sign.syms)
             in
                 model
                     ! []
@@ -189,20 +190,29 @@ update action model =
                         (andThen update UpdateSignViewPosition)
                     |> filter (model.editormode == Dragging)
                         (andThen update DragSelected)
+
         DragSymbol code ->
-         let
-            base = SW.SymbolConverter.base <| Debug.log "DragSymbol code" code
-            fill = SW.SymbolConverter.fill code
-            rotation = SW.SymbolConverter.rotation code  
-            symbol =
+            let
+                symb1 =  getSymbolEditorCode code
+                symbol =   {symb1 | selected = True } 
+               
+                  
 
-                getSymbolEditor (Debug.log "DragSymbol base" base)  (Debug.log "DragSymbol fill"fill)  (Debug.log "DragSymbol rotation"rotation)
+                sign1 =
+                     unselectSymbols model.sign
 
-            sign =
-                { syms = [ Debug.log "DragSymbol symbol" symbol ]
-                }
+                sign =
+                    { sign1 
+                        | syms = List.append sign1.syms  [ { symbol | x = model.xy.x, y = model.xy.y } ]
+                      
+                    }
             in
-            { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
+                { model | editormode = Dragging, dragstart = Debug.log "dragstart model.xy" model.xy, dragsign = sign } ! []
+
+
+
+-- { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
+
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -216,7 +226,7 @@ subscriptions model =
         , receiveSign SetSign
         , receiveElementPosition ReceiveElementPosition
         , subDragSymbol DragSymbol
-        ] 
+        ]
 
 
 
