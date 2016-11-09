@@ -58,7 +58,7 @@ update action model =
                     toEditorSign newsign model.uid
 
                 lastuid =
-                    getlastuid <| Debug.log "SetSign editorSign" editorSign
+                    getlastuid <| editorSign
             in
                 { model | sign = editorSign, uid = lastuid } ! [] |> andThen update UpdateSignViewPosition
 
@@ -90,7 +90,7 @@ update action model =
             { model | editormode = Awaiting, sign = rectangleselect model } ! []
 
         SelectSymbol id ->
-            { model | sign = selectSymbolId id model } ! []  |> andThen update (StartDragging)
+            { model | sign = selectSymbolId id model } ! [] |> andThen update (StartDragging)
 
         UnSelectSymbols ->
             { model | sign = unselectSymbols model.sign } ! []
@@ -193,23 +193,24 @@ update action model =
 
         DragSymbol code ->
             let
-                symb1 =  getSymbolEditorCode code
-                symbol =   {symb1 | selected = True } 
-               
-                  
+                symb1 =
+                    (getSymbolEditorCode code)
+
+                symbol =
+                    { symb1 | selected = True }
 
                 sign1 =
-                     unselectSymbols model.sign
- 
+                    unselectSymbols model.sign
+
                 sign =
-                    { sign1 
-                        | syms = List.append sign1.syms  [ { symbol | x = model.xy.x, y = model.xy.y, id = model.uid + 1 } ]
-                      
-                    } 
+                    { sign1
+                        | syms = List.append sign1.syms [ { symbol | x = model.xy.x, y = model.xy.y, id = model.uid + 1 } ]
+                    }
+
                 lastuid =
-                    getlastuid <| Debug.log "SetSign editorSign" sign
+                    getlastuid <| sign
             in
-                { model | uid = lastuid, editormode = Dragging, dragstart = Debug.log "dragstart model.xy" model.xy, dragsign = sign } ! []
+                { model | uid = lastuid, editormode = Dragging, dragstart = model.xy, dragsign = sign } ! []
 
 
 

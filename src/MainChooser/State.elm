@@ -110,12 +110,12 @@ update action model =
 
         DragSymbol code ->
             ( model
-            , cmdDragSymbol <| Debug.log "cmdDragSymbol code" code
+            , cmdDragSymbol <| code
             )
 
         FilterHandGroup value ->
             ( { model
-                | handgroupfilter = Debug.log "FilterHandGroup value" value
+                | handgroupfilter = value
               }
             , Cmd.none
             )
