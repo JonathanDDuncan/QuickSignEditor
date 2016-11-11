@@ -3,6 +3,7 @@ module SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
 import SW.SymbolConverter exposing (..)
+import Dict exposing (..)
 
 
 type alias EditorSymbol =
@@ -45,26 +46,26 @@ toEditorSymbol id index symbol =
     }
 
 
-getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> EditorSymbol
-getSymbolEditorBaseFillRotation base fill rotation =
-    let
+getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> EditorSymbol
+getSymbolEditorBaseFillRotation base fill rotation symbolsizes =
+    let 
         key =
             SW.SymbolConverter.key base fill rotation
     in
-        getSymbolEditorKey key
+        getSymbolEditorKey key symbolsizes
+ 
 
-
-getSymbolEditorCode : Code -> EditorSymbol
-getSymbolEditorCode code =
+getSymbolEditorCode : Code -> Dict String Size -> EditorSymbol
+getSymbolEditorCode code symbolsizes =
     let
         key =
             SW.SymbolConverter.keyfromcode code
     in
-        getSymbolEditorKey key
+        getSymbolEditorKey key symbolsizes
 
-
-getSymbolEditorKey : Key -> EditorSymbol
-getSymbolEditorKey key =
+ 
+getSymbolEditorKey : Key -> Dict String Size -> EditorSymbol
+getSymbolEditorKey key symbolsizes =
     let
         pua =
             SW.SymbolConverter.pua key
@@ -72,11 +73,14 @@ getSymbolEditorKey key =
         code =
             SW.SymbolConverter.codefromkey key
 
+        size =
+            Maybe.withDefault { width = 20, height = 20 } <| Dict.get key symbolsizes
+
         symbol =
             { x = 0
             , y = 0
-            , width = 20
-            , height = 20
+            , width = size.width
+            , height = size.height
             , fontsize = 30
             , size = 1
             , nwcolor = "white"
@@ -135,4 +139,4 @@ symbolsUnderPosition signviewposition symbols =
         seachrectangle =
             { x = signviewposition.x, y = signviewposition.y, width = 1, height = 1 }
     in
-        List.filter (\symbol -> (intersect seachrectangle (getsymbolRectangle symbol))) symbols
+        List.filter (\symbol -> (SWEditor.Rectangle.intersect seachrectangle (getsymbolRectangle symbol))) symbols

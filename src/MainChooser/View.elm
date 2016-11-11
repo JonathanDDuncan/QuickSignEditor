@@ -25,7 +25,7 @@ root model =
             (List.map displayChoosing model.choosings) 
              , div
             [ class "generalsymbolchooser", style [ "display" => "inline-block", "margin-top" => "5px", "float" => "left"] ]
-            [ generalsymbolchooser model.groupselected model.selectedcolumn
+            [ generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes
             ] ,
        div
             [ style ["position" => "absolute", "width" => "300px", "left" => "-50px","top" => "0px", "margin-left" => "50%","height" => "550px" , "margin-top" => "5px", "overflow-y" => "scroll", "overflow-x" => "scroll" ] ]

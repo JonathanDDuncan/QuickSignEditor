@@ -9,11 +9,11 @@ import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
- 
+import Dict exposing (..)
 
-generalsymbolchooser : ChooserItem -> Fill -> Html Msg
-generalsymbolchooser choosing selectedcolumn =
-    let
+generalsymbolchooser : ChooserItem -> Fill -> Dict String Size -> Html Msg
+generalsymbolchooser choosing selectedcolumn symbolsizes =
+    let 
         vf =
             getvalidfills choosing.validfills
 
@@ -31,7 +31,7 @@ generalsymbolchooser choosing selectedcolumn =
                     , "margin" => "5px"
                     ]
                 ]
-                [ tr [] (generalsymbolrow choosing.base vf 1)
+                [ tr [] (generalsymbolrow choosing.base vf 1 symbolsizes)
                
                    ]
                     ,  table
@@ -42,14 +42,14 @@ generalsymbolchooser choosing selectedcolumn =
                     ]
                 ]
                 [
-                    tr [] (generalsymbolonecolumn choosing.base column 1 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 2 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 3 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 4 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 5 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 6 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 7 vr)
-                    , tr [] (generalsymbolonecolumn choosing.base column 8 vr)
+                    tr [] (generalsymbolonecolumn choosing.base column 1 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 2 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 3 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 4 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 5 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 6 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 7 vr symbolsizes)
+                    , tr [] (generalsymbolonecolumn choosing.base column 8 vr symbolsizes)
                 ]
             ] 
 
@@ -119,8 +119,8 @@ getvalidrotations validrotationsstring =
             []
 
 
-generalsymbolonecolumn : Base -> Int -> Int -> List Rotation -> List (Html MainChooser.Types.Msg)
-generalsymbolonecolumn base symbolcol rotation validrotations =
+generalsymbolonecolumn : Base -> Int -> Int -> List Rotation -> Dict String Size ->List (Html MainChooser.Types.Msg)
+generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes=
     let
         rotation1 =
             rotation
@@ -135,20 +135,20 @@ generalsymbolonecolumn base symbolcol rotation validrotations =
             isValidRotation rotation2 validrotations
     in
         [ if showrotation1 then
-            td
+            td 
                 [  ]
-                [ (generalsymbolcol base symbolcol rotation) ]
+                [ (generalsymbolcol base symbolcol rotation symbolsizes)  ]
           else
             blanktd
         , blanktd
         , if showrotation2 then
             td
                 [   Html.Attributes.style
-
+ 
                         [ "text-align" => "center","display" => "block"
                          ,"width" => "45%"
                         ]]
-                [ generalsymbolcol base symbolcol rotation2 ]
+                [ generalsymbolcol base symbolcol rotation2  symbolsizes]
           else
             blanktd
         ]
@@ -165,16 +165,16 @@ isValidRotation rotation  validrotations =
     List.any (( ==) rotation) validrotations 
 
 
-generalsymbolrow : Base -> List Fill -> Rotation -> List (Html MainChooser.Types.Msg)
-generalsymbolrow base validfills rotation =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol base fill rotation) ]) validfills
+generalsymbolrow : Base -> List Fill -> Rotation ->Dict String Size -> List (Html MainChooser.Types.Msg)
+generalsymbolrow base validfills rotation symbolsizes =
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol base fill rotation symbolsizes) ]) validfills
 
 
-generalsymbolcol : Base -> Fill -> Rotation -> Html MainChooser.Types.Msg
-generalsymbolcol base fill rotation =
+generalsymbolcol : Base -> Fill -> Rotation -> Dict String Size -> Html MainChooser.Types.Msg
+generalsymbolcol base fill rotation symbolsizes =
     let
         symbol =
-            getSymbolEditorBaseFillRotation base fill rotation
+            getSymbolEditorBaseFillRotation base fill rotation symbolsizes
 
         sign =
             { syms = [ symbol ]
@@ -188,8 +188,8 @@ generalsymbolcol base fill rotation =
                         [ "position" => "relative"
                         , "left" => px 0
                         , "top" => px 0
-                        , "width" => px 20
-                        , "height" => px 20
+                        , "width" => px symbol.width
+                        , "height" => px symbol.height
                         , "margin" => "5px"
                         ]
                     ]

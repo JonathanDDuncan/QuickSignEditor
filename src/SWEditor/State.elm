@@ -18,6 +18,7 @@ import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SW.SymbolConverter exposing (..)
+import Dict exposing (..)
 
 
 -- import SubSWEditors.State
@@ -146,11 +147,11 @@ update action model =
             in
                 model
                     ! []
-                    |> filter (selectedsymbols > 0 && withinsignview)
+                    |> Update.Extra.filter (selectedsymbols > 0 && withinsignview)
                         (andThen update (StartDragging))
-                    |> filter (howmanysymbolsunderposition == 1 && withinsignview)
+                    |> Update.Extra.filter (howmanysymbolsunderposition == 1 && withinsignview)
                         (andThen update (SelectSymbol firstsymbolid))
-                    |> filter (howmanysymbolsunderposition == 0 && withinsignview)
+                    |> Update.Extra.filter (howmanysymbolsunderposition == 0 && withinsignview)
                         (andThen update (UnSelectSymbols)
                             >> andThen update StartRectangleSelect
                         )
@@ -168,9 +169,9 @@ update action model =
             in
                 model
                     ! []
-                    |> filter (model.editormode == RectangleSelect)
+                    |> Update.Extra.filter (model.editormode == RectangleSelect)
                         (andThen update EndRectangleSelect)
-                    |> filter (model.editormode == Dragging)
+                    |> Update.Extra.filter (model.editormode == Dragging)
                         (andThen update EndDragging)
 
         MouseMove position ->
@@ -186,15 +187,15 @@ update action model =
             in
                 { model | xy = signviewposition }
                     ! []
-                    |> filter (model.windowresized)
+                    |> Update.Extra.filter (model.windowresized)
                         (andThen update UpdateSignViewPosition)
-                    |> filter (model.editormode == Dragging)
+                    |> Update.Extra.filter (model.editormode == Dragging)
                         (andThen update DragSelected)
 
         DragSymbol code ->
             let
                 symb1 =
-                    (getSymbolEditorCode code)
+                    getSymbolEditorCode code <| Dict.fromList [ ( "", { width = 20, height = 20 } ) ]
 
                 symbol =
                     { symb1 | selected = True }

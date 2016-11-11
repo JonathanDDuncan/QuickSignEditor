@@ -11,7 +11,7 @@ import Exts.List exposing (..)
 import String exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Display exposing (signView)
-
+import SWEditor.EditorSign exposing (..)
 
 handgroupchooser : Int -> List ChooserItem -> Html MainChooser.Types.Msg
 handgroupchooser handgroupfilter handgroupchoosings =
@@ -102,12 +102,13 @@ displayhandChoosing chooseritem =
 
         rotation =
             0
-
+ 
         symbol =
             getSymbolEditorBaseFillRotation base fill rotation
 
+        sign1 = SWEditor.EditorSign.signinit
         sign =
-            { syms = [ symbol ] }
+            { sign1| syms = [ symbol ] }
     in
         div
             [ onClick (GroupSelected chooseritem )
