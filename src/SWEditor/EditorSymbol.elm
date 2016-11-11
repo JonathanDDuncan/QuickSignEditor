@@ -4,6 +4,7 @@ import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
 import SW.SymbolConverter exposing (..)
 import Dict exposing (..)
+import String exposing (..)
 
 
 type alias EditorSymbol =
@@ -48,12 +49,12 @@ toEditorSymbol id index symbol =
 
 getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> EditorSymbol
 getSymbolEditorBaseFillRotation base fill rotation symbolsizes =
-    let 
+    let
         key =
             SW.SymbolConverter.key base fill rotation
     in
         getSymbolEditorKey key symbolsizes
- 
+
 
 getSymbolEditorCode : Code -> Dict String Size -> EditorSymbol
 getSymbolEditorCode code symbolsizes =
@@ -63,7 +64,7 @@ getSymbolEditorCode code symbolsizes =
     in
         getSymbolEditorKey key symbolsizes
 
- 
+
 getSymbolEditorKey : Key -> Dict String Size -> EditorSymbol
 getSymbolEditorKey key symbolsizes =
     let
@@ -79,8 +80,8 @@ getSymbolEditorKey key symbolsizes =
         symbol =
             { x = 0
             , y = 0
-            , width = size.width
-            , height = size.height
+            , width = Debug.log "size.width" size.width
+            , height = Debug.log "size.height" size.height
             , fontsize = 30
             , size = 1
             , nwcolor = "white"

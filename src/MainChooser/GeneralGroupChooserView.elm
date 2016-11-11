@@ -9,24 +9,25 @@ import ViewHelper.ViewExtra exposing (..)
 import Exts.Html exposing (..)
 import Exts.List exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import SWEditor.EditorSign exposing (..)
-import SWEditor.Display exposing (signView)
+import SWEditor.Display exposing (signView, symbolaloneView)
+import Dict exposing (..)
+import SW.Types exposing (..)
 
 
-generalgroupchooser : List ChooserItem -> Html MainChooser.Types.Msg
-generalgroupchooser choosings =
+generalgroupchooser : Dict String Size -> List ChooserItem -> Html MainChooser.Types.Msg
+generalgroupchooser symbolsizes choosings =
     let
         maxheight =
             3
 
-        rowvalues = 
+        rowvalues =
             List.sort <| unique <| List.map (\item -> item.subgroup1) choosings
     in
         table []
-            (List.map (\row -> rowchooser row choosings maxheight) rowvalues)
+            (List.map (\row -> rowchooser row choosings maxheight symbolsizes) rowvalues)
 
 
-rowchooser row choosings maxheight =
+rowchooser row choosings maxheight symbolsizes =
     let
         items =
             List.filter (\item -> item.subgroup1 == row) choosings
@@ -36,35 +37,17 @@ rowchooser row choosings maxheight =
     in
         tr
             []
-            (List.map (\col -> column row col maxheight items) colvalues)
+            (List.map (\col -> column row col maxheight items symbolsizes) colvalues)
 
 
-column : Int -> Int -> Int -> List ChooserItem -> Html MainChooser.Types.Msg
-column cat col choosingshigh choosings =
-    let
-        choosingsforcolumn =
-            List.filter (\item -> item.plane == col) choosings
-    in
-        td
-            [ class "chosercolumn"
-            , style
-                [ "background-color" => (bkcolor cat col) ]
-            ]
-            [ span
-                []
-                [ handcolumn
-                    choosingsforcolumn
-                ]
-            ]
-
-
-handcolumn : List ChooserItem -> Html MainChooser.Types.Msg
-handcolumn choosings =
-    span
-        [ style
-            [ "width" => "23px", "float" => "left", "margin-top" => "5px" ]
+column : Int -> Int -> Int -> List ChooserItem -> Dict String Size -> Html MainChooser.Types.Msg
+column cat col choosingshigh choosings symbolsizes =
+    td
+        [ class "chosercolumn"
+        , style
+            [ "background-color" => (bkcolor cat col) ]
         ]
-        (List.map displayhandChoosing choosings)
+        (choosings |> List.map (displayhandChoosing symbolsizes))
 
 
 spacercolumn : Html MainChooser.Types.Msg
@@ -74,30 +57,17 @@ spacercolumn =
         [ text nbsp ]
 
 
-displayhandChoosing : ChooserItem -> Html MainChooser.Types.Msg
-displayhandChoosing chooseritem =
+displayhandChoosing : Dict String Size -> ChooserItem -> Html MainChooser.Types.Msg
+displayhandChoosing symbolsizes chooseritem =
     let
         symbol =
-            getSymbolEditorBaseFillRotation chooseritem.base 1 1
-        signInit = SWEditor.EditorSign.signinit  
-        sign =
-            {  signInit  | syms = [ symbol ] }
+            getSymbolEditorBaseFillRotation chooseritem.base 1 1 symbolsizes
     in
         div
             [ onClick (GroupSelected chooseritem)
-            , class "choosing"
             ]
             [ App.map SignView
-                (signView sign
-                    [ Html.Attributes.style
-                        [ "position" => "relative"
-                        , "transform" => "scale(1)"
-                        , "margin" => "2px"
-                        , "width" => px sign.width
-                        , "height" => px sign.height
-                        ]
-                    ]
-                )
+                (symbolaloneView symbol 3)
             ]
 
 

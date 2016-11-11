@@ -10,11 +10,14 @@ import Exts.Html exposing (..)
 import Exts.List exposing (..)
 import String exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import SWEditor.Display exposing (signView)
+import SWEditor.Display exposing (signView, symbolaloneView)
 import SWEditor.EditorSign exposing (..)
+import Dict exposing (..)
+import SW.Types exposing (..)
 
-handgroupchooser : Int -> List ChooserItem -> Html MainChooser.Types.Msg
-handgroupchooser handgroupfilter handgroupchoosings =
+
+handgroupchooser : Int -> Dict String Size -> List ChooserItem -> Html MainChooser.Types.Msg
+handgroupchooser handgroupfilter symbolsizes handgroupchoosings =
     let
         maxheight =
             3
@@ -25,11 +28,11 @@ handgroupchooser handgroupfilter handgroupchoosings =
         div []
             [ div [] [ button [ onClick (FilterHandGroup 1) ] [ text "common" ], button [ onClick (FilterHandGroup 2) ] [ text "not common" ], button [ onClick (FilterHandGroup 3) ] [ text " all" ] ]
             , table []
-                (List.map (\row -> rowchooser handgroupfilter row handgroupchoosings maxheight) rowvalues)
+                (List.map (\row -> rowchooser handgroupfilter row handgroupchoosings maxheight symbolsizes) rowvalues)
             ]
 
- 
-rowchooser handgroupfilter row handgroupchoosings maxheight =
+
+rowchooser handgroupfilter row handgroupchoosings maxheight symbolsizes =
     let
         items =
             List.filter (\item -> item.subgroup1 == row) handgroupchoosings
@@ -39,11 +42,11 @@ rowchooser handgroupfilter row handgroupchoosings maxheight =
     in
         tr
             []
-            (List.map (\col -> column handgroupfilter row col maxheight items) colvalues)
+            (List.map (\col -> column handgroupfilter row col maxheight items symbolsizes) colvalues)
 
 
-column : Int -> Int -> Int -> Int -> HandGroupModel -> Html MainChooser.Types.Msg
-column handgroupfilter cat col choosingshigh choosings =
+column : Int -> Int -> Int -> Int -> HandGroupModel -> Dict String Size -> Html MainChooser.Types.Msg
+column handgroupfilter cat col choosingshigh choosings symbolsizes =
     let
         items =
             case handgroupfilter of
@@ -61,22 +64,18 @@ column handgroupfilter cat col choosingshigh choosings =
             , style
                 [ "background-color" => (bkcolor cat col) ]
             ]
-            [ span
-                []
-                (List.map
-                    (handcolumn)
-                    (nomorethan choosingshigh items)
-                )
-            ]
+             
+                  (List.map (displayhandChoosing symbolsizes) items)
+            
 
 
-handcolumn : HandGroupModel -> Html MainChooser.Types.Msg
-handcolumn choosings =
+handcolumn : Dict String Size -> HandGroupModel -> Html MainChooser.Types.Msg
+handcolumn symbolsizes choosings =
     span
         [ style
             [ "width" => "23px", "float" => "left", "margin-top" => "5px" ]
         ]
-        (List.map (displayhandChoosing) choosings)
+        (List.map (displayhandChoosing symbolsizes) choosings)
 
 
 nomorethan : Int -> List a -> List (List a)
@@ -91,8 +90,8 @@ spacercolumn =
         [ text nbsp ]
 
 
-displayhandChoosing : ChooserItem -> Html MainChooser.Types.Msg
-displayhandChoosing chooseritem =
+displayhandChoosing : Dict String Size -> ChooserItem -> Html MainChooser.Types.Msg
+displayhandChoosing symbolsizes chooseritem =
     let
         base =
             chooseritem.base
@@ -102,35 +101,47 @@ displayhandChoosing chooseritem =
 
         rotation =
             0
- 
-        symbol =
-            getSymbolEditorBaseFillRotation base fill rotation
 
-        sign1 = SWEditor.EditorSign.signinit
-        sign =
-            { sign1| syms = [ symbol ] }
+        symbol =
+            getSymbolEditorBaseFillRotation base fill rotation symbolsizes
     in
         div
-            [ onClick (GroupSelected chooseritem )
-            , class "choosing"
+            [ onClick (GroupSelected chooseritem)
             ]
             [ a [ class "tooltip", href "#" ]
                 [ App.map SignView
-                    (signView sign
-                        [ Html.Attributes.style
-                            [ "position" => "relative"
-                            , "transform" => "scale(1)"
-                            , "margin" => "2px"
-                            , "height" => "100%"
-                            ]
-                        ]
-                    )
+                    (symbolaloneView symbol 5)
                 , span []
                     [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "float:left;" ]
                         []
                     ]
                 ]
             ]
+
+
+
+-- div
+--     [ onClick (GroupSelected chooseritem)
+--     , class "choosing"
+--     ]
+--     [ a [ class "tooltip", href "#" ]
+--         [ App.map SignView
+--             (signView sign
+--                 [ Html.Attributes.style
+--                     [ "position" => "relative"
+--                     , "transform" => "scale(1)"
+--                     , "margin" => "2px"
+--                     , "height" => px sign.height
+--                     , "width" => px sign.width
+--                     ]
+--                 ]
+--             )
+--         , span []
+--             [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "float:left;" ]
+--                 []
+--             ]
+--         ]
+--     ]
 
 
 handpngcss : String -> String

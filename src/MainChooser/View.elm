@@ -29,7 +29,7 @@ root model =
             ] ,
        div
             [ style ["position" => "absolute", "width" => "300px", "left" => "-50px","top" => "0px", "margin-left" => "50%","height" => "550px" , "margin-top" => "5px", "overflow-y" => "scroll", "overflow-x" => "scroll" ] ]
-            [ choosesubgroupchooser model
+            [ choosesubgroupchooser model model.symbolsizes
             ] 
       
         ]
@@ -40,16 +40,16 @@ displayChoosing choosing =
     div [ onClick (Clicked choosing.value) ] [ App.map Choosing (Choosing.View.root choosing) ]
 
  
-choosesubgroupchooser model =
+choosesubgroupchooser model symbolsizes =
     let basesymbol = String.slice 0 4 model.clicked 
 
     in
     case basesymbol of
         "S14c" ->
-            handgroupchooser model.handgroupfilter <| getchoosings basesymbol model.allgroupchoosings
+            handgroupchooser model.handgroupfilter symbolsizes <| getchoosings basesymbol model.allgroupchoosings
  
         _ -> 
-            generalgroupchooser <| getchoosings basesymbol model.allgroupchoosings
+            generalgroupchooser  symbolsizes <| getchoosings basesymbol model.allgroupchoosings
 
 getchoosings : a -> List { c | basesymbol : a, choosings : List b } -> List b
 getchoosings basesymbol allgroupchoosings =

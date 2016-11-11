@@ -1,9 +1,10 @@
-module SWEditor.Display exposing (signView, symbolView, scaledSignView, noScaleSignView)
+module SWEditor.Display exposing (signView, symbolView, scaledSignView, noScaleSignView, symbolaloneView)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.Types exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 signView :
@@ -55,6 +56,43 @@ symbolView nbcolor symbol =
             , style
                 [ "color"
                     => (nbcolor)
+                ]
+            ]
+            [ text symbol.pua ]
+        ]
+
+
+symbolaloneView : EditorSymbol -> Int -> Html Msg
+symbolaloneView symbol margin =
+    div
+        [ class "font-30"
+        , style
+            [ scale symbol.size
+            , "width" => px (symbol.width + margin * 2)
+            , "height" => px (symbol.height + margin * 2)
+            , "margin" => "0 auto"
+            ]
+        ]
+        [ span
+            [ style
+                [ "display"
+                    => "none"
+                ]
+            ]
+            [ text symbol.key ]
+        , span
+            [ class "sym-fill"
+            , style
+                [ "color"
+                    => symbol.nwcolor
+                ]
+            ]
+            [ text symbol.pua ]
+        , span
+            [ class "sym-line"
+            , style
+                [ "color"
+                    => symbol.nbcolor
                 ]
             ]
             [ text symbol.pua ]
