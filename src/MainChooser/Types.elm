@@ -5,6 +5,7 @@ module MainChooser.Types exposing (..)
 import Choosing.Types as Choosing
 import SWEditor.Types exposing (..)
 import SW.Types exposing (..)
+import Dict exposing (..)
 
 
 type alias Model =
@@ -16,13 +17,25 @@ type alias Model =
     , selectedcolumn : Int
     , groupselected : ChooserItem
     , handgroupfilter : Int
+    , symbolsizes : Dict.Dict String Size
     }
 
 
 type alias HandGroupImportModel =
     { chooseritemvalues : List ChooserItemValue
     , basechooseritems : List BaseChooserItem
+    , symbolsizes : List SymbolSize
     }
+
+
+type alias SymbolSize =
+    { k : String
+    , h : Int
+    , w : Int
+    }
+
+
+
 
 
 type alias ChooserItemValue =
@@ -82,6 +95,8 @@ chooseriteminit =
     , plane = 1
     , rank = 1
     }
+
+
 type alias HandGroupModel =
     List ChooserItem
 

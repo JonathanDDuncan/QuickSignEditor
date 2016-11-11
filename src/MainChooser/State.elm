@@ -11,6 +11,7 @@ import Ports exposing (..)
 import Choosing.State exposing (..)
 import Choosing.Types exposing (..)
 import Exts.List exposing (..)
+import Dict exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -29,6 +30,7 @@ init =
             ]
       , groupselected = chooseriteminit
       , handgroupfilter = 1
+      , symbolsizes = Dict.empty
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
@@ -66,9 +68,14 @@ update action model =
             let
                 allgroupchoosings1 =
                     allgroupchoosings chooserclassification
+
+                sizes =
+                    Dict.fromList <|
+                        List.map (\symbolsize -> .k symbolsize => (Size (.w symbolsize) (.h symbolsize))) chooserclassification.symbolsizes
             in
                 ( { model
                     | allgroupchoosings = allgroupchoosings1
+                    , symbolsizes = sizes
                   }
                 , Cmd.none
                 )
@@ -119,6 +126,11 @@ update action model =
               }
             , Cmd.none
             )
+
+
+(=>) : a -> b -> ( a, b )
+(=>) =
+    (,)
 
 
 allgroupchoosings chooserclassification =

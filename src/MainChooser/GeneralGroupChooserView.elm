@@ -9,6 +9,7 @@ import ViewHelper.ViewExtra exposing (..)
 import Exts.Html exposing (..)
 import Exts.List exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSign exposing (..)
 import SWEditor.Display exposing (signView)
 
 
@@ -18,7 +19,7 @@ generalgroupchooser choosings =
         maxheight =
             3
 
-        rowvalues =
+        rowvalues = 
             List.sort <| unique <| List.map (\item -> item.subgroup1) choosings
     in
         table []
@@ -31,7 +32,7 @@ rowchooser row choosings maxheight =
             List.filter (\item -> item.subgroup1 == row) choosings
 
         colvalues =
-            List.sort <| unique <| List.map (\item ->   item.plane) choosings
+            List.sort <| unique <| List.map (\item -> item.plane) choosings
     in
         tr
             []
@@ -40,22 +41,22 @@ rowchooser row choosings maxheight =
 
 column : Int -> Int -> Int -> List ChooserItem -> Html MainChooser.Types.Msg
 column cat col choosingshigh choosings =
- let
-   choosingsforcolumn = List.filter (\item -> item.plane == col )choosings
- in
-   
-    td
-        [ class "chosercolumn"
-        , style
-            [ "background-color" => (bkcolor cat col) ]
-        ]
-        [ span
-            []
-            [ handcolumn
-                choosingsforcolumn
+    let
+        choosingsforcolumn =
+            List.filter (\item -> item.plane == col) choosings
+    in
+        td
+            [ class "chosercolumn"
+            , style
+                [ "background-color" => (bkcolor cat col) ]
             ]
-        ]
- 
+            [ span
+                []
+                [ handcolumn
+                    choosingsforcolumn
+                ]
+            ]
+
 
 handcolumn : List ChooserItem -> Html MainChooser.Types.Msg
 handcolumn choosings =
@@ -76,22 +77,13 @@ spacercolumn =
 displayhandChoosing : ChooserItem -> Html MainChooser.Types.Msg
 displayhandChoosing chooseritem =
     let
-        base =
-            chooseritem.base
-
-        fill =
-            1
-
-        rotation =
-            1
-
         symbol =
-            getSymbolEditorBaseFillRotation base fill rotation
-
+            getSymbolEditorBaseFillRotation chooseritem.base 1 1
+        signInit = SWEditor.EditorSymbol 0 0
         sign =
-            { syms = [ symbol ] }
+            {  signInit  | syms = [ symbol ] }
     in
-        div 
+        div
             [ onClick (GroupSelected chooseritem)
             , class "choosing"
             ]
@@ -101,7 +93,8 @@ displayhandChoosing chooseritem =
                         [ "position" => "relative"
                         , "transform" => "scale(1)"
                         , "margin" => "2px"
-                        , "height" => "100%"
+                        , "width" => sign.width
+                        , "height" => sign.height
                         ]
                     ]
                 )

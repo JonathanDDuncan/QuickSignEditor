@@ -47,11 +47,31 @@ type alias NamedPosition =
     , name : String
     }
 
-type alias Base = Int
-type alias Fill = Int
-type alias Rotation = Int
-type alias Code = Int  
-type alias Key = String  
+
+type alias Size =
+    { width : Int
+    , height : Int
+    }
+
+
+type alias Base =
+    Int
+
+
+type alias Fill =
+    Int
+
+
+type alias Rotation =
+    Int
+
+
+type alias Code =
+    Int
+
+
+type alias Key =
+    String
 
 
 {-| The position of the mouse relative to the whole document. So if you are
