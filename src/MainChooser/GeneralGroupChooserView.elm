@@ -42,12 +42,16 @@ rowchooser row choosings maxheight symbolsizes =
 
 column : Int -> Int -> Int -> List ChooserItem -> Dict String Size -> Html MainChooser.Types.Msg
 column cat col choosingshigh choosings symbolsizes =
-    td
-        [ class "chosercolumn"
-        , style
-            [ "background-color" => (bkcolor cat col) ]
-        ]
-        (choosings |> List.map (displayhandChoosing symbolsizes))
+    let
+        choosingsforcolumn =
+            List.filter (\item -> item.plane == col) choosings
+    in
+        td
+            [ class "chosercolumn"
+            , style
+                [ "background-color" => (bkcolor cat col) ]
+            ]
+            (choosingsforcolumn |> List.map (displayhandChoosing symbolsizes))
 
 
 spacercolumn : Html MainChooser.Types.Msg
