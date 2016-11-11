@@ -12,6 +12,7 @@ import Choosing.State exposing (..)
 import Choosing.Types exposing (..)
 import Exts.List exposing (..)
 import Dict exposing (..)
+import SW.Types exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -79,7 +80,7 @@ update action model =
                   }
                 , Cmd.none
                 )
-
+ 
         Clicked clickvalue ->
             let
                 choosings1 =

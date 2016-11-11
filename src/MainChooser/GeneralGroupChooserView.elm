@@ -79,7 +79,7 @@ displayhandChoosing chooseritem =
     let
         symbol =
             getSymbolEditorBaseFillRotation chooseritem.base 1 1
-        signInit = SWEditor.EditorSymbol 0 0
+        signInit = SWEditor.EditorSign.signinit  
         sign =
             {  signInit  | syms = [ symbol ] }
     in
@@ -93,8 +93,8 @@ displayhandChoosing chooseritem =
                         [ "position" => "relative"
                         , "transform" => "scale(1)"
                         , "margin" => "2px"
-                        , "width" => sign.width
-                        , "height" => sign.height
+                        , "width" => px sign.width
+                        , "height" => px sign.height
                         ]
                     ]
                 )

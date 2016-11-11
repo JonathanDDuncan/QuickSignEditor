@@ -35,7 +35,7 @@ type alias SymbolSize =
     }
 
 
-
+ 
 
 
 type alias ChooserItemValue =
