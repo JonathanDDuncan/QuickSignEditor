@@ -69,7 +69,7 @@ column model cat col choosingshigh choosings =
             , style
                 [ "background-color" => (bkcolor cat col) ]
             ]
-            (List.indexedMap (displayhandChoosing model) items)
+            (List.map (displayhandChoosing model) items)
 
 
 nomorethan : Int -> List a -> List (List a)
@@ -77,14 +77,7 @@ nomorethan num choosings =
     chunk num choosings
 
 
-spacercolumn : Html MainChooser.Types.Msg
-spacercolumn =
-    td
-        []
-        [ text nbsp ]
-
-
-displayhandChoosing model index chooseritem =
+displayhandChoosing model chooseritem =
     let
         base =
             chooseritem.base
@@ -113,8 +106,8 @@ displayhandChoosing model index chooseritem =
                 [ mdlid ]
                 model.mdl
                 [ Tooltip.left ]
-                [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "float:left;" ]
-                    []
+                [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "display:inline-block ;margin: auto;" ] []
+                , Html.div [ attribute "style" "width:100%;" ] [ text chooseritem.name ]
                 ]
             ]
 

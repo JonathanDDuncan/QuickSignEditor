@@ -49,7 +49,7 @@ choosesubgroupchooser model =
                 handgroupchooser model <| getchoosings basesymbol model.allgroupchoosings
 
             _ ->
-                generalgroupchooser model.symbolsizes <| getchoosings basesymbol model.allgroupchoosings
+                generalgroupchooser model <| getchoosings basesymbol model.allgroupchoosings
 
  
 getchoosings :  String -> List { c | basesymbol : String, choosings : List a } -> List a
