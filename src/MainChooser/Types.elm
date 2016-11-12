@@ -6,11 +6,13 @@ import Choosing.Types as Choosing
 import SWEditor.Types exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
+import Material exposing (..)
 
 
 type alias Model =
-    { choosings :
-        List Choosing.Model
+    { lastmdlid : Int
+    , mdl : Material.Model
+    , choosings : List Choosing.Model
     , handgroupchoosings : HandGroupModel
     , allgroupchoosings : AllGroupChoosings
     , clicked : String
@@ -33,9 +35,6 @@ type alias SymbolSize =
     , h : Int
     , w : Int
     }
-
-
- 
 
 
 type alias ChooserItemValue =
@@ -80,6 +79,21 @@ type alias ChooserItem =
     }
 
 
+chooseriteminit :
+    { base : number
+    , common : Bool
+    , groupchooser : Int
+    , name : String
+    , plane : Int
+    , rank : Int
+    , subgroup1 : Int
+    , subgroup2 : Int
+    , symbolid : String
+    , symbolkey : String
+    , unicodepua : String
+    , validfills : String
+    , validrotations : String
+    }
 chooseriteminit =
     { base = 256
     , name = "Index"
@@ -124,6 +138,7 @@ type Msg
     | GroupSelected ChooserItem
     | DragSymbol Code
     | FilterHandGroup Int
+    | Mdl (Material.Msg Msg)
 
 
 

@@ -14,6 +14,7 @@ import Exts.List exposing (..)
 import Dict exposing (..)
 import String exposing (..)
 import SW.Types exposing (..)
+import Material
 
 
 -- import SubMainChoosers.State
@@ -21,7 +22,9 @@ import SW.Types exposing (..)
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
-    ( { choosings = [ fst (Choosing.State.init "S5" 6 8) ]
+    ( { lastmdlid = 0
+      , mdl = Material.model
+      , choosings = [ fst (Choosing.State.init "S5" 6 8) ]
       , clicked = ""
       , selectedcolumn = 1
       , handgroupchoosings = []
@@ -73,7 +76,7 @@ update action model =
 
                 sizes =
                     Dict.fromList <|
-                        List.map (\symbolsize ->  (String.toUpper <| .k symbolsize)  => (Size (.w symbolsize) (.h symbolsize))) chooserclassification.symbolsizes
+                        List.map (\symbolsize -> (String.toUpper <| .k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) chooserclassification.symbolsizes
             in
                 ( { model
                     | allgroupchoosings = allgroupchoosings1
@@ -81,7 +84,7 @@ update action model =
                   }
                 , Cmd.none
                 )
- 
+
         Clicked clickvalue ->
             let
                 choosings1 =
@@ -128,6 +131,9 @@ update action model =
               }
             , Cmd.none
             )
+
+        Mdl msg' ->
+            Material.update msg' model
 
 
 (=>) : a -> b -> ( a, b )

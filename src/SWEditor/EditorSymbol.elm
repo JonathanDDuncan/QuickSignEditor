@@ -4,7 +4,6 @@ import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
 import SW.SymbolConverter exposing (..)
 import Dict exposing (..)
-import String exposing (..)
 
 
 type alias EditorSymbol =
