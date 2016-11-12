@@ -69,15 +69,7 @@ column model cat col choosingshigh choosings =
             , style
                 [ "background-color" => (bkcolor cat col) ]
             ]
-            (List.map (displayhandChoosing model) items)
-
-
-handcolumn symbolsizes choosings =
-    span
-        [ style
-            [ "width" => "23px", "float" => "left", "margin-top" => "5px" ]
-        ]
-        (List.map (displayhandChoosing symbolsizes) choosings)
+            (List.indexedMap (displayhandChoosing model) items)
 
 
 nomorethan : Int -> List a -> List (List a)
@@ -92,7 +84,7 @@ spacercolumn =
         [ text nbsp ]
 
 
-displayhandChoosing model chooseritem =
+displayhandChoosing model index chooseritem =
     let
         base =
             chooseritem.base
@@ -105,18 +97,20 @@ displayhandChoosing model chooseritem =
 
         symbol =
             getSymbolEditorBaseFillRotation base fill rotation model.symbolsizes
+
+        mdlid =
+            symbol.code + 1000
     in
         Html.div
             [ Html.Events.onClick (GroupSelected chooseritem)
             ]
             [ Options.div
-                [ Tooltip.attach Mdl [ symbol.code ]
-                ]
+                [ Tooltip.attach Mdl [ mdlid ] ]
                 [ App.map SignView
                     (symbolaloneView symbol 5)
                 ]
             , Tooltip.render Mdl
-                [ symbol.code ]
+                [ mdlid ]
                 model.mdl
                 [ Tooltip.left ]
                 [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "float:left;" ]
