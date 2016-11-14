@@ -72,6 +72,7 @@ symbolView nbcolor symbol =
 
 symbolaloneView : EditorSymbol -> Int -> Html Msg
 symbolaloneView symbol margin =
+     
     div
         [ class "font-30"
         , style

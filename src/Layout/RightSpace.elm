@@ -9,6 +9,8 @@ import MainChooser.View
 
 rightspace : Model -> Html Msg
 rightspace model =
+    let rightspacewidth = Debug.log "rightspacewidth"  <|  truncate <| toFloat ( Debug.log "rightspacemarginleftpercentage"  <| (100- model.rightspacemarginleftpercentage) * model.window.windowSize.width) /100
+    in
     div
         [ if iswidescreen model || ismediumscreen model then
             class "rightspace"
@@ -20,7 +22,7 @@ rightspace model =
             , ( "margin-left", toString model.rightspacemarginleftpercentage ++ "%" )
             ]
         ]
-        [ App.map MainChooser (MainChooser.View.root model.mainchooser)
+        [ App.map MainChooser (MainChooser.View.root model.mainchooser rightspacewidth model.containerHeight)
         ]
 
 
