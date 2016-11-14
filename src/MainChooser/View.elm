@@ -26,7 +26,7 @@ root model parentwidth parentheight =
     in
         div []
             [ div
-                [ style [ "height" => px (halfheight - 40 ) ] ]
+                [ style [ "height" => px (halfheight - 30 ) ] ]
                 (List.map displayChoosing model.choosings)
             , div
                 [ class "generalsymbolchooser", style [ "height" => px halfheight, "display" => "inline-block", "margin-top" => "5px", "float" => "left" ] ]

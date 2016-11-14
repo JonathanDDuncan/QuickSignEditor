@@ -22,7 +22,7 @@ handgroupchooser model handgroupchoosings =
             3
 
         rowvalues =
-            List.sort <| unique <| List.map (\item -> item.subgroup1) handgroupchoosings
+           List.sort <| unique <| List.map (\item -> item.row) handgroupchoosings
     in
         Html.div []
             [ Html.div []
@@ -33,15 +33,14 @@ handgroupchooser model handgroupchoosings =
             , table []
                 (List.map (\row -> rowchooser model row handgroupchoosings maxheight) rowvalues)
             ]
-
+ 
 
 rowchooser model row handgroupchoosings maxheight =
     let
         items =
-            List.filter (\item -> item.subgroup1 == row) handgroupchoosings
+            List.filter (\item -> item.row == row) handgroupchoosings
 
-        colvalues =
-            List.sort <| unique <| List.map (\item -> item.subgroup2) handgroupchoosings
+        colvalues = [1..5]
     in
         tr
             []
@@ -56,13 +55,13 @@ column model cat col choosingshigh choosings =
         items =
             case handgroupfilter of
                 2 ->
-                    List.filter (\item -> item.subgroup2 == col && item.common == False) choosings
+                    List.filter (\item -> item.col == col && item.common == False) choosings
 
                 3 ->
-                    List.filter (\item -> item.subgroup2 == col) choosings
+                    List.filter (\item -> item.col == col) choosings
 
                 _ ->
-                    List.filter (\item -> item.subgroup2 == col && item.common == True) choosings
+                    List.filter (\item -> item.col == col && item.common == True) choosings
     in
         td
             [ class "chosercolumn"

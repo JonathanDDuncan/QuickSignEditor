@@ -19,7 +19,7 @@ generalgroupchooser model choosings =
             3
 
         rowvalues =
-            List.sort <| unique <| List.map (\item -> item.subgroup1) choosings
+            List.sort <| unique <| List.map (\item -> item.row) choosings
     in
         table []
             (List.map (\row -> rowchooser model row choosings maxheight) rowvalues)
@@ -28,10 +28,10 @@ generalgroupchooser model choosings =
 rowchooser model row choosings maxheight =
     let
         items =
-            List.filter (\item -> item.subgroup1 == row) choosings
+            List.filter (\item -> item.row == row) choosings
 
         colvalues =
-            List.sort <| unique <| List.map (\item -> item.plane) choosings
+            List.sort <| unique <| List.map (\item -> item.col) choosings
     in
         tr
             []
@@ -41,7 +41,7 @@ rowchooser model row choosings maxheight =
 column model cat col choosingshigh choosings =
     let
         choosingsforcolumn =
-            List.filter (\item -> item.plane == col) choosings
+            List.filter (\item -> item.col == col) choosings
     in
         td
             [ class "chosercolumn"
@@ -74,7 +74,7 @@ displaySymbolChoosing model chooseritem =
                 [ Html.div [ attribute "style" "float:left;" ] [ text chooseritem.name ]
                 ]
             ]
-
+ 
 
 bkcolor : number -> number' -> String
 bkcolor cat col =

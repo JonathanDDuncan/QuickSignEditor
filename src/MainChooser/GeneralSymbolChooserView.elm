@@ -24,8 +24,8 @@ generalsymbolchooser choosing selectedcolumn symbolsizes width height  =
                 else
                     1    
         rowheight = truncate <| toFloat height / toFloat 10
-        len = Debug.log "len" <| toFloat (List.length vf)
-        columnwidth = Debug.log "columnwidth"<| truncate <|   (( toFloat(Debug.log "width" width)/2) / len)
+        len =   toFloat (List.length vf)
+        columnwidth =  truncate <|   (( toFloat(  width)/2) / len)
         smallestscaleheader =  
             Maybe.withDefault 1 <| getscales columnwidth rowheight <| getsymbols choosing.base vf [1] symbolsizes
         smallestscalebody =  

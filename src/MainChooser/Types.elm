@@ -55,9 +55,8 @@ type alias BaseChooserItem =
     , validrotations : String
     , groupchooser : String
     , common : Bool
-    , subgroup1 : String
-    , subgroup2 : String
-    , plane : String
+    , rowname : String
+    , colname : String
     , rank : Int
     }
 
@@ -72,9 +71,8 @@ type alias ChooserItem =
     , validrotations : String
     , groupchooser : Int
     , common : Bool
-    , subgroup1 : Int
-    , subgroup2 : Int
-    , plane : Int
+    , row : Int
+    , col : Int
     , rank : Int
     }
 
@@ -84,10 +82,9 @@ chooseriteminit :
     , common : Bool
     , groupchooser : Int
     , name : String
-    , plane : Int
+    , col : Int
     , rank : Int
-    , subgroup1 : Int
-    , subgroup2 : Int
+    , row : Int
     , symbolid : String
     , symbolkey : String
     , unicodepua : String
@@ -104,9 +101,8 @@ chooseriteminit =
     , validrotations = "1 - 16"
     , groupchooser = 1
     , common = True
-    , subgroup1 = 1
-    , subgroup2 = 2
-    , plane = 1
+    , row = 1
+    , col = 1
     , rank = 1
     }
 

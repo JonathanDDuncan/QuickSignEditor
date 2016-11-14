@@ -9,7 +9,7 @@ import MainChooser.View
 
 rightspace : Model -> Html Msg
 rightspace model =
-    let rightspacewidth = Debug.log "rightspacewidth"  <|  truncate <| toFloat ( Debug.log "rightspacemarginleftpercentage"  <| (100- model.rightspacemarginleftpercentage) * model.window.windowSize.width) /100
+    let rightspacewidth =  truncate <| toFloat (   (100- model.rightspacemarginleftpercentage) * model.window.windowSize.width) /100
     in
     div
         [ if iswidescreen model || ismediumscreen model then

@@ -19,7 +19,7 @@ import Material
 
 -- import SubMainChoosers.State
 
-
+ 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
     ( { lastmdlid = 0
@@ -135,7 +135,7 @@ update action model =
         Mdl msg' ->
             Material.update msg' model
 
-
+ 
 (=>) : a -> b -> ( a, b )
 (=>) =
     (,)
@@ -162,12 +162,11 @@ getchoosings symbolgroup chooseritemvalues basechooseritems =
 
         itemsvalues =
             List.filter (\chooseritemvalue -> List.any (is chooseritemvalue.choosertype) groupchoosers) chooseritemvalues
-
-        planeitemsvalues =
-            List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "plane") chooseritemvalues
+        colitemsvalues =
+            List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "colname") chooseritemvalues
 
         converted =
-            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues planeitemsvalues item) items
+            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues colitemsvalues item) items
     in
         converted
 
@@ -195,7 +194,7 @@ default text func val =
                 0
 
 
-creategroupchoosing chooservalue itemsvalues planeitemsvalues item =
+creategroupchoosing chooservalue itemsvalues colitemsvalues item =
     { base = item.base
     , name = item.name
     , symbolid = item.symbolid
@@ -205,9 +204,8 @@ creategroupchoosing chooservalue itemsvalues planeitemsvalues item =
     , validrotations = item.validrotations
     , groupchooser = chooservalue
     , common = item.common
-    , subgroup1 = getvalue item.subgroup1 itemsvalues
-    , subgroup2 = getvalue item.subgroup2 itemsvalues
-    , plane = getvalue item.plane planeitemsvalues
+    , row = getvalue item.rowname itemsvalues
+    , col = getvalue item.colname colitemsvalues
     , rank = item.rank
     }
 
