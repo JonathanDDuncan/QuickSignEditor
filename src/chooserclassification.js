@@ -4983,7 +4983,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "surface",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "wallplane",
       "rank" : 277,
       "groupchoosername" : ""
     },
@@ -5001,7 +5001,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "surface",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorplane",
       "rank" : 278,
       "groupchoosername" : ""
     },
@@ -5341,7 +5341,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvfinger",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "mouvfinger",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 297,
@@ -5359,7 +5359,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvfinger",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "mouvfinger",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 298,
@@ -5449,7 +5449,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flex",
+      "subgroup1" : "single",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 303,
@@ -5485,7 +5485,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flex",
+      "subgroup1" : "double",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 305,
@@ -5521,7 +5521,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flexalternate",
+      "subgroup1" : "flexalternatesingle",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 307,
@@ -5575,7 +5575,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flex",
+      "subgroup1" : "triple",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 310,
@@ -5611,7 +5611,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flexalternate",
+      "subgroup1" : "flexalternatedouble",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 312,
@@ -6099,7 +6099,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "twist",
       "subgroup2" : "",
-      "plane" : "wallcircle",
+      "plane" : "wallwall",
       "rank" : 339,
       "groupchoosername" : ""
     },
@@ -6117,7 +6117,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "twisttwist",
       "subgroup2" : "",
-      "plane" : "wallcircle",
+      "plane" : "wallwall",
       "rank" : 340,
       "groupchoosername" : ""
     },
@@ -6135,7 +6135,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "twisttwist",
       "subgroup2" : "",
-      "plane" : "wallcircle",
+      "plane" : "wallwall",
       "rank" : 341,
       "groupchoosername" : ""
     },
@@ -6295,9 +6295,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "forwarddiagonal",
       "rank" : 350,
       "groupchoosername" : ""
     },
@@ -6313,9 +6313,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "forwarddiagonal",
       "rank" : 351,
       "groupchoosername" : ""
     },
@@ -6331,9 +6331,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "forwarddiagonal",
       "rank" : 352,
       "groupchoosername" : ""
     },
@@ -6349,9 +6349,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "forwarddiagonal",
       "rank" : 353,
       "groupchoosername" : ""
     },
@@ -6367,9 +6367,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "backwarddiagonal",
       "rank" : 354,
       "groupchoosername" : ""
     },
@@ -6385,9 +6385,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "backwarddiagonal",
       "rank" : 355,
       "groupchoosername" : ""
     },
@@ -6403,9 +6403,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "backwarddiagonal",
       "rank" : 356,
       "groupchoosername" : ""
     },
@@ -6421,9 +6421,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvstraight",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "between",
       "subgroup2" : "",
-      "plane" : "backwardheightdiagonal",
+      "plane" : "backwarddiagonal",
       "rank" : 357,
       "groupchoosername" : ""
     },
@@ -6511,7 +6511,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flex",
+      "subgroup1" : "single",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 362,
@@ -6547,7 +6547,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flex",
+      "subgroup1" : "double",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 364,
@@ -6583,7 +6583,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flexalternate",
+      "subgroup1" : "flexalternatesingle",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 366,
@@ -6637,7 +6637,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flex",
+      "subgroup1" : "triple",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 369,
@@ -6673,7 +6673,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvflex",
       "common" : false,
-      "subgroup1" : "flexalternate",
+      "subgroup1" : "flexalternatedouble",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 371,
@@ -7069,7 +7069,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 393,
@@ -7087,7 +7087,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 394,
@@ -7105,7 +7105,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 395,
@@ -7123,7 +7123,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 396,
@@ -7141,7 +7141,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "mediumcurve",
+      "subgroup1" : "medium",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 397,
@@ -7159,7 +7159,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "mediumcurve",
+      "subgroup1" : "medium",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 398,
@@ -7177,7 +7177,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "mediumcurve",
+      "subgroup1" : "medium",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 399,
@@ -7195,7 +7195,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "mediumcurve",
+      "subgroup1" : "medium",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 400,
@@ -7213,7 +7213,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "bigcurve",
+      "subgroup1" : "big",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 401,
@@ -7231,7 +7231,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "bigcurve",
+      "subgroup1" : "big",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 402,
@@ -7247,9 +7247,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "upup",
+      "subgroup1" : "double",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 403,
@@ -7265,9 +7265,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "upup",
+      "subgroup1" : "double",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 404,
@@ -7283,9 +7283,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "upup",
+      "subgroup1" : "double",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 405,
@@ -7301,7 +7301,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "loopup",
       "subgroup2" : "",
@@ -7319,7 +7319,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "loopup",
       "subgroup2" : "",
@@ -7337,7 +7337,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "loopup",
       "subgroup2" : "",
@@ -7355,7 +7355,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "doubleloopup",
       "subgroup2" : "",
@@ -7373,7 +7373,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
       "subgroup1" : "downup",
       "subgroup2" : "",
@@ -7391,7 +7391,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
       "subgroup1" : "downup",
       "subgroup2" : "",
@@ -7409,7 +7409,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
       "subgroup1" : "downup",
       "subgroup2" : "",
@@ -7427,9 +7427,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "updownup",
+      "subgroup1" : "camel",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 413,
@@ -7445,9 +7445,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "updownup",
+      "subgroup1" : "camel",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 414,
@@ -7463,9 +7463,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "updownup",
+      "subgroup1" : "camel",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 415,
@@ -7481,7 +7481,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
       "subgroup1" : "hookloop",
       "subgroup2" : "",
@@ -7499,7 +7499,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "halfeight",
       "subgroup2" : "",
@@ -7517,7 +7517,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "halfeight",
       "subgroup2" : "",
@@ -7607,11 +7607,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 423,
       "groupchoosername" : ""
     },
@@ -7625,11 +7625,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "hump",
+      "subgroup1" : "double",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 424,
       "groupchoosername" : ""
     },
@@ -7643,11 +7643,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "loopup",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 425,
       "groupchoosername" : ""
     },
@@ -7661,11 +7661,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "wave",
+      "subgroup1" : "downup",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 426,
       "groupchoosername" : ""
     },
@@ -7679,11 +7679,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "mouvtwist",
       "common" : false,
-      "subgroup1" : "rotation",
+      "subgroup1" : "twist",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 427,
       "groupchoosername" : ""
     },
@@ -7697,11 +7697,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "mouvtwist",
       "common" : false,
-      "subgroup1" : "rotationdouble",
+      "subgroup1" : "twisttwist",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 428,
       "groupchoosername" : ""
     },
@@ -7715,11 +7715,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitsfrontwall",
+      "groupchooser" : "mouvtwist",
       "common" : false,
-      "subgroup1" : "rotationalternating",
+      "subgroup1" : "twistshake",
       "subgroup2" : "",
-      "plane" : "wallplane",
+      "plane" : "hitwall",
       "rank" : 429,
       "groupchoosername" : ""
     },
@@ -7733,11 +7733,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 430,
       "groupchoosername" : ""
     },
@@ -7751,11 +7751,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "hump",
+      "subgroup1" : "double",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 431,
       "groupchoosername" : ""
     },
@@ -7769,11 +7769,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "loopup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 432,
       "groupchoosername" : ""
     },
@@ -7787,11 +7787,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "wave",
+      "subgroup1" : "downup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 433,
       "groupchoosername" : ""
     },
@@ -7805,11 +7805,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "mouvtwist",
       "common" : false,
-      "subgroup1" : "rotation",
+      "subgroup1" : "twist",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 434,
       "groupchoosername" : ""
     },
@@ -7823,11 +7823,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "mouvtwist",
       "common" : false,
-      "subgroup1" : "rotationdouble",
+      "subgroup1" : "twisttwist",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 435,
       "groupchoosername" : ""
     },
@@ -7841,11 +7841,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "hitschest",
+      "groupchooser" : "mouvtwist",
       "common" : false,
-      "subgroup1" : "rotationalternating",
+      "subgroup1" : "twistshake",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitchest",
       "rank" : 436,
       "groupchoosername" : ""
     },
@@ -7859,11 +7859,11 @@ var chooserclassification =
       "validrotations" : "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "diagonalpath",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "wave",
+      "subgroup1" : "camel",
       "subgroup2" : "",
-      "plane" : "diagonal",
+      "plane" : "hitwall",
       "rank" : 437,
       "groupchoosername" : ""
     },
@@ -7877,11 +7877,11 @@ var chooserclassification =
       "validrotations" : "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "diagonalpath",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "wave",
+      "subgroup1" : "camel",
       "subgroup2" : "",
-      "plane" : "diagonal",
+      "plane" : "hitwall",
       "rank" : 438,
       "groupchoosername" : ""
     },
@@ -7895,11 +7895,11 @@ var chooserclassification =
       "validrotations" : "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "diagonalpath",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "wave",
+      "subgroup1" : "camel",
       "subgroup2" : "",
-      "plane" : "diagonal",
+      "plane" : "hitwall",
       "rank" : 439,
       "groupchoosername" : ""
     },
@@ -7913,11 +7913,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "simple",
+      "subgroup1" : "small",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 440,
       "groupchoosername" : ""
     },
@@ -7931,11 +7931,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "simple",
+      "subgroup1" : "medium",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 441,
       "groupchoosername" : ""
     },
@@ -7949,11 +7949,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "double",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 442,
       "groupchoosername" : ""
     },
@@ -7967,11 +7967,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "double",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 443,
       "groupchoosername" : ""
     },
@@ -7985,11 +7985,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "triple",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 444,
       "groupchoosername" : ""
     },
@@ -8003,11 +8003,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "triple",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 445,
       "groupchoosername" : ""
     },
@@ -8021,11 +8021,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "loopup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 446,
       "groupchoosername" : ""
     },
@@ -8039,11 +8039,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "loopup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 447,
       "groupchoosername" : ""
     },
@@ -8057,11 +8057,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "doubleloopup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 448,
       "groupchoosername" : ""
     },
@@ -8075,11 +8075,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "doubleloopup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 449,
       "groupchoosername" : ""
     },
@@ -8093,11 +8093,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "overunder",
+      "subgroup1" : "downup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 450,
       "groupchoosername" : ""
     },
@@ -8111,11 +8111,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "overunder",
+      "subgroup1" : "downup",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "hitceiling",
       "rank" : 451,
       "groupchoosername" : ""
     },
@@ -8133,7 +8133,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "rotationsingle",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorfloor",
       "rank" : 452,
       "groupchoosername" : ""
     },
@@ -8151,7 +8151,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "rotationdouble",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorfloor",
       "rank" : 453,
       "groupchoosername" : ""
     },
@@ -8169,7 +8169,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "rotationalternating",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorfloor",
       "rank" : 454,
       "groupchoosername" : ""
     },
@@ -8183,11 +8183,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "simple",
+      "subgroup1" : "small",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 455,
       "groupchoosername" : ""
     },
@@ -8201,11 +8201,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "simple",
+      "subgroup1" : "medium",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 456,
       "groupchoosername" : ""
     },
@@ -8219,11 +8219,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "double",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 457,
       "groupchoosername" : ""
     },
@@ -8237,11 +8237,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "double",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 458,
       "groupchoosername" : ""
     },
@@ -8255,11 +8255,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "triple",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 459,
       "groupchoosername" : ""
     },
@@ -8273,11 +8273,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvcurve",
       "common" : false,
       "subgroup1" : "triple",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 460,
       "groupchoosername" : ""
     },
@@ -8291,11 +8291,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "loopup",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 461,
       "groupchoosername" : ""
     },
@@ -8309,11 +8309,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "loopup",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 462,
       "groupchoosername" : ""
     },
@@ -8327,11 +8327,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "doubleloopup",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 463,
       "groupchoosername" : ""
     },
@@ -8345,11 +8345,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "mouvloop",
       "common" : false,
-      "subgroup1" : "loop",
+      "subgroup1" : "doubleloopup",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 464,
       "groupchoosername" : ""
     },
@@ -8363,11 +8363,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "underover",
+      "subgroup1" : "downup",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 465,
       "groupchoosername" : ""
     },
@@ -8381,11 +8381,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "moveoverunder",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "underover",
+      "subgroup1" : "downup",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "hitfloor",
       "rank" : 466,
       "groupchoosername" : ""
     },
@@ -8399,11 +8399,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "generalgroupchooser",
+      "groupchooser" : "hitsceiling",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "rotationsingle",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "floorfloor",
       "rank" : 467,
       "groupchoosername" : ""
     },
@@ -8417,11 +8417,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "generalgroupchooser",
+      "groupchooser" : "hitsceiling",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "rotationdouble",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "floorfloor",
       "rank" : 468,
       "groupchoosername" : ""
     },
@@ -8435,11 +8435,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "generalgroupchooser",
+      "groupchooser" : "hitsceiling",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "rotationalternating",
       "subgroup2" : "",
-      "plane" : "floorplane",
+      "plane" : "floorfloor",
       "rank" : 469,
       "groupchoosername" : ""
     },
@@ -8455,7 +8455,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 470,
@@ -8473,7 +8473,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 471,
@@ -8491,7 +8491,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 472,
@@ -8509,7 +8509,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "small",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 473,
@@ -8527,7 +8527,7 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "bigcurve",
+      "subgroup1" : "big",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 474,
@@ -8543,9 +8543,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvcurve",
       "common" : false,
-      "subgroup1" : "upup",
+      "subgroup1" : "double",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 475,
@@ -8561,7 +8561,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "mouvloop",
       "common" : false,
       "subgroup1" : "loopup",
       "subgroup2" : "",
@@ -8579,7 +8579,7 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
       "subgroup1" : "downup",
       "subgroup2" : "",
@@ -8597,9 +8597,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "downup",
+      "subgroup1" : "camel",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 478,
@@ -8615,9 +8615,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "mouvupup",
+      "groupchooser" : "curvy",
       "common" : false,
-      "subgroup1" : "updownup",
+      "subgroup1" : "camel",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 479,
@@ -9031,9 +9031,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "arrowhead",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "small",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 502,
       "groupchoosername" : ""
     },
@@ -9049,9 +9049,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "arrowhead",
       "common" : false,
-      "subgroup1" : "",
+      "subgroup1" : "large",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 503,
       "groupchoosername" : ""
     },
@@ -9069,7 +9069,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "fastmovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 504,
       "groupchoosername" : ""
     },
@@ -9087,7 +9087,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "slowmovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 505,
       "groupchoosername" : ""
     },
@@ -9105,7 +9105,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "tensemovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 506,
       "groupchoosername" : ""
     },
@@ -9123,7 +9123,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "relaxed",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 507,
       "groupchoosername" : ""
     },
@@ -9141,7 +9141,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "simultaneous",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 508,
       "groupchoosername" : ""
     },
@@ -9159,7 +9159,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "alternating",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 509,
       "groupchoosername" : ""
     },
@@ -9177,7 +9177,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "unevenalternating",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 510,
       "groupchoosername" : ""
     },
@@ -9195,7 +9195,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "gradual",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 511,
       "groupchoosername" : ""
     },
@@ -9209,11 +9209,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "headhead",
+      "subgroup1" : "direction",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 512,
       "groupchoosername" : ""
     },
@@ -9227,11 +9227,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "location",
       "common" : false,
-      "subgroup1" : "headrim",
+      "subgroup1" : "direction",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "movement",
       "rank" : 513,
       "groupchoosername" : ""
     },
@@ -9245,9 +9245,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "movementstraight",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 514,
@@ -9263,9 +9263,9 @@ var chooserclassification =
       "validrotations" : "2016-01-02T06:00:00.000Z",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "tilts",
+      "subgroup1" : "directiontilting",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 515,
@@ -9281,9 +9281,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "straight",
+      "subgroup1" : "movementstraight",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 516,
@@ -9299,9 +9299,9 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "movementcurve",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 517,
@@ -9317,9 +9317,9 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "curve",
+      "subgroup1" : "movementcurve",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 518,
@@ -9335,11 +9335,11 @@ var chooserclassification =
       "validrotations" : "1 - 4",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "headmovement",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "circles",
+      "subgroup1" : "movementcircle",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorplane",
       "rank" : 519,
       "groupchoosername" : ""
     },
@@ -9353,11 +9353,11 @@ var chooserclassification =
       "validrotations" : "2016-01-02T06:00:00.000Z",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "facedirection",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "noseforward",
+      "subgroup1" : "directiontilting",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 520,
       "groupchoosername" : ""
     },
@@ -9371,11 +9371,11 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "facedirection",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "noseup",
+      "subgroup1" : "direction",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 521,
       "groupchoosername" : ""
     },
@@ -9389,11 +9389,11 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "facedirection",
+      "groupchooser" : "headface",
       "common" : false,
-      "subgroup1" : "noseupordowntilting",
+      "subgroup1" : "directiontilting",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 522,
       "groupchoosername" : ""
     },
@@ -9407,11 +9407,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "straightup",
+      "subgroup1" : "straight",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 523,
       "groupchoosername" : ""
     },
@@ -9425,11 +9425,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "straightneutral",
+      "subgroup1" : "straight",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 524,
       "groupchoosername" : ""
     },
@@ -9443,11 +9443,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "straightdown",
+      "subgroup1" : "straight",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 525,
       "groupchoosername" : ""
     },
@@ -9461,11 +9461,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "dreamyneutraldown",
+      "subgroup1" : "dreamy",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 526,
       "groupchoosername" : ""
     },
@@ -9479,11 +9479,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "dreamydownneutral",
+      "subgroup1" : "dreamy",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 527,
       "groupchoosername" : ""
     },
@@ -9497,11 +9497,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "dreamyupneutral",
+      "subgroup1" : "dreamy",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 528,
       "groupchoosername" : ""
     },
@@ -9515,11 +9515,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyebrows",
+      "groupchooser" : "forehead",
       "common" : false,
-      "subgroup1" : "dreamyneutralup",
+      "subgroup1" : "dreamy",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 529,
       "groupchoosername" : ""
     },
@@ -9537,7 +9537,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 530,
       "groupchoosername" : ""
     },
@@ -9555,7 +9555,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "contact",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 531,
       "groupchoosername" : ""
     },
@@ -9573,7 +9573,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 532,
       "groupchoosername" : ""
     },
@@ -9591,7 +9591,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "open",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 533,
       "groupchoosername" : ""
     },
@@ -9607,9 +9607,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "squeezed",
+      "subgroup1" : "closed",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 534,
       "groupchoosername" : ""
     },
@@ -9627,7 +9627,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "closed",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 535,
       "groupchoosername" : ""
     },
@@ -9643,9 +9643,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "blinksingle",
+      "subgroup1" : "movement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 536,
       "groupchoosername" : ""
     },
@@ -9661,9 +9661,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "blinksmultiple",
+      "subgroup1" : "movement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 537,
       "groupchoosername" : ""
     },
@@ -9679,9 +9679,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "halfopen",
+      "subgroup1" : "open",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 538,
       "groupchoosername" : ""
     },
@@ -9697,9 +9697,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "wideopen",
+      "subgroup1" : "open",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 539,
       "groupchoosername" : ""
     },
@@ -9715,9 +9715,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "halfclosed",
+      "subgroup1" : "closed",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 540,
       "groupchoosername" : ""
     },
@@ -9733,9 +9733,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "wideningmovement",
+      "subgroup1" : "movement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 541,
       "groupchoosername" : ""
     },
@@ -9751,9 +9751,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "wink",
+      "subgroup1" : "movement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 542,
       "groupchoosername" : ""
     },
@@ -9767,11 +9767,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyelashes",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "up",
+      "subgroup1" : "open",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 543,
       "groupchoosername" : ""
     },
@@ -9785,11 +9785,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyelashes",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "down",
+      "subgroup1" : "closed",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 544,
       "groupchoosername" : ""
     },
@@ -9803,11 +9803,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyelashes",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "fluttering",
+      "subgroup1" : "movement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 545,
       "groupchoosername" : ""
     },
@@ -9821,9 +9821,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "straightwallplane",
+      "subgroup1" : "straight",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 546,
@@ -9839,9 +9839,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "straightwalldouble",
+      "subgroup1" : "straightdouble",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 547,
@@ -9857,9 +9857,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "straightwallalternate",
+      "subgroup1" : "straightalternate",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 548,
@@ -9875,9 +9875,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "straightfloorplane",
+      "subgroup1" : "straight",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 549,
@@ -9893,9 +9893,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "straightfloordouble",
+      "subgroup1" : "straightdouble",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 550,
@@ -9911,9 +9911,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "straightflooralternate",
+      "subgroup1" : "angle",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 551,
@@ -9929,9 +9929,9 @@ var chooserclassification =
       "validrotations" : "1 - 16",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "curvedwallplane",
+      "subgroup1" : "curved",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 552,
@@ -9947,9 +9947,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "curvedfloorplane",
+      "subgroup1" : "curved",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 553,
@@ -9965,9 +9965,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "eyegaze",
+      "groupchooser" : "eyes",
       "common" : false,
-      "subgroup1" : "circleswallplane",
+      "subgroup1" : "circle",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 554,
@@ -9987,7 +9987,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "puffed",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 555,
       "groupchoosername" : ""
     },
@@ -10005,7 +10005,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 556,
       "groupchoosername" : ""
     },
@@ -10023,7 +10023,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "sucked",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 557,
       "groupchoosername" : ""
     },
@@ -10041,7 +10041,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "cheekhigh",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 558,
       "groupchoosername" : ""
     },
@@ -10059,7 +10059,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "cheeksmiddle",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 559,
       "groupchoosername" : ""
     },
@@ -10077,7 +10077,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "cheekslow",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 560,
       "groupchoosername" : ""
     },
@@ -10095,7 +10095,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "ears",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 561,
       "groupchoosername" : ""
     },
@@ -10109,11 +10109,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "nose",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "neutral",
+      "subgroup1" : "noseneutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 562,
       "groupchoosername" : ""
     },
@@ -10127,11 +10127,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "nose",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "contact",
+      "subgroup1" : "noseneutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 563,
       "groupchoosername" : ""
     },
@@ -10145,11 +10145,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "nose",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "wrinkles",
+      "subgroup1" : "nosemouvement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 564,
       "groupchoosername" : ""
     },
@@ -10163,11 +10163,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "nose",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "wriggles",
+      "subgroup1" : "nosemouvement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 565,
       "groupchoosername" : ""
     },
@@ -10181,11 +10181,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "air",
+      "groupchooser" : "noseair",
       "common" : false,
       "subgroup1" : "blowingout",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 566,
       "groupchoosername" : ""
     },
@@ -10199,11 +10199,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "air",
+      "groupchooser" : "noseair",
       "common" : false,
       "subgroup1" : "suckingin",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 567,
       "groupchoosername" : ""
     },
@@ -10217,11 +10217,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "air",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "blowsmallrotations",
+      "subgroup1" : "blowingout",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 568,
       "groupchoosername" : ""
     },
@@ -10235,11 +10235,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "air",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "sucksmallrotations",
+      "subgroup1" : "suckingin",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 569,
       "groupchoosername" : ""
     },
@@ -10253,11 +10253,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "air",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "exhale",
+      "subgroup1" : "blowingout",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 570,
       "groupchoosername" : ""
     },
@@ -10271,11 +10271,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "air",
+      "groupchooser" : "noseair",
       "common" : false,
-      "subgroup1" : "inhale",
+      "subgroup1" : "suckingin",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 571,
       "groupchoosername" : ""
     },
@@ -10291,9 +10291,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "closedneutral",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 572,
       "groupchoosername" : ""
     },
@@ -10309,9 +10309,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "closedforward",
+      "subgroup1" : "forward",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 573,
       "groupchoosername" : ""
     },
@@ -10327,9 +10327,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "closedcontact",
+      "subgroup1" : "special",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 574,
       "groupchoosername" : ""
     },
@@ -10345,9 +10345,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "smile",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 575,
       "groupchoosername" : ""
     },
@@ -10363,9 +10363,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "smilewrinkled",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "corners",
       "rank" : 576,
       "groupchoosername" : ""
     },
@@ -10381,9 +10381,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "smileopen",
+      "subgroup1" : "special",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 577,
       "groupchoosername" : ""
     },
@@ -10399,9 +10399,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "frown",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 578,
       "groupchoosername" : ""
     },
@@ -10417,9 +10417,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "frownwrinkled",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "corners",
       "rank" : 579,
       "groupchoosername" : ""
     },
@@ -10435,9 +10435,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "frownopen",
+      "subgroup1" : "special",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 580,
       "groupchoosername" : ""
     },
@@ -10453,9 +10453,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "opencircle",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 581,
       "groupchoosername" : ""
     },
@@ -10471,9 +10471,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openforward",
+      "subgroup1" : "forward",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 582,
       "groupchoosername" : ""
     },
@@ -10489,9 +10489,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openwrinkled",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 583,
       "groupchoosername" : ""
     },
@@ -10507,9 +10507,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openoval",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 584,
       "groupchoosername" : ""
     },
@@ -10525,9 +10525,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openovalwinkled",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 585,
       "groupchoosername" : ""
     },
@@ -10543,9 +10543,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openovalyawn",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 586,
       "groupchoosername" : ""
     },
@@ -10561,9 +10561,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openrectangle",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 587,
       "groupchoosername" : ""
     },
@@ -10579,9 +10579,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openrectanglewrinkled",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 588,
       "groupchoosername" : ""
     },
@@ -10597,9 +10597,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "openrectangleyawn",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "open",
       "rank" : 589,
       "groupchoosername" : ""
     },
@@ -10615,9 +10615,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "kiss",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 590,
       "groupchoosername" : ""
     },
@@ -10633,9 +10633,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "kissforward",
+      "subgroup1" : "forward",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 591,
       "groupchoosername" : ""
     },
@@ -10651,9 +10651,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "kisswrinkled",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 592,
       "groupchoosername" : ""
     },
@@ -10669,9 +10669,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "tense",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 593,
       "groupchoosername" : ""
     },
@@ -10687,9 +10687,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "tenseforward",
+      "subgroup1" : "forward",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 594,
       "groupchoosername" : ""
     },
@@ -10705,9 +10705,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "tensesucked",
+      "subgroup1" : "forward",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 595,
       "groupchoosername" : ""
     },
@@ -10721,11 +10721,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "lip",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "pressedtogether",
+      "subgroup1" : "lip",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 596,
       "groupchoosername" : ""
     },
@@ -10739,11 +10739,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "lip",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "loweroverupper",
+      "subgroup1" : "lip",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 597,
       "groupchoosername" : ""
     },
@@ -10757,11 +10757,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "lip",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "upperoverlower",
+      "subgroup1" : "lip",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "closed",
       "rank" : 598,
       "groupchoosername" : ""
     },
@@ -10777,9 +10777,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "corners",
+      "subgroup1" : "neutral",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "corners",
       "rank" : 599,
       "groupchoosername" : ""
     },
@@ -10795,9 +10795,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "wrinklessingle",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "corners",
       "rank" : 600,
       "groupchoosername" : ""
     },
@@ -10813,9 +10813,9 @@ var chooserclassification =
       "symbolpng" : "",
       "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "wrinklesdouble",
+      "subgroup1" : "wrinkled",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "corners",
       "rank" : 601,
       "groupchoosername" : ""
     },
@@ -10829,11 +10829,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "sticksoutfar",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueoutside",
       "rank" : 602,
       "groupchoosername" : ""
     },
@@ -10847,11 +10847,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "lickslips",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueoutside",
       "rank" : 603,
       "groupchoosername" : ""
     },
@@ -10865,11 +10865,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "tipbetweenlips",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueoutside",
       "rank" : 604,
       "groupchoosername" : ""
     },
@@ -10883,11 +10883,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "tiptouchesinsidemouth",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueinside",
       "rank" : 605,
       "groupchoosername" : ""
     },
@@ -10901,11 +10901,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "insidemouthrelaxed",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueinside",
       "rank" : 606,
       "groupchoosername" : ""
     },
@@ -10919,11 +10919,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "movesagainstcheek",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueinside",
       "rank" : 607,
       "groupchoosername" : ""
     },
@@ -10937,11 +10937,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "centersticksout",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueoutside",
       "rank" : 608,
       "groupchoosername" : ""
     },
@@ -10955,11 +10955,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "tongue",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "centerinsidemouth",
+      "subgroup1" : "tongue",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "tongueinside",
       "rank" : 609,
       "groupchoosername" : ""
     },
@@ -10973,11 +10973,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
       "subgroup1" : "teeth",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teeth",
       "rank" : 610,
       "groupchoosername" : ""
     },
@@ -10991,11 +10991,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "movement",
+      "subgroup1" : "teethmovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teeth",
       "rank" : 611,
       "groupchoosername" : ""
     },
@@ -11009,11 +11009,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "ontongue",
+      "subgroup1" : "teeth",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teethontongue",
       "rank" : 612,
       "groupchoosername" : ""
     },
@@ -11027,11 +11027,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "ontonguemovement",
+      "subgroup1" : "teethmovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teethontongue",
       "rank" : 613,
       "groupchoosername" : ""
     },
@@ -11045,11 +11045,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "onlips",
+      "subgroup1" : "teeth",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teethonlips",
       "rank" : 614,
       "groupchoosername" : ""
     },
@@ -11063,11 +11063,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "onlipsmovement",
+      "subgroup1" : "teethmovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teethonlips",
       "rank" : 615,
       "groupchoosername" : ""
     },
@@ -11081,11 +11081,11 @@ var chooserclassification =
       "validrotations" : "1",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "teeth",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "bitelips",
+      "subgroup1" : "teethmovement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "teethonlips",
       "rank" : 616,
       "groupchoosername" : ""
     },
@@ -11099,9 +11099,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "jaw",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "movementwallplane",
+      "subgroup1" : "jaw",
       "subgroup2" : "",
       "plane" : "wallplane",
       "rank" : 617,
@@ -11117,9 +11117,9 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "jaw",
+      "groupchooser" : "mouth",
       "common" : false,
-      "subgroup1" : "movementfloorplane",
+      "subgroup1" : "jaw",
       "subgroup2" : "",
       "plane" : "floorplane",
       "rank" : 618,
@@ -11139,7 +11139,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "neck",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 619,
       "groupchoosername" : ""
     },
@@ -11157,7 +11157,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "hair",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 620,
       "groupchoosername" : ""
     },
@@ -11175,7 +11175,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "excitement",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 621,
       "groupchoosername" : ""
     },
@@ -11193,7 +11193,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "hipspine",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 622,
       "groupchoosername" : ""
     },
@@ -11211,7 +11211,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "hippositions",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 623,
       "groupchoosername" : ""
     },
@@ -11265,7 +11265,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "tilts(fromwaist)",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorplane",
       "rank" : 626,
       "groupchoosername" : ""
     },
@@ -11337,7 +11337,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "bodytilts(fromhipjoints)",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 630,
       "groupchoosername" : ""
     },
@@ -11355,7 +11355,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "combinations",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 631,
       "groupchoosername" : ""
     },
@@ -11373,7 +11373,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length1",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 632,
       "groupchoosername" : ""
     },
@@ -11391,7 +11391,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length2",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 633,
       "groupchoosername" : ""
     },
@@ -11409,7 +11409,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length3",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 634,
       "groupchoosername" : ""
     },
@@ -11427,7 +11427,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length4",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 635,
       "groupchoosername" : ""
     },
@@ -11445,7 +11445,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length5",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 636,
       "groupchoosername" : ""
     },
@@ -11463,7 +11463,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length6",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 637,
       "groupchoosername" : ""
     },
@@ -11481,7 +11481,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "length7",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 638,
       "groupchoosername" : ""
     },
@@ -11499,7 +11499,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "fingers",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 639,
       "groupchoosername" : ""
     },
@@ -11553,7 +11553,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "height",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "wallplane",
       "rank" : 642,
       "groupchoosername" : ""
     },
@@ -11571,7 +11571,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "width",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "wallplane",
       "rank" : 643,
       "groupchoosername" : ""
     },
@@ -11589,7 +11589,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "depth",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "floorplaine",
       "rank" : 644,
       "groupchoosername" : ""
     },
@@ -11607,7 +11607,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "headneck",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 645,
       "groupchoosername" : ""
     },
@@ -11625,7 +11625,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "torso",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "wallplane",
       "rank" : 646,
       "groupchoosername" : ""
     },
@@ -11643,7 +11643,7 @@ var chooserclassification =
       "common" : false,
       "subgroup1" : "limbsdigits",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 647,
       "groupchoosername" : ""
     },
@@ -11657,11 +11657,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "comma",
+      "groupchooser" : "punctuation",
       "common" : false,
       "subgroup1" : "comma",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 648,
       "groupchoosername" : ""
     },
@@ -11675,11 +11675,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "period",
+      "groupchooser" : "punctuation",
       "common" : false,
       "subgroup1" : "period",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 649,
       "groupchoosername" : ""
     },
@@ -11693,11 +11693,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "semicolon",
+      "groupchooser" : "punctuation",
       "common" : false,
       "subgroup1" : "semicolon",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 650,
       "groupchoosername" : ""
     },
@@ -11711,11 +11711,11 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "colon",
+      "groupchooser" : "punctuation",
       "common" : false,
       "subgroup1" : "colon",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 651,
       "groupchoosername" : ""
     },
@@ -11729,55 +11729,25 @@ var chooserclassification =
       "validrotations" : "1 - 8",
       "handpng" : "",
       "symbolpng" : "",
-      "groupchooser" : "parentheses",
+      "groupchooser" : "punctuation",
       "common" : false,
       "subgroup1" : "parentheses",
       "subgroup2" : "",
-      "plane" : "",
+      "plane" : "none",
       "rank" : 652,
       "groupchoosername" : ""
     }
   ],
   "chooseritemvalues" : [
     {
-      "choosertype" : "air",
-      "name" : "blowingout",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "air",
-      "name" : "suckingin",
+      "choosertype" : "arrowhead",
+      "name" : "large",
       "value" : 2,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "air",
-      "name" : "blowsmallrotations",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "air",
-      "name" : "sucksmallrotations",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "air",
-      "name" : "exhale",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "air",
-      "name" : "inhale",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "cheeks",
-      "name" : "puffed",
+      "choosertype" : "arrowhead",
+      "name" : "small",
       "value" : 1,
       "symbolgroup" : ""
     },
@@ -11789,20 +11759,26 @@ var chooserclassification =
     },
     {
       "choosertype" : "cheeks",
-      "name" : "sucked",
-      "value" : 3,
+      "name" : "puffed",
+      "value" : 1,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "colon",
-      "name" : "colon",
-      "value" : 1,
+      "choosertype" : "cheeks",
+      "name" : "sucked",
+      "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "contactos",
       "name" : "estrella",
       "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "contactos",
+      "name" : "frotar",
+      "value" : 5,
       "symbolgroup" : ""
     },
     {
@@ -11824,9 +11800,33 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "contactos",
-      "name" : "frotar",
+      "choosertype" : "curvy",
+      "name" : "camel",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "curvy",
+      "name" : "double",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "curvy",
+      "name" : "downup",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "curvy",
+      "name" : "hookloop",
       "value" : 5,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "curvy",
+      "name" : "triple",
+      "value" : 3,
       "symbolgroup" : ""
     },
     {
@@ -11842,117 +11842,15 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "eyebrows",
-      "name" : "straightup",
+      "choosertype" : "forehead",
+      "name" : "straight",
       "value" : 1,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "eyebrows",
-      "name" : "straightneutral",
+      "choosertype" : "forehead",
+      "name" : "dreamy",
       "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyebrows",
-      "name" : "straightdown",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyebrows",
-      "name" : "dreamyneutraldown",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyebrows",
-      "name" : "dreamydownneutral",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyebrows",
-      "name" : "dreamyupneutral",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyebrows",
-      "name" : "dreamyneutralup",
-      "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "straightwallplane",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "straightwalldouble",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "straightwallalternate",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "straightfloorplane",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "straightfloordouble",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "straightflooralternate",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "curvedwallplane",
-      "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "curvedfloorplane",
-      "value" : 8,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyegaze",
-      "name" : "circleswallplane",
-      "value" : 9,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyelashes",
-      "name" : "up",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyelashes",
-      "name" : "down",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyelashes",
-      "name" : "fluttering",
-      "value" : 3,
       "symbolgroup" : ""
     },
     {
@@ -11963,74 +11861,50 @@ var chooserclassification =
     },
     {
       "choosertype" : "eyes",
-      "name" : "squeezed",
+      "name" : "closed",
       "value" : 2,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "closed",
+      "name" : "movement",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "blinksingle",
+      "name" : "straight",
       "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "blinksmultiple",
+      "name" : "straightdouble",
       "value" : 5,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "halfopen",
+      "name" : "straightalternate",
       "value" : 6,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "wideopen",
+      "name" : "curved",
       "value" : 7,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "halfclosed",
+      "name" : "circle",
       "value" : 8,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "eyes",
-      "name" : "wideningmovement",
+      "name" : "angle",
       "value" : 9,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "eyes",
-      "name" : "wink",
-      "value" : 10,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "facedirection",
-      "name" : "noseupordowntilting",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "facedirection",
-      "name" : "noseforward",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "facedirection",
-      "name" : "noseup",
-      "value" : 3,
       "symbolgroup" : ""
     },
     {
@@ -12041,147 +11915,27 @@ var chooserclassification =
     },
     {
       "choosertype" : "forehead",
-      "name" : "neutral",
-      "value" : 1,
+      "name" : "contact",
+      "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "forehead",
-      "name" : "contact",
-      "value" : 2,
+      "name" : "neutral",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "forehead",
       "name" : "wrinkled",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "generalgroupchooser",
-      "value" : 0,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "handgroupchooser",
-      "value" : 1,
-      "symbolgroup" : "S14c"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "contactos",
-      "value" : 2,
-      "symbolgroup" : "S205"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "nudillo",
-      "value" : 3,
-      "symbolgroup" : "S216"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvstraight",
-      "value" : 4,
-      "symbolgroup" : "S22a"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvflex",
       "value" : 5,
-      "symbolgroup" : "S22e"
+      "symbolgroup" : ""
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "mouvbent",
-      "value" : 6,
-      "symbolgroup" : "S238"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvtwist",
-      "value" : 7,
-      "symbolgroup" : "S24b"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvcurve",
-      "value" : 8,
-      "symbolgroup" : "S288"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "moveoverunder",
-      "value" : 9,
-      "symbolgroup" : "S2b8"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvcircle",
-      "value" : 10,
-      "symbolgroup" : "S2e3"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvwristcircle",
-      "value" : 11,
-      "symbolgroup" : "S2ed"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvfingercircle",
-      "value" : 12,
-      "symbolgroup" : "S2f1"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvdynamics",
-      "value" : 13,
-      "symbolgroup" : "S2f7"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "headmovement",
-      "value" : 14,
-      "symbolgroup" : "S2ff"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "facedirection",
-      "value" : 15,
-      "symbolgroup" : "S2ff"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "eyebrows",
-      "value" : 16,
-      "symbolgroup" : "S30a"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "forehead",
-      "value" : 17,
-      "symbolgroup" : "S30a"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "eyes",
-      "value" : 18,
-      "symbolgroup" : "S314"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "eyelashes",
-      "value" : 19,
-      "symbolgroup" : "S314"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "eyegaze",
-      "value" : 20,
-      "symbolgroup" : "S314"
+      "name" : "arrowhead",
+      "value" : 49,
+      "symbolgroup" : "S2f5"
     },
     {
       "choosertype" : "groupchooser",
@@ -12191,9 +11945,21 @@ var chooserclassification =
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "tense",
-      "value" : 22,
-      "symbolgroup" : ""
+      "name" : "contactos",
+      "value" : 2,
+      "symbolgroup" : "S205"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "curvy",
+      "value" : 47,
+      "symbolgroup" : "S299"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "diagonalpath",
+      "value" : 52,
+      "symbolgroup" : "S2a6"
     },
     {
       "choosertype" : "groupchooser",
@@ -12203,51 +11969,39 @@ var chooserclassification =
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "nose",
-      "value" : 24,
-      "symbolgroup" : "S331"
+      "name" : "excitement",
+      "value" : 33,
+      "symbolgroup" : "S36c"
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "air",
-      "value" : 25,
-      "symbolgroup" : "S331"
+      "name" : "eyes",
+      "value" : 18,
+      "symbolgroup" : "S314"
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "mouth",
-      "value" : 26,
-      "symbolgroup" : "S33e"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "lip",
-      "value" : 27,
-      "symbolgroup" : "S33e"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "tongue",
-      "value" : 28,
-      "symbolgroup" : "S33e"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "teeth",
-      "value" : 29,
-      "symbolgroup" : "S33e"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "jaw",
-      "value" : 30,
+      "name" : "headface",
+      "value" : 15,
       "symbolgroup" : "S2ff"
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "neck",
-      "value" : 31,
-      "symbolgroup" : "S36a"
+      "name" : "fingers",
+      "value" : 38,
+      "symbolgroup" : "S37e"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "forehead",
+      "value" : 17,
+      "symbolgroup" : "S30a"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "generalgroupchooser",
+      "value" : 0,
+      "symbolgroup" : ""
     },
     {
       "choosertype" : "groupchooser",
@@ -12257,15 +12011,195 @@ var chooserclassification =
     },
     {
       "choosertype" : "groupchooser",
-      "name" : "excitement",
-      "value" : 33,
-      "symbolgroup" : "S36c"
+      "name" : "handgroupchooser",
+      "value" : 1,
+      "symbolgroup" : "S14c"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "hitsceiling",
+      "value" : 53,
+      "symbolgroup" : "S24b"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "hitschest",
+      "value" : 51,
+      "symbolgroup" : "S2a6"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "hitsfrontwall",
+      "value" : 50,
+      "symbolgroup" : "S2a6"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "jaw",
+      "value" : 30,
+      "symbolgroup" : "S2ff"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "limb",
+      "value" : 37,
+      "symbolgroup" : "S376"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "lip",
+      "value" : 27,
+      "symbolgroup" : "S33e"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "location",
+      "value" : 39,
+      "symbolgroup" : "S385"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouth",
+      "value" : 26,
+      "symbolgroup" : "S33e"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvbdouble",
+      "value" : 45,
+      "symbolgroup" : "S242"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvbent",
+      "value" : 6,
+      "symbolgroup" : "S238"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvcircle",
+      "value" : 10,
+      "symbolgroup" : "S2e3"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvcurve",
+      "value" : 8,
+      "symbolgroup" : "S288"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvdiagonal",
+      "value" : 46,
+      "symbolgroup" : "S255"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvdynamics",
+      "value" : 13,
+      "symbolgroup" : "S2f7"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvfinger",
+      "value" : 44,
+      "symbolgroup" : "S228"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvfingercircle",
+      "value" : 12,
+      "symbolgroup" : "S2f1"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvflex",
+      "value" : 5,
+      "symbolgroup" : "S22e"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvloop",
+      "value" : 54,
+      "symbolgroup" : "S296"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvrotation",
+      "value" : 48,
+      "symbolgroup" : "S2a2"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvstraight",
+      "value" : 4,
+      "symbolgroup" : "S22a"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvtwist",
+      "value" : 7,
+      "symbolgroup" : "S24b"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "mouvwristcircle",
+      "value" : 11,
+      "symbolgroup" : "S2ed"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "moveoverunder",
+      "value" : 9,
+      "symbolgroup" : "S2b8"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "neck",
+      "value" : 31,
+      "symbolgroup" : "S36a"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "noseair",
+      "value" : 24,
+      "symbolgroup" : "S331"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "nudillo",
+      "value" : 3,
+      "symbolgroup" : "S216"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "punctuation",
+      "value" : 40,
+      "symbolgroup" : "S387"
     },
     {
       "choosertype" : "groupchooser",
       "name" : "shoulder",
       "value" : 34,
       "symbolgroup" : "S36d"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "teeth",
+      "value" : 29,
+      "symbolgroup" : "S33e"
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "tense",
+      "value" : 22,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "groupchooser",
+      "name" : "tongue",
+      "value" : 28,
+      "symbolgroup" : "S33e"
     },
     {
       "choosertype" : "groupchooser",
@@ -12280,84 +12214,6 @@ var chooserclassification =
       "symbolgroup" : "S36d"
     },
     {
-      "choosertype" : "groupchooser",
-      "name" : "limb",
-      "value" : 37,
-      "symbolgroup" : "S376"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "fingers",
-      "value" : 38,
-      "symbolgroup" : "S37e"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "location",
-      "value" : 39,
-      "symbolgroup" : "S385"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "period",
-      "value" : 40,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "semicolon",
-      "value" : 41,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "colon",
-      "value" : 42,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "parentheses",
-      "value" : 43,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvfinger",
-      "value" : 44,
-      "symbolgroup" : "S228"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvbdouble",
-      "value" : 45,
-      "symbolgroup" : "S242"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvdiagonal",
-      "value" : 46,
-      "symbolgroup" : "S255"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvupup",
-      "value" : 47,
-      "symbolgroup" : "S292"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "mouvrotation",
-      "value" : 48,
-      "symbolgroup" : "S2a2"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "arrowhead",
-      "value" : 49,
-      "symbolgroup" : "S2f5"
-    },
-    {
       "choosertype" : "hair",
       "name" : "hair",
       "value" : 1,
@@ -12365,49 +12221,7 @@ var chooserclassification =
     },
     {
       "choosertype" : "handgroupchooser",
-      "name" : "fist",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
-      "name" : "thumb",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
-      "name" : "circle",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
-      "name" : "index",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
-      "name" : "cup",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
-      "name" : "middle",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
       "name" : "angle",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "handgroupchooser",
-      "name" : "ring",
       "value" : 4,
       "symbolgroup" : ""
     },
@@ -12419,56 +12233,194 @@ var chooserclassification =
     },
     {
       "choosertype" : "handgroupchooser",
+      "name" : "circle",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "handgroupchooser",
+      "name" : "cup",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "handgroupchooser",
+      "name" : "fist",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "handgroupchooser",
       "name" : "flat",
       "value" : 5,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "headmovement",
-      "name" : "circles",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "headmovement",
-      "name" : "headhead",
+      "choosertype" : "handgroupchooser",
+      "name" : "index",
       "value" : 2,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "headmovement",
-      "name" : "headrim",
+      "choosertype" : "handgroupchooser",
+      "name" : "middle",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "headmovement",
-      "name" : "straight",
+      "choosertype" : "handgroupchooser",
+      "name" : "ring",
       "value" : 4,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "headmovement",
-      "name" : "tilts",
+      "choosertype" : "handgroupchooser",
+      "name" : "thumb",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "headface",
+      "name" : "direction",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "headface",
+      "name" : "directiontilting",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "headface",
+      "name" : "movementstraight",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "headface",
+      "name" : "movementcurve",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "headface",
+      "name" : "movementcircle",
       "value" : 5,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "headmovement",
+      "choosertype" : "hitsceiling",
+      "name" : "rotationalternating",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsceiling",
+      "name" : "rotationdouble",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsceiling",
+      "name" : "rotationsingle",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitschest",
       "name" : "curve",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitschest",
+      "name" : "hump",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitschest",
+      "name" : "loop",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitschest",
+      "name" : "rotation",
+      "value" : 5,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitschest",
+      "name" : "rotationalternating",
+      "value" : 7,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitschest",
+      "name" : "rotationdouble",
       "value" : 6,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "jaw",
-      "name" : "movementwallplane",
+      "choosertype" : "hitschest",
+      "name" : "wave",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "curve",
       "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "hump",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "loop",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "rotation",
+      "value" : 5,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "rotationalternating",
+      "value" : 7,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "rotationdouble",
+      "value" : 6,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "hitsfrontwall",
+      "name" : "wave",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "jaw",
       "name" : "movementfloorplane",
       "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "jaw",
+      "name" : "movementwallplane",
+      "value" : 1,
       "symbolgroup" : ""
     },
     {
@@ -12520,51 +12472,9 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "lip",
-      "name" : "pressedtogether",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "lip",
-      "name" : "loweroverupper",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "lip",
-      "name" : "upperoverlower",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
       "choosertype" : "location",
       "name" : "comma",
       "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "location",
-      "name" : "spacewallplane",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "location",
-      "name" : "spacefloorplane",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "location",
-      "name" : "height",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "location",
-      "name" : "width",
-      "value" : 5,
       "symbolgroup" : ""
     },
     {
@@ -12581,8 +12491,8 @@ var chooserclassification =
     },
     {
       "choosertype" : "location",
-      "name" : "torso",
-      "value" : 8,
+      "name" : "height",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
@@ -12592,177 +12502,87 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouvflex",
-      "name" : "flex",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvflex",
-      "name" : "flexalternate",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "closedneutral",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "corners",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "closedforward",
+      "choosertype" : "location",
+      "name" : "spacefloorplane",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouth",
-      "name" : "wrinklessingle",
-      "value" : 4,
+      "choosertype" : "location",
+      "name" : "spacewallplane",
+      "value" : 2,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouth",
-      "name" : "closedcontact",
+      "choosertype" : "location",
+      "name" : "surface",
+      "value" : 10,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "location",
+      "name" : "torso",
+      "value" : 8,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "location",
+      "name" : "width",
       "value" : 5,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouth",
-      "name" : "wrinklesdouble",
+      "name" : "neutral",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouth",
+      "name" : "special",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouth",
+      "name" : "forward",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouth",
+      "name" : "lip",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouth",
+      "name" : "wrinkled",
+      "value" : 5,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouth",
+      "name" : "tongue",
       "value" : 6,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouth",
-      "name" : "smile",
+      "name" : "teeth",
       "value" : 7,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouth",
-      "name" : "smilewrinkled",
+      "name" : "teethmovement",
       "value" : 8,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouth",
-      "name" : "smileopen",
+      "name" : "jaw",
       "value" : 9,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "frown",
-      "value" : 10,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "frownwrinkled",
-      "value" : 11,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "frownopen",
-      "value" : 12,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "opencircle",
-      "value" : 13,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openforward",
-      "value" : 14,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openwrinkled",
-      "value" : 15,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openoval",
-      "value" : 16,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openovalwinkled",
-      "value" : 17,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openovalyawn",
-      "value" : 18,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openrectangle",
-      "value" : 19,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openrectanglewrinkled",
-      "value" : 20,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "openrectangleyawn",
-      "value" : 21,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "kiss",
-      "value" : 22,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "kissforward",
-      "value" : 23,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "kisswrinkled",
-      "value" : 24,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "tense",
-      "value" : 25,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "tenseforward",
-      "value" : 26,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouth",
-      "name" : "tensesucked",
-      "value" : 27,
       "symbolgroup" : ""
     },
     {
@@ -12773,8 +12593,8 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvbdouble",
-      "name" : "zigzag",
-      "value" : 2,
+      "name" : "box",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
@@ -12785,20 +12605,14 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvbdouble",
+      "name" : "zigzag",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvbent",
       "name" : "box",
       "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvbent",
-      "name" : "rooftop",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvbent",
-      "name" : "corner",
-      "value" : 2,
       "symbolgroup" : ""
     },
     {
@@ -12809,20 +12623,26 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvbent",
-      "name" : "box",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvbent",
-      "name" : "zigzag",
-      "value" : 5,
+      "name" : "corner",
+      "value" : 2,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvbent",
       "name" : "peaks",
       "value" : 6,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvbent",
+      "name" : "rooftop",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvbent",
+      "name" : "zigzag",
+      "value" : 5,
       "symbolgroup" : ""
     },
     {
@@ -12839,44 +12659,38 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvcurve",
-      "name" : "curve",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvcurve",
-      "name" : "upup",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvcurve",
-      "name" : "downup",
+      "name" : "big",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvcurve",
-      "name" : "loopup",
+      "name" : "double",
       "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvcurve",
-      "name" : "updownup",
+      "name" : "medium",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvcurve",
+      "name" : "small",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvcurve",
+      "name" : "triple",
       "value" : 5,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouvcurve",
-      "name" : "mediumcurve",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvcurve",
-      "name" : "bigcurve",
-      "value" : 7,
+      "choosertype" : "mouvdiagonal",
+      "name" : "backdiagonal",
+      "value" : 2,
       "symbolgroup" : ""
     },
     {
@@ -12886,9 +12700,9 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouvdiagonal",
-      "name" : "backdiagonal",
-      "value" : 2,
+      "choosertype" : "mouvdynamics",
+      "name" : "alternating",
+      "value" : 6,
       "symbolgroup" : ""
     },
     {
@@ -12899,14 +12713,8 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvdynamics",
-      "name" : "slowmovement",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvdynamics",
-      "name" : "tensemovement",
-      "value" : 3,
+      "name" : "gradual",
+      "value" : 8,
       "symbolgroup" : ""
     },
     {
@@ -12923,20 +12731,20 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvdynamics",
-      "name" : "alternating",
-      "value" : 6,
+      "name" : "slowmovement",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvdynamics",
+      "name" : "tensemovement",
+      "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvdynamics",
       "name" : "unevenalternating",
       "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvdynamics",
-      "name" : "gradual",
-      "value" : 8,
       "symbolgroup" : ""
     },
     {
@@ -12952,15 +12760,57 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouvrotation",
-      "name" : "twist",
+      "choosertype" : "mouvflex",
+      "name" : "double",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvflex",
+      "name" : "flexalternatesingle",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvflex",
+      "name" : "flexalternatedouble",
+      "value" : 5,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvflex",
+      "name" : "single",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvflex",
+      "name" : "triple",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvloop",
+      "name" : "doubleloopup",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvloop",
+      "name" : "halfeight",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvloop",
+      "name" : "loopup",
       "value" : 1,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvrotation",
-      "name" : "twisttwist",
-      "value" : 2,
+      "name" : "twist",
+      "value" : 1,
       "symbolgroup" : ""
     },
     {
@@ -12970,9 +12820,21 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
+      "choosertype" : "mouvrotation",
+      "name" : "twisttwist",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
       "choosertype" : "mouvstraight",
-      "name" : "straight",
-      "value" : 1,
+      "name" : "between",
+      "value" : 7,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "mouvstraight",
+      "name" : "cross",
+      "value" : 6,
       "symbolgroup" : ""
     },
     {
@@ -12989,32 +12851,26 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvstraight",
-      "name" : "triple",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvstraight",
       "name" : "nodahalf",
       "value" : 5,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvstraight",
-      "name" : "cross",
-      "value" : 6,
+      "name" : "straight",
+      "value" : 1,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvstraight",
-      "name" : "backdiagonal",
-      "value" : 7,
+      "name" : "triple",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "mouvstraight",
-      "name" : "forwarddiagonal",
-      "value" : 8,
+      "choosertype" : "mouvtwist",
+      "name" : "cornertwist",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
@@ -13025,86 +12881,14 @@ var chooserclassification =
     },
     {
       "choosertype" : "mouvtwist",
-      "name" : "twisttwist",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvtwist",
       "name" : "twistshake",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "mouvtwist",
-      "name" : "twistcircle",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvtwist",
-      "name" : "cornertwist",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "sideside",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "loopside",
+      "name" : "twisttwist",
       "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "backside",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "upup",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "loopup",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "mouvupup",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "updownup",
-      "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "doubleloopup",
-      "value" : 8,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "hookloop",
-      "value" : 9,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "mouvupup",
-      "name" : "halfeight",
-      "value" : 10,
       "symbolgroup" : ""
     },
     {
@@ -13117,12 +12901,6 @@ var chooserclassification =
       "choosertype" : "mouvwristcircle",
       "name" : "double",
       "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "moveoverunder",
-      "name" : "simple",
-      "value" : 1,
       "symbolgroup" : ""
     },
     {
@@ -13151,6 +12929,12 @@ var chooserclassification =
     },
     {
       "choosertype" : "moveoverunder",
+      "name" : "simple",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "moveoverunder",
       "name" : "underover",
       "value" : 6,
       "symbolgroup" : ""
@@ -13162,26 +12946,32 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "nose",
-      "name" : "neutral",
+      "choosertype" : "noseair",
+      "name" : "noseneutral",
       "value" : 1,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "nose",
-      "name" : "contact",
+      "choosertype" : "noseair",
+      "name" : "nosemouvement",
       "value" : 2,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "nose",
-      "name" : "wrinkles",
+      "choosertype" : "noseair",
+      "name" : "blowingout",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "nose",
-      "name" : "wriggles",
+      "choosertype" : "noseair",
+      "name" : "suckingin",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "nudillo",
+      "name" : "bisagra",
       "value" : 4,
       "symbolgroup" : ""
     },
@@ -13204,27 +12994,27 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "nudillo",
-      "name" : "bisagra",
+      "choosertype" : "punctuation",
+      "name" : "parentheses",
       "value" : 4,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "parentheses",
-      "name" : "parentheses",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "period",
-      "name" : "period",
-      "value" : 1,
+      "choosertype" : "plane",
+      "name" : "backwarddiagonal",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "plane",
-      "name" : "wallplane",
-      "value" : 1,
+      "name" : "diagonal",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "floorfloor",
+      "value" : 3,
       "symbolgroup" : ""
     },
     {
@@ -13235,80 +13025,140 @@ var chooserclassification =
     },
     {
       "choosertype" : "plane",
-      "name" : "wallwall",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "plane",
-      "name" : "wallfloor",
+      "name" : "floorwall",
       "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "plane",
-      "name" : "floorfloor",
-      "value" : 5,
+      "name" : "forwarddiagonal",
+      "value" : 3,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "plane",
-      "name" : "floorwall",
+      "name" : "hitceiling",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "hitchest",
       "value" : 6,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "plane",
-      "name" : "forwarddiagonal",
-      "value" : 7,
+      "name" : "hitfloor",
+      "value" : 4,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "plane",
-      "name" : "backwarddiagonal",
-      "value" : 8,
+      "name" : "hitwall",
+      "value" : 5,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "plane",
-      "name" : "backwardheightdiagonal",
-      "value" : 9,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "plane",
-      "name" : "diagonal",
-      "value" : 10,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "plane",
-      "name" : "wallcircle",
-      "value" : 11,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "semicolon",
-      "name" : "semicolon",
+      "name" : "none",
       "value" : 1,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "shoulder",
-      "name" : "hipspine",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "shoulder",
-      "name" : "hippositions",
+      "choosertype" : "plane",
+      "name" : "wallfloor",
       "value" : 2,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "shoulder",
-      "name" : "hipmovewallplane",
+      "choosertype" : "plane",
+      "name" : "wallplane",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "wallwall",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "closed",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "open",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "corners",
       "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "tongueinside",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "tongueoutside",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "teeth",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "teethontongue",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "plane",
+      "name" : "teethonlips",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "punctuation",
+      "name" : "comma",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "punctuation",
+      "name" : "period",
+      "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "punctuation",
+      "name" : "semicolon",
+      "value" : 3,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "punctuation",
+      "name" : "colon",
+      "value" : 4,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "punctuation",
+      "name" : "parentheses",
+      "value" : 5,
       "symbolgroup" : ""
     },
     {
@@ -13319,50 +13169,26 @@ var chooserclassification =
     },
     {
       "choosertype" : "shoulder",
-      "name" : "tilts(fromwaist)",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "teeth",
-      "name" : "teeth",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "teeth",
-      "name" : "movement",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "teeth",
-      "name" : "ontongue",
+      "name" : "hipmovewallplane",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "teeth",
-      "name" : "ontonguemovement",
-      "value" : 4,
+      "choosertype" : "shoulder",
+      "name" : "hippositions",
+      "value" : 2,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "teeth",
-      "name" : "onlips",
+      "choosertype" : "shoulder",
+      "name" : "hipspine",
+      "value" : 1,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "shoulder",
+      "name" : "tilts(fromwaist)",
       "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "teeth",
-      "name" : "onlipsmovement",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "teeth",
-      "name" : "bitelips",
-      "value" : 7,
       "symbolgroup" : ""
     },
     {
@@ -13373,74 +13199,26 @@ var chooserclassification =
     },
     {
       "choosertype" : "tense",
-      "name" : "cheeksmiddle",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tense",
       "name" : "cheekslow",
       "value" : 3,
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "tongue",
-      "name" : "sticksoutfar",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "lickslips",
+      "choosertype" : "tense",
+      "name" : "cheeksmiddle",
       "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "tipbetweenlips",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "tiptouchesinsidemouth",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "insidemouthrelaxed",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "movesagainstcheek",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "centersticksout",
-      "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "tongue",
-      "name" : "centerinsidemouth",
-      "value" : 8,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "torso",
-      "name" : "straightstretchwall",
-      "value" : 1,
       "symbolgroup" : ""
     },
     {
       "choosertype" : "torso",
       "name" : "curvedbendwall",
       "value" : 2,
+      "symbolgroup" : ""
+    },
+    {
+      "choosertype" : "torso",
+      "name" : "straightstretchwall",
+      "value" : 1,
       "symbolgroup" : ""
     },
     {
@@ -13456,142 +13234,10 @@ var chooserclassification =
       "symbolgroup" : ""
     },
     {
-      "choosertype" : "location",
-      "name" : "surface",
-      "value" : 10,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "curve",
+      "choosertype" : "mouvfinger",
+      "name" : "mouvfinger",
       "value" : 1,
       "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "hump",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "loop",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "wave",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "rotation",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "rotationdouble",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsfrontwall",
-      "name" : "rotationalternating",
-      "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "curve",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "hump",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "loop",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "wave",
-      "value" : 4,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "rotation",
-      "value" : 5,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "rotationdouble",
-      "value" : 6,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitschest",
-      "name" : "rotationalternating",
-      "value" : 7,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "diagonalpath",
-      "name" : "wave",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsceiling",
-      "name" : "rotationsingle",
-      "value" : 1,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsceiling",
-      "name" : "rotationdouble",
-      "value" : 2,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "hitsceiling",
-      "name" : "rotationalternating",
-      "value" : 3,
-      "symbolgroup" : ""
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "hitsfrontwall",
-      "value" : 50,
-      "symbolgroup" : "S2a6"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "hitschest",
-      "value" : 51,
-      "symbolgroup" : "S2a6"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "diagonalpath",
-      "value" : 52,
-      "symbolgroup" : "S2a6"
-    },
-    {
-      "choosertype" : "groupchooser",
-      "name" : "hitsceiling",
-      "value" : 53,
-      "symbolgroup" : "S24b"
     }
   ]
 }

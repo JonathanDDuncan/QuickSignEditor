@@ -15,6 +15,7 @@ signView :
                     | nbcolor : String
                     , nwcolor : String
                     , pua : String
+                    , key : String
                     , size : Float
                     , x : Int
                     , y : Int
@@ -28,12 +29,12 @@ signView sign attr =
         (List.map extractColor sign.syms)
 
 
-extractColor : { a | nbcolor : String, nwcolor : String, pua : String, x : Int, y : Int, size : Float } -> Html Msg
+extractColor : { a | nbcolor : String, nwcolor : String, pua : String, key : String, x : Int, y : Int, size : Float } -> Html Msg
 extractColor symbol =
     symbolView symbol.nbcolor symbol
 
 
-symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String, size : Float } -> Html Msg
+symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String, key : String, size : Float } -> Html Msg
 symbolView nbcolor symbol =
     span
         [ class "symbol"
@@ -44,6 +45,13 @@ symbolView nbcolor symbol =
             ]
         ]
         [ span
+            [ style
+                [ "display"
+                    => "none"
+                ]
+            ]
+            [ text symbol.key ]
+        , span
             [ class "sym-fill"
             , style
                 [ "color"
@@ -107,6 +115,7 @@ scaledSignView :
                     | nbcolor : String
                     , nwcolor : String
                     , pua : String
+                    , key : String
                     , size : Float
                     , x : Int
                     , y : Int
@@ -127,6 +136,7 @@ noScaleSignView :
                     | nbcolor : String
                     , nwcolor : String
                     , pua : String
+                    , key : String
                     , size : Float
                     , x : Int
                     , y : Int
