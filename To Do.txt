@@ -1,5 +1,7 @@
 To Do
 
+Popups are blurry
+Empty symbols are hard to drag.
 Get Choosings List for Chooser
 Drag drop Choosing onto signArea
 click Choosings to get more specific

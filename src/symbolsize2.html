@@ -103,12 +103,23 @@
                     var key1 = item.symbolkey + (rotation - 1).toString(16) + (fill - 1).toString(16)
 
                     var symbolelement = document.getElementById("symbol");
-                    var pua = ssw.pua(key1);
-                    symbolelement.innerHTML = "<span class='sym-fill' style='color: white;'>" + pua + "</span><span class='sym-line' style='color: black;'>" + pua + "</span></div>"
-                    var rect1width = symbolelement.getElementsByTagName('span')[0].clientWidth
-                    var rect1height = symbolelement.getElementsByTagName('span')[0].clientHeight
-                    var rect2width = symbolelement.getElementsByTagName('span')[1].clientWidth
-                    var rect2height = symbolelement.getElementsByTagName('span')[1].clientHeight
+                    // var pua = ssw.pua(key1);
+                    symbolelement.innerHTML = ssw.svg(key1);
+                    // "<span class='sym-fill' style='color: white;'>" + pua + "</span><span class='sym-line' style='color: black;'>" + pua + "</span></div>"
+                    var text1 = symbolelement.getElementsByTagName('text')[1];
+                    var text2 = symbolelement.getElementsByTagName('text')[2];
+                    var rect1width = 0;
+                    var rect1height = 0;
+                    if (text1) {
+                        rect1width = text1.clientWidth
+                        rect1height = text1.clientHeight
+                    }
+                    var rect2width = 0;
+                    var rect2height = 0;
+                    if (text2) {
+                        rect2width = text2.clientWidth
+                        rect2height = text2.clientHeight
+                    }
                     var rect = {};
 
                     rect.width = Math.max(rect1width, rect2width);
@@ -130,6 +141,7 @@
                             // console.log(key1 + "," + size1);
                             // }
                     }
+
                 }
             }
         }
