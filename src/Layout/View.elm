@@ -65,12 +65,12 @@ smallscreen model =
                 []
                 [ div
                     [ style
-                        [ ( "background-color", "orange" ) ]
+                        [ ( "background-color", "lightsteelblue" ) ]
                     ]
                     [ leftspace model ]
                 , div
                     [ style
-                        [ ( "background-color", "purple" )
+                        [ ( "background-color", "lightyellow" )
                         ]
                     ]
                     [ rightspace model ]

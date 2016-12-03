@@ -8,7 +8,7 @@
             }
             
             .footer {
-                background-color: deepskyblue;
+                background-color: lightyellow;
                 position: fixed;
                 bottom: 0;
                 width: 100%;
@@ -16,21 +16,21 @@
             }
             
             .leftspace {
-                background-color: orange;
+                background-color: lightsteelblue;
                 position: fixed;
                 top: 0;
                 z-index: 10;
             }
             
             .centerspace {
-                background-color: lightgreen;
+                background-color: lightyellow;
                 position: fixed;
                 top: 0;
                 z-index: 10;
             }
             
             .rightspace {
-                background-color: purple;
+                background-color: lightyellow;
                 position: fixed;
                 top: 0;
                 z-index: 10;
@@ -38,11 +38,21 @@
             }
             
             .drawer {
-                background-color: green;
+                background-color: lightsteelblue;
                 position: fixed;
                 top: 0;
                 right: 0;
                 z-index: 10;
+            }
+            
+            .signview {
+                background-color: lightyellow;
+                position: relative;
+                width: 98%;
+                margin: 5px;
+                border-width: 2px;
+                border-color: black;
+                border-style: double;
             }
             
             .sym-fill {
@@ -199,10 +209,10 @@
             
             .symbol {
                 position: absolute;
-               
             }
             
-           .symbol, .font-30 {
+            .symbol,
+            .font-30 {
                 font-size: 30px;
             }
             

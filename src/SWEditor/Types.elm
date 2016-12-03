@@ -16,6 +16,7 @@ type alias Model =
     , rectanglestart : Position
     , windowresized : Bool
     , editormode : EditorMode
+    , containerheight: Int
     , uid : Int
     }
 

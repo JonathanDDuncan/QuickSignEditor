@@ -143,7 +143,7 @@ windowSizeSetter =
                 , centerspacemarginleftpercentage = centerspaceMarginLeftPercentage m windowwidth
                 , leftspacepercentage = leftspacePercentage m windowwidth
                 , drawerwidth = drawerWidth rdrawer.active rdrawer.showing rdrawer.fullwidth rdrawer.alwaysShowpx
-                , signbox = { sbox | windowresized = True }
+                , signbox = { sbox | containerheight = containerheight  , windowresized = True }
             }
     )
 

@@ -35,6 +35,7 @@ init =
       , windowresized = False
       , editormode = Awaiting
       , viewposition = { name = "", x = 0, y = 0, width = 0, height = 0 }
+      , containerheight = 500
       , uid = 0
       }
     , Cmd.none
