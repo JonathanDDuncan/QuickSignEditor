@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Show Symbol Size</title>
+    <meta name="description" content="Show Symbol Size" />
+    <meta name="author" content="Jonathan Duncan" />
+    <link rel="shortcut icon" type="image/png" href="./favicon.ico" />
+
+    <script src="symbolsize.js"></script>
+    <script src="SuttonSignWriting.js"></script>
+
+</head>
+
+<body style= "border-style:">
+    <script>
+        var str = "<ul>"
+        // 8001,10000
+        // 10001,12000
+        // 12001,14000
+        for (let symbol of symbolsizes.slice(12001,14000)) {
+ 
+            str += "<li>";
+            str += "<div>";
+            str += "<div style='background-color: red;border-width: 1px;border-style: solid; border-color : blue;   z-index: 1; width: " + symbol.w + "px; height: " + symbol.h + "px;'>&nbsp;</div>";
+            str +=  "<div style='margin-top:-" + symbol.h+ "px; z-index: 2; '>" + ssw.svg(symbol.k) + "</div>";
+          
+            str += "</div>";
+            str += "</li>";
+        }
+
+        str += "</ul>";
+
+        var body = document.getElementsByTagName("BODY")[0];
+        body.innerHTML = str;
+    </script>
+
+
+
+</body>
+
+</html>
