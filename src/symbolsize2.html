@@ -22,19 +22,6 @@
 <body style="background-color: lightyellow">
     <span id="symbol"> </span>
     <script>
-        function getTextNodeRect(textNode) {
-            var rect;
-            if (document.createRange) {
-                var range = document.createRange();
-                range.selectNodeContents(textNode);
-                if (range.getBoundingClientRect) {
-                    rect = range.getBoundingClientRect();
-                }
-            }
-            return rect;
-        }
-
-
         var getvalidfills = function(fillstr) {
             if (fillstr === "1 - 6")
 
@@ -126,21 +113,23 @@
 
                     rect.width = Math.max(rect1width, rect2width);
                     rect.height = Math.max(rect1height, rect2height);
-                    // var size1 = ssw.size(key1);
-                    // if (size1.includes("x")) {
-                    var keysize = {};
-                    keysize.k = key1;
 
-                    // var size2 = size1.split('x');
-                    // var width = rect1.right - rect1.left;
-                    // var height = rect1.bottom - rect1.top
-                    keysize.w = rect.width;
-                    keysize.h = rect.height;
+                    if (rect.width > 0) {
+                        // var size1 = ssw.size(key1);
+                        // if (size1.includes("x")) {
+                        var keysize = {};
+                        keysize.k = key1;
 
-                    keysizes.push(keysize)
-                        // console.log(key1 + "," + size1);
-                        // }
+                        // var size2 = size1.split('x');
+                        // var width = rect1.right - rect1.left;
+                        // var height = rect1.bottom - rect1.top
+                        keysize.w = rect.width;
+                        keysize.h = rect.height;
 
+                        keysizes.push(keysize)
+                            // console.log(key1 + "," + size1);
+                            // }
+                    }
                 }
             }
         }
