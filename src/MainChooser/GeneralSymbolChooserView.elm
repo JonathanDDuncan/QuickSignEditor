@@ -209,7 +209,7 @@ generalsymbolcol drag base fill rotation symbolsizes  columnwidth rowheight scal
                         [ "position" => "relative"
                         , "margin"   => "auto" 
                         , "left" => px 0
-                        , "top" => px 0
+                        , "top" => px 4
                         , "width" => px symbol.width
                         , "height" => px symbol.height                                               ] 
                     ]

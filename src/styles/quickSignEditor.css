@@ -242,6 +242,12 @@
                 vertical-align: middle;
             }
             /*Keep the tooltip from displaying blurry*/
+            
             .mdl-tooltip {
                 will-change: unset;
+            }
+            
+            .symbolchooserheader {
+                background-color: lightsteelblue;
+                top: -10px;
             }

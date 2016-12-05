@@ -48,6 +48,11 @@ init =
 update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 update action model =
     case action of
+        Noop ->
+            ( model
+            , Cmd.none
+            )
+
         MainChooserMessage ->
             ( model
             , Cmd.none
@@ -143,7 +148,7 @@ update action model =
         Mdl msg' ->
             Material.update msg' model
 
- 
+
 (=>) : a -> b -> ( a, b )
 (=>) =
     (,)
@@ -170,6 +175,7 @@ getchoosings symbolgroup chooseritemvalues basechooseritems =
 
         itemsvalues =
             List.filter (\chooseritemvalue -> List.any (is chooseritemvalue.choosertype) groupchoosers) chooseritemvalues
+
         colitemsvalues =
             List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "colname") chooseritemvalues
 

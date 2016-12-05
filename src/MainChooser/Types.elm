@@ -122,7 +122,8 @@ type alias GroupChoosing =
 
 
 type Msg
-    = MainChooserMessage
+    = Noop
+    | MainChooserMessage
     | RequestInitialChoosings
     | ReceiveInitialChoosings (List Choosing.ImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
