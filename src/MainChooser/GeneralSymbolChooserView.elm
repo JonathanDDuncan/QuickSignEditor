@@ -31,11 +31,11 @@ generalsymbolchooser choosing selectedcolumn symbolsizes width height  =
         smallestscalebody =  
            Maybe.withDefault 1 <| getscales columnwidth rowheight <| (getsymbols choosing.base[column] [1..16] symbolsizes) 
         in 
-        div [attribute "ondragstart" "return false;", attribute "ondrop" "return false;"] [  table
-                [ Html.Attributes.style
+        div [attribute "ondragstart" "return false;", attribute "ondrop" "return false;"] [ 
+             table
+                [class "symbolchooserheader", Html.Attributes.style
                     [ "width" => px (width - 12)
                     , "height" => px  rowheight
-                    
                     ]
                 ]
                 [ tr [] (generalsymbolrow choosing.base vf 1 symbolsizes columnwidth rowheight smallestscaleheader)
@@ -153,7 +153,7 @@ generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes column
         [ if showrotation1 then
             td 
                 [  ]
-                [ (generalsymbolcol base symbolcol rotation symbolsizes  columnwidth rowheight scale)  ]
+                [ (generalsymbolcol True base symbolcol rotation symbolsizes  columnwidth rowheight scale)  ]
           else
             blanktd
         , blanktd
@@ -164,7 +164,7 @@ generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes column
                         [ "text-align" => "center","display" => "block"
                          ,"width" => "45%"
                         ]]
-                [ generalsymbolcol base symbolcol rotation2  symbolsizes columnwidth rowheight scale]
+                [ generalsymbolcol True base symbolcol rotation2  symbolsizes columnwidth rowheight scale]
           else
             blanktd
         ]
@@ -183,11 +183,11 @@ isValidRotation rotation  validrotations =
 
 generalsymbolrow : Base -> List Fill -> Rotation ->Dict String Size ->Int -> Int -> Float -> List (Html MainChooser.Types.Msg)
 generalsymbolrow base validfills rotation symbolsizes columnwidth rowheight scale =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol base fill rotation symbolsizes columnwidth rowheight scale) ]) validfills
+    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol False base fill rotation symbolsizes columnwidth rowheight scale) ]) validfills
 
 
-generalsymbolcol : Base -> Fill -> Rotation -> Dict String Size -> Int ->  Int -> Float -> Html MainChooser.Types.Msg
-generalsymbolcol base fill rotation symbolsizes  columnwidth rowheight scale =
+generalsymbolcol : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int ->  Int -> Float -> Html MainChooser.Types.Msg
+generalsymbolcol drag base fill rotation symbolsizes  columnwidth rowheight scale =
     let
         symbol =
             getSymbolEditorBaseFillRotation base fill rotation symbolsizes
@@ -195,9 +195,10 @@ generalsymbolcol base fill rotation symbolsizes  columnwidth rowheight scale =
         sign =
             { syms = [ symbol ]
             }
-    in
+    in 
         -- App.map SymbolView (symbolView "" symbol)
-        div [onMouseDown (DragSymbol symbol.code), 
+        div [
+            onMouseDown ( if (drag) then DragSymbol symbol.code else Noop) , 
         Html.Attributes.style  (scaling scale) ]
         [
        
