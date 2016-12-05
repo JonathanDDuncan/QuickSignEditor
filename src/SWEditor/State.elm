@@ -19,8 +19,9 @@ import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SW.SymbolConverter exposing (..)
 import Dict exposing (..)
--- import List.Extra exposing (..)
- 
+import List.Extra exposing (..)
+
+
 -- import SubSWEditors.State
 
 
@@ -64,16 +65,16 @@ update action model =
                 lastuid =
                     getlastuid <| editorSign
             in
-                { model | sign = editorSign, uid = lastuid, undolist = addundoitem model } ! [] |> andThen update UpdateSignViewPosition
+                { model | sign = editorSign, uid = lastuid, undolist = addundoitem model } ! [] |> Update.Extra.andThen update UpdateSignViewPosition
 
         RequestElementPosition elementid ->
             ( model, Ports.requestElementPosition elementid )
 
         ReceiveElementPosition namedposition ->
-            { model | viewposition = namedposition } ! [] |> andThen update CenterSign
+            { model | viewposition = namedposition } ! [] |> Update.Extra.andThen update CenterSign
 
         UpdateSignViewPosition ->
-            { model | windowresized = False } ! [] |> andThen update (RequestElementPosition "signView")
+            { model | windowresized = False } ! [] |> Update.Extra.andThen update (RequestElementPosition "signView")
 
         CenterSign ->
             { model | sign = centerSignViewposition model.viewposition model.sign, undolist = addundoitem model } ! []
@@ -98,7 +99,7 @@ update action model =
             { model | editormode = Awaiting, sign = rectangleselect model, undolist = addundoitem model } ! []
 
         SelectSymbol id ->
-            { model | sign = selectSymbolId id model, undolist = addundoitem model } ! [] |> andThen update (StartDragging)
+            { model | sign = selectSymbolId id model, undolist = addundoitem model } ! [] |> Update.Extra.andThen update (StartDragging)
 
         UnSelectSymbols ->
             { model | sign = unselectSymbols model.sign, undolist = addundoitem model } ! []
@@ -155,12 +156,12 @@ update action model =
                 model
                     ! []
                     |> Update.Extra.filter (selectedsymbols > 0 && withinsignview)
-                        (andThen update (StartDragging))
+                        (Update.Extra.andThen update (StartDragging))
                     |> Update.Extra.filter (howmanysymbolsunderposition == 1 && withinsignview)
-                        (andThen update (SelectSymbol firstsymbolid))
+                        (Update.Extra.andThen update (SelectSymbol firstsymbolid))
                     |> Update.Extra.filter (howmanysymbolsunderposition == 0 && withinsignview)
-                        (andThen update (UnSelectSymbols)
-                            >> andThen update StartRectangleSelect
+                        (Update.Extra.andThen update (UnSelectSymbols)
+                            >> Update.Extra.andThen update StartRectangleSelect
                         )
 
         MouseUp position ->
@@ -177,9 +178,9 @@ update action model =
                 model
                     ! []
                     |> Update.Extra.filter (model.editormode == RectangleSelect)
-                        (andThen update EndRectangleSelect)
+                        (Update.Extra.andThen update EndRectangleSelect)
                     |> Update.Extra.filter (model.editormode == Dragging)
-                        (andThen update EndDragging)
+                        (Update.Extra.andThen update EndDragging)
 
         MouseMove position ->
             let
@@ -195,9 +196,9 @@ update action model =
                 { model | xy = signviewposition }
                     ! []
                     |> Update.Extra.filter (model.windowresized)
-                        (andThen update UpdateSignViewPosition)
+                        (Update.Extra.andThen update UpdateSignViewPosition)
                     |> Update.Extra.filter (model.editormode == Dragging)
-                        (andThen update DragSelected)
+                        (Update.Extra.andThen update DragSelected)
 
         DragSymbol symbol ->
             let
@@ -221,39 +222,39 @@ update action model =
                 { model | uid = lastuid, editormode = Dragging, dragstart = model.xy, dragsign = sign } ! []
 
         Undo ->
-             model ! []
+            undo model ! []
 
         Redo ->
-             model ! []
+            model ! []
 
 
 addundoitem : Model -> List EditorSign
 addundoitem model =
     Debug.log "undo" (List.append model.undolist [ model.sign ])
 
-   
--- undo : Model -> Model
--- undo model =
---     let
---         lastsign =
---             withDefault model.sign List.last model.undolist
 
---         len =
---             List.length model.undolist
+undo : Model -> Model
+undo model =
+    let
+        lastsign =
+            (Maybe.withDefault model.sign) <| List.Extra.last model.undolist
 
---         length =
---             if len >= 0 then
---                 len
---             else
---                 1
+        len =
+            List.length model.undolist
 
---         undolist =
---             List.take (length - 1) model.undolist
+        length =
+            if len >= 0 then
+                len
+            else
+                1
 
---         redolist =
---             List.append model.redolist model.sign
---     in
---         { model | sign = lastsign, undolist = undolist, redolist = redolist }
+        undolist =
+            List.take (length - 1) model.undolist
+
+        redolist =
+            List.append model.redolist []
+    in
+        { model | sign = lastsign, undolist = undolist, redolist = redolist }
 
 
 putsymbolswithinbounds sign bounds =
