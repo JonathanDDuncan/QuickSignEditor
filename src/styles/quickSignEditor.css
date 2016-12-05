@@ -78,6 +78,12 @@
                 position: absolute;
                 z-index: 11;
                 font-size: 30px;
+            }
+            
+            .nonativedrag,
+            .sym-fill,
+            .sym-line,
+            #quicksigneditor {
                 -webkit-touch-callout: none;
                 -webkit-user-select: none;
                 -khtml-user-select: none;
