@@ -16,6 +16,11 @@ copy .\src\sw10.min.js  published\ /y
 copy .\src\chooserclassification.js published\ /y
 copy .\src\symbolsize.js  published\ /y
 
+copy .\src\sw10.js  published\signmaker\ /y
+copy .\src\sw10.min.js  published\signmaker\ /y
+copy .\src\chooserclassification.js published\signmaker\ /y
+copy .\src\symbolsize.js  published\signmaker\ /y
+
 xcopy .\src\signmaker\*.*  published\signmaker /s /y
 rem Please commit any changes to the publish folder
 pause
