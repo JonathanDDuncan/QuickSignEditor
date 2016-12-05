@@ -83,7 +83,11 @@ update action model =
             { model | sign = dragsign model } ! []
 
         EndDragging ->
-            { model | editormode = Awaiting } ! []
+            let
+                signwithinbounds =
+                    putsymbolswithinbounds model.sign model.viewposition
+            in
+                { model | sign = signwithinbounds, editormode = Awaiting } ! []
 
         StartRectangleSelect ->
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
@@ -213,6 +217,50 @@ update action model =
                     getlastuid <| sign
             in
                 { model | uid = lastuid, editormode = Dragging, dragstart = model.xy, dragsign = sign } ! []
+
+
+putsymbolswithinbounds sign bounds =
+    let
+        movedsyms =
+            List.map (\sym -> maintainwithinbounds sym <| Debug.log "bounds" bounds) sign.syms
+
+        signbound =
+            getSignBounding movedsyms
+    in
+        { sign | syms = movedsyms, width = signbound.width, height = signbound.height, x = signbound.x, y = signbound.y }
+
+
+maintainwithinbounds sym bounds =
+    let
+        left =
+            0
+
+        right =
+            0 + bounds.width - 20
+
+        top =
+            5
+
+        bottom =
+            0 + bounds.height - 10
+
+        newx =
+            if (sym.x < left) then
+                left
+            else if sym.x + sym.width > right then
+                right - sym.width
+            else
+                sym.x
+
+        newy =
+            if (sym.y < top) then
+                top
+            else if sym.y + sym.height > bottom then
+                bottom - sym.height
+            else
+                sym.y
+    in
+        { sym | x = newx, y = newy }
 
 
 
