@@ -18,6 +18,8 @@ type alias Model =
     , editormode : EditorMode
     , containerheight: Int
     , uid : Int
+    , undolist: List EditorSign
+    , redolist: List EditorSign
     }
 
 
@@ -49,6 +51,8 @@ type Msg
     | DragSelected
     | EndDragging
     | DragSymbol Symbol
+    | Undo
+    | Redo
 
 
 type EditorMode

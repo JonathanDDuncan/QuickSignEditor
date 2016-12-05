@@ -19,7 +19,7 @@ import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import SW.SymbolConverter exposing (..)
 import Dict exposing (..)
-
+-- import List.Extra exposing (..)
 
 -- import SubSWEditors.State
 
@@ -37,6 +37,8 @@ init =
       , viewposition = { name = "", x = 0, y = 0, width = 0, height = 0 }
       , containerheight = 500
       , uid = 0
+      , undolist = []
+      , redolist = []
       }
     , Cmd.none
     )
@@ -62,7 +64,7 @@ update action model =
                 lastuid =
                     getlastuid <| editorSign
             in
-                { model | sign = editorSign, uid = lastuid } ! [] |> andThen update UpdateSignViewPosition
+                { model | sign = editorSign, uid = lastuid, undolist = addundoitem model } ! [] |> andThen update UpdateSignViewPosition
 
         RequestElementPosition elementid ->
             ( model, Ports.requestElementPosition elementid )
@@ -74,32 +76,32 @@ update action model =
             { model | windowresized = False } ! [] |> andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            { model | sign = centerSignViewposition model.viewposition model.sign } ! []
+            { model | sign = centerSignViewposition model.viewposition model.sign, undolist = addundoitem model } ! []
 
         StartDragging ->
             { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
 
         DragSelected ->
-            { model | sign = dragsign model } ! []
+            { model | sign = dragsign model, undolist = addundoitem model } ! []
 
         EndDragging ->
             let
                 signwithinbounds =
                     putsymbolswithinbounds model.sign model.viewposition
             in
-                { model | sign = signwithinbounds, editormode = Awaiting } ! []
+                { model | sign = signwithinbounds, editormode = Awaiting, undolist = addundoitem model } ! []
 
         StartRectangleSelect ->
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
 
         EndRectangleSelect ->
-            { model | editormode = Awaiting, sign = rectangleselect model } ! []
+            { model | editormode = Awaiting, sign = rectangleselect model, undolist = addundoitem model } ! []
 
         SelectSymbol id ->
-            { model | sign = selectSymbolId id model } ! [] |> andThen update (StartDragging)
+            { model | sign = selectSymbolId id model, undolist = addundoitem model } ! [] |> andThen update (StartDragging)
 
         UnSelectSymbols ->
-            { model | sign = unselectSymbols model.sign } ! []
+            { model | sign = unselectSymbols model.sign, undolist = addundoitem model } ! []
 
         TouchDown position ->
             -- let
@@ -200,7 +202,7 @@ update action model =
         DragSymbol symbol ->
             let
                 editorSymbol =
-                    toEditorSymbol  model.uid 0 symbol
+                    toEditorSymbol model.uid 0 symbol
 
                 selectedsymbol =
                     { editorSymbol | selected = True }
@@ -217,6 +219,41 @@ update action model =
                     getlastuid <| sign
             in
                 { model | uid = lastuid, editormode = Dragging, dragstart = model.xy, dragsign = sign } ! []
+
+        Undo ->
+             model ! []
+
+        Redo ->
+             model ! []
+
+
+addundoitem : Model -> List EditorSign
+addundoitem model =
+    Debug.log "undo" (List.append model.undolist [ model.sign ])
+
+   
+-- undo : Model -> Model
+-- undo model =
+--     let
+--         lastsign =
+--             withDefault model.sign List.last model.undolist
+
+--         len =
+--             List.length model.undolist
+
+--         length =
+--             if len >= 0 then
+--                 len
+--             else
+--                 1
+
+--         undolist =
+--             List.take (length - 1) model.undolist
+
+--         redolist =
+--             List.append model.redolist model.sign
+--     in
+--         { model | sign = lastsign, undolist = undolist, redolist = redolist }
 
 
 putsymbolswithinbounds sign bounds =
