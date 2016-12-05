@@ -15,11 +15,12 @@ import Dict exposing (..)
 import String exposing (..)
 import SW.Types exposing (..)
 import Material
+import SWEditor.EditorSymbol exposing (getSymbolEditorCode, fromEditorSymbol)
 
 
 -- import SubMainChoosers.State
 
- 
+
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
     ( { lastmdlid = 0
@@ -121,9 +122,16 @@ update action model =
             )
 
         DragSymbol code ->
-            ( model
-            , cmdDragSymbol <| code
-            )
+            let
+                editorsymbol =
+                    Debug.log "dragsymbol" <| (getSymbolEditorCode code model.symbolsizes)
+
+                symbol =
+                    fromEditorSymbol editorsymbol
+            in
+                ( model
+                , cmdDragSymbol <| symbol
+                )
 
         FilterHandGroup value ->
             ( { model

@@ -193,20 +193,20 @@ update action model =
                     |> Update.Extra.filter (model.editormode == Dragging)
                         (andThen update DragSelected)
 
-        DragSymbol code ->
+        DragSymbol symbol ->
             let
-                symb1 =
-                    getSymbolEditorCode code <| Dict.fromList [ ( "", { width = 20, height = 20 } ) ]
+                editorSymbol =
+                    toEditorSymbol  model.uid 0 symbol
 
-                symbol =
-                    { symb1 | selected = True }
+                selectedsymbol =
+                    { editorSymbol | selected = True }
 
                 sign1 =
                     unselectSymbols model.sign
 
                 sign =
                     { sign1
-                        | syms = List.append sign1.syms [ { symbol | x = model.xy.x, y = model.xy.y, id = model.uid + 1 } ]
+                        | syms = List.append sign1.syms [ { selectedsymbol | x = model.xy.x, y = model.xy.y, id = model.uid + 2 } ]
                     }
 
                 lastuid =

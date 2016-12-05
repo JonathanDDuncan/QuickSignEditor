@@ -4,7 +4,6 @@ import SW.Types exposing (..)
 import Choosing.Types as Choosing exposing (..)
 import MainChooser.Types as MainChooser exposing (..)
 
-
 -- Ports go here like this
 
 
@@ -46,6 +45,6 @@ port requestInitialChoosings : String -> Cmd msg
 
 port requestInitialGroupHandChoosings : String -> Cmd msg
 
-port cmdDragSymbol : Int -> Cmd msg
+port cmdDragSymbol : Symbol -> Cmd msg
 
-port subDragSymbol : (Int -> msg) -> Sub msg
+port subDragSymbol : (Symbol -> msg) -> Sub msg

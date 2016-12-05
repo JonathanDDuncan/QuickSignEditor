@@ -71,9 +71,8 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
 
     } catch (e) { console.log(e) }
 });
-app.ports.cmdDragSymbol.subscribe(function(code) {
-    console.log("requestInitialGroupHandChoosings called " + code)
-    app.ports.subDragSymbol.send(code);
+app.ports.cmdDragSymbol.subscribe(function(symbol) {
+    app.ports.subDragSymbol.send(symbol);
 });
 
 

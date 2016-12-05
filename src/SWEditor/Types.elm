@@ -48,7 +48,7 @@ type Msg
     | StartDragging
     | DragSelected
     | EndDragging
-    | DragSymbol Code
+    | DragSymbol Symbol
 
 
 type EditorMode

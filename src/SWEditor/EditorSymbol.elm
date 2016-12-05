@@ -46,6 +46,21 @@ toEditorSymbol id index symbol =
     }
 
 
+fromEditorSymbol : EditorSymbol  -> Symbol
+fromEditorSymbol symbol =
+    { x = symbol.x
+    , y = symbol.y
+    , width = symbol.width
+    , height = symbol.height
+    , fontsize = symbol.fontsize
+    , size = symbol.size
+    , nwcolor = symbol.nwcolor
+    , pua = symbol.pua
+    , code = symbol.code
+    , key = symbol.key
+    , nbcolor = symbol.nbcolor
+    }
+
 getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> EditorSymbol
 getSymbolEditorBaseFillRotation base fill rotation symbolsizes =
     let
