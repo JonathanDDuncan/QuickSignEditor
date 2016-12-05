@@ -20,7 +20,7 @@ import SW.Types exposing (..)
 import SW.SymbolConverter exposing (..)
 import Dict exposing (..)
 -- import List.Extra exposing (..)
-
+ 
 -- import SubSWEditors.State
 
 
