@@ -8,7 +8,7 @@
             }
             
             .footer {
-                background-color: lightyellow;
+                background-color: deepskyblue;
                 position: fixed;
                 bottom: 0;
                 width: 100%;
@@ -16,21 +16,21 @@
             }
             
             .leftspace {
-                background-color: lightsteelblue;
+                background-color: orange;
                 position: fixed;
                 top: 0;
                 z-index: 10;
             }
             
             .centerspace {
-                background-color: lightyellow;
+                background-color: lightgreen;
                 position: fixed;
                 top: 0;
                 z-index: 10;
             }
             
             .rightspace {
-                background-color: lightyellow;
+                background-color: purple;
                 position: fixed;
                 top: 0;
                 z-index: 10;
@@ -38,21 +38,11 @@
             }
             
             .drawer {
-                background-color: lightsteelblue;
+                background-color: green;
                 position: fixed;
                 top: 0;
                 right: 0;
                 z-index: 10;
-            }
-            
-            .signview {
-                background-color: lightyellow;
-                position: relative;
-                width: 98%;
-                margin: 5px;
-                border-width: 2px;
-                border-color: black;
-                border-style: double;
             }
             
             .sym-fill {
@@ -78,12 +68,6 @@
                 position: absolute;
                 z-index: 11;
                 font-size: 30px;
-            }
-            
-            .nonativedrag,
-            .sym-fill,
-            .sym-line,
-            #quicksigneditor {
                 -webkit-touch-callout: none;
                 -webkit-user-select: none;
                 -khtml-user-select: none;
@@ -215,10 +199,10 @@
             
             .symbol {
                 position: absolute;
+               
             }
             
-            .symbol,
-            .font-30 {
+           .symbol, .font-30 {
                 font-size: 30px;
             }
             
@@ -247,13 +231,47 @@
                 text-align: center;
                 vertical-align: middle;
             }
-            /*Keep the tooltip from displaying blurry*/
             
-            .mdl-tooltip {
-                will-change: unset;
+            a.tooltip {
+                outline: none;
             }
             
-            .symbolchooserheader {
-                background-color: lightsteelblue;
-                top: -10px;
+            a.tooltip strong {
+                line-height: 30px;
+            }
+            
+            a.tooltip:hover {
+                text-decoration: none;
+            }
+            
+            a.tooltip>span {
+                z-index: 10;
+                display: none;
+                padding: 14px 20px;
+                margin-top: 5px;
+                margin-left: -120px;
+                width: 50px;
+                line-height: 16px;
+            }
+            
+            a.tooltip:hover>span {
+                display: inline;
+                position: absolute;
+                color: #111;
+                border: 1px solid #DCA;
+                background: #fffAF0;
+            }
+            
+            .callout {
+                z-index: 20;
+                position: absolute;
+                top: 30px;
+                border: 0;
+                left: 100px;
+            }
+            /*CSS3 extras*/
+            
+            a.tooltip>span {
+                border-radius: 4px;
+                box-shadow: 5px 5px 8px #CCC;
             }
