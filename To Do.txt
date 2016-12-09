@@ -1,13 +1,10 @@
 To Do
 
-Popups are blurry
-Empty symbols are hard to drag.
-Get Choosings List for Chooser
-Drag drop Choosing onto signArea
-click Choosings to get more specific
+Undo/Redo
+Hand symbol chooser
+Arrow symbol chooser
 
 Add fingerspelling layout to keyboard
-Do smooth drag when first symbol selected
 Add color choooser
 Add align right left
 Add Bring to top or bottom
