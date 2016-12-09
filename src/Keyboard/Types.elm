@@ -6,13 +6,21 @@ import Dict
 import SWEditor.Types
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (..)
-
-
+import Keyboard.Extra as KeyboardExtra
+ 
 type alias Model =
     { keyboardlayout : KeyboardLayout
     , keyboarddisplay : KeyboardDisplay
     , keycodedictionary : Dict.Dict Int String
     , keyboardhistory : List String
+    , keyboardModel : KeyboardExtra.Model
+    , shiftPressed : Bool
+    , controlPressed : Bool
+    , altPressed : Bool
+    , arrows : { x : Int, y : Int }
+    , wasd : { x : Int, y : Int }
+    , keyList : List KeyboardExtra.Key
+ 
     }
 
 
@@ -20,7 +28,9 @@ type Msg
     = FeatureMessage
     | KeyClicked Int
     | Display SWEditor.Types.Msg
-
+    | KeyboardExtraMsg KeyboardExtra.Msg
+   
+ 
 
 type alias KeyboardLayout =
     { name : String

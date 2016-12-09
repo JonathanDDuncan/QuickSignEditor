@@ -9,24 +9,40 @@ module Keyboard.State exposing (init, update, subscriptions)
 import Keyboard.Types exposing (..)
 import String exposing (..)
 import Keyboard.KeyboardLayouts exposing (..)
-
+import Keyboard.Extra as KeyboardExtra
+ 
 
 -- import SubFeatures.State
-
+ 
 
 init : ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
 init =
-    ( { keyboardlayout = querty
-      , keyboarddisplay = fingerspellingQueryAsl
-      , keycodedictionary = keycodes
-      , keyboardhistory = []
-      }
-      -- To initiate Keyboard state
-      --  { featureFieldName = fst Keyboard.State.init
-      --  }
-    , Cmd.none
-    )
+    let
+        ( keyboardModel, keyboardCmd ) =
+            KeyboardExtra.init
+    in
+        ( { keyboardlayout = querty
+          , keyboarddisplay = fingerspellingQueryAsl
+          , keycodedictionary = keycodes
+          , keyboardhistory = []
+          , keyboardModel = keyboardModel
+          , shiftPressed = False
+          , controlPressed = False
+          , altPressed = False
+          , arrows = { x = 0, y = 0 }
+          , wasd = { x = 0, y = 0 }
+          , keyList = []
+        
 
+          }
+          -- To initiate Keyboard state
+          --  { featureFieldName = fst Keyboard.State.init
+          --  }
+        , Cmd.batch
+            [ Cmd.map KeyboardExtraMsg keyboardCmd
+            ]
+        )
+ 
 
 stringtoCodes : String -> List Int
 stringtoCodes str =
@@ -45,17 +61,35 @@ stringtoCodes str =
         )
         (split "," str)
 
-
+  
 update : Keyboard.Types.Msg -> Keyboard.Types.Model -> ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
 update action model =
     case action of
+        KeyboardExtraMsg keyMsg ->
+            let
+                ( keyboardModel, keyboardCmd ) =
+                    KeyboardExtra.update keyMsg model.keyboardModel
+            in
+                ( { model
+                    | keyboardModel = keyboardModel
+                    , shiftPressed = Debug.log "shiftPressed" <| KeyboardExtra.isPressed KeyboardExtra.Shift keyboardModel
+                    , controlPressed = Debug.log "controlPressed" <| KeyboardExtra.isPressed KeyboardExtra.Control keyboardModel
+                    , altPressed = Debug.log "altPressed" <| KeyboardExtra.isPressed KeyboardExtra.Alt keyboardModel
+                    
+                    , arrows = Debug.log "arrows" <| KeyboardExtra.arrows keyboardModel
+                    , wasd =Debug.log "wasd" <|  KeyboardExtra.wasd keyboardModel
+                    , keyList = Debug.log "keyList" <| KeyboardExtra.pressedDown keyboardModel
+                  }
+                , Cmd.map KeyboardExtraMsg keyboardCmd
+                )
+
         FeatureMessage ->
             ( model
             , Cmd.none
             )
 
         KeyClicked n ->
-            ( { model | keyboardhistory =  (toString n :: model.keyboardhistory) }
+            ( { model | keyboardhistory = (toString n :: model.keyboardhistory) }
             , Cmd.none
             )
 
@@ -72,8 +106,10 @@ update action model =
 
 
 subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg
-subscriptions _ =
-    Sub.none
+subscriptions model =
+    Sub.batch
+        [ Sub.map KeyboardExtraMsg KeyboardExtra.subscriptions
+        ]
 
 
 
