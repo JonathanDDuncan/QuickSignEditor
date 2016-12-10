@@ -81,7 +81,7 @@ nkey model n sign footerwidth =
             else
                 ""
     in
-        div [ class <| "key k" ++ toString n , onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
+        div [ class <| "key k" ++ toString n , onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
             [ div [ class  <| "scaletoparent" ++ pressed ]
                 [ App.map
                     Display
@@ -121,12 +121,12 @@ calcscale sign height width =
     in
         scale
 
-
+   
 getKeyDisplay : Int -> Model -> String
 getKeyDisplay n model =
     let
         keycode =
-            Maybe.withDefault { code = 0, display = "", keypress = None } (nth n model.keyboardlayout.keys)
+            Maybe.withDefault { keyId = 0, code = 0, display = "", keypress = None } (nth n model.keyboardlayout.keys)
     in
         keycode.display
 
@@ -139,3 +139,8 @@ nth i list =
 onTouchStart : msg -> Attribute msg
 onTouchStart message =
     on "touchstart" (Json.succeed message)
+
+
+onTouchEnd : msg -> Attribute msg
+onTouchEnd message =
+    on "touchend" (Json.succeed message)
