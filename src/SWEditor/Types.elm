@@ -21,7 +21,7 @@ type alias Model =
     , undolist: List EditorSign
     , redolist: List EditorSign
     }
-
+ 
 
 type alias Offset =
     { offsetx : Int
@@ -37,8 +37,6 @@ type Msg
     | RequestElementPosition String
     | ReceiveElementPosition NamedPosition
     | CenterSign
-    | TouchDown Position
-    | TouchUp Position
     | MouseDown Position
     | MouseUp Position
     | MouseMove Position

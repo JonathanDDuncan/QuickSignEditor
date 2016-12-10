@@ -9,7 +9,6 @@ module SWEditor.State exposing (init, update, subscriptions)
 import Ports as Ports exposing (..)
 import Debug
 import Update.Extra exposing (..)
-import Touch.TouchEvents as Events exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.Drag exposing (..)
@@ -17,10 +16,8 @@ import SWEditor.Select exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
-import SW.SymbolConverter exposing (..)
-import Dict exposing (..)
 import List.Extra exposing (..)
-
+import Mouse as Mouse exposing (downs, moves, ups)
 
 -- import SubSWEditors.State
 
@@ -103,14 +100,6 @@ update action model =
 
         UnSelectSymbols ->
             { model | sign = unselectSymbols model.sign, undolist = addundoitem model } ! []
-
-        TouchDown position ->
-           
-            model ! []
-
-        TouchUp position ->
-           
-            model ! []
 
         MouseDown position ->
             let
@@ -290,12 +279,9 @@ maintainwithinbounds sym bounds =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ Events.downs MouseDown
-        , Events.moves MouseMove
-        , Events.ups MouseUp
-        , Events.touchdowns TouchDown
-        , Events.touchmoves MouseMove
-        , Events.touchups TouchUp
+        [ Mouse.downs MouseDown
+        , Mouse.moves MouseMove
+        , Mouse.ups MouseUp
         , receiveSign SetSign
         , receiveElementPosition ReceiveElementPosition
         , subDragSymbol DragSymbol
