@@ -23,15 +23,8 @@ init =
     in
         ( { keyboardlayout = querty
           , keyboarddisplay = fingerspellingQueryAsl
-          , keycodedictionary = keycodes
           , keyboardhistory = []
           , keyboardExtraModel = keyboardModel
-          , shiftPressed = False
-          , controlPressed = False
-          , altPressed = False
-          , arrows = { x = 0, y = 0 }
-          , wasd = { x = 0, y = 0 }
-          , keyExtraList = []
           , keyList = []
           }
           -- To initiate Keyboard state
@@ -43,24 +36,6 @@ init =
         )
 
 
-stringtoCodes : String -> List Int
-stringtoCodes str =
-    List.map
-        (\s ->
-            let
-                result =
-                    toInt s
-            in
-                case result of
-                    Ok value ->
-                        value
-
-                    Err msg ->
-                        -1
-        )
-        (split "," str)
-
-
 update : Keyboard.Types.Msg -> Keyboard.Types.Model -> ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
 update action model =
     case action of
@@ -69,39 +44,16 @@ update action model =
                 ( keyboardExtraModel, keyboardCmd ) =
                     KeyboardExtra.update keyMsg model.keyboardExtraModel
 
-                keyExtraList =
-                    Debug.log "keyList" <| KeyboardExtra.pressedDown keyboardExtraModel
-
-                shiftPressed =
-                    Debug.log "shiftPressed" <| KeyboardExtra.isPressed KeyboardExtra.Shift keyboardExtraModel
-
-                controlPressed =
-                    Debug.log "controlPressed" <| KeyboardExtra.isPressed KeyboardExtra.Control keyboardExtraModel
-
-                altPressed =
-                    Debug.log "altPressed" <| KeyboardExtra.isPressed KeyboardExtra.Alt keyboardExtraModel
-
                 keyList =
-                    getKeyList model keyboardExtraModel
+                    getKeyList model.keyboardlayout.keys keyboardExtraModel
             in
                 ( { model
                     | keyboardExtraModel = keyboardExtraModel
-                    , shiftPressed = shiftPressed
-                    , controlPressed = controlPressed
-                    , altPressed = altPressed
-                    , arrows = Debug.log "arrows" <| KeyboardExtra.arrows keyboardExtraModel
-                    , wasd = Debug.log "wasd" <| KeyboardExtra.wasd keyboardExtraModel
-                    , keyExtraList = keyExtraList
                     , keyList = keyList
                   }
                 , Cmd.map KeyboardExtraMsg keyboardCmd
                 )
-
-        FeatureMessage ->
-            ( model
-            , Cmd.none
-            )
-
+ 
         KeyClicked n ->
             ( { model | keyboardhistory = (toString n :: model.keyboardhistory) }
             , Cmd.none
@@ -126,7 +78,8 @@ subscriptions model =
         ]
 
 
-getKeyList model keyboardExtraModel =
+getKeyList : List Key -> KeyboardExtra.Model -> List Int
+getKeyList keys keyboardExtraModel =
     let
         shiftPressed =
             KeyboardExtra.isPressed KeyboardExtra.Shift keyboardExtraModel
@@ -162,7 +115,7 @@ getKeyList model keyboardExtraModel =
                 keyList2
 
         otherkeys =
-            getKeys model keyExtraList
+            getKeys keys keyExtraList
 
         keyList4 =
             List.append keyList3 otherkeys
@@ -173,14 +126,14 @@ getKeyList model keyboardExtraModel =
         keyList
 
 
-getKeys model keyExtraList =
+getKeys : List Key -> List KeyboardExtra.Key -> List Int
+getKeys keys keyExtraList =
     let
         listExtraCodes =
             List.map (\key -> KeyboardExtra.toCode key) keyExtraList
 
         keyids =
-            Debug.log "keyids" <| 
-             List.map (\key ->  key.keyId)  (List.concatMap (\code -> List.filter (keyhasCode code) model.keyboardlayout.keys) listExtraCodes)
+            List.map (\key -> key.keyId) (List.concatMap (\code -> List.filter (keyhasCode code) keys) listExtraCodes)
     in
         keyids
 

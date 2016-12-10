@@ -12,22 +12,14 @@ import Keyboard.Extra as KeyboardExtra
 type alias Model =
     { keyboardlayout : KeyboardLayout
     , keyboarddisplay : KeyboardDisplay
-    , keycodedictionary : Dict.Dict Int String
     , keyboardhistory : List String
     , keyboardExtraModel : KeyboardExtra.Model
-    , shiftPressed : Bool
-    , controlPressed : Bool
-    , altPressed : Bool
-    , arrows : { x : Int, y : Int }
-    , wasd : { x : Int, y : Int }
-    , keyExtraList : List KeyboardExtra.Key
     , keyList : List Int
     }
 
 
 type Msg
-    = FeatureMessage
-    | KeyClicked Int
+    = KeyClicked Int
     | Display SWEditor.Types.Msg
     | KeyboardExtraMsg KeyboardExtra.Msg
 
@@ -79,11 +71,7 @@ type Keypress
     | Home
     | End
 
-
-type alias KeyCodeDictionary =
-    { codes : List Int }
-
-
+ 
 
 -- Plus any other types unique to this Keyboard
 -- Plus any library function to run on the types
