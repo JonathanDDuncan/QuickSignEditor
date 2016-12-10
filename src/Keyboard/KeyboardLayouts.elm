@@ -86,8 +86,8 @@ querty =
         , { keyId = 11, code = 48, display = "0", keypress = None }
         , { keyId = 12, code = 189, display = "-", keypress = None }
         , { keyId = 13, code = 187, display = "=", keypress = None }
-        , { keyId = 14, code = 0, display = "Backspace", keypress = None }
-        , { keyId = 15, code = 0, display = "Tab", keypress = None }
+        , { keyId = 14, code = 8, display = "Backspace", keypress = None }
+        , { keyId = 15, code = 9, display = "Tab", keypress = None }
         , { keyId = 16, code = 81, display = "Q", keypress = None }
         , { keyId = 17, code = 87, display = "W", keypress = None }
         , { keyId = 18, code = 69, display = "E", keypress = None }
@@ -101,7 +101,7 @@ querty =
         , { keyId = 26, code = 219, display = "[", keypress = None }
         , { keyId = 27, code = 221, display = "]", keypress = None }
         , { keyId = 28, code = 220, display = "\\", keypress = None }
-        , { keyId = 29, code = 0, display = "Caps", keypress = None }
+        , { keyId = 29, code = 20, display = "Caps", keypress = None }
         , { keyId = 30, code = 65, display = "A", keypress = None }
         , { keyId = 31, code = 83, display = "S", keypress = None }
         , { keyId = 32, code = 68, display = "D", keypress = None }
@@ -114,7 +114,7 @@ querty =
         , { keyId = 39, code = 186, display = ";", keypress = None }
         , { keyId = 40, code = 222, display = "'", keypress = None }
         , { keyId = 41, code = 13, display = "Enter", keypress = None }
-        , { keyId = 42, code = 0, display = "Shift", keypress = None }
+        , { keyId = 42, code = 16, display = "Shift", keypress = None }
         , { keyId = 43, code = 90, display = "Z", keypress = None }
         , { keyId = 44, code = 88, display = "X", keypress = None }
         , { keyId = 45, code = 67, display = "C", keypress = None }
@@ -125,39 +125,39 @@ querty =
         , { keyId = 50, code = 188, display = ",", keypress = None }
         , { keyId = 51, code = 190, display = ".", keypress = None }
         , { keyId = 52, code = 191, display = "/", keypress = None }
-        , { keyId = 53, code = 0, display = "Shift", keypress = None }
-        , { keyId = 54, code = 0, display = "Ctrl", keypress = None }
-        , { keyId = 55, code = 0, display = "Cmd", keypress = None }
-        , { keyId = 56, code = 0, display = "Alt", keypress = None }
+        , { keyId = 53, code = 16, display = "Shift", keypress = None }
+        , { keyId = 54, code = 17, display = "Ctrl", keypress = None }
+        , { keyId = 55, code = 224, display = "Cmd", keypress = None }
+        , { keyId = 56, code = 18, display = "Alt", keypress = None }
         , { keyId = 57, code = 32, display = "Space", keypress = None }
-        , { keyId = 58, code = 0, display = "Alt ", keypress = None }
-        , { keyId = 59, code = 0, display = "Menu Key", keypress = None }
-        , { keyId = 60, code = 0, display = "Ctrl", keypress = None }
+        , { keyId = 58, code = 225, display = "Alt ", keypress = None }
+        , { keyId = 59, code = 93, display = "Menu Key", keypress = None }
+        , { keyId = 60, code = 17, display = "Ctrl", keypress = None }
         , { keyId = 61, code = 45, display = "Insert", keypress = None }
-        , { keyId = 62, code = 36, display = "Delete", keypress = None }
-        , { keyId = 63, code = 33, display = "Home", keypress = None }
-        , { keyId = 64, code = 46, display = "End", keypress = None }
-        , { keyId = 65, code = 35, display = "PgUp", keypress = None }
-        , { keyId = 66, code = 3, display = "PgDown", keypress = None }
+        , { keyId = 62, code = 46, display = "Delete", keypress = None }
+        , { keyId = 63, code = 36, display = "Home", keypress = None }
+        , { keyId = 64, code = 35, display = "End", keypress = None }
+        , { keyId = 65, code = 33, display = "PgUp", keypress = None }
+        , { keyId = 66, code = 34, display = "PgDown", keypress = None }
         , { keyId = 67, code = 38, display = "↑", keypress = None }
         , { keyId = 68, code = 37, display = "←", keypress = None }
         , { keyId = 69, code = 40, display = "↓", keypress = None }
         , { keyId = 70, code = 39, display = "→", keypress = None }
-        , { keyId = 71, code = 47, display = "/", keypress = None }
-        , { keyId = 72, code = 42, display = "*", keypress = None }
-        , { keyId = 73, code = 45, display = "-", keypress = None }
-        , { keyId = 74, code = 55, display = "7", keypress = None }
-        , { keyId = 75, code = 56, display = "8", keypress = None }
-        , { keyId = 76, code = 57, display = "9", keypress = None }
-        , { keyId = 77, code = 43, display = "+", keypress = None }
-        , { keyId = 78, code = 52, display = "4", keypress = None }
-        , { keyId = 79, code = 53, display = "5", keypress = None }
-        , { keyId = 80, code = 54, display = "6", keypress = None }
-        , { keyId = 81, code = 49, display = "1", keypress = None }
-        , { keyId = 82, code = 50, display = "2", keypress = None }
-        , { keyId = 83, code = 51, display = "3", keypress = None }
-        , { keyId = 84, code = 48, display = "0", keypress = None }
-        , { keyId = 85, code = 46, display = ".", keypress = None }
+        , { keyId = 71, code = 111, display = "/", keypress = None }
+        , { keyId = 72, code = 106, display = "*", keypress = None }
+        , { keyId = 73, code = 109, display = "-", keypress = None }
+        , { keyId = 74, code = 103, display = "7", keypress = None }
+        , { keyId = 75, code = 104, display = "8", keypress = None }
+        , { keyId = 76, code = 105, display = "9", keypress = None }
+        , { keyId = 77, code = 107, display = "+", keypress = None }
+        , { keyId = 78, code = 100, display = "4", keypress = None }
+        , { keyId = 79, code = 101, display = "5", keypress = None }
+        , { keyId = 80, code = 102, display = "6", keypress = None }
+        , { keyId = 81, code = 97, display = "1", keypress = None }
+        , { keyId = 82, code = 98, display = "2", keypress = None }
+        , { keyId = 83, code = 99, display = "3", keypress = None }
+        , { keyId = 84, code = 96, display = "0", keypress = None }
+        , { keyId = 85, code = 108, display = ".", keypress = None }
         , { keyId = 86, code = 13, display = "Enter", keypress = None }
         
         ]
