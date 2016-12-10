@@ -121,7 +121,7 @@ update action model =
 
         GroupSelected choosing ->
             ( { model
-                | groupselected = Debug.log "GroupSelected choosing" choosing
+                | groupselected =   choosing
               }
             , Cmd.none
             )
@@ -129,7 +129,7 @@ update action model =
         DragSymbol code ->
             let
                 editorsymbol =
-                    Debug.log "dragsymbol" <| (getSymbolEditorCode code model.symbolsizes)
+                    (getSymbolEditorCode code model.symbolsizes)
 
                 symbol =
                     fromEditorSymbol editorsymbol

@@ -1,6 +1,7 @@
 To Do
 
 Undo/Redo
+Split long list of hand groups
 Hand symbol chooser
 Arrow symbol chooser
 

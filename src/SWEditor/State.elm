@@ -105,29 +105,11 @@ update action model =
             { model | sign = unselectSymbols model.sign, undolist = addundoitem model } ! []
 
         TouchDown position ->
-            -- let
-            --     dbg =
-            --         Debug.log "TouchDown position" position
-            --     signviewposition =
-            --         Debug.log "signviewposition" (signViewPosition position model.viewposition)
-            --     withinsignview =
-            --         Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
-            --     symbolsunderposition =
-            --         Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
-            -- in
+           
             model ! []
 
         TouchUp position ->
-            -- let
-            --     dbg =
-            --         Debug.log "TouchUp position" position
-            --     signviewposition =
-            --         Debug.log "signviewposition" (signViewPosition position model.viewposition)
-            --     withinsignview =
-            --         Debug.log "signviewposition" (withinSignView signviewposition model.viewposition)
-            --     symbolsunderposition =
-            --         Debug.log "symbolsunderposition" (symbolsUnderPosition signviewposition model.sign)
-            -- in
+           
             model ! []
 
         MouseDown position ->
@@ -230,7 +212,7 @@ update action model =
 
 addundoitem : Model -> List EditorSign
 addundoitem model =
-    Debug.log "undo" (List.append model.undolist [ model.sign ])
+   (List.append model.undolist [ model.sign ])
 
 
 undo : Model -> Model
@@ -260,7 +242,7 @@ undo model =
 putsymbolswithinbounds sign bounds =
     let
         movedsyms =
-            List.map (\sym -> maintainwithinbounds sym <| Debug.log "bounds" bounds) sign.syms
+            List.map (\sym -> maintainwithinbounds sym <|   bounds) sign.syms
 
         signbound =
             getSignBounding movedsyms
