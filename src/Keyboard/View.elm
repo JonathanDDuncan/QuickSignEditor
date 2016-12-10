@@ -71,15 +71,29 @@ nkey model n sign footerwidth =
 
         width =
             round (toFloat sign.width * scale)
+
+        ispressed =
+            checkifkeypressed model n
+
+        pressed =
+            if (ispressed) then
+                " pressed"
+            else
+                ""
     in
-        div [ class "key", onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
-            [ div [ class "scaletoparent" ]
+        div [ class <| "key k" ++ toString n , onClick (KeyClicked n), onTouchStart (KeyClicked n) ]
+            [ div [ class  <| "scaletoparent" ++ pressed ]
                 [ App.map
                     Display
                     (SWEditor.Display.scaledSignView sign scale leftmargin)
                 ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
+
+
+checkifkeypressed : Model -> Int -> Bool
+checkifkeypressed model n =
+    List.any ((==) n) model.keyList
 
 
 minkeywidth : Int -> Float
