@@ -53,10 +53,11 @@ type Msg
     | DragSelected
     | EndDragging
     | DragSymbol Symbol
+    | AddUndo Bool String Model
     | Undo
     | Redo
     | Keyboard KeyboardCommand
-
+ 
 
 type EditorMode
     = Awaiting

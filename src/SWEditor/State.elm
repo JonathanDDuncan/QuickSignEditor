@@ -15,8 +15,8 @@ import SWEditor.Drag as Drag exposing (..)
 import SWEditor.Select exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SWEditor.Undo exposing (..)
 import SW.Types exposing (..)
-import List.Extra exposing (..)
 import Mouse as Mouse exposing (downs, moves, ups)
 import Keyboard.Shared exposing (..)
 
@@ -64,7 +64,10 @@ update action model =
                 lastuid =
                     getlastuid <| editorSign
             in
-                { model | sign = editorSign, uid = lastuid, undolist = addundoitem model "SetSign" } ! [] |> Update.Extra.andThen update UpdateSignViewPosition
+                { model | sign = editorSign, uid = lastuid }
+                    ! []
+                    |> Update.Extra.andThen update (AddUndo True "SetSign" model)
+                    |> Update.Extra.andThen update UpdateSignViewPosition
 
         RequestElementPosition elementid ->
             ( model, Ports.requestElementPosition elementid )
@@ -76,7 +79,9 @@ update action model =
             { model | windowresized = False } ! [] |> Update.Extra.andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            { model | sign = centerSignViewposition model.viewposition model.sign, undolist = addundoitem model "CenterSign" } ! []
+            { model | sign = centerSignViewposition model.viewposition model.sign }
+                ! []
+                |> Update.Extra.andThen update (AddUndo True "CenterSign" model)
 
         StartDragging ->
             { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
@@ -85,7 +90,6 @@ update action model =
             { model
                 | sign =
                     Drag.dragsign model
-                    -- , undolist = addundoitem model "DragSelected"
             }
                 ! []
 
@@ -94,29 +98,37 @@ update action model =
                 signwithinbounds =
                     putsymbolswithinbounds model.sign model.viewposition
             in
-                { model | sign = signwithinbounds, editormode = Awaiting, undolist = addundoitem model "EndDragging" } ! []
+                model
+                    ! []
+                    |> Update.Extra.andThen update (AddUndo True "EndDragging" { model | sign = signwithinbounds, editormode = Awaiting })
 
         StartRectangleSelect ->
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
 
         EndRectangleSelect ->
-            { model | editormode = Awaiting, sign = rectangleselect model, undolist = addundoitem model "EndRectangleSelect" } ! []
+            
+                { model | editormode = Awaiting, sign = rectangleselect model }
+                    ! []
+                    |> Update.Extra.andThen update (AddUndo True "EndRectangleSelect" model)
 
         SelectSymbol id ->
-            let
-                newsign =
-                    selectSymbolId id model
-
-                undolist1 =
-                    if (Debug.log "not same" <| newsign /= model.sign) then
-                        addundoitem model "SelectSymbol"
-                    else
-                        model.undolist
-            in
-                { model | sign = newsign, undolist = undolist1 } ! [] |> Update.Extra.andThen update (StartDragging)
+            
+                { model | sign =   selectSymbolId id model }
+                    ! []
+                    |> Update.Extra.andThen update (AddUndo True "SelectSymbol" model)
+                    |> Update.Extra.andThen update (StartDragging)
 
         UnSelectSymbols ->
-            { model | sign = unselectSymbols model.sign, undolist = addundoitem model "UnSelectSymbols" } ! []
+            let
+                newsign =
+                    unselectSymbols model.sign
+
+                changed =
+                    hasSelectedSymbols model.sign
+            in
+                { model | sign = newsign }
+                    ! []
+                    |> Update.Extra.andThen update (AddUndo changed "UnSelectSymbols" model)
 
         MouseDown position ->
             let
@@ -209,6 +221,9 @@ update action model =
             in
                 { model | uid = lastuid, editormode = Dragging, dragstart = model.xy, dragsign = sign } ! []
 
+        AddUndo changed actiononame model1 ->
+            addUndo changed actiononame model1 ! []
+
         Undo ->
             undo model ! []
 
@@ -249,16 +264,12 @@ runKeyboardCommand model command =
 
 
 runKeyboardSignView model command =
-    let
-        ud =
-            Debug.log "Undo" command.ctrlPressed && List.any ((==) 43) command.keys
-    in
-        model
-            ! []
-            |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 43) command.keys)
-                (Update.Extra.andThen update Undo)
-            |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 21) command.keys)
-                (Update.Extra.andThen update Redo)
+    model
+        ! []
+        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 43) command.keys)
+            (Update.Extra.andThen update Undo)
+        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 21) command.keys)
+            (Update.Extra.andThen update Redo)
 
 
 runKeyboardGeneralChooser model command =
@@ -271,80 +282,6 @@ runKeyboardGroupChooser model command =
 
 runKeyboardSymbolChooser model command =
     model ! []
-
-
-addundoitem : Model -> String -> List UndoItem
-addundoitem model actionname =
-    (List.append model.undolist [ { actionname = actionname, sign = model.sign } ])
-
-
-undo : Model -> Model
-undo model =
-    let
-        undoitem1 =
-            (Maybe.withDefault { actionname = "", sign = model.sign }) <| List.Extra.last model.undolist
-
-        lastsign =
-            undoitem1.sign
-
-        len =
-            List.length model.undolist
-
-        length =
-            if len >= 0 then
-                len
-            else
-                1
-
-        undolist =
-            List.take (length - 1) model.undolist
-
-        redolist =
-            List.append model.redolist []
-
-        actionname =
-            Debug.log "Undo actionname" undoitem1.actionname
-    in
-        { model | sign = lastsign, undolist = undolist, redolist = redolist }
-
-
-redo : Model -> Model
-redo model =
-    let
-        redoitem1 =
-            List.Extra.last model.redolist
-
-        model =
-            case redoitem1 of
-                Just item ->
-                    let
-                        sign =
-                            item.sign
-
-                        len =
-                            List.length model.redolist
-
-                        length =
-                            if len >= 0 then
-                                len
-                            else
-                                1
-
-                        undolist =
-                            List.append model.undolist [ {actionname = "Redo", sign = model.sign } ]
-
-                        redolist =
-                            List.take (length - 1) model.redolist
-
-                        actionname =
-                            Debug.log "Undo actionname" item.actionname
-                    in
-                        { model | sign = sign, undolist = undolist, redolist = redolist }
-
-                Nothing ->
-                    model
-    in
-        model
 
 
 putsymbolswithinbounds sign bounds =

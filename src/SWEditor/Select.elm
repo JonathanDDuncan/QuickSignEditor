@@ -10,6 +10,11 @@ unselectSymbols sign =
     { sign | syms = List.map unselectSymbol sign.syms }
 
 
+hasSelectedSymbols : EditorSign -> Bool
+hasSelectedSymbols sign =
+    List.any (\s -> s.selected) sign.syms
+
+
 unselectSymbol : EditorSymbol -> EditorSymbol
 unselectSymbol symbol =
     { symbol | selected = False }
