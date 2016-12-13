@@ -86,6 +86,9 @@ app.ports.cmdDragSymbol.subscribe(function(symbol) {
     app.ports.subDragSymbol.send(symbol);
 });
 
+app.ports.sendKeyboardCommand.subscribe(function(keyboardcommand) {
+    app.ports.receiveKeyboardCommand.send(keyboardcommand);
+});
 
 
 function getchoosings(fsw) {

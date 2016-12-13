@@ -16,7 +16,7 @@ dragsign model =
 
         symbols =
             dragSymbols dragoffset sign.syms
-
+ 
         bounds =
             getSignBounding symbols
     in

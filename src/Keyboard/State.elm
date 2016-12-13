@@ -7,9 +7,10 @@ module Keyboard.State exposing (init, update, subscriptions)
 -- import PlatformHelpers exposing (..)
 
 import Keyboard.Types exposing (..)
-import String exposing (..)
 import Keyboard.KeyboardLayouts exposing (..)
 import Keyboard.Extra as KeyboardExtra
+import Keyboard.Shared exposing (..)
+import Ports exposing (..)
 
 
 -- import SubFeatures.State
@@ -26,10 +27,8 @@ init =
           , keyboardhistory = []
           , keyboardExtraModel = keyboardModel
           , keyList = []
+          , keyboardmode = SignView
           }
-          -- To initiate Keyboard state
-          --  { featureFieldName = fst Keyboard.State.init
-          --  }
         , Cmd.batch
             [ Cmd.map KeyboardExtraMsg keyboardCmd
             ]
@@ -46,14 +45,24 @@ update action model =
 
                 keyList =
                     getKeyList model.keyboardlayout.keys keyboardExtraModel
+
+                newmode =
+                    getmode keyList model
+
+                keyboardcommand =
+                    createKeyboardCommand keyList newmode
             in
                 ( { model
                     | keyboardExtraModel = keyboardExtraModel
                     , keyList = keyList
+                    , keyboardmode = newmode
                   }
-                , Cmd.map KeyboardExtraMsg keyboardCmd
+                , Cmd.batch
+                    [ Cmd.map KeyboardExtraMsg keyboardCmd
+                    , Ports.sendKeyboardCommand keyboardcommand
+                    ]
                 )
- 
+
         KeyClicked n ->
             ( { model | keyboardhistory = (toString n :: model.keyboardhistory) }
             , Cmd.none
@@ -69,6 +78,68 @@ update action model =
 --To nest update of Keyboard
 --  FeatureMsg action ->
 --          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Keyboard.State.update action model
+
+
+createKeyboardCommand :
+    List Int
+    -> KeyboardMode
+    -> KeyboardCommand
+createKeyboardCommand keyList mode =
+    let
+        shiftPressed =
+            isPressedShift keyList
+
+        ctrlPressed =
+            isPressedCtrl keyList
+
+        altPressed =
+            isPressedAlt keyList
+
+        modecode =
+            keyboardModeCode
+                |> List.filter (\m -> snd m == mode)
+                |> List.map (\m -> fst m)
+                |> List.head
+                |> Maybe.withDefault 1
+
+        keyboardcommand =
+            { shiftPressed = shiftPressed
+            , ctrlPressed = ctrlPressed
+            , altPressed = altPressed
+            , mode = modecode
+            , keys = keyList
+            }
+    in
+        keyboardcommand
+
+
+getmode : List Int -> Model -> KeyboardMode
+getmode keyList model =
+    if isPressedShift keyList && List.any ((==) 2) keyList then
+        SignView
+    else if isPressedShift keyList && List.any ((==) 3) keyList then
+        GeneralChooser
+    else if isPressedShift keyList && List.any ((==) 4) keyList then
+        GroupChooser
+    else if isPressedShift keyList && List.any ((==) 5) keyList then
+        SymbolChooser
+    else
+        model.keyboardmode
+
+
+isPressedShift : List Int -> Bool
+isPressedShift keyList =
+    List.any ((==) 42) keyList || List.any ((==) 53) keyList
+
+
+isPressedCtrl : List Int -> Bool
+isPressedCtrl keyList =
+    List.any ((==) 54) keyList || List.any ((==) 60) keyList
+
+
+isPressedAlt : List Int -> Bool
+isPressedAlt keyList =
+    List.any ((==) 56) keyList || List.any ((==) 58) keyList
 
 
 subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg

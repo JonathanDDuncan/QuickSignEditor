@@ -10,7 +10,7 @@ import String
 import Json.Decode as Json
 import SWEditor.Display exposing (..)
 import SWEditor.EditorSign exposing (..)
-
+import Keyboard.Shared exposing (..)
 
 --import SubFeature.View exposing (root)
 
@@ -80,15 +80,32 @@ nkey model n sign footerwidth =
                 " pressed"
             else
                 ""
+        activemode = if (isactivemode n model) then " activemode" else ""
     in
         div [ class <| "key k" ++ toString n , onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
-            [ div [ class  <| "scaletoparent" ++ pressed ]
+            [ div [ class  <| "scaletoparent" ++ pressed ++ activemode]
                 [ App.map
                     Display
                     (SWEditor.Display.scaledSignView sign scale leftmargin)
                 ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
+
+
+isactivemode : number -> { a | keyboardmode : KeyboardMode } -> Bool
+isactivemode n model =
+    case  model.keyboardmode  of 
+        SignView ->
+           n == 2 
+        GeneralChooser  ->
+           n == 3
+        GroupChooser ->
+           n == 4
+        SymbolChooser ->
+           n == 5 
+
+            
+ 
 
 
 checkifkeypressed : Model -> Int -> Bool

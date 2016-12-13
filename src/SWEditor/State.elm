@@ -11,13 +11,15 @@ import Debug
 import Update.Extra exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
-import SWEditor.Drag exposing (..)
+import SWEditor.Drag as Drag exposing (..)
 import SWEditor.Select exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import List.Extra exposing (..)
 import Mouse as Mouse exposing (downs, moves, ups)
+import Keyboard.Shared exposing (..)
+
 
 -- import SubSWEditors.State
 
@@ -62,7 +64,7 @@ update action model =
                 lastuid =
                     getlastuid <| editorSign
             in
-                { model | sign = editorSign, uid = lastuid, undolist = addundoitem model } ! [] |> Update.Extra.andThen update UpdateSignViewPosition
+                { model | sign = editorSign, uid = lastuid, undolist = addundoitem model "SetSign" } ! [] |> Update.Extra.andThen update UpdateSignViewPosition
 
         RequestElementPosition elementid ->
             ( model, Ports.requestElementPosition elementid )
@@ -74,32 +76,47 @@ update action model =
             { model | windowresized = False } ! [] |> Update.Extra.andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            { model | sign = centerSignViewposition model.viewposition model.sign, undolist = addundoitem model } ! []
+            { model | sign = centerSignViewposition model.viewposition model.sign, undolist = addundoitem model "CenterSign" } ! []
 
         StartDragging ->
             { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
 
         DragSelected ->
-            { model | sign = dragsign model, undolist = addundoitem model } ! []
+            { model
+                | sign =
+                    Drag.dragsign model
+                    -- , undolist = addundoitem model "DragSelected"
+            }
+                ! []
 
         EndDragging ->
             let
                 signwithinbounds =
                     putsymbolswithinbounds model.sign model.viewposition
             in
-                { model | sign = signwithinbounds, editormode = Awaiting, undolist = addundoitem model } ! []
+                { model | sign = signwithinbounds, editormode = Awaiting, undolist = addundoitem model "EndDragging" } ! []
 
         StartRectangleSelect ->
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
 
         EndRectangleSelect ->
-            { model | editormode = Awaiting, sign = rectangleselect model, undolist = addundoitem model } ! []
+            { model | editormode = Awaiting, sign = rectangleselect model, undolist = addundoitem model "EndRectangleSelect" } ! []
 
         SelectSymbol id ->
-            { model | sign = selectSymbolId id model, undolist = addundoitem model } ! [] |> Update.Extra.andThen update (StartDragging)
+            let
+                newsign =
+                    selectSymbolId id model
+
+                undolist1 =
+                    if (Debug.log "not same" <| newsign /= model.sign) then
+                        addundoitem model "SelectSymbol"
+                    else
+                        model.undolist
+            in
+                { model | sign = newsign, undolist = undolist1 } ! [] |> Update.Extra.andThen update (StartDragging)
 
         UnSelectSymbols ->
-            { model | sign = unselectSymbols model.sign, undolist = addundoitem model } ! []
+            { model | sign = unselectSymbols model.sign, undolist = addundoitem model "UnSelectSymbols" } ! []
 
         MouseDown position ->
             let
@@ -196,19 +213,79 @@ update action model =
             undo model ! []
 
         Redo ->
-            model ! []
+            redo model ! []
+
+        Keyboard command ->
+            let
+                a =
+                    Debug.log "Keyboard command" command
+
+                updatetuple =
+                    runKeyboardCommand model command
+            in
+                updatetuple
 
 
-addundoitem : Model -> List EditorSign
-addundoitem model =
-   (List.append model.undolist [ model.sign ])
+runKeyboardCommand model command =
+    let
+        mode =
+            getKeyboardMode command.mode
+
+        updatetuple =
+            case mode of
+                SignView ->
+                    runKeyboardSignView model command
+
+                GeneralChooser ->
+                    runKeyboardGeneralChooser model command
+
+                GroupChooser ->
+                    runKeyboardGroupChooser model command
+
+                SymbolChooser ->
+                    runKeyboardSymbolChooser model command
+    in
+        updatetuple
+
+
+runKeyboardSignView model command =
+    let
+        ud =
+            Debug.log "Undo" command.ctrlPressed && List.any ((==) 43) command.keys
+    in
+        model
+            ! []
+            |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 43) command.keys)
+                (Update.Extra.andThen update Undo)
+            |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 21) command.keys)
+                (Update.Extra.andThen update Redo)
+
+
+runKeyboardGeneralChooser model command =
+    model ! []
+
+
+runKeyboardGroupChooser model command =
+    model ! []
+
+
+runKeyboardSymbolChooser model command =
+    model ! []
+
+
+addundoitem : Model -> String -> List UndoItem
+addundoitem model actionname =
+    (List.append model.undolist [ { actionname = actionname, sign = model.sign } ])
 
 
 undo : Model -> Model
 undo model =
     let
+        undoitem1 =
+            (Maybe.withDefault { actionname = "", sign = model.sign }) <| List.Extra.last model.undolist
+
         lastsign =
-            (Maybe.withDefault model.sign) <| List.Extra.last model.undolist
+            undoitem1.sign
 
         len =
             List.length model.undolist
@@ -224,14 +301,56 @@ undo model =
 
         redolist =
             List.append model.redolist []
+
+        actionname =
+            Debug.log "Undo actionname" undoitem1.actionname
     in
         { model | sign = lastsign, undolist = undolist, redolist = redolist }
+
+
+redo : Model -> Model
+redo model =
+    let
+        redoitem1 =
+            List.Extra.last model.redolist
+
+        model =
+            case redoitem1 of
+                Just item ->
+                    let
+                        sign =
+                            item.sign
+
+                        len =
+                            List.length model.redolist
+
+                        length =
+                            if len >= 0 then
+                                len
+                            else
+                                1
+
+                        undolist =
+                            List.append model.undolist [ {actionname = "Redo", sign = model.sign } ]
+
+                        redolist =
+                            List.take (length - 1) model.redolist
+
+                        actionname =
+                            Debug.log "Undo actionname" item.actionname
+                    in
+                        { model | sign = sign, undolist = undolist, redolist = redolist }
+
+                Nothing ->
+                    model
+    in
+        model
 
 
 putsymbolswithinbounds sign bounds =
     let
         movedsyms =
-            List.map (\sym -> maintainwithinbounds sym <|   bounds) sign.syms
+            List.map (\sym -> maintainwithinbounds sym <| bounds) sign.syms
 
         signbound =
             getSignBounding movedsyms
@@ -285,6 +404,7 @@ subscriptions model =
         , receiveSign SetSign
         , receiveElementPosition ReceiveElementPosition
         , subDragSymbol DragSymbol
+        , receiveKeyboardCommand Keyboard
         ]
 
 

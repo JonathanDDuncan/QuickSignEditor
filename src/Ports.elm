@@ -3,6 +3,8 @@ port module Ports exposing (..)
 import SW.Types exposing (..)
 import Choosing.Types as Choosing exposing (..)
 import MainChooser.Types as MainChooser exposing (..)
+import Keyboard.Shared exposing (..)
+
 
 -- Ports go here like this
 
@@ -45,6 +47,14 @@ port requestInitialChoosings : String -> Cmd msg
 
 port requestInitialGroupHandChoosings : String -> Cmd msg
 
+
 port cmdDragSymbol : Symbol -> Cmd msg
 
+
 port subDragSymbol : (Symbol -> msg) -> Sub msg
+
+
+port sendKeyboardCommand : KeyboardCommand -> Cmd msg
+
+
+port receiveKeyboardCommand : (KeyboardCommand -> msg) -> Sub msg

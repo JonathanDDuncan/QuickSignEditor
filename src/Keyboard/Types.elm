@@ -2,12 +2,11 @@ module Keyboard.Types exposing (..)
 
 -- import SubFeatures.Types
 
-import Dict
 import SWEditor.Types
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (..)
 import Keyboard.Extra as KeyboardExtra
-
+import Keyboard.Shared exposing (..)
 
 type alias Model =
     { keyboardlayout : KeyboardLayout
@@ -15,6 +14,7 @@ type alias Model =
     , keyboardhistory : List String
     , keyboardExtraModel : KeyboardExtra.Model
     , keyList : List Int
+    , keyboardmode : KeyboardMode
     }
 
 

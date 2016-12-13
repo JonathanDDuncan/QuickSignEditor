@@ -4,8 +4,8 @@ module SWEditor.Types exposing (..)
 
 import SW.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
-
-
+import Keyboard.Shared exposing (..)
+ 
 type alias Model =
     { fsw : String
     , sign : EditorSign
@@ -18,8 +18,8 @@ type alias Model =
     , editormode : EditorMode
     , containerheight: Int
     , uid : Int
-    , undolist: List EditorSign
-    , redolist: List EditorSign
+    , undolist: List UndoItem
+    , redolist: List UndoItem
     }
  
 
@@ -28,6 +28,10 @@ type alias Offset =
     , offsety : Int
     }
 
+type alias UndoItem =
+    { actionname : String
+    , sign : EditorSign
+    }
 
 type Msg
     = ChangeFSW String
@@ -51,6 +55,7 @@ type Msg
     | DragSymbol Symbol
     | Undo
     | Redo
+    | Keyboard KeyboardCommand
 
 
 type EditorMode
