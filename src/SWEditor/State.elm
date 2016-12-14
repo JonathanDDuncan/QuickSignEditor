@@ -67,22 +67,25 @@ update action model =
             in
                 { model | sign = editorSign, uid = lastuid }
                     ! []
-                    |> Update.Extra.andThen update (AddUndo True "SetSign" model)
                     |> Update.Extra.andThen update UpdateSignViewPosition
 
         RequestElementPosition elementid ->
             ( model, Ports.requestElementPosition elementid )
 
         ReceiveElementPosition namedposition ->
-            { model | viewposition = namedposition } ! [] |> Update.Extra.andThen update CenterSign
+            { model | viewposition = namedposition }
+                ! []
+                |> Update.Extra.andThen update CenterSign
 
         UpdateSignViewPosition ->
-            { model | windowresized = False } ! [] |> Update.Extra.andThen update (RequestElementPosition "signView")
+            { model | windowresized = False }
+                ! []
+                |> Update.Extra.andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            { model | sign = centerSignViewposition model.viewposition model.sign }
+            model
                 ! []
-                |> Update.Extra.andThen update (AddUndo True "CenterSign" model)
+                |> Update.Extra.andThen update (AddUndo True "CenterSign" { model | sign = centerSignViewposition model.viewposition model.sign })
 
         StartDragging ->
             { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
