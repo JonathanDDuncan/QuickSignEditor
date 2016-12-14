@@ -19,6 +19,7 @@ import SWEditor.Undo exposing (..)
 import SW.Types exposing (..)
 import Mouse as Mouse exposing (downs, moves, ups)
 import Keyboard.Shared exposing (..)
+import List.Extra exposing (..)
 
 
 -- import SubSWEditors.State
@@ -106,16 +107,28 @@ update action model =
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
 
         EndRectangleSelect ->
-            
-                { model | editormode = Awaiting, sign = rectangleselect model }
+            let
+                newsign =
+                    rectangleselect model
+
+                changed =
+                    symbolshavechanged model.sign.syms newsign.syms
+            in
+                model
                     ! []
-                    |> Update.Extra.andThen update (AddUndo True "EndRectangleSelect" model)
+                    |> Update.Extra.andThen update (AddUndo changed "EndRectangleSelect" { model | editormode = Awaiting, sign = newsign })
 
         SelectSymbol id ->
-            
-                { model | sign =   selectSymbolId id model }
+            let
+                newsign =
+                    selectSymbolId id model
+
+                changed =
+                    symbolshavechanged model.sign.syms newsign.syms
+            in
+                model
                     ! []
-                    |> Update.Extra.andThen update (AddUndo True "SelectSymbol" model)
+                    |> Update.Extra.andThen update (AddUndo changed "SelectSymbol" { model | sign = newsign })
                     |> Update.Extra.andThen update (StartDragging)
 
         UnSelectSymbols ->
@@ -124,11 +137,11 @@ update action model =
                     unselectSymbols model.sign
 
                 changed =
-                    hasSelectedSymbols model.sign
+                    symbolshavechanged model.sign.syms newsign.syms
             in
-                { model | sign = newsign }
+                model
                     ! []
-                    |> Update.Extra.andThen update (AddUndo changed "UnSelectSymbols" model)
+                    |> Update.Extra.andThen update (AddUndo changed "UnSelectSymbols" { model | sign = newsign })
 
         MouseDown position ->
             let
@@ -239,6 +252,11 @@ update action model =
                     runKeyboardCommand model command
             in
                 updatetuple
+
+
+symbolshavechanged : List a -> List a -> Bool
+symbolshavechanged firstsymbols secondsymbols =
+    not <| List.Extra.isPermutationOf firstsymbols secondsymbols
 
 
 runKeyboardCommand model command =
