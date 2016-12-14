@@ -6,7 +6,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import Exts.Html exposing (..)
 import Exts.List exposing (..)
 import String exposing (..)
 import SWEditor.EditorSymbol exposing (..)
@@ -22,7 +21,7 @@ handgroupchooser model handgroupchoosings =
             3
 
         rowvalues =
-           List.sort <| unique <| List.map (\item -> item.row) handgroupchoosings
+            List.sort <| unique <| List.map (\item -> item.row) handgroupchoosings
     in
         Html.div []
             [ Html.div []
@@ -31,20 +30,38 @@ handgroupchooser model handgroupchoosings =
                 , button [ Html.Events.onClick (FilterHandGroup 3) ] [ text "all" ]
                 ]
             , table []
-                (List.map (\row -> rowchooser model row handgroupchoosings maxheight) rowvalues)
+                (List.concatMap (\row -> rowchooser model row handgroupchoosings maxheight) rowvalues)
             ]
- 
 
+
+rowchooser : MainChooser.Types.Model -> Int -> List ChooserItem -> Int -> List (Html MainChooser.Types.Msg)
 rowchooser model row handgroupchoosings maxheight =
     let
         items =
-            List.filter (\item -> item.row == row) handgroupchoosings
+            List.filter (\item -> item.row == Debug.log "row" row) handgroupchoosings
 
-        colvalues = [1..5]
+        withoutthumbs =
+            List.filter (\item -> not item.thumb) items
+
+        withthumbs =
+            List.filter (\item -> item.thumb) items
+
+        colvalues =
+            [1..5]
     in
-        tr
-            []
-            (List.map (\col -> column model row col maxheight items) colvalues)
+        [ if (Debug.log "withoutthumbs" <| List.length withoutthumbs ) > 0 then
+            tr
+                []
+                (List.map (\col -> column model row col maxheight withoutthumbs) colvalues)
+          else
+            text ""
+        , if (Debug.log "withthumbs" <| List.length withthumbs) > 0 then
+            tr
+                []
+                (List.map (\col -> column model row col maxheight withthumbs) colvalues)
+          else
+            text ""
+        ]
 
 
 column model cat col choosingshigh choosings =

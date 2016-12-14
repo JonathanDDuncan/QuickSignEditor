@@ -21,9 +21,7 @@ root model =
             rectangleStartCurrent model
     in
         div []
-            [ input [ onInput ChangeFSW, value "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468" ] []
-            , button [ onClick RequestSign ] [ text "Editor" ]
-            , button [ onClick RequestSignfromOtherApp ] [ text "SignMaker Sign" ]
+            [ button [ onClick RequestSignfromOtherApp ] [ text "SignMaker Sign" ]
             , signView model.sign <| editorattributes <| model.containerheight - 50
             , case model.editormode of
                 RectangleSelect ->
@@ -49,10 +47,7 @@ editorattributes : Int -> List (Attribute Msg)
 editorattributes height =
     [ Html.Attributes.style
         [ "height" => px height
-          --      "background-color" => "lightyellow"
-          -- , "width" => "100%"
-          -- ,
-          -- , "position" => "relative"
+         
         ]
     , Html.Attributes.id "signView"
     , Html.Attributes.class "disablePanZoom signview"

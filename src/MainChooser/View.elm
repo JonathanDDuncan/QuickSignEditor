@@ -17,23 +17,43 @@ import MainChooser.GeneralSymbolChooserView exposing (..)
 --import SubMainChooser.View exposing (root)
 
 
-root : MainChooser.Types.Model ->  Int -> Int -> Html MainChooser.Types.Msg
+root : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
 root model parentwidth parentheight =
     let
         halfheight =
             (Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2))
-        halfwidth =  (Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2))
+
+        halfwidth =
+            (Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2))
     in
         div []
             [ div
-                [ style [ "height" => px (halfheight - 30 ) ] ]
+                [ style [ "height" => px (halfheight - 30) ] ]
                 (List.map displayChoosing model.choosings)
             , div
-                [ class "generalsymbolchooser", style [ "height" => px halfheight, "display" => "inline-block", "margin-top" => "5px", "float" => "left" ] ]
+                [ class "generalsymbolchooser"
+                , style
+                    [ "height" => px halfheight
+                    , "display" => "inline-block"
+                    , "margin-top" => "5px"
+                    , "float" => "left"
+                    ]
+                ]
                 [ generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
                 ]
             , div
-                [ style [ "position" => "absolute", "width" => "50%", "left" => "0px", "top" => "0px", "margin-left" => "50%", "height" => px parentheight, "margin-top" => "5px", "overflow-y" => "scroll", "overflow-x" => "scroll" ] ]
+                [ style
+                    [ "position" => "absolute"
+                    , "width" => "50%"
+                    , "left" => "0px"
+                    , "top" => "0px"
+                    , "margin-left" => "50%"
+                    , "height" => px parentheight
+                    , "margin-top" => "5px"
+                    , "overflow-y" => "scroll"
+                    , "overflow-x" => "scroll"
+                    ]
+                ]
                 [ choosesubgroupchooser model
                 ]
             ]
@@ -58,7 +78,7 @@ choosesubgroupchooser model =
                 generalgroupchooser model <| getchoosings basesymbol model.allgroupchoosings
 
 
-getchoosings : String -> List { c | basesymbol : String, choosings : List a } -> List a
+getchoosings : String -> List { b | basesymbol : String, choosings : List a } -> List a
 getchoosings basesymbol allgroupchoosings =
     let
         firstfound =
@@ -72,7 +92,7 @@ getchoosings basesymbol allgroupchoosings =
                 Nothing ->
                     []
     in
-        choosings
+         choosings
 
 
 

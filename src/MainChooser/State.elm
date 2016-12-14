@@ -19,7 +19,7 @@ import SWEditor.EditorSymbol exposing (getSymbolEditorCode, fromEditorSymbol)
 
 
 -- import SubMainChoosers.State
-
+ 
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
@@ -218,9 +218,10 @@ creategroupchoosing chooservalue itemsvalues colitemsvalues item =
     , validrotations = item.validrotations
     , groupchooser = chooservalue
     , common = item.common
+    , thumb = item.thumb
     , row = getvalue item.rowname itemsvalues
     , col = getvalue item.colname colitemsvalues
-    , rank = item.rank
+    , rank = item.rank 
     }
 
 

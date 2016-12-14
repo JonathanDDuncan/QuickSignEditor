@@ -55,6 +55,7 @@ type alias BaseChooserItem =
     , validrotations : String
     , groupchooser : String
     , common : Bool
+    , thumb : Bool
     , rowname : String
     , colname : String
     , rank : Int
@@ -71,6 +72,7 @@ type alias ChooserItem =
     , validrotations : String
     , groupchooser : Int
     , common : Bool
+    , thumb : Bool
     , row : Int
     , col : Int
     , rank : Int
@@ -80,6 +82,7 @@ type alias ChooserItem =
 chooseriteminit :
     { base : number
     , common : Bool
+    , thumb : Bool
     , groupchooser : Int
     , name : String
     , col : Int
@@ -101,6 +104,7 @@ chooseriteminit =
     , validrotations = "1 - 16"
     , groupchooser = 1
     , common = True
+    , thumb = False
     , row = 1
     , col = 1
     , rank = 1
