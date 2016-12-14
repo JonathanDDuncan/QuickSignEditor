@@ -152,54 +152,9 @@ subscriptions model =
 getKeyList : List Key -> KeyboardExtra.Model -> List Int
 getKeyList keys keyboardExtraModel =
     let
-        shiftPressed =
-            KeyboardExtra.isPressed KeyboardExtra.Shift keyboardExtraModel
-
-        controlPressed =
-            KeyboardExtra.isPressed KeyboardExtra.Control keyboardExtraModel
-
-        altPressed =
-            KeyboardExtra.isPressed KeyboardExtra.Alt keyboardExtraModel
-
         keyExtraList =
             KeyboardExtra.pressedDown keyboardExtraModel
 
-        keyListEmpty =
-            []
-
-        keyList1 =
-            if (shiftPressed) then
-                [ 42, 53 ]
-            else
-                keyListEmpty
-
-        keyList2 =
-            if (controlPressed) then
-                List.append keyList1 [ 54, 60 ]
-            else
-                keyList1
-
-        keyList3 =
-            if (altPressed) then
-                List.append keyList2 [ 56, 58 ]
-            else
-                keyList2
-
-        otherkeys =
-            getKeys keys keyExtraList
-
-        keyList4 =
-            List.append keyList3 otherkeys
-
-        keyList =
-            keyList4
-    in
-        keyList
-
-
-getKeys : List Key -> List KeyboardExtra.Key -> List Int
-getKeys keys keyExtraList =
-    let
         listExtraCodes =
             List.map (\key -> KeyboardExtra.toCode key) keyExtraList
 

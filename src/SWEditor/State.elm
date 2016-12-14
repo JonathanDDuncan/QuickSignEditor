@@ -244,14 +244,7 @@ update action model =
             redo model ! []
 
         Keyboard command ->
-            let
-                a =
-                    Debug.log "Keyboard command" command
-
-                updatetuple =
-                    runKeyboardCommand model command
-            in
-                updatetuple
+            runKeyboardCommand model command
 
 
 symbolshavechanged : List a -> List a -> Bool

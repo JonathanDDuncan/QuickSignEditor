@@ -130,7 +130,7 @@ querty =
         , { keyId = 55, code = 224, display = "Cmd", keypress = None }
         , { keyId = 56, code = 18, display = "Alt", keypress = None }
         , { keyId = 57, code = 32, display = "Space", keypress = None }
-        , { keyId = 58, code = 225, display = "Alt ", keypress = None }
+        , { keyId = 58, code = 18, display = "Alt ", keypress = None }
         , { keyId = 59, code = 93, display = "Menu Key", keypress = None }
         , { keyId = 60, code = 17, display = "Ctrl", keypress = None }
         , { keyId = 61, code = 45, display = "Insert", keypress = None }

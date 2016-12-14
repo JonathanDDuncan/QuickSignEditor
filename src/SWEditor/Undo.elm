@@ -16,8 +16,8 @@ addUndo changed actionname model =
         newmodel =
             if changed then
                 { model
-                    | undolist = Debug.log "Undo list" <| (List.append model.undolist [ createundoitem actionname model.sign ])
-                    , redolist = Debug.log "Redo list" <| []
+                    | undolist = (List.append model.undolist [ createundoitem actionname model.sign ])
+                    , redolist = []
                 }
             else
                 model
@@ -44,15 +44,10 @@ undo model =
                 1
 
         undolist =
-            Debug.log "Undo list" <|
-                List.take (length - 1) model.undolist
+            List.take (length - 1) model.undolist
 
         redolist =
-            Debug.log "Redo list" <|
-                List.append model.redolist [ createundoitem "Undo" model.sign ]
-
-        actionname =
-            Debug.log "Undo actionname" undoitem1.actionname
+            List.append model.redolist [ createundoitem "Undo" model.sign ]
     in
         { model | sign = lastsign, undolist = undolist, redolist = redolist }
 
@@ -80,15 +75,10 @@ redo model =
                                 1
 
                         undolist =
-                            Debug.log "Undo list" <|
-                                List.append model.undolist [ createundoitem "Redo" model.sign ]
+                            List.append model.undolist [ createundoitem "Redo" model.sign ]
 
                         redolist =
-                            Debug.log "Redo list" <|
-                                List.take (length - 1) model.redolist
-
-                        actionname =
-                            Debug.log "Undo actionname" item.actionname
+                            List.take (length - 1) model.redolist
                     in
                         { model | sign = sign, undolist = undolist, redolist = redolist }
 
