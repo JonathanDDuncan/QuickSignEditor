@@ -11,55 +11,58 @@ import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 import Dict exposing (..)
 
-handsymbolchooser : ChooserItem -> Fill -> Dict String Size -> Int ->Int -> Html Msg
-handsymbolchooser choosing selectedcolumn symbolsizes width height  =
+handsymbolchooser : HandSymbol -> ChooserItem ->  Dict String Size -> Int ->Int -> Html Msg
+handsymbolchooser handsymbol choosing  symbolsizes width height  =
     let 
-        
-        vf =
-            getvalidfills choosing.validfills
-        vr =
-            getvalidrotations choosing.validrotations
-        column = if isValidRotation selectedcolumn vf then
-                    selectedcolumn  
-                else
-                    1    
         rowheight = truncate <| toFloat height / toFloat 10
-        len =   toFloat (List.length vf)
-        columnwidth =  truncate <|   (( toFloat(  width)/2) / len)
-        smallestscaleheader =  
-            Maybe.withDefault 1 <| getscales columnwidth rowheight <| getsymbols choosing.base vf [1] symbolsizes
-        smallestscalebody =  
-           Maybe.withDefault 1 <| getscales columnwidth rowheight <| (getsymbols choosing.base[column] [1..16] symbolsizes) 
-        in 
+    in 
         div [attribute "ondragstart" "return false;", attribute "ondrop" "return false;"]
-         [ text "This is the hand symbol chooser",
-             table
+         [
+              table 
+                [class "symbolchooserheader", Html.Attributes.style
+                    [ "width" => px (width - 12)
+                    , "height" => px  rowheight
+                    ]
+                    ]
+               [tr [] <| List.append ( handselection handsymbol choosing.base   symbolsizes  rowheight )
+                ( planeselection handsymbol choosing.base   symbolsizes  rowheight )]
+             ,table 
                 [class "symbolchooserheader", Html.Attributes.style
                     [ "width" => px (width - 12)
                     , "height" => px  rowheight
                     ]
                 ]
-                [ tr [] (generalsymbolrow choosing.base vf 1 symbolsizes columnwidth rowheight smallestscaleheader)
+                [ tr [] (fillsview handsymbol choosing.base symbolsizes rowheight  )
                
-                   ]
-                    ,  table
-                [ Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px (rowheight * 8)
-                    
-                    ]
-                ]
-                [
-                    tr [] (generalsymbolonecolumn choosing.base column 1 vr symbolsizes columnwidth rowheight smallestscalebody)
-                    , tr [] (generalsymbolonecolumn choosing.base column 2 vr symbolsizes  columnwidth rowheight smallestscalebody)
-                    , tr [] (generalsymbolonecolumn choosing.base column 3 vr symbolsizes  columnwidth rowheight smallestscalebody)
-                    , tr [] (generalsymbolonecolumn choosing.base column 4 vr symbolsizes columnwidth  rowheight smallestscalebody) 
-                    , tr [] (generalsymbolonecolumn choosing.base column 5 vr symbolsizes  columnwidth rowheight smallestscalebody)
-                    , tr [] (generalsymbolonecolumn choosing.base column 6 vr symbolsizes  columnwidth rowheight smallestscalebody)
-                    , tr [] (generalsymbolonecolumn choosing.base column 7 vr symbolsizes  columnwidth rowheight smallestscalebody)
-                    , tr [] (generalsymbolonecolumn choosing.base column 8 vr symbolsizes columnwidth rowheight smallestscalebody)
-                ]
-            ] 
+                   ] 
+                   
+            ]
+fillsview     : { a | hand : Hands }    -> Base     -> Dict String Size     -> Int     -> List (Html Msg)
+fillsview handsymbol base symbolsizes rowheight =
+    let handfills = if handsymbol.hand == Right then
+                [{fill =2, rotation = 9},{fill =1, rotation = 1},{fill =2, rotation = 1},{fill =3, rotation = 1}]
+                else
+                  [{fill =2, rotation = 1},{fill =1, rotation = 1},{fill =2, rotation = 9},{fill =3, rotation = 1}]
+    in 
+      List.map (\handfill -> td [ onClick (SelectHandFill handfill) ] [ (generalsymbolcol False base handfill.fill handfill.rotation symbolsizes  rowheight ) ]) handfills
+
+handselection :HandSymbol ->  Base -> Dict String Size ->Int ->  List (Html MainChooser.Types.Msg)
+handselection handsymbol base symbolsizes  rowheight  =
+   [td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand] [ (generalsymbolcol False base 3 9 symbolsizes  rowheight ) ,  div [] [text "Left"]] ,
+   td [ onClick (SelectHand Right) , selectedbackground Right handsymbol.hand] [ (generalsymbolcol False base 3 1 symbolsizes  rowheight )  , div [] [ text "Right"]] ] 
+
+planeselection :HandSymbol -> Base -> Dict String Size ->Int ->   List (Html MainChooser.Types.Msg)
+planeselection handsymbol base symbolsizes  rowheight  =
+   [td [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ] [ img [src "./img/wallplane.png", width 70]  [] , div [] [text "Wall"]] ,
+   td [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ] [ img [src "./img/floorplane.png", width 70]  [] , div [] [text "Floor"]] ] 
+
+selectedbackground : a -> a -> Attribute b
+selectedbackground expected currentselected =
+    if expected == currentselected then
+        style[ "background" => "#7b85c0"]
+    else
+        style  [] 
+    
 
 getscales columnwidth rowheight symbols =
     List.minimum (List.map (\symbol -> calcscale symbol.width symbol.height  columnwidth rowheight) symbols)
@@ -69,72 +72,6 @@ getsymbols base fills rotations symbolsizes =
         symbols = List.concatMap (\rotation -> List.map (\fill -> getSymbolEditorBaseFillRotation base fill rotation symbolsizes) fills) rotations
     in
         symbols
-
-getvalidfills : String -> List Fill
-getvalidfills validfillsstring =
-    case validfillsstring of
-        "1 - 6" ->
-            [1..6]
-
-        "1 - 4" ->
-            [1..4]
-
-        "1, 2" ->
-            [1..2]
-
-        "1 - 3" ->
-            [1..3]
-
-        "1 - 5" ->
-            [1..5]
-
-        "1" ->
-            [ 1 ]
-
-        "2" ->
-            [ 2 ]
-
-        _ ->
-            let a = Debug.log "Could not match valid fills string"  validfillsstring 
-            in
-                []
-
-
-getvalidrotations : String -> List Rotation
-getvalidrotations validrotationsstring =
-    case validrotationsstring of
-        "1 - 16" ->
-            [1..16]
-
-        "1 - 8" ->
-            [1..8]
-
-        "1" ->
-            [ 1 ]
-
-        "1 - 4" ->
-            [1..4]
-
-        "1, 2, 4, 5, 6, 8" ->
-            [ 1, 2, 4, 5, 6, 8 ]
-
-        "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16" ->
-            [ 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 ]
-
-        "1 - 6" ->
-            [1..6]
-
-        "1, 2" ->
-            [1..2]
-
-        "1 - 9" ->
-            [1..9]
-
-        _ ->
-            let a = Debug.log "Could not match valid rotations string"  validrotationsstring 
-            in
-            []
-
 
 generalsymbolonecolumn : Base -> Int -> Int -> List Rotation -> Dict String Size ->  Int -> Int -> Float -> List (Html MainChooser.Types.Msg)
 generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes columnwidth rowheight scale =
@@ -154,7 +91,7 @@ generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes column
         [ if showrotation1 then
             td 
                 [  ]
-                [ (generalsymbolcol True base symbolcol rotation symbolsizes  columnwidth rowheight scale)  ]
+                [ (generalsymbolcol True base symbolcol rotation symbolsizes    rowheight  )  ]
           else
             blanktd
         , blanktd
@@ -165,7 +102,7 @@ generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes column
                         [ "text-align" => "center","display" => "block"
                          ,"width" => "45%"
                         ]]
-                [ generalsymbolcol True base symbolcol rotation2  symbolsizes columnwidth rowheight scale]
+                [ generalsymbolcol True base symbolcol rotation2  symbolsizes   rowheight  ]
           else
             blanktd
         ]
@@ -181,14 +118,10 @@ isValidRotation : a -> List a -> Bool
 isValidRotation rotation  validrotations =
     List.any (( ==) rotation) validrotations 
 
+ 
 
-generalsymbolrow : Base -> List Fill -> Rotation ->Dict String Size ->Int -> Int -> Float -> List (Html MainChooser.Types.Msg)
-generalsymbolrow base validfills rotation symbolsizes columnwidth rowheight scale =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol False base fill rotation symbolsizes columnwidth rowheight scale) ]) validfills
-
-
-generalsymbolcol : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int ->  Int -> Float -> Html MainChooser.Types.Msg
-generalsymbolcol drag base fill rotation symbolsizes  columnwidth rowheight scale =
+generalsymbolcol : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int ->   Html MainChooser.Types.Msg
+generalsymbolcol drag base fill rotation symbolsizes    rowheight   =
     let
         symbol =
             getSymbolEditorBaseFillRotation base fill rotation symbolsizes
@@ -199,8 +132,8 @@ generalsymbolcol drag base fill rotation symbolsizes  columnwidth rowheight scal
     in 
         -- App.map SymbolView (symbolView "" symbol)
         div [
-            onMouseDown ( if (drag) then DragSymbol symbol.code else Noop) , 
-        Html.Attributes.style  (scaling scale) ]
+            onMouseDown ( if (drag) then DragSymbol symbol.code else Noop)   
+          ]
         [
        
              App.map SignView

@@ -37,6 +37,7 @@ init =
       , groupselected = chooseriteminit
       , handgroupfilter = 1
       , symbolsizes = Dict.empty
+      , handsymbol = handsymbolinit
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
@@ -148,7 +149,39 @@ update action model =
         Mdl msg' ->
             Material.update msg' model
 
+        SelectHand hand ->
+            let
+                handsymbol = model.handsymbol
+                newhandsymbol = {handsymbol | hand =  hand}
+            in
+              
+            ( { model
+                | handsymbol =  newhandsymbol
+              }
+            , Cmd.none
+            )
+        SelectPlane plane ->
+           let
+                handsymbol = model.handsymbol
+                newhandsymbol = {handsymbol | plane =  plane}
+            in
+            ( { model
+                | handsymbol = newhandsymbol
+              }
+            , Cmd.none
+            )
 
+        SelectHandFill handfill ->
+           let
+                handsymbol = model.handsymbol
+                newhandsymbol = {handsymbol | handfill =  handfill}
+            in
+            ( { model
+                | handsymbol = newhandsymbol
+              }
+            , Cmd.none
+            )
+            
 (=>) : a -> b -> ( a, b )
 (=>) =
     (,)

@@ -20,8 +20,8 @@ type alias Model =
     , groupselected : ChooserItem
     , handgroupfilter : Int
     , symbolsizes : Dict.Dict String Size
+    , handsymbol: HandSymbol
     }
-
 
 type alias HandGroupImportModel =
     { chooseritemvalues : List ChooserItemValue
@@ -29,7 +29,30 @@ type alias HandGroupImportModel =
     , symbolsizes : List SymbolSize
     }
 
+type alias HandSymbol =
+    { hand: Hands
+    , plane: Planes
+    , handfill: HandFill
+    , rotationselection : Int
+    }
 
+type alias HandFill =
+    { fill: Int
+    , rotation: Int
+    }
+
+handsymbolinit :
+    { hand : Hands
+    , handfill : { fill : number, rotation : number' }
+    , plane : Planes
+    , rotationselection : number''
+    }    
+handsymbolinit =
+    { hand = Right
+    , plane = Wall
+    , handfill = {fill = 1, rotation = 1}
+    , rotationselection = 1
+    }
 type alias SymbolSize =
     { k : String
     , h : Int
@@ -140,8 +163,16 @@ type Msg
     | DragSymbol Code
     | FilterHandGroup Int
     | Mdl (Material.Msg Msg)
+    | SelectHand Hands
+    | SelectPlane Planes
+    | SelectHandFill HandFill
 
+type Hands 
+    = Right
+    | Left
 
-
+type Planes 
+    = Wall
+    | Floor
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types

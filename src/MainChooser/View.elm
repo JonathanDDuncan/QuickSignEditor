@@ -62,7 +62,7 @@ root model parentwidth parentheight =
 symbolchooser:MainChooser.Types.Model -> Int -> Int ->   Html MainChooser.Types.Msg
 symbolchooser model halfwidth  halfheight=
     if  iskey model.groupselected.symbolkey "hand" then
-        handsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
+        handsymbolchooser model.handsymbol model.groupselected  model.symbolsizes halfwidth halfheight
     else 
         generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
 

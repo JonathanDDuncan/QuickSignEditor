@@ -38,7 +38,7 @@ rowchooser : MainChooser.Types.Model -> Int -> List ChooserItem -> Int -> List (
 rowchooser model row handgroupchoosings maxheight =
     let
         items =
-            List.filter (\item -> item.row == Debug.log "row" row) handgroupchoosings
+            List.filter (\item -> item.row ==  row) handgroupchoosings
 
         withoutthumbs =
             List.filter (\item -> not item.thumb) items
@@ -49,13 +49,13 @@ rowchooser model row handgroupchoosings maxheight =
         colvalues =
             [1..5]
     in
-        [ if (Debug.log "withoutthumbs" <| List.length withoutthumbs ) > 0 then
+        [ if ( List.length withoutthumbs ) > 0 then
             tr
                 []
                 (List.map (\col -> column model row col maxheight withoutthumbs) colvalues)
           else
             text ""
-        , if (Debug.log "withthumbs" <| List.length withthumbs) > 0 then
+        , if ( List.length withthumbs) > 0 then
             tr
                 []
                 (List.map (\col -> column model row col maxheight withthumbs) colvalues)

@@ -4,6 +4,7 @@ Hand symbol chooser
 Arrow symbol chooser
 
 Save Cancel buttons
+Add five hand to common symbols
 
 Drag symbol is currently under symbols chooser and can't be seen when first dragged
 
