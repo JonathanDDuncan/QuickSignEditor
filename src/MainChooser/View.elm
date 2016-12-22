@@ -12,8 +12,9 @@ import ViewHelper.ViewExtra exposing (..)
 import MainChooser.HandGroupChooserView exposing (..)
 import MainChooser.GeneralGroupChooserView exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
-
-
+import MainChooser.HandSymbolChooserView exposing (..)
+import SW.State exposing (iskey)
+ 
 --import SubMainChooser.View exposing (root)
 
 
@@ -39,7 +40,7 @@ root model parentwidth parentheight =
                     , "float" => "left"
                     ]
                 ]
-                [ generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
+                [ symbolchooser model halfwidth halfheight
                 ]
             , div
                 [ style
@@ -57,13 +58,19 @@ root model parentwidth parentheight =
                 [ choosesubgroupchooser model
                 ]
             ]
-
+ 
+symbolchooser:MainChooser.Types.Model -> Int -> Int ->   Html MainChooser.Types.Msg
+symbolchooser model halfwidth  halfheight=
+    if  iskey model.groupselected.symbolkey "hand" then
+        handsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
+    else 
+        generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
 
 displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
 displayChoosing choosing =
     div [ onClick (Clicked choosing.value) ] [ App.map Choosing (Choosing.View.root choosing) ]
 
-
+ 
 choosesubgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
 choosesubgroupchooser model =
     let

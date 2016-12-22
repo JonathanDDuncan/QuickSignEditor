@@ -1,10 +1,11 @@
 To Do
 
-Can't type in input box
-Undo/Redo
-Split long list of hand groups
 Hand symbol chooser
 Arrow symbol chooser
+
+Save Cancel buttons
+
+Drag symbol is currently under symbols chooser and can't be seen when first dragged
 
 Add fingerspelling layout to keyboard
 Add color choooser
@@ -13,4 +14,5 @@ Add Bring to top or bottom
 
 Commands from keyboard
 
-
+Can't type in input boxes
+Split long list of hand groups by finger bendiness
