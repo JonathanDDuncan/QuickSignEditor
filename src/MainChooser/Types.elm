@@ -23,6 +23,26 @@ type alias Model =
     , handsymbol: HandSymbol
     }
 
+
+type Msg
+    = Noop
+    | MainChooserMessage
+    | RequestInitialChoosings
+    | ReceiveInitialChoosings (List Choosing.ImportModel)
+    | ReceiveInitialGroupHandChoosings HandGroupImportModel
+    | Choosing Choosing.Msg
+    | Clicked String
+    | SymbolView SWEditor.Types.Msg
+    | SignView SWEditor.Types.Msg
+    | SelectedColumn Int
+    | GroupSelected ChooserItem
+    | DragSymbol Code
+    | FilterHandGroup Int
+    | Mdl (Material.Msg Msg)
+    | SelectHand Hands
+    | SelectPlane Planes
+    | SelectHandFill HandFills
+
 type alias HandGroupImportModel =
     { chooseritemvalues : List ChooserItemValue
     , basechooseritems : List BaseChooserItem
@@ -153,25 +173,6 @@ type alias GroupChoosing =
     , choosings : List ChooserItem
     }
 
-
-type Msg
-    = Noop
-    | MainChooserMessage
-    | RequestInitialChoosings
-    | ReceiveInitialChoosings (List Choosing.ImportModel)
-    | ReceiveInitialGroupHandChoosings HandGroupImportModel
-    | Choosing Choosing.Msg
-    | Clicked String
-    | SymbolView SWEditor.Types.Msg
-    | SignView SWEditor.Types.Msg
-    | SelectedColumn Int
-    | GroupSelected ChooserItem
-    | DragSymbol Code
-    | FilterHandGroup Int
-    | Mdl (Material.Msg Msg)
-    | SelectHand Hands
-    | SelectPlane Planes
-    | SelectHandFill HandFills
 
 type Hands 
     = Right

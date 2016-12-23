@@ -71,7 +71,7 @@ flower handsymbol base symbolsizes rowheight =
                 "./img/horizontalhand.png"
 
         flowersymbols =
-            getflowersymbols handsymbol
+            getpetals handsymbol
     in
         div
             [ style
@@ -86,7 +86,7 @@ flower handsymbol base symbolsizes rowheight =
                     [ "position" => "absolute"
                     , "width" => (px <| (fullwidth - (2 * itemwidth)))
                     , "height" => (px <| (fullheight - (2 * itemheight)))
-                    , "top" => px itemwidth
+                    , "top" => px (itemwidth - 12)
                     , "left" => px itemwidth
                     ]
                 ]
@@ -102,95 +102,93 @@ flower handsymbol base symbolsizes rowheight =
                     ]
                     []
                 ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "top" => px 0
-                    , "left" => px (centered fullwidth itemwidth)
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill1 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "top" => px (centered (centerfloating * 2) itemwidth)
-                    , "left" => px (centered (centerfloating * 2) itemwidth)
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill2 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "top" => px (centered fullheight itemheight)
-                    , "left" => px 0
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill3 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "bottom" => px (centered (centerfloating * 2) itemwidth)
-                    , "left" => px (centered (centerfloating * 2) itemwidth)
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill4 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "bottom" => px 0
-                    , "left" => px (centered fullwidth itemwidth)
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill5 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "bottom" => px (centered (centerfloating * 2) itemwidth)
-                    , "right" => px (centered (centerfloating * 2) itemwidth)
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill6 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "top" => px (centered fullheight itemheight)
-                    , "right" => px 0
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill7 base symbolsizes rowheight ]
-            , div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px itemwidth
-                    , "height" => px itemheight
-                    , "top" => px (centered (centerfloating * 2) itemwidth)
-                    , "right" => px (centered (centerfloating * 2) itemwidth)
-                    , "background" => "blue"
-                    ]
-                ]
-                [ petal flowersymbols.handfill8 base symbolsizes rowheight ]
+            , petaldiv
+                flowersymbols.handfill1
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                0
+                (centered fullwidth itemwidth)
+            , petaldiv
+                flowersymbols.handfill2
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (centered (centerfloating * 2) itemwidth)
+                (centered (centerfloating * 2) itemheight)
+            , petaldiv
+                flowersymbols.handfill3
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (centered fullheight itemheight)
+                0
+            , petaldiv
+                flowersymbols.handfill4
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (centered ((fullheight - centerfloating) * 2) itemwidth)
+                (centered (centerfloating * 2) itemwidth)
+            , petaldiv
+                flowersymbols.handfill5
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (fullheight - itemheight)
+                (centered fullwidth itemwidth)
+            , petaldiv
+                flowersymbols.handfill6
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (centered ((fullheight - centerfloating) * 2) itemwidth)
+                (centered ((fullwidth - centerfloating) * 2) itemwidth)
+            , petaldiv
+                flowersymbols.handfill7
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (centered fullheight itemheight)
+                (fullwidth - itemwidth)
+            , petaldiv
+                flowersymbols.handfill7
+                base
+                symbolsizes
+                rowheight
+                itemwidth
+                itemheight
+                (centered (centerfloating * 2) itemwidth)
+                (centered ((fullwidth - centerfloating) * 2) itemwidth)
             ]
+
+
+petaldiv : { a | fill : Fill, increment : Int, rotation : Int } -> Base -> Dict String Size -> b -> Int -> Int -> Int -> Int -> Html Msg
+petaldiv handfill base symbolsizes rowheight width height top left =
+    div
+        [ style
+            [ "position" => "absolute"
+            , "width" => px width
+            , "height" => px height
+            , "top" => px top
+            , "left" => px left
+            ]
+        ]
+        [ petal handfill base symbolsizes rowheight ]
 
 
 petal : { a | fill : Fill, rotation : Int, increment : Int } -> Base -> Dict String Size -> b -> Html Msg
@@ -199,10 +197,10 @@ petal handfill base symbolsizes rowheight =
         symbol =
             getSymbolEditorBaseFillRotation base handfill.fill (handfill.rotation + handfill.increment) symbolsizes
     in
-        symbolcentered base handfill.fill (handfill.rotation + handfill.increment) symbolsizes 50 50
+        symbolcentered True base handfill.fill (handfill.rotation + handfill.increment) symbolsizes 50 50
 
 
-getflowersymbols handsymbol =
+getpetals handsymbol =
     let
         handfill =
             gethandfill handsymbol.handfill
@@ -266,7 +264,7 @@ fillsview handsymbol base symbolsizes rowheight =
                     [ onClick (SelectHandFill handfill.handfill)
                     , selectedbackground handfill.handfill handsymbol.handfill
                     ]
-                    [ symbolcentered base handfill.fill handfill.rotation symbolsizes 50 rowheight
+                    [ symbolcentered False base handfill.fill handfill.rotation symbolsizes 50 rowheight
                     ]
             )
             handfills
@@ -293,11 +291,11 @@ handfills =
 handselection : HandSymbol -> Base -> Dict String Size -> Int -> List (Html MainChooser.Types.Msg)
 handselection handsymbol base symbolsizes rowheight =
     [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ]
-        [ symbolcentered base 3 9 symbolsizes 50 rowheight
+        [ symbolcentered False base 3 9 symbolsizes 50 rowheight
         , div [] [ text "Left" ]
         ]
     , td [ onClick (SelectHand Right), selectedbackground Right handsymbol.hand ]
-        [ symbolcentered base 3 1 symbolsizes 50 rowheight
+        [ symbolcentered False base 3 1 symbolsizes 50 rowheight
         , div [] [ text "Right" ]
         ]
     ]
@@ -318,8 +316,8 @@ selectedbackground expected currentselected =
         style []
 
 
-symbolcentered : Base -> Fill -> Rotation -> Dict String Size -> Int -> Int -> Html Msg
-symbolcentered base fill rotation symbolsizes width height =
+symbolcentered : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int -> Int -> Html Msg
+symbolcentered drag base fill rotation symbolsizes width height =
     let
         symbol =
             getSymbolEditorBaseFillRotation base fill rotation symbolsizes
@@ -340,7 +338,10 @@ symbolcentered base fill rotation symbolsizes width height =
                     , "width" => px width
                     , "height" => px height
                     ]
-                , onMouseDown (DragSymbol symbol.code)
+                , if drag then
+                    onMouseDown (DragSymbol symbol.code)
+                  else
+                    onMouseDown Noop
                 ]
                 [ App.map SignView
                     (SWEditor.Display.symbolView1 "" symbol)
