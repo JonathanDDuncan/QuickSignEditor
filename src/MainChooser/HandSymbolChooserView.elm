@@ -10,7 +10,8 @@ import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 import Dict exposing (..)
-
+import ViewHelper.ViewExtra exposing (..)
+ 
 handsymbolchooser : HandSymbol -> ChooserItem ->  Dict String Size -> Int ->Int -> Html Msg
 handsymbolchooser handsymbol choosing  symbolsizes width height  =
     let 
@@ -35,16 +36,205 @@ handsymbolchooser handsymbol choosing  symbolsizes width height  =
                 [ tr [] (fillsview handsymbol choosing.base symbolsizes rowheight  )
                
                    ] 
-                   
+                , flower handsymbol choosing.base symbolsizes rowheight
             ]
-fillsview     : { a | hand : Hands }    -> Base     -> Dict String Size     -> Int     -> List (Html Msg)
+flower handsymbol base symbolsizes rowheight =
+    let
+        fullwidth = 240
+        fullheight = fullwidth 
+        itemwidth = truncate ( fullwidth / 4)
+
+        itemheight = itemwidth
+        radius = (fullwidth / 2) - (toFloat itemwidth / 2)
+        centerfloating =  truncate ((fullwidth / 2) - (sqrt(  ((radius) * (radius))/2)))
+        imagesrc = if handsymbol.plane == Wall then
+                "./img/verticalhand.png"
+                else
+                 "./img/horizontalhand.png"       
+        flowersymbols = getflowersymbols  handsymbol                                    
+    in
+        div [ 
+                          style[ "width" => px fullwidth
+                                ,"height" => px fullheight
+                                ,"margin" => "auto" 
+                                ,"position" => "relative" 
+                                ]
+                     ]
+                [
+                    div[        style[  "position" => "absolute" 
+                                ,"width" => (px <| (fullwidth - (2 * itemwidth)))
+                                ,"height" => (px <| (fullheight - (2 * itemheight)))
+                                ,"top" => px itemwidth
+                                ,"left" =>  px itemwidth
+                               
+                                ]
+                                ][img [src imagesrc,
+                                 style[  "position" => "absolute" 
+                                ,"width" => px (fullwidth - (2 * itemwidth)) 
+                                ,"top" => px 0
+                                ,"bottom" => px 0
+                                ,"margin" => "auto"
+                                ]
+                                   ][]]
+                    ,div[        style[  "position" => "absolute" 
+                                ,"width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"top" => px 0
+                                ,"left" => px (centered fullwidth itemwidth ) 
+                                ,"background" => "blue" 
+                                ] 
+                                ]
+                                [ displayflowersymbol flowersymbols.handfill1 base symbolsizes  rowheight] 
+ 
+                    , div[style[  "position" => "absolute" 
+                                ,"width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"top" => px (centered (centerfloating*2) itemwidth )  
+                                ,"left" => px (centered (centerfloating*2) itemwidth )  
+                                ,"background" => "blue" 
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill2 base symbolsizes  rowheight] 
+                    , div[ style[  "position" => "absolute" 
+                                , "width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"top" => px (centered fullheight itemheight ) 
+                                ,"left" => px 0
+                                ,"background" => "blue" 
+                                
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill3 base symbolsizes  rowheight] 
+                                
+                    , div[style[  "position" => "absolute" 
+                                ,"width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"bottom" => px (centered (centerfloating*2) itemwidth ) 
+                                ,"left" => px (centered (centerfloating*2) itemwidth ) 
+                                ,"background" => "blue" 
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill4 base symbolsizes  rowheight] 
+                                
+                    , div[  style[ "position" => "absolute" 
+                                , "width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"bottom" => px 0
+                                ,"left" => px (centered fullwidth itemwidth ) 
+                                ,"background" => "blue" 
+                              
+
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill5 base symbolsizes  rowheight] 
+                             
+                    , div[style[  "position" => "absolute" 
+                                ,"width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"bottom" => px (centered (centerfloating*2) itemwidth ) 
+                                ,"right" => px (centered (centerfloating*2) itemwidth ) 
+                                ,"background" => "blue" 
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill6 base symbolsizes  rowheight] 
+                               
+                    , div[style[  "position" => "absolute" 
+                                , "width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"top" =>px (centered fullheight itemheight ) 
+                                ,"right" => px 0
+                                ,"background" => "blue" 
+                                
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill7 base symbolsizes  rowheight] 
+                              
+                    , div[style[  "position" => "absolute" 
+                                ,"width" => px itemwidth
+                                ,"height" => px itemheight
+                                ,"top" => px (centered (centerfloating*2) itemwidth ) 
+                                ,"right" => px (centered (centerfloating*2) itemwidth ) 
+                                ,"background" => "blue" 
+                                ]]
+                                 [ displayflowersymbol flowersymbols.handfill8 base symbolsizes  rowheight] 
+                               
+                    
+                ] 
+displayflowersymbol handfill base symbolsizes  rowheight = 
+    div [ style[ "width" => px 50
+                                ,"height" => px 50
+                                ,"margin" => "auto" 
+                                ,"position" => "relative" 
+                                ]]
+    [generalsymbolcol True base handfill.fill (handfill.rotation + handfill.increment) symbolsizes  rowheight]
+    
+getflowersymbols  handsymbol =
+    let
+      handfill = gethandfill handsymbol.handfill
+    in
+    if handfill.rotation == 1 then
+      {
+           handfill1 = rotationincrement handfill 1
+          ,handfill2 = rotationincrement handfill 2
+          ,handfill3 = rotationincrement handfill 3
+          ,handfill4 = rotationincrement handfill 4
+          ,handfill5 = rotationincrement handfill 5
+          ,handfill6 = rotationincrement handfill 6
+          ,handfill7 = rotationincrement handfill 7
+          ,handfill8 = rotationincrement handfill 8
+          
+      } 
+      else               
+        {
+           handfill1 = rotationincrement handfill 1
+          ,handfill2 = rotationincrement handfill 8
+          ,handfill3 = rotationincrement handfill 7
+          ,handfill4 = rotationincrement handfill 6
+          ,handfill5 = rotationincrement handfill 5
+          ,handfill6 = rotationincrement handfill 4
+          ,handfill7 = rotationincrement handfill 3
+          ,handfill8 = rotationincrement handfill 2
+          
+      } 
+rotationincrement handfill increment =
+   
+        {fill = handfill.fill, rotation = handfill.rotation , increment = increment - 1, handfill = handfill.handfill}
+  
+
+centered full item =
+   toFloat full /2 - toFloat item /2
+   |> truncate
+
+fillsview
+    : HandSymbol
+    -> Base
+    -> Dict String Size
+    -> Int
+    -> List (Html Msg)
 fillsview handsymbol base symbolsizes rowheight =
     let handfills = if handsymbol.hand == Right then
-                [{fill =2, rotation = 9},{fill =1, rotation = 1},{fill =2, rotation = 1},{fill =3, rotation = 1}]
+                [gethandfill  RightBabyEdge
+                ,gethandfill RightPalm 
+                ,gethandfill RightThumbEdge
+                ,gethandfill RightBack]
                 else
-                  [{fill =2, rotation = 1},{fill =1, rotation = 1},{fill =2, rotation = 9},{fill =3, rotation = 1}]
-    in 
-      List.map (\handfill -> td [ onClick (SelectHandFill handfill) ] [ (generalsymbolcol False base handfill.fill handfill.rotation symbolsizes  rowheight ) ]) handfills
+                  [gethandfill LeftBabyEdge
+                  ,gethandfill LeftPalm
+                  ,gethandfill LeftThumbEdge
+                  ,gethandfill LeftBack]
+    in  
+      List.map (\handfill -> td [ onClick (SelectHandFill handfill.handfill) , selectedbackground handfill.handfill handsymbol.handfill ] [ (generalsymbolcol False base handfill.fill handfill.rotation symbolsizes  rowheight ) ]) handfills
+
+gethandfill handfill =
+    List.filter (\hf -> hf.handfill == handfill) handfills 
+    |> List.head  
+    |> Maybe.withDefault {fill =0, rotation = 0, handfill = handfill}
+
+
+    
+handfills =
+     [{fill =2, rotation = 9 , handfill = RightBabyEdge}
+                ,{fill =1, rotation = 1, handfill = RightPalm}
+                ,{fill =2, rotation = 1, handfill = RightThumbEdge}
+                ,{fill =3, rotation = 1, handfill = RightBack}
+                ,{fill =2, rotation = 1, handfill = LeftBabyEdge}
+                  ,{fill =1, rotation = 1, handfill = LeftPalm}
+                  ,{fill =2, rotation = 9, handfill = LeftThumbEdge}
+                  ,{fill =3, rotation = 1, handfill = LeftBack}]
 
 handselection :HandSymbol ->  Base -> Dict String Size ->Int ->  List (Html MainChooser.Types.Msg)
 handselection handsymbol base symbolsizes  rowheight  =

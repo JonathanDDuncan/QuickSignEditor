@@ -32,25 +32,31 @@ type alias HandGroupImportModel =
 type alias HandSymbol =
     { hand: Hands
     , plane: Planes
-    , handfill: HandFill
+    , handfill: HandFills
     , rotationselection : Int
     }
 
-type alias HandFill =
-    { fill: Int
-    , rotation: Int
-    }
+
+type HandFills =
+    LeftBack
+    | LeftThumbEdge
+    | LeftPalm
+    | LeftBabyEdge
+    | RightBack  
+    | RightThumbEdge
+    | RightPalm
+    | RightBabyEdge
 
 handsymbolinit :
     { hand : Hands
-    , handfill : { fill : number, rotation : number' }
+    , handfill : HandFills
     , plane : Planes
-    , rotationselection : number''
-    }    
+    , rotationselection : number
+    }
 handsymbolinit =
     { hand = Right
     , plane = Wall
-    , handfill = {fill = 1, rotation = 1}
+    , handfill =   RightPalm 
     , rotationselection = 1
     }
 type alias SymbolSize =
@@ -165,7 +171,7 @@ type Msg
     | Mdl (Material.Msg Msg)
     | SelectHand Hands
     | SelectPlane Planes
-    | SelectHandFill HandFill
+    | SelectHandFill HandFills
 
 type Hands 
     = Right
