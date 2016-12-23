@@ -194,15 +194,30 @@ flower handsymbol base symbolsizes rowheight =
 
 
 displayflowersymbol handfill base symbolsizes rowheight =
-    div
-        [ style
-            [ "width" => px 50
-            , "height" => px 50
-            , "margin" => "auto"
-            , "position" => "relative"
+    let
+        symbol =
+            getSymbolEditorBaseFillRotation base handfill.fill (handfill.rotation + handfill.increment) symbolsizes
+    in
+        div
+            [ style
+                [ "width" => px 50
+                , "height" => px 50
+                , "margin" => "auto"
+                ]
+                
             ]
-        ]
-        [ generalsymbolcol True base handfill.fill (handfill.rotation + handfill.increment) symbolsizes rowheight ]
+            [ div
+                [ style
+                    [ "position" => "absolute"
+                    , "inline" => "block"
+                    , "margin" => "auto"
+                    , "width" => px 50
+                    , "height" => px 50
+                    ]
+                , onMouseDown (DragSymbol symbol.code)
+                ]
+                [ generalsymbolcol base handfill.fill (handfill.rotation + handfill.increment) symbolsizes ]
+            ]
 
 
 getflowersymbols handsymbol =
@@ -266,7 +281,32 @@ fillsview handsymbol base symbolsizes rowheight =
                 , gethandfill LeftBack
                 ]
     in
-        List.map (\handfill -> td [ onClick (SelectHandFill handfill.handfill), selectedbackground handfill.handfill handsymbol.handfill ] [ (generalsymbolcol False base handfill.fill handfill.rotation symbolsizes rowheight) ]) handfills
+        List.map
+            (\handfill ->
+                td
+                    [ onClick (SelectHandFill handfill.handfill)
+                    , selectedbackground handfill.handfill handsymbol.handfill
+                    ]
+                    [ div
+                        [ style
+                            [ "position" => "relative"
+                            , "width" => px 50
+                            , "height" => px rowheight
+                            ]
+                        ]
+                        [ div
+                            [ style
+                                [ "position" => "absolute"
+                                , "margin" => "auto"
+                                , "width" => px 50
+                                , "height" => px rowheight
+                                ]
+                            ]
+                            [ generalsymbolcol base handfill.fill handfill.rotation symbolsizes ]
+                        ]
+                    ]
+            )
+            handfills
 
 
 gethandfill handfill =
@@ -289,8 +329,46 @@ handfills =
 
 handselection : HandSymbol -> Base -> Dict String Size -> Int -> List (Html MainChooser.Types.Msg)
 handselection handsymbol base symbolsizes rowheight =
-    [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ] [ (generalsymbolcol False base 3 9 symbolsizes rowheight), div [] [ text "Left" ] ]
-    , td [ onClick (SelectHand Right), selectedbackground Right handsymbol.hand ] [ (generalsymbolcol False base 3 1 symbolsizes rowheight), div [] [ text "Right" ] ]
+    [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ]
+        [ div
+            [ style
+                [ "position" => "relative"
+                , "width" => px 50
+                , "height" => px rowheight
+                ]
+            ]
+            [ div
+                [ style
+                    [ "position" => "absolute"
+                    , "margin" => "auto"
+                    , "width" => px 50
+                    , "height" => px rowheight
+                    ]
+                ]
+                [ generalsymbolcol base 3 9 symbolsizes ]
+            ]
+        , div [] [ text "Left" ]
+        ]
+    , td [ onClick (SelectHand Right), selectedbackground Right handsymbol.hand ]
+        [ div
+            [ style
+                [ "position" => "relative"
+                , "width" => px 50
+                , "height" => px rowheight
+                ]
+            ]
+            [ div
+                [ style
+                    [ "position" => "absolute"
+                    , "margin" => "auto"
+                    , "width" => px 50
+                    , "height" => px rowheight
+                    ]
+                ]
+                [ generalsymbolcol base 3 1 symbolsizes ]
+            ]
+        , div [] [ text "Right" ]
+        ]
     ]
 
 
@@ -335,23 +413,46 @@ generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes column
 
         showrotation2 =
             isvalidrotation rotation2 validrotations
+
+        symbol =
+            getSymbolEditorBaseFillRotation base symbolcol rotation symbolsizes
     in
         [ if showrotation1 then
             td
                 []
-                [ (generalsymbolcol True base symbolcol rotation symbolsizes rowheight) ]
+                [ div
+                    [ style
+                        [ "position" => "absolute"
+                        , "margin" => "auto"
+                        , "width" => "100%"
+                        , "height" => "100%"
+                        ]
+                    
+                    ]
+                    [ generalsymbolcol base symbolcol rotation symbolsizes ]
+                ]
           else
             blanktd
         , blanktd
         , if showrotation2 then
             td
-                [ Html.Attributes.style
+                [ style
                     [ "text-align" => "center"
                     , "display" => "block"
                     , "width" => "45%"
                     ]
                 ]
-                [ generalsymbolcol True base symbolcol rotation2 symbolsizes rowheight ]
+                [ div
+                    [ style
+                        [ "position" => "absolute"
+                        , "margin" => "auto"
+                        , "width" => "100%"
+                        , "height" => "100%"
+                        ]
+                  
+                    ]
+                    [ generalsymbolcol base symbolcol rotation2 symbolsizes ]
+                ]
           else
             blanktd
         ]
@@ -367,38 +468,13 @@ isvalidrotation rotation validrotations =
     List.any (\vr -> vr == rotation) validrotations
 
 
-generalsymbolcol : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int -> Html MainChooser.Types.Msg
-generalsymbolcol drag base fill rotation symbolsizes rowheight =
+generalsymbolcol base fill rotation symbolsizes =
     let
         symbol =
             getSymbolEditorBaseFillRotation base fill rotation symbolsizes
-
-        sign =
-            { syms = [ symbol ]
-            }
     in
-        -- App.map SymbolView (symbolView "" symbol)
-        div
-            [ onMouseDown
-                (if (drag) then
-                    DragSymbol symbol.code
-                 else
-                    Noop
-                )
-            ]
-            [ App.map SignView
-                (signView sign
-                    [ Html.Attributes.style
-                        [ "position" => "relative"
-                        , "margin" => "auto"
-                        , "left" => px 0
-                        , "top" => px 4
-                        , "width" => px symbol.width
-                        , "height" => px symbol.height
-                        ]
-                    ]
-                )
-            ]
+        App.map SignView
+            (SWEditor.Display.symbolView1 "" symbol)
 
 
 scaling : number -> List ( String, String )
