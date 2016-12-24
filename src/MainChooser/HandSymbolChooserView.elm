@@ -12,6 +12,7 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.HandSymbolChooser exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 handsymbolchooser : HandSymbol -> ChooserItem -> Dict String Size -> Int -> Int -> Html Msg
@@ -207,6 +208,7 @@ centered full item =
         |> truncate
 
 
+fillsview : HandSymbol -> Base -> Dict String Size -> Int -> List (Html Msg)
 fillsview handsymbol base symbolsizes rowheight =
     let
         handfillitems =
@@ -232,6 +234,7 @@ fillsview handsymbol base symbolsizes rowheight =
             handfillitems
 
 
+handselection : HandSymbol -> Int -> List (Html Msg)
 handselection handsymbol rowheight =
     [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ]
         [ div
@@ -260,6 +263,7 @@ handselection handsymbol rowheight =
     ]
 
 
+planeselection : { a | plane : Planes } -> List (Html Msg)
 planeselection handsymbol =
     [ td [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ] [ img [ src "./img/wallplane.png", width 70 ] [], div [] [ text "Wall" ] ]
     , td [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ] [ img [ src "./img/floorplane.png", width 70 ] [], div [] [ text "Floor" ] ]
@@ -274,6 +278,7 @@ selectedbackground expected currentselected =
         style []
 
 
+symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
 symbolcentered drag symbol width height =
     div
         [ style

@@ -1,6 +1,6 @@
 To Do
 
-Hand symbol chooser
+Move fillsview handfillitems to model
 Arrow symbol chooser
 
 Save Cancel buttons
