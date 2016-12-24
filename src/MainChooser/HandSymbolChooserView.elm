@@ -41,7 +41,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                     ]
                 ]
                 [ tr []
-                    (fillsview handsymbol choosing.base symbolsizes rowheight)
+                    (fillsview handsymbol rowheight)
                 ]
             , flower handsymbol rowheight
             ]
@@ -208,30 +208,26 @@ centered full item =
         |> truncate
 
 
-fillsview : HandSymbol -> Base -> Dict String Size -> Int -> List (Html Msg)
-fillsview handsymbol base symbolsizes rowheight =
-    let
-        handfillitems =
-            gethandfillitems base symbolsizes handsymbol.hand handsymbol.plane
-    in
-        List.map
-            (\handfillitem ->
-                td
-                    [ onClick (SelectHandFill handfillitem.filltype)
-                    , selectedbackground handfillitem.filltype handsymbol.handfill
-                    ]
-                    [ div
-                        [ style
-                            [ "position" => "relative"
-                            , "display" => "block"
-                            , "top" => px -12
-                            , "left" => px 0
-                            ]
+fillsview : HandSymbol -> Int -> List (Html Msg)
+fillsview handsymbol rowheight =
+    List.map
+        (\handfillitem ->
+            td
+                [ onClick (SelectHandFill handfillitem.filltype)
+                , selectedbackground handfillitem.filltype handsymbol.handfill
+                ]
+                [ div
+                    [ style
+                        [ "position" => "relative"
+                        , "display" => "block"
+                        , "top" => px -12
+                        , "left" => px 0
                         ]
-                        [ symbolcentered False handfillitem.symbol 50 rowheight ]
                     ]
-            )
-            handfillitems
+                    [ symbolcentered False handfillitem.symbol 50 rowheight ]
+                ]
+        )
+        handsymbol.handfillitems
 
 
 handselection : HandSymbol -> Int -> List (Html Msg)

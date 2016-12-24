@@ -209,6 +209,9 @@ update action model =
                 symbolrighthand =
                     getSymbolEditorBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
 
+                handfillitems =
+                    gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane
+
                 handsymbol =
                     model.handsymbol
 
@@ -217,6 +220,7 @@ update action model =
                         | flowersymbols = flowersymbols
                         , symbollefthand = symbollefthand
                         , symbolrighthand = symbolrighthand
+                        , handfillitems = handfillitems
                     }
             in
                 ( { model

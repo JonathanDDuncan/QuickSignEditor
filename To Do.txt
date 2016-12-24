@@ -1,6 +1,6 @@
 To Do
 
-Move fillsview handfillitems to model
+Add hand image to hand selectors
 Arrow symbol chooser
 
 Save Cancel buttons

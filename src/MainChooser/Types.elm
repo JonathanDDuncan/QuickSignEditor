@@ -61,6 +61,7 @@ type alias HandSymbol =
     , flowersymbols : Flower
     , symbollefthand : EditorSymbol
     , symbolrighthand : EditorSymbol
+    , handfillitems : List HandFillItem
     }
 
 
@@ -83,6 +84,7 @@ handsymbolinit =
     , flowersymbols = flowerinit
     , symbollefthand = symbolinit
     , symbolrighthand = symbolinit
+    , handfillitems = []
     }
 
 
