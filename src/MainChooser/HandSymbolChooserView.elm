@@ -225,7 +225,7 @@ petal handfill base symbolsizes rowheight =
 getpetals handsymbol =
     let
         handfill =
-            gethandfill handsymbol.handfill
+            gethandfill handsymbol.handfill handsymbol.plane
     in
         if handfill.rotation == 1 then
             { handfill1 = rotationincrement handfill 1
@@ -268,16 +268,16 @@ fillsview handsymbol base symbolsizes rowheight =
     let
         handfills =
             if handsymbol.hand == Right then
-                [ gethandfill RightBabyEdge
-                , gethandfill RightPalm
-                , gethandfill RightThumbEdge
-                , gethandfill RightBack
+                [ gethandfill RightBabyEdge handsymbol.plane
+                , gethandfill RightPalm handsymbol.plane
+                , gethandfill RightThumbEdge handsymbol.plane
+                , gethandfill RightBack handsymbol.plane
                 ]
             else
-                [ gethandfill LeftBabyEdge
-                , gethandfill LeftPalm
-                , gethandfill LeftThumbEdge
-                , gethandfill LeftBack
+                [ gethandfill LeftBabyEdge handsymbol.plane
+                , gethandfill LeftPalm handsymbol.plane
+                , gethandfill LeftThumbEdge handsymbol.plane
+                , gethandfill LeftBack handsymbol.plane
                 ]
     in
         List.map
@@ -300,21 +300,29 @@ fillsview handsymbol base symbolsizes rowheight =
             handfills
 
 
-gethandfill handfill =
-    List.filter (\hf -> hf.handfill == handfill) handfills
+gethandfill handfill plane =
+    List.filter (\hf -> hf.handfill == handfill && hf.plane == plane) handfills
         |> List.head
-        |> Maybe.withDefault { fill = 0, rotation = 0, handfill = handfill }
+        |> Maybe.withDefault { fill = 0, rotation = 0, handfill = handfill, plane = plane }
 
 
 handfills =
-    [ { fill = 2, rotation = 9, handfill = RightBabyEdge }
-    , { fill = 1, rotation = 1, handfill = RightPalm }
-    , { fill = 2, rotation = 1, handfill = RightThumbEdge }
-    , { fill = 3, rotation = 1, handfill = RightBack }
-    , { fill = 2, rotation = 1, handfill = LeftBabyEdge }
-    , { fill = 1, rotation = 1, handfill = LeftPalm }
-    , { fill = 2, rotation = 9, handfill = LeftThumbEdge }
-    , { fill = 3, rotation = 1, handfill = LeftBack }
+    [ { fill = 2, rotation = 9, handfill = RightBabyEdge, plane = Wall }
+    , { fill = 1, rotation = 1, handfill = RightPalm, plane = Wall }
+    , { fill = 2, rotation = 1, handfill = RightThumbEdge, plane = Wall }
+    , { fill = 3, rotation = 1, handfill = RightBack, plane = Wall }
+    , { fill = 2, rotation = 1, handfill = LeftBabyEdge, plane = Wall }
+    , { fill = 1, rotation = 1, handfill = LeftPalm, plane = Wall }
+    , { fill = 2, rotation = 9, handfill = LeftThumbEdge, plane = Wall }
+    , { fill = 3, rotation = 1, handfill = LeftBack, plane = Wall }
+    , { fill = 5, rotation = 9, handfill = RightBabyEdge, plane = Floor }
+    , { fill = 4, rotation = 1, handfill = RightPalm, plane = Floor }
+    , { fill = 5, rotation = 1, handfill = RightThumbEdge, plane = Floor }
+    , { fill = 6, rotation = 1, handfill = RightBack, plane = Floor }
+    , { fill = 5, rotation = 1, handfill = LeftBabyEdge, plane = Floor }
+    , { fill = 4, rotation = 1, handfill = LeftPalm, plane = Floor }
+    , { fill = 5, rotation = 9, handfill = LeftThumbEdge, plane = Floor }
+    , { fill = 6, rotation = 1, handfill = LeftBack, plane = Floor }
     ]
 
 
