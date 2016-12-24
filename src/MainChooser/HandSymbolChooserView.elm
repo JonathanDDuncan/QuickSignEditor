@@ -34,11 +34,12 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
             , table
                 [ class "symbolchooserheader"
                 , Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px rowheight
+                    [ "width" => "100%"
+                    , "height" => px 50
                     ]
                 ]
-                [ tr [] (fillsview handsymbol choosing.base symbolsizes rowheight)
+                [ tr []
+                    (fillsview handsymbol choosing.base symbolsizes rowheight)
                 ]
             , flower handsymbol choosing.base symbolsizes rowheight
             ]
@@ -47,7 +48,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
 flower handsymbol base symbolsizes rowheight =
     let
         fullwidth =
-            240
+            150
 
         fullheight =
             fullwidth
@@ -84,9 +85,9 @@ flower handsymbol base symbolsizes rowheight =
             [ div
                 [ style
                     [ "position" => "absolute"
-                    , "width" => (px <| (fullwidth - (2 * itemwidth)))
-                    , "height" => (px <| (fullheight - (2 * itemheight)))
-                    , "top" => px (itemwidth - 12)
+                    , "width" => px (fullwidth - (2 * itemwidth))
+                    , "height" => px (fullwidth - (2 * itemwidth))
+                    , "top" => px itemheight
                     , "left" => px itemwidth
                     ]
                 ]
@@ -94,10 +95,12 @@ flower handsymbol base symbolsizes rowheight =
                     [ src imagesrc
                     , style
                         [ "position" => "absolute"
-                        , "width" => px (fullwidth - (2 * itemwidth))
+                        , "width" => (mulInt (fullwidth - (2 * itemwidth)) 0.75 |> px)
+                        , "margin" => "auto"
                         , "top" => px 0
                         , "bottom" => px 0
-                        , "margin" => "auto"
+                        , "left" => px 0
+                        , "right" => px 0
                         ]
                     ]
                     []
@@ -111,6 +114,7 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 0
                 (centered fullwidth itemwidth)
+                5
             , petaldiv
                 flowersymbols.handfill2
                 base
@@ -120,6 +124,7 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (centered (centerfloating * 2) itemwidth)
                 (centered (centerfloating * 2) itemheight)
+                5
             , petaldiv
                 flowersymbols.handfill3
                 base
@@ -129,6 +134,7 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (centered fullheight itemheight)
                 0
+                10
             , petaldiv
                 flowersymbols.handfill4
                 base
@@ -138,6 +144,7 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (centered ((fullheight - centerfloating) * 2) itemwidth)
                 (centered (centerfloating * 2) itemwidth)
+                5
             , petaldiv
                 flowersymbols.handfill5
                 base
@@ -147,6 +154,7 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (fullheight - itemheight)
                 (centered fullwidth itemwidth)
+                5
             , petaldiv
                 flowersymbols.handfill6
                 base
@@ -156,6 +164,7 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (centered ((fullheight - centerfloating) * 2) itemwidth)
                 (centered ((fullwidth - centerfloating) * 2) itemwidth)
+                5
             , petaldiv
                 flowersymbols.handfill7
                 base
@@ -165,8 +174,9 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (centered fullheight itemheight)
                 (fullwidth - itemwidth)
+                5
             , petaldiv
-                flowersymbols.handfill7
+                flowersymbols.handfill8
                 base
                 symbolsizes
                 rowheight
@@ -174,11 +184,21 @@ flower handsymbol base symbolsizes rowheight =
                 itemheight
                 (centered (centerfloating * 2) itemwidth)
                 (centered ((fullwidth - centerfloating) * 2) itemwidth)
+                10
             ]
 
 
-petaldiv : { a | fill : Fill, increment : Int, rotation : Int } -> Base -> Dict String Size -> b -> Int -> Int -> Int -> Int -> Html Msg
-petaldiv handfill base symbolsizes rowheight width height top left =
+mulInt : Int -> Float -> Int
+mulInt num1 num2 =
+    truncate (toFloat num1 * num2)
+
+
+
+-- mulInt 5 0.75
+
+
+petaldiv : { a | fill : Fill, increment : Int, rotation : Int } -> Base -> Dict String Size -> b -> Int -> Int -> Int -> Int -> Int -> Html Msg
+petaldiv handfill base symbolsizes rowheight width height top left paddingtop =
     div
         [ style
             [ "position" => "absolute"
@@ -186,9 +206,11 @@ petaldiv handfill base symbolsizes rowheight width height top left =
             , "height" => px height
             , "top" => px top
             , "left" => px left
+            , "pading-top" => px 20
             ]
         ]
-        [ petal handfill base symbolsizes rowheight ]
+        [ petal handfill base symbolsizes rowheight
+        ]
 
 
 petal : { a | fill : Fill, rotation : Int, increment : Int } -> Base -> Dict String Size -> b -> Html Msg
@@ -197,7 +219,7 @@ petal handfill base symbolsizes rowheight =
         symbol =
             getSymbolEditorBaseFillRotation base handfill.fill (handfill.rotation + handfill.increment) symbolsizes
     in
-        symbolcentered True base handfill.fill (handfill.rotation + handfill.increment) symbolsizes 50 50
+        symbolcentered True base handfill.fill (handfill.rotation + handfill.increment) symbolsizes symbol.width symbol.height
 
 
 getpetals handsymbol =
@@ -264,7 +286,15 @@ fillsview handsymbol base symbolsizes rowheight =
                     [ onClick (SelectHandFill handfill.handfill)
                     , selectedbackground handfill.handfill handsymbol.handfill
                     ]
-                    [ symbolcentered False base handfill.fill handfill.rotation symbolsizes 50 rowheight
+                    [ div
+                        [ style
+                            [ "position" => "relative"
+                            , "display" => "block"
+                            , "top" => px -12
+                            , "left" => px 0
+                            ]
+                        ]
+                        [ symbolcentered False base handfill.fill handfill.rotation symbolsizes 50 rowheight ]
                     ]
             )
             handfills
@@ -291,11 +321,27 @@ handfills =
 handselection : HandSymbol -> Base -> Dict String Size -> Int -> List (Html MainChooser.Types.Msg)
 handselection handsymbol base symbolsizes rowheight =
     [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ]
-        [ symbolcentered False base 3 9 symbolsizes 50 rowheight
+        [ div
+            [ style
+                [ "position" => "relative"
+                , "display" => "block"
+                , "top" => px -15
+                , "left" => px 0
+                ]
+            ]
+            [ symbolcentered False base 3 9 symbolsizes 50 rowheight ]
         , div [] [ text "Left" ]
         ]
     , td [ onClick (SelectHand Right), selectedbackground Right handsymbol.hand ]
-        [ symbolcentered False base 3 1 symbolsizes 50 rowheight
+        [ div
+            [ style
+                [ "position" => "relative"
+                , "display" => "block"
+                , "top" => px -15
+                , "left" => px 0
+                ]
+            ]
+            [ symbolcentered False base 3 1 symbolsizes 50 rowheight ]
         , div [] [ text "Right" ]
         ]
     ]

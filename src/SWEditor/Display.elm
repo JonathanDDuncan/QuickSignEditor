@@ -70,51 +70,56 @@ symbolView nbcolor symbol =
         ]
 
 
-
 symbolView1 nbcolor symbol =
-    span
-        [ class "symbol"
-        , style
-            [ scale symbol.size
-            , "left" => px symbol.x
-            , "top" => px symbol.y
-             , "right" => px 0
-            , "bottom" => px 0
-            , "position" => "absolute"
-            , "display" => "block"
-            , "margin" => "auto"
-            , "height" => px symbol.height
-            , "width" => px symbol.width
+    div
+        [ style
+            [ "display" => "inline-table"
             ]
         ]
         [ span
-            [ style
-                [ "display"
-                    => "none"
-                ]
-            ]
-            [ text symbol.key ]
-        , span
-            [ class "sym-fill"
+            [ class "symbol"
             , style
-                [ "color"
-                    => symbol.nwcolor
+                [ "position" => "absolute"
+                , "display" => "block"
+                , scale symbol.size
+                , "height" => px symbol.height
+                , "width" => px symbol.width
                 ]
             ]
-            [ text symbol.pua ]
-        , span
-            [ class "sym-line"
-            , style
-                [ "color"
-                    => (nbcolor)
+            [ span
+                [ style
+                    [ "display"
+                        => "none"
+                    ]
                 ]
+                [ text symbol.key ]
+            , span
+                [ class "sym-fill"
+                , style
+                    [ "color"
+                        => symbol.nwcolor
+                    ]
+                ]
+                [ text symbol.pua ]
+            , span
+                [ class "sym-line"
+                , style
+                    [ "color"
+                        => (nbcolor)
+                    ]
+                ]
+                [ text symbol.pua ]
             ]
-            [ text symbol.pua ]
         ]
+
+
+mulInt : Int -> Float -> Int
+mulInt num1 num2 =
+    truncate (toFloat num1 * num2)
+
 
 symbolaloneView : EditorSymbol -> Int -> Html Msg
 symbolaloneView symbol margin =
-     
     div
         [ class "font-30"
         , style
