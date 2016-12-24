@@ -16,10 +16,13 @@ import String exposing (..)
 import SW.Types exposing (..)
 import Material
 import SWEditor.EditorSymbol exposing (getSymbolEditorCode, fromEditorSymbol)
+import MainChooser.HandSymbolChooser exposing (..)
+import SWEditor.EditorSymbol exposing (..)
+import Update.Extra exposing (..)
 
 
 -- import SubMainChoosers.State
- 
+
 
 init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
@@ -122,10 +125,11 @@ update action model =
 
         GroupSelected choosing ->
             ( { model
-                | groupselected =   choosing
+                | groupselected = choosing
               }
             , Cmd.none
             )
+                |> Update.Extra.andThen update UpdateHandSymbolChooser
 
         DragSymbol code ->
             let
@@ -151,37 +155,77 @@ update action model =
 
         SelectHand hand ->
             let
-                handsymbol = model.handsymbol
-                newhandsymbol = {handsymbol | hand =  hand}
+                handsymbol =
+                    model.handsymbol
+
+                newhandsymbol =
+                    { handsymbol | hand = hand }
             in
-              
-            ( { model
-                | handsymbol =  newhandsymbol
-              }
-            , Cmd.none
-            )
+                ( { model
+                    | handsymbol = newhandsymbol
+                  }
+                , Cmd.none
+                )
+                    |> Update.Extra.andThen update UpdateHandSymbolChooser
+
         SelectPlane plane ->
-           let
-                handsymbol = model.handsymbol
-                newhandsymbol = {handsymbol | plane =  plane}
+            let
+                handsymbol =
+                    model.handsymbol
+
+                newhandsymbol =
+                    { handsymbol | plane = plane }
             in
-            ( { model
-                | handsymbol = newhandsymbol
-              }
-            , Cmd.none
-            )
+                ( { model
+                    | handsymbol = newhandsymbol
+                  }
+                , Cmd.none
+                )
+                    |> Update.Extra.andThen update UpdateHandSymbolChooser
 
         SelectHandFill handfill ->
-           let
-                handsymbol = model.handsymbol
-                newhandsymbol = {handsymbol | handfill =  handfill}
+            let
+                handsymbol =
+                    model.handsymbol
+
+                newhandsymbol =
+                    { handsymbol | handfill = handfill }
             in
-            ( { model
-                | handsymbol = newhandsymbol
-              }
-            , Cmd.none
-            )
-            
+                ( { model
+                    | handsymbol = newhandsymbol
+                  }
+                , Cmd.none
+                )
+                    |> Update.Extra.andThen update UpdateHandSymbolChooser
+
+        UpdateHandSymbolChooser ->
+            let
+                flowersymbols =
+                    getpetals model.handsymbol model.groupselected.base model.symbolsizes
+
+                symbollefthand =
+                    getSymbolEditorBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
+
+                symbolrighthand =
+                    getSymbolEditorBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
+
+                handsymbol =
+                    model.handsymbol
+
+                newhandsymbol =
+                    { handsymbol
+                        | flowersymbols = flowersymbols
+                        , symbollefthand = symbollefthand
+                        , symbolrighthand = symbolrighthand
+                    }
+            in
+                ( { model
+                    | handsymbol = newhandsymbol
+                  }
+                , Cmd.none
+                )
+
+
 (=>) : a -> b -> ( a, b )
 (=>) =
     (,)
@@ -254,7 +298,7 @@ creategroupchoosing chooservalue itemsvalues colitemsvalues item =
     , thumb = item.thumb
     , row = getvalue item.rowname itemsvalues
     , col = getvalue item.colname colitemsvalues
-    , rank = item.rank 
+    , rank = item.rank
     }
 
 

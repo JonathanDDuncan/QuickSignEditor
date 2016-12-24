@@ -14,7 +14,8 @@ import MainChooser.GeneralGroupChooserView exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
 import MainChooser.HandSymbolChooserView exposing (..)
 import SW.State exposing (iskey)
- 
+
+
 --import SubMainChooser.View exposing (root)
 
 
@@ -58,19 +59,21 @@ root model parentwidth parentheight =
                 [ choosesubgroupchooser model
                 ]
             ]
- 
-symbolchooser:MainChooser.Types.Model -> Int -> Int ->   Html MainChooser.Types.Msg
-symbolchooser model halfwidth  halfheight=
-    if  iskey model.groupselected.symbolkey "hand" then
-        handsymbolchooser model.handsymbol model.groupselected  model.symbolsizes halfwidth halfheight
-    else 
+
+
+symbolchooser : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
+symbolchooser model halfwidth halfheight =
+    if iskey model.groupselected.symbolkey "hand" then
+        handsymbolchooser model.handsymbol model.groupselected model.symbolsizes halfwidth halfheight
+    else
         generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
+
 
 displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
 displayChoosing choosing =
     div [ onClick (Clicked choosing.value) ] [ App.map Choosing (Choosing.View.root choosing) ]
 
- 
+
 choosesubgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
 choosesubgroupchooser model =
     let
@@ -83,23 +86,6 @@ choosesubgroupchooser model =
 
             _ ->
                 generalgroupchooser model <| getchoosings basesymbol model.allgroupchoosings
-
-
-getchoosings : String -> List { b | basesymbol : String, choosings : List a } -> List a
-getchoosings basesymbol allgroupchoosings =
-    let
-        firstfound =
-            List.head <| List.filter (\agc -> agc.basesymbol == basesymbol) allgroupchoosings
-
-        choosings =
-            case firstfound of
-                Just groupchoosings ->
-                    groupchoosings.choosings
-
-                Nothing ->
-                    []
-    in
-         choosings
 
 
 

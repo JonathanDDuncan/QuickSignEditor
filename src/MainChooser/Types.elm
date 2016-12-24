@@ -43,6 +43,7 @@ type Msg
     | SelectHand Hands
     | SelectPlane Planes
     | SelectHandFill HandFills
+    | UpdateHandSymbolChooser
 
 
 type alias HandGroupImportModel =
@@ -57,6 +58,9 @@ type alias HandSymbol =
     , plane : Planes
     , handfill : HandFills
     , rotationselection : Int
+    , flowersymbols : Flower
+    , symbollefthand : EditorSymbol
+    , symbolrighthand : EditorSymbol
     }
 
 
@@ -71,17 +75,14 @@ type HandFills
     | RightBabyEdge
 
 
-handsymbolinit :
-    { hand : Hands
-    , handfill : HandFills
-    , plane : Planes
-    , rotationselection : number
-    }
 handsymbolinit =
     { hand = Right
     , plane = Wall
     , handfill = RightPalm
     , rotationselection = 1
+    , flowersymbols = flowerinit
+    , symbollefthand = symbolinit
+    , symbolrighthand = symbolinit
     }
 
 
@@ -196,6 +197,67 @@ type alias HandFillItem =
     , planetype : Planes
     , rotation : Int
     , symbol : EditorSymbol
+    }
+
+
+getchoosings : String -> List { b | basesymbol : String, choosings : List a } -> List a
+getchoosings basesymbol allgroupchoosings =
+    let
+        firstfound =
+            List.head <| List.filter (\agc -> agc.basesymbol == basesymbol) allgroupchoosings
+
+        choosings =
+            case firstfound of
+                Just groupchoosings ->
+                    groupchoosings.choosings
+
+                Nothing ->
+                    []
+    in
+        choosings
+
+
+type alias Petal =
+    { fill : Fill
+    , filltype : HandFills
+    , planetype : Planes
+    , rotation : Int
+    , rotationoffset : Int
+    , symbol : EditorSymbol
+    }
+
+
+petalinit =
+    { fill = 1
+    , filltype = LeftBack
+    , planetype = Wall
+    , rotation = 1
+    , rotationoffset = 0
+    , symbol = symbolinit
+    }
+
+
+type alias Flower =
+    { handfill1 : Petal
+    , handfill2 : Petal
+    , handfill3 : Petal
+    , handfill4 : Petal
+    , handfill5 : Petal
+    , handfill6 : Petal
+    , handfill7 : Petal
+    , handfill8 : Petal
+    }
+
+
+flowerinit =
+    { handfill1 = petalinit
+    , handfill2 = petalinit
+    , handfill3 = petalinit
+    , handfill4 = petalinit
+    , handfill5 = petalinit
+    , handfill6 = petalinit
+    , handfill7 = petalinit
+    , handfill8 = petalinit
     }
 
 

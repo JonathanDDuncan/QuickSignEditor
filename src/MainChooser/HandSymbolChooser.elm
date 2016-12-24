@@ -56,6 +56,11 @@ createhandfillitem base symbolsizes basefillitem =
         { fill = basefillitem.fill, rotation = basefillitem.rotation, filltype = basefillitem.filltype, planetype = basefillitem.planetype, symbol = symbol }
 
 
+getpetals :
+    { a | handfill : HandFills, plane : Planes }
+    -> Base
+    -> Dict String Size
+    -> Flower
 getpetals handsymbol base symbolsizes =
     let
         selectedhandfillitem =

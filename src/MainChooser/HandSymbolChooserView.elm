@@ -19,15 +19,6 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
     let
         rowheight =
             truncate <| toFloat height / toFloat 10
-
-        flowersymbols =
-            getpetals handsymbol choosing.base symbolsizes
-
-        symbollefthand =
-            getSymbolEditorBaseFillRotation choosing.base 3 9 symbolsizes
-
-        symbolrighthand =
-            getSymbolEditorBaseFillRotation choosing.base 3 1 symbolsizes
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -38,7 +29,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                     ]
                 ]
                 [ tr [] <|
-                    List.append (handselection handsymbol symbollefthand symbolrighthand rowheight)
+                    List.append (handselection handsymbol rowheight)
                         (planeselection handsymbol)
                 ]
             , table
@@ -51,11 +42,11 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                 [ tr []
                     (fillsview handsymbol choosing.base symbolsizes rowheight)
                 ]
-            , flower handsymbol flowersymbols rowheight
+            , flower handsymbol rowheight
             ]
 
 
-flower handsymbol flowersymbols rowheight =
+flower handsymbol rowheight =
     let
         fullwidth =
             150
@@ -113,7 +104,7 @@ flower handsymbol flowersymbols rowheight =
                     []
                 ]
             , petaldiv
-                flowersymbols.handfill1
+                handsymbol.flowersymbols.handfill1
                 rowheight
                 itemwidth
                 itemheight
@@ -121,7 +112,7 @@ flower handsymbol flowersymbols rowheight =
                 (centered fullwidth itemwidth)
                 5
             , petaldiv
-                flowersymbols.handfill2
+                handsymbol.flowersymbols.handfill2
                 rowheight
                 itemwidth
                 itemheight
@@ -129,7 +120,7 @@ flower handsymbol flowersymbols rowheight =
                 (centered (centerfloating * 2) itemheight)
                 5
             , petaldiv
-                flowersymbols.handfill3
+                handsymbol.flowersymbols.handfill3
                 rowheight
                 itemwidth
                 itemheight
@@ -137,7 +128,7 @@ flower handsymbol flowersymbols rowheight =
                 0
                 10
             , petaldiv
-                flowersymbols.handfill4
+                handsymbol.flowersymbols.handfill4
                 rowheight
                 itemwidth
                 itemheight
@@ -145,7 +136,7 @@ flower handsymbol flowersymbols rowheight =
                 (centered (centerfloating * 2) itemwidth)
                 5
             , petaldiv
-                flowersymbols.handfill5
+                handsymbol.flowersymbols.handfill5
                 rowheight
                 itemwidth
                 itemheight
@@ -153,7 +144,7 @@ flower handsymbol flowersymbols rowheight =
                 (centered fullwidth itemwidth)
                 5
             , petaldiv
-                flowersymbols.handfill6
+                handsymbol.flowersymbols.handfill6
                 rowheight
                 itemwidth
                 itemheight
@@ -161,7 +152,7 @@ flower handsymbol flowersymbols rowheight =
                 (centered ((fullwidth - centerfloating) * 2) itemwidth)
                 5
             , petaldiv
-                flowersymbols.handfill7
+                handsymbol.flowersymbols.handfill7
                 rowheight
                 itemwidth
                 itemheight
@@ -169,7 +160,7 @@ flower handsymbol flowersymbols rowheight =
                 (fullwidth - itemwidth)
                 5
             , petaldiv
-                flowersymbols.handfill8
+                handsymbol.flowersymbols.handfill8
                 rowheight
                 itemwidth
                 itemheight
@@ -241,7 +232,7 @@ fillsview handsymbol base symbolsizes rowheight =
             handfillitems
 
 
-handselection handsymbol symbollefthand symbolrighthand rowheight =
+handselection handsymbol rowheight =
     [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ]
         [ div
             [ style
@@ -251,7 +242,7 @@ handselection handsymbol symbollefthand symbolrighthand rowheight =
                 , "left" => px 0
                 ]
             ]
-            [ symbolcentered False symbollefthand 50 rowheight ]
+            [ symbolcentered False handsymbol.symbollefthand 50 rowheight ]
         , div [] [ text "Left" ]
         ]
     , td [ onClick (SelectHand Right), selectedbackground Right handsymbol.hand ]
@@ -263,7 +254,7 @@ handselection handsymbol symbollefthand symbolrighthand rowheight =
                 , "left" => px 0
                 ]
             ]
-            [ symbolcentered False symbolrighthand 50 rowheight ]
+            [ symbolcentered False handsymbol.symbolrighthand 50 rowheight ]
         , div [] [ text "Right" ]
         ]
     ]
