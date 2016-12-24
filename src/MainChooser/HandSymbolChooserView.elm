@@ -11,6 +11,7 @@ import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import ViewHelper.ViewExtra exposing (..)
+import MainChooser.HandFill exposing (..)
 
 
 handsymbolchooser : HandSymbol -> ChooserItem -> Dict String Size -> Int -> Int -> Html Msg
@@ -222,38 +223,6 @@ petal handfill base symbolsizes rowheight =
         symbolcentered True base handfill.fill (handfill.rotation + handfill.increment) symbolsizes symbol.width symbol.height
 
 
-getpetals handsymbol =
-    let
-        handfill =
-            gethandfill handsymbol.handfill handsymbol.plane
-    in
-        if handfill.rotation == 1 then
-            { handfill1 = rotationincrement handfill 1
-            , handfill2 = rotationincrement handfill 2
-            , handfill3 = rotationincrement handfill 3
-            , handfill4 = rotationincrement handfill 4
-            , handfill5 = rotationincrement handfill 5
-            , handfill6 = rotationincrement handfill 6
-            , handfill7 = rotationincrement handfill 7
-            , handfill8 = rotationincrement handfill 8
-            }
-        else
-            { handfill1 = rotationincrement handfill 1
-            , handfill2 = rotationincrement handfill 8
-            , handfill3 = rotationincrement handfill 7
-            , handfill4 = rotationincrement handfill 6
-            , handfill5 = rotationincrement handfill 5
-            , handfill6 = rotationincrement handfill 4
-            , handfill7 = rotationincrement handfill 3
-            , handfill8 = rotationincrement handfill 2
-            }
-
-
-rotationincrement : { d | fill : a, handfill : b, rotation : c } -> number -> { fill : a, handfill : b, increment : number, rotation : c }
-rotationincrement handfill increment =
-    { fill = handfill.fill, rotation = handfill.rotation, increment = increment - 1, handfill = handfill.handfill }
-
-
 centered : Int -> Int -> Int
 centered full item =
     toFloat full
@@ -267,18 +236,7 @@ fillsview : HandSymbol -> Base -> Dict String Size -> Int -> List (Html Msg)
 fillsview handsymbol base symbolsizes rowheight =
     let
         handfills =
-            if handsymbol.hand == Right then
-                [ gethandfill RightBabyEdge handsymbol.plane
-                , gethandfill RightPalm handsymbol.plane
-                , gethandfill RightThumbEdge handsymbol.plane
-                , gethandfill RightBack handsymbol.plane
-                ]
-            else
-                [ gethandfill LeftBabyEdge handsymbol.plane
-                , gethandfill LeftPalm handsymbol.plane
-                , gethandfill LeftThumbEdge handsymbol.plane
-                , gethandfill LeftBack handsymbol.plane
-                ]
+            gethandfills handsymbol
     in
         List.map
             (\handfill ->
@@ -298,32 +256,6 @@ fillsview handsymbol base symbolsizes rowheight =
                     ]
             )
             handfills
-
-
-gethandfill handfill plane =
-    List.filter (\hf -> hf.handfill == handfill && hf.plane == plane) handfills
-        |> List.head
-        |> Maybe.withDefault { fill = 0, rotation = 0, handfill = handfill, plane = plane }
-
-
-handfills =
-    [ { fill = 2, rotation = 9, handfill = RightBabyEdge, plane = Wall }
-    , { fill = 1, rotation = 1, handfill = RightPalm, plane = Wall }
-    , { fill = 2, rotation = 1, handfill = RightThumbEdge, plane = Wall }
-    , { fill = 3, rotation = 1, handfill = RightBack, plane = Wall }
-    , { fill = 2, rotation = 1, handfill = LeftBabyEdge, plane = Wall }
-    , { fill = 1, rotation = 1, handfill = LeftPalm, plane = Wall }
-    , { fill = 2, rotation = 9, handfill = LeftThumbEdge, plane = Wall }
-    , { fill = 3, rotation = 1, handfill = LeftBack, plane = Wall }
-    , { fill = 5, rotation = 9, handfill = RightBabyEdge, plane = Floor }
-    , { fill = 4, rotation = 1, handfill = RightPalm, plane = Floor }
-    , { fill = 5, rotation = 1, handfill = RightThumbEdge, plane = Floor }
-    , { fill = 6, rotation = 1, handfill = RightBack, plane = Floor }
-    , { fill = 5, rotation = 1, handfill = LeftBabyEdge, plane = Floor }
-    , { fill = 4, rotation = 1, handfill = LeftPalm, plane = Floor }
-    , { fill = 5, rotation = 9, handfill = LeftThumbEdge, plane = Floor }
-    , { fill = 6, rotation = 1, handfill = LeftBack, plane = Floor }
-    ]
 
 
 handselection : HandSymbol -> Base -> Dict String Size -> Int -> List (Html MainChooser.Types.Msg)
