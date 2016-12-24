@@ -7,7 +7,7 @@ import Dict exposing (..)
 
 
 type alias EditorSymbol =
-    Idable (Selectable (Symbol))
+    Idable (Selectable Symbol)
 
 
 symbolinit : EditorSymbol
@@ -46,7 +46,7 @@ toEditorSymbol id index symbol =
     }
 
 
-fromEditorSymbol : EditorSymbol  -> Symbol
+fromEditorSymbol : EditorSymbol -> Symbol
 fromEditorSymbol symbol =
     { x = symbol.x
     , y = symbol.y
@@ -60,6 +60,7 @@ fromEditorSymbol symbol =
     , key = symbol.key
     , nbcolor = symbol.nbcolor
     }
+
 
 getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> EditorSymbol
 getSymbolEditorBaseFillRotation base fill rotation symbolsizes =

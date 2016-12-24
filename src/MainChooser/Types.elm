@@ -4,6 +4,7 @@ module MainChooser.Types exposing (..)
 
 import Choosing.Types as Choosing
 import SWEditor.Types exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import Material exposing (..)
@@ -20,7 +21,7 @@ type alias Model =
     , groupselected : ChooserItem
     , handgroupfilter : Int
     , symbolsizes : Dict.Dict String Size
-    , handsymbol: HandSymbol
+    , handsymbol : HandSymbol
     }
 
 
@@ -43,29 +44,32 @@ type Msg
     | SelectPlane Planes
     | SelectHandFill HandFills
 
+
 type alias HandGroupImportModel =
     { chooseritemvalues : List ChooserItemValue
     , basechooseritems : List BaseChooserItem
     , symbolsizes : List SymbolSize
     }
 
+
 type alias HandSymbol =
-    { hand: Hands
-    , plane: Planes
-    , handfill: HandFills
+    { hand : Hands
+    , plane : Planes
+    , handfill : HandFills
     , rotationselection : Int
     }
 
 
-type HandFills =
-    LeftBack
+type HandFills
+    = LeftBack
     | LeftThumbEdge
     | LeftPalm
     | LeftBabyEdge
-    | RightBack  
+    | RightBack
     | RightThumbEdge
     | RightPalm
     | RightBabyEdge
+
 
 handsymbolinit :
     { hand : Hands
@@ -76,9 +80,11 @@ handsymbolinit :
 handsymbolinit =
     { hand = Right
     , plane = Wall
-    , handfill =   RightPalm 
+    , handfill = RightPalm
     , rotationselection = 1
     }
+
+
 type alias SymbolSize =
     { k : String
     , h : Int
@@ -174,12 +180,25 @@ type alias GroupChoosing =
     }
 
 
-type Hands 
+type Hands
     = Right
     | Left
 
-type Planes 
+
+type Planes
     = Wall
     | Floor
+
+
+type alias HandFillItem =
+    { fill : Fill
+    , filltype : HandFills
+    , planetype : Planes
+    , rotation : Int
+    , symbol : EditorSymbol
+    }
+
+
+
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types
