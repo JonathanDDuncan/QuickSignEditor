@@ -38,7 +38,7 @@ rowchooser : MainChooser.Types.Model -> Int -> List ChooserItem -> Int -> List (
 rowchooser model row handgroupchoosings maxheight =
     let
         items =
-            List.filter (\item -> item.row ==  row) handgroupchoosings
+            List.filter (\item -> item.row == row) handgroupchoosings
 
         withoutthumbs =
             List.filter (\item -> not item.thumb) items
@@ -49,13 +49,13 @@ rowchooser model row handgroupchoosings maxheight =
         colvalues =
             [1..5]
     in
-        [ if ( List.length withoutthumbs ) > 0 then
+        [ if (List.length withoutthumbs) > 0 then
             tr
                 []
                 (List.map (\col -> column model row col maxheight withoutthumbs) colvalues)
           else
             text ""
-        , if ( List.length withthumbs) > 0 then
+        , if (List.length withthumbs) > 0 then
             tr
                 []
                 (List.map (\col -> column model row col maxheight withthumbs) colvalues)
@@ -66,34 +66,50 @@ rowchooser model row handgroupchoosings maxheight =
 
 column model cat col choosingshigh choosings =
     let
-        handgroupfilter =
-            model.handgroupfilter
-
-        items =
-            case handgroupfilter of
-                2 ->
-                    List.filter (\item -> item.col == col && item.common == False) choosings
-
-                3 ->
-                    List.filter (\item -> item.col == col) choosings
-
-                _ ->
-                    List.filter (\item -> item.col == col && item.common == True) choosings
+        columndata =
+            createcolumndata model cat col choosings
     in
         td
             [ class "chosercolumn"
             , style
-                [ "background-color" => (bkcolor cat col) ]
+                [ "background-color" => columndata.backgroundcolor ]
             ]
-            (List.map (displayhandChoosing model) items)
+            (List.map (displayhandChoosing model) columndata.displayhanditems)
 
 
-nomorethan : Int -> List a -> List (List a)
-nomorethan num choosings =
-    chunk num choosings
+createcolumndata model cat col choosings =
+    let
+        filteredhandgroupitems =
+            filterhandgroupitems col model.handgroupfilter choosings
+
+        backgroundcolor =
+            bkcolor cat col
+
+        displayhanditems =
+            createdisplayhanditems model filteredhandgroupitems
+    in
+        { backgroundcolor = backgroundcolor
+        , displayhanditems = displayhanditems
+        }
 
 
-displayhandChoosing model chooseritem =
+filterhandgroupitems col handgroupfilter choosings =
+    case handgroupfilter of
+        2 ->
+            List.filter (\item -> item.col == col && item.common == False) choosings
+
+        3 ->
+            List.filter (\item -> item.col == col) choosings
+
+        _ ->
+            List.filter (\item -> item.col == col && item.common == True) choosings
+
+
+createdisplayhanditems model items =
+    List.map (createdisplayhanditem model.symbolsizes) items
+
+
+createdisplayhanditem symbolsizes chooseritem =
     let
         base =
             chooseritem.base
@@ -102,30 +118,39 @@ displayhandChoosing model chooseritem =
             2
 
         rotation =
-            0
+            1
 
         symbol =
-            getSymbolEditorBaseFillRotation base fill rotation model.symbolsizes
+            getSymbolEditorBaseFillRotation base fill rotation symbolsizes
 
         mdlid =
             symbol.code + 1000
     in
-        Html.div
-            [ Html.Events.onClick (GroupSelected chooseritem)
+        { mdlid = mdlid, symbol = symbol, chooseritem = chooseritem }
+
+
+nomorethan : Int -> List a -> List (List a)
+nomorethan num choosings =
+    chunk num choosings
+
+
+displayhandChoosing model displayhanditem =
+    Html.div
+        [ Html.Events.onClick (GroupSelected displayhanditem.chooseritem)
+        ]
+        [ Options.div
+            [ Tooltip.attach Mdl [ displayhanditem.mdlid ] ]
+            [ App.map SignView
+                (symbolaloneView displayhanditem.symbol 5)
             ]
-            [ Options.div
-                [ Tooltip.attach Mdl [ mdlid ] ]
-                [ App.map SignView
-                    (symbolaloneView symbol 5)
-                ]
-            , Tooltip.render Mdl
-                [ mdlid ]
-                model.mdl
-                [ Tooltip.left ]
-                [ span [ class (handpngcss chooseritem.symbolkey), attribute "style" "display:inline-block ;margin: auto;" ] []
-                , Html.div [ attribute "style" "width:100%;" ] [ text chooseritem.name ]
-                ]
+        , Tooltip.render Mdl
+            [ displayhanditem.mdlid ]
+            model.mdl
+            [ Tooltip.left ]
+            [ span [ class (handpngcss displayhanditem.chooseritem.symbolkey), attribute "style" "display:inline-block ;margin: auto;" ] []
+            , Html.div [ attribute "style" "width:100%;" ] [ text displayhanditem.chooseritem.name ]
             ]
+        ]
 
 
 handpngcss : String -> String
