@@ -1,0 +1,1 @@
+module MainChooser.CompassRose exposing (..)

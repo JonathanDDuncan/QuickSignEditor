@@ -3,16 +3,11 @@ module MainChooser.HandSymbolChooserView exposing (handsymbolchooser)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.App as App exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
-import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 import Dict exposing (..)
-import ViewHelper.ViewExtra exposing (..)
-import MainChooser.HandSymbolChooser exposing (..)
-import SWEditor.EditorSymbol exposing (..)
+import MainChooser.CompassRoseView exposing (..)
 
 
 handsymbolchooser : HandSymbol -> ChooserItem -> Dict String Size -> Int -> Int -> Html Msg
@@ -43,193 +38,8 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , flower handsymbol rowheight
+            , compassrose handsymbol 240
             ]
-
-
-flower handsymbol rowheight =
-    let
-        fullwidth =
-            240
-
-        fullheight =
-            fullwidth
-
-        itemwidth =
-            truncate (fullwidth / 4)
-
-        itemheight =
-            itemwidth
-
-        radius =
-            (fullwidth / 2) - (toFloat itemwidth / 2)
-
-        centerfloating =
-            truncate ((fullwidth / 2) - (sqrt (((radius) * (radius)) / 2)))
-
-        imagesrc =
-            if handsymbol.plane == Wall then
-                "./img/verticalhand.png"
-            else
-                "./img/horizontalhand.png"
-    in
-        div
-            [ style
-                [ "width" => px fullwidth
-                , "height" => px fullheight
-                , "margin" => "auto"
-                , "position" => "relative"
-                ]
-            ]
-            [ div
-                [ style
-                    [ "position" => "absolute"
-                    , "width" => px (fullwidth - (2 * itemwidth))
-                    , "height" => px (fullwidth - (2 * itemwidth))
-                    , "top" => px itemheight
-                    , "left" => px itemwidth
-                    ]
-                ]
-                [ img
-                    [ src imagesrc
-                    , style
-                        [ "position" => "absolute"
-                        , "width" => (mulInt (fullwidth - (2 * itemwidth)) 0.75 |> px)
-                        , "margin" => "auto"
-                        , "top" => px 0
-                        , "bottom" => px 0
-                        , "left" => px 0
-                        , "right" => px 0
-                        ]
-                    ]
-                    []
-                ]
-            , petaldiv
-                handsymbol.flowersymbols.handfill1
-                rowheight
-                itemwidth
-                itemheight
-                0
-                (centered fullwidth itemwidth)
-                5
-            , petaldiv
-                handsymbol.flowersymbols.handfill2
-                rowheight
-                itemwidth
-                itemheight
-                (centered (centerfloating * 2) itemwidth)
-                (centered (centerfloating * 2) itemheight)
-                5
-            , petaldiv
-                handsymbol.flowersymbols.handfill3
-                rowheight
-                itemwidth
-                itemheight
-                (centered fullheight itemheight)
-                0
-                10
-            , petaldiv
-                handsymbol.flowersymbols.handfill4
-                rowheight
-                itemwidth
-                itemheight
-                (centered ((fullheight - centerfloating) * 2) itemwidth)
-                (centered (centerfloating * 2) itemwidth)
-                5
-            , petaldiv
-                handsymbol.flowersymbols.handfill5
-                rowheight
-                itemwidth
-                itemheight
-                (fullheight - itemheight)
-                (centered fullwidth itemwidth)
-                5
-            , petaldiv
-                handsymbol.flowersymbols.handfill6
-                rowheight
-                itemwidth
-                itemheight
-                (centered ((fullheight - centerfloating) * 2) itemwidth)
-                (centered ((fullwidth - centerfloating) * 2) itemwidth)
-                5
-            , petaldiv
-                handsymbol.flowersymbols.handfill7
-                rowheight
-                itemwidth
-                itemheight
-                (centered fullheight itemheight)
-                (fullwidth - itemwidth)
-                5
-            , petaldiv
-                handsymbol.flowersymbols.handfill8
-                rowheight
-                itemwidth
-                itemheight
-                (centered (centerfloating * 2) itemwidth)
-                (centered ((fullwidth - centerfloating) * 2) itemwidth)
-                10
-            ]
-
-
-mulInt : Int -> Float -> Int
-mulInt num1 num2 =
-    truncate (toFloat num1 * num2)
-
-
-
--- mulInt 5 0.75
-
-
-petaldiv handfill rowheight width height top left paddingtop =
-    let
-        scale =
-            if handfill.handpng.miror then
-                "scale(0.75) scaleX(-1)"
-            else
-                "scale(0.75)"
-
-        rotate =
-            if handfill.handpng.rotate /= 0 then
-                "rotate(" ++ toString handfill.handpng.rotate ++ "deg)"
-            else
-                ""
-
-        transform =
-            "transform: " ++ scale ++ rotate ++ ";"
-    in
-        div
-            [ style
-                [ "position" => "absolute"
-                , "width" => px width
-                , "height" => px height
-                , "top" => px top
-                , "left" => px left
-                , "pading-top" => px 20
-                ]
-            ]
-            [ petal handfill rowheight
-            , span
-                [ class (handfill.handpng.pngcss)
-                , attribute "style"
-                    ("display:inline-block ;"
-                        ++ transform
-                    )
-                ]
-                []
-            ]
-
-
-petal handfill rowheight =
-    symbolcentered True handfill.symbol handfill.symbol.width handfill.symbol.height
-
-
-centered : Int -> Int -> Int
-centered full item =
-    toFloat full
-        / 2
-        - toFloat item
-        / 2
-        |> truncate
 
 
 fillsview : HandSymbol -> Int -> List (Html Msg)
@@ -296,32 +106,3 @@ selectedbackground expected currentselected =
         style [ "background" => "#7b85c0" ]
     else
         style []
-
-
-symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
-symbolcentered drag symbol width height =
-    div
-        [ style
-            [ "position" => "relative"
-            , "width" => px width
-            , "height" => px height
-            , "margin" => "auto"
-            ]
-        ]
-        [ div
-            [ style
-                [ "position" => "absolute"
-                , "inline" => "block"
-                , "margin" => "auto"
-                , "width" => px width
-                , "height" => px height
-                ]
-            , if drag then
-                onMouseDown (DragSymbol symbol.code)
-              else
-                onMouseDown Noop
-            ]
-            [ App.map SignView
-                (SWEditor.Display.symbolView1 "" symbol)
-            ]
-        ]
