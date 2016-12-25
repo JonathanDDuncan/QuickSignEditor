@@ -1,6 +1,6 @@
 To Do
 
-Add hand image to hand selectors
+Add hand image png to hand selectors
 Arrow symbol chooser
 
 Save Cancel buttons

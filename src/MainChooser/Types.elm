@@ -49,24 +49,19 @@ type Msg
 
 type alias HandGroupChooser =
     { datawithoutthumbs :
-        List
-            { backgroundcolor : String
-            , displayhanditems :
-                List
-                    { chooseritem : ChooserItem
-                    , mdlid : Int
-                    , symbol : EditorSymbol
-                    }
-            }
+        List HandGroupChooserSubList
     , datawiththumbs :
+        List HandGroupChooserSubList
+    }
+
+
+type alias HandGroupChooserSubList =
+    { backgroundcolor : String
+    , displayhanditems :
         List
-            { backgroundcolor : String
-            , displayhanditems :
-                List
-                    { chooseritem : ChooserItem
-                    , mdlid : Int
-                    , symbol : EditorSymbol
-                    }
+            { chooseritem : ChooserItem
+            , mdlid : Int
+            , symbol : EditorSymbol
             }
     }
 
@@ -90,17 +85,6 @@ type alias HandSymbol =
     }
 
 
-type HandFills
-    = LeftBack
-    | LeftThumbEdge
-    | LeftPalm
-    | LeftBabyEdge
-    | RightBack
-    | RightThumbEdge
-    | RightPalm
-    | RightBabyEdge
-
-
 handsymbolinit =
     { hand = Right
     , plane = Wall
@@ -111,6 +95,45 @@ handsymbolinit =
     , symbolrighthand = symbolinit
     , handfillitems = []
     }
+
+
+gethandtype : HandFills -> Hands
+gethandtype filltype =
+    case filltype of
+        LeftBack ->
+            Left
+
+        LeftThumbEdge ->
+            Left
+
+        LeftPalm ->
+            Left
+
+        LeftBabyEdge ->
+            Left
+
+        RightBack ->
+            Right
+
+        RightThumbEdge ->
+            Right
+
+        RightPalm ->
+            Right
+
+        RightBabyEdge ->
+            Right
+
+
+type HandFills
+    = LeftBack
+    | LeftThumbEdge
+    | LeftPalm
+    | LeftBabyEdge
+    | RightBack
+    | RightThumbEdge
+    | RightPalm
+    | RightBabyEdge
 
 
 type alias SymbolSize =
@@ -227,6 +250,14 @@ type alias HandFillItem =
     }
 
 
+type alias HandItem =
+    { fill : Fill
+    , filltype : HandFills
+    , planetype : Planes
+    , rotation : Int
+    }
+
+
 getchoosings : String -> List { b | basesymbol : String, choosings : List a } -> List a
 getchoosings basesymbol allgroupchoosings =
     let
@@ -244,6 +275,13 @@ getchoosings basesymbol allgroupchoosings =
         choosings
 
 
+type alias HandPng =
+    { miror : Bool
+    , pngcss : String
+    , rotate : Int
+    }
+
+
 type alias Petal =
     { fill : Fill
     , filltype : HandFills
@@ -251,6 +289,7 @@ type alias Petal =
     , rotation : Int
     , rotationoffset : Int
     , symbol : EditorSymbol
+    , handpng : HandPng
     }
 
 
@@ -261,6 +300,11 @@ petalinit =
     , rotation = 1
     , rotationoffset = 0
     , symbol = symbolinit
+    , handpng =
+        { miror = False
+        , pngcss = ""
+        , rotate = 0
+        }
     }
 
 

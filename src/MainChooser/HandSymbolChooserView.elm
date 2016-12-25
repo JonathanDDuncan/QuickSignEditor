@@ -50,7 +50,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
 flower handsymbol rowheight =
     let
         fullwidth =
-            150
+            240
 
         fullheight =
             fullwidth
@@ -181,18 +181,42 @@ mulInt num1 num2 =
 
 
 petaldiv handfill rowheight width height top left paddingtop =
-    div
-        [ style
-            [ "position" => "absolute"
-            , "width" => px width
-            , "height" => px height
-            , "top" => px top
-            , "left" => px left
-            , "pading-top" => px 20
+    let
+        scale =
+            if handfill.handpng.miror then
+                "scale(0.75) scaleX(-1)"
+            else
+                "scale(0.75)"
+
+        rotate =
+            if handfill.handpng.rotate /= 0 then
+                "rotate(" ++ toString handfill.handpng.rotate ++ "deg)"
+            else
+                ""
+
+        transform =
+            "transform: " ++ scale ++ rotate ++ ";"
+    in
+        div
+            [ style
+                [ "position" => "absolute"
+                , "width" => px width
+                , "height" => px height
+                , "top" => px top
+                , "left" => px left
+                , "pading-top" => px 20
+                ]
             ]
-        ]
-        [ petal handfill rowheight
-        ]
+            [ petal handfill rowheight
+            , span
+                [ class (handfill.handpng.pngcss)
+                , attribute "style"
+                    ("display:inline-block ;"
+                        ++ transform
+                    )
+                ]
+                []
+            ]
 
 
 petal handfill rowheight =
