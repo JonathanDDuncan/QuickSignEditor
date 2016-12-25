@@ -48,11 +48,7 @@ type Msg
 
 
 type alias HandGroupChooser =
-    { datawithoutthumbs :
-        List HandGroupChooserSubList
-    , datawiththumbs :
-        List HandGroupChooserSubList
-    }
+    List (List HandGroupChooserSubList)
 
 
 type alias HandGroupChooserSubList =

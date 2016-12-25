@@ -8,9 +8,6 @@ import Dict exposing (..)
 import String exposing (..)
 
 
-gethandgroupchooserdata :
-    Model
-    -> List HandGroupChooser
 gethandgroupchooserdata model =
     let
         basesymbol =
@@ -32,27 +29,17 @@ createrowdata :
     Model
     -> Int
     -> List ChooserItem
-    -> { datawithoutthumbs :
-            List
-                { backgroundcolor : String
-                , displayhanditems :
-                    List
-                        { chooseritem : ChooserItem
-                        , mdlid : Int
-                        , symbol : EditorSymbol
-                        }
-                }
-       , datawiththumbs :
-            List
-                { backgroundcolor : String
-                , displayhanditems :
-                    List
-                        { chooseritem : ChooserItem
-                        , mdlid : Int
-                        , symbol : EditorSymbol
-                        }
-                }
-       }
+    -> List
+        (List
+            { backgroundcolor : String
+            , displayhanditems :
+                List
+                    { chooseritem : ChooserItem
+                    , mdlid : Int
+                    , symbol : EditorSymbol
+                    }
+            }
+        )
 createrowdata model row handgroupchoosings =
     let
         rowitems =
@@ -73,7 +60,7 @@ createrowdata model row handgroupchoosings =
         datawiththumbs =
             filter (List.map (\col -> createcolumndata model row col withthumbs) colvalues)
     in
-        { datawithoutthumbs = datawithoutthumbs, datawiththumbs = datawiththumbs }
+        [ datawithoutthumbs, datawiththumbs ]
 
 
 createcolumndata :

@@ -26,19 +26,16 @@ handgroupchooser model =
 
 
 rowchooser model rowdata =
-    [ if (List.length rowdata.datawithoutthumbs) > 0 then
-        tr
-            []
-            (List.map (\coldata -> column model coldata) rowdata.datawithoutthumbs)
-      else
-        text ""
-    , if (List.length rowdata.datawiththumbs) > 0 then
-        tr
-            []
-            (List.map (\coldata -> column model coldata) rowdata.datawiththumbs)
-      else
-        text ""
-    ]
+    List.map
+        (\l ->
+            if (List.length l) > 0 then
+                tr
+                    []
+                    (List.map (\coldata -> column model coldata) l)
+            else
+                text ""
+        )
+        rowdata
 
 
 column model columndata =
