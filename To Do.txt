@@ -1,6 +1,5 @@
 To Do
 
-Add hand image png to hand selectors
 Arrow symbol chooser
 
 Save Cancel buttons
@@ -13,7 +12,7 @@ Add color choooser
 Add align right left
 Add Bring to top or bottom
 
-Commands from keyboard
+Commands fr om keyboard
 
 Can't type in input boxes
 Split long list of hand groups by finger bendiness

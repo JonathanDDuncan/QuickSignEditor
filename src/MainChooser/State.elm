@@ -178,8 +178,44 @@ update action model =
                 handsymbol =
                     model.handsymbol
 
+                handfill =
+                    case hand of
+                        Left ->
+                            case model.handsymbol.handfill of
+                                RightBack ->
+                                    LeftBack
+
+                                RightThumbEdge ->
+                                    LeftThumbEdge
+
+                                RightPalm ->
+                                    LeftPalm
+
+                                RightBabyEdge ->
+                                    LeftBabyEdge
+
+                                _ ->
+                                    model.handsymbol.handfill
+
+                        Right ->
+                            case model.handsymbol.handfill of
+                                LeftBack ->
+                                    RightBack
+
+                                LeftThumbEdge ->
+                                    RightThumbEdge
+
+                                LeftPalm ->
+                                    RightPalm
+
+                                LeftBabyEdge ->
+                                    RightBabyEdge
+
+                                _ ->
+                                    model.handsymbol.handfill
+
                 newhandsymbol =
-                    { handsymbol | hand = hand }
+                    { handsymbol | hand = hand, handfill = handfill }
             in
                 ( { model
                     | handsymbol = newhandsymbol
