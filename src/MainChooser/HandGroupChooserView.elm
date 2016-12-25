@@ -10,24 +10,19 @@ import String exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
 import Material.Tooltip as Tooltip exposing (..)
 import Material.Options as Options exposing (div, cs, when)
-import MainChooser.HandGroupChooser exposing (..)
 
 
-handgroupchooser : MainChooser.Types.Model -> List ChooserItem -> Html MainChooser.Types.Msg
-handgroupchooser model handgroupchoosings =
-    let
-        handgroupchooserdata =
-            gethandgroupchooserdata model handgroupchoosings
-    in
-        Html.div []
-            [ Html.div []
-                [ button [ Html.Events.onClick (FilterHandGroup 1) ] [ text "common" ]
-                , button [ Html.Events.onClick (FilterHandGroup 2) ] [ text "not common" ]
-                , button [ Html.Events.onClick (FilterHandGroup 3) ] [ text "all" ]
-                ]
-            , table []
-                (List.concatMap (\data -> rowchooser model data) handgroupchooserdata)
+handgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
+handgroupchooser model =
+    Html.div []
+        [ Html.div []
+            [ button [ Html.Events.onClick (FilterHandGroup 1) ] [ text "common" ]
+            , button [ Html.Events.onClick (FilterHandGroup 2) ] [ text "not common" ]
+            , button [ Html.Events.onClick (FilterHandGroup 3) ] [ text "all" ]
             ]
+        , table []
+            (List.concatMap (\data -> rowchooser model data) model.handgroupchooseritems)
+        ]
 
 
 rowchooser model rowdata =

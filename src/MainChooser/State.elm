@@ -19,6 +19,7 @@ import SWEditor.EditorSymbol exposing (getSymbolEditorCode, fromEditorSymbol)
 import MainChooser.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Update.Extra exposing (..)
+import MainChooser.HandGroupChooser exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -41,6 +42,7 @@ init =
       , handgroupfilter = 1
       , symbolsizes = Dict.empty
       , handsymbol = handsymbolinit
+      , handgroupchooseritems = []
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
@@ -97,12 +99,30 @@ update action model =
 
         Clicked clickvalue ->
             let
-                choosings1 =
-                    clickvalue
+                basesymbol =
+                    String.slice 0 4 clickvalue
+
+                updatedclicked =
+                    { model
+                        | clicked = clickvalue
+                    }
+
+                newmodel =
+                    case basesymbol of
+                        "S14c" ->
+                            let
+                                handgroupchooseritems =
+                                    gethandgroupchooserdata updatedclicked
+                            in
+                                { model
+                                    | clicked = clickvalue
+                                    , handgroupchooseritems = handgroupchooseritems
+                                }
+
+                        _ ->
+                            updatedclicked
             in
-                ( { model
-                    | clicked = clickvalue
-                  }
+                ( newmodel
                 , Cmd.none
                 )
 

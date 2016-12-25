@@ -82,7 +82,7 @@ choosesubgroupchooser model =
     in
         case basesymbol of
             "S14c" ->
-                handgroupchooser model <| getchoosings basesymbol model.allgroupchoosings
+                handgroupchooser model
 
             _ ->
                 generalgroupchooser model <| getchoosings basesymbol model.allgroupchoosings

@@ -1,20 +1,58 @@
 module MainChooser.HandGroupChooser exposing (..)
 
+import MainChooser.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
+import SW.Types exposing (..)
+import Dict exposing (..)
+import String exposing (..)
 
 
-gethandgroupchooserdata model handgroupchoosings =
+gethandgroupchooserdata :
+    Model
+    -> List HandGroupChooser
+gethandgroupchooserdata model =
     let
+        basesymbol =
+            String.slice 0 4 model.clicked
+
+        choosings =
+            getchoosings basesymbol model.allgroupchoosings
+
         rowvalues =
-            List.sort <| unique <| List.map (\item -> item.row) handgroupchoosings
+            List.sort <| unique <| List.map (\item -> item.row) choosings
 
         handgroupchooserdata =
-            (List.map (\row -> createrowdata model row handgroupchoosings) rowvalues)
+            (List.map (\row -> createrowdata model row choosings) rowvalues)
     in
         handgroupchooserdata
 
 
+createrowdata :
+    Model
+    -> Int
+    -> List ChooserItem
+    -> { datawithoutthumbs :
+            List
+                { backgroundcolor : String
+                , displayhanditems :
+                    List
+                        { chooseritem : ChooserItem
+                        , mdlid : Int
+                        , symbol : EditorSymbol
+                        }
+                }
+       , datawiththumbs :
+            List
+                { backgroundcolor : String
+                , displayhanditems :
+                    List
+                        { chooseritem : ChooserItem
+                        , mdlid : Int
+                        , symbol : EditorSymbol
+                        }
+                }
+       }
 createrowdata model row handgroupchoosings =
     let
         rowitems =
@@ -38,6 +76,15 @@ createrowdata model row handgroupchoosings =
         { datawithoutthumbs = datawithoutthumbs, datawiththumbs = datawiththumbs }
 
 
+createcolumndata :
+    Model
+    -> Int
+    -> Int
+    -> List ChooserItem
+    -> { backgroundcolor : String
+       , displayhanditems :
+            List { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
+       }
 createcolumndata model cat col choosings =
     let
         filteredhandgroupitems =
@@ -54,6 +101,7 @@ createcolumndata model cat col choosings =
         }
 
 
+filterhandgroupitems : Int -> Int -> List ChooserItem -> List ChooserItem
 filterhandgroupitems col handgroupfilter choosings =
     case handgroupfilter of
         2 ->
@@ -66,10 +114,18 @@ filterhandgroupitems col handgroupfilter choosings =
             List.filter (\item -> item.col == col && item.common == True) choosings
 
 
+createdisplayhanditems :
+    Model
+    -> List ChooserItem
+    -> List { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
 createdisplayhanditems model items =
     List.map (createdisplayhanditem model.symbolsizes) items
 
 
+createdisplayhanditem :
+    Dict String Size
+    -> ChooserItem
+    -> { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
 createdisplayhanditem symbolsizes chooseritem =
     let
         base =
@@ -90,6 +146,9 @@ createdisplayhanditem symbolsizes chooseritem =
         { mdlid = mdlid, symbol = symbol, chooseritem = chooseritem }
 
 
+filter :
+    List { b | displayhanditems : List a }
+    -> List { b | displayhanditems : List a }
 filter rowitems =
     let
         allempty =

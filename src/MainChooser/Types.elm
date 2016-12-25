@@ -22,6 +22,7 @@ type alias Model =
     , handgroupfilter : Int
     , symbolsizes : Dict.Dict String Size
     , handsymbol : HandSymbol
+    , handgroupchooseritems : List HandGroupChooser
     }
 
 
@@ -44,6 +45,30 @@ type Msg
     | SelectPlane Planes
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
+
+
+type alias HandGroupChooser =
+    { datawithoutthumbs :
+        List
+            { backgroundcolor : String
+            , displayhanditems :
+                List
+                    { chooseritem : ChooserItem
+                    , mdlid : Int
+                    , symbol : EditorSymbol
+                    }
+            }
+    , datawiththumbs :
+        List
+            { backgroundcolor : String
+            , displayhanditems :
+                List
+                    { chooseritem : ChooserItem
+                    , mdlid : Int
+                    , symbol : EditorSymbol
+                    }
+            }
+    }
 
 
 type alias HandGroupImportModel =
@@ -121,7 +146,7 @@ type alias BaseChooserItem =
 
 
 type alias ChooserItem =
-    { base : Int
+    { base : Base
     , name : String
     , symbolid : String
     , symbolkey : String
