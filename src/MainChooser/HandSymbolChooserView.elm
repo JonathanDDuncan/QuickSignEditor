@@ -38,7 +38,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , compassrose handsymbol 240
+            , compassrose handsymbol 220
             ]
 
 

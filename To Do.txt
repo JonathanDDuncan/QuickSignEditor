@@ -1,5 +1,6 @@
 To Do
 
+Divide hand groupsymbols by features
 Arrow symbol chooser
 
 Save Cancel buttons

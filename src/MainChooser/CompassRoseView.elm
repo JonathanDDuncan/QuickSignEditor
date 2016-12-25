@@ -1,4 +1,4 @@
-module MainChooser.CompassRoseView exposing (compassrose)
+module MainChooser.CompassRoseView exposing (compassrose, symbolcentered)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
