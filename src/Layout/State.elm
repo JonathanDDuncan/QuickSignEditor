@@ -20,6 +20,14 @@ import Ports exposing (..)
 -- Boilerplate: Always use this initial Mdl model store.
 
 
+leftspacepercentage =
+    20
+
+
+centerspacepercentage =
+    40
+
+
 init : ( Model, Cmd Msg )
 init =
     ( { count = 0
@@ -33,11 +41,11 @@ init =
       , containerHeight = 800
       , widescreenwidth = 1000
       , mediumscreenwidth = 600
-      , rightspacepercentage = 30
-      , centerspacepercentage = 40
-      , leftspacepercentage = 30
-      , centerspacemarginleftpercentage = 30
-      , rightspacemarginleftpercentage = 70
+      , rightspacepercentage = 40
+      , centerspacepercentage = centerspacepercentage
+      , leftspacepercentage = leftspacepercentage
+      , centerspacemarginleftpercentage = leftspacepercentage
+      , rightspacemarginleftpercentage = leftspacepercentage + centerspacepercentage
       , drawerwidth = 0
       }
     , Cmd.batch
@@ -143,7 +151,7 @@ windowSizeSetter =
                 , centerspacemarginleftpercentage = centerspaceMarginLeftPercentage m windowwidth
                 , leftspacepercentage = leftspacePercentage m windowwidth
                 , drawerwidth = drawerWidth rdrawer.active rdrawer.showing rdrawer.fullwidth rdrawer.alwaysShowpx
-                , signbox = { sbox | containerheight = containerheight  , windowresized = True }
+                , signbox = { sbox | containerheight = containerheight, windowresized = True }
             }
     )
 
@@ -151,7 +159,7 @@ windowSizeSetter =
 rightspaceMarginLeftPercentage : Model -> Int -> Int
 rightspaceMarginLeftPercentage model windowwidth =
     if iswidescreenexplicit windowwidth model.widescreenwidth then
-        70
+        60
     else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         50
     else
@@ -161,7 +169,7 @@ rightspaceMarginLeftPercentage model windowwidth =
 rightspacePercentage : Model -> Int -> Int
 rightspacePercentage model windowwidth =
     if iswidescreenexplicit windowwidth model.widescreenwidth then
-        30
+        40
     else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         50
     else
@@ -181,7 +189,7 @@ centerspacePercentage model windowwidth =
 centerspaceMarginLeftPercentage : Model -> Int -> Int
 centerspaceMarginLeftPercentage model windowwidth =
     if iswidescreenexplicit windowwidth model.widescreenwidth then
-        30
+        20
     else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         0
     else
@@ -191,7 +199,7 @@ centerspaceMarginLeftPercentage model windowwidth =
 leftspacePercentage : Model -> Int -> Int
 leftspacePercentage model windowwidth =
     if iswidescreenexplicit windowwidth model.widescreenwidth then
-        30
+        20
     else if ismediumscreenexplicit windowwidth model.mediumscreenwidth then
         100
     else
