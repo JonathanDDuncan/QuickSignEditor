@@ -1,11 +1,17 @@
 To Do
 
+Make smaller floor and wall icons, add color
 Lighten colors behind symbol choosers
 Adjust aligment hand selection and fill selection symbols
+
+Delete selected symbols
+Save Cancel buttons
+Add favorites
+
 Arrow symbol chooser
 
-Save Cancel buttons
-Add five hand to common symbols
+
+
 
 Drag symbol is currently under symbols chooser and can't be seen when first dragged
 
@@ -14,7 +20,6 @@ Add color choooser
 Add align right left
 Add Bring to top or bottom
 
-Commands fr om keyboard
+Commands from keyboard
 
 Can't type in input boxes
-Split long list of hand groups by finger bendiness
