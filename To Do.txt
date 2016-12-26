@@ -1,9 +1,7 @@
 To Do
 
-Send command when click on keyboard
-Drag symbols from all the choosers
 Only finish symbol drop if drop is in Sign Area
-
+Drag symbols from all the choosers
 
 Add favorites
 
