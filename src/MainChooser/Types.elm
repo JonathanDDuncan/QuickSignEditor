@@ -320,3 +320,22 @@ flowerinit =
 
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types
+
+
+bkcolor : number -> number' -> String
+bkcolor cat col =
+    case cat of
+        1 ->
+            "#ff9999"
+
+        2 ->
+            "#ffc799"
+
+        3 ->
+            "#ffee99"
+
+        4 ->
+            "#a0f8a0"
+
+        _ ->
+            "#a8bcf0"

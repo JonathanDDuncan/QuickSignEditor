@@ -399,3 +399,92 @@ subscriptions model =
 -- Sub.batch
 --       [ SubMainChooser.State.subscriptions model.subMainChooserFieldName |> Sub.map SubMainChooserMsg
 --       ]
+
+
+bkcolor : number -> number' -> String
+bkcolor cat col =
+    case cat of
+        1 ->
+            case col of
+                1 ->
+                    "#ff9999"
+
+                2 ->
+                    "#FF0000"
+
+                3 ->
+                    "#D30000"
+
+                4 ->
+                    "#A80000"
+
+                _ ->
+                    "#7C0000"
+
+        2 ->
+            case col of
+                1 ->
+                    "#ffc799"
+
+                2 ->
+                    "#FF7400"
+
+                3 ->
+                    "#D36000"
+
+                4 ->
+                    "#A84C00"
+
+                _ ->
+                    "#7C3800"
+
+        3 ->
+            case col of
+                1 ->
+                    "#ffee99"
+
+                2 ->
+                    "#FFD300"
+
+                3 ->
+                    "#D3AF00"
+
+                4 ->
+                    "#A88C00"
+
+                _ ->
+                    "#7C6700"
+
+        4 ->
+            case col of
+                1 ->
+                    "#a0f8a0"
+
+                2 ->
+                    "#00CE00"
+
+                3 ->
+                    "#00A900"
+
+                4 ->
+                    "#008700"
+
+                _ ->
+                    "#006300"
+
+        _ ->
+            case col of
+                1 ->
+                    "#a8bcf0"
+
+                2 ->
+                    "#0B39AF"
+
+                3 ->
+                    "#072D8E"
+
+                4 ->
+                    "#042371"
+
+                _ ->
+                    "#021953"

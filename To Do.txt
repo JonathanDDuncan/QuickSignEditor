@@ -1,7 +1,5 @@
 To Do
 
-Make smaller floor and wall icons, add color
-Lighten colors behind symbol choosers
 Adjust aligment hand selection and fill selection symbols
 
 Delete selected symbols
