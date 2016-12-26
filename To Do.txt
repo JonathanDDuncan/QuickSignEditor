@@ -1,12 +1,12 @@
 To Do
 
-Delete selected symbols
 Save Cancel buttons
 Add favorites
 Only finish symbol drop if drop is in Sign Area
 Arrow symbol chooser
 
 Drag symbol is currently under symbols chooser and can't be seen when first dragged
+Update mdl  http://package.elm-lang.org/packages/MichaelCombs28/elm-mdl/latest/
 
 Add fingerspelling layout to keyboard
 Add color choooser

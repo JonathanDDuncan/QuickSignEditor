@@ -15,6 +15,7 @@ import PlatformHelpers exposing (lift)
 import Keyboard.State
 import MainChooser.State
 import Ports exposing (..)
+import Update.Extra exposing (..)
 
 
 -- Boilerplate: Always use this initial Mdl model store.
@@ -92,6 +93,7 @@ update msg model =
             ( model
             , Cmd.none
             )
+                |> Update.Extra.andThen update HideOverlay
 
         PleaseShareFsw action ->
             ( model
