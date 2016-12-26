@@ -64,9 +64,22 @@ update action model =
                 )
 
         KeyClicked n ->
-            ( { model | keyboardhistory = (toString n :: model.keyboardhistory) }
-            , Cmd.none
-            )
+            let
+                keyList =
+                    [ n ]
+
+                newmode =
+                    getmode keyList model
+
+                keyboardcommand =
+                    createKeyboardCommand keyList newmode
+            in
+                ( { model | keyboardhistory = (toString n :: model.keyboardhistory) }
+                , Cmd.batch
+                    [ Cmd.map KeyboardExtraMsg Cmd.none
+                    , Ports.sendKeyboardCommand keyboardcommand
+                    ]
+                )
 
         Display msg ->
             ( model
