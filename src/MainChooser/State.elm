@@ -164,11 +164,18 @@ update action model =
                 )
 
         FilterHandGroup value ->
-            ( { model
-                | handgroupfilter = value
-              }
-            , Cmd.none
-            )
+            let
+                updatedFilterHandGroup =
+                    { model
+                        | handgroupfilter = value
+                    }
+            in
+                ( { model
+                    | handgroupfilter = value
+                    , handgroupchooseritems = gethandgroupchooserdata updatedFilterHandGroup
+                  }
+                , Cmd.none
+                )
 
         Mdl msg' ->
             Material.update msg' model
@@ -316,8 +323,11 @@ getchoosings symbolgroup chooseritemvalues basechooseritems =
         colitemsvalues =
             List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "colname") chooseritemvalues
 
+        featureitemsvalues =
+            List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "feature") chooseritemvalues
+
         converted =
-            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues colitemsvalues item) items
+            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues colitemsvalues featureitemsvalues item) items
     in
         converted
 
@@ -345,7 +355,7 @@ default text func val =
                 0
 
 
-creategroupchoosing chooservalue itemsvalues colitemsvalues item =
+creategroupchoosing chooservalue itemsvalues colitemsvalues featureitemsvalues item =
     { base = item.base
     , name = item.name
     , symbolid = item.symbolid
@@ -355,7 +365,7 @@ creategroupchoosing chooservalue itemsvalues colitemsvalues item =
     , validrotations = item.validrotations
     , groupchooser = chooservalue
     , common = item.common
-    , thumb = item.thumb
+    , feature = getvalue item.feature featureitemsvalues
     , row = getvalue item.rowname itemsvalues
     , col = getvalue item.colname colitemsvalues
     , rank = item.rank

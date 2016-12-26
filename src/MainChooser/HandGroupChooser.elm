@@ -2,10 +2,10 @@ module MainChooser.HandGroupChooser exposing (..)
 
 import MainChooser.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import Exts.List exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import String exposing (..)
+import List.Extra exposing (..)
 
 
 gethandgroupchooserdata model =
@@ -17,7 +17,7 @@ gethandgroupchooserdata model =
             getchoosings basesymbol model.allgroupchoosings
 
         rowvalues =
-            List.sort <| unique <| List.map (\item -> item.row) choosings
+            List.sort <| List.Extra.unique <| List.map (\item -> item.row) choosings
 
         handgroupchooserdata =
             (List.map (\row -> createrowdata model row choosings) rowvalues)
@@ -45,22 +45,25 @@ createrowdata model row handgroupchoosings =
         rowitems =
             List.filter (\item -> item.row == row) handgroupchoosings
 
-        withoutthumbs =
-            List.filter (\item -> not item.thumb) rowitems
-
-        withthumbs =
-            List.filter (\item -> item.thumb) rowitems
-
         colvalues =
             [1..5]
 
-        datawithoutthumbs =
-            filter (List.map (\col -> createcolumndata model row col withoutthumbs) colvalues)
+        featurevalues =
+            [1..8]
 
-        datawiththumbs =
-            filter (List.map (\col -> createcolumndata model row col withthumbs) colvalues)
+        featuredata =
+            List.map
+                (\feature ->
+                    List.filter (\d -> d.feature == feature) rowitems
+                        |> converttocolumns model row colvalues
+                )
+                featurevalues
     in
-        [ datawithoutthumbs, datawiththumbs ]
+        featuredata
+
+
+converttocolumns model row colvalues items =
+    filter (List.map (\col -> createcolumndata model row col items) colvalues)
 
 
 createcolumndata :
@@ -75,7 +78,7 @@ createcolumndata :
 createcolumndata model cat col choosings =
     let
         filteredhandgroupitems =
-            filterhandgroupitems col model.handgroupfilter choosings
+            filterhandgroupitems col (Debug.log "model.handgroupfilter" model.handgroupfilter) choosings
 
         backgroundcolor =
             bkcolor cat col

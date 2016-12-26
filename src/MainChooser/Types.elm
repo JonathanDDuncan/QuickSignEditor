@@ -81,6 +81,7 @@ type alias HandSymbol =
     }
 
 
+handsymbolinit : HandSymbol
 handsymbolinit =
     { hand = Right
     , plane = Wall
@@ -157,7 +158,7 @@ type alias BaseChooserItem =
     , validrotations : String
     , groupchooser : String
     , common : Bool
-    , thumb : Bool
+    , feature : String
     , rowname : String
     , colname : String
     , rank : Int
@@ -174,28 +175,14 @@ type alias ChooserItem =
     , validrotations : String
     , groupchooser : Int
     , common : Bool
-    , thumb : Bool
+    , feature : Int
     , row : Int
     , col : Int
     , rank : Int
     }
 
 
-chooseriteminit :
-    { base : number
-    , common : Bool
-    , thumb : Bool
-    , groupchooser : Int
-    , name : String
-    , col : Int
-    , rank : Int
-    , row : Int
-    , symbolid : String
-    , symbolkey : String
-    , unicodepua : String
-    , validfills : String
-    , validrotations : String
-    }
+chooseriteminit : ChooserItem
 chooseriteminit =
     { base = 256
     , name = "Index"
@@ -206,7 +193,7 @@ chooseriteminit =
     , validrotations = "1 - 16"
     , groupchooser = 1
     , common = True
-    , thumb = False
+    , feature = 0
     , row = 1
     , col = 1
     , rank = 1
@@ -289,6 +276,7 @@ type alias Petal =
     }
 
 
+petalinit : Petal
 petalinit =
     { fill = 1
     , filltype = LeftBack
@@ -316,6 +304,7 @@ type alias Flower =
     }
 
 
+flowerinit : Flower
 flowerinit =
     { handfill1 = petalinit
     , handfill2 = petalinit

@@ -1,6 +1,7 @@
 To Do
 
-Divide hand groupsymbols by features
+Lighten colors behind symbol choosers
+Adjust aligment hand selection and fill selection symbols
 Arrow symbol chooser
 
 Save Cancel buttons
