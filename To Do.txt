@@ -1,8 +1,12 @@
 To Do
 
-Save Cancel buttons
-Add favorites
+Send command when click on keyboard
+Drag symbols from all the choosers
 Only finish symbol drop if drop is in Sign Area
+
+
+Add favorites
+
 Arrow symbol chooser
 
 Drag symbol is currently under symbols chooser and can't be seen when first dragged
