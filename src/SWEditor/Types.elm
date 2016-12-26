@@ -5,7 +5,8 @@ module SWEditor.Types exposing (..)
 import SW.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
 import Keyboard.Shared exposing (..)
- 
+
+
 type alias Model =
     { fsw : String
     , sign : EditorSign
@@ -16,22 +17,24 @@ type alias Model =
     , rectanglestart : Position
     , windowresized : Bool
     , editormode : EditorMode
-    , containerheight: Int
+    , containerheight : Int
     , uid : Int
-    , undolist: List UndoItem
-    , redolist: List UndoItem
+    , undolist : List UndoItem
+    , redolist : List UndoItem
     }
- 
+
 
 type alias Offset =
     { offsetx : Int
     , offsety : Int
     }
 
+
 type alias UndoItem =
     { actionname : String
     , sign : EditorSign
     }
+
 
 type Msg
     = ChangeFSW String
@@ -56,8 +59,9 @@ type Msg
     | AddUndo Bool String Model
     | Undo
     | Redo
+    | DeleteSymbols
     | Keyboard KeyboardCommand
- 
+
 
 type EditorMode
     = Awaiting

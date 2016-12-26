@@ -20,6 +20,7 @@ import SW.Types exposing (..)
 import Mouse as Mouse exposing (downs, moves, ups)
 import Keyboard.Shared exposing (..)
 import List.Extra exposing (..)
+import SWEditor.SignArea exposing (..)
 
 
 -- import SubSWEditors.State
@@ -246,6 +247,12 @@ update action model =
         Redo ->
             redo model ! []
 
+        DeleteSymbols ->
+            model
+                ! []
+                |> Update.Extra.andThen update
+                    (AddUndo True "DeleteSymbols" <| deletesymbols model)
+
         Keyboard command ->
             runKeyboardCommand model command
 
@@ -284,6 +291,8 @@ runKeyboardSignView model command =
             (Update.Extra.andThen update Undo)
         |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 21) command.keys)
             (Update.Extra.andThen update Redo)
+        |> Update.Extra.filter (List.any ((==) 62) command.keys)
+            (Update.Extra.andThen update DeleteSymbols)
 
 
 runKeyboardGeneralChooser model command =
