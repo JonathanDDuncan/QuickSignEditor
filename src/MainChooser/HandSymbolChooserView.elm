@@ -7,6 +7,7 @@ import ViewHelper.ViewExtra exposing (..)
 import MainChooser.Types exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
+import List.Extra exposing (..)
 import MainChooser.CompassRoseView exposing (..)
 
 
@@ -44,8 +45,8 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
 
 fillsview : HandSymbol -> Int -> List (Html Msg)
 fillsview handsymbol rowheight =
-    List.map
-        (\handfillitem ->
+    (List.map
+        (\( handfillitem, description ) ->
             td
                 [ onClick (SelectHandFill handfillitem.filltype)
                 , selectedbackground handfillitem.filltype handsymbol.handfill
@@ -54,14 +55,20 @@ fillsview handsymbol rowheight =
                     [ style
                         [ "position" => "relative"
                         , "display" => "block"
-                        , "top" => px -12
-                        , "left" => px 0
+                        , "top" => px -8
+                        , "left" => px -15
                         ]
                     ]
-                    [ symbolcentered False handfillitem.symbol 50 rowheight ]
+                    [ symbolcentered False handfillitem.symbol 50 rowheight
+                    ]
+                , div [] [ text description ]
                 ]
         )
-        handsymbol.handfillitems
+        (List.Extra.zip
+            handsymbol.handfillitems
+            [ "Baby Edge", "Palm", "Thumb Edge", "Back" ]
+        )
+    )
 
 
 handselection : HandSymbol -> Int -> List (Html Msg)
@@ -71,8 +78,8 @@ handselection handsymbol rowheight =
             [ style
                 [ "position" => "relative"
                 , "display" => "block"
-                , "top" => px -15
-                , "left" => px 0
+                , "top" => px -8
+                , "left" => px -15
                 ]
             ]
             [ symbolcentered False handsymbol.symbollefthand 50 rowheight ]
@@ -83,8 +90,8 @@ handselection handsymbol rowheight =
             [ style
                 [ "position" => "relative"
                 , "display" => "block"
-                , "top" => px -15
-                , "left" => px 0
+                , "top" => px -8
+                , "left" => px -15
                 ]
             ]
             [ symbolcentered False handsymbol.symbolrighthand 50 rowheight ]
