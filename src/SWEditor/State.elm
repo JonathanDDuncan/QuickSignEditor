@@ -250,14 +250,14 @@ update action model =
         EndDragging ->
             let
                 undroppedsymbol =
-                    Debug.log "undroppedsymbol" <| getundroppedsymbol model.editormode model.sign.syms
+                    getundroppedsymbol model.editormode model.sign.syms
 
                 iswithinview =
-                    Debug.log "iswithinview" <| issymbolwithinview model.viewposition undroppedsymbol
+                    issymbolwithinview model.viewposition undroppedsymbol
 
                 newmodel =
                     if not iswithinview then
-                        Debug.log "deletesymbols model" <| deletesymbols model
+                        deletesymbols model
                     else
                         model
 

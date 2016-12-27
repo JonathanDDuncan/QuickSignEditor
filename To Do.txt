@@ -1,5 +1,6 @@
 To Do
 
+Use arrow keys to move symbols
 Review symbol groupings, make some changes
 Add favorites
 
