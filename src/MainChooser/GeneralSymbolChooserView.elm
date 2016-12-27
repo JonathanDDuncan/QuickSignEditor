@@ -183,7 +183,14 @@ isValidRotation rotation  validrotations =
 
 generalsymbolrow : Base -> List Fill -> Rotation ->Dict String Size ->Int -> Int -> Float -> List (Html MainChooser.Types.Msg)
 generalsymbolrow base validfills rotation symbolsizes columnwidth rowheight scale =
-    List.map (\fill -> td [ onClick (SelectedColumn fill) ] [ (generalsymbolcol False base fill rotation symbolsizes columnwidth rowheight scale) ]) validfills
+    List.map (\fill ->
+     let
+      symbol =  getSymbolEditorBaseFillRotation base fill rotation symbolsizes
+    in
+       td [onClick (SelectedColumn fill) 
+           , onMouseDown (DragSymbol symbol.code) 
+          ] 
+          [ (generalsymbolcol False base fill rotation symbolsizes columnwidth rowheight scale) ]) validfills
 
 
 generalsymbolcol : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int ->  Int -> Float -> Html MainChooser.Types.Msg

@@ -1,13 +1,10 @@
 To Do
 
-Only finish symbol drop if drop is in Sign Area
-Drag symbols from all the choosers
-
+Review symbol groupings, make some changes
 Add favorites
 
 Arrow symbol chooser
 
-Drag symbol is currently under symbols chooser and can't be seen when first dragged
 Update mdl  http://package.elm-lang.org/packages/MichaelCombs28/elm-mdl/latest/
 
 Add fingerspelling layout to keyboard

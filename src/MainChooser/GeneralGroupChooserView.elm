@@ -61,6 +61,7 @@ displaySymbolChoosing model chooseritem =
     in
         Html.div
             [ onClick (GroupSelected chooseritem)
+            , onMouseDown (DragSymbol symbol.code)
             ]
             [ Options.div
                 [ Tooltip.attach Mdl [ mdlid ] ]

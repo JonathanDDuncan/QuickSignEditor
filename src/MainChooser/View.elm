@@ -14,6 +14,7 @@ import MainChooser.GeneralGroupChooserView exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
 import MainChooser.HandSymbolChooserView exposing (..)
 import SW.State exposing (iskey)
+import SWEditor.EditorSymbol exposing (..)
 
 
 --import SubMainChooser.View exposing (root)
@@ -71,7 +72,16 @@ symbolchooser model halfwidth halfheight =
 
 displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
 displayChoosing choosing =
-    div [ onClick (Clicked choosing.value) ] [ App.map Choosing (Choosing.View.root choosing) ]
+    div
+        [ onClick (Clicked choosing.value)
+        , onMouseDown (DragSymbol (firstsymbol choosing).code)
+        ]
+        [ App.map Choosing (Choosing.View.root choosing) ]
+
+
+firstsymbol : { b | valuestoAdd : List EditorSymbol } -> EditorSymbol
+firstsymbol choosing =
+    choosing.valuestoAdd |> List.head |> Maybe.withDefault SWEditor.EditorSymbol.symbolinit
 
 
 choosesubgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
