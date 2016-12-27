@@ -88,25 +88,6 @@ update action model =
                 ! []
                 |> Update.Extra.andThen update (AddUndo True "CenterSign" { model | sign = centerSignViewposition model.viewposition model.sign })
 
-        StartDragging ->
-            { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
-
-        DragSelected ->
-            { model
-                | sign =
-                    Drag.dragsign model
-            }
-                ! []
-
-        EndDragging ->
-            let
-                signwithinbounds =
-                    putsymbolswithinbounds model.sign model.viewposition
-            in
-                model
-                    ! []
-                    |> Update.Extra.andThen update (AddUndo True "EndDragging" { model | sign = signwithinbounds, editormode = Awaiting })
-
         StartRectangleSelect ->
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
 
@@ -196,7 +177,7 @@ update action model =
                     ! []
                     |> Update.Extra.filter (model.editormode == RectangleSelect)
                         (Update.Extra.andThen update EndRectangleSelect)
-                    |> Update.Extra.filter (model.editormode == Dragging)
+                    |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
                         (Update.Extra.andThen update EndDragging)
 
         MouseMove position ->
@@ -214,8 +195,23 @@ update action model =
                     ! []
                     |> Update.Extra.filter (model.windowresized)
                         (Update.Extra.andThen update UpdateSignViewPosition)
-                    |> Update.Extra.filter (model.editormode == Dragging)
+                    |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
                         (Update.Extra.andThen update DragSelected)
+
+        StartDragging ->
+            { model
+                | editormode = Dragging
+                , dragstart = model.xy
+                , dragsign = model.sign
+            }
+                ! []
+
+        DragSelected ->
+            { model
+                | sign =
+                    Drag.dragsign model
+            }
+                ! []
 
         DragSymbol symbol ->
             let
@@ -230,13 +226,54 @@ update action model =
 
                 sign =
                     { sign1
-                        | syms = List.append sign1.syms [ { selectedsymbol | x = model.xy.x, y = model.xy.y, id = model.uid + 2 } ]
+                        | syms =
+                            List.append sign1.syms
+                                [ { selectedsymbol
+                                    | x = model.xy.x
+                                    , y = model.xy.y
+                                    , id = model.uid + 2
+                                  }
+                                ]
                     }
 
                 lastuid =
                     getlastuid <| sign
             in
-                { model | uid = lastuid, editormode = Dragging, dragstart = model.xy, dragsign = sign } ! []
+                { model
+                    | uid = lastuid
+                    , editormode = AddingSymbol
+                    , dragstart = model.xy
+                    , dragsign = sign
+                }
+                    ! []
+
+        EndDragging ->
+            let
+                undroppedsymbol =
+                    Debug.log "undroppedsymbol" <| getundroppedsymbol model.editormode model.sign.syms
+
+                iswithinview =
+                    Debug.log "iswithinview" <| issymbolwithinview model.viewposition undroppedsymbol
+
+                newmodel =
+                    if not iswithinview then
+                        Debug.log "deletesymbols model" <| deletesymbols model
+                    else
+                        model
+
+                signwithinbounds =
+                    putsymbolswithinbounds newmodel.sign newmodel.viewposition
+            in
+                newmodel
+                    ! []
+                    |> Update.Extra.andThen update
+                        (AddUndo True
+                            "EndDragging"
+                            { newmodel
+                                | sign = signwithinbounds
+                                , editormode = Awaiting
+                            }
+                        )
 
         AddUndo changed actiononame model1 ->
             addUndo changed actiononame model1 ! []
@@ -315,7 +352,13 @@ putsymbolswithinbounds sign bounds =
         signbound =
             getSignBounding movedsyms
     in
-        { sign | syms = movedsyms, width = signbound.width, height = signbound.height, x = signbound.x, y = signbound.y }
+        { sign
+            | syms = movedsyms
+            , width = signbound.width
+            , height = signbound.height
+            , x = signbound.x
+            , y = signbound.y
+        }
 
 
 maintainwithinbounds sym bounds =

@@ -66,6 +66,7 @@ type Msg
 type EditorMode
     = Awaiting
     | RectangleSelect
+    | AddingSymbol
     | Dragging
 
 
