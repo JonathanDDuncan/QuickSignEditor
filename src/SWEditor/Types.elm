@@ -61,6 +61,18 @@ type Msg
     | Redo
     | DeleteSymbols
     | Keyboard KeyboardCommand
+    | MoveSymbols Direction Distance
+
+
+type alias Distance =
+    Int
+
+
+type Direction
+    = Up
+    | Down
+    | Right
+    | Left
 
 
 type EditorMode

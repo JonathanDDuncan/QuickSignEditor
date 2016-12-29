@@ -293,6 +293,9 @@ update action model =
         Keyboard command ->
             runKeyboardCommand model command
 
+        MoveSymbols direction distance ->
+            movesymbols model direction distance ! []
+
 
 symbolshavechanged : List a -> List a -> Bool
 symbolshavechanged firstsymbols secondsymbols =
@@ -330,6 +333,22 @@ runKeyboardSignView model command =
             (Update.Extra.andThen update Redo)
         |> Update.Extra.filter (List.any ((==) 62) command.keys)
             (Update.Extra.andThen update DeleteSymbols)
+        |> Update.Extra.filter (List.any ((==) 67) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Up 1)
+        |> Update.Extra.filter (List.any ((==) 69) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Down 1)
+        |> Update.Extra.filter (List.any ((==) 70) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Right 1)
+        |> Update.Extra.filter (List.any ((==) 68) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Left 1)
+        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 67) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Up 10)
+        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 69) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Down 10)
+        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 70) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Right 10)
+        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 68) command.keys)
+            (Update.Extra.andThen update <| MoveSymbols Left 10)
 
 
 runKeyboardGeneralChooser model command =
@@ -359,39 +378,6 @@ putsymbolswithinbounds sign bounds =
             , x = signbound.x
             , y = signbound.y
         }
-
-
-maintainwithinbounds sym bounds =
-    let
-        left =
-            0
-
-        right =
-            0 + bounds.width - 20
-
-        top =
-            5
-
-        bottom =
-            0 + bounds.height - 10
-
-        newx =
-            if (sym.x < left) then
-                left
-            else if sym.x + sym.width > right then
-                right - sym.width
-            else
-                sym.x
-
-        newy =
-            if (sym.y < top) then
-                top
-            else if sym.y + sym.height > bottom then
-                bottom - sym.height
-            else
-                sym.y
-    in
-        { sym | x = newx, y = newy }
 
 
 
