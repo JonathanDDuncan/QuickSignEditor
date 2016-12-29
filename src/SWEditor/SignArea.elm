@@ -111,3 +111,94 @@ issymbolwithinview viewposition undroppedsymbol =
 
         Nothing ->
             True
+
+
+movesymbols : Model -> Direction -> Distance -> Model
+movesymbols model direction distance =
+    let
+        newsymbols =
+            List.map
+                (\symbol ->
+                    if symbol.selected then
+                        maintainwithinbounds (movesymbol symbol direction distance) model.viewposition
+                    else
+                        symbol
+                )
+                model.sign.syms
+
+        newsign =
+            updatesignsymbols model.sign newsymbols
+    in
+        { model | sign = newsign }
+
+
+movesymbol : EditorSymbol -> Direction -> Distance -> EditorSymbol
+movesymbol symbol direction distance =
+    let
+        newsymbol =
+            case direction of
+                Up ->
+                    { symbol | y = symbol.y - distance }
+
+                Down ->
+                    { symbol | y = symbol.y + distance }
+
+                Right ->
+                    { symbol | x = symbol.x + distance }
+
+                Left ->
+                    { symbol | x = symbol.x - distance }
+    in
+        newsymbol
+
+
+putsymbolswithinbounds : EditorSign -> { f | height : number, width : number' } -> EditorSign
+putsymbolswithinbounds sign bounds =
+    let
+        movedsyms =
+            List.map (\sym -> maintainwithinbounds sym <| bounds) sign.syms
+
+        signbound =
+            getSignBounding movedsyms
+    in
+        { sign
+            | syms = movedsyms
+            , width = signbound.width
+            , height = signbound.height
+            , x = signbound.x
+            , y = signbound.y
+        }
+
+
+maintainwithinbounds : EditorSymbol -> { b | height : number'', width : number''' } -> EditorSymbol
+maintainwithinbounds sym bounds =
+    let
+        left =
+            0
+
+        right =
+            0 + bounds.width - 20
+
+        top =
+            5
+
+        bottom =
+            0 + bounds.height - 10
+
+        newx =
+            if (sym.x < left) then
+                left
+            else if sym.x + sym.width > right then
+                right - sym.width
+            else
+                sym.x
+
+        newy =
+            if (sym.y < top) then
+                top
+            else if sym.y + sym.height > bottom then
+                bottom - sym.height
+            else
+                sym.y
+    in
+        { sym | x = newx, y = newy }
