@@ -363,23 +363,6 @@ runKeyboardSymbolChooser model command =
     model ! []
 
 
-putsymbolswithinbounds sign bounds =
-    let
-        movedsyms =
-            List.map (\sym -> maintainwithinbounds sym <| bounds) sign.syms
-
-        signbound =
-            getSignBounding movedsyms
-    in
-        { sign
-            | syms = movedsyms
-            , width = signbound.width
-            , height = signbound.height
-            , x = signbound.x
-            , y = signbound.y
-        }
-
-
 
 -- { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
 

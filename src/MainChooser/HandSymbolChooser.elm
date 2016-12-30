@@ -8,18 +8,18 @@ import String exposing (..)
 
 
 gethandfillitems : Base -> Dict.Dict String Size -> Hands -> Planes -> List HandFillItem
-gethandfillitems base symbolsizes handtype plantype =
+gethandfillitems base symbolsizes handtype planetype =
     if handtype == Right then
-        [ gethandfillitem base symbolsizes RightBabyEdge plantype
-        , gethandfillitem base symbolsizes RightPalm plantype
-        , gethandfillitem base symbolsizes RightThumbEdge plantype
-        , gethandfillitem base symbolsizes RightBack plantype
+        [ gethandfillitem base symbolsizes RightBabyEdge planetype
+        , gethandfillitem base symbolsizes RightPalm planetype
+        , gethandfillitem base symbolsizes RightThumbEdge planetype
+        , gethandfillitem base symbolsizes RightBack planetype
         ]
     else
-        [ gethandfillitem base symbolsizes LeftBabyEdge plantype
-        , gethandfillitem base symbolsizes LeftPalm plantype
-        , gethandfillitem base symbolsizes LeftThumbEdge plantype
-        , gethandfillitem base symbolsizes LeftBack plantype
+        [ gethandfillitem base symbolsizes LeftBabyEdge planetype
+        , gethandfillitem base symbolsizes LeftPalm planetype
+        , gethandfillitem base symbolsizes LeftThumbEdge planetype
+        , gethandfillitem base symbolsizes LeftBack planetype
         ]
 
 
@@ -37,17 +37,17 @@ handfillitems base symbolsizes =
     , createhandfillitem base symbolsizes { fill = 2, rotation = 1, filltype = RightThumbEdge, planetype = Wall }
     , createhandfillitem base symbolsizes { fill = 3, rotation = 1, filltype = RightBack, planetype = Wall }
     , createhandfillitem base symbolsizes { fill = 2, rotation = 1, filltype = LeftBabyEdge, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 1, rotation = 1, filltype = LeftPalm, planetype = Wall }
+    , createhandfillitem base symbolsizes { fill = 1, rotation = 9, filltype = LeftPalm, planetype = Wall }
     , createhandfillitem base symbolsizes { fill = 2, rotation = 9, filltype = LeftThumbEdge, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 3, rotation = 1, filltype = LeftBack, planetype = Wall }
+    , createhandfillitem base symbolsizes { fill = 3, rotation = 9, filltype = LeftBack, planetype = Wall }
     , createhandfillitem base symbolsizes { fill = 5, rotation = 9, filltype = RightBabyEdge, planetype = Floor }
     , createhandfillitem base symbolsizes { fill = 4, rotation = 1, filltype = RightPalm, planetype = Floor }
     , createhandfillitem base symbolsizes { fill = 5, rotation = 1, filltype = RightThumbEdge, planetype = Floor }
     , createhandfillitem base symbolsizes { fill = 6, rotation = 1, filltype = RightBack, planetype = Floor }
     , createhandfillitem base symbolsizes { fill = 5, rotation = 1, filltype = LeftBabyEdge, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 4, rotation = 1, filltype = LeftPalm, planetype = Floor }
+    , createhandfillitem base symbolsizes { fill = 4, rotation = 9, filltype = LeftPalm, planetype = Floor }
     , createhandfillitem base symbolsizes { fill = 5, rotation = 9, filltype = LeftThumbEdge, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 6, rotation = 1, filltype = LeftBack, planetype = Floor }
+    , createhandfillitem base symbolsizes { fill = 6, rotation = 9, filltype = LeftBack, planetype = Floor }
     ]
 
 
