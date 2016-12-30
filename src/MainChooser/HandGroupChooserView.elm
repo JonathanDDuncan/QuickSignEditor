@@ -6,12 +6,8 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import String exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
-import Material.Tooltip as Tooltip exposing (..)
-import Material.Options as Options exposing (div, cs, when)
-import MainChooser.HandPng exposing (..)
-import SW.Types exposing (..)
+import SWEditor.SymbolToolTip exposing (..)
 
 
 handgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
@@ -69,27 +65,3 @@ displayhandChoosing model displayhanditem =
                 RightThumbEdge
                 content
             )
-
-
-symboltooltip mdl mdlid name key rotation fill handfill content =
-    let
-        ishand =
-            iskey key "hand"
-
-        handpng =
-            gethandpng key rotation fill handfill
-    in
-        [ Options.div
-            [ Tooltip.attach Mdl [ mdlid ] ]
-            content
-        , Tooltip.render Mdl
-            [ mdlid ]
-            mdl
-            [ Tooltip.left ]
-            [ if ishand then
-                handpngspan handpng "margin: auto;" ""
-              else
-                text ""
-            , Html.div [ attribute "style" "width:100%;" ] [ text name ]
-            ]
-        ]
