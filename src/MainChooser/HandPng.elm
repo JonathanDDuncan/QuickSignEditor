@@ -22,8 +22,14 @@ handpngspan handpng morestyle moretransform =
             else
                 ""
 
+        transformvalue =
+            (moretransform) ++ " " ++ (miror) ++ " " ++ (rotate) ++ ";"
+
         transform =
-            "transform: " ++ (moretransform) ++ " " ++ (miror) ++ " " ++ (rotate) ++ ";"
+            if String.length transformvalue /= 0 then
+                "transform: " ++ transformvalue
+            else
+                ""
     in
         Html.span
             [ class (handpng.pngcss)

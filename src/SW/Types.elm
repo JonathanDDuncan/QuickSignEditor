@@ -1,5 +1,9 @@
 module SW.Types exposing (..)
 
+import ParseInt as ParseInt exposing (..)
+import String exposing (..)
+
+
 -- import SubDisplaySWs.Types
 
 
@@ -74,6 +78,12 @@ type alias Key =
     String
 
 
+type alias TypeRange =
+    { start : String
+    , end : String
+    }
+
+
 {-| The position of the mouse relative to the whole document. So if you are
 scrolled down a bunch, you are still getting a coordinate relative to the
 very top left corner of the *whole* document.
@@ -104,3 +114,101 @@ maximumBy f ls =
 
             _ ->
                 Nothing
+
+
+typerange : String -> TypeRange
+typerange typename =
+    case typename of
+        "writing" ->
+            { start = "100"
+            , end = "37e"
+            }
+
+        "hand" ->
+            { start = "100"
+            , end = "204"
+            }
+
+        "movement" ->
+            { start = "205"
+            , end = "2f6"
+            }
+
+        "dynamic" ->
+            { start = "2f7"
+            , end = "2fe"
+            }
+
+        "head" ->
+            { start = "2ff"
+            , end = "36c"
+            }
+
+        "hcenter" ->
+            { start = "2ff"
+            , end = "36c"
+            }
+
+        "vcenter" ->
+            { start = "2ff"
+            , end = "375"
+            }
+
+        "trunk" ->
+            { start = "36d"
+            , end = "375"
+            }
+
+        "limb" ->
+            { start = "376"
+            , end = "37e"
+            }
+
+        "location" ->
+            { start = "37f"
+            , end = "386"
+            }
+
+        "punctuation" ->
+            { start = "387"
+            , end = "38b"
+            }
+
+        _ ->
+            { start = "100"
+            , end = "38b"
+            }
+
+
+
+--typerange "hand" -> { start = "100", end = "204" } : { start : String, end : String }
+
+
+iskey : String -> String -> Bool
+iskey key typename =
+    let
+        range =
+            typerange typename
+
+        start =
+            ParseInt.parseIntHex range.start
+                |> Result.toMaybe
+                |> Maybe.withDefault 0
+
+        end =
+            ParseInt.parseIntHex range.end
+                |> Result.toMaybe
+                |> Maybe.withDefault 0
+
+        char =
+            String.slice 1 4 key
+                |> ParseInt.parseIntHex
+                |> Result.toMaybe
+                |> Maybe.withDefault 0
+    in
+        start <= char && end >= char
+
+
+
+--iskey "S100" "hand" -> True
+--iskey "S100" "head" -> False

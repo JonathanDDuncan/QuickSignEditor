@@ -13,7 +13,7 @@ import MainChooser.HandGroupChooserView exposing (..)
 import MainChooser.GeneralGroupChooserView exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
 import MainChooser.HandSymbolChooserView exposing (..)
-import SW.State exposing (iskey)
+import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 
 

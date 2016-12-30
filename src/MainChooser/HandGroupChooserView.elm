@@ -11,6 +11,7 @@ import SWEditor.Display exposing (signView, symbolaloneView)
 import Material.Tooltip as Tooltip exposing (..)
 import Material.Options as Options exposing (div, cs, when)
 import MainChooser.HandPng exposing (..)
+import SW.Types exposing (..)
 
 
 handgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
@@ -50,22 +51,45 @@ column model columndata =
 
 displayhandChoosing model displayhanditem =
     let
-        handpng =
-            gethandpng displayhanditem.chooseritem.symbolkey 1 2 RightThumbEdge
+        content =
+            [ App.map SignView
+                (symbolaloneView displayhanditem.symbol 5)
+            ]
     in
         Html.div
             [ Html.Events.onClick (GroupSelected displayhanditem.chooseritem)
             ]
-            [ Options.div
-                [ Tooltip.attach Mdl [ displayhanditem.mdlid ] ]
-                [ App.map SignView
-                    (symbolaloneView displayhanditem.symbol 5)
-                ]
-            , Tooltip.render Mdl
-                [ displayhanditem.mdlid ]
+            (symboltooltip
                 model.mdl
-                [ Tooltip.left ]
-                [ handpngspan handpng "margin: auto;" ""
-                , Html.div [ attribute "style" "width:100%;" ] [ text displayhanditem.chooseritem.name ]
-                ]
+                displayhanditem.mdlid
+                displayhanditem.chooseritem.name
+                displayhanditem.chooseritem.symbolkey
+                1
+                2
+                RightThumbEdge
+                content
+            )
+
+
+symboltooltip mdl mdlid name key rotation fill handfill content =
+    let
+        ishand =
+            iskey key "hand"
+
+        handpng =
+            gethandpng key rotation fill handfill
+    in
+        [ Options.div
+            [ Tooltip.attach Mdl [ mdlid ] ]
+            content
+        , Tooltip.render Mdl
+            [ mdlid ]
+            mdl
+            [ Tooltip.left ]
+            [ if ishand then
+                handpngspan handpng "margin: auto;" ""
+              else
+                text ""
+            , Html.div [ attribute "style" "width:100%;" ] [ text name ]
             ]
+        ]
