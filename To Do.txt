@@ -1,10 +1,10 @@
 To Do
  
-Bug left hand for palm and back fills not working
 
-Add symbol hand preview to fills and SignArea
+
 Review symbol groupings, make some changes
-Add Key Icons
+
+Add Key Icons to Keyboard
 
 
 Add favorites
@@ -18,5 +18,5 @@ Add color choooser
 Add align right left
 Add Bring to top or bottom
 
-
+Add symbol hand preview to fills and SignArea
 Can't type in input boxes
