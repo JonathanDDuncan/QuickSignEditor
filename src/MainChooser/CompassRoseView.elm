@@ -8,6 +8,7 @@ import ViewHelper.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
+import MainChooser.HandPng exposing (..)
 
 
 compassrose handsymbol fullwidth =
@@ -50,14 +51,14 @@ handimagecenter handsymbol parentsize parentitemsize =
             truncate (toFloat fullwidth / 4) + 10
 
         petals =
-            { petal1 = handpngpetal handsymbol.flowersymbols.handfill1
-            , petal2 = handpngpetal handsymbol.flowersymbols.handfill2
-            , petal3 = handpngpetal handsymbol.flowersymbols.handfill3
-            , petal4 = handpngpetal handsymbol.flowersymbols.handfill4
-            , petal5 = handpngpetal handsymbol.flowersymbols.handfill5
-            , petal6 = handpngpetal handsymbol.flowersymbols.handfill6
-            , petal7 = handpngpetal handsymbol.flowersymbols.handfill7
-            , petal8 = handpngpetal handsymbol.flowersymbols.handfill8
+            { petal1 = handpngpetal handsymbol.flowersymbols.handfill1.handpng
+            , petal2 = handpngpetal handsymbol.flowersymbols.handfill2.handpng
+            , petal3 = handpngpetal handsymbol.flowersymbols.handfill3.handpng
+            , petal4 = handpngpetal handsymbol.flowersymbols.handfill4.handpng
+            , petal5 = handpngpetal handsymbol.flowersymbols.handfill5.handpng
+            , petal6 = handpngpetal handsymbol.flowersymbols.handfill6.handpng
+            , petal7 = handpngpetal handsymbol.flowersymbols.handfill7.handpng
+            , petal8 = handpngpetal handsymbol.flowersymbols.handfill8.handpng
             }
 
         top =
@@ -211,33 +212,10 @@ petaldiv width height top left paddingtop display =
 
 
 handpngpetal :
-    { b | handpng : { a | miror : Bool, pngcss : String, rotate : number } }
+    { a | miror : Bool, pngcss : String, rotate : number }
     -> Html c
-handpngpetal handfill =
-    let
-        scale =
-            if handfill.handpng.miror then
-                "scale(0.75) scaleX(-1)"
-            else
-                "scale(0.75)"
-
-        rotate =
-            if handfill.handpng.rotate /= 0 then
-                "rotate(" ++ toString handfill.handpng.rotate ++ "deg)"
-            else
-                ""
-
-        transform =
-            "transform: " ++ scale ++ rotate ++ ";"
-    in
-        span
-            [ class (handfill.handpng.pngcss)
-            , attribute "style"
-                ("display:inline-block ;"
-                    ++ transform
-                )
-            ]
-            []
+handpngpetal handpng =
+    handpngspan handpng "" "scale(0.75)"
 
 
 symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg

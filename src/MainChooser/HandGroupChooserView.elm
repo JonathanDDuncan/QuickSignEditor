@@ -10,6 +10,7 @@ import String exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
 import Material.Tooltip as Tooltip exposing (..)
 import Material.Options as Options exposing (div, cs, when)
+import MainChooser.HandPng exposing (..)
 
 
 handgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
@@ -48,24 +49,23 @@ column model columndata =
 
 
 displayhandChoosing model displayhanditem =
-    Html.div
-        [ Html.Events.onClick (GroupSelected displayhanditem.chooseritem)
-        ]
-        [ Options.div
-            [ Tooltip.attach Mdl [ displayhanditem.mdlid ] ]
-            [ App.map SignView
-                (symbolaloneView displayhanditem.symbol 5)
+    let
+        handpng =
+            gethandpng displayhanditem.chooseritem.symbolkey 1 2 RightThumbEdge
+    in
+        Html.div
+            [ Html.Events.onClick (GroupSelected displayhanditem.chooseritem)
             ]
-        , Tooltip.render Mdl
-            [ displayhanditem.mdlid ]
-            model.mdl
-            [ Tooltip.left ]
-            [ span [ class (handpngcss displayhanditem.chooseritem.symbolkey), attribute "style" "display:inline-block ;margin: auto;" ] []
-            , Html.div [ attribute "style" "width:100%;" ] [ text displayhanditem.chooseritem.name ]
+            [ Options.div
+                [ Tooltip.attach Mdl [ displayhanditem.mdlid ] ]
+                [ App.map SignView
+                    (symbolaloneView displayhanditem.symbol 5)
+                ]
+            , Tooltip.render Mdl
+                [ displayhanditem.mdlid ]
+                model.mdl
+                [ Tooltip.left ]
+                [ handpngspan handpng "margin: auto;" ""
+                , Html.div [ attribute "style" "width:100%;" ] [ text displayhanditem.chooseritem.name ]
+                ]
             ]
-        ]
-
-
-handpngcss : String -> String
-handpngcss key =
-    String.toLower "hands-" ++ String.slice 1 4 key ++ "10"
