@@ -1,7 +1,12 @@
 To Do
+ 
+Bug left hand for palm and back fills not working
 
-Use arrow keys to move symbols
+Add symbol hand preview to fills and SignArea
 Review symbol groupings, make some changes
+Add Key Icons
+
+
 Add favorites
 
 Arrow symbol chooser
@@ -13,6 +18,5 @@ Add color choooser
 Add align right left
 Add Bring to top or bottom
 
-Commands from keyboard
 
 Can't type in input boxes
