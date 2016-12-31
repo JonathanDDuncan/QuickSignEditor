@@ -3,10 +3,12 @@ To Do
 Add Undo to moving keystrokes
 Seperate Colon and parenthesis in Group chooser
 Symbol in Hand Group chooser can not be dragged
+Add a Replace button to disturb symbol position
 Add Key Icons to Keyboard
 Add favorites
 Arrow symbol chooser
 
+Move over to SuttonFont 
 Update mdl  http://package.elm-lang.org/packages/MichaelCombs28/elm-mdl/latest/
 
 Add fingerspelling layout to keyboard
