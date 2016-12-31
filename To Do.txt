@@ -1,5 +1,8 @@
 To Do
  
+Add Undo to moving keystrokes
+Seperate Colon and parenthesis in Group chooser
+Symbol in Hand Group chooser can not be dragged
 Add Key Icons to Keyboard
 Add favorites
 Arrow symbol chooser
