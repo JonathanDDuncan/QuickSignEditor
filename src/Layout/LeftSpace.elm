@@ -20,8 +20,7 @@ leftspace model =
             , ( "width", toString model.leftspacepercentage ++ "%" )
             ]
         ]
-        [ Html.text "This is the leftspace area"
-        , [ mdlstyle 50
+        [ [ mdlstyle 50
                 [ size All 6 ]
                 ([ Button.render
                     Mdl

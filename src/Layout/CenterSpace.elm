@@ -17,7 +17,6 @@ centerspace model =
             , ( "margin-left", toString model.centerspacemarginleftpercentage ++ "%" )
             ]
         ]
-        [ text "This is the centerspace area"
-        , App.map SWEditor
+        [ App.map SWEditor
             (SWEditor.View.root model.signbox)
         ]

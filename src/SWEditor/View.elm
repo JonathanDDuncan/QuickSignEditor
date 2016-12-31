@@ -21,8 +21,7 @@ root model =
             rectangleStartCurrent model
     in
         div []
-            [ button [ onClick RequestSignfromOtherApp ] [ text "SignMaker Sign" ]
-            , signView model.sign <| editorattributes <| model.containerheight - 50
+            [ signView model.sign <| editorattributes <| model.containerheight - 50
             , case model.editormode of
                 RectangleSelect ->
                     div
@@ -47,7 +46,6 @@ editorattributes : Int -> List (Attribute Msg)
 editorattributes height =
     [ Html.Attributes.style
         [ "height" => px height
-         
         ]
     , Html.Attributes.id "signView"
     , Html.Attributes.class "disablePanZoom signview"
