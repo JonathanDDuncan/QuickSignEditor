@@ -1,14 +1,7 @@
 To Do
  
-
-
-Review symbol groupings, make some changes
-
 Add Key Icons to Keyboard
-
-
 Add favorites
-
 Arrow symbol chooser
 
 Update mdl  http://package.elm-lang.org/packages/MichaelCombs28/elm-mdl/latest/
