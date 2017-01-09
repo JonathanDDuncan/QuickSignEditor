@@ -3,7 +3,7 @@ require('./styles/main.scss');
 
 // inject bundled Elm app into div#main
 //To change aplication name change the three words Starter in the next two line and in the div in index.html
-var Elm = require('./QuickSignEditor');
+var Elm = require('../elm/QuickSignEditor');
 var app = Elm.QuickSignEditor.embed(document.getElementById('quicksigneditor'));
 window.app = app;
 
@@ -16,7 +16,7 @@ app.ports.requestSign.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 
 });
-
+ 
 app.ports.requestElementPosition.subscribe(function(id) {
     try {
         var element = document.getElementById(id);
