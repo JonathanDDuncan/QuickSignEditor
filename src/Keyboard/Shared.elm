@@ -19,8 +19,8 @@ keyboardModeCode =
 
 getKeyboardMode : Int -> KeyboardMode
 getKeyboardMode value =
-    List.filter (\m -> fst m == value) keyboardModeCode
-        |> List.map (\m -> snd m)
+    List.filter (\m -> Tuple.first m == value) keyboardModeCode
+        |> List.map (\m -> Tuple.second m)
         |> List.head
         |> Maybe.withDefault SignView
 

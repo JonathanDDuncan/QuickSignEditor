@@ -159,7 +159,6 @@ querty =
         , { keyId = 84, code = 96, display = "0", keypress = None }
         , { keyId = 85, code = 108, display = ".", keypress = None }
         , { keyId = 86, code = 13, display = "Enter", keypress = None }
-        
         ]
     }
 

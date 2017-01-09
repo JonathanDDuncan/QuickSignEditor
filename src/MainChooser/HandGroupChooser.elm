@@ -46,10 +46,10 @@ createrowdata model row handgroupchoosings =
             List.filter (\item -> item.row == row) handgroupchoosings
 
         colvalues =
-            [1..5]
+            List.range 1 5
 
         featurevalues =
-            [1..8]
+            List.range 1 8
 
         featuredata =
             List.map

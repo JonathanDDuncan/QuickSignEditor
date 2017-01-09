@@ -2,7 +2,7 @@ module MainChooser.View exposing (root)
 
 import Html exposing (..)
 import String exposing (..)
-import Html.App as App exposing (..)
+ 
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
@@ -76,7 +76,7 @@ displayChoosing choosing =
         [ onClick (Clicked choosing.value)
         , onMouseDown (DragSymbol (firstsymbol choosing).code)
         ]
-        [ App.map Choosing (Choosing.View.root choosing) ]
+        [ Html.map Choosing (Choosing.View.root choosing) ]
 
 
 firstsymbol : { b | valuestoAdd : List EditorSymbol } -> EditorSymbol

@@ -3,7 +3,7 @@ module MainChooser.CompassRoseView exposing (compassrose, symbolcentered)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.App as App exposing (..)
+ 
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
@@ -234,7 +234,7 @@ symbolcentered drag symbol width height =
               else
                 onMouseDown Noop
             ]
-            [ App.map SignView
+            [ Html.map SignView
                 (SWEditor.Display.symbolView1 "" symbol)
             ]
         ]

@@ -1,7 +1,7 @@
 module Choosing.View exposing (root, normal)
 
 import Html exposing (..)
-import Html.App as App exposing (..)
+ 
 import Html.Attributes exposing (..)
 import Choosing.Types exposing (..)
 import SWEditor.Display exposing (..)
@@ -16,7 +16,7 @@ root : Choosing.Types.Model -> Html Choosing.Types.Msg
 root model =
     div
         []
-        [ App.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign (attributes1 model))
+        [ Html.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign (attributes1 model))
         ]
 
 
@@ -24,7 +24,7 @@ normal : Choosing.Types.Model -> Html Choosing.Types.Msg
 normal model =
     div
         []
-        [ App.map Choosing.Types.Display (SWEditor.Display.noScaleSignView model.displaySign)
+        [ Html.map Choosing.Types.Display (SWEditor.Display.noScaleSignView model.displaySign)
         ]
 
 

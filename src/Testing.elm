@@ -1,6 +1,6 @@
 module Testing exposing (..)
 
-import Html.App
+ 
 import MainChooser.State
 import MainChooser.View
 

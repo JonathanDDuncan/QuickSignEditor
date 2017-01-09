@@ -19,7 +19,8 @@ init =
     ( { windowSize =
             Window.Size 1200 600
       }
-    , Task.perform (\_ -> Idle) (\x -> Resize x) Window.size
+    , Cmd.none
+      -- , Task.perform (\_ -> Idle) (\x -> Resize x) Window.size
     )
 
 

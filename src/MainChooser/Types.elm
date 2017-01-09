@@ -322,7 +322,7 @@ flowerinit =
 -- Plus any library function to run on the types
 
 
-bkcolor : number -> number' -> String
+bkcolor : number -> number_ -> String
 bkcolor cat col =
     case cat of
         1 ->

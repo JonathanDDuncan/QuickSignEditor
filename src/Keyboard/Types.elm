@@ -8,6 +8,7 @@ import SW.Types exposing (..)
 import Keyboard.Extra as KeyboardExtra
 import Keyboard.Shared exposing (..)
 
+
 type alias Model =
     { keyboardlayout : KeyboardLayout
     , keyboarddisplay : KeyboardDisplay
@@ -71,7 +72,7 @@ type Keypress
     | Home
     | End
 
- 
+
 
 -- Plus any other types unique to this Keyboard
 -- Plus any library function to run on the types

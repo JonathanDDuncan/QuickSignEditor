@@ -4,6 +4,7 @@ import Html exposing (..)
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
 import Material.Button as Button
+import Material.Options as Options
 import Material.Icon as Icon
 
 
@@ -22,7 +23,7 @@ drawer model child =
                 [ 1 ]
                 model.mdl
                 [ Button.icon
-                , Button.onClick DrawerHide
+                , Options.onClick DrawerHide
                 ]
                 [ Icon.i "chevron_right" ]
           else
@@ -31,7 +32,7 @@ drawer model child =
                 [ 2 ]
                 model.mdl
                 [ Button.icon
-                , Button.onClick DrawerShow
+                , Options.onClick DrawerShow
                 ]
                 [ Icon.i "chevron_left" ]
         , if model.rightdrawer.showing then

@@ -1,7 +1,7 @@
 module MainChooser.HandGroupChooserView exposing (handgroupchooser)
 
 import Html exposing (..)
-import Html.App as App exposing (..)
+ 
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
@@ -48,7 +48,7 @@ column model columndata =
 displayhandChoosing model displayhanditem =
     let
         content =
-            [ App.map SignView
+            [ Html.map SignView
                 (symbolaloneView displayhanditem.symbol 5)
             ]
     in

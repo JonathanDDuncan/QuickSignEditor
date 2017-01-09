@@ -58,7 +58,7 @@ redo model =
         redoitem1 =
             List.Extra.last model.redolist
 
-        model =
+        model1 =
             case redoitem1 of
                 Just item ->
                     let
@@ -68,7 +68,7 @@ redo model =
                         len =
                             List.length model.redolist
 
-                        length =
+                        length1 =
                             if len >= 0 then
                                 len
                             else
@@ -77,15 +77,21 @@ redo model =
                         undolist =
                             List.append model.undolist [ createundoitem "Redo" model.sign ]
 
-                        redolist =
-                            List.take (length - 1) model.redolist
+                        redolist2 =
+                            List.take (length1 - 1) model.redolist
                     in
-                        { model | sign = sign, undolist = undolist, redolist = redolist }
+                        { model
+                            | sign =
+                                sign
+                            , undolist =
+                                undolist
+                            , redolist = redolist2
+                        }
 
                 Nothing ->
                     model
     in
-        model
+        model1
 
 
 createundoitem : String -> EditorSign -> UndoItem

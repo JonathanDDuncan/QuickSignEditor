@@ -18,10 +18,10 @@ import SWEditor.EditorSign exposing (..)
 
 init : ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
 init =
-    ( { layout = fst Layout.State.init
+    ( { layout = Tuple.first Layout.State.init
       , show = True
       }
-    , Cmd.map Layout (snd Layout.State.init)
+    , Cmd.map Layout (Tuple.second Layout.State.init)
     )
 
 
@@ -54,7 +54,7 @@ layoutactions action model =
         PleaseShareFsw msg ->
             let
                 fsw =
-                   SWEditor.EditorSign.getFsw model.layout.signbox.sign
+                    SWEditor.EditorSign.getFsw model.layout.signbox.sign
             in
                 ( model, Ports.shareFsw fsw )
 

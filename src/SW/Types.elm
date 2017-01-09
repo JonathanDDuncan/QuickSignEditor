@@ -109,8 +109,8 @@ maximumBy f ls =
                 y
     in
         case ls of
-            l' :: ls' ->
-                Just <| List.foldl (maxBy f) l' ls'
+            l_ :: ls_ ->
+                Just <| List.foldl (maxBy f) l_ ls_
 
             _ ->
                 Nothing

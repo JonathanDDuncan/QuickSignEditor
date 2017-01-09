@@ -152,7 +152,7 @@ movesymbol symbol direction distance =
         newsymbol
 
 
-putsymbolswithinbounds : EditorSign -> { f | height : number, width : number' } -> EditorSign
+putsymbolswithinbounds : EditorSign -> { f | height : number, width : number_ } -> EditorSign
 putsymbolswithinbounds sign bounds =
     let
         movedsyms =
@@ -170,7 +170,7 @@ putsymbolswithinbounds sign bounds =
         }
 
 
-maintainwithinbounds : EditorSymbol -> { b | height : number'', width : number''' } -> EditorSymbol
+maintainwithinbounds : EditorSymbol -> { b | height : number__, width : number___ } -> EditorSymbol
 maintainwithinbounds sym bounds =
     let
         left =

@@ -1,7 +1,6 @@
 module Keyboard.View exposing (root)
 
 import Html exposing (..)
-import Html.App as App exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Keyboard.Types exposing (..)
@@ -12,6 +11,7 @@ import SWEditor.Display exposing (..)
 import SWEditor.EditorSign exposing (..)
 import Keyboard.Shared exposing (..)
 
+
 --import SubFeature.View exposing (root)
 
 
@@ -21,30 +21,30 @@ root model sign footerwidth =
         [ text (String.concat model.keyboardhistory)
         , div
             [ class "alphabetic", style [ ( "width", "66%" ) ] ]
-            [ row model [1..14] sign footerwidth
-            , row model [15..28] sign footerwidth
-            , row model [29..41] sign footerwidth
-            , row model [42..53] sign footerwidth
-            , row model [54..60] sign footerwidth
+            [ row model (List.range 1 14) sign footerwidth
+            , row model (List.range 15 28) sign footerwidth
+            , row model (List.range 29 41) sign footerwidth
+            , row model (List.range 42 53) sign footerwidth
+            , row model (List.range 54 60) sign footerwidth
             ]
         , div
             [ class "arrows", style [ ( "width", "14%" ) ] ]
             [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "15.5%" ) ] ]
-                [ row model [61..63] sign footerwidth
-                , row model [64..66] sign footerwidth
+                [ row model (List.range 61 63) sign footerwidth
+                , row model (List.range 64 66) sign footerwidth
                 ]
             , div [ style [ ( "height", "40%" ) ] ]
-                [ row model [67..67] sign footerwidth
-                , row model [68..70] sign footerwidth
+                [ row model (List.range 67 67) sign footerwidth
+                , row model (List.range 68 70) sign footerwidth
                 ]
             ]
         , div
             [ class "numeric", style [ ( "width", "20%" ) ] ]
-            [ row model [71..73] sign footerwidth
-            , row model [74..77] sign footerwidth
-            , row model [78..80] sign footerwidth
-            , row model [81..83] sign footerwidth
-            , row model [84..86] sign footerwidth
+            [ row model (List.range 71 73) sign footerwidth
+            , row model (List.range 74 77) sign footerwidth
+            , row model (List.range 78 80) sign footerwidth
+            , row model (List.range 81 83) sign footerwidth
+            , row model (List.range 84 86) sign footerwidth
             ]
         ]
 
@@ -80,11 +80,16 @@ nkey model n sign footerwidth =
                 " pressed"
             else
                 ""
-        activemode = if (isactivemode n model) then " activemode" else ""
+
+        activemode =
+            if (isactivemode n model) then
+                " activemode"
+            else
+                ""
     in
-        div [ class <| "key k" ++ toString n , onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
-            [ div [ class  <| "scaletoparent" ++ pressed ++ activemode]
-                [ App.map
+        div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
+            [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
+                [ Html.map
                     Display
                     (SWEditor.Display.scaledSignView sign scale leftmargin)
                 ]
@@ -94,18 +99,18 @@ nkey model n sign footerwidth =
 
 isactivemode : number -> { a | keyboardmode : KeyboardMode } -> Bool
 isactivemode n model =
-    case  model.keyboardmode  of 
+    case model.keyboardmode of
         SignView ->
-           n == 2 
-        GeneralChooser  ->
-           n == 3
-        GroupChooser ->
-           n == 4
-        SymbolChooser ->
-           n == 5 
+            n == 2
 
-            
- 
+        GeneralChooser ->
+            n == 3
+
+        GroupChooser ->
+            n == 4
+
+        SymbolChooser ->
+            n == 5
 
 
 checkifkeypressed : Model -> Int -> Bool
@@ -138,7 +143,7 @@ calcscale sign height width =
     in
         scale
 
-   
+
 getKeyDisplay : Int -> Model -> String
 getKeyDisplay n model =
     let

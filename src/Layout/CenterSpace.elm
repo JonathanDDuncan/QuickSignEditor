@@ -1,7 +1,7 @@
 module Layout.CenterSpace exposing (centerspace)
 
 import Html exposing (..)
-import Html.App as App exposing (..)
+ 
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
 import SWEditor.View
@@ -17,6 +17,6 @@ centerspace model =
             , ( "margin-left", toString model.centerspacemarginleftpercentage ++ "%" )
             ]
         ]
-        [ App.map SWEditor
+        [ Html.map SWEditor
             (SWEditor.View.root model.signbox)
         ]

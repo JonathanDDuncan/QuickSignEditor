@@ -27,7 +27,7 @@ root model =
 
 screenlayout : Model -> Html Msg
 screenlayout model =
-    if  model.window.windowSize.width > model.widescreenwidth then
+    if model.window.windowSize.width > model.widescreenwidth then
         widescreen model
     else if model.window.windowSize.width > model.mediumscreenwidth then
         mediumscreen model

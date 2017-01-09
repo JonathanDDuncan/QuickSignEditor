@@ -6,32 +6,44 @@ import Char as Char exposing (..)
 import Bitwise as Bitwise exposing (..)
 import SW.Types exposing (..)
 
+
 rotation : Int -> Int
 rotation code =
-    (code - 0x100000 ) % 16
+    (code - 0x00100000) % 16
 
 
 fill : Int -> Int
 fill code =
-    ((code - 0x100000 ) // 16) % 6 + 1
+    ((code - 0x00100000) // 16) % 6 + 1
 
 
 base : Int -> Int
 base code =
-    ((code - 0x100000 ) // 96) + 256 
+    ((code - 0x00100000) // 96) + 256
+
 
 code : Base -> Fill -> Rotation -> Code
 code base fill rotation =
-  0x100000 +  96 * (base- 256) + 16 * (fill) + rotation +1
+    0x00100000 + 96 * (base - 256) + 16 * (fill) + rotation + 1
 
 
 key : Base -> Fill -> Rotation -> Key
 key base fill rotation =
     "S" ++ dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1)
 
+
 dectoHex : Int -> String
 dectoHex value =
-    ParseInt.toRadix' 16 value
+    let
+        val =
+            ParseInt.toRadix 16 value
+    in
+        case val of
+            Err msg ->
+                ""
+
+            Ok str ->
+                str
 
 
 hextoDec : String -> Int
@@ -103,7 +115,6 @@ pua key =
         puaCharCode (puabase) ++ puaCharCode (puafill) ++ puaCharCode (puarotation)
 
 
-
 puahextext : String -> String
 puahextext key =
     let
@@ -119,7 +130,7 @@ puahextext key =
         puafill =
             fill + puafillstart
 
-        rotation =  
+        rotation =
             hexrotationFromKey key
 
         puarotation =
@@ -127,15 +138,17 @@ puahextext key =
     in
         dectoHex puabase ++ dectoHex puafill ++ dectoHex puarotation
 
+
 lefthalf : Int -> Int
 lefthalf value =
-    hextoDec "D800" + (Bitwise.shiftRight (value - (hextoDec "10000")) 10)
+    hextoDec "D800" + (Bitwise.shiftRightBy (value - (hextoDec "10000")) 10)
+
 
 righthalf : Int -> Int
 righthalf value =
     hextoDec "DC00" + (Bitwise.and (value - (hextoDec "10000")) (hextoDec "03FF"))
 
+
 puaCharCode : Int -> String
 puaCharCode value =
     String.fromChar (Char.fromCode <| lefthalf value) ++ String.fromChar (Char.fromCode <| righthalf value)
- 

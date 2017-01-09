@@ -1,7 +1,7 @@
 module MainChooser.GeneralGroupChooserView exposing (generalgroupchooser)
 
 import Html exposing (..)
-import Html.App as App exposing (..)
+ 
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
@@ -65,7 +65,7 @@ displaySymbolChoosing model chooseritem =
             ]
             [ Options.div
                 [ Tooltip.attach Mdl [ mdlid ] ]
-                [ App.map SignView
+                [ Html.map SignView
                     (symbolaloneView symbol 3)
                 ]
             , Tooltip.render Mdl

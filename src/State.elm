@@ -10,12 +10,12 @@ import Overlay.State
 
 init : ( Types.Model, Cmd Types.Msg )
 init =
-    ( { overlay = fst Overlay.State.init
+    ( { overlay = Tuple.first Overlay.State.init
       }
       -- To initiate feature state
       --  { featureFieldName = fst Feature.State.init
       --  }
-    , Cmd.map Overlay (snd Overlay.State.init)
+    , Cmd.map Overlay (Tuple.second Overlay.State.init)
     )
 
 

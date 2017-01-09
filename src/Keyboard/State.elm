@@ -110,8 +110,8 @@ createKeyboardCommand keyList mode =
 
         modecode =
             keyboardModeCode
-                |> List.filter (\m -> snd m == mode)
-                |> List.map (\m -> fst m)
+                |> List.filter (\m -> Tuple.second m == mode)
+                |> List.map (\m -> Tuple.first m)
                 |> List.head
                 |> Maybe.withDefault 1
 

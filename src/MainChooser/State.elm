@@ -30,7 +30,7 @@ init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
 init =
     ( { lastmdlid = 0
       , mdl = Material.model
-      , choosings = [ fst (Choosing.State.init "S5" 6 8) ]
+      , choosings = [ Tuple.first (Choosing.State.init "S5" 6 8) ]
       , clicked = ""
       , selectedcolumn = 1
       , handgroupchoosings = []
@@ -178,8 +178,8 @@ update action model =
                 , Cmd.none
                 )
 
-        Mdl msg' ->
-            Material.update msg' model
+        Mdl msg_ ->
+            Material.update Mdl msg_ model
 
         SelectHand hand ->
             let

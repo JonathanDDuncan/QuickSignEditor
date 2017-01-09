@@ -19,10 +19,10 @@ module Keyboard.Extra
         , toCode
         , fromCode
         )
-  
+
 {-| Convenience helpers for working with keyboard inputs.
 
-# Helpers 
+# Helpers
 @docs isPressed, pressedDown
 
 # Directions
@@ -34,7 +34,7 @@ module Keyboard.Extra
 # Keyboard keys
 @docs Key
 -}
- 
+
 import Keyboard exposing (KeyCode)
 import Dict exposing (Dict)
 import Set exposing (Set)
@@ -210,8 +210,8 @@ fromCode code =
 toCode : Key -> KeyCode
 toCode key =
     codeBook
-        |> List.filter (((==) key) << snd)
-        |> List.map fst
+        |> List.filter (((==) key) << Tuple.second)
+        |> List.map Tuple.first
         |> List.head
         |> Maybe.withDefault 0
 

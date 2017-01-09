@@ -33,11 +33,11 @@ init : ( Model, Cmd Msg )
 init =
     ( { count = 0
       , mdl = Material.model
-      , window = fst WindowSize.State.init
-      , signbox = fst SWEditor.State.init
-      , keyboard = fst Keyboard.State.init
-      , mainchooser = fst MainChooser.State.init
-      , rightdrawer = fst drawerinit
+      , window = Tuple.first WindowSize.State.init
+      , signbox = Tuple.first SWEditor.State.init
+      , keyboard = Tuple.first Keyboard.State.init
+      , mainchooser = Tuple.first MainChooser.State.init
+      , rightdrawer = Tuple.first drawerinit
       , footerheight = 176
       , containerHeight = 800
       , widescreenwidth = 1000
@@ -50,8 +50,8 @@ init =
       , drawerwidth = 0
       }
     , Cmd.batch
-        [ Cmd.map Window (snd WindowSize.State.init)
-        , Cmd.map MainChooser (snd MainChooser.State.init)
+        [ Cmd.map Window (Tuple.second WindowSize.State.init)
+        , Cmd.map MainChooser (Tuple.second MainChooser.State.init)
         ]
     )
 
@@ -123,8 +123,8 @@ update msg model =
             )
 
         -- Boilerplate: Mdl action handler.
-        Mdl msg' ->
-            Material.update msg' model
+        Mdl msg_ ->
+            Material.update Mdl msg_ model
 
 
 windowSizeSetter : Model -> WindowSize.Types.Model -> Model

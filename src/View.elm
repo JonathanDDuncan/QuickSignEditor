@@ -1,7 +1,6 @@
 module View exposing (root)
 
 import Html exposing (..)
-import Html.App as App exposing (..)
 import Types exposing (..)
 import Overlay.View
 
@@ -11,4 +10,4 @@ import Overlay.View
 
 root : Model -> Html Msg
 root model =
-    App.map Overlay (Overlay.View.root model.overlay)
+    Html.map Overlay (Overlay.View.root model.overlay)
