@@ -1,1 +1,3 @@
-npm start
+cd scripts
+npm run start
+ 

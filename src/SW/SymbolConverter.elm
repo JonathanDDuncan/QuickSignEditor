@@ -141,7 +141,7 @@ puahextext key =
 
 lefthalf : Int -> Int
 lefthalf value =
-    hextoDec "D800" + (Bitwise.shiftRightBy (value - (hextoDec "10000")) 10)
+    hextoDec "D800" + (Bitwise.shiftRightBy 10 (value - (hextoDec "10000")))
 
 
 righthalf : Int -> Int
