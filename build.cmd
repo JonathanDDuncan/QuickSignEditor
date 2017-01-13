@@ -1,3 +1,4 @@
+cd scripts
 npm run build
 
 del C:\Users\Jonathan\Documents\Freelance\SignWriterStudio\signmaker\lib\elm.js
