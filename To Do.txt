@@ -1,4 +1,6 @@
 To Do
+
+Test new assets folder with SignWriter Studio, add files to project
  
 Add Undo to moving keystrokes
 Seperate Colon and parenthesis in Group chooser
