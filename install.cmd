@@ -1,3 +1,1 @@
-npm i
-elm-package install
- 
+npm i 
