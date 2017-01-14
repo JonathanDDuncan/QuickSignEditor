@@ -4,3 +4,5 @@ git branch -dr origin/gh-pages
 git subtree push --prefix published origin gh-pages
 
 pause
+rem published site is https://jonathandduncan.github.io/QuickSignEditor/
+pause
