@@ -103,8 +103,8 @@ handselection handsymbol rowheight =
 
 planeselection : { a | plane : Planes } -> List (Html Msg)
 planeselection handsymbol =
-    [ td [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ] [ img [ src "./src/img/wallplanesmall.png", width 50 ] [], div [] [ text "Wall" ] ]
-    , td [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ] [ img [ src "./src/img/floorplanesmall.png", width 50 ] [], div [] [ text "Floor" ] ]
+    [ td [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ] [ img [ src "./src/assets/img/wallplanesmall.png", width 50 ] [], div [] [ text "Wall" ] ]
+    , td [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ] [ img [ src "./src/assets/img/floorplanesmall.png", width 50 ] [], div [] [ text "Floor" ] ]
     ]
 
 

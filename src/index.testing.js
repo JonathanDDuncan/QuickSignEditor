@@ -1,5 +1,5 @@
 // pull in desired CSS/SASS files
-require('./styles/main.scss');
+require('./assets/styles/main.scss');
 
 // inject bundled Elm app into div#main
 //To change aplication name change the three words Starter in the next two line and in the div in index.html
