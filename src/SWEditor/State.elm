@@ -294,7 +294,10 @@ update action model =
             runKeyboardCommand model command
 
         MoveSymbols direction distance ->
-            movesymbols model direction distance ! []
+            model
+                ! []
+                |> Update.Extra.andThen update
+                    (AddUndo True "MoveSymbols" <| movesymbols model direction distance)
 
 
 symbolshavechanged : List a -> List a -> Bool
