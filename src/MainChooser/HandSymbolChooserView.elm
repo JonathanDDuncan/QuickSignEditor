@@ -65,9 +65,11 @@ fillsview handsymbol rowheight =
                 , div [] [ text description ]
                 ]
         )
-        (List.Extra.zip
-            handsymbol.handfillitems
-            [ "Baby Edge", "Palm", "Thumb Edge", "Back" ]
+        (List.reverse
+            (List.Extra.zip
+                handsymbol.handfillitems
+                [ "Baby Edge", "Palm", "Thumb Edge", "Back" ]
+            )
         )
     )
 
