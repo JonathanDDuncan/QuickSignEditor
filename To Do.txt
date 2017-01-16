@@ -1,9 +1,8 @@
 To Do
 
-Move assets out of the src folder 
-Test new assets folder with SignWriter Studio, add files to project
+Get window size when first starting 
+In SignWriter Studio, close window when closing QuickSignEditor
  
-Add Undo to moving keystrokes
 Seperate Colon and parenthesis in Group chooser
 Symbol in Hand Group chooser can not be dragged
 Add a Replace button to disturb symbol position
