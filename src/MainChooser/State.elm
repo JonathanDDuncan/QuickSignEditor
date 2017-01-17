@@ -164,6 +164,21 @@ update action model =
                 , cmdDragSymbol <| symbol
                 )
 
+        ReplaceSymbol code ->
+            let
+                editorsymbol =
+                    (getSymbolEditorCode code model.symbolsizes)
+
+                symbol =
+                    Debug.log "MainChooser ReplaceSymbol "
+                        (fromEditorSymbol
+                            editorsymbol
+                        )
+            in
+                ( model
+                , cmdReplaceSymbol <| symbol
+                )
+
         FilterHandGroup value ->
             let
                 updatedFilterHandGroup =

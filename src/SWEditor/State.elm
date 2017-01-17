@@ -198,6 +198,33 @@ update action model =
                     |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
                         (Update.Extra.andThen update DragSelected)
 
+        ReplaceSymbol symbol ->
+            let
+                selectedsymbols =
+                    countselectedsymbols model.sign.syms
+
+                symbol2 =
+                    Debug.log "SWEditor ReplaceSymbol " symbol
+
+                syms =
+                    if selectedsymbols == 1 then
+                        replaceselectedsymbols model.sign.syms symbol
+                    else
+                        model.sign.syms
+
+                sign1 =
+                    model.sign
+
+                sign =
+                    { sign1
+                        | syms = syms
+                    }
+            in
+                { model
+                    | sign = sign
+                }
+                    ! []
+
         StartDragging ->
             { model
                 | editormode = Dragging
@@ -300,6 +327,28 @@ update action model =
                     (AddUndo True "MoveSymbols" <| movesymbols model direction distance)
 
 
+replaceselectedsymbols : List EditorSymbol -> Symbol -> List EditorSymbol
+replaceselectedsymbols syms symbol =
+    List.map (\sym -> replaceselected sym symbol) syms
+
+
+replaceselected : EditorSymbol -> Symbol -> EditorSymbol
+replaceselected sym symbol =
+    if not sym.selected then
+        sym
+    else
+        { sym
+            | width = symbol.width
+            , height = symbol.height
+            , fontsize = symbol.fontsize
+            , nwcolor = symbol.nwcolor
+            , pua = symbol.pua
+            , code = symbol.code
+            , key = symbol.key
+            , nbcolor = symbol.nbcolor
+        }
+
+
 symbolshavechanged : List a -> List a -> Bool
 symbolshavechanged firstsymbols secondsymbols =
     not <| List.Extra.isPermutationOf firstsymbols secondsymbols
@@ -379,6 +428,7 @@ subscriptions model =
         , receiveSign SetSign
         , receiveElementPosition ReceiveElementPosition
         , subDragSymbol DragSymbol
+        , subReplaceSymbol ReplaceSymbol
         , receiveKeyboardCommand Keyboard
         ]
 

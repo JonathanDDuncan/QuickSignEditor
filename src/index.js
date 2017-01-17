@@ -93,7 +93,10 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
 app.ports.cmdDragSymbol.subscribe(function(symbol) {
     app.ports.subDragSymbol.send(symbol);
 });
-
+app.ports.cmdReplaceSymbol.subscribe(function(symbol) {
+    console.log ("subReplaceSymbol called");
+    app.ports.subReplaceSymbol.send(symbol);
+});
 app.ports.sendKeyboardCommand.subscribe(function(keyboardcommand) {
     app.ports.receiveKeyboardCommand.send(keyboardcommand);
 });

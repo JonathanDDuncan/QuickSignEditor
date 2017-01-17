@@ -233,6 +233,8 @@ generalsymbolcol drag base fill rotation symbolsizes columnwidth rowheight scale
                  else
                     Noop
                 )
+            , onDoubleClick
+                (ReplaceSymbol symbol.code)
             , Html.Attributes.style (scaling scale)
             ]
             [ Html.map SignView

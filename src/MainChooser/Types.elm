@@ -39,6 +39,7 @@ type Msg
     | SelectedColumn Int
     | GroupSelected ChooserItem
     | DragSymbol Code
+    | ReplaceSymbol Code
     | FilterHandGroup Int
     | Mdl (Material.Msg Msg)
     | SelectHand Hands

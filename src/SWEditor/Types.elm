@@ -56,6 +56,7 @@ type Msg
     | DragSelected
     | EndDragging
     | DragSymbol Symbol
+    | ReplaceSymbol Symbol
     | AddUndo Bool String Model
     | Undo
     | Redo
