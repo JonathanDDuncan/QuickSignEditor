@@ -1,62 +1,62 @@
 module SWEditor.View exposing (root)
 
 import Html exposing (..)
-import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
-import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.Display exposing (symbolView)
 
 
---import SubSWEditor.View exposing (root)
-
-
 root : Model -> Html Msg
 root model =
+    div []
+        [ signView model
+        , rectangleselect model
+        ]
+
+
+rectangleselect : Model -> Html msg
+rectangleselect model =
     let
         selectrectangle =
             rectangleStartCurrent model
     in
-        div []
-            [ signView model.sign <| editorattributes <| model.containerheight - 50
-            , case model.editormode of
-                RectangleSelect ->
-                    div
-                        [ Html.Attributes.style
-                            [ "left" => px selectrectangle.x
-                            , "top" => px (selectrectangle.y + model.viewposition.y)
-                            , "width" => px selectrectangle.width
-                            , "height" => px selectrectangle.height
-                            , "position" => "absolute"
-                            , "border-style" => "dashed"
-                            , "border-width" => "1px"
-                            ]
+        case model.editormode of
+            RectangleSelect ->
+                div
+                    [ Html.Attributes.style
+                        [ "left" => px selectrectangle.x
+                        , "top" => px (selectrectangle.y + model.viewposition.y)
+                        , "width" => px selectrectangle.width
+                        , "height" => px selectrectangle.height
+                        , "position" => "absolute"
+                        , "border-style" => "dashed"
+                        , "border-width" => "1px"
                         ]
-                        []
+                    ]
+                    []
 
-                _ ->
-                    div [] []
-            ]
+            _ ->
+                div [] []
 
 
 editorattributes : Int -> List (Attribute Msg)
 editorattributes height =
     [ Html.Attributes.style
-        [ "height" => px height
+        [ "height" => px (height - 50)
         ]
     , Html.Attributes.id "signView"
     , Html.Attributes.class "disablePanZoom signview"
     ]
 
 
-signView : EditorSign -> List (Attribute Msg) -> Html Msg
-signView sign attr =
+signView : Model -> Html Msg
+signView model =
     div
-        attr
-        (List.map symbolView sign.syms)
+        (editorattributes model.containerheight)
+        (List.map symbolView model.sign.syms)
 
 
 symbolView : EditorSymbol -> Html Msg
