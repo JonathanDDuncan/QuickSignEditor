@@ -42,14 +42,14 @@ layoutactions : Layout.Types.Msg -> Overlay.Types.Model -> ( Overlay.Types.Model
 layoutactions action model =
     case action of
         HideOverlay ->
-            ( { model | show = False }, Cmd.none )
+            ( { model | show = False }, Ports.hideOverlay "" )
 
         ShareFsw ->
             let
                 fsw =
                     SWEditor.EditorSign.getFsw model.layout.signbox.sign
             in
-                ( { model | show = False }, Ports.shareFsw fsw )
+                ( { model | show = False }, Cmd.batch [ Ports.shareFsw fsw, Ports.hideOverlay "" ] )
 
         PleaseShareFsw msg ->
             let

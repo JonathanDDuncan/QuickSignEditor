@@ -36,6 +36,9 @@ port receiveElementPosition : (NamedPosition -> msg) -> Sub msg
 port shareFsw : String -> Cmd msg
 
 
+port hideOverlay : String -> Cmd msg
+
+
 port pleaseShareFsw : (String -> msg) -> Sub msg
 
 

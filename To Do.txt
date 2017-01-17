@@ -1,7 +1,7 @@
 To Do
 
 
-In SignWriter Studio, close window when closing QuickSignEditor
+In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
  
 
 Symbol in Hand Group chooser can not be dragged

@@ -48,6 +48,14 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 });
 
+app.ports.hideOverlay.subscribe(function(val) {
+    try {
+        if ("signmaker" in window) {
+        } else {
+            callbackObj.hideOverlay("");
+        }
+    } catch (e) { console.log(e) }
+});
 
 app.ports.requestInitialChoosings.subscribe(function(str) {
     try {
