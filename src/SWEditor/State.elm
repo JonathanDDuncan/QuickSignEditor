@@ -203,9 +203,6 @@ update action model =
                 selectedsymbols =
                     countselectedsymbols model.sign.syms
 
-                symbol2 =
-                    Debug.log "SWEditor ReplaceSymbol " symbol
-
                 syms =
                     if selectedsymbols == 1 then
                         replaceselectedsymbols model.sign.syms symbol

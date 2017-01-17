@@ -78,7 +78,7 @@ createcolumndata :
 createcolumndata model cat col choosings =
     let
         filteredhandgroupitems =
-            filterhandgroupitems col (Debug.log "model.handgroupfilter" model.handgroupfilter) choosings
+            filterhandgroupitems col (model.handgroupfilter) choosings
 
         backgroundcolor =
             bkcolor cat col

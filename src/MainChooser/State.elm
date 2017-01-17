@@ -170,10 +170,7 @@ update action model =
                     (getSymbolEditorCode code model.symbolsizes)
 
                 symbol =
-                    Debug.log "MainChooser ReplaceSymbol "
-                        (fromEditorSymbol
-                            editorsymbol
-                        )
+                    fromEditorSymbol editorsymbol
             in
                 ( model
                 , cmdReplaceSymbol <| symbol
