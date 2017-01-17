@@ -1,14 +1,15 @@
 To Do
 
-
+Add a Replace button to not disturb symbol position
 In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
  
 
 Symbol in Hand Group chooser can not be dragged
-Add a Replace button to not disturb symbol position
+
 Add Key Icons to Keyboard
 Add favorites
 Arrow symbol chooser
+Add original 1 to 10 
 
 Move over to SuttonFont 
 Update mdl  http://package.elm-lang.org/packages/MichaelCombs28/elm-mdl/latest/
