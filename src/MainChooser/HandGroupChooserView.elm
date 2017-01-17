@@ -1,7 +1,6 @@
 module MainChooser.HandGroupChooserView exposing (handgroupchooser)
 
 import Html exposing (..)
- 
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
@@ -54,6 +53,8 @@ displayhandChoosing model displayhanditem =
     in
         Html.div
             [ Html.Events.onClick (GroupSelected displayhanditem.chooseritem)
+            , onMouseDown (DragSymbol displayhanditem.symbol.code)
+            , onDoubleClick (ReplaceSymbol displayhanditem.symbol.code)
             ]
             (symboltooltip
                 model.mdl

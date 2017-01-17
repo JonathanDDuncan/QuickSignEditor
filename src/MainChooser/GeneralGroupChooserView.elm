@@ -1,7 +1,6 @@
 module MainChooser.GeneralGroupChooserView exposing (generalgroupchooser)
 
 import Html exposing (..)
- 
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
@@ -62,6 +61,7 @@ displaySymbolChoosing model chooseritem =
         Html.div
             [ onClick (GroupSelected chooseritem)
             , onMouseDown (DragSymbol symbol.code)
+            , onDoubleClick (ReplaceSymbol symbol.code)
             ]
             [ Options.div
                 [ Tooltip.attach Mdl [ mdlid ] ]

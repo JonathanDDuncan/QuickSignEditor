@@ -209,6 +209,7 @@ generalsymbolrow base validfills rotation symbolsizes columnwidth rowheight scal
                 td
                     [ onClick (SelectedColumn fill)
                     , onMouseDown (DragSymbol symbol.code)
+                    , onDoubleClick (ReplaceSymbol symbol.code)
                     ]
                     [ (generalsymbolcol False base fill rotation symbolsizes columnwidth rowheight scale) ]
         )

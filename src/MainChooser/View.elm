@@ -2,7 +2,6 @@ module MainChooser.View exposing (root)
 
 import Html exposing (..)
 import String exposing (..)
- 
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import MainChooser.Types exposing (..)
@@ -75,6 +74,8 @@ displayChoosing choosing =
     div
         [ onClick (Clicked choosing.value)
         , onMouseDown (DragSymbol (firstsymbol choosing).code)
+        , onDoubleClick
+            (ReplaceSymbol (firstsymbol choosing).code)
         ]
         [ Html.map Choosing (Choosing.View.root choosing) ]
 
