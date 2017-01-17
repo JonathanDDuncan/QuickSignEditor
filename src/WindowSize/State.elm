@@ -19,9 +19,13 @@ init =
     ( { windowSize =
             Window.Size 1200 600
       }
-    , Cmd.none
-      -- , Task.perform (\_ -> Idle) (\x -> Resize x) Window.size
+    , initialSizeCmd
     )
+
+
+initialSizeCmd : Cmd Msg
+initialSizeCmd =
+    Task.perform Resize Window.size
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

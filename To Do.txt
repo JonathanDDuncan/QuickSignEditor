@@ -1,11 +1,11 @@
 To Do
 
-Get window size when first starting 
+
 In SignWriter Studio, close window when closing QuickSignEditor
  
-Seperate Colon and parenthesis in Group chooser
+
 Symbol in Hand Group chooser can not be dragged
-Add a Replace button to disturb symbol position
+Add a Replace button to not disturb symbol position
 Add Key Icons to Keyboard
 Add favorites
 Arrow symbol chooser
