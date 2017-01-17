@@ -1,11 +1,7 @@
 To Do
 
-Add a Replace button to not disturb symbol position
+
 In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
- 
-
-Symbol in Hand Group chooser can not be dragged
-
 Add Key Icons to Keyboard
 Add favorites
 Arrow symbol chooser
