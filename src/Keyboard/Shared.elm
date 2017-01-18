@@ -1,6 +1,7 @@
 module Keyboard.Shared exposing (..)
 
 import Update.Extra exposing (..)
+import Html
 
 
 type KeyboardMode
@@ -61,6 +62,7 @@ pressed command val =
 type alias KeyConfig a =
     { test : KeyTestConfig
     , action : a
+    , display : Html.Html a
     }
 
 
