@@ -1,10 +1,14 @@
 module SWEditor.EditorKeyboard exposing (..)
 
-import Update.Extra exposing (..)
 import SWEditor.Types exposing (..)
 import Keyboard.Shared exposing (..)
 
 
+runKeyboardCommand :
+    Model
+    -> KeyboardCommand
+    -> (Msg -> Model -> ( Model, Cmd Msg ))
+    -> ( Model, Cmd Msg )
 runKeyboardCommand model command update =
     let
         mode =
@@ -13,7 +17,7 @@ runKeyboardCommand model command update =
         updatetuple =
             case mode of
                 SignView ->
-                    runKeyboardSignView model command update
+                    runKeyboard model command update configKeyboardSignView
 
                 GeneralChooser ->
                     runKeyboardGeneralChooser model command update
@@ -27,31 +31,42 @@ runKeyboardCommand model command update =
         updatetuple
 
 
-runKeyboardSignView model command update =
-    model
-        ! []
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 43) command.keys)
-            (Update.Extra.andThen update Undo)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 21) command.keys)
-            (Update.Extra.andThen update Redo)
-        |> Update.Extra.filter (List.any ((==) 62) command.keys)
-            (Update.Extra.andThen update DeleteSymbols)
-        |> Update.Extra.filter (List.any ((==) 67) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Up 1)
-        |> Update.Extra.filter (List.any ((==) 69) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Down 1)
-        |> Update.Extra.filter (List.any ((==) 70) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Right 1)
-        |> Update.Extra.filter (List.any ((==) 68) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Left 1)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 67) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Up 10)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 69) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Down 10)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 70) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Right 10)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 68) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Left 10)
+configKeyboardSignView : List (KeyConfig Msg)
+configKeyboardSignView =
+    [ { test = { key = 43, special = [ .ctrlPressed ] }
+      , action = (Undo)
+      }
+    , { test = { key = 21, special = [ .ctrlPressed ] }
+      , action = (Redo)
+      }
+    , { test = { key = 62, special = [] }
+      , action = (DeleteSymbols)
+      }
+    , { test = { key = 67, special = [] }
+      , action = (MoveSymbols Up 1)
+      }
+    , { test = { key = 69, special = [] }
+      , action = (MoveSymbols Down 1)
+      }
+    , { test = { key = 70, special = [] }
+      , action = (MoveSymbols Right 1)
+      }
+    , { test = { key = 68, special = [] }
+      , action = (MoveSymbols Left 1)
+      }
+    , { test = { key = 67, special = [ .ctrlPressed ] }
+      , action = (MoveSymbols Up 10)
+      }
+    , { test = { key = 69, special = [ .ctrlPressed ] }
+      , action = (MoveSymbols Down 10)
+      }
+    , { test = { key = 70, special = [ .ctrlPressed ] }
+      , action = (MoveSymbols Right 10)
+      }
+    , { test = { key = 68, special = [ .ctrlPressed ] }
+      , action = (MoveSymbols Left 10)
+      }
+    ]
 
 
 runKeyboardGeneralChooser model command update =
