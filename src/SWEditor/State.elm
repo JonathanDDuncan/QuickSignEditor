@@ -7,7 +7,6 @@ module SWEditor.State exposing (init, update, subscriptions)
 -- import PlatformHelpers exposing (..)
 
 import Ports as Ports exposing (..)
-import Debug
 import Update.Extra exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
@@ -21,6 +20,7 @@ import Mouse as Mouse exposing (downs, moves, ups)
 import Keyboard.Shared exposing (..)
 import List.Extra exposing (..)
 import SWEditor.SignArea exposing (..)
+import SWEditor.EditorKeyboard exposing (..)
 
 
 -- import SubSWEditors.State
@@ -315,7 +315,7 @@ update action model =
                     (AddUndo True "DeleteSymbols" <| deletesymbols model)
 
         Keyboard command ->
-            runKeyboardCommand model command
+            runKeyboardCommand model command update
 
         MoveSymbols direction distance ->
             model
@@ -349,67 +349,6 @@ replaceselected sym symbol =
 symbolshavechanged : List a -> List a -> Bool
 symbolshavechanged firstsymbols secondsymbols =
     not <| List.Extra.isPermutationOf firstsymbols secondsymbols
-
-
-runKeyboardCommand model command =
-    let
-        mode =
-            getKeyboardMode command.mode
-
-        updatetuple =
-            case mode of
-                SignView ->
-                    runKeyboardSignView model command
-
-                GeneralChooser ->
-                    runKeyboardGeneralChooser model command
-
-                GroupChooser ->
-                    runKeyboardGroupChooser model command
-
-                SymbolChooser ->
-                    runKeyboardSymbolChooser model command
-    in
-        updatetuple
-
-
-runKeyboardSignView model command =
-    model
-        ! []
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 43) command.keys)
-            (Update.Extra.andThen update Undo)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 21) command.keys)
-            (Update.Extra.andThen update Redo)
-        |> Update.Extra.filter (List.any ((==) 62) command.keys)
-            (Update.Extra.andThen update DeleteSymbols)
-        |> Update.Extra.filter (List.any ((==) 67) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Up 1)
-        |> Update.Extra.filter (List.any ((==) 69) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Down 1)
-        |> Update.Extra.filter (List.any ((==) 70) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Right 1)
-        |> Update.Extra.filter (List.any ((==) 68) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Left 1)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 67) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Up 10)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 69) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Down 10)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 70) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Right 10)
-        |> Update.Extra.filter (command.ctrlPressed && List.any ((==) 68) command.keys)
-            (Update.Extra.andThen update <| MoveSymbols Left 10)
-
-
-runKeyboardGeneralChooser model command =
-    model ! []
-
-
-runKeyboardGroupChooser model command =
-    model ! []
-
-
-runKeyboardSymbolChooser model command =
-    model ! []
 
 
 
