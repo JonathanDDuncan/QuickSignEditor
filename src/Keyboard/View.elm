@@ -140,13 +140,7 @@ nkey model n display footerwidth =
     in
         div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
             [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
-                [ (Maybe.withDefault
-                    { display = text ""
-                    , test = { key = 0, special = [] }
-                    }
-                   <|
-                    getkeydisplay n display
-                  ).display
+                [ (getkeydisplay n display).display
                   -- , Html.map
                   --     Display
                   --     (SWEditor.Display.scaledSignView display scale leftmargin)
@@ -156,7 +150,12 @@ nkey model n display footerwidth =
 
 
 getkeydisplay n display =
-    List.filter (\disp -> disp.test.key == n) display |> List.head
+    List.filter (\disp -> disp.test.key == n) display
+        |> List.head
+        |> Maybe.withDefault
+            { display = text ""
+            , test = { key = 0, special = [] }
+            }
 
 
 isactivemode : number -> { a | keyboardmode : KeyboardMode } -> Bool
