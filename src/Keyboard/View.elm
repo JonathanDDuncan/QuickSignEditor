@@ -15,34 +15,6 @@ import MainChooser.Types exposing (Msg)
 --import SubFeature.View exposing (root)
 
 
-text3 : List { display : Html Keyboard.Types.Msg, test : { key : Int, special : List Int } }
-text3 =
-    [ { test = { key = 67, special = [] }
-      , display = text "43"
-      }
-    , { test = { key = 69, special = [] }
-      , display = text "43"
-      }
-    , { test = { key = 70, special = [] }
-      , display = text "43"
-      }
-    , { test = { key = 68, special = [] }
-      , display = text "43"
-      }
-    ]
-
-
-getdisplay : { display : Html Keyboard.Types.Msg, test : { key : Int, special : List Int } } -> Html Keyboard.Types.Msg
-getdisplay cfg =
-    cfg.display
-
-
-
--- text2 : Html msg
--- text2 =
---     text "text2"
-
-
 root :
     Model
     -> List (Keyboard.Shared.KeyConfig SWEditor.Types.Msg)
@@ -60,24 +32,16 @@ root model signviewkeyboard chooserskeyboard footerwidth =
         keyboarddisplay =
             case model.keyboardmode of
                 SignView ->
-                    -- signviewkeyboard
-                    convertotkeyboardmsg chooserskeyboard.generalchooserkeyboard
+                    convertotkeyboardmsg DisplaySignView signviewkeyboard
 
                 GeneralChooser ->
-                    convertotkeyboardmsg chooserskeyboard.generalchooserkeyboard
+                    convertotkeyboardmsg DisplayChoosers chooserskeyboard.generalchooserkeyboard
 
                 GroupChooser ->
-                    convertotkeyboardmsg chooserskeyboard.groupchooserkeyboard
+                    convertotkeyboardmsg DisplayChoosers chooserskeyboard.groupchooserkeyboard
 
                 SymbolChooser ->
-                    convertotkeyboardmsg chooserskeyboard.symbolchooserkeyboard
-
-        -- text1 =
-        --     List.head text3
-        --         |> Maybe.withDefault
-        --             { test = { key = 67, special = [] }
-        --             , display = text "43"
-        --             }
+                    convertotkeyboardmsg DisplayChoosers chooserskeyboard.symbolchooserkeyboard
     in
         div [ class "keyboard" ]
             [ text (String.concat model.keyboardhistory)
@@ -112,20 +76,21 @@ root model signviewkeyboard chooserskeyboard footerwidth =
 
 
 convertotkeyboardmsg :
-    List
+    (msg -> Keyboard.Types.Msg)
+    -> List
         { a
-            | display : Html MainChooser.Types.Msg
+            | display : Html msg
             , test : KeyTestConfig
         }
     -> List
         { display : Html Keyboard.Types.Msg
         , test : KeyTestConfig
         }
-convertotkeyboardmsg keyboarddisplay =
+convertotkeyboardmsg newmsg keyboarddisplay =
     List.map
         (\config ->
             { display =
-                Html.map (DisplayChoosers) config.display
+                Html.map newmsg config.display
             , test = config.test
             }
         )
@@ -175,14 +140,23 @@ nkey model n display footerwidth =
     in
         div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
             [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
-                [ -- text2
-                  (Maybe.withDefault { display = text "this", test = { key = 69, special = [] } } <| List.head display).display
+                [ (Maybe.withDefault
+                    { display = text ""
+                    , test = { key = 0, special = [] }
+                    }
+                   <|
+                    getkeydisplay n display
+                  ).display
                   -- , Html.map
                   --     Display
                   --     (SWEditor.Display.scaledSignView display scale leftmargin)
                 ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
+
+
+getkeydisplay n display =
+    List.filter (\disp -> disp.test.key == n) display |> List.head
 
 
 isactivemode : number -> { a | keyboardmode : KeyboardMode } -> Bool

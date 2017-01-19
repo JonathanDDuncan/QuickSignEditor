@@ -40,7 +40,7 @@ init =
       , uid = 0
       , undolist = []
       , redolist = []
-      , signviewkeyboard = []
+      , signviewkeyboard = configKeyboardSignView
       }
     , Cmd.none
     )
