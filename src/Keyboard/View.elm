@@ -149,6 +149,10 @@ nkey model n display footerwidth =
             ]
 
 
+getkeydisplay :
+    number
+    -> List { display : Html msg, test : { special : List a, key : number } }
+    -> { display : Html msg, test : { special : List a, key : number } }
 getkeydisplay n display =
     List.filter (\disp -> disp.test.key == n) display
         |> List.head
