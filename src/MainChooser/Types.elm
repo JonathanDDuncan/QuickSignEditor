@@ -8,6 +8,7 @@ import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import Material exposing (..)
+import Keyboard.Shared exposing (..)
 
 
 type alias Model =
@@ -23,6 +24,11 @@ type alias Model =
     , symbolsizes : Dict.Dict String Size
     , handsymbol : HandSymbol
     , handgroupchooseritems : List HandGroupChooser
+    , chooserskeyboard :
+        { generalchooserkeyboard : List (KeyConfig Msg)
+        , groupchooserkeyboard : List (KeyConfig Msg)
+        , symbolchooserkeyboard : List (KeyConfig Msg)
+        }
     }
 
 

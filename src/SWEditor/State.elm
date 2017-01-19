@@ -17,7 +17,6 @@ import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Undo exposing (..)
 import SW.Types exposing (..)
 import Mouse as Mouse exposing (downs, moves, ups)
-import Keyboard.Shared exposing (..)
 import List.Extra exposing (..)
 import SWEditor.SignArea exposing (..)
 import SWEditor.EditorKeyboard exposing (..)
@@ -41,6 +40,7 @@ init =
       , uid = 0
       , undolist = []
       , redolist = []
+      , signviewkeyboard = []
       }
     , Cmd.none
     )

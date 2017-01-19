@@ -1,11 +1,9 @@
 module Layout.Footer exposing (stickyFooter)
 
 import Html exposing (..)
- 
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
 import Keyboard.View exposing (..)
-import SWEditor.EditorSign exposing (..)
 
 
 stickyFooter : Layout.Types.Model -> Html Layout.Types.Msg
@@ -14,8 +12,8 @@ stickyFooter model =
         [ class "footer", style [ ( "height", toString (model.footerheight) ++ "px" ) ] ]
         [ Html.map Keyboard
             (Keyboard.View.root model.keyboard
-                SWEditor.EditorSign.signinit
-                -- (centerSignSmallest model.signbox.sign)
+                model.signbox.signviewkeyboard
+                model.mainchooser.chooserskeyboard
                 model.window.windowSize.width
             )
         ]

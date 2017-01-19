@@ -81,7 +81,12 @@ update action model =
                     ]
                 )
 
-        Display msg ->
+        DisplaySignView msg ->
+            ( model
+            , Cmd.none
+            )
+
+        DisplayChoosers a ->
             ( model
             , Cmd.none
             )

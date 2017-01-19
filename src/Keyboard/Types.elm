@@ -2,11 +2,12 @@ module Keyboard.Types exposing (..)
 
 -- import SubFeatures.Types
 
-import SWEditor.Types
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (..)
 import Keyboard.Extra as KeyboardExtra
 import Keyboard.Shared exposing (..)
+import SWEditor.Types exposing (Msg)
+import MainChooser.Types exposing (Msg)
 
 
 type alias Model =
@@ -21,7 +22,8 @@ type alias Model =
 
 type Msg
     = KeyClicked Int
-    | Display SWEditor.Types.Msg
+    | DisplaySignView SWEditor.Types.Msg
+    | DisplayChoosers MainChooser.Types.Msg
     | KeyboardExtraMsg KeyboardExtra.Msg
 
 

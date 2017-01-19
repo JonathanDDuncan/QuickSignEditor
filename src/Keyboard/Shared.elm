@@ -4,6 +4,10 @@ import Update.Extra exposing (..)
 import Html
 
 
+-- import SWEditor.Types exposing (..)
+-- import MainChooser.Types exposing (..)
+
+
 type KeyboardMode
     = SignView
     | GeneralChooser

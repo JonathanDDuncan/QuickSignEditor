@@ -44,6 +44,11 @@ init =
       , symbolsizes = Dict.empty
       , handsymbol = handsymbolinit
       , handgroupchooseritems = []
+      , chooserskeyboard =
+            { generalchooserkeyboard = []
+            , groupchooserkeyboard = []
+            , symbolchooserkeyboard = []
+            }
       }
       -- To initiate MainChooser state
       --  { MainChooserFieldName = fst MainChooser.State.init
