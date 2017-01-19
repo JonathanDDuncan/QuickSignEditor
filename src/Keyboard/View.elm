@@ -7,14 +7,40 @@ import Keyboard.Types exposing (..)
 import Array exposing (..)
 import String
 import Json.Decode as Json
-import SWEditor.Display exposing (..)
-import SWEditor.EditorSign exposing (..)
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
 import MainChooser.Types exposing (Msg)
 
 
 --import SubFeature.View exposing (root)
+
+
+text3 : List { display : Html Keyboard.Types.Msg, test : { key : Int, special : List Int } }
+text3 =
+    [ { test = { key = 67, special = [] }
+      , display = text "43"
+      }
+    , { test = { key = 69, special = [] }
+      , display = text "43"
+      }
+    , { test = { key = 70, special = [] }
+      , display = text "43"
+      }
+    , { test = { key = 68, special = [] }
+      , display = text "43"
+      }
+    ]
+
+
+getdisplay : { display : Html Keyboard.Types.Msg, test : { key : Int, special : List Int } } -> Html Keyboard.Types.Msg
+getdisplay cfg =
+    cfg.display
+
+
+
+-- text2 : Html msg
+-- text2 =
+--     text "text2"
 
 
 root :
@@ -31,63 +57,93 @@ root :
     -> Html Keyboard.Types.Msg
 root model signviewkeyboard chooserskeyboard footerwidth =
     let
-        -- keyboarddisplay =
-        --     case model.keyboardmode of
-        --         SignView ->
-        --             signviewkeyboard
-        --         GeneralChooser ->
-        --             chooserskeyboard.generalchooserkeyboard
-        --         GroupChooser ->
-        --             chooserskeyboard.groupchooserkeyboard
-        --         SymbolChooser ->
-        --             chooserskeyboard.symbolchooserkeyboard
-        text1 =
-            text "text1"
+        keyboarddisplay =
+            case model.keyboardmode of
+                SignView ->
+                    -- signviewkeyboard
+                    convertotkeyboardmsg chooserskeyboard.generalchooserkeyboard
+
+                GeneralChooser ->
+                    convertotkeyboardmsg chooserskeyboard.generalchooserkeyboard
+
+                GroupChooser ->
+                    convertotkeyboardmsg chooserskeyboard.groupchooserkeyboard
+
+                SymbolChooser ->
+                    convertotkeyboardmsg chooserskeyboard.symbolchooserkeyboard
+
+        -- text1 =
+        --     List.head text3
+        --         |> Maybe.withDefault
+        --             { test = { key = 67, special = [] }
+        --             , display = text "43"
+        --             }
     in
         div [ class "keyboard" ]
             [ text (String.concat model.keyboardhistory)
             , div
                 [ class "alphabetic", style [ ( "width", "66%" ) ] ]
-                [ row model (List.range 1 14) text1 footerwidth
-                , row model (List.range 15 28) text1 footerwidth
-                , row model (List.range 29 41) text1 footerwidth
-                , row model (List.range 42 53) text1 footerwidth
-                , row model (List.range 54 60) text1 footerwidth
+                [ row model (List.range 1 14) keyboarddisplay footerwidth
+                , row model (List.range 15 28) keyboarddisplay footerwidth
+                , row model (List.range 29 41) keyboarddisplay footerwidth
+                , row model (List.range 42 53) keyboarddisplay footerwidth
+                , row model (List.range 54 60) keyboarddisplay footerwidth
                 ]
             , div
                 [ class "arrows", style [ ( "width", "14%" ) ] ]
                 [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "15.5%" ) ] ]
-                    [ row model (List.range 61 63) text1 footerwidth
-                    , row model (List.range 64 66) text1 footerwidth
+                    [ row model (List.range 61 63) keyboarddisplay footerwidth
+                    , row model (List.range 64 66) keyboarddisplay footerwidth
                     ]
                 , div [ style [ ( "height", "40%" ) ] ]
-                    [ row model (List.range 67 67) text1 footerwidth
-                    , row model (List.range 68 70) text1 footerwidth
+                    [ row model (List.range 67 67) keyboarddisplay footerwidth
+                    , row model (List.range 68 70) keyboarddisplay footerwidth
                     ]
                 ]
             , div
                 [ class "numeric", style [ ( "width", "20%" ) ] ]
-                [ row model (List.range 71 73) text1 footerwidth
-                , row model (List.range 74 77) text1 footerwidth
-                , row model (List.range 78 80) text1 footerwidth
-                , row model (List.range 81 83) text1 footerwidth
-                , row model (List.range 84 86) text1 footerwidth
+                [ row model (List.range 71 73) keyboarddisplay footerwidth
+                , row model (List.range 74 77) keyboarddisplay footerwidth
+                , row model (List.range 78 80) keyboarddisplay footerwidth
+                , row model (List.range 81 83) keyboarddisplay footerwidth
+                , row model (List.range 84 86) keyboarddisplay footerwidth
                 ]
             ]
 
 
-row : Model -> List Int -> Html Keyboard.Types.Msg -> Int -> Html Keyboard.Types.Msg
+convertotkeyboardmsg :
+    List
+        { a
+            | display : Html MainChooser.Types.Msg
+            , test : KeyTestConfig
+        }
+    -> List
+        { display : Html Keyboard.Types.Msg
+        , test : KeyTestConfig
+        }
+convertotkeyboardmsg keyboarddisplay =
+    List.map
+        (\config ->
+            { display =
+                Html.map (DisplayChoosers) config.display
+            , test = config.test
+            }
+        )
+        keyboarddisplay
+
+
+row : Model -> List Int -> List { display : Html Keyboard.Types.Msg, test : KeyTestConfig } -> Int -> Html Keyboard.Types.Msg
 row model nums display footerwidth =
     div [ class "row" ]
         (createkeys model nums display footerwidth)
 
 
-createkeys : Model -> List Int -> Html Keyboard.Types.Msg -> Int -> List (Html Keyboard.Types.Msg)
+createkeys : Model -> List Int -> List { display : Html Keyboard.Types.Msg, test : KeyTestConfig } -> Int -> List (Html Keyboard.Types.Msg)
 createkeys model nums display footerwidth =
     List.map (\n -> nkey model n display footerwidth) nums
 
 
-nkey : Model -> Int -> Html Keyboard.Types.Msg -> Int -> Html Keyboard.Types.Msg
+nkey : Model -> Int -> List { display : Html Keyboard.Types.Msg, test : KeyTestConfig } -> Int -> Html Keyboard.Types.Msg
 nkey model n display footerwidth =
     let
         leftmargin =
@@ -119,7 +175,8 @@ nkey model n display footerwidth =
     in
         div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
             [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
-                [ display
+                [ -- text2
+                  (Maybe.withDefault { display = text "this", test = { key = 69, special = [] } } <| List.head display).display
                   -- , Html.map
                   --     Display
                   --     (SWEditor.Display.scaledSignView display scale leftmargin)
