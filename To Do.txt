@@ -1,6 +1,6 @@
 To Do
 
-
+Switch to Keyboard-Extra package instead of inline source code
 In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
 Add Key Icons to Keyboard
 Add favorites
