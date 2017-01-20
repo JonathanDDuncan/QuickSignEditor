@@ -21,6 +21,7 @@ import SWEditor.EditorSymbol exposing (..)
 import Update.Extra exposing (..)
 import MainChooser.HandGroupChooser exposing (..)
 import ViewHelper.ViewExtra exposing (..)
+import MainChooser.GeneralChooserKeyboard exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -81,11 +82,25 @@ update action model =
             )
 
         ReceiveInitialChoosings choosings1 ->
-            ( { model
-                | choosings = List.map (toModel 0) choosings1
-              }
-            , Cmd.none
-            )
+            let
+                choosings =
+                    List.map (toModel 0) choosings1
+
+                generalchooserkeyboard =
+                    creategeneralchooserkeyboard choosings
+
+                chooserskeyboard1 =
+                    model.chooserskeyboard
+
+                chooserskeyboard2 =
+                    { chooserskeyboard1 | generalchooserkeyboard = generalchooserkeyboard }
+            in
+                ( { model
+                    | choosings = choosings
+                    , chooserskeyboard = chooserskeyboard2
+                  }
+                , Cmd.none
+                )
 
         ReceiveInitialGroupHandChoosings chooserclassification ->
             let
