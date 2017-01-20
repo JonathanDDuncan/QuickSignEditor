@@ -55,12 +55,66 @@ runkeycommand command update config =
 
 runtest : KeyboardCommand -> KeyTestConfig -> Bool
 runtest command test =
-    (pressed command test.key) && List.all (\spec -> spec command) test.special
+    (pressed command test.key)
+        && command.ctrlPressed
+        == test.ctrl
+        && command.shiftPressed
+        == test.shift
+        && command.altPressed
+        == test.alt
 
 
 pressed : KeyboardCommand -> Int -> Bool
 pressed command val =
     List.any ((==) val) command.keys
+
+
+createKeyboardCommand :
+    List Int
+    -> KeyboardMode
+    -> KeyboardCommand
+createKeyboardCommand keyList mode =
+    let
+        shiftPressed =
+            isPressedShift keyList
+
+        ctrlPressed =
+            isPressedCtrl keyList
+
+        altPressed =
+            isPressedAlt keyList
+
+        modecode =
+            keyboardModeCode
+                |> List.filter (\m -> Tuple.second m == mode)
+                |> List.map (\m -> Tuple.first m)
+                |> List.head
+                |> Maybe.withDefault 1
+
+        keyboardcommand =
+            { shiftPressed = shiftPressed
+            , ctrlPressed = ctrlPressed
+            , altPressed = altPressed
+            , mode = modecode
+            , keys = keyList
+            }
+    in
+        keyboardcommand
+
+
+isPressedShift : List Int -> Bool
+isPressedShift keyList =
+    List.any ((==) 42) keyList || List.any ((==) 53) keyList
+
+
+isPressedCtrl : List Int -> Bool
+isPressedCtrl keyList =
+    List.any ((==) 54) keyList || List.any ((==) 60) keyList
+
+
+isPressedAlt : List Int -> Bool
+isPressedAlt keyList =
+    List.any ((==) 56) keyList || List.any ((==) 58) keyList
 
 
 type alias KeyConfig a =
@@ -72,7 +126,9 @@ type alias KeyConfig a =
 
 type alias KeyTestConfig =
     { key : Int
-    , special : List (KeyboardCommand -> Bool)
+    , ctrl : Bool
+    , shift : Bool
+    , alt : Bool
     }
 
 

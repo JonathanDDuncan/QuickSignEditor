@@ -47,7 +47,7 @@ keyboarddisplay =
 
 configKeyboardSignView : List (KeyConfig Msg)
 configKeyboardSignView =
-    [ { test = { key = 43, special = [ .ctrlPressed ] }
+    [ { test = { key = 43, ctrl = True, shift = False, alt = False }
       , action = (Undo)
       , display =
             svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
@@ -55,7 +55,7 @@ configKeyboardSignView =
                     []
                 ]
       }
-    , { test = { key = 21, special = [ .ctrlPressed ] }
+    , { test = { key = 21, ctrl = True, shift = False, alt = False }
       , action = (Redo)
       , display =
             svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
@@ -63,11 +63,11 @@ configKeyboardSignView =
                     []
                 ]
       }
-    , { test = { key = 62, special = [] }
+    , { test = { key = 62, ctrl = False, shift = False, alt = False }
       , action = (DeleteSymbols)
       , display = text "43"
       }
-    , { test = { key = 67, special = [] }
+    , { test = { key = 67, ctrl = False, shift = False, alt = False }
       , action = (MoveSymbols Up 1)
       , display =
             svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
@@ -75,7 +75,7 @@ configKeyboardSignView =
                     []
                 ]
       }
-    , { test = { key = 69, special = [] }
+    , { test = { key = 69, ctrl = False, shift = False, alt = False }
       , action = (MoveSymbols Down 1)
       , display =
             svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
@@ -83,7 +83,7 @@ configKeyboardSignView =
                     []
                 ]
       }
-    , { test = { key = 70, special = [] }
+    , { test = { key = 70, ctrl = False, shift = False, alt = False }
       , action = (MoveSymbols Right 1)
       , display =
             svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
@@ -91,7 +91,7 @@ configKeyboardSignView =
                     []
                 ]
       }
-    , { test = { key = 68, special = [] }
+    , { test = { key = 68, ctrl = False, shift = False, alt = False }
       , action = (MoveSymbols Left 1)
       , display =
             svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
@@ -99,19 +99,19 @@ configKeyboardSignView =
                     []
                 ]
       }
-    , { test = { key = 67, special = [ .ctrlPressed ] }
+    , { test = { key = 67, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Up 10)
       , display = text "43"
       }
-    , { test = { key = 69, special = [ .ctrlPressed ] }
+    , { test = { key = 69, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Down 10)
       , display = text "43"
       }
-    , { test = { key = 70, special = [ .ctrlPressed ] }
+    , { test = { key = 70, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Right 10)
       , display = text "43"
       }
-    , { test = { key = 68, special = [ .ctrlPressed ] }
+    , { test = { key = 68, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Left 10)
       , display = text "43"
       }

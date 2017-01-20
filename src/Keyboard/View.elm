@@ -29,19 +29,22 @@ root :
     -> Html Keyboard.Types.Msg
 root model signviewkeyboard chooserskeyboard footerwidth =
     let
+        keyboardcommand =
+            createKeyboardCommand model.keyList model.keyboardmode
+
         keyboarddisplay =
             case model.keyboardmode of
                 SignView ->
-                    convertotkeyboardmsg DisplaySignView signviewkeyboard
+                    convertotkeyboardmsg keyboardcommand DisplaySignView signviewkeyboard
 
                 GeneralChooser ->
-                    convertotkeyboardmsg DisplayChoosers chooserskeyboard.generalchooserkeyboard
+                    convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.generalchooserkeyboard
 
                 GroupChooser ->
-                    convertotkeyboardmsg DisplayChoosers chooserskeyboard.groupchooserkeyboard
+                    convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.groupchooserkeyboard
 
                 SymbolChooser ->
-                    convertotkeyboardmsg DisplayChoosers chooserskeyboard.symbolchooserkeyboard
+                    convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.symbolchooserkeyboard
     in
         div [ class "keyboard" ]
             [ text (String.concat model.keyboardhistory)
@@ -76,23 +79,37 @@ root model signviewkeyboard chooserskeyboard footerwidth =
 
 
 convertotkeyboardmsg :
-    (msg -> Keyboard.Types.Msg)
-    -> List
-        { a
-            | display : Html msg
-            , test : KeyTestConfig
-        }
-    -> List
-        { display : Html Keyboard.Types.Msg
-        , test : KeyTestConfig
-        }
-convertotkeyboardmsg newmsg keyboarddisplay =
+    KeyboardCommand
+    -> (msg -> msg1)
+    -> List (KeyConfig msg)
+    -> List { display : Html msg1, test : KeyTestConfig }
+convertotkeyboardmsg keyboardcommand newmsg keyboarddisplay =
     List.map
         (\config ->
             { display =
                 Html.map newmsg config.display
             , test = config.test
             }
+        )
+        (filtereddisplay
+            keyboardcommand
+            keyboarddisplay
+        )
+
+
+filtereddisplay :
+    KeyboardCommand
+    -> List (KeyConfig msg)
+    -> List (KeyConfig msg)
+filtereddisplay keyboardcommand keyboarddisplay =
+    List.filter
+        (\disp ->
+            disp.test.ctrl
+                == keyboardcommand.ctrlPressed
+                && disp.test.shift
+                == keyboardcommand.shiftPressed
+                && disp.test.alt
+                == keyboardcommand.altPressed
         )
         keyboarddisplay
 
@@ -150,15 +167,15 @@ nkey model n display footerwidth =
 
 
 getkeydisplay :
-    number
-    -> List { display : Html msg, test : { special : List a, key : number } }
-    -> { display : Html msg, test : { special : List a, key : number } }
+    Int
+    -> List { display : Html msg, test : KeyTestConfig }
+    -> { display : Html msg, test : KeyTestConfig }
 getkeydisplay n display =
     List.filter (\disp -> disp.test.key == n) display
         |> List.head
         |> Maybe.withDefault
             { display = text ""
-            , test = { key = 0, special = [] }
+            , test = { key = 0, ctrl = False, shift = False, alt = True }
             }
 
 

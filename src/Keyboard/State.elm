@@ -98,39 +98,6 @@ update action model =
 --          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Keyboard.State.update action model
 
 
-createKeyboardCommand :
-    List Int
-    -> KeyboardMode
-    -> KeyboardCommand
-createKeyboardCommand keyList mode =
-    let
-        shiftPressed =
-            isPressedShift keyList
-
-        ctrlPressed =
-            isPressedCtrl keyList
-
-        altPressed =
-            isPressedAlt keyList
-
-        modecode =
-            keyboardModeCode
-                |> List.filter (\m -> Tuple.second m == mode)
-                |> List.map (\m -> Tuple.first m)
-                |> List.head
-                |> Maybe.withDefault 1
-
-        keyboardcommand =
-            { shiftPressed = shiftPressed
-            , ctrlPressed = ctrlPressed
-            , altPressed = altPressed
-            , mode = modecode
-            , keys = keyList
-            }
-    in
-        keyboardcommand
-
-
 getmode : List Int -> Model -> KeyboardMode
 getmode keyList model =
     if isPressedShift keyList && List.any ((==) 2) keyList then
@@ -143,21 +110,6 @@ getmode keyList model =
         SymbolChooser
     else
         model.keyboardmode
-
-
-isPressedShift : List Int -> Bool
-isPressedShift keyList =
-    List.any ((==) 42) keyList || List.any ((==) 53) keyList
-
-
-isPressedCtrl : List Int -> Bool
-isPressedCtrl keyList =
-    List.any ((==) 54) keyList || List.any ((==) 60) keyList
-
-
-isPressedAlt : List Int -> Bool
-isPressedAlt keyList =
-    List.any ((==) 56) keyList || List.any ((==) 58) keyList
 
 
 subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg
