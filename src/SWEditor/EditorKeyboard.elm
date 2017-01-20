@@ -65,7 +65,11 @@ configKeyboardSignView =
       }
     , { test = { key = 62, ctrl = False, shift = False, alt = False }
       , action = (DeleteSymbols)
-      , display = text "43"
+      , display =
+            svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+                [ path [ attribute "d" "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" ]
+                    []
+                ]
       }
     , { test = { key = 67, ctrl = False, shift = False, alt = False }
       , action = (MoveSymbols Up 1)
@@ -101,19 +105,35 @@ configKeyboardSignView =
       }
     , { test = { key = 67, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Up 10)
-      , display = text "43"
+      , display =
+            svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+                [ path [ attribute "transform" "scale(1.3)", attribute "d" "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" ]
+                    []
+                ]
       }
     , { test = { key = 69, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Down 10)
-      , display = text "43"
+      , display =
+            svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+                [ path [ attribute "transform" "scale(1.3)", attribute "d" "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z", attribute "fill" "#010101" ]
+                    []
+                ]
       }
     , { test = { key = 70, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Right 10)
-      , display = text "43"
+      , display =
+            svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+                [ path [ attribute "transform" "scale(1.3)", attribute "d" "M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z" ]
+                    []
+                ]
       }
     , { test = { key = 68, ctrl = True, shift = False, alt = False }
       , action = (MoveSymbols Left 10)
-      , display = text "43"
+      , display =
+            svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+                [ path [ attribute "transform" "scale(1.3)", attribute "d" "M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" ]
+                    []
+                ]
       }
     ]
 
