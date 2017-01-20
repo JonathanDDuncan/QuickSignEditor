@@ -1,8 +1,8 @@
 To Do
 
+Size symbol in keys to fit.
 Switch to Keyboard-Extra package instead of inline source code
 In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
-Add Key Icons to Keyboard
 Add favorites
 Arrow symbol chooser
 Add original 1 to 10 
