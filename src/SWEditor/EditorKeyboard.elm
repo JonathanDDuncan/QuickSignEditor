@@ -2,7 +2,6 @@ module SWEditor.EditorKeyboard exposing (..)
 
 import SWEditor.Types exposing (..)
 import Keyboard.Shared exposing (..)
-import Html exposing (text, i)
 import Svg exposing (svg, path)
 import Html.Attributes exposing (..)
 
@@ -18,20 +17,28 @@ runKeyboardCommand model command update =
             getKeyboardMode command.mode
 
         updatetuple =
-            case mode of
-                SignView ->
-                    runKeyboard model command update configKeyboardSignView
+            if mode == SignView then
+                runKeyboard model command update configKeyboardSignView
+            else
+                model ! []
 
-                GeneralChooser ->
-                    runKeyboardGeneralChooser model command update
-
-                GroupChooser ->
-                    runKeyboardGroupChooser model command update
-
-                SymbolChooser ->
-                    runKeyboardSymbolChooser model command update
+        -- GeneralChooser ->
+        --     runKeyboardGeneralChooser model command update
+        -- GroupChooser ->
+        --     runKeyboardGroupChooser model command update
+        -- SymbolChooser ->
+        --     runKeyboardSymbolChooser model command update
     in
         updatetuple
+
+
+
+-- runKeyboardGeneralChooser model command update =
+--     model ! []
+-- runKeyboardGroupChooser model command update =
+--     model ! []
+-- runKeyboardSymbolChooser model command update =
+--     model ! []
 
 
 keyboarddisplay :
@@ -177,15 +184,3 @@ configKeyboardSignView =
             }
       }
     ]
-
-
-runKeyboardGeneralChooser model command update =
-    model ! []
-
-
-runKeyboardGroupChooser model command update =
-    model ! []
-
-
-runKeyboardSymbolChooser model command update =
-    model ! []

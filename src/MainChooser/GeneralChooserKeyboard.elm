@@ -18,11 +18,11 @@ creategeneralchooserkeyboard choosings =
         List.indexedMap
             (\i choosing ->
                 { test = { key = getkey i keyboardlayout, ctrl = False, shift = False, alt = False }
-                , action = (Noop)
+                , action = (Clicked choosing.value)
                 , display =
                     { width = choosing.displaySign.width
                     , height = choosing.displaySign.height
-                    , view = Html.map Choosing (Choosing.View.normal <| Debug.log "choosing" choosing)
+                    , view = Html.map Choosing (Choosing.View.normal choosing)
                     }
                 }
             )

@@ -8,10 +8,11 @@ import ViewHelper.ViewExtra exposing (..)
 import Exts.List exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
-import Material.Tooltip as Tooltip exposing (..)
+import Material.Tooltip as Tooltip exposing (attach, render, left)
 import Material.Options as Options exposing (div, cs, when)
 
 
+generalgroupchooser : Model -> List ChooserItem -> Html MainChooser.Types.Msg
 generalgroupchooser model choosings =
     let
         maxheight =
@@ -24,6 +25,7 @@ generalgroupchooser model choosings =
             (List.map (\row -> rowchooser model row choosings maxheight) rowvalues)
 
 
+rowchooser : Model -> Int -> List ChooserItem -> b -> Html Msg
 rowchooser model row choosings maxheight =
     let
         items =
@@ -37,6 +39,7 @@ rowchooser model row choosings maxheight =
             (List.map (\col -> column model row col maxheight items) colvalues)
 
 
+column : Model -> Int -> Int -> a -> List ChooserItem -> Html Msg
 column model cat col choosingshigh choosings =
     let
         choosingsforcolumn =
@@ -50,6 +53,7 @@ column model cat col choosingshigh choosings =
             (choosingsforcolumn |> List.map (displaySymbolChoosing model))
 
 
+displaySymbolChoosing : Model -> ChooserItem -> Html Msg
 displaySymbolChoosing model chooseritem =
     let
         symbol =

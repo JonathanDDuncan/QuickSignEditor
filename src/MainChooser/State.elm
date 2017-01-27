@@ -120,6 +120,9 @@ update action model =
 
         Clicked clickvalue ->
             let
+                clickval1 =
+                    Debug.log "clickvalue" clickvalue
+
                 basesymbol =
                     String.slice 0 4 clickvalue
 
@@ -414,4 +417,5 @@ subscriptions model =
     Sub.batch
         [ receiveInitialChoosings ReceiveInitialChoosings
         , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
+        , receiveKeyboardCommand Keyboard
         ]

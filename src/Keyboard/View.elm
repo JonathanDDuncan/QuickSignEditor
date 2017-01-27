@@ -136,7 +136,7 @@ nkey model n display footerwidth =
             17
 
         display1 =
-            Debug.log "display1" (getkeydisplay n display).display
+            (getkeydisplay n display).display
 
         size =
             { height = display1.height, width = display1.width }
