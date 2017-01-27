@@ -1,7 +1,6 @@
-module Choosing.View exposing (root, normal)
+module Choosing.View exposing (root, normal, keyview)
 
 import Html exposing (..)
- 
 import Html.Attributes exposing (..)
 import Choosing.Types exposing (..)
 import SWEditor.Display exposing (..)
@@ -38,6 +37,18 @@ attributes1 model =
     ]
 
 
-normal1 : Choosing.Types.Model -> List (Attribute SWEditor.Types.Msg)
-normal1 model =
-    []
+keyview : Choosing.Types.Model -> Int -> Html Choosing.Types.Msg
+keyview model paddingtop =
+    div
+        []
+        [ Html.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign <| keyviewattributes paddingtop)
+        ]
+
+
+keyviewattributes : Int -> List (Attribute SWEditor.Types.Msg)
+keyviewattributes paddingtop =
+    [ Html.Attributes.style
+        [ "position" => "relative"
+        , "top" => px paddingtop
+        ]
+    ]

@@ -27,7 +27,7 @@ init =
           , keyboardhistory = []
           , keyboardExtraModel = keyboardModel
           , keyList = []
-          , keyboardmode = SignView
+          , keyboardmode = GeneralChooser
           }
         , Cmd.batch
             [ Cmd.map KeyboardExtraMsg keyboardCmd

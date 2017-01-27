@@ -130,16 +130,16 @@ createkeys model nums display footerwidth =
 
 
 nkey : Model -> Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Html Keyboard.Types.Msg
-nkey model n display footerwidth =
+nkey model n displays footerwidth =
     let
         leftmargin =
             17
 
-        display1 =
-            (getkeydisplay n display).display
+        display =
+            (getkeydisplay n displays).display
 
         size =
-            { height = display1.height, width = display1.width }
+            { height = display.height, width = display.width }
 
         scale =
             calcscale size 30 ((minkeywidth footerwidth) - leftmargin)
@@ -164,10 +164,13 @@ nkey model n display footerwidth =
     in
         div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
             [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
-                [ div [ style [ ( "transform", ("scale(" ++ toString scale ++ ")") ), ( "margin-left", px leftmargin ) ] ] [ display1.view ]
-                  -- , Html.map
-                  --     Display
-                  --     (SWEditor.Display.scaledSignView display scale leftmargin)
+                [ div
+                    [ style
+                        [ ( "transform", ("scale(" ++ toString scale ++ ")") )
+                        , ( "margin-left", px leftmargin )
+                        ]
+                    ]
+                    [ display.view ]
                 ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
@@ -210,19 +213,19 @@ minkeywidth footerwidth =
 
 
 calcscale : { a | height : Int, width : Int } -> Float -> Float -> Float
-calcscale sign height width =
+calcscale signsize height width =
     let
         availableWidth =
             width
 
         contentWidth =
-            sign.width
+            signsize.width
 
         availableHeight =
             height
 
         contentHeight =
-            sign.height
+            signsize.height
 
         scale =
             Basics.min (availableWidth / toFloat contentWidth) (availableHeight / toFloat contentHeight)
