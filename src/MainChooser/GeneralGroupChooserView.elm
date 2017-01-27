@@ -44,38 +44,54 @@ column model cat col choosingshigh choosings =
     let
         choosingsforcolumn =
             List.filter (\item -> item.col == col) choosings
+
+        data =
+            (choosingsforcolumn
+                |> List.map
+                    (\chooseritem ->
+                        let
+                            symbol =
+                                getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
+
+                            mdlid =
+                                symbol.code + 1000
+
+                            modelmdl =
+                                model.mdl
+                        in
+                            { modelmdl = modelmdl, chooseritem = chooseritem, symbol = symbol, mdlid = mdlid }
+                    )
+            )
     in
         td
             [ class "chosercolumn"
             , style
                 [ "background-color" => (bkcolor cat col) ]
             ]
-            (choosingsforcolumn |> List.map (displaySymbolChoosing model))
+            (displaySymbolChoosing1 data)
 
 
-displaySymbolChoosing : Model -> ChooserItem -> Html Msg
-displaySymbolChoosing model chooseritem =
-    let
-        symbol =
-            getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
+displaySymbolChoosing1 data =
+    List.map
+        (\item -> displaySymbolChoosing item.modelmdl item.chooseritem item.symbol item.mdlid)
+        data
 
-        mdlid =
-            symbol.code + 1000
-    in
-        Html.div
-            [ onClick (GroupSelected chooseritem)
-            , onMouseDown (DragSymbol symbol.code)
-            , onDoubleClick (ReplaceSymbol symbol.code)
+
+displaySymbolChoosing modelmdl chooseritem symbol mdlid =
+    Html.div
+        [ onClick (GroupSelected chooseritem)
+        , onMouseDown (DragSymbol symbol.code)
+        , onDoubleClick (ReplaceSymbol symbol.code)
+        ]
+        [ Options.div
+            [ Tooltip.attach Mdl [ mdlid ] ]
+            [ Html.map SignView
+                (symbolaloneView symbol 3)
             ]
-            [ Options.div
-                [ Tooltip.attach Mdl [ mdlid ] ]
-                [ Html.map SignView
-                    (symbolaloneView symbol 3)
-                ]
-            , Tooltip.render Mdl
-                [ mdlid ]
-                model.mdl
-                [ Tooltip.left ]
-                [ Html.div [ attribute "style" "float:left;" ] [ text chooseritem.name ]
-                ]
+        , Tooltip.render Mdl
+            [ mdlid ]
+            modelmdl
+            [ Tooltip.left ]
+            [ Html.div [ attribute "style" "float:left;" ] [ text chooseritem.name ]
             ]
+        ]
