@@ -7,6 +7,29 @@ import Choosing.Types exposing (Model)
 import Keyboard.Shared exposing (..)
 
 
+runKeyboardCommand :
+    MainChooser.Types.Model
+    -> KeyboardCommand
+    -> (Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd Msg ))
+    -> ( MainChooser.Types.Model, Cmd Msg )
+runKeyboardCommand model command update =
+    let
+        mode =
+            getKeyboardMode command.mode
+
+        updatetuple =
+            if mode == GeneralChooser then
+                runKeyboard model command update model.chooserskeyboard.generalchooserkeyboard
+            else if mode == GroupChooser then
+                runKeyboard model command update model.chooserskeyboard.groupchooserkeyboard
+            else if mode == SymbolChooser then
+                runKeyboard model command update model.chooserskeyboard.symbolchooserkeyboard
+            else
+                model ! []
+    in
+        updatetuple
+
+
 creategeneralchooserkeyboard :
     List Choosing.Types.Model
     -> List (KeyAction Msg)

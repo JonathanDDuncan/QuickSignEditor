@@ -328,6 +328,9 @@ update action model =
                 , Cmd.none
                 )
 
+        Keyboard command ->
+            runKeyboardCommand model command update
+
 
 allgroupchoosings chooserclassification =
     let

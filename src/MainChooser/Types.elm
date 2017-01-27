@@ -52,6 +52,7 @@ type Msg
     | SelectPlane Planes
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
+    | Keyboard KeyboardCommand
 
 
 type alias HandGroupChooser =
