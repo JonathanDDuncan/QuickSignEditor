@@ -21,7 +21,7 @@ type alias Model =
     , uid : Int
     , undolist : List UndoItem
     , redolist : List UndoItem
-    , signviewkeyboard : List (KeyConfig Msg)
+    , signviewkeyboard : List (KeyAction Msg)
     }
 
 

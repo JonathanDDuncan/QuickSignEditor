@@ -10,6 +10,7 @@ import Json.Decode as Json
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
 import MainChooser.Types exposing (Msg)
+import ViewHelper.ViewExtra exposing (..)
 
 
 --import SubFeature.View exposing (root)
@@ -17,13 +18,13 @@ import MainChooser.Types exposing (Msg)
 
 root :
     Model
-    -> List (Keyboard.Shared.KeyConfig SWEditor.Types.Msg)
+    -> List (Keyboard.Shared.KeyAction SWEditor.Types.Msg)
     -> { generalchooserkeyboard :
-            List (Keyboard.Shared.KeyConfig MainChooser.Types.Msg)
+            List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
        , groupchooserkeyboard :
-            List (Keyboard.Shared.KeyConfig MainChooser.Types.Msg)
+            List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
        , symbolchooserkeyboard :
-            List (Keyboard.Shared.KeyConfig MainChooser.Types.Msg)
+            List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
        }
     -> Int
     -> Html Keyboard.Types.Msg
@@ -81,13 +82,16 @@ root model signviewkeyboard chooserskeyboard footerwidth =
 convertotkeyboardmsg :
     KeyboardCommand
     -> (msg -> msg1)
-    -> List (KeyConfig msg)
-    -> List { display : Html msg1, test : KeyTestConfig }
+    -> List (KeyAction msg)
+    -> List (KeyConfig msg1)
 convertotkeyboardmsg keyboardcommand newmsg keyboarddisplay =
     List.map
         (\config ->
             { display =
-                Html.map newmsg config.display
+                { width = config.display.width
+                , height = config.display.height
+                , view = Html.map newmsg config.display.view
+                }
             , test = config.test
             }
         )
@@ -99,8 +103,8 @@ convertotkeyboardmsg keyboardcommand newmsg keyboarddisplay =
 
 filtereddisplay :
     KeyboardCommand
-    -> List (KeyConfig msg)
-    -> List (KeyConfig msg)
+    -> List (KeyAction msg)
+    -> List (KeyAction msg)
 filtereddisplay keyboardcommand keyboarddisplay =
     List.filter
         (\disp ->
@@ -114,25 +118,28 @@ filtereddisplay keyboardcommand keyboarddisplay =
         keyboarddisplay
 
 
-row : Model -> List Int -> List { display : Html Keyboard.Types.Msg, test : KeyTestConfig } -> Int -> Html Keyboard.Types.Msg
+row : Model -> List Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Html Keyboard.Types.Msg
 row model nums display footerwidth =
     div [ class "row" ]
         (createkeys model nums display footerwidth)
 
 
-createkeys : Model -> List Int -> List { display : Html Keyboard.Types.Msg, test : KeyTestConfig } -> Int -> List (Html Keyboard.Types.Msg)
+createkeys : Model -> List Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> List (Html Keyboard.Types.Msg)
 createkeys model nums display footerwidth =
     List.map (\n -> nkey model n display footerwidth) nums
 
 
-nkey : Model -> Int -> List { display : Html Keyboard.Types.Msg, test : KeyTestConfig } -> Int -> Html Keyboard.Types.Msg
+nkey : Model -> Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Html Keyboard.Types.Msg
 nkey model n display footerwidth =
     let
         leftmargin =
             17
 
+        display1 =
+            Debug.log "display1" (getkeydisplay n display).display
+
         size =
-            { height = 20, width = 20 }
+            { height = display1.height, width = display1.width }
 
         scale =
             calcscale size 30 ((minkeywidth footerwidth) - leftmargin)
@@ -157,7 +164,7 @@ nkey model n display footerwidth =
     in
         div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
             [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
-                [ (getkeydisplay n display).display
+                [ div [ style [ ( "transform", ("scale(" ++ toString scale ++ ")") ), ( "margin-left", px leftmargin ) ] ] [ display1.view ]
                   -- , Html.map
                   --     Display
                   --     (SWEditor.Display.scaledSignView display scale leftmargin)
@@ -166,15 +173,12 @@ nkey model n display footerwidth =
             ]
 
 
-getkeydisplay :
-    Int
-    -> List { display : Html msg, test : KeyTestConfig }
-    -> { display : Html msg, test : KeyTestConfig }
+getkeydisplay : Int -> List (KeyConfig msg) -> KeyConfig msg
 getkeydisplay n display =
     List.filter (\disp -> disp.test.key == n) display
         |> List.head
         |> Maybe.withDefault
-            { display = text ""
+            { display = { width = 20, height = 20, view = text "" }
             , test = { key = 0, ctrl = False, shift = False, alt = True }
             }
 

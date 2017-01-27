@@ -4,15 +4,12 @@ import MainChooser.Types exposing (..)
 import Html
 import Choosing.View exposing (root)
 import Choosing.Types exposing (Model)
+import Keyboard.Shared exposing (..)
 
 
 creategeneralchooserkeyboard :
     List Choosing.Types.Model
-    -> List
-        { action : Msg
-        , display : Html.Html Msg
-        , test : { alt : Bool, ctrl : Bool, key : Int, shift : Bool }
-        }
+    -> List (KeyAction Msg)
 creategeneralchooserkeyboard choosings =
     let
         keyboardlayout =
@@ -22,13 +19,14 @@ creategeneralchooserkeyboard choosings =
             (\i choosing ->
                 { test = { key = getkey i keyboardlayout, ctrl = False, shift = False, alt = False }
                 , action = (Noop)
-                , display = Html.map Choosing (Choosing.View.normal choosing)
+                , display =
+                    { width = choosing.displaySign.width
+                    , height = choosing.displaySign.height
+                    , view = Html.map Choosing (Choosing.View.normal <| Debug.log "choosing" choosing)
+                    }
                 }
             )
-            (Debug.log
-                "choosings"
-                choosings
-            )
+            (choosings)
 
 
 getkey : Int -> List { index : Int, key : Int } -> Int

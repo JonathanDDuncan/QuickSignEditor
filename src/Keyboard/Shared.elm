@@ -36,7 +36,7 @@ runKeyboard :
     a
     -> KeyboardCommand
     -> (msg -> a -> ( a, Cmd msg ))
-    -> List (KeyConfig msg)
+    -> List (KeyAction msg)
     -> ( a, Cmd msg )
 runKeyboard model command update config =
     List.foldl (\item -> runkeycommand command update item) (model ! []) config
@@ -45,7 +45,7 @@ runKeyboard model command update config =
 runkeycommand :
     KeyboardCommand
     -> (a -> model -> ( model, Cmd a ))
-    -> KeyConfig a
+    -> KeyAction a
     -> ( model, Cmd a )
     -> ( model, Cmd a )
 runkeycommand command update config =
@@ -117,10 +117,24 @@ isPressedAlt keyList =
     List.any ((==) 56) keyList || List.any ((==) 58) keyList
 
 
-type alias KeyConfig a =
+type alias KeyAction a =
     { test : KeyTestConfig
     , action : a
-    , display : Html.Html a
+    , display :
+        { width : Int
+        , height : Int
+        , view : Html.Html a
+        }
+    }
+
+
+type alias KeyConfig a =
+    { test : KeyTestConfig
+    , display :
+        { width : Int
+        , height : Int
+        , view : Html.Html a
+        }
     }
 
 

@@ -25,9 +25,9 @@ type alias Model =
     , handsymbol : HandSymbol
     , handgroupchooseritems : List HandGroupChooser
     , chooserskeyboard :
-        { generalchooserkeyboard : List (KeyConfig Msg)
-        , groupchooserkeyboard : List (KeyConfig Msg)
-        , symbolchooserkeyboard : List (KeyConfig Msg)
+        { generalchooserkeyboard : List (KeyAction Msg)
+        , groupchooserkeyboard : List (KeyAction Msg)
+        , symbolchooserkeyboard : List (KeyAction Msg)
         }
     }
 
