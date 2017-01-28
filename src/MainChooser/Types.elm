@@ -347,3 +347,15 @@ bkcolor cat col =
 
         _ ->
             "#a8bcf0"
+
+
+type alias GeneralGroupChooserColumData =
+    { col : Int, row : Int, symboldatalist : List GeneralGroupChooserSymbolData }
+
+
+type alias GeneralGroupChooserSymbolData =
+    { chooseritem : ChooserItem
+    , mdlid : Int
+    , modelmdl : Material.Model
+    , symbol : EditorSymbol
+    }
