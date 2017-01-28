@@ -359,3 +359,18 @@ type alias GeneralGroupChooserSymbolData =
     , modelmdl : Material.Model
     , symbol : EditorSymbol
     }
+
+
+type alias HandGroupChooserViewColumnData =
+    { backgroundcolor : String
+    , symboldatalist : List HandGroupChooserViewSymbolData
+    }
+
+
+type alias HandGroupChooserViewSymbolData =
+    { chooseritem : ChooserItem
+    , mdlid : Int
+    , modelmdl : Material.Model
+    , symbol :
+        EditorSymbol
+    }

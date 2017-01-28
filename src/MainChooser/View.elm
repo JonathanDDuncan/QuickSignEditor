@@ -15,7 +15,6 @@ import MainChooser.HandSymbolChooserView exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
-import Material
 
 
 --import SubMainChooser.View exposing (root)
@@ -95,10 +94,10 @@ choosesubgroupchooser model =
     in
         case basesymbol of
             "S14c" ->
-                handgroupchooser model
+                handgroupchooser2 model
 
             _ ->
-                generalgroupchooser2 model <| getchoosings basesymbol model.allgroupchoosings
+                generalgroupchooser2 model basesymbol
 
 
 
@@ -115,9 +114,16 @@ nogroupchooser model =
 --Put this in state later
 
 
-generalgroupchooser2 : MainChooser.Types.Model -> List ChooserItem -> Html MainChooser.Types.Msg
-generalgroupchooser2 model choosings =
-    generalgroupchooser <| creategeneralgroupchooserdata model choosings
+generalgroupchooser2 : MainChooser.Types.Model -> String -> Html MainChooser.Types.Msg
+generalgroupchooser2 model basesymbol =
+    let
+        choosings =
+            getchoosings basesymbol model.allgroupchoosings
+
+        generalgroupchooserdata =
+            creategeneralgroupchooserdata model choosings
+    in
+        generalgroupchooser generalgroupchooserdata
 
 
 creategeneralgroupchooserdata :
@@ -186,3 +192,77 @@ creategeneralgroupchoosersymboldata model chooseritem =
             model.mdl
     in
         { modelmdl = modelmdl, chooseritem = chooseritem, symbol = symbol, mdlid = mdlid }
+
+
+
+--move this hand group chooser to state
+
+
+handgroupchooser2 : MainChooser.Types.Model -> Html MainChooser.Types.Msg
+handgroupchooser2 model =
+    let
+        tabledata =
+            createtabledata model
+    in
+        handgroupchooser tabledata
+
+
+createtabledata : MainChooser.Types.Model -> List (List (List HandGroupChooserViewColumnData))
+createtabledata model =
+    (List.map
+        (\data ->
+            let
+                tabledata2 =
+                    createrowdata model data
+            in
+                tabledata2
+        )
+        model.handgroupchooseritems
+    )
+
+
+createrowdata : MainChooser.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
+createrowdata model tabledata =
+    let
+        filtered =
+            List.filter
+                (\columndata ->
+                    List.length columndata > 0
+                )
+                tabledata
+
+        rowdata =
+            List.map
+                (\rowdata1 ->
+                    createcolumndata model rowdata1
+                )
+                filtered
+    in
+        rowdata
+
+
+createcolumndata : MainChooser.Types.Model -> List HandGroupChooserSubList -> List HandGroupChooserViewColumnData
+createcolumndata model rowdata =
+    (List.map
+        (\coldata ->
+            let
+                symboldatalist =
+                    createsymboldatalist model coldata
+            in
+                { symboldatalist = symboldatalist, backgroundcolor = coldata.backgroundcolor }
+        )
+        rowdata
+    )
+
+
+createsymboldatalist : MainChooser.Types.Model -> HandGroupChooserSubList -> List HandGroupChooserViewSymbolData
+createsymboldatalist model columndata =
+    List.map
+        (\displayhanditem ->
+            { modelmdl = model.mdl
+            , symbol = displayhanditem.symbol
+            , chooseritem = displayhanditem.chooseritem
+            , mdlid = displayhanditem.mdlid
+            }
+        )
+        columndata.displayhanditems
