@@ -282,3 +282,8 @@ getvalidrotations validrotationsstring =
                     Debug.log "Could not match valid rotations string" validrotationsstring
             in
                 []
+
+
+isValidRotation : Int -> List Int -> Bool
+isValidRotation rotation validrotations =
+    List.any ((==) rotation) validrotations

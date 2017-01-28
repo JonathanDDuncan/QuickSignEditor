@@ -15,6 +15,8 @@ import MainChooser.HandSymbolChooserView exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
+import SW.Types exposing (..)
+import Dict exposing (..)
 
 
 --import SubMainChooser.View exposing (root)
@@ -64,10 +66,14 @@ root model parentwidth parentheight =
 
 symbolchooser : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
 symbolchooser model halfwidth halfheight =
-    if iskey model.groupselected.symbolkey "hand" then
-        handsymbolchooser model.handsymbol model.groupselected model.symbolsizes halfwidth halfheight
-    else
-        generalsymbolchooser model.groupselected model.selectedcolumn model.symbolsizes halfwidth halfheight
+    let
+        generalsymbolchooserdata =
+            getgeneralsymbolchooser2 model.groupselected model.symbolsizes model.selectedcolumn halfwidth halfheight
+    in
+        if iskey model.groupselected.symbolkey "hand" then
+            handsymbolchooser model.handsymbol model.groupselected model.symbolsizes halfwidth halfheight
+        else
+            generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 
 
 displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
@@ -266,3 +272,150 @@ createsymboldatalist model columndata =
             }
         )
         columndata.displayhanditems
+
+
+
+---
+
+
+getgeneralsymbolchooser2 :
+    { a | base : Base, validfills : String, validrotations : String }
+    -> Dict String Size
+    -> Int
+    -> b
+    -> c
+    -> { generalsymbolrowdata : List { fill : Int, symbol : EditorSymbol }
+       , symbolcolumnsdata :
+            List
+                { generalsymbolonecolumndata :
+                    { show1 : Bool
+                    , show2 : Bool
+                    , symbol1 : EditorSymbol
+                    , symbol2 : EditorSymbol
+                    }
+                }
+       }
+getgeneralsymbolchooser2 choosing symbolsizes selectedcolumn width height =
+    let
+        validfills =
+            choosing.validfills
+
+        validrotations =
+            choosing.validrotations
+
+        base =
+            choosing.base
+
+        vf =
+            getvalidfills validfills
+
+        vr =
+            getvalidrotations validrotations
+
+        column =
+            if isValidRotation selectedcolumn vf then
+                selectedcolumn
+            else
+                1
+
+        generalsymbolrowdata =
+            getsymbolfill base 1 vf symbolsizes
+
+        symbolcolumnsdata =
+            getsymbolcolumnsdata base column vr symbolsizes
+    in
+        { generalsymbolrowdata = generalsymbolrowdata, symbolcolumnsdata = symbolcolumnsdata }
+
+
+getsymbolcolumnsdata :
+    Base
+    -> Fill
+    -> List Rotation
+    -> Dict String Size
+    -> List
+        { generalsymbolonecolumndata :
+            { show1 : Bool
+            , show2 : Bool
+            , symbol1 : EditorSymbol
+            , symbol2 : EditorSymbol
+            }
+        }
+getsymbolcolumnsdata base column vr symbolsizes =
+    List.map
+        (\rotation ->
+            getrowdata base column rotation vr symbolsizes
+        )
+        (List.range 1 8)
+
+
+getrowdata :
+    Base
+    -> Fill
+    -> Int
+    -> List Rotation
+    -> Dict String Size
+    -> { generalsymbolonecolumndata :
+            { show1 : Bool
+            , show2 : Bool
+            , symbol1 : EditorSymbol
+            , symbol2 : EditorSymbol
+            }
+       }
+getrowdata base column rotation vr symbolsizes =
+    let
+        generalsymbolonecolumndata =
+            getgeneralsymbolonecolumndata base column rotation vr symbolsizes
+    in
+        { generalsymbolonecolumndata = generalsymbolonecolumndata }
+
+
+getgeneralsymbolonecolumndata :
+    Base
+    -> Fill
+    -> Int
+    -> List Rotation
+    -> Dict String Size
+    -> { show1 : Bool
+       , symbol1 : EditorSymbol
+       , symbol2 : EditorSymbol
+       , show2 : Bool
+       }
+getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
+    let
+        rotation1 =
+            rotation
+
+        rotation2 =
+            rotation + 8
+
+        showrotation1 =
+            isValidRotation rotation1 validrotations
+
+        showrotation2 =
+            isValidRotation rotation2 validrotations
+
+        symbol1 =
+            getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
+
+        symbol2 =
+            getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
+    in
+        { show1 = showrotation1, symbol1 = symbol1, show2 = showrotation2, symbol2 = symbol2 }
+
+
+getsymbolfill :
+    Base
+    -> Rotation
+    -> List Fill
+    -> Dict String Size
+    -> List { fill : Int, symbol : EditorSymbol }
+getsymbolfill base rotation validfills symbolsizes =
+    List.map
+        (\fill ->
+            let
+                symbol =
+                    getSymbolEditorBaseFillRotation base fill rotation symbolsizes
+            in
+                { symbol = symbol, fill = fill }
+        )
+        validfills
