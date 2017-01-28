@@ -10,88 +10,132 @@ import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
 import Material.Tooltip as Tooltip exposing (attach, render, left)
 import Material.Options as Options exposing (div, cs, when)
+import Material
 
 
 generalgroupchooser : Model -> List ChooserItem -> Html MainChooser.Types.Msg
 generalgroupchooser model choosings =
     let
-        maxheight =
-            3
-
         rowvalues =
             List.sort <| unique <| List.map (\item -> item.row) choosings
+
+        tabledata =
+            createtabledata model choosings rowvalues
     in
-        table []
-            (List.map (\row -> rowchooser model row choosings maxheight) rowvalues)
+        generalgroupchooser1 tabledata
 
 
-rowchooser : Model -> Int -> List ChooserItem -> b -> Html Msg
-rowchooser model row choosings maxheight =
+generalgroupchooser1 tabledata =
+    table []
+        (List.map row tabledata)
+
+
+createtabledata : Model -> List ChooserItem -> List Int -> List (List ColumData)
+createtabledata model choosings rowvalues =
+    List.map
+        (\row ->
+            createrowdata model row choosings
+        )
+        rowvalues
+
+
+createrowdata : Model -> Int -> List ChooserItem -> List ColumData
+createrowdata model row choosings =
     let
-        items =
-            List.filter (\item -> item.row == row) choosings
-
         colvalues =
             List.sort <| unique <| List.map (\item -> item.col) choosings
+
+        rowdata =
+            (List.map (\col -> coldata model row col choosings) colvalues)
     in
-        tr
-            []
-            (List.map (\col -> column model row col maxheight items) colvalues)
+        rowdata
 
 
-column : Model -> Int -> Int -> a -> List ChooserItem -> Html Msg
-column model cat col choosingshigh choosings =
+row rowdata =
+    tr
+        []
+        (List.map column rowdata)
+
+
+coldata :
+    Model
+    -> Int
+    -> Int
+    -> List ChooserItem
+    -> ColumData
+coldata model row col choosings =
     let
         choosingsforcolumn =
             List.filter (\item -> item.col == col) choosings
 
-        data =
+        symboldatalist =
             (choosingsforcolumn
                 |> List.map
                     (\chooseritem ->
-                        let
-                            symbol =
-                                getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
-
-                            mdlid =
-                                symbol.code + 1000
-
-                            modelmdl =
-                                model.mdl
-                        in
-                            { modelmdl = modelmdl, chooseritem = chooseritem, symbol = symbol, mdlid = mdlid }
+                        createsymboldata model chooseritem
                     )
             )
     in
-        td
-            [ class "chosercolumn"
-            , style
-                [ "background-color" => (bkcolor cat col) ]
-            ]
-            (displaySymbolChoosing1 data)
+        { symboldatalist = symboldatalist, row = row, col = col }
 
 
-displaySymbolChoosing1 data =
-    List.map
-        (\item -> displaySymbolChoosing item.modelmdl item.chooseritem item.symbol item.mdlid)
-        data
+type alias ColumData =
+    { col : Int, row : Int, symboldatalist : List SymbolData }
 
 
-displaySymbolChoosing modelmdl chooseritem symbol mdlid =
+createsymboldata :
+    Model
+    -> ChooserItem
+    -> SymbolData
+createsymboldata model chooseritem =
+    let
+        symbol =
+            getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
+
+        mdlid =
+            symbol.code + 1000
+
+        modelmdl =
+            model.mdl
+    in
+        { modelmdl = modelmdl, chooseritem = chooseritem, symbol = symbol, mdlid = mdlid }
+
+
+type alias SymbolData =
+    { chooseritem : ChooserItem
+    , mdlid : Int
+    , modelmdl : Material.Model
+    , symbol : EditorSymbol
+    }
+
+
+column columndata =
+    td
+        [ class "chosercolumn"
+        , style
+            [ "background-color" => (bkcolor columndata.row columndata.col) ]
+        ]
+        (List.map
+            symbol
+            columndata.symboldatalist
+        )
+
+
+symbol symboldata =
     Html.div
-        [ onClick (GroupSelected chooseritem)
-        , onMouseDown (DragSymbol symbol.code)
-        , onDoubleClick (ReplaceSymbol symbol.code)
+        [ onClick (GroupSelected symboldata.chooseritem)
+        , onMouseDown (DragSymbol symboldata.symbol.code)
+        , onDoubleClick (ReplaceSymbol symboldata.symbol.code)
         ]
         [ Options.div
-            [ Tooltip.attach Mdl [ mdlid ] ]
+            [ Tooltip.attach Mdl [ symboldata.mdlid ] ]
             [ Html.map SignView
-                (symbolaloneView symbol 3)
+                (symbolaloneView symboldata.symbol 3)
             ]
         , Tooltip.render Mdl
-            [ mdlid ]
-            modelmdl
+            [ symboldata.mdlid ]
+            symboldata.modelmdl
             [ Tooltip.left ]
-            [ Html.div [ attribute "style" "float:left;" ] [ text chooseritem.name ]
+            [ Html.div [ attribute "style" "float:left;" ] [ text symboldata.chooseritem.name ]
             ]
         ]
