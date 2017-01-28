@@ -212,3 +212,73 @@ iskey key typename =
 
 --iskey "S100" "hand" -> True
 --iskey "S100" "head" -> False
+
+
+getvalidfills : String -> List Fill
+getvalidfills validfillsstring =
+    case validfillsstring of
+        "1 - 6" ->
+            List.range 1 6
+
+        "1 - 4" ->
+            List.range 1 4
+
+        "1, 2" ->
+            List.range 1 2
+
+        "1 - 3" ->
+            List.range 1 3
+
+        "1 - 5" ->
+            List.range 1 5
+
+        "1" ->
+            [ 1 ]
+
+        "2" ->
+            [ 2 ]
+
+        _ ->
+            let
+                a =
+                    Debug.log "Could not match valid fills string" validfillsstring
+            in
+                []
+
+
+getvalidrotations : String -> List Rotation
+getvalidrotations validrotationsstring =
+    case validrotationsstring of
+        "1 - 16" ->
+            List.range 1 16
+
+        "1 - 8" ->
+            List.range 1 8
+
+        "1" ->
+            [ 1 ]
+
+        "1 - 4" ->
+            List.range 1 4
+
+        "1, 2, 4, 5, 6, 8" ->
+            [ 1, 2, 4, 5, 6, 8 ]
+
+        "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16" ->
+            [ 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 ]
+
+        "1 - 6" ->
+            List.range 1 6
+
+        "1, 2" ->
+            List.range 1 2
+
+        "1 - 9" ->
+            List.range 1 9
+
+        _ ->
+            let
+                a =
+                    Debug.log "Could not match valid rotations string" validrotationsstring
+            in
+                []

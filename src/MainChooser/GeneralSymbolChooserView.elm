@@ -14,11 +14,58 @@ import Dict exposing (..)
 generalsymbolchooser : ChooserItem -> Fill -> Dict String Size -> Int -> Int -> Html Msg
 generalsymbolchooser choosing selectedcolumn symbolsizes width height =
     let
+        data =
+            getgeneralsymbolchooser choosing.validfills choosing.validrotations symbolsizes selectedcolumn choosing.base width height
+    in
+        div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
+            [ table
+                [ class "symbolchooserheader"
+                , Html.Attributes.style
+                    [ "width" => px (width - 12)
+                    , "height" => px data.rowheight
+                    ]
+                ]
+                [ tr [] (generalsymbolrow data.generalsymbolrowdata data.scale)
+                ]
+            , table
+                [ Html.Attributes.style
+                    [ "width" => px (width - 12)
+                    , "height" => px (data.rowheight * 8)
+                    ]
+                ]
+                (symbolcolumns data.symbolcolumnsdata)
+            ]
+
+
+getgeneralsymbolchooser :
+    String
+    -> String
+    -> Dict String Size
+    -> Int
+    -> Base
+    -> Int
+    -> Int
+    -> { generalsymbolrowdata : List { fill : Int, symbol : EditorSymbol }
+       , rowheight : Int
+       , scale : Float
+       , symbolcolumnsdata :
+            List
+                { generalsymbolonecolumndata :
+                    { show1 : Bool
+                    , show2 : Bool
+                    , symbol1 : EditorSymbol
+                    , symbol2 : EditorSymbol
+                    }
+                , scale : Float
+                }
+       }
+getgeneralsymbolchooser validfills validrotations symbolsizes selectedcolumn base width height =
+    let
         vf =
-            getvalidfills choosing.validfills
+            getvalidfills validfills
 
         vr =
-            getvalidrotations choosing.validrotations
+            getvalidrotations validrotations
 
         column =
             if isValidRotation selectedcolumn vf then
@@ -36,123 +83,136 @@ generalsymbolchooser choosing selectedcolumn symbolsizes width height =
             truncate <| ((toFloat (width) / 2) / len)
 
         smallestscaleheader =
-            Maybe.withDefault 1 <| getscales columnwidth rowheight <| getsymbols choosing.base vf [ 1 ] symbolsizes
+            Maybe.withDefault 1 <| getscales columnwidth rowheight <| getsymbols base vf [ 1 ] symbolsizes
 
         smallestscalebody =
-            Maybe.withDefault 1 <| getscales columnwidth rowheight <| (getsymbols choosing.base [ column ] (List.range 1 16) symbolsizes)
+            Maybe.withDefault 1 <| getscales columnwidth rowheight <| (getsymbols base [ column ] (List.range 1 16) symbolsizes)
+
+        generalsymbolrowdata =
+            getsymbolfill base 1 vf symbolsizes
+
+        symbolcolumnsdata =
+            getsymbolcolumnsdata base column vr symbolsizes smallestscalebody
     in
-        div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
-            [ table
-                [ class "symbolchooserheader"
-                , Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px rowheight
-                    ]
-                ]
-                [ tr [] (generalsymbolrow choosing.base vf 1 symbolsizes columnwidth rowheight smallestscaleheader)
-                ]
-            , table
-                [ Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px (rowheight * 8)
-                    ]
-                ]
-                [ tr [] (generalsymbolonecolumn choosing.base column 1 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 2 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 3 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 4 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 5 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 6 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 7 vr symbolsizes columnwidth rowheight smallestscalebody)
-                , tr [] (generalsymbolonecolumn choosing.base column 8 vr symbolsizes columnwidth rowheight smallestscalebody)
-                ]
-            ]
+        { rowheight = rowheight, scale = smallestscaleheader, generalsymbolrowdata = generalsymbolrowdata, symbolcolumnsdata = symbolcolumnsdata }
 
 
+symbolcolumns :
+    List
+        { b
+            | generalsymbolonecolumndata :
+                { a
+                    | show1 : Bool
+                    , show2 : Bool
+                    , symbol1 : EditorSymbol
+                    , symbol2 : EditorSymbol
+                }
+            , scale : comparable
+        }
+    -> List (Html Msg)
+symbolcolumns symbolcolumnsdata =
+    List.map row (List.map generalsymbolonecolumn symbolcolumnsdata)
+
+
+getsymbolcolumnsdata :
+    Base
+    -> Fill
+    -> List Rotation
+    -> Dict String Size
+    -> a
+    -> List
+        { generalsymbolonecolumndata :
+            { show1 : Bool
+            , show2 : Bool
+            , symbol1 : EditorSymbol
+            , symbol2 : EditorSymbol
+            }
+        , scale : a
+        }
+getsymbolcolumnsdata base column vr symbolsizes smallestscalebody =
+    List.map
+        (\rotation ->
+            getrowdata base column rotation vr symbolsizes smallestscalebody
+        )
+        (List.range 1 8)
+
+
+getrowdata :
+    Base
+    -> Fill
+    -> Int
+    -> List Rotation
+    -> Dict String Size
+    -> a
+    -> { generalsymbolonecolumndata :
+            { show1 : Bool
+            , show2 : Bool
+            , symbol1 : EditorSymbol
+            , symbol2 : EditorSymbol
+            }
+       , scale : a
+       }
+getrowdata base column rotation vr symbolsizes scale =
+    let
+        generalsymbolonecolumndata =
+            getgeneralsymbolonecolumndata base column rotation vr symbolsizes
+    in
+        { generalsymbolonecolumndata = generalsymbolonecolumndata, scale = scale }
+
+
+row : List (Html msg) -> Html msg
+row rowdata =
+    tr [] (rowdata)
+
+
+getscales : Int -> Int -> List { a | height : Int, width : Int } -> Maybe Float
 getscales columnwidth rowheight symbols =
     List.minimum (List.map (\symbol -> calcscale symbol.width symbol.height columnwidth rowheight) symbols)
 
 
+getsymbols :
+    Base
+    -> List Fill
+    -> List Int
+    -> Dict String Size
+    -> List EditorSymbol
 getsymbols base fills rotations symbolsizes =
-    let
-        symbols =
-            List.concatMap (\rotation -> List.map (\fill -> getSymbolEditorBaseFillRotation base fill rotation symbolsizes) fills) rotations
-    in
-        symbols
+    List.concatMap (\rotation -> List.map (\fill -> getSymbolEditorBaseFillRotation base fill rotation symbolsizes) fills) rotations
 
 
-getvalidfills : String -> List Fill
-getvalidfills validfillsstring =
-    case validfillsstring of
-        "1 - 6" ->
-            List.range 1 6
-
-        "1 - 4" ->
-            List.range 1 4
-
-        "1, 2" ->
-            List.range 1 2
-
-        "1 - 3" ->
-            List.range 1 3
-
-        "1 - 5" ->
-            List.range 1 5
-
-        "1" ->
-            [ 1 ]
-
-        "2" ->
-            [ 2 ]
-
-        _ ->
-            let
-                a =
-                    Debug.log "Could not match valid fills string" validfillsstring
-            in
-                []
+generalsymbolonecolumn :
+    { b
+        | generalsymbolonecolumndata :
+            { a
+                | show1 : Bool
+                , show2 : Bool
+                , symbol1 : EditorSymbol
+                , symbol2 : EditorSymbol
+            }
+        , scale : comparable
+    }
+    -> List (Html Msg)
+generalsymbolonecolumn data =
+    [ blanktd
+    , blanktd
+    , showrotation data.generalsymbolonecolumndata.symbol1 data.generalsymbolonecolumndata.show1 data.scale
+    , blanktd
+    , showrotation data.generalsymbolonecolumndata.symbol2 data.generalsymbolonecolumndata.show2 data.scale
+    ]
 
 
-getvalidrotations : String -> List Rotation
-getvalidrotations validrotationsstring =
-    case validrotationsstring of
-        "1 - 16" ->
-            List.range 1 16
-
-        "1 - 8" ->
-            List.range 1 8
-
-        "1" ->
-            [ 1 ]
-
-        "1 - 4" ->
-            List.range 1 4
-
-        "1, 2, 4, 5, 6, 8" ->
-            [ 1, 2, 4, 5, 6, 8 ]
-
-        "1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16" ->
-            [ 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16 ]
-
-        "1 - 6" ->
-            List.range 1 6
-
-        "1, 2" ->
-            List.range 1 2
-
-        "1 - 9" ->
-            List.range 1 9
-
-        _ ->
-            let
-                a =
-                    Debug.log "Could not match valid rotations string" validrotationsstring
-            in
-                []
-
-
-generalsymbolonecolumn : Base -> Int -> Int -> List Rotation -> Dict String Size -> Int -> Int -> Float -> List (Html MainChooser.Types.Msg)
-generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes columnwidth rowheight scale =
+getgeneralsymbolonecolumndata :
+    Base
+    -> Fill
+    -> Int
+    -> List Rotation
+    -> Dict String Size
+    -> { show1 : Bool
+       , symbol1 : EditorSymbol
+       , symbol2 : EditorSymbol
+       , show2 : Bool
+       }
+getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
     let
         rotation1 =
             rotation
@@ -165,26 +225,29 @@ generalsymbolonecolumn base symbolcol rotation validrotations symbolsizes column
 
         showrotation2 =
             isValidRotation rotation2 validrotations
+
+        symbol1 =
+            getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
+
+        symbol2 =
+            getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
     in
-        [ if showrotation1 then
-            td
-                []
-                [ (generalsymbolcol True base symbolcol rotation symbolsizes columnwidth rowheight scale) ]
-          else
-            blanktd
-        , blanktd
-        , if showrotation2 then
-            td
-                [ Html.Attributes.style
-                    [ "text-align" => "center"
-                    , "display" => "block"
-                    , "width" => "45%"
-                    ]
+        { show1 = showrotation1, symbol1 = symbol1, show2 = showrotation2, symbol2 = symbol2 }
+
+
+showrotation : EditorSymbol -> Bool -> comparable -> Html Msg
+showrotation symbol show scale =
+    if show then
+        td
+            [ Html.Attributes.style
+                [ "text-align" => "center"
+                , "display" => "block"
+                , "width" => "45%"
                 ]
-                [ generalsymbolcol True base symbolcol rotation2 symbolsizes columnwidth rowheight scale ]
-          else
-            blanktd
-        ]
+            ]
+            [ generalsymbolcol True scale symbol ]
+    else
+        blanktd
 
 
 blanktd : Html a
@@ -193,66 +256,80 @@ blanktd =
         []
 
 
-isValidRotation : a -> List a -> Bool
+isValidRotation : Int -> List Int -> Bool
 isValidRotation rotation validrotations =
     List.any ((==) rotation) validrotations
 
 
-generalsymbolrow : Base -> List Fill -> Rotation -> Dict String Size -> Int -> Int -> Float -> List (Html MainChooser.Types.Msg)
-generalsymbolrow base validfills rotation symbolsizes columnwidth rowheight scale =
+generalsymbolrow :
+    List
+        { a
+            | fill : Int
+            , symbol :
+                EditorSymbol
+        }
+    -> comparable
+    -> List (Html Msg)
+generalsymbolrow generalsymbolrowdata scale =
+    List.map
+        (\d ->
+            td
+                [ onClick (SelectedColumn d.fill)
+                , onMouseDown (DragSymbol d.symbol.code)
+                , onDoubleClick (ReplaceSymbol d.symbol.code)
+                ]
+                [ (generalsymbolcol False scale d.symbol) ]
+        )
+        generalsymbolrowdata
+
+
+getsymbolfill :
+    Base
+    -> Rotation
+    -> List Fill
+    -> Dict String Size
+    -> List { fill : Int, symbol : EditorSymbol }
+getsymbolfill base rotation validfills symbolsizes =
     List.map
         (\fill ->
             let
                 symbol =
                     getSymbolEditorBaseFillRotation base fill rotation symbolsizes
             in
-                td
-                    [ onClick (SelectedColumn fill)
-                    , onMouseDown (DragSymbol symbol.code)
-                    , onDoubleClick (ReplaceSymbol symbol.code)
-                    ]
-                    [ (generalsymbolcol False base fill rotation symbolsizes columnwidth rowheight scale) ]
+                { symbol = symbol, fill = fill }
         )
         validfills
 
 
-generalsymbolcol : Bool -> Base -> Fill -> Rotation -> Dict String Size -> Int -> Int -> Float -> Html MainChooser.Types.Msg
-generalsymbolcol drag base fill rotation symbolsizes columnwidth rowheight scale =
-    let
-        symbol =
-            getSymbolEditorBaseFillRotation base fill rotation symbolsizes
-
-        sign =
-            { syms = [ symbol ]
-            }
-    in
-        -- Html.map SymbolView (symbolView "" symbol)
-        div
-            [ onMouseDown
-                (if (drag) then
-                    DragSymbol symbol.code
-                 else
-                    Noop
-                )
-            , onDoubleClick
-                (ReplaceSymbol symbol.code)
-            , Html.Attributes.style (scaling scale)
-            ]
-            [ Html.map SignView
-                (signView sign
-                    [ Html.Attributes.style
-                        [ "position" => "relative"
-                        , "margin" => "auto"
-                        , "left" => px 0
-                        , "top" => px 4
-                        , "width" => px symbol.width
-                        , "height" => px symbol.height
-                        ]
+generalsymbolcol : Bool -> comparable -> EditorSymbol -> Html Msg
+generalsymbolcol drag scale symbol =
+    div
+        [ onMouseDown
+            (if (drag) then
+                DragSymbol symbol.code
+             else
+                Noop
+            )
+        , onDoubleClick
+            (ReplaceSymbol symbol.code)
+        , Html.Attributes.style (scaling scale)
+        ]
+        [ Html.map SignView
+            (signView { syms = [ symbol ] }
+                [ Html.Attributes.style
+                    [ "position" => "relative"
+                    , "margin" => "auto"
+                    , "left" => px 0
+                    , "top" => px 4
+                    , "width" => px symbol.width
+                    , "height" => px symbol.height
                     ]
-                )
-            ]
+                ]
+            )
+        ]
 
 
+scaling : comparable -> List ( String, String )
 scaling scale =
     if scale <= 1 then
         [ "transform" => ("scale(" ++ toString scale ++ ")") ]
@@ -260,5 +337,6 @@ scaling scale =
         []
 
 
+calcscale : Int -> Int -> Int -> Int -> Float
 calcscale swidth sheight columnwidth rowheight =
-    Basics.min (toFloat columnwidth / toFloat swidth) (toFloat rowheight / toFloat swidth)
+    Basics.min (toFloat columnwidth / toFloat swidth) (toFloat rowheight / toFloat sheight)
