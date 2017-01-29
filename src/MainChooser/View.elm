@@ -15,6 +15,7 @@ import MainChooser.HandSymbolChooserView exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
+import MainChooser.CompassRose exposing (..)
 
 
 root : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
@@ -64,9 +65,12 @@ symbolchooser model halfwidth halfheight =
     let
         generalsymbolchooserdata =
             getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
+
+        rosepetaldata =
+            createrosepetaldata model.handsymbol
     in
         if iskey model.groupselected.symbolkey "hand" then
-            handsymbolchooser model.handsymbol model.groupselected model.symbolsizes halfwidth halfheight
+            handsymbolchooser model.handsymbol rosepetaldata halfwidth halfheight
         else
             generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 

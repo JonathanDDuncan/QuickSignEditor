@@ -5,15 +5,15 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.Types exposing (..)
-import SW.Types exposing (..)
-import Dict exposing (..)
 import List.Extra exposing (..)
-import MainChooser.CompassRoseView exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import MainChooser.CompassRose exposing (..)
 
 
-handsymbolchooser : HandSymbol -> ChooserItem -> Dict String Size -> Int -> Int -> Html Msg
-handsymbolchooser handsymbol choosing symbolsizes width height =
+--View
+
+
+handsymbolchooser handsymbol rosepetaldata width height =
     let
         rowheight =
             truncate <| toFloat height / toFloat 10
@@ -40,7 +40,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , compassrose handsymbol 220
+            , compassrose handsymbol.handfill rosepetaldata 220
             ]
 
 
@@ -131,3 +131,7 @@ selectedbackground expected currentselected =
         style [ "background" => "#7b85c0" ]
     else
         style []
+
+
+
+--State
