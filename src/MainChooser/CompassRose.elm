@@ -8,6 +8,7 @@ import SWEditor.EditorSymbol exposing (..)
 import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import MainChooser.HandPng exposing (..)
+import List.Extra exposing (..)
 
 
 --View
@@ -33,7 +34,7 @@ compassrose handfill rosepetaldata fullwidth =
         compassrosediv fullwidth fullheight itemwidth itemheight rosepetaldata.roseouterpetaldata rosecenterimagehands 0
 
 
-handimagecenter rosecenterpetaldata parentsize parentitemsize =
+handimagecenter petals parentsize parentitemsize =
     let
         fullwidth =
             truncate (toFloat parentsize - (toFloat parentitemsize * 1.75))
@@ -44,7 +45,7 @@ handimagecenter rosecenterpetaldata parentsize parentitemsize =
         top =
             -20
     in
-        compassrosediv fullwidth fullwidth itemwidth itemwidth rosecenterpetaldata (text "") top
+        compassrosediv fullwidth fullwidth itemwidth itemwidth petals (text "") top
 
 
 compassrosediv :
@@ -71,6 +72,9 @@ compassrosediv fullwidth fullheight itemwidth itemheight petals rosecenter top =
 
         centerfloating =
             truncate ((toFloat fullwidth / 2) - (sqrt (((radius) * (radius)) / 2)))
+
+        petalcontent =
+            [ petals.petal1, petals.petal2, petals.petal3, petals.petal4, petals.petal5, petals.petal6, petals.petal7, petals.petal8 ]
     in
         div
             [ style
@@ -94,67 +98,67 @@ compassrosediv fullwidth fullheight itemwidth itemheight petals rosecenter top =
                     [ rosecenter
                     ]
                 ]
-                (createpetals petals itemwidth fullwidth fullheight itemheight centerfloating)
+                (createpetals petalcontent itemwidth fullwidth fullheight itemheight centerfloating)
             )
 
 
-createpetals petals itemwidth fullwidth fullheight itemheight centerfloating =
+createpetals petalcontent itemwidth fullwidth fullheight itemheight centerfloating =
+    let
+        petallayout =
+            getpetallayout itemwidth fullwidth fullheight itemheight centerfloating
+    in
+        List.map (\( layout, content ) -> layout content) (List.Extra.zip petallayout petalcontent)
+
+
+getpetallayout itemwidth fullwidth fullheight itemheight centerfloating =
     [ petaldiv
         itemwidth
         itemheight
         0
         (centered fullwidth itemwidth)
         5
-        petals.petal1
     , petaldiv
         itemwidth
         itemheight
         (centered (centerfloating * 2) itemwidth)
         (centered (centerfloating * 2) itemheight)
         5
-        petals.petal2
     , petaldiv
         itemwidth
         itemheight
         (centered fullheight itemheight)
         0
         10
-        petals.petal3
     , petaldiv
         itemwidth
         itemheight
         (centered ((fullheight - centerfloating) * 2) itemwidth)
         (centered (centerfloating * 2) itemwidth)
         5
-        petals.petal4
     , petaldiv
         itemwidth
         itemheight
         (fullheight - itemheight)
         (centered fullwidth itemwidth)
         5
-        petals.petal5
     , petaldiv
         itemwidth
         itemheight
         (centered ((fullheight - centerfloating) * 2) itemwidth)
         (centered ((fullwidth - centerfloating) * 2) itemwidth)
         5
-        petals.petal6
     , petaldiv
         itemwidth
         itemheight
         (centered fullheight itemheight)
         (fullwidth - itemwidth)
         5
-        petals.petal7
     , petaldiv
         itemwidth
         itemheight
         (centered (centerfloating * 2) itemwidth)
         (centered ((fullwidth - centerfloating) * 2) itemwidth)
         10
-        petals.petal8
     ]
 
 
