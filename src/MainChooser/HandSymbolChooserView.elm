@@ -9,6 +9,7 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import List.Extra exposing (..)
 import MainChooser.CompassRoseView exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 handsymbolchooser : HandSymbol -> ChooserItem -> Dict String Size -> Int -> Int -> Html Msg
@@ -26,7 +27,7 @@ handsymbolchooser handsymbol choosing symbolsizes width height =
                     ]
                 ]
                 [ tr [] <|
-                    List.append (handselection handsymbol rowheight)
+                    List.append (handselectionboth handsymbol rowheight)
                         (planeselection handsymbol)
                 ]
             , table
@@ -75,39 +76,52 @@ fillsview handsymbol rowheight =
     )
 
 
-handselection : HandSymbol -> Int -> List (Html Msg)
-handselection handsymbol rowheight =
-    [ td [ onClick (SelectHand Left), selectedbackground Left handsymbol.hand ]
-        [ div
-            [ style
-                [ "position" => "relative"
-                , "display" => "block"
-                , "top" => px -8
-                , "left" => px -15
-                ]
-            ]
-            [ symbolcentered False handsymbol.symbollefthand 50 rowheight ]
-        , div [] [ text "Left" ]
-        ]
-    , td [ onClick (SelectHand Right), selectedbackground Right handsymbol.hand ]
-        [ div
-            [ style
-                [ "position" => "relative"
-                , "display" => "block"
-                , "top" => px -8
-                , "left" => px -15
-                ]
-            ]
-            [ symbolcentered False handsymbol.symbolrighthand 50 rowheight ]
-        , div [] [ text "Right" ]
-        ]
+handselectionboth : HandSymbol -> Int -> List (Html Msg)
+handselectionboth handsymbol rowheight =
+    [ handselection handsymbol rowheight Left .symbollefthand "Left"
+    , handselection handsymbol rowheight Right .symbolrighthand "Right"
     ]
+
+
+handselection :
+    { a | hand : Hands }
+    -> Int
+    -> Hands
+    -> ({ a | hand : Hands } -> EditorSymbol)
+    -> String
+    -> Html Msg
+handselection handsymbol rowheight handType symbolgetter label =
+    td [ onClick (SelectHand handType), selectedbackground handType handsymbol.hand ]
+        [ div
+            [ style
+                [ "position" => "relative"
+                , "display" => "block"
+                , "top" => px -8
+                , "left" => px -15
+                ]
+            ]
+            [ symbolcentered False (symbolgetter handsymbol) 50 rowheight ]
+        , div [] [ text label ]
+        ]
+
+
+pngfolder : String
+pngfolder =
+    "./assets/img/"
 
 
 planeselection : { a | plane : Planes } -> List (Html Msg)
 planeselection handsymbol =
-    [ td [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ] [ img [ src "./assets/img/wallplanesmall.png", width 50 ] [], div [] [ text "Wall" ] ]
-    , td [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ] [ img [ src "./assets/img/floorplanesmall.png", width 50 ] [], div [] [ text "Floor" ] ]
+    [ td
+        [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ]
+        [ img [ src <| pngfolder ++ "wallplanesmall.png", width 50 ] []
+        , div [] [ text "Wall" ]
+        ]
+    , td
+        [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ]
+        [ img [ src <| pngfolder ++ "floorplanesmall.png", width 50 ] []
+        , div [] [ text "Floor" ]
+        ]
     ]
 
 
