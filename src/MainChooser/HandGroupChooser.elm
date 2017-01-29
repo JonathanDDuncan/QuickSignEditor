@@ -1,4 +1,4 @@
-module MainChooser.HandGroupChooser exposing (..)
+module MainChooser.HandGroupChooser exposing (gethandgroupchooserdata, createhandgroupchooserdata, handgroupchooser)
 
 import MainChooser.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
@@ -6,6 +6,137 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import String exposing (..)
 import List.Extra exposing (..)
+
+
+--View
+
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import MainChooser.Types exposing (..)
+import ViewHelper.ViewExtra exposing (..)
+import SWEditor.Display exposing (signView, symbolaloneView)
+import SWEditor.SymbolToolTip exposing (..)
+
+
+handgroupchooser : List (List (List HandGroupChooserViewColumnData)) -> Html Msg
+handgroupchooser tabledata =
+    Html.div []
+        [ Html.div []
+            [ button [ Html.Events.onClick (FilterHandGroup 1) ] [ text "common" ]
+            , button [ Html.Events.onClick (FilterHandGroup 2) ] [ text "not common" ]
+            , button [ Html.Events.onClick (FilterHandGroup 3) ] [ text "all" ]
+            ]
+        , table []
+            (List.concatMap (List.map row) tabledata)
+        ]
+
+
+row : List HandGroupChooserViewColumnData -> Html Msg
+row rowdata =
+    tr
+        []
+        (List.map column rowdata)
+
+
+column : HandGroupChooserViewColumnData -> Html Msg
+column columndata =
+    td
+        [ class "chosercolumn"
+        , style
+            [ "background-color" => columndata.backgroundcolor ]
+        ]
+        (List.map symbol columndata.symboldatalist)
+
+
+symbol : HandGroupChooserViewSymbolData -> Html Msg
+symbol symboldata =
+    Html.div
+        [ Html.Events.onClick (GroupSelected symboldata.chooseritem)
+        , onMouseDown (DragSymbol symboldata.symbol.code)
+        , onDoubleClick (ReplaceSymbol symboldata.symbol.code)
+        ]
+        (symboltooltip
+            symboldata.modelmdl
+            symboldata.mdlid
+            symboldata.chooseritem.name
+            symboldata.chooseritem.symbolkey
+            1
+            2
+            RightThumbEdge
+            [ Html.map SignView
+                (symbolaloneView symboldata.symbol 5)
+            ]
+        )
+
+
+
+--State
+
+
+createhandgroupchooserdata : MainChooser.Types.Model -> List (List (List HandGroupChooserViewColumnData))
+createhandgroupchooserdata model =
+    (List.map
+        (\data ->
+            let
+                tabledata2 =
+                    createrowdata model data
+            in
+                tabledata2
+        )
+        model.handgroupchooseritems
+    )
+
+
+createrowdata : MainChooser.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
+createrowdata model tabledata =
+    let
+        filtered =
+            List.filter
+                (\columndata ->
+                    List.length columndata > 0
+                )
+                tabledata
+
+        rowdata =
+            List.map
+                (\rowdata1 ->
+                    createcolumndata model rowdata1
+                )
+                filtered
+    in
+        rowdata
+
+
+createcolumndata : MainChooser.Types.Model -> List HandGroupChooserSubList -> List HandGroupChooserViewColumnData
+createcolumndata model rowdata =
+    (List.map
+        (\coldata ->
+            let
+                symboldatalist =
+                    createsymboldatalist model coldata
+            in
+                { symboldatalist = symboldatalist, backgroundcolor = coldata.backgroundcolor }
+        )
+        rowdata
+    )
+
+
+createsymboldatalist : MainChooser.Types.Model -> HandGroupChooserSubList -> List HandGroupChooserViewSymbolData
+createsymboldatalist model columndata =
+    List.map
+        (\displayhanditem ->
+            { modelmdl = model.mdl
+            , symbol = displayhanditem.symbol
+            , chooseritem = displayhanditem.chooseritem
+            , mdlid = displayhanditem.mdlid
+            }
+        )
+        columndata.displayhanditems
+
+
+
+-- Prepare data for creating view data
 
 
 gethandgroupchooserdata model =
@@ -20,12 +151,12 @@ gethandgroupchooserdata model =
             List.sort <| List.Extra.unique <| List.map (\item -> item.row) choosings
 
         handgroupchooserdata =
-            (List.map (\row -> createrowdata model row choosings) rowvalues)
+            (List.map (\row -> createrowdata1 model row choosings) rowvalues)
     in
         handgroupchooserdata
 
 
-createrowdata :
+createrowdata1 :
     Model
     -> Int
     -> List ChooserItem
@@ -40,7 +171,7 @@ createrowdata :
                     }
             }
         )
-createrowdata model row handgroupchoosings =
+createrowdata1 model row handgroupchoosings =
     let
         rowitems =
             List.filter (\item -> item.row == row) handgroupchoosings
@@ -63,10 +194,10 @@ createrowdata model row handgroupchoosings =
 
 
 converttocolumns model row colvalues items =
-    filter (List.map (\col -> createcolumndata model row col items) colvalues)
+    filter (List.map (\col -> createcolumndata1 model row col items) colvalues)
 
 
-createcolumndata :
+createcolumndata1 :
     Model
     -> Int
     -> Int
@@ -75,7 +206,7 @@ createcolumndata :
        , displayhanditems :
             List { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
        }
-createcolumndata model cat col choosings =
+createcolumndata1 model cat col choosings =
     let
         filteredhandgroupitems =
             filterhandgroupitems col (model.handgroupfilter) choosings

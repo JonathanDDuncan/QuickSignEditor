@@ -66,9 +66,12 @@ symbol symboldata =
 --State functions
 
 
-creategeneralgroupchooserdata : Model -> String -> List (List GeneralGroupChooserColumData)
-creategeneralgroupchooserdata model basesymbol =
+creategeneralgroupchooserdata : Model -> List (List GeneralGroupChooserColumData)
+creategeneralgroupchooserdata model =
     let
+        basesymbol =
+            String.slice 0 4 model.clicked
+
         choosings =
             getchoosings basesymbol model.allgroupchoosings
 
