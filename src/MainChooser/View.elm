@@ -65,12 +65,9 @@ symbolchooser model halfwidth halfheight =
     let
         generalsymbolchooserdata =
             getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
-
-        rosepetaldata =
-            createrosepetaldata model.handsymbol
     in
         if iskey model.groupselected.symbolkey "hand" then
-            handsymbolchooser model.handsymbol rosepetaldata halfwidth halfheight
+            handsymbolchooser model halfwidth halfheight
         else
             generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 

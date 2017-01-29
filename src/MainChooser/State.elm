@@ -300,7 +300,7 @@ update action model =
         UpdateHandSymbolChooser ->
             let
                 flowersymbols =
-                    getpetals model.handsymbol model.groupselected.base model.symbolsizes
+                    createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
 
                 symbollefthand =
                     getSymbolEditorBaseFillRotation model.groupselected.base 3 9 model.symbolsizes

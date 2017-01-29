@@ -2,6 +2,7 @@ module MainChooser.HandSymbolChooser exposing (..)
 
 import MainChooser.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SWEditor.Display exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import MainChooser.HandPng exposing (..)
@@ -20,16 +21,20 @@ import MainChooser.CompassRose exposing (..)
 import MainChooser.HandPng exposing (..)
 
 
-handsymbolchooser handsymbol rosepetaldata width height =
+handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> Html Msg
+handsymbolchooser model width height =
     let
+        handsymbol =
+            model.handsymbol
+
+        rosecenterpetaldata =
+            List.map (\fs -> handpngpetal fs.handpng) handsymbol.flowersymbols
+
+        roseouterpetaldata =
+            List.map petal handsymbol.flowersymbols
+
         rowheight =
             truncate <| toFloat height / toFloat 10
-
-        petals =
-            rosepetaldata.roseouterpetaldata
-
-        petalcontent =
-            [ petals.petal1, petals.petal2, petals.petal3, petals.petal4, petals.petal5, petals.petal6, petals.petal7, petals.petal8 ]
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -53,7 +58,7 @@ handsymbolchooser handsymbol rosepetaldata width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , compassrose handsymbol.handfill rosepetaldata petalcontent 220
+            , compassrose handsymbol.handfill rosecenterpetaldata roseouterpetaldata 220
             ]
 
 
@@ -146,7 +151,8 @@ selectedbackground expected currentselected =
         style []
 
 
-compassrose handfill rosepetaldata petalcontent fullwidth =
+compassrose : HandFills -> List (Html msg) -> List (Html msg) -> Int -> Html msg
+compassrose handfill rosecenterpetaldata petalcontent fullwidth =
     let
         fullheight =
             fullwidth
@@ -161,16 +167,14 @@ compassrose handfill rosepetaldata petalcontent fullwidth =
             if (handfill == LeftBabyEdge || handfill == RightBabyEdge) then
                 text ""
             else
-                handimagecenter rosepetaldata.rosecenterpetaldata fullwidth itemwidth
+                handimagecenter rosecenterpetaldata fullwidth itemwidth
     in
-        compassrosediv fullwidth fullheight itemwidth itemheight petalcontent rosecenterimagehands 0
+        compassrosediv fullwidth fullheight itemwidth itemheight 0 petalcontent rosecenterimagehands
 
 
-handimagecenter petals parentsize parentitemsize =
+handimagecenter : List (Html msg) -> Int -> Int -> Html msg
+handimagecenter petalcontent parentsize parentitemsize =
     let
-        petalcontent =
-            [ petals.petal1, petals.petal2, petals.petal3, petals.petal4, petals.petal5, petals.petal6, petals.petal7, petals.petal8 ]
-
         fullwidth =
             truncate (toFloat parentsize - (toFloat parentitemsize * 1.75))
 
@@ -180,24 +184,50 @@ handimagecenter petals parentsize parentitemsize =
         top =
             -20
     in
-        compassrosediv fullwidth fullwidth itemwidth itemwidth petalcontent (text "") top
+        compassrosediv fullwidth fullwidth itemwidth itemwidth top petalcontent (text "")
+
+
+symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
+symbolcentered drag symbol width height =
+    div
+        [ style
+            [ "position" => "relative"
+            , "width" => px width
+            , "height" => px height
+            , "margin" => "auto"
+            ]
+        ]
+        [ div
+            [ if drag then
+                onMouseDown (DragSymbol symbol.code)
+              else
+                onMouseDown Noop
+            , onDoubleClick
+                (ReplaceSymbol symbol.code)
+            ]
+            [ Html.map SignView
+                (SWEditor.Display.symbolView1 "" symbol)
+            ]
+        ]
 
 
 
 --State
 
 
-createrosepetaldata handsymbol =
+createflowersymbols : HandSymbol -> Base -> Dict String Size -> List Petal
+createflowersymbols handsymbol base symbolsizes =
     let
-        rosecenterpetaldata =
-            createrosecenterpetaldata handsymbol
-
-        roseouterpetaldata =
-            createroseouterpetaldata handsymbol
+        selectedhandfillitem =
+            gethandfillitem base symbolsizes handsymbol.plane handsymbol.handfill
     in
-        { rosecenterpetaldata = rosecenterpetaldata, roseouterpetaldata = roseouterpetaldata }
+        if selectedhandfillitem.rotation == 1 then
+            List.map (createpetal symbolsizes base selectedhandfillitem) [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+        else
+            List.map (createpetal symbolsizes base selectedhandfillitem) [ 1, 8, 7, 6, 5, 4, 3, 2 ]
 
 
+petal : Petal -> Html Msg
 petal handfill =
     symbolcentered True handfill.symbol handfill.symbol.width handfill.symbol.height
 
@@ -209,48 +239,26 @@ handpngpetal handpng =
     handpngspan handpng "" "scale(0.75)"
 
 
-createroseouterpetaldata handsymbol =
-    { petal1 = petal handsymbol.flowersymbols.handfill1
-    , petal2 = petal handsymbol.flowersymbols.handfill2
-    , petal3 = petal handsymbol.flowersymbols.handfill3
-    , petal4 = petal handsymbol.flowersymbols.handfill4
-    , petal5 = petal handsymbol.flowersymbols.handfill5
-    , petal6 = petal handsymbol.flowersymbols.handfill6
-    , petal7 = petal handsymbol.flowersymbols.handfill7
-    , petal8 = petal handsymbol.flowersymbols.handfill8
-    }
-
-
-createrosecenterpetaldata handsymbol =
-    { petal1 = handpngpetal handsymbol.flowersymbols.handfill1.handpng
-    , petal2 = handpngpetal handsymbol.flowersymbols.handfill2.handpng
-    , petal3 = handpngpetal handsymbol.flowersymbols.handfill3.handpng
-    , petal4 = handpngpetal handsymbol.flowersymbols.handfill4.handpng
-    , petal5 = handpngpetal handsymbol.flowersymbols.handfill5.handpng
-    , petal6 = handpngpetal handsymbol.flowersymbols.handfill6.handpng
-    , petal7 = handpngpetal handsymbol.flowersymbols.handfill7.handpng
-    , petal8 = handpngpetal handsymbol.flowersymbols.handfill8.handpng
-    }
-
-
 gethandfillitems : Base -> Dict.Dict String Size -> Hands -> Planes -> List HandFillItem
 gethandfillitems base symbolsizes handtype planetype =
-    if handtype == Right then
-        [ gethandfillitem base symbolsizes RightBabyEdge planetype
-        , gethandfillitem base symbolsizes RightPalm planetype
-        , gethandfillitem base symbolsizes RightThumbEdge planetype
-        , gethandfillitem base symbolsizes RightBack planetype
-        ]
-    else
-        [ gethandfillitem base symbolsizes LeftBabyEdge planetype
-        , gethandfillitem base symbolsizes LeftPalm planetype
-        , gethandfillitem base symbolsizes LeftThumbEdge planetype
-        , gethandfillitem base symbolsizes LeftBack planetype
-        ]
+    List.map (gethandfillitem base symbolsizes planetype)
+        (if handtype == Right then
+            [ RightBabyEdge
+            , RightPalm
+            , RightThumbEdge
+            , RightBack
+            ]
+         else
+            [ LeftBabyEdge
+            , LeftPalm
+            , LeftThumbEdge
+            , LeftBack
+            ]
+        )
 
 
-gethandfillitem : Base -> Dict String Size -> HandFills -> Planes -> HandFillItem
-gethandfillitem base symbolsizes handfilltype planetype =
+gethandfillitem : Base -> Dict String Size -> Planes -> HandFills -> HandFillItem
+gethandfillitem base symbolsizes planetype handfilltype =
     List.filter (\hf -> hf.filltype == handfilltype && hf.planetype == planetype) (handfillitems base symbolsizes)
         |> List.head
         |> Maybe.withDefault { fill = 0, rotation = 0, filltype = handfilltype, planetype = planetype, symbol = symbolinit }
@@ -258,23 +266,24 @@ gethandfillitem base symbolsizes handfilltype planetype =
 
 handfillitems : Base -> Dict String Size -> List HandFillItem
 handfillitems base symbolsizes =
-    [ createhandfillitem base symbolsizes { fill = 2, rotation = 9, filltype = RightBabyEdge, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 1, rotation = 1, filltype = RightPalm, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 2, rotation = 1, filltype = RightThumbEdge, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 3, rotation = 1, filltype = RightBack, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 2, rotation = 1, filltype = LeftBabyEdge, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 1, rotation = 9, filltype = LeftPalm, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 2, rotation = 9, filltype = LeftThumbEdge, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 3, rotation = 9, filltype = LeftBack, planetype = Wall }
-    , createhandfillitem base symbolsizes { fill = 5, rotation = 9, filltype = RightBabyEdge, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 4, rotation = 1, filltype = RightPalm, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 5, rotation = 1, filltype = RightThumbEdge, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 6, rotation = 1, filltype = RightBack, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 5, rotation = 1, filltype = LeftBabyEdge, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 4, rotation = 9, filltype = LeftPalm, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 5, rotation = 9, filltype = LeftThumbEdge, planetype = Floor }
-    , createhandfillitem base symbolsizes { fill = 6, rotation = 9, filltype = LeftBack, planetype = Floor }
-    ]
+    List.map (createhandfillitem base symbolsizes)
+        [ { fill = 2, rotation = 9, filltype = RightBabyEdge, planetype = Wall }
+        , { fill = 1, rotation = 1, filltype = RightPalm, planetype = Wall }
+        , { fill = 2, rotation = 1, filltype = RightThumbEdge, planetype = Wall }
+        , { fill = 3, rotation = 1, filltype = RightBack, planetype = Wall }
+        , { fill = 2, rotation = 1, filltype = LeftBabyEdge, planetype = Wall }
+        , { fill = 1, rotation = 9, filltype = LeftPalm, planetype = Wall }
+        , { fill = 2, rotation = 9, filltype = LeftThumbEdge, planetype = Wall }
+        , { fill = 3, rotation = 9, filltype = LeftBack, planetype = Wall }
+        , { fill = 5, rotation = 9, filltype = RightBabyEdge, planetype = Floor }
+        , { fill = 4, rotation = 1, filltype = RightPalm, planetype = Floor }
+        , { fill = 5, rotation = 1, filltype = RightThumbEdge, planetype = Floor }
+        , { fill = 6, rotation = 1, filltype = RightBack, planetype = Floor }
+        , { fill = 5, rotation = 1, filltype = LeftBabyEdge, planetype = Floor }
+        , { fill = 4, rotation = 9, filltype = LeftPalm, planetype = Floor }
+        , { fill = 5, rotation = 9, filltype = LeftThumbEdge, planetype = Floor }
+        , { fill = 6, rotation = 9, filltype = LeftBack, planetype = Floor }
+        ]
 
 
 createhandfillitem : Base -> Dict String Size -> HandItem -> HandFillItem
@@ -286,40 +295,8 @@ createhandfillitem base symbolsizes basefillitem =
         { fill = basefillitem.fill, rotation = basefillitem.rotation, filltype = basefillitem.filltype, planetype = basefillitem.planetype, symbol = symbol }
 
 
-getpetals :
-    { a | handfill : HandFills, plane : Planes }
-    -> Base
-    -> Dict String Size
-    -> Flower
-getpetals handsymbol base symbolsizes =
-    let
-        selectedhandfillitem =
-            gethandfillitem base symbolsizes handsymbol.handfill handsymbol.plane
-    in
-        if selectedhandfillitem.rotation == 1 then
-            { handfill1 = calcpetal symbolsizes base selectedhandfillitem 1
-            , handfill2 = calcpetal symbolsizes base selectedhandfillitem 2
-            , handfill3 = calcpetal symbolsizes base selectedhandfillitem 3
-            , handfill4 = calcpetal symbolsizes base selectedhandfillitem 4
-            , handfill5 = calcpetal symbolsizes base selectedhandfillitem 5
-            , handfill6 = calcpetal symbolsizes base selectedhandfillitem 6
-            , handfill7 = calcpetal symbolsizes base selectedhandfillitem 7
-            , handfill8 = calcpetal symbolsizes base selectedhandfillitem 8
-            }
-        else
-            { handfill1 = calcpetal symbolsizes base selectedhandfillitem 1
-            , handfill2 = calcpetal symbolsizes base selectedhandfillitem 8
-            , handfill3 = calcpetal symbolsizes base selectedhandfillitem 7
-            , handfill4 = calcpetal symbolsizes base selectedhandfillitem 6
-            , handfill5 = calcpetal symbolsizes base selectedhandfillitem 5
-            , handfill6 = calcpetal symbolsizes base selectedhandfillitem 4
-            , handfill7 = calcpetal symbolsizes base selectedhandfillitem 3
-            , handfill8 = calcpetal symbolsizes base selectedhandfillitem 2
-            }
-
-
-calcpetal : Dict String Size -> Base -> HandFillItem -> Int -> Petal
-calcpetal symbolsizes base selectedhandfillitem rotationoffset =
+createpetal : Dict String Size -> Base -> HandFillItem -> Int -> Petal
+createpetal symbolsizes base selectedhandfillitem rotationoffset =
     let
         finalrotationoffset =
             rotationoffset - 1

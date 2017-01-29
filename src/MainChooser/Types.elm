@@ -82,7 +82,7 @@ type alias HandSymbol =
     , plane : Planes
     , handfill : HandFills
     , rotationselection : Int
-    , flowersymbols : Flower
+    , flowersymbols : List Petal
     , symbollefthand : EditorSymbol
     , symbolrighthand : EditorSymbol
     , handfillitems : List HandFillItem
@@ -95,7 +95,7 @@ handsymbolinit =
     , plane = Wall
     , handfill = RightPalm
     , rotationselection = 1
-    , flowersymbols = flowerinit
+    , flowersymbols = []
     , symbollefthand = symbolinit
     , symbolrighthand = symbolinit
     , handfillitems = []
@@ -297,31 +297,6 @@ petalinit =
         , pngcss = ""
         , rotate = 0
         }
-    }
-
-
-type alias Flower =
-    { handfill1 : Petal
-    , handfill2 : Petal
-    , handfill3 : Petal
-    , handfill4 : Petal
-    , handfill5 : Petal
-    , handfill6 : Petal
-    , handfill7 : Petal
-    , handfill8 : Petal
-    }
-
-
-flowerinit : Flower
-flowerinit =
-    { handfill1 = petalinit
-    , handfill2 = petalinit
-    , handfill3 = petalinit
-    , handfill4 = petalinit
-    , handfill5 = petalinit
-    , handfill6 = petalinit
-    , handfill7 = petalinit
-    , handfill8 = petalinit
     }
 
 

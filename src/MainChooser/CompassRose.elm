@@ -1,19 +1,16 @@
-module MainChooser.CompassRose exposing (compassrosediv, symbolcentered)
+module MainChooser.CompassRose exposing (compassrosediv)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import SWEditor.EditorSymbol exposing (..)
-import MainChooser.Types exposing (..)
-import SWEditor.Display exposing (signView)
 import List.Extra exposing (..)
 
 
 --View
 
 
-compassrosediv fullwidth fullheight itemwidth itemheight petalcontent rosecenter top =
+compassrosediv : Int -> Int -> Int -> Int -> Int -> List (Html b) -> Html b -> Html b
+compassrosediv fullwidth fullheight itemwidth itemheight top petalcontent rosecenter =
     let
         radius =
             (toFloat fullwidth / 2) - (toFloat itemwidth / 2)
@@ -43,11 +40,12 @@ compassrosediv fullwidth fullheight itemwidth itemheight petalcontent rosecenter
                     [ rosecenter
                     ]
                 ]
-                (createpetals petalcontent itemwidth fullwidth fullheight itemheight centerfloating)
+                (createpetallayout petalcontent itemwidth fullwidth fullheight itemheight centerfloating)
             )
 
 
-createpetals petalcontent itemwidth fullwidth fullheight itemheight centerfloating =
+createpetallayout : List (Html b) -> Int -> Int -> Int -> Int -> Int -> List (Html b)
+createpetallayout petalcontent itemwidth fullwidth fullheight itemheight centerfloating =
     let
         petallayout =
             getpetallayout itemwidth fullwidth fullheight itemheight centerfloating
@@ -55,6 +53,7 @@ createpetals petalcontent itemwidth fullwidth fullheight itemheight centerfloati
         List.map (\( layout, content ) -> layout content) (List.Extra.zip petallayout petalcontent)
 
 
+getpetallayout : Int -> Int -> Int -> Int -> Int -> List (Html b -> Html b)
 getpetallayout itemwidth fullwidth fullheight itemheight centerfloating =
     [ petaldiv
         itemwidth
@@ -123,30 +122,6 @@ petaldiv width height top left paddingtop display =
         ]
 
 
-symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
-symbolcentered drag symbol width height =
-    div
-        [ style
-            [ "position" => "relative"
-            , "width" => px width
-            , "height" => px height
-            , "margin" => "auto"
-            ]
-        ]
-        [ div
-            [ if drag then
-                onMouseDown (DragSymbol symbol.code)
-              else
-                onMouseDown Noop
-            , onDoubleClick
-                (ReplaceSymbol symbol.code)
-            ]
-            [ Html.map SignView
-                (SWEditor.Display.symbolView1 "" symbol)
-            ]
-        ]
-
-
 centered : Int -> Int -> Int
 centered full item =
     toFloat full
@@ -154,11 +129,6 @@ centered full item =
         - toFloat item
         / 2
         |> truncate
-
-
-mulInt : Int -> Float -> Int
-mulInt num1 num2 =
-    truncate (toFloat num1 * num2)
 
 
 
