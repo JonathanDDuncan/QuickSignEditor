@@ -17,12 +17,19 @@ import MainChooser.Types exposing (..)
 import List.Extra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import MainChooser.CompassRose exposing (..)
+import MainChooser.HandPng exposing (..)
 
 
 handsymbolchooser handsymbol rosepetaldata width height =
     let
         rowheight =
             truncate <| toFloat height / toFloat 10
+
+        petals =
+            rosepetaldata.roseouterpetaldata
+
+        petalcontent =
+            [ petals.petal1, petals.petal2, petals.petal3, petals.petal4, petals.petal5, petals.petal6, petals.petal7, petals.petal8 ]
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -46,7 +53,7 @@ handsymbolchooser handsymbol rosepetaldata width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , compassrose handsymbol.handfill rosepetaldata 220
+            , compassrose handsymbol.handfill rosepetaldata petalcontent 220
             ]
 
 
@@ -139,8 +146,91 @@ selectedbackground expected currentselected =
         style []
 
 
+compassrose handfill rosepetaldata petalcontent fullwidth =
+    let
+        fullheight =
+            fullwidth
+
+        itemwidth =
+            truncate (toFloat fullwidth / 4)
+
+        itemheight =
+            itemwidth
+
+        rosecenterimagehands =
+            if (handfill == LeftBabyEdge || handfill == RightBabyEdge) then
+                text ""
+            else
+                handimagecenter rosepetaldata.rosecenterpetaldata fullwidth itemwidth
+    in
+        compassrosediv fullwidth fullheight itemwidth itemheight petalcontent rosecenterimagehands 0
+
+
+handimagecenter petals parentsize parentitemsize =
+    let
+        petalcontent =
+            [ petals.petal1, petals.petal2, petals.petal3, petals.petal4, petals.petal5, petals.petal6, petals.petal7, petals.petal8 ]
+
+        fullwidth =
+            truncate (toFloat parentsize - (toFloat parentitemsize * 1.75))
+
+        itemwidth =
+            truncate (toFloat fullwidth / 4) + 10
+
+        top =
+            -20
+    in
+        compassrosediv fullwidth fullwidth itemwidth itemwidth petalcontent (text "") top
+
+
 
 --State
+
+
+createrosepetaldata handsymbol =
+    let
+        rosecenterpetaldata =
+            createrosecenterpetaldata handsymbol
+
+        roseouterpetaldata =
+            createroseouterpetaldata handsymbol
+    in
+        { rosecenterpetaldata = rosecenterpetaldata, roseouterpetaldata = roseouterpetaldata }
+
+
+petal handfill =
+    symbolcentered True handfill.symbol handfill.symbol.width handfill.symbol.height
+
+
+handpngpetal :
+    { a | miror : Bool, pngcss : String, rotate : number }
+    -> Html c
+handpngpetal handpng =
+    handpngspan handpng "" "scale(0.75)"
+
+
+createroseouterpetaldata handsymbol =
+    { petal1 = petal handsymbol.flowersymbols.handfill1
+    , petal2 = petal handsymbol.flowersymbols.handfill2
+    , petal3 = petal handsymbol.flowersymbols.handfill3
+    , petal4 = petal handsymbol.flowersymbols.handfill4
+    , petal5 = petal handsymbol.flowersymbols.handfill5
+    , petal6 = petal handsymbol.flowersymbols.handfill6
+    , petal7 = petal handsymbol.flowersymbols.handfill7
+    , petal8 = petal handsymbol.flowersymbols.handfill8
+    }
+
+
+createrosecenterpetaldata handsymbol =
+    { petal1 = handpngpetal handsymbol.flowersymbols.handfill1.handpng
+    , petal2 = handpngpetal handsymbol.flowersymbols.handfill2.handpng
+    , petal3 = handpngpetal handsymbol.flowersymbols.handfill3.handpng
+    , petal4 = handpngpetal handsymbol.flowersymbols.handfill4.handpng
+    , petal5 = handpngpetal handsymbol.flowersymbols.handfill5.handpng
+    , petal6 = handpngpetal handsymbol.flowersymbols.handfill6.handpng
+    , petal7 = handpngpetal handsymbol.flowersymbols.handfill7.handpng
+    , petal8 = handpngpetal handsymbol.flowersymbols.handfill8.handpng
+    }
 
 
 gethandfillitems : Base -> Dict.Dict String Size -> Hands -> Planes -> List HandFillItem
