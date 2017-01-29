@@ -1,4 +1,4 @@
-module MainChooser.GeneralSymbolChooserView exposing (generalsymbolchooser)
+module MainChooser.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -9,6 +9,9 @@ import MainChooser.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 import Dict exposing (..)
+
+
+--View
 
 
 generalsymbolchooser :
@@ -46,10 +49,14 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
             truncate <| toFloat height / toFloat 10
 
         smallestscaleheader =
-            Maybe.withDefault 1 <| getscales columnwidth rowheight <| List.map (\d -> d.symbol) generalsymbolchooserdata.generalsymbolrowdata
+            Maybe.withDefault 1 <|
+                getscales columnwidth rowheight <|
+                    List.map (\d -> d.symbol) generalsymbolchooserdata.generalsymbolrowdata
 
         smallestscalebody =
-            Maybe.withDefault 1 <| getscales columnwidth rowheight <| List.map (\d -> d.generalsymbolonecolumndata.symbol1) generalsymbolchooserdata.symbolcolumnsdata
+            Maybe.withDefault 1 <|
+                getscales columnwidth rowheight <|
+                    List.map (\d -> d.generalsymbolonecolumndata.symbol1) generalsymbolchooserdata.symbolcolumnsdata
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -211,3 +218,148 @@ scaling scale =
 calcscale : Int -> Int -> Int -> Int -> Float
 calcscale swidth sheight columnwidth rowheight =
     Basics.min (toFloat columnwidth / toFloat swidth) (toFloat rowheight / toFloat sheight)
+
+
+
+--State
+
+
+getgeneralsymbolchooser :
+    { a | base : Base, validfills : String, validrotations : String }
+    -> Dict String Size
+    -> Int
+    -> { generalsymbolrowdata : List { fill : Int, symbol : EditorSymbol }
+       , symbolcolumnsdata :
+            List
+                { generalsymbolonecolumndata :
+                    { show1 : Bool
+                    , show2 : Bool
+                    , symbol1 : EditorSymbol
+                    , symbol2 : EditorSymbol
+                    }
+                }
+       }
+getgeneralsymbolchooser choosing symbolsizes selectedcolumn =
+    let
+        validfills =
+            choosing.validfills
+
+        validrotations =
+            choosing.validrotations
+
+        base =
+            choosing.base
+
+        vf =
+            getvalidfills validfills
+
+        vr =
+            getvalidrotations validrotations
+
+        column =
+            if isValidRotation selectedcolumn vf then
+                selectedcolumn
+            else
+                1
+
+        generalsymbolrowdata =
+            getsymbolfill base 1 vf symbolsizes
+
+        symbolcolumnsdata =
+            getsymbolcolumnsdata base column vr symbolsizes
+    in
+        { generalsymbolrowdata = generalsymbolrowdata, symbolcolumnsdata = symbolcolumnsdata }
+
+
+getsymbolcolumnsdata :
+    Base
+    -> Fill
+    -> List Rotation
+    -> Dict String Size
+    -> List
+        { generalsymbolonecolumndata :
+            { show1 : Bool
+            , show2 : Bool
+            , symbol1 : EditorSymbol
+            , symbol2 : EditorSymbol
+            }
+        }
+getsymbolcolumnsdata base column vr symbolsizes =
+    List.map
+        (\rotation ->
+            getrowdata base column rotation vr symbolsizes
+        )
+        (List.range 1 8)
+
+
+getrowdata :
+    Base
+    -> Fill
+    -> Int
+    -> List Rotation
+    -> Dict String Size
+    -> { generalsymbolonecolumndata :
+            { show1 : Bool
+            , show2 : Bool
+            , symbol1 : EditorSymbol
+            , symbol2 : EditorSymbol
+            }
+       }
+getrowdata base column rotation vr symbolsizes =
+    let
+        generalsymbolonecolumndata =
+            getgeneralsymbolonecolumndata base column rotation vr symbolsizes
+    in
+        { generalsymbolonecolumndata = generalsymbolonecolumndata }
+
+
+getgeneralsymbolonecolumndata :
+    Base
+    -> Fill
+    -> Int
+    -> List Rotation
+    -> Dict String Size
+    -> { show1 : Bool
+       , symbol1 : EditorSymbol
+       , symbol2 : EditorSymbol
+       , show2 : Bool
+       }
+getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
+    let
+        rotation1 =
+            rotation
+
+        rotation2 =
+            rotation + 8
+
+        showrotation1 =
+            isValidRotation rotation1 validrotations
+
+        showrotation2 =
+            isValidRotation rotation2 validrotations
+
+        symbol1 =
+            getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
+
+        symbol2 =
+            getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
+    in
+        { show1 = showrotation1, symbol1 = symbol1, show2 = showrotation2, symbol2 = symbol2 }
+
+
+getsymbolfill :
+    Base
+    -> Rotation
+    -> List Fill
+    -> Dict String Size
+    -> List { fill : Int, symbol : EditorSymbol }
+getsymbolfill base rotation validfills symbolsizes =
+    List.map
+        (\fill ->
+            let
+                symbol =
+                    getSymbolEditorBaseFillRotation base fill rotation symbolsizes
+            in
+                { symbol = symbol, fill = fill }
+        )
+        validfills
