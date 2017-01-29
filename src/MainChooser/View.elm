@@ -9,17 +9,13 @@ import Choosing.View exposing (..)
 import Choosing.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.HandGroupChooserView exposing (..)
-import MainChooser.GeneralGroupChooserView exposing (..)
+import MainChooser.GeneralGroupChooser exposing (..)
 import MainChooser.GeneralSymbolChooserView exposing (..)
 import MainChooser.HandSymbolChooserView exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
-import Exts.List exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
-
-
---import SubMainChooser.View exposing (root)
 
 
 root : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
@@ -97,13 +93,16 @@ choosesubgroupchooser model =
     let
         basesymbol =
             String.slice 0 4 model.clicked
+
+        generalgroupchooserdata =
+            creategeneralgroupchooserdata model basesymbol
     in
         case basesymbol of
             "S14c" ->
                 handgroupchooser2 model
 
             _ ->
-                generalgroupchooser2 model basesymbol
+                generalgroupchooser generalgroupchooserdata
 
 
 
@@ -118,89 +117,6 @@ nogroupchooser model =
 
 
 --Put this in state later
-
-
-generalgroupchooser2 : MainChooser.Types.Model -> String -> Html MainChooser.Types.Msg
-generalgroupchooser2 model basesymbol =
-    let
-        choosings =
-            getchoosings basesymbol model.allgroupchoosings
-
-        generalgroupchooserdata =
-            creategeneralgroupchooserdata model choosings
-    in
-        generalgroupchooser generalgroupchooserdata
-
-
-creategeneralgroupchooserdata :
-    MainChooser.Types.Model
-    -> List ChooserItem
-    -> List (List GeneralGroupChooserColumData)
-creategeneralgroupchooserdata model choosings =
-    let
-        rowvalues =
-            List.sort <| unique <| List.map (\item -> item.row) choosings
-
-        tabledata =
-            creategeneralgroupchoosertabledata model choosings rowvalues
-    in
-        tabledata
-
-
-creategeneralgroupchoosertabledata : MainChooser.Types.Model -> List ChooserItem -> List Int -> List (List GeneralGroupChooserColumData)
-creategeneralgroupchoosertabledata model choosings rowvalues =
-    List.map
-        (\row ->
-            creategeneralgroupchooserrowdata model row choosings
-        )
-        rowvalues
-
-
-creategeneralgroupchooserrowdata : MainChooser.Types.Model -> Int -> List ChooserItem -> List GeneralGroupChooserColumData
-creategeneralgroupchooserrowdata model row choosings =
-    let
-        colvalues =
-            List.sort <| unique <| List.map (\item -> item.col) choosings
-
-        rowdata =
-            (List.map (\col -> creategeneralgroupchoosercolumndata model row col choosings) colvalues)
-    in
-        rowdata
-
-
-creategeneralgroupchoosercolumndata : MainChooser.Types.Model -> Int -> Int -> List ChooserItem -> GeneralGroupChooserColumData
-creategeneralgroupchoosercolumndata model row col choosings =
-    let
-        choosingsforcolumn =
-            List.filter (\item -> item.col == col) choosings
-
-        symboldatalist =
-            (choosingsforcolumn
-                |> List.map
-                    (\chooseritem ->
-                        creategeneralgroupchoosersymboldata model chooseritem
-                    )
-            )
-    in
-        { symboldatalist = symboldatalist, row = row, col = col }
-
-
-creategeneralgroupchoosersymboldata : MainChooser.Types.Model -> ChooserItem -> GeneralGroupChooserSymbolData
-creategeneralgroupchoosersymboldata model chooseritem =
-    let
-        symbol =
-            getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
-
-        mdlid =
-            symbol.code + 1000
-
-        modelmdl =
-            model.mdl
-    in
-        { modelmdl = modelmdl, chooseritem = chooseritem, symbol = symbol, mdlid = mdlid }
-
-
-
 --move this hand group chooser to state
 
 
