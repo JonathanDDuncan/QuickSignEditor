@@ -55,7 +55,7 @@ update action model =
                 ( { model
                     | keyboardExtraModel = keyboardExtraModel
                     , keyList = keyList
-                    , keyboardmode = Debug.log "keyboardmode" <| newmode
+                    , keyboardmode = newmode
                   }
                 , Cmd.batch
                     [ Cmd.map KeyboardExtraMsg keyboardCmd
@@ -100,17 +100,16 @@ update action model =
 
 getmode : List Int -> Model -> KeyboardMode
 getmode keyList model =
-    Debug.log "getmode" <|
-        if isPressedShift keyList && List.any ((==) 2) keyList then
-            GeneralChooser
-        else if isPressedShift keyList && List.any ((==) 3) keyList then
-            GroupChooser
-        else if isPressedShift keyList && List.any ((==) 4) keyList then
-            SymbolChooser
-        else if isPressedShift keyList && List.any ((==) 5) keyList then
-            SignView
-        else
-            model.keyboardmode
+    if isPressedShift keyList && List.any ((==) 2) keyList then
+        GeneralChooser
+    else if isPressedShift keyList && List.any ((==) 3) keyList then
+        GroupChooser
+    else if isPressedShift keyList && List.any ((==) 4) keyList then
+        SymbolChooser
+    else if isPressedShift keyList && List.any ((==) 5) keyList then
+        SignView
+    else
+        model.keyboardmode
 
 
 subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg
