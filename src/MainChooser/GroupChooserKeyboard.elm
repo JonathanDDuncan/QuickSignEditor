@@ -3,7 +3,10 @@ module MainChooser.GroupChooserKeyboard exposing (..)
 import MainChooser.Types exposing (..)
 import Html
 import Keyboard.Shared exposing (KeyAction)
-import MainChooser.GeneralGroupChooser exposing (..)
+
+
+-- import MainChooser.GeneralGroupChooser exposing (..)
+
 import SWEditor.Display exposing (signView, symbolaloneView)
 import List.Extra exposing (..)
 import Exts.List exposing (chunk)
@@ -23,42 +26,37 @@ creategroupchooserkeyboard model =
                 generalgroupchooserkeyboard model
 
 
+totalkeyboardpages :
+    List (List { c | symboldatalist : List b, col : comparable })
+    -> Int
+totalkeyboardpages generalgroupchooserdata =
+    let
+        prepagedata =
+            getprepagedata generalgroupchooserdata
+
+        totalpages =
+            gettotalpages keyranges prepagedata
+    in
+        totalpages
+
+
 generalgroupchooserkeyboard : Model -> List (KeyAction Msg)
 generalgroupchooserkeyboard model =
     let
-        keyranges =
-            [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
-
-        generalgroupchooserdata =
-            List.concat <| model.generalgroupchooserdata
-
-        allcolvalues =
-            List.map .col generalgroupchooserdata
-                |> unique
-
-        cols =
-            List.map (getcol generalgroupchooserdata) allcolvalues
-
-        displacedcols =
-            displace cols
-
-        stackedcolumns =
-            stackcolumns 4 displacedcols
+        prepagedata =
+            getprepagedata model.generalgroupchooserdata
 
         totalpages =
-            gettotalpages keyranges stackedcolumns
-
-        requestedpage =
-            3
+            gettotalpages keyranges prepagedata
 
         page =
-            if requestedpage > totalpages then
+            if model.chooserskeyboard.keyboardpage > totalpages then
                 totalpages
             else
-                requestedpage
+                model.chooserskeyboard.keyboardpage
 
         pagedata =
-            getpagedata page keyranges stackedcolumns
+            getpagedata page keyranges prepagedata
 
         colkeyranges =
             getcolranges keyranges pagedata
@@ -66,21 +64,66 @@ generalgroupchooserkeyboard model =
         groupchooserwithkey =
             List.concat <|
                 List.map (\( keyrange, cols ) -> List.Extra.zip keyrange cols) colkeyranges
-    in
-        List.map
-            (\( key, item ) ->
-                { test = { key = key, ctrl = False, shift = False, alt = False }
-                , action = (GroupSelected item.chooseritem)
-                , display =
-                    { width =
-                        item.symbol.width
-                    , height =
-                        item.symbol.height
-                    , view = Html.map SignView (symbolaloneView item.symbol 5)
+
+        viewkeylist =
+            List.map
+                (\( key, item ) ->
+                    { test = { key = key, ctrl = False, shift = False, alt = False }
+                    , action = (GroupSelected item.chooseritem)
+                    , display =
+                        { width =
+                            item.symbol.width
+                        , height =
+                            item.symbol.height
+                        , view = Html.map SignView (symbolaloneView item.symbol 5)
+                        }
                     }
-                }
-            )
-            (groupchooserwithkey)
+                )
+                (groupchooserwithkey)
+
+        listwithnextpage =
+            List.append viewkeylist nextpagelist
+    in
+        listwithnextpage
+
+
+getprepagedata generalgroupchooserdata =
+    let
+        concatenated =
+            List.concat <| generalgroupchooserdata
+
+        allcolvalues =
+            List.map .col concatenated
+                |> unique
+
+        cols =
+            List.map (getcol concatenated) allcolvalues
+
+        displacedcols =
+            displace cols
+
+        stackedcolumns =
+            stackcolumns 4 displacedcols
+    in
+        stackedcolumns
+
+
+keyranges =
+    [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
+
+
+nextpagelist =
+    [ { test = { key = 57, ctrl = False, shift = False, alt = False }
+      , action = NextKeyboardPage
+      , display =
+            { width =
+                50
+            , height =
+                30
+            , view = Html.text "Next Page"
+            }
+      }
+    ]
 
 
 displace : List (List a) -> List (List a)

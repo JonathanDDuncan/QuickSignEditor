@@ -52,6 +52,7 @@ init =
             { generalchooserkeyboard = []
             , groupchooserkeyboard = []
             , symbolchooserkeyboard = []
+            , keyboardpage = 1
             }
       }
       -- To initiate MainChooser state
@@ -157,19 +158,8 @@ update action model =
                         | generalgroupchooserdata = generalgroupchooserdata
                     }
 
-                groupchooserkeyboard =
-                    creategroupchooserkeyboard updatingmodel2
-
-                chooserskeyboard1 =
-                    model.chooserskeyboard
-
-                chooserskeyboard2 =
-                    { chooserskeyboard1 | groupchooserkeyboard = groupchooserkeyboard }
-
                 newmodel =
-                    { updatingmodel2
-                        | chooserskeyboard = chooserskeyboard2
-                    }
+                    updatechooserkeyboard updatingmodel2
             in
                 ( newmodel
                 , Cmd.none
@@ -355,6 +345,62 @@ update action model =
 
         Keyboard command ->
             runKeyboardCommand model command update
+
+        NextKeyboardPage ->
+            nextkeybordpage model
+
+
+updatechooserkeyboard model =
+    let
+        groupchooserkeyboard =
+            creategroupchooserkeyboard model
+
+        chooserskeyboard1 =
+            model.chooserskeyboard
+
+        chooserskeyboard2 =
+            { chooserskeyboard1 | groupchooserkeyboard = groupchooserkeyboard }
+
+        newmodel =
+            { model
+                | chooserskeyboard = chooserskeyboard2
+            }
+    in
+        newmodel
+
+
+nextkeybordpage : MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
+nextkeybordpage model =
+    let
+        totalpages =
+            totalkeyboardpages model.generalgroupchooserdata
+
+        nextpage =
+            model.chooserskeyboard.keyboardpage + 1
+
+        page =
+            if nextpage > totalpages then
+                1
+            else
+                nextpage
+
+        chooserskeyboard =
+            model.chooserskeyboard
+
+        newchooserskeyboard =
+            { chooserskeyboard | keyboardpage = page }
+
+        modelpageupdated =
+            { model
+                | chooserskeyboard = newchooserskeyboard
+            }
+
+        newmodel =
+            updatechooserkeyboard modelpageupdated
+    in
+        ( newmodel
+        , Cmd.none
+        )
 
 
 allgroupchoosings chooserclassification =

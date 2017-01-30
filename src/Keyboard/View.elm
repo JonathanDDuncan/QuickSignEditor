@@ -9,7 +9,7 @@ import String
 import Json.Decode as Json
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
-import MainChooser.Types exposing (Msg)
+import MainChooser.Types exposing (Msg, ChoosersKeyboard)
 import ViewHelper.ViewExtra exposing (..)
 
 
@@ -19,13 +19,7 @@ import ViewHelper.ViewExtra exposing (..)
 root :
     Model
     -> List (Keyboard.Shared.KeyAction SWEditor.Types.Msg)
-    -> { generalchooserkeyboard :
-            List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
-       , groupchooserkeyboard :
-            List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
-       , symbolchooserkeyboard :
-            List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
-       }
+    -> ChoosersKeyboard
     -> Int
     -> Int
     -> Html Keyboard.Types.Msg

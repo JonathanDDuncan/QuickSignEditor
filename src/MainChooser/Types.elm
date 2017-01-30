@@ -25,11 +25,15 @@ type alias Model =
     , handsymbol : HandSymbol
     , handgroupchooseritems : List HandGroupChooser
     , generalgroupchooserdata : List (List GeneralGroupChooserColumData)
-    , chooserskeyboard :
-        { generalchooserkeyboard : List (KeyAction Msg)
-        , groupchooserkeyboard : List (KeyAction Msg)
-        , symbolchooserkeyboard : List (KeyAction Msg)
-        }
+    , chooserskeyboard : ChoosersKeyboard
+    }
+
+
+type alias ChoosersKeyboard =
+    { generalchooserkeyboard : List (KeyAction Msg)
+    , groupchooserkeyboard : List (KeyAction Msg)
+    , symbolchooserkeyboard : List (KeyAction Msg)
+    , keyboardpage : Int
     }
 
 
@@ -54,6 +58,7 @@ type Msg
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
     | Keyboard KeyboardCommand
+    | NextKeyboardPage
 
 
 type alias HandGroupChooser =
