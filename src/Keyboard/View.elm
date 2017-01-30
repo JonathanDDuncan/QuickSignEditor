@@ -198,16 +198,16 @@ getkeydisplay n display =
 isactivemode : number -> { a | keyboardmode : KeyboardMode } -> Bool
 isactivemode n model =
     case model.keyboardmode of
-        SignView ->
+        GeneralChooser ->
             n == 2
 
-        GeneralChooser ->
+        GroupChooser ->
             n == 3
 
-        GroupChooser ->
+        SymbolChooser ->
             n == 4
 
-        SymbolChooser ->
+        SignView ->
             n == 5
 
 
