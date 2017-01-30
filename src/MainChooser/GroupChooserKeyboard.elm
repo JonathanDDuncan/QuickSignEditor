@@ -36,14 +36,32 @@ generalgroupchooserkeyboard model =
         cols =
             List.map (getcol generalgroupchooserdata) allcolvalues
 
+        displacedcols =
+            displace cols
+
         stackedcolumns =
-            stackcolumns 4 cols allcolvalues
+            stackcolumns 4 displacedcols
 
         keyranges =
             [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
 
+        totalpages =
+            gettotalpages keyranges stackedcolumns
+
+        requestedpage =
+            3
+
+        page =
+            if requestedpage > totalpages then
+                totalpages
+            else
+                requestedpage
+
+        pagedata =
+            getpagedata page keyranges stackedcolumns
+
         colkeyranges =
-            getcolranges keyranges stackedcolumns
+            getcolranges keyranges pagedata
 
         groupchooserwithkey =
             List.concat <|
@@ -65,6 +83,78 @@ generalgroupchooserkeyboard model =
             (groupchooserwithkey)
 
 
+displace : List (List a) -> List (List a)
+displace cols =
+    let
+        colcount =
+            List.length cols
+
+        colstoInsert =
+            case colcount of
+                1 ->
+                    1
+
+                2 ->
+                    1
+
+                3 ->
+                    0
+
+                _ ->
+                    0
+
+        toAdd =
+            (List.range 1 colstoInsert)
+                |> List.map (\i -> [])
+                |> Debug.log "toAdd"
+
+        newcols =
+            List.append toAdd cols
+                |> Debug.log "newcols"
+    in
+        newcols
+
+
+getpagedata page keyranges stackedcolumns =
+    let
+        zipped =
+            List.Extra.zip keyranges stackedcolumns
+
+        pagedata =
+            List.map
+                (\( kr, sc ) ->
+                    let
+                        keyrangelength =
+                            List.length kr
+
+                        toskip =
+                            (page - 1) * keyrangelength
+
+                        data =
+                            List.take keyrangelength <| List.drop (toskip) sc
+                    in
+                        data
+                )
+                zipped
+    in
+        pagedata
+
+
+gettotalpages : List (List a) -> List (List a1) -> Int
+gettotalpages keyranges stackedcolumns =
+    let
+        zipped =
+            List.Extra.zip keyranges stackedcolumns
+
+        pagespercol =
+            List.map (\( kr, sc ) -> ceiling (toFloat (List.length sc) / toFloat (List.length kr))) zipped
+
+        maxpage =
+            List.maximum pagespercol
+    in
+        Maybe.withDefault 0 maxpage
+
+
 getcolranges : List a -> List b -> List ( a, b )
 getcolranges keyranges cols =
     List.Extra.zip keyranges cols
@@ -75,11 +165,11 @@ getcol combined col =
     List.concatMap (\dl -> dl.symboldatalist) <| List.filter (\item -> item.col == col) combined
 
 
-stackcolumns : Int -> List (List b) -> List a -> List (List b)
-stackcolumns maxcols cols allcolvalues =
+stackcolumns : Int -> List (List b) -> List (List b)
+stackcolumns maxcols cols =
     let
         tobechunked =
-            completemissingcolumns maxcols allcolvalues cols
+            completemissingcolumns maxcols cols
 
         chunked =
             chunk maxcols tobechunked
@@ -95,17 +185,17 @@ stackcolumns maxcols cols allcolvalues =
                 []
 
 
-completemissingcolumns : Int -> List a -> List (List b) -> List (List b)
-completemissingcolumns maxcols colvalues cols =
+completemissingcolumns : Int -> List (List b) -> List (List b)
+completemissingcolumns maxcols cols =
     let
         grouping =
-            toFloat (List.length colvalues) / toFloat maxcols |> ceiling
+            toFloat (List.length cols) / toFloat maxcols |> ceiling
 
         totalcolsneeded =
             grouping * maxcols
 
         colsmissing =
-            totalcolsneeded - List.length colvalues
+            totalcolsneeded - List.length cols
 
         tobechunked =
             List.append cols <| List.map (\i -> []) (List.range 1 colsmissing)
