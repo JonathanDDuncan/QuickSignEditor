@@ -98,7 +98,7 @@ choosesubgroupchooser model =
                 handgroupchooser <| createhandgroupchooserdata model
 
             _ ->
-                generalgroupchooser <| creategeneralgroupchooserdata model
+                generalgroupchooser model.generalgroupchooserdata
 
 
 

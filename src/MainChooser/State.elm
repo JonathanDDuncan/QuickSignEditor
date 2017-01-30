@@ -23,6 +23,7 @@ import MainChooser.HandGroupChooser exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.GeneralChooserKeyboard exposing (..)
 import MainChooser.GroupChooserKeyboard exposing (..)
+import MainChooser.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 
 
 -- import SubMainChoosers.State
@@ -46,6 +47,7 @@ init =
       , symbolsizes = Dict.empty
       , handsymbol = handsymbolinit
       , handgroupchooseritems = []
+      , generalgroupchooserdata = []
       , chooserskeyboard =
             { generalchooserkeyboard = []
             , groupchooserkeyboard = []
@@ -132,7 +134,7 @@ update action model =
                         | clicked = clickvalue
                     }
 
-                updatingmodel =
+                updatingmodel1 =
                     case basesymbol of
                         "S14c" ->
                             let
@@ -147,8 +149,16 @@ update action model =
                         _ ->
                             updatedclicked
 
+                generalgroupchooserdata =
+                    creategeneralgroupchooserdata updatingmodel1
+
+                updatingmodel2 =
+                    { model
+                        | generalgroupchooserdata = generalgroupchooserdata
+                    }
+
                 groupchooserkeyboard =
-                    creategroupchooserkeyboard updatingmodel
+                    creategroupchooserkeyboard updatingmodel2
 
                 chooserskeyboard1 =
                     model.chooserskeyboard
@@ -157,7 +167,7 @@ update action model =
                     { chooserskeyboard1 | groupchooserkeyboard = groupchooserkeyboard }
 
                 newmodel =
-                    { updatingmodel
+                    { updatingmodel2
                         | chooserskeyboard = chooserskeyboard2
                     }
             in

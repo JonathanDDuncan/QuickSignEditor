@@ -26,8 +26,11 @@ creategroupchooserkeyboard model =
 generalgroupchooserkeyboard : Model -> List (KeyAction Msg)
 generalgroupchooserkeyboard model =
     let
+        keyranges =
+            [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
+
         generalgroupchooserdata =
-            List.concat <| creategeneralgroupchooserdata model
+            List.concat <| model.generalgroupchooserdata
 
         allcolvalues =
             List.map .col generalgroupchooserdata
@@ -41,9 +44,6 @@ generalgroupchooserkeyboard model =
 
         stackedcolumns =
             stackcolumns 4 displacedcols
-
-        keyranges =
-            [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
 
         totalpages =
             gettotalpages keyranges stackedcolumns
