@@ -15,7 +15,6 @@ import MainChooser.HandSymbolChooser exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
-import MainChooser.CompassRose exposing (..)
 
 
 root : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg

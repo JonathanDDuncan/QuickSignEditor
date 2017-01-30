@@ -109,7 +109,7 @@ creategeneralgroupchoosercolumndata : MainChooser.Types.Model -> Int -> Int -> L
 creategeneralgroupchoosercolumndata model row col choosings =
     let
         choosingsforcolumn =
-            List.filter (\item -> item.col == col) choosings
+            List.filter (\item -> item.col == col && item.row == row) choosings
 
         symboldatalist =
             (choosingsforcolumn
