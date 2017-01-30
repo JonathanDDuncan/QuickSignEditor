@@ -22,6 +22,7 @@ import Update.Extra exposing (..)
 import MainChooser.HandGroupChooser exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import MainChooser.GeneralChooserKeyboard exposing (..)
+import MainChooser.GroupChooserKeyboard exposing (..)
 
 
 -- import SubMainChoosers.State
@@ -131,7 +132,7 @@ update action model =
                         | clicked = clickvalue
                     }
 
-                newmodel =
+                updatingmodel =
                     case basesymbol of
                         "S14c" ->
                             let
@@ -145,6 +146,20 @@ update action model =
 
                         _ ->
                             updatedclicked
+
+                groupchooserkeyboard =
+                    creategroupchooserkeyboard updatingmodel
+
+                chooserskeyboard1 =
+                    model.chooserskeyboard
+
+                chooserskeyboard2 =
+                    { chooserskeyboard1 | groupchooserkeyboard = groupchooserkeyboard }
+
+                newmodel =
+                    { updatingmodel
+                        | chooserskeyboard = chooserskeyboard2
+                    }
             in
                 ( newmodel
                 , Cmd.none
