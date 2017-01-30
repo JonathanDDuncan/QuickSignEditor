@@ -15,5 +15,6 @@ stickyFooter model =
                 model.signbox.signviewkeyboard
                 model.mainchooser.chooserskeyboard
                 model.window.windowSize.width
+                model.footerheight
             )
         ]

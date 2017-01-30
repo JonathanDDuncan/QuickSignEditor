@@ -27,8 +27,9 @@ root :
             List (Keyboard.Shared.KeyAction MainChooser.Types.Msg)
        }
     -> Int
+    -> Int
     -> Html Keyboard.Types.Msg
-root model signviewkeyboard chooserskeyboard footerwidth =
+root model signviewkeyboard chooserskeyboard keyboardwidth keyboardheight =
     let
         keyboardcommand =
             createKeyboardCommand model.keyList model.keyboardmode
@@ -46,36 +47,47 @@ root model signviewkeyboard chooserskeyboard footerwidth =
 
                 SymbolChooser ->
                     convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.symbolchooserkeyboard
+
+        rowheight =
+            toFloat keyboardheight / 5
     in
         div [ class "keyboard" ]
             [ text (String.concat model.keyboardhistory)
             , div
                 [ class "alphabetic", style [ ( "width", "66%" ) ] ]
-                [ row model (List.range 1 14) keyboarddisplay footerwidth
-                , row model (List.range 15 28) keyboarddisplay footerwidth
-                , row model (List.range 29 41) keyboarddisplay footerwidth
-                , row model (List.range 42 53) keyboarddisplay footerwidth
-                , row model (List.range 54 60) keyboarddisplay footerwidth
-                ]
+                (List.map (row model keyboarddisplay keyboardwidth rowheight)
+                    [ (List.range 1 14)
+                    , (List.range 15 28)
+                    , (List.range 29 41)
+                    , (List.range 42 53)
+                    , (List.range 54 60)
+                    ]
+                )
             , div
                 [ class "arrows", style [ ( "width", "14%" ) ] ]
                 [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "15.5%" ) ] ]
-                    [ row model (List.range 61 63) keyboarddisplay footerwidth
-                    , row model (List.range 64 66) keyboarddisplay footerwidth
-                    ]
+                    (List.map (row model keyboarddisplay keyboardwidth rowheight)
+                        [ (List.range 61 63)
+                        , (List.range 64 66)
+                        ]
+                    )
                 , div [ style [ ( "height", "40%" ) ] ]
-                    [ row model (List.range 67 67) keyboarddisplay footerwidth
-                    , row model (List.range 68 70) keyboarddisplay footerwidth
-                    ]
+                    (List.map (row model keyboarddisplay keyboardwidth rowheight)
+                        [ (List.range 67 67)
+                        , (List.range 68 70)
+                        ]
+                    )
                 ]
             , div
                 [ class "numeric", style [ ( "width", "20%" ) ] ]
-                [ row model (List.range 71 73) keyboarddisplay footerwidth
-                , row model (List.range 74 77) keyboarddisplay footerwidth
-                , row model (List.range 78 80) keyboarddisplay footerwidth
-                , row model (List.range 81 83) keyboarddisplay footerwidth
-                , row model (List.range 84 86) keyboarddisplay footerwidth
-                ]
+                (List.map (row model keyboarddisplay keyboardwidth rowheight)
+                    [ (List.range 71 73)
+                    , (List.range 74 77)
+                    , (List.range 78 80)
+                    , (List.range 81 83)
+                    , (List.range 84 86)
+                    ]
+                )
             ]
 
 
@@ -118,34 +130,31 @@ filtereddisplay keyboardcommand keyboarddisplay =
         keyboarddisplay
 
 
-row : Model -> List Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Html Keyboard.Types.Msg
-row model nums display footerwidth =
+row : Model -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Float -> List Int -> Html Keyboard.Types.Msg
+row model display keyboardwidth rowheight nums =
     div [ class "row" ]
-        (createkeys model nums display footerwidth)
+        (createkeys model nums display keyboardwidth rowheight)
 
 
-createkeys : Model -> List Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> List (Html Keyboard.Types.Msg)
-createkeys model nums display footerwidth =
-    List.map (\n -> nkey model n display footerwidth) nums
+createkeys : Model -> List Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Float -> List (Html Keyboard.Types.Msg)
+createkeys model nums display keyboardwidth rowheight =
+    List.map (\n -> nkey model n display keyboardwidth rowheight) nums
 
 
-nkey : Model -> Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Html Keyboard.Types.Msg
-nkey model n displays footerwidth =
+nkey : Model -> Int -> List (KeyConfig Keyboard.Types.Msg) -> Int -> Float -> Html Keyboard.Types.Msg
+nkey model n displays keyboardwidth rowheight =
     let
         leftmargin =
-            17
+            10
 
         display =
             (getkeydisplay n displays).display
 
-        size =
+        originalsize =
             { height = display.height, width = display.width }
 
         scale =
-            calcscale size 30 ((minkeywidth footerwidth) - leftmargin)
-
-        width =
-            round (toFloat size.width * scale)
+            shrinkdontzoom originalsize (rowheight - 5.0) ((minkeywidth keyboardwidth) - leftmargin)
 
         ispressed =
             checkifkeypressed model n
@@ -208,8 +217,20 @@ checkifkeypressed model n =
 
 
 minkeywidth : Int -> Float
-minkeywidth footerwidth =
-    toFloat footerwidth * 0.66 * 0.063 - 3
+minkeywidth keyboardwidth =
+    toFloat keyboardwidth * 0.66 * 0.063 - 3
+
+
+shrinkdontzoom : { a | height : Int, width : Int } -> Float -> Float -> Float
+shrinkdontzoom size finalheight finalwidth =
+    let
+        calcedscale =
+            calcscale size finalheight finalwidth
+    in
+        if calcedscale > 1 then
+            1
+        else
+            calcedscale
 
 
 calcscale : { a | height : Int, width : Int } -> Float -> Float -> Float
