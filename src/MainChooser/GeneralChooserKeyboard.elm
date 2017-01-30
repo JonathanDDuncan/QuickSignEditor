@@ -72,23 +72,23 @@ getlayoutsettings n layout =
 
 layout : List { index : Int, key : Int, overrideheight : Maybe Int, toppadding : Int }
 layout =
-    [ { index = 0, key = 2, overrideheight = Just 50, toppadding = 5 }
-    , { index = 1, key = 3, overrideheight = Just 50, toppadding = 5 }
+    [ { index = 0, key = 3, overrideheight = Just 50, toppadding = 5 }
+    , { index = 1, key = 2, overrideheight = Just 50, toppadding = 5 }
     , { index = 2, key = 4, overrideheight = Just 20, toppadding = 5 }
     , { index = 3, key = 0, overrideheight = Nothing, toppadding = 5 }
     , { index = 4, key = 5, overrideheight = Just 20, toppadding = 15 }
     , { index = 5, key = 7, overrideheight = Just 20, toppadding = 20 }
     , { index = 6, key = 6, overrideheight = Just 20, toppadding = 8 }
-    , { index = 7, key = 35, overrideheight = Just 50, toppadding = 5 }
+    , { index = 7, key = 35, overrideheight = Just 55, toppadding = 8 }
     , { index = 8, key = 8, overrideheight = Just 20, toppadding = 12 }
-    , { index = 9, key = 36, overrideheight = Just 50, toppadding = 5 }
-    , { index = 10, key = 37, overrideheight = Just 50, toppadding = 5 }
+    , { index = 9, key = 0, overrideheight = Nothing, toppadding = 5 }
+    , { index = 10, key = 36, overrideheight = Just 60, toppadding = 8 }
     , { index = 11, key = 0, overrideheight = Nothing, toppadding = 5 }
-    , { index = 12, key = 34, overrideheight = Nothing, toppadding = 5 }
+    , { index = 12, key = 34, overrideheight = Just 20, toppadding = 3 }
     , { index = 13, key = 20, overrideheight = Just 25, toppadding = 5 }
     , { index = 14, key = 21, overrideheight = Just 25, toppadding = 5 }
     , { index = 15, key = 43, overrideheight = Just 20, toppadding = 5 }
-    , { index = 16, key = 9, overrideheight = Just 20, toppadding = 8 }
+    , { index = 16, key = 22, overrideheight = Just 20, toppadding = 8 }
     , { index = 17, key = 16, overrideheight = Nothing, toppadding = 5 }
     , { index = 18, key = 46, overrideheight = Just 20, toppadding = 5 }
     , { index = 19, key = 17, overrideheight = Nothing, toppadding = 5 }
@@ -99,11 +99,11 @@ layout =
     , { index = 24, key = 33, overrideheight = Nothing, toppadding = 5 }
     , { index = 25, key = 47, overrideheight = Just 20, toppadding = 5 }
     , { index = 26, key = 44, overrideheight = Just 20, toppadding = 5 }
-    , { index = 27, key = 10, overrideheight = Just 20, toppadding = 8 }
-    , { index = 28, key = 48, overrideheight = Nothing, toppadding = 5 }
-    , { index = 29, key = 49, overrideheight = Nothing, toppadding = 5 }
-    , { index = 30, key = 50, overrideheight = Nothing, toppadding = 5 }
+    , { index = 27, key = 52, overrideheight = Just 20, toppadding = 8 }
+    , { index = 28, key = 48, overrideheight = Just 30, toppadding = 1 }
+    , { index = 29, key = 49, overrideheight = Just 40, toppadding = 1 }
+    , { index = 30, key = 50, overrideheight = Just 40, toppadding = 1 }
     , { index = 31, key = 45, overrideheight = Just 20, toppadding = 5 }
     , { index = 32, key = 32, overrideheight = Nothing, toppadding = 5 }
-    , { index = 33, key = 11, overrideheight = Just 20, toppadding = 8 }
+    , { index = 33, key = 51, overrideheight = Just 20, toppadding = 8 }
     ]
