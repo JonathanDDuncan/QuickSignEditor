@@ -1,7 +1,8 @@
 To Do
 
 Add chooser symbols to keyboard
-Use space to go to next keyboard layout
+Use Tab to go to next keyboard group chooser layout 
+Use Space to go to next keyboard layout
 
 Double click replace symbol
 Double click lookup symbol
