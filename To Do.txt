@@ -1,9 +1,8 @@
 To Do
 
-Not zoom symbols in keys, just shrink if bigger
-Switch SignView keyboard to Shift-4
-Use space to go to next keyboard
 Add chooser symbols to keyboard
+Use space to go to next keyboard layout
+
 Double click replace symbol
 Double click lookup symbol
 Arrow symbol chooser
