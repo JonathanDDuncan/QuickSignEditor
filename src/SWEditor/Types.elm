@@ -64,6 +64,7 @@ type Msg
     | DeleteSymbols
     | Keyboard KeyboardCommand
     | MoveSymbols Direction Distance
+    | SetKeyboardMode KeyboardMode
 
 
 type alias Distance =

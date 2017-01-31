@@ -2,11 +2,13 @@ module SWEditor.View exposing (root)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.Display exposing (symbolView)
+import Keyboard.Shared exposing (KeyboardMode)
 
 
 root : Model -> Html Msg
@@ -55,7 +57,7 @@ editorattributes height =
 signView : Model -> Html Msg
 signView model =
     div
-        (editorattributes model.containerheight)
+        (List.append (editorattributes model.containerheight) [ onMouseEnter (SetKeyboardMode Keyboard.Shared.SignView) ])
         (List.map symbolView model.sign.syms)
 
 

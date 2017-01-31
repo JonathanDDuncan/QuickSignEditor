@@ -20,6 +20,7 @@ import Mouse as Mouse exposing (downs, moves, ups)
 import List.Extra exposing (..)
 import SWEditor.SignArea exposing (..)
 import SWEditor.EditorKeyboard exposing (..)
+import Keyboard.Shared exposing (KeyboardMode)
 
 
 -- import SubSWEditors.State
@@ -322,6 +323,15 @@ update action model =
                 ! []
                 |> Update.Extra.andThen update
                     (AddUndo True "MoveSymbols" <| movesymbols model direction distance)
+
+        SetKeyboardMode mode ->
+            let
+                num =
+                    Keyboard.Shared.getKeyboardModeCode mode
+            in
+                ( model
+                , sendKeyboardMode num
+                )
 
 
 replaceselectedsymbols : List EditorSymbol -> Symbol -> List EditorSymbol

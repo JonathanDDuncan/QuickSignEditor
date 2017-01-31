@@ -15,6 +15,7 @@ import MainChooser.HandSymbolChooser exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
+import Keyboard.Shared exposing (KeyboardMode)
 
 
 root : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
@@ -28,7 +29,9 @@ root model parentwidth parentheight =
     in
         div []
             [ div
-                [ style [ "height" => px (halfheight - 30) ] ]
+                [ style [ "height" => px (halfheight - 30) ]
+                , onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
+                ]
                 (List.map displayChoosing model.choosings)
             , div
                 [ class "generalsymbolchooser"
@@ -38,6 +41,7 @@ root model parentwidth parentheight =
                     , "margin-top" => "5px"
                     , "float" => "left"
                     ]
+                , onMouseEnter (SetKeyboardMode Keyboard.Shared.SymbolChooser)
                 ]
                 [ symbolchooser model halfwidth halfheight
                 ]
@@ -53,6 +57,7 @@ root model parentwidth parentheight =
                     , "overflow-y" => "scroll"
                     , "overflow-x" => "scroll"
                     ]
+                , onMouseEnter (SetKeyboardMode Keyboard.Shared.GroupChooser)
                 ]
                 [ choosesubgroupchooser model
                 ]
