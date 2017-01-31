@@ -46,20 +46,36 @@ generalgroupchooserkeyboard model =
         prepagedata =
             getprepagedata model.generalgroupchooserdata
 
+        pageddata =
+            pagedata prepagedata model.chooserskeyboard.keyboardpage
+
+        keyactionlist =
+            createkeyactionlist pageddata
+    in
+        keyactionlist
+
+
+pagedata prepagedata page =
+    let
         totalpages =
             gettotalpages keyranges prepagedata
 
-        page =
-            if model.chooserskeyboard.keyboardpage > totalpages then
+        currentpage =
+            if page > totalpages then
                 totalpages
             else
-                model.chooserskeyboard.keyboardpage
+                page
 
         pagedata =
-            getpagedata page keyranges prepagedata
+            getpagedata currentpage keyranges prepagedata
+    in
+        pagedata
 
+
+createkeyactionlist data =
+    let
         colkeyranges =
-            getcolranges keyranges pagedata
+            getcolranges keyranges data
 
         groupchooserwithkey =
             List.concat <|
