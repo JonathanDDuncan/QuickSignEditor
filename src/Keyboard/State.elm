@@ -91,6 +91,15 @@ update action model =
             , Cmd.none
             )
 
+        SetKeyboardMode num ->
+            let
+                mode =
+                    getKeyboardMode num
+            in
+                ( { model | keyboardmode = mode }
+                , Cmd.none
+                )
+
 
 
 --To nest update of Keyboard
@@ -116,6 +125,7 @@ subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg
 subscriptions model =
     Sub.batch
         [ Sub.map KeyboardExtraMsg KeyboardExtra.subscriptions
+        , receiveKeyboardMode SetKeyboardMode
         ]
 
 

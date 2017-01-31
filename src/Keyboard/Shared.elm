@@ -9,18 +9,18 @@ import Html
 
 
 type KeyboardMode
-    = SignView
-    | GeneralChooser
+    = GeneralChooser
     | GroupChooser
     | SymbolChooser
+    | SignView
 
 
 keyboardModeCode : List ( Int, KeyboardMode )
 keyboardModeCode =
-    [ ( 1, SignView )
-    , ( 2, GeneralChooser )
-    , ( 3, GroupChooser )
-    , ( 4, SymbolChooser )
+    [ ( 1, GeneralChooser )
+    , ( 2, GroupChooser )
+    , ( 3, SymbolChooser )
+    , ( 4, SignView )
     ]
 
 
@@ -29,7 +29,16 @@ getKeyboardMode value =
     List.filter (\m -> Tuple.first m == value) keyboardModeCode
         |> List.map (\m -> Tuple.second m)
         |> List.head
-        |> Maybe.withDefault SignView
+        |> Maybe.withDefault GeneralChooser
+
+
+getKeyboardModeCode : KeyboardMode -> Int
+getKeyboardModeCode mode =
+    keyboardModeCode
+        |> List.filter (\m -> Tuple.second m == mode)
+        |> List.map (\m -> Tuple.first m)
+        |> List.head
+        |> Maybe.withDefault 1
 
 
 runKeyboard :
@@ -85,11 +94,7 @@ createKeyboardCommand keyList mode =
             isPressedAlt keyList
 
         modecode =
-            keyboardModeCode
-                |> List.filter (\m -> Tuple.second m == mode)
-                |> List.map (\m -> Tuple.first m)
-                |> List.head
-                |> Maybe.withDefault 1
+            getKeyboardModeCode mode
 
         keyboardcommand =
             { shiftPressed = shiftPressed

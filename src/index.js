@@ -99,7 +99,9 @@ app.ports.cmdReplaceSymbol.subscribe(function(symbol) {
 app.ports.sendKeyboardCommand.subscribe(function(keyboardcommand) {
     app.ports.receiveKeyboardCommand.send(keyboardcommand);
 });
-
+app.ports.sendKeyboardMode.subscribe(function(mode) {
+    app.ports.receiveKeyboardMode.send(mode);
+});
 
 function getchoosings(fsw) {
 

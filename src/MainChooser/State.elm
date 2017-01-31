@@ -24,6 +24,7 @@ import ViewHelper.ViewExtra exposing (..)
 import MainChooser.GeneralChooserKeyboard exposing (..)
 import MainChooser.GroupChooserKeyboard exposing (..)
 import MainChooser.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
+import Keyboard.Shared exposing (KeyboardMode)
 
 
 -- import SubMainChoosers.State
@@ -164,6 +165,7 @@ update action model =
                 ( newmodel
                 , Cmd.none
                 )
+                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
 
         SymbolView msg ->
             ( model
@@ -188,6 +190,7 @@ update action model =
               }
             , Cmd.none
             )
+                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
                 |> Update.Extra.andThen update UpdateHandSymbolChooser
 
         DragSymbol code ->
@@ -348,6 +351,15 @@ update action model =
 
         NextKeyboardPage ->
             nextkeybordpage model
+
+        SetKeyboardMode mode ->
+            let
+                num =
+                    Keyboard.Shared.getKeyboardModeCode mode
+            in
+                ( model
+                , sendKeyboardMode num
+                )
 
 
 updatechooserkeyboard model =

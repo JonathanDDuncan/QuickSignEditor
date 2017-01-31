@@ -3,7 +3,7 @@ port module Ports exposing (..)
 import SW.Types exposing (..)
 import Choosing.Types as Choosing exposing (..)
 import MainChooser.Types as MainChooser exposing (..)
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyboardCommand)
 
 
 -- Ports go here like this
@@ -67,3 +67,9 @@ port sendKeyboardCommand : KeyboardCommand -> Cmd msg
 
 
 port receiveKeyboardCommand : (KeyboardCommand -> msg) -> Sub msg
+
+
+port sendKeyboardMode : Int -> Cmd msg
+
+
+port receiveKeyboardMode : (Int -> msg) -> Sub msg

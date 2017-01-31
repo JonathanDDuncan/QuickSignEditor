@@ -25,6 +25,7 @@ type Msg
     | DisplaySignView SWEditor.Types.Msg
     | DisplayChoosers MainChooser.Types.Msg
     | KeyboardExtraMsg KeyboardExtra.Msg
+    | SetKeyboardMode Int
 
 
 type alias KeyboardLayout =
