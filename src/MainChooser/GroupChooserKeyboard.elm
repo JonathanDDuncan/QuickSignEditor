@@ -10,29 +10,38 @@ import Keyboard.Shared exposing (KeyAction)
 import SWEditor.Display exposing (signView, symbolaloneView)
 import List.Extra exposing (..)
 import Exts.List exposing (chunk)
+import MainChooser.HandGroupChooser exposing (createhandgroupchooserdata)
 
 
 creategroupchooserkeyboard : Model -> List (KeyAction Msg)
 creategroupchooserkeyboard model =
+    if ishandgroupchooser model.clicked then
+        handgroupchooserkeyboard model
+    else
+        generalgroupchooserkeyboard model
+
+
+ishandgroupchooser clicked =
     let
         basesymbol =
-            String.slice 0 4 model.clicked
+            String.slice 0 4 clicked
     in
         case basesymbol of
             "S14c" ->
-                handgroupchooserkeyboard model
+                True
 
             _ ->
-                generalgroupchooserkeyboard model
+                False
 
 
-totalkeyboardpages :
-    List (List { c | symboldatalist : List b, col : comparable })
-    -> Int
-totalkeyboardpages generalgroupchooserdata =
+totalkeyboardpages : Model -> Int
+totalkeyboardpages model =
     let
         prepagedata =
-            getprepagedata generalgroupchooserdata
+            if ishandgroupchooser model.clicked then
+                getprepagedatahand <| createhandgroupchooserdata model
+            else
+                getprepagedatageneral model.generalgroupchooserdata
 
         totalpages =
             gettotalpages keyranges prepagedata
@@ -44,7 +53,7 @@ generalgroupchooserkeyboard : Model -> List (KeyAction Msg)
 generalgroupchooserkeyboard model =
     let
         prepagedata =
-            getprepagedata model.generalgroupchooserdata
+            getprepagedatageneral model.generalgroupchooserdata
 
         pageddata =
             pagedata prepagedata model.chooserskeyboard.keyboardpage
@@ -103,7 +112,7 @@ createkeyactionlist data =
         listwithnextpage
 
 
-getprepagedata generalgroupchooserdata =
+getprepagedatageneral generalgroupchooserdata =
     let
         concatenated =
             List.concat <| generalgroupchooserdata
@@ -113,7 +122,7 @@ getprepagedata generalgroupchooserdata =
                 |> unique
 
         cols =
-            List.map (getcol concatenated) allcolvalues
+            List.map (getcolgeneral concatenated) allcolvalues
 
         displacedcols =
             displace cols
@@ -165,11 +174,9 @@ displace cols =
         toAdd =
             (List.range 1 colstoInsert)
                 |> List.map (\i -> [])
-                |> Debug.log "toAdd"
 
         newcols =
             List.append toAdd cols
-                |> Debug.log "newcols"
     in
         newcols
 
@@ -219,8 +226,8 @@ getcolranges keyranges cols =
     List.Extra.zip keyranges cols
 
 
-getcol : List { c | col : a, symboldatalist : List b } -> a -> List b
-getcol combined col =
+getcolgeneral : List { c | col : a, symboldatalist : List b } -> a -> List b
+getcolgeneral combined col =
     List.concatMap (\dl -> dl.symboldatalist) <| List.filter (\item -> item.col == col) combined
 
 
@@ -275,4 +282,38 @@ appendcols list1 list2 =
 
 
 handgroupchooserkeyboard model =
-    []
+    let
+        handgroupchooserdata =
+            createhandgroupchooserdata model
+
+        prepagedatahand =
+            getprepagedatahand handgroupchooserdata
+
+        pageddata =
+            pagedata prepagedatahand model.chooserskeyboard.keyboardpage
+
+        keyactionlist =
+            createkeyactionlist pageddata
+    in
+        []
+
+
+getprepagedatahand handgroupchooserdata =
+    let
+        data =
+            List.concat <| handgroupchooserdata
+
+        allcolvalues =
+            List.range 1 5
+
+        cols =
+            List.map getcolhand data
+
+        -- stackedcolumns =
+        --     stackcolumns 4 displacedcols
+    in
+        cols
+
+
+getcolhand data =
+    List.concatMap (\dl -> dl.symboldatalist) data

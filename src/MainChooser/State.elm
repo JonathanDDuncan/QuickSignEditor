@@ -142,7 +142,7 @@ update action model =
                                 handgroupchooseritems =
                                     gethandgroupchooserdata updatedclicked
                             in
-                                { model
+                                { updatedclicked
                                     | clicked = clickvalue
                                     , handgroupchooseritems = handgroupchooseritems
                                 }
@@ -154,7 +154,7 @@ update action model =
                     creategeneralgroupchooserdata updatingmodel1
 
                 updatingmodel2 =
-                    { model
+                    { updatingmodel1
                         | generalgroupchooserdata = generalgroupchooserdata
                     }
 
@@ -373,7 +373,7 @@ nextkeybordpage : MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd Main
 nextkeybordpage model =
     let
         totalpages =
-            totalkeyboardpages model.generalgroupchooserdata
+            totalkeyboardpages model
 
         nextpage =
             model.chooserskeyboard.keyboardpage + 1
