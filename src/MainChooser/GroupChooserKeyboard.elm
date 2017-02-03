@@ -301,7 +301,7 @@ handgroupchooserkeyboard model =
 getprepagedatahand handgroupchooserdata =
     let
         data =
-            List.concat <| handgroupchooserdata
+            handgroupchooserdata
 
         allcolvalues =
             List.range 1 5

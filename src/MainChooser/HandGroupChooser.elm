@@ -19,7 +19,7 @@ import SWEditor.Display exposing (signView, symbolaloneView)
 import SWEditor.SymbolToolTip exposing (..)
 
 
-handgroupchooser : List (List (List HandGroupChooserViewColumnData)) -> Html Msg
+handgroupchooser : List (List HandGroupChooserViewColumnData) -> Html Msg
 handgroupchooser tabledata =
     Html.div []
         [ Html.div []
@@ -28,7 +28,7 @@ handgroupchooser tabledata =
             , button [ Html.Events.onClick (FilterHandGroup 3) ] [ text "all" ]
             ]
         , table []
-            (List.concatMap (List.map row) tabledata)
+            (List.map row tabledata)
         ]
 
 
@@ -74,18 +74,19 @@ symbol symboldata =
 --State
 
 
-createhandgroupchooserdata : MainChooser.Types.Model -> List (List (List HandGroupChooserViewColumnData))
+createhandgroupchooserdata : MainChooser.Types.Model -> List (List HandGroupChooserViewColumnData)
 createhandgroupchooserdata model =
-    (List.map
-        (\data ->
-            let
-                tabledata2 =
-                    createrowdata model data
-            in
-                tabledata2
+    List.concat <|
+        (List.map
+            (\data ->
+                let
+                    tabledata2 =
+                        createrowdata model data
+                in
+                    tabledata2
+            )
+            model.handgroupchooseritems
         )
-        model.handgroupchooseritems
-    )
 
 
 createrowdata : MainChooser.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
