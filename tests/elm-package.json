@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
-    "summary": "Sample Elm Test",
-    "repository": "https://github.com/user/project.git",
+    "summary": "Unit testing support with Console/Html/etc outputs.",
+    "repository": "https://github.com/project-fuzzball/node.git",
     "license": "BSD-3-Clause",
     "source-directories": [
         ".",
