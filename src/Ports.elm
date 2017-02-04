@@ -57,6 +57,12 @@ port cmdDragSymbol : Symbol -> Cmd msg
 port subDragSymbol : (Symbol -> msg) -> Sub msg
 
 
+port cmdAddSymbol : Symbol -> Cmd msg
+
+
+port subAddSymbol : (Symbol -> msg) -> Sub msg
+
+
 port cmdReplaceSymbol : Symbol -> Cmd msg
 
 

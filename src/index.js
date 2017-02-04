@@ -93,6 +93,9 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
 app.ports.cmdDragSymbol.subscribe(function(symbol) {
     app.ports.subDragSymbol.send(symbol);
 });
+app.ports.cmdAddSymbol.subscribe(function(symbol) {
+    app.ports.subAddSymbol.send(symbol);
+});
 app.ports.cmdReplaceSymbol.subscribe(function(symbol) {
     app.ports.subReplaceSymbol.send(symbol);
 });

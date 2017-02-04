@@ -9,11 +9,15 @@ import SWEditor.Display exposing (signView)
 import SWEditor.EditorSymbol exposing (..)
 import Html.Attributes exposing (..)
 import ViewHelper.ViewExtra exposing (..)
+import Choosers.GroupChooserKeyboard exposing (..)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)
 createsymbolchooserkeyboard model =
-    creategeneralsymbolchooserkeyboard model
+    if ishandgroupchooser model.clicked then
+        []
+    else
+        creategeneralsymbolchooserkeyboard model
 
 
 creategeneralsymbolchooserkeyboard : Model -> List (KeyAction Msg)
@@ -26,17 +30,36 @@ creategeneralsymbolchooserkeyboard model =
             generalsymbolchooserdata.generalsymbolrowdata
 
         symbolcolumndata =
-            generalsymbolchooserdata.generalsymbolrowdata
+            generalsymbolchooserdata.symbolcolumnsdata
 
         rowkeyactionlist =
             createkeyactionlist symbolrowdata (List.range 43 52)
 
-        -- columnkeyactionlist =
-        --     createkeyactionlist symbolcolumndata <| List.append (List.range 30 40) (List.range 16 28)
+        firstcolumn =
+            getcolumn 1 symbolcolumndata
+
+        secondcolumn =
+            getcolumn 2 symbolcolumndata
+
+        columnkeyactionlist1 =
+            creatcolumnkeyactionlist firstcolumn (List.range 30 40)
+
+        columnkeyactionlist2 =
+            creatcolumnkeyactionlist secondcolumn (List.range 16 28)
+
         -- actionlist =
         --     List.append rowkeyactionlist columnkeyactionlist
+        fulllist =
+            List.append (List.append rowkeyactionlist columnkeyactionlist1) columnkeyactionlist2
     in
-        rowkeyactionlist
+        fulllist
+
+
+getcolumn col symbolcolumndata =
+    if col == 1 then
+        List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol1) symbolcolumndata
+    else
+        List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol2) symbolcolumndata
 
 
 
@@ -53,6 +76,43 @@ creategeneralsymbolchooserkeyboard model =
 --         }
 -- }
 -- -> List { fill : Int, symbol : EditorSymbol }
+
+
+creatcolumnkeyactionlist : List EditorSymbol -> List Int -> List (KeyAction Msg)
+creatcolumnkeyactionlist data range =
+    let
+        keyrange =
+            List.Extra.zip range data
+
+        viewkeylist =
+            List.map
+                (\( key, symbol ) ->
+                    { test = { key = key, ctrl = False, shift = False, alt = False }
+                    , action = AddSymbol symbol
+                    , display =
+                        { width =
+                            symbol.width
+                        , height =
+                            symbol.height
+                        , view =
+                            Html.map Choosers.Types.SignView
+                                (signView { syms = [ symbol ] }
+                                    [ Html.Attributes.style
+                                        [ "position" => "relative"
+                                        , "margin" => "auto"
+                                        , "left" => px 0
+                                        , "top" => px 4
+                                        , "width" => px symbol.width
+                                        , "height" => px symbol.height
+                                        ]
+                                    ]
+                                )
+                        }
+                    }
+                )
+                (keyrange)
+    in
+        viewkeylist
 
 
 createkeyactionlist : List { fill : Int, symbol : EditorSymbol } -> List Int -> List (KeyAction Msg)
@@ -84,7 +144,6 @@ createkeyactionlist data range =
                                         ]
                                     ]
                                 )
-                            -- Html.map Choosers.Types.SignView (symbolaloneView item.symbol 5)
                         }
                     }
                 )

@@ -192,6 +192,12 @@ update action model =
                 |> Update.Extra.andThen update UpdateChooserKeyboards
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
 
+        AddSymbol symbol ->
+            ( model
+            , cmdAddSymbol <| fromEditorSymbol symbol
+            )
+                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
+
         DragSymbol code ->
             let
                 editorsymbol =

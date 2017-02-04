@@ -272,6 +272,47 @@ update action model =
                 }
                     ! []
 
+        AddSymbol symbol ->
+            let
+                editorSymbol =
+                    toEditorSymbol model.uid 0 symbol
+
+                selectedsymbol =
+                    { editorSymbol | selected = True }
+
+                sign1 =
+                    unselectSymbols model.sign
+
+                sign =
+                    { sign1
+                        | syms =
+                            List.append sign1.syms
+                                [ { selectedsymbol
+                                    | x = 200
+                                    , y = 200
+                                    , id = model.uid + 2
+                                  }
+                                ]
+                    }
+
+                lastuid =
+                    getlastuid <| sign
+
+                newmodel =
+                    { model
+                        | uid = lastuid
+                        , editormode = Awaiting
+                        , sign = sign
+                    }
+            in
+                newmodel
+                    ! []
+                    |> Update.Extra.andThen update
+                        (AddUndo True
+                            "AddSymbol"
+                            newmodel
+                        )
+
         EndDragging ->
             let
                 undroppedsymbol =
@@ -374,6 +415,7 @@ subscriptions model =
         , receiveSign SetSign
         , receiveElementPosition ReceiveElementPosition
         , subDragSymbol DragSymbol
+        , subAddSymbol AddSymbol
         , subReplaceSymbol ReplaceSymbol
         , receiveKeyboardCommand Keyboard
         ]
