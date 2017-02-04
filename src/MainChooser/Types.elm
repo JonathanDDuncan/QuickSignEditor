@@ -346,6 +346,8 @@ type alias GeneralGroupChooserSymbolData =
 type alias HandGroupChooserViewColumnData =
     { backgroundcolor : String
     , symboldatalist : List HandGroupChooserViewSymbolData
+    , col : Int
+    , row : Int
     }
 
 

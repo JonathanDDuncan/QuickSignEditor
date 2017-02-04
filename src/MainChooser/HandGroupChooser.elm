@@ -100,24 +100,24 @@ createrowdata model tabledata =
                 tabledata
 
         rowdata =
-            List.map
-                (\rowdata1 ->
-                    createcolumndata model rowdata1
+            List.indexedMap
+                (\row rowdata1 ->
+                    createcolumndata model rowdata1 row
                 )
                 filtered
     in
         rowdata
 
 
-createcolumndata : MainChooser.Types.Model -> List HandGroupChooserSubList -> List HandGroupChooserViewColumnData
-createcolumndata model rowdata =
-    (List.map
-        (\coldata ->
+createcolumndata : MainChooser.Types.Model -> List HandGroupChooserSubList -> Int -> List HandGroupChooserViewColumnData
+createcolumndata model rowdata row =
+    (List.indexedMap
+        (\col coldata ->
             let
                 symboldatalist =
                     createsymboldatalist model coldata
             in
-                { symboldatalist = symboldatalist, backgroundcolor = coldata.backgroundcolor }
+                { col = col, row = row, symboldatalist = symboldatalist, backgroundcolor = coldata.backgroundcolor }
         )
         rowdata
     )
@@ -225,7 +225,7 @@ createcolumndata1 model cat col choosings =
 
 filterhandgroupitems : Int -> Int -> List ChooserItem -> List ChooserItem
 filterhandgroupitems col handgroupfilter choosings =
-    case handgroupfilter of
+    case Debug.log "handgroupfilter" handgroupfilter of
         2 ->
             List.filter (\item -> item.col == col && item.common == False) choosings
 

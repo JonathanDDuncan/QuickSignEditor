@@ -21,6 +21,7 @@ creategroupchooserkeyboard model =
         generalgroupchooserkeyboard model
 
 
+ishandgroupchooser : String -> Bool
 ishandgroupchooser clicked =
     let
         basesymbol =
@@ -64,6 +65,7 @@ generalgroupchooserkeyboard model =
         keyactionlist
 
 
+pagedata : List (List a1) -> Int -> List (List a1)
 pagedata prepagedata page =
     let
         totalpages =
@@ -112,6 +114,9 @@ createkeyactionlist data =
         listwithnextpage
 
 
+getprepagedatageneral :
+    List (List { c | symboldatalist : List b, col : comparable })
+    -> List (List b)
 getprepagedatageneral generalgroupchooserdata =
     let
         concatenated =
@@ -133,10 +138,17 @@ getprepagedatageneral generalgroupchooserdata =
         stackedcolumns
 
 
+keyranges : List (List Int)
 keyranges =
     [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
 
 
+nextpagelist :
+    List
+        { action : Msg
+        , display : { height : number, view : Html.Html msg, width : number1 }
+        , test : { alt : Bool, ctrl : Bool, key : Int, shift : Bool }
+        }
 nextpagelist =
     [ { test = { key = 57, ctrl = False, shift = False, alt = False }
       , action = NextKeyboardPage
@@ -181,6 +193,7 @@ displace cols =
         newcols
 
 
+getpagedata : Int -> List (List a) -> List (List a1) -> List (List a1)
 getpagedata page keyranges stackedcolumns =
     let
         zipped =
@@ -281,6 +294,7 @@ appendcols list1 list2 =
         appendedlists
 
 
+handgroupchooserkeyboard : Model -> List (KeyAction Msg)
 handgroupchooserkeyboard model =
     let
         handgroupchooserdata =
@@ -295,25 +309,37 @@ handgroupchooserkeyboard model =
         keyactionlist =
             createkeyactionlist pageddata
     in
-        []
+        keyactionlist
 
 
+getprepagedatahand : List (List { a | col : Int, symboldatalist : List b }) -> List (List b)
 getprepagedatahand handgroupchooserdata =
     let
-        data =
-            handgroupchooserdata
+        concatenated =
+            List.concat <|
+                handgroupchooserdata
 
-        allcolvalues =
-            List.range 1 5
+        col1 =
+            gethandcolumnvalues concatenated 0
+
+        col2 =
+            gethandcolumnvalues concatenated 1
+
+        col3 =
+            gethandcolumnvalues concatenated 2
+
+        col4 =
+            gethandcolumnvalues concatenated 3
+
+        col5 =
+            gethandcolumnvalues concatenated 4
 
         cols =
-            List.map getcolhand data
-
-        -- stackedcolumns =
-        --     stackcolumns 4 displacedcols
+            [ col1, col2, List.append col3 col4, col5 ]
     in
         cols
 
 
-getcolhand data =
-    List.concatMap (\dl -> dl.symboldatalist) data
+gethandcolumnvalues : List { c | col : Int, symboldatalist : List b } -> Int -> List b
+gethandcolumnvalues values col =
+    List.concatMap (\dl -> dl.symboldatalist) <| List.filter (\item -> item.col == col) values
