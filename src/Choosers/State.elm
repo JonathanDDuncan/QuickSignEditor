@@ -191,6 +191,7 @@ update action model =
             )
                 |> Update.Extra.andThen update UpdateChooserKeyboards
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
+                |> Update.Extra.andThen update UpdateHandSymbolChooser
 
         AddSymbol symbol ->
             ( model
