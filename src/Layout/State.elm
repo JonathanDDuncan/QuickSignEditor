@@ -13,7 +13,7 @@ import WindowSize.Types
 import SWEditor.State
 import PlatformHelpers exposing (lift)
 import Keyboard.State
-import MainChooser.State
+import Choosers.State
 import Ports exposing (..)
 import Update.Extra exposing (..)
 
@@ -36,7 +36,7 @@ init =
       , window = Tuple.first WindowSize.State.init
       , signbox = Tuple.first SWEditor.State.init
       , keyboard = Tuple.first Keyboard.State.init
-      , mainchooser = Tuple.first MainChooser.State.init
+      , mainchooser = Tuple.first Choosers.State.init
       , rightdrawer = Tuple.first drawerinit
       , footerheight = 176
       , containerHeight = 800
@@ -51,7 +51,7 @@ init =
       }
     , Cmd.batch
         [ Cmd.map Window (Tuple.second WindowSize.State.init)
-        , Cmd.map MainChooser (Tuple.second MainChooser.State.init)
+        , Cmd.map Choosers (Tuple.second Choosers.State.init)
         ]
     )
 
@@ -109,8 +109,8 @@ update msg model =
         Keyboard action ->
             lift .keyboard (\m x -> { m | keyboard = x }) Keyboard Keyboard.State.update action model
 
-        MainChooser action ->
-            lift .mainchooser (\m x -> { m | mainchooser = x }) MainChooser MainChooser.State.update action model
+        Choosers action ->
+            lift .mainchooser (\m x -> { m | mainchooser = x }) Choosers Choosers.State.update action model
 
         DrawerShow ->
             ( { model | rightdrawer = setdrawerShowing model.rightdrawer True }
@@ -254,7 +254,7 @@ subscriptions model =
         [ WindowSize.State.subscriptions model.window |> Sub.map Window
         , SWEditor.State.subscriptions model.signbox |> Sub.map SWEditor
         , Keyboard.State.subscriptions model.keyboard |> Sub.map Keyboard
-        , MainChooser.State.subscriptions model.mainchooser |> Sub.map MainChooser
+        , Choosers.State.subscriptions model.mainchooser |> Sub.map Choosers
         , pleaseShareFsw PleaseShareFsw
         ]
 

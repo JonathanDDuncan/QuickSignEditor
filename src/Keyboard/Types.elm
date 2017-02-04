@@ -7,7 +7,7 @@ import SW.Types exposing (..)
 import Keyboard.Extra as KeyboardExtra
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
-import MainChooser.Types exposing (Msg)
+import Choosers.Types exposing (Msg)
 
 
 type alias Model =
@@ -23,7 +23,7 @@ type alias Model =
 type Msg
     = KeyClicked Int
     | DisplaySignView SWEditor.Types.Msg
-    | DisplayChoosers MainChooser.Types.Msg
+    | DisplayChoosers Choosers.Types.Msg
     | KeyboardExtraMsg KeyboardExtra.Msg
     | SetKeyboardMode Int
 

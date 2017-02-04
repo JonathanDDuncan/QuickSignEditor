@@ -2,11 +2,11 @@ module SWEditor.SymbolToolTip exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import Material exposing (..)
 import Material.Tooltip as Tooltip exposing (..)
 import Material.Options as Options exposing (div, cs, when)
-import MainChooser.HandPng exposing (..)
+import Choosers.HandPng exposing (..)
 import SW.Types exposing (..)
 
 
@@ -18,8 +18,8 @@ symboltooltip :
     -> Int
     -> Int
     -> HandFills
-    -> List (Html MainChooser.Types.Msg)
-    -> List (Html MainChooser.Types.Msg)
+    -> List (Html Choosers.Types.Msg)
+    -> List (Html Choosers.Types.Msg)
 symboltooltip mdl mdlid name key rotation fill handfill content =
     let
         ishand =

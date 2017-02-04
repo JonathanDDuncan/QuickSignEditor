@@ -1,4 +1,4 @@
-module MainChooser.CompassRose exposing (compassrosediv)
+module Choosers.CompassRose exposing (compassrosediv)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

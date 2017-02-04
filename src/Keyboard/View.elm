@@ -9,7 +9,7 @@ import String
 import Json.Decode as Json
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
-import MainChooser.Types exposing (Msg, ChoosersKeyboard)
+import Choosers.Types exposing (Msg, ChoosersKeyboard)
 import ViewHelper.ViewExtra exposing (..)
 
 

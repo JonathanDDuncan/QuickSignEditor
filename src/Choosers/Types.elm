@@ -1,4 +1,4 @@
-module MainChooser.Types exposing (..)
+module Choosers.Types exposing (..)
 
 -- import SubMainChoosers.Types
 

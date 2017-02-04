@@ -1,11 +1,11 @@
-module MainChooser.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
+module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import SWEditor.Display exposing (signView)
 import SW.Types exposing (..)
 import Dict exposing (..)

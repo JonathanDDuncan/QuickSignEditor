@@ -1,6 +1,6 @@
-module MainChooser.GeneralChooserKeyboard exposing (..)
+module Choosers.GeneralChooserKeyboard exposing (..)
 
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import Html
 import Choosing.View exposing (root)
 import Choosing.Types exposing (Model)
@@ -8,10 +8,10 @@ import Keyboard.Shared exposing (..)
 
 
 runKeyboardCommand :
-    MainChooser.Types.Model
+    Choosers.Types.Model
     -> KeyboardCommand
-    -> (Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd Msg ))
-    -> ( MainChooser.Types.Model, Cmd Msg )
+    -> (Msg -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Msg ))
+    -> ( Choosers.Types.Model, Cmd Msg )
 runKeyboardCommand model command update =
     let
         mode =

@@ -1,24 +1,24 @@
-module MainChooser.View exposing (root)
+module Choosers.View exposing (root)
 
 import Html exposing (..)
 import String exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import Choosing.View exposing (..)
 import Choosing.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import MainChooser.HandGroupChooser exposing (..)
-import MainChooser.GeneralGroupChooser exposing (..)
-import MainChooser.GeneralSymbolChooser exposing (..)
-import MainChooser.HandSymbolChooser exposing (..)
+import Choosers.HandGroupChooser exposing (..)
+import Choosers.GeneralGroupChooser exposing (..)
+import Choosers.GeneralSymbolChooser exposing (..)
+import Choosers.HandSymbolChooser exposing (..)
 import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import Keyboard.Shared exposing (KeyboardMode)
 
 
-root : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
+root : Choosers.Types.Model -> Int -> Int -> Html Choosers.Types.Msg
 root model parentwidth parentheight =
     let
         halfheight =
@@ -64,7 +64,7 @@ root model parentwidth parentheight =
             ]
 
 
-symbolchooser : MainChooser.Types.Model -> Int -> Int -> Html MainChooser.Types.Msg
+symbolchooser : Choosers.Types.Model -> Int -> Int -> Html Choosers.Types.Msg
 symbolchooser model halfwidth halfheight =
     let
         generalsymbolchooserdata =
@@ -76,7 +76,7 @@ symbolchooser model halfwidth halfheight =
             generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 
 
-displayChoosing : Choosing.Types.Model -> Html MainChooser.Types.Msg
+displayChoosing : Choosing.Types.Model -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
         [ onClick (Clicked choosing.value)
@@ -92,7 +92,7 @@ firstsymbol choosing =
     choosing.valuestoAdd |> List.head |> Maybe.withDefault SWEditor.EditorSymbol.symbolinit
 
 
-choosesubgroupchooser : MainChooser.Types.Model -> Html MainChooser.Types.Msg
+choosesubgroupchooser : Choosers.Types.Model -> Html Choosers.Types.Msg
 choosesubgroupchooser model =
     let
         basesymbol =

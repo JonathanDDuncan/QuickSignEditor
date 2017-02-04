@@ -1,11 +1,11 @@
-module MainChooser.HandSymbolChooser exposing (..)
+module Choosers.HandSymbolChooser exposing (..)
 
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Display exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
-import MainChooser.HandPng exposing (..)
+import Choosers.HandPng exposing (..)
 
 
 --View
@@ -14,11 +14,11 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import List.Extra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import MainChooser.CompassRose exposing (..)
-import MainChooser.HandPng exposing (..)
+import Choosers.CompassRose exposing (..)
+import Choosers.HandPng exposing (..)
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> Html Msg

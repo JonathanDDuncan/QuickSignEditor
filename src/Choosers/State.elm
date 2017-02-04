@@ -1,4 +1,4 @@
-module MainChooser.State exposing (init, update, subscriptions)
+module Choosers.State exposing (init, update, subscriptions)
 
 -- only includes Rest functions that are really needed
 -- import Rest exposing (..)
@@ -6,7 +6,7 @@ module MainChooser.State exposing (init, update, subscriptions)
 -- if you have sub components
 -- import PlatformHelpers exposing (..)
 
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import Ports exposing (..)
 import Choosing.State exposing (..)
 import Choosing.Types exposing (..)
@@ -16,21 +16,21 @@ import String exposing (..)
 import SW.Types exposing (..)
 import Material
 import SWEditor.EditorSymbol exposing (getSymbolEditorCode, fromEditorSymbol)
-import MainChooser.HandSymbolChooser exposing (..)
+import Choosers.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Update.Extra exposing (..)
-import MainChooser.HandGroupChooser exposing (..)
+import Choosers.HandGroupChooser exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import MainChooser.GeneralChooserKeyboard exposing (..)
-import MainChooser.GroupChooserKeyboard exposing (..)
-import MainChooser.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
+import Choosers.GeneralChooserKeyboard exposing (..)
+import Choosers.GroupChooserKeyboard exposing (..)
+import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 import Keyboard.Shared exposing (KeyboardMode)
 
 
 -- import SubMainChoosers.State
 
 
-init : ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
+init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 init =
     ( { lastmdlid = 0
       , mdl = Material.model
@@ -56,14 +56,14 @@ init =
             , keyboardpage = 1
             }
       }
-      -- To initiate MainChooser state
-      --  { MainChooserFieldName = fst MainChooser.State.init
+      -- To initiate Choosers state
+      --  { MainChooserFieldName = fst Choosers.State.init
       --  }
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
 
 
-update : MainChooser.Types.Msg -> MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
+update : Choosers.Types.Msg -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 update action model =
     case action of
         Noop ->
@@ -381,7 +381,7 @@ updatechooserkeyboard model =
         newmodel
 
 
-nextkeybordpage : MainChooser.Types.Model -> ( MainChooser.Types.Model, Cmd MainChooser.Types.Msg )
+nextkeybordpage : Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 nextkeybordpage model =
     let
         totalpages =
@@ -493,12 +493,12 @@ getvalue name itemsvalues =
 
 
 
---To nest update of MainChooser
+--To nest update of Choosers
 --  MainChooserMsg action ->
---          lift .MainChooserFieldName (\m x -> { m | MainChooserFieldName = x })  MainChooserMsg MainChooser.State.update action model
+--          lift .MainChooserFieldName (\m x -> { m | MainChooserFieldName = x })  MainChooserMsg Choosers.State.update action model
 
 
-subscriptions : MainChooser.Types.Model -> Sub MainChooser.Types.Msg
+subscriptions : Choosers.Types.Model -> Sub Choosers.Types.Msg
 subscriptions model =
     Sub.batch
         [ receiveInitialChoosings ReceiveInitialChoosings

@@ -1,6 +1,6 @@
-module MainChooser.HandGroupChooser exposing (gethandgroupchooserdata, createhandgroupchooserdata, handgroupchooser)
+module Choosers.HandGroupChooser exposing (gethandgroupchooserdata, createhandgroupchooserdata, handgroupchooser)
 
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
@@ -13,7 +13,7 @@ import List.Extra exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
 import SWEditor.SymbolToolTip exposing (..)
@@ -74,7 +74,7 @@ symbol symboldata =
 --State
 
 
-createhandgroupchooserdata : MainChooser.Types.Model -> List (List HandGroupChooserViewColumnData)
+createhandgroupchooserdata : Choosers.Types.Model -> List (List HandGroupChooserViewColumnData)
 createhandgroupchooserdata model =
     List.concat <|
         (List.map
@@ -89,7 +89,7 @@ createhandgroupchooserdata model =
         )
 
 
-createrowdata : MainChooser.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
+createrowdata : Choosers.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
 createrowdata model tabledata =
     let
         filtered =
@@ -109,7 +109,7 @@ createrowdata model tabledata =
         rowdata
 
 
-createcolumndata : MainChooser.Types.Model -> List HandGroupChooserSubList -> Int -> List HandGroupChooserViewColumnData
+createcolumndata : Choosers.Types.Model -> List HandGroupChooserSubList -> Int -> List HandGroupChooserViewColumnData
 createcolumndata model rowdata row =
     (List.indexedMap
         (\col coldata ->
@@ -123,7 +123,7 @@ createcolumndata model rowdata row =
     )
 
 
-createsymboldatalist : MainChooser.Types.Model -> HandGroupChooserSubList -> List HandGroupChooserViewSymbolData
+createsymboldatalist : Choosers.Types.Model -> HandGroupChooserSubList -> List HandGroupChooserViewSymbolData
 createsymboldatalist model columndata =
     List.map
         (\displayhanditem ->

@@ -1,9 +1,9 @@
-module MainChooser.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
+module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.Display exposing (signView, symbolaloneView)
 import Material.Tooltip as Tooltip exposing (attach, render, left)
@@ -84,7 +84,7 @@ creategeneralgroupchooserdata model =
         tabledata
 
 
-creategeneralgroupchoosertabledata : MainChooser.Types.Model -> List ChooserItem -> List Int -> List (List GeneralGroupChooserColumData)
+creategeneralgroupchoosertabledata : Choosers.Types.Model -> List ChooserItem -> List Int -> List (List GeneralGroupChooserColumData)
 creategeneralgroupchoosertabledata model choosings rowvalues =
     List.map
         (\row ->
@@ -93,7 +93,7 @@ creategeneralgroupchoosertabledata model choosings rowvalues =
         rowvalues
 
 
-creategeneralgroupchooserrowdata : MainChooser.Types.Model -> Int -> List ChooserItem -> List GeneralGroupChooserColumData
+creategeneralgroupchooserrowdata : Choosers.Types.Model -> Int -> List ChooserItem -> List GeneralGroupChooserColumData
 creategeneralgroupchooserrowdata model row choosings =
     let
         colvalues =
@@ -105,7 +105,7 @@ creategeneralgroupchooserrowdata model row choosings =
         rowdata
 
 
-creategeneralgroupchoosercolumndata : MainChooser.Types.Model -> Int -> Int -> List ChooserItem -> GeneralGroupChooserColumData
+creategeneralgroupchoosercolumndata : Choosers.Types.Model -> Int -> Int -> List ChooserItem -> GeneralGroupChooserColumData
 creategeneralgroupchoosercolumndata model row col choosings =
     let
         choosingsforcolumn =
@@ -122,7 +122,7 @@ creategeneralgroupchoosercolumndata model row col choosings =
         { symboldatalist = symboldatalist, row = row, col = col }
 
 
-creategeneralgroupchoosersymboldata : MainChooser.Types.Model -> ChooserItem -> GeneralGroupChooserSymbolData
+creategeneralgroupchoosersymboldata : Choosers.Types.Model -> ChooserItem -> GeneralGroupChooserSymbolData
 creategeneralgroupchoosersymboldata model chooseritem =
     let
         symbol =

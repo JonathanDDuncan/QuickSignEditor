@@ -1,9 +1,9 @@
-module MainChooser.GeneralSymbolChooserKeyboard exposing (..)
+module Choosers.GeneralSymbolChooserKeyboard exposing (..)
 
 import Html
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import Keyboard.Shared exposing (..)
-import MainChooser.GeneralSymbolChooser exposing (getgeneralsymbolchooser)
+import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser)
 import List.Extra exposing (..)
 import SWEditor.Display exposing (symbolaloneView)
 
@@ -48,7 +48,7 @@ createkeyactionlist data range =
                             item.symbol.width
                         , height =
                             item.symbol.height
-                        , view = Html.map MainChooser.Types.SignView (symbolaloneView item.symbol 5)
+                        , view = Html.map Choosers.Types.SignView (symbolaloneView item.symbol 5)
                         }
                     }
                 )

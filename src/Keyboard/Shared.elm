@@ -5,7 +5,7 @@ import Html
 
 
 -- import SWEditor.Types exposing (..)
--- import MainChooser.Types exposing (..)
+-- import Choosers.Types exposing (..)
 
 
 type KeyboardMode

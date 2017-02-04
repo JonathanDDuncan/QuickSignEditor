@@ -4,7 +4,7 @@ import Html exposing (..)
  
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
-import MainChooser.View
+import Choosers.View
 
 
 rightspace : Model -> Html Msg
@@ -24,7 +24,7 @@ rightspace model =
                 , ( "margin-left", toString model.rightspacemarginleftpercentage ++ "%" )
                 ]
             ]
-            [ Html.map MainChooser (MainChooser.View.root model.mainchooser rightspacewidth model.containerHeight)
+            [ Html.map Choosers (Choosers.View.root model.mainchooser rightspacewidth model.containerHeight)
             ]
 
 

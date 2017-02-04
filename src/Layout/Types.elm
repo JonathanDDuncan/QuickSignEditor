@@ -6,7 +6,7 @@ import Material
 import WindowSize.Types
 import SWEditor.Types
 import Keyboard.Types
-import MainChooser.Types
+import Choosers.Types
 
 
 type alias Model =
@@ -15,7 +15,7 @@ type alias Model =
     , window : WindowSize.Types.Model
     , signbox : SWEditor.Types.Model
     , keyboard : Keyboard.Types.Model
-    , mainchooser : MainChooser.Types.Model
+    , mainchooser : Choosers.Types.Model
     , rightdrawer : DrawerModel
     , footerheight : Int
     , containerHeight : Int
@@ -43,7 +43,7 @@ type Msg
     | Window WindowSize.Types.Msg
     | SWEditor SWEditor.Types.Msg
     | Keyboard Keyboard.Types.Msg
-    | MainChooser MainChooser.Types.Msg
+    | Choosers Choosers.Types.Msg
     | DrawerShow
     | DrawerHide
     | Mdl (Material.Msg Msg)

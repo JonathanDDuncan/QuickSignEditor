@@ -1,16 +1,16 @@
-module MainChooser.GroupChooserKeyboard exposing (..)
+module Choosers.GroupChooserKeyboard exposing (..)
 
-import MainChooser.Types exposing (..)
+import Choosers.Types exposing (..)
 import Html
 import Keyboard.Shared exposing (KeyAction)
 
 
--- import MainChooser.GeneralGroupChooser exposing (..)
+-- import Choosers.GeneralGroupChooser exposing (..)
 
 import SWEditor.Display exposing (signView, symbolaloneView)
 import List.Extra exposing (..)
 import Exts.List exposing (chunk)
-import MainChooser.HandGroupChooser exposing (createhandgroupchooserdata)
+import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
 
 
 creategroupchooserkeyboard : Model -> List (KeyAction Msg)

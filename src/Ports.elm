@@ -2,7 +2,7 @@ port module Ports exposing (..)
 
 import SW.Types exposing (..)
 import Choosing.Types as Choosing exposing (..)
-import MainChooser.Types as MainChooser exposing (..)
+import Choosers.Types as Choosers exposing (..)
 import Keyboard.Shared exposing (KeyboardCommand)
 
 
@@ -24,7 +24,7 @@ port receiveSignfromOtherApp : (Sign -> msg) -> Sub msg
 port receiveInitialChoosings : (List Choosing.ImportModel -> msg) -> Sub msg
 
 
-port receiveInitialGroupHandChoosings : (MainChooser.HandGroupImportModel -> msg) -> Sub msg
+port receiveInitialGroupHandChoosings : (Choosers.HandGroupImportModel -> msg) -> Sub msg
 
 
 port requestElementPosition : String -> Cmd msg

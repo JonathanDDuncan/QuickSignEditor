@@ -1,15 +1,15 @@
 module Testing exposing (..)
 
  
-import MainChooser.State
-import MainChooser.View
+import Choosers.State
+import Choosers.View
 
 
 main : Program Never
 main =
     Html.App.program
-        { init = MainChooser.State.init
-        , update = MainChooser.State.update
-        , subscriptions = MainChooser.State.subscriptions
-        , view = MainChooser.View.root
+        { init = Choosers.State.init
+        , update = Choosers.State.update
+        , subscriptions = Choosers.State.subscriptions
+        , view = Choosers.View.root
         }
