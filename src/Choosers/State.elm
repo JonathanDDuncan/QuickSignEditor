@@ -182,10 +182,11 @@ update action model =
               }
             , Cmd.none
             )
+                |> Update.Extra.andThen update UpdateChooserKeyboards
 
         GroupSelected choosing ->
             ( { model
-                | groupselected = Debug.log "GroupSelected" choosing
+                | groupselected = choosing
               }
             , Cmd.none
             )
