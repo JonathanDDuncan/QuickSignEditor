@@ -159,9 +159,6 @@ update action model =
                     { updatingmodel1
                         | generalgroupchooserdata = generalgroupchooserdata
                     }
-
-                -- newmodel =
-                --     updatechooserkeyboard updatingmodel2
             in
                 ( updatingmodel2
                 , Cmd.none
@@ -188,12 +185,12 @@ update action model =
 
         GroupSelected choosing ->
             ( { model
-                | groupselected = choosing
+                | groupselected = Debug.log "GroupSelected" choosing
               }
             , Cmd.none
             )
+                |> Update.Extra.andThen update UpdateChooserKeyboards
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
-                |> Update.Extra.andThen update UpdateHandSymbolChooser
 
         DragSymbol code ->
             let
@@ -286,6 +283,7 @@ update action model =
                 , Cmd.none
                 )
                     |> Update.Extra.andThen update UpdateHandSymbolChooser
+                    |> Update.Extra.andThen update UpdateChooserKeyboards
 
         SelectPlane plane ->
             let
@@ -374,6 +372,9 @@ updatechooserkeyboard model =
     let
         groupchooserkeyboard =
             creategroupchooserkeyboard model
+
+        deb =
+            Debug.log "updatechooserkeyboard" ""
 
         symbolchooserkeyboard =
             createsymbolchooserkeyboard model
