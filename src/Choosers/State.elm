@@ -25,6 +25,7 @@ import Choosers.GeneralChooserKeyboard exposing (..)
 import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 import Keyboard.Shared exposing (KeyboardMode)
+import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 
 -- import SubMainChoosers.State
@@ -159,13 +160,14 @@ update action model =
                         | generalgroupchooserdata = generalgroupchooserdata
                     }
 
-                newmodel =
-                    updatechooserkeyboard updatingmodel2
+                -- newmodel =
+                --     updatechooserkeyboard updatingmodel2
             in
-                ( newmodel
+                ( updatingmodel2
                 , Cmd.none
                 )
                     |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
+                    |> Update.Extra.andThen update UpdateChooserKeyboards
 
         SymbolView msg ->
             ( model
@@ -361,17 +363,29 @@ update action model =
                 , sendKeyboardMode num
                 )
 
+        UpdateChooserKeyboards ->
+            ( updatechooserkeyboard model
+            , Cmd.none
+            )
 
+
+updatechooserkeyboard : Choosers.Types.Model -> Choosers.Types.Model
 updatechooserkeyboard model =
     let
         groupchooserkeyboard =
             creategroupchooserkeyboard model
 
+        symbolchooserkeyboard =
+            createsymbolchooserkeyboard model
+
         chooserskeyboard1 =
             model.chooserskeyboard
 
         chooserskeyboard2 =
-            { chooserskeyboard1 | groupchooserkeyboard = groupchooserkeyboard }
+            { chooserskeyboard1
+                | groupchooserkeyboard = groupchooserkeyboard
+                , symbolchooserkeyboard = symbolchooserkeyboard
+            }
 
         newmodel =
             { model

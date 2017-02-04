@@ -60,6 +60,7 @@ type Msg
     | Keyboard KeyboardCommand
     | NextKeyboardPage
     | SetKeyboardMode KeyboardMode
+    | UpdateChooserKeyboards
 
 
 type alias HandGroupChooser =
