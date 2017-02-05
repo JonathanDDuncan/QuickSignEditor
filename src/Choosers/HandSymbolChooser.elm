@@ -132,15 +132,25 @@ planeselection : { a | plane : Planes } -> List (Html Msg)
 planeselection handsymbol =
     [ td
         [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ]
-        [ img [ src <| pngfolder ++ "wallplanesmall.png", width 50 ] []
+        [ wallplaneimg
         , div [] [ text "Wall" ]
         ]
     , td
         [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ]
-        [ img [ src <| pngfolder ++ "floorplanesmall.png", width 50 ] []
+        [ floorplaneimg
         , div [] [ text "Floor" ]
         ]
     ]
+
+
+wallplaneimg : Html msg
+wallplaneimg =
+    img [ src <| pngfolder ++ "wallplanesmall.png", width 50 ] []
+
+
+floorplaneimg : Html msg
+floorplaneimg =
+    img [ src <| pngfolder ++ "floorplanesmall.png", width 50 ] []
 
 
 selectedbackground : a -> a -> Attribute b

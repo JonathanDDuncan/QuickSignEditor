@@ -291,7 +291,6 @@ update action model =
                 , Cmd.none
                 )
                     |> Update.Extra.andThen update UpdateHandSymbolChooser
-                    |> Update.Extra.andThen update UpdateChooserKeyboards
 
         SelectPlane plane ->
             let
@@ -353,6 +352,7 @@ update action model =
                   }
                 , Cmd.none
                 )
+                    |> Update.Extra.andThen update UpdateChooserKeyboards
 
         Keyboard command ->
             runKeyboardCommand model command update
