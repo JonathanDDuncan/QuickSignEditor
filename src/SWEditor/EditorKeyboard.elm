@@ -4,6 +4,7 @@ import SWEditor.Types exposing (..)
 import Keyboard.Shared exposing (..)
 import Svg exposing (svg, path)
 import Html.Attributes exposing (..)
+import List.Extra
 
 
 runKeyboardCommand :
@@ -21,24 +22,8 @@ runKeyboardCommand model command update =
                 runKeyboard model command update configKeyboardSignView
             else
                 model ! []
-
-        -- GeneralChooser ->
-        --     runKeyboardGeneralChooser model command update
-        -- GroupChooser ->
-        --     runKeyboardGroupChooser model command update
-        -- SymbolChooser ->
-        --     runKeyboardSymbolChooser model command update
     in
         updatetuple
-
-
-
--- runKeyboardGeneralChooser model command update =
---     model ! []
--- runKeyboardGroupChooser model command update =
---     model ! []
--- runKeyboardSymbolChooser model command update =
---     model ! []
 
 
 keyboarddisplay :
@@ -51,6 +36,11 @@ keyboarddisplay =
 
 configKeyboardSignView : List (KeyAction Msg)
 configKeyboardSignView =
+    List.append otherkeys arrowkeys
+
+
+otherkeys : List (KeyAction Msg)
+otherkeys =
     [ { test = { key = 43, ctrl = True, shift = False, alt = False }
       , action = (Undo)
       , display =
@@ -87,100 +77,107 @@ configKeyboardSignView =
                     ]
             }
       }
-    , { test = { key = 67, ctrl = False, shift = False, alt = False }
-      , action = (MoveSymbols Up 1)
-      , display =
-            { width = 24
-            , height = 24
-            , view =
-                svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "d" "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 69, ctrl = False, shift = False, alt = False }
-      , action = (MoveSymbols Down 1)
-      , display =
-            { width = 24
-            , height = 24
-            , view =
-                svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "d" "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z", attribute "fill" "#010101" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 70, ctrl = False, shift = False, alt = False }
-      , action = (MoveSymbols Right 1)
-      , display =
-            { width = 18
-            , height = 18
-            , view =
-                svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "d" "M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 68, ctrl = False, shift = False, alt = False }
-      , action = (MoveSymbols Left 1)
-      , display =
-            { width = 18
-            , height = 18
-            , view =
-                svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "d" "M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 67, ctrl = True, shift = False, alt = False }
-      , action = (MoveSymbols Up 10)
-      , display =
-            { width = 24
-            , height = 24
-            , view =
-                svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "transform" "scale(1.3)", attribute "d" "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 69, ctrl = True, shift = False, alt = False }
-      , action = (MoveSymbols Down 10)
-      , display =
-            { width = 24
-            , height = 24
-            , view =
-                svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "transform" "scale(1.3)", attribute "d" "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z", attribute "fill" "#010101" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 70, ctrl = True, shift = False, alt = False }
-      , action = (MoveSymbols Right 10)
-      , display =
-            { width = 18
-            , height = 18
-            , view =
-                svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "transform" "scale(1.3)", attribute "d" "M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z" ]
-                        []
-                    ]
-            }
-      }
-    , { test = { key = 68, ctrl = True, shift = False, alt = False }
-      , action = (MoveSymbols Left 10)
-      , display =
-            { width = 18
-            , height = 18
-            , view =
-                svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
-                    [ path [ attribute "transform" "scale(1.3)", attribute "d" "M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" ]
-                        []
-                    ]
-            }
-      }
     ]
+
+
+arrowkeys : List (KeyAction Msg)
+arrowkeys =
+    let
+        keyactionnormal =
+            getkeyaction 1 1 False [ 67, 69, 70, 68 ]
+
+        keyactionfast =
+            getkeyaction 10 1.3 True [ 67, 69, 70, 68 ]
+
+        keyactionnormalwasd =
+            getkeyaction 1 1 False [ 17, 31, 32, 30 ]
+
+        keyactionfastwasd =
+            getkeyaction 10 1.3 True [ 17, 31, 32, 30 ]
+    in
+        List.concat [ keyactionnormal, keyactionfast, keyactionnormalwasd, keyactionfastwasd ]
+
+
+getkeyaction dist zoom shift range =
+    let
+        values =
+            [ { test = { key = 0, ctrl = False, shift = False, alt = False }
+              , action = (MoveSymbols Up dist)
+              , display = arrowupdisplay zoom
+              }
+            , { test = { key = 0, ctrl = False, shift = False, alt = False }
+              , action = (MoveSymbols Down dist)
+              , display = arrowdowndisplay zoom
+              }
+            , { test = { key = 0, ctrl = False, shift = False, alt = False }
+              , action = (MoveSymbols Right dist)
+              , display = arrowrightdisplay zoom
+              }
+            , { test = { key = 0, ctrl = False, shift = False, alt = False }
+              , action = (MoveSymbols Left dist)
+              , display = arrowleftdisplay zoom
+              }
+            ]
+
+        keyrange =
+            List.Extra.zip range values
+
+        viewkeylist =
+            List.map
+                (\( key, value ) ->
+                    { value
+                        | test = { key = key, ctrl = False, shift = shift, alt = False }
+                    }
+                )
+                (keyrange)
+    in
+        viewkeylist
+
+
+
+--    { test = { key = 67, ctrl = ctrl, shift = False, alt = False }
+--   ,
+
+
+arrowupdisplay scale =
+    { width = 24
+    , height = 24
+    , view =
+        svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+            [ path [ attribute "transform" ("scale(" ++ toString scale ++ ")"), attribute "d" "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" ]
+                []
+            ]
+    }
+
+
+arrowdowndisplay scale =
+    { width = 24
+    , height = 24
+    , view =
+        svg [ attribute "height" "24", attribute "viewBox" "0 0 24 24", attribute "width" "24", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+            [ path [ attribute "transform" ("scale(" ++ toString scale ++ ")"), attribute "d" "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z", attribute "fill" "#010101" ]
+                []
+            ]
+    }
+
+
+arrowrightdisplay scale =
+    { width = 18
+    , height = 18
+    , view =
+        svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+            [ path [ attribute "transform" ("scale(" ++ toString scale ++ ")"), attribute "d" "M9 3L7.94 4.06l4.19 4.19H3v1.5h9.13l-4.19 4.19L9 15l6-6z" ]
+                []
+            ]
+    }
+
+
+arrowleftdisplay scale =
+    { width = 18
+    , height = 18
+    , view =
+        svg [ attribute "height" "18", attribute "viewBox" "0 0 18 18", attribute "width" "18", attribute "xmlns" "http://www.w3.org/2000/svg" ]
+            [ path [ attribute "transform" ("scale(" ++ toString scale ++ ")"), attribute "d" "M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" ]
+                []
+            ]
+    }
