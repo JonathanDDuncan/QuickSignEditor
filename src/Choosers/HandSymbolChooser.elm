@@ -35,6 +35,9 @@ handsymbolchooser model width height =
 
         rowheight =
             truncate <| toFloat height / toFloat 10
+
+        fullwidth =
+            220
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -58,7 +61,7 @@ handsymbolchooser model width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , compassrose handsymbol.handfill rosecenterpetaldata roseouterpetaldata 220
+            , compassrose handsymbol.handfill rosecenterpetaldata roseouterpetaldata fullwidth
             ]
 
 
@@ -168,33 +171,52 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth =
             fullwidth
 
         itemwidth =
-            truncate (toFloat fullwidth / 4)
+            truncate (toFloat fullwidth / 5)
 
         itemheight =
             itemwidth
+
+        innersize =
+            truncate <| toFloat fullwidth * 0.6
 
         rosecenterimagehands =
             if (handfill == LeftBabyEdge || handfill == RightBabyEdge) then
                 text ""
             else
-                handimagecenter rosecenterpetaldata fullwidth itemwidth
+                handimagecenter rosecenterpetaldata fullwidth itemwidth innersize
     in
-        compassrosediv fullwidth fullheight itemwidth itemheight 0 petalcontent rosecenterimagehands
+        div
+            [ style
+                [ "position" => "relative"
+                , "width" => px fullwidth
+                , "margin" => "auto"
+                ]
+            ]
+            [ compassrosediv fullwidth fullheight itemwidth itemheight 0 innersize petalcontent rosecenterimagehands
+            ]
 
 
-handimagecenter : List (Html msg) -> Int -> Int -> Html msg
-handimagecenter petalcontent parentsize parentitemsize =
+handimagecenter : List (Html msg) -> Int -> Int -> Int -> Html msg
+handimagecenter petalcontent parentsize parentitemsize fullwidth =
     let
-        fullwidth =
-            truncate (toFloat parentsize - (toFloat parentitemsize * 1.75))
-
         itemwidth =
             truncate (toFloat fullwidth / 4) + 10
 
         top =
-            -20
+            Debug.log "top" <|
+                truncate <|
+                    toFloat (Debug.log "parentsize" parentsize - Debug.log "fullwidth" fullwidth)
+                        / 2
     in
-        compassrosediv fullwidth fullwidth itemwidth itemwidth top petalcontent (text "")
+        div
+            [ style
+                [ "position" => "relative"
+                , "width" => "100%"
+                , "height" => "100%"
+                ]
+            ]
+            [ compassrosediv fullwidth fullwidth itemwidth itemwidth top 10 petalcontent (text "")
+            ]
 
 
 symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
@@ -246,7 +268,17 @@ handpngpetal :
     { a | miror : Bool, pngcss : String, rotate : number }
     -> Html c
 handpngpetal handpng =
-    handpngspan handpng "" "scale(0.75)"
+    div
+        [ style
+            [ "position" => "relative"
+            , "width" => "inherit"
+            , "height" => "inherit"
+            , "display" => "table-cell"
+            , "vertical-align" => "middle"
+            , "text-align" => "center"
+            ]
+        ]
+        [ handpngspan handpng " overflow: auto;  margin: auto;  position: absolute; top: 0; left: 0; bottom: 0; right: 0; " "scale(0.8)" "inline-block" ]
 
 
 gethandfillitems : Base -> Dict.Dict String Size -> Hands -> Planes -> List HandFillItem

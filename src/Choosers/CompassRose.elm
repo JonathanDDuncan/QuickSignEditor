@@ -9,32 +9,39 @@ import List.Extra exposing (..)
 --View
 
 
-compassrosediv : Int -> Int -> Int -> Int -> Int -> List (Html b) -> Html b -> Html b
-compassrosediv fullwidth fullheight itemwidth itemheight top petalcontent rosecenter =
+compassrosediv : Int -> Int -> Int -> Int -> Int -> Int -> List (Html b) -> Html b -> Html b
+compassrosediv fullwidth fullheight itemwidth itemheight top innersize petalcontent rosecenter =
     let
         radius =
             (toFloat fullwidth / 2) - (toFloat itemwidth / 2)
 
         centerfloating =
             truncate ((toFloat fullwidth / 2) - (sqrt (((radius) * (radius)) / 2)))
+
+        centertop =
+            truncate <|
+                toFloat (fullwidth - innersize)
+                    / 2
     in
         div
             [ style
                 [ "width" => px fullwidth
                 , "height" => px fullheight
-                , "margin" => "auto"
-                , "position" => "relative"
-                , "top" => px top
+                  -- , "margin" => "auto"
+                , "position" => "absolute"
+                , "top" => px 0
+                , "left" => px 0
                 ]
+            , class "compassrose"
             ]
             (List.append
                 [ div
                     [ style
                         [ "position" => "absolute"
-                        , "width" => px (fullwidth - (2 * itemwidth))
-                        , "height" => px (fullheight - (2 * itemheight))
-                        , "top" => px itemheight
-                        , "left" => px itemwidth
+                        , "width" => px innersize
+                        , "height" => px innersize
+                        , "top" => px centertop
+                        , "left" => px centertop
                         ]
                     ]
                     [ rosecenter
