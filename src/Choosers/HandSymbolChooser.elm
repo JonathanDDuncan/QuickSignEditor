@@ -269,16 +269,9 @@ handpngpetal :
     -> Html c
 handpngpetal handpng =
     div
-        [ style
-            [ "position" => "relative"
-            , "width" => "inherit"
-            , "height" => "inherit"
-            , "display" => "table-cell"
-            , "vertical-align" => "middle"
-            , "text-align" => "center"
-            ]
+        [ class "centerdivcontainer"
         ]
-        [ handpngspan handpng " overflow: auto;  margin: auto;  position: absolute; top: 0; left: 0; bottom: 0; right: 0; " "scale(0.8)" "inline-block" ]
+        [ handpngspan handpng "centerdiv" "" "scale(0.8)" "inline-block" ]
 
 
 gethandfillitems : Base -> Dict.Dict String Size -> Hands -> Planes -> List HandFillItem

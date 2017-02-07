@@ -271,5 +271,17 @@
 
             
               .compassrose  { border: 1px solid black; }
-
+   .centerdiv  { 
+        position: absolute;
+        overflow: auto; 
+    margin: auto; 
+    
+      top: 0; 
+      left: 0;
+       bottom: 0; 
+       right: 0; }
+      .centerdivcontainer  { 
+     position:relative;
+            width:inherit;
+            height:inherit;}
                 /*.compassrose *  { border: 1px solid black; }*/

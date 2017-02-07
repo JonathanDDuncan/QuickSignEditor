@@ -7,8 +7,8 @@ import Html.Attributes exposing (..)
 import Choosers.Types exposing (..)
 
 
-handpngspan : { a | miror : Bool, pngcss : String, rotate : number } -> String -> String -> String -> Html c
-handpngspan handpng morestyle moretransform displaystyle =
+handpngspan : { a | miror : Bool, pngcss : String, rotate : number } -> String -> String -> String -> String -> Html c
+handpngspan handpng classes morestyle moretransform displaystyle =
     let
         miror =
             if handpng.miror then
@@ -32,7 +32,7 @@ handpngspan handpng morestyle moretransform displaystyle =
                 ""
     in
         Html.div
-            [ class (handpng.pngcss)
+            [ class (handpng.pngcss ++ " " ++ classes)
             , attribute "style"
                 ("display:"
                     ++ displaystyle

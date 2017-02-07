@@ -36,7 +36,7 @@ symboltooltip mdl mdlid name key rotation fill handfill content =
             mdl
             [ Tooltip.left ]
             [ if ishand then
-                handpngspan handpng "margin: auto;" "" "inline-block"
+                handpngspan handpng "" "margin: auto;" "" "inline-block"
               else
                 text ""
             , Html.div [ attribute "style" "width:100%;" ] [ text name ]
