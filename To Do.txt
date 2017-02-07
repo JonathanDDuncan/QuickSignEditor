@@ -1,18 +1,22 @@
 To Do
 
-Add chooser symbols to keyboard
+Fix symbol position compassrose
+Fix symbol position and scaling in keys in keyboard
+In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
+Add Adam and Steve and Val on credits
 
-Double click replace symbol
-Double click lookup symbol
+Switch to Keyboard-Extra package instead of inline source code
+Move over to SuttonFont 
+
 Arrow symbol chooser
 Add original 1 to 10 
-In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
+
+Double click lookup symbol
 Add favorites
 Highlight symbol hovering in GeneralChooser
 
 
-Switch to Keyboard-Extra package instead of inline source code
-Move over to SuttonFont 
+
 
 Add fingerspelling layout to keyboard
 Add color choooser
