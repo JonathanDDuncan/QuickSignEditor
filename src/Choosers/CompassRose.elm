@@ -27,10 +27,6 @@ compassrosediv fullwidth fullheight itemwidth itemheight top innersize petalcont
             [ style
                 [ "width" => px fullwidth
                 , "height" => px fullheight
-                  -- , "margin" => "auto"
-                , "position" => "absolute"
-                , "top" => px 0
-                , "left" => px 0
                 ]
             , class "compassrose"
             ]

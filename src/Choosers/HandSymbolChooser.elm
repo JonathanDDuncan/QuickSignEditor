@@ -171,8 +171,9 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth =
             fullwidth
 
         itemwidth =
-            truncate (toFloat fullwidth / 5)
+            50
 
+        -- truncate (toFloat fullwidth / 5)
         itemheight =
             itemwidth
 
@@ -222,24 +223,15 @@ handimagecenter petalcontent parentsize parentitemsize fullwidth =
 symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
 symbolcentered drag symbol width height =
     div
-        [ style
-            [ "position" => "relative"
-            , "width" => px width
-            , "height" => px height
-            , "margin" => "auto"
-            ]
+        [ if drag then
+            onMouseDown (DragSymbol symbol.code)
+          else
+            onMouseDown Noop
+        , onDoubleClick
+            (ReplaceSymbol symbol.code)
         ]
-        [ div
-            [ if drag then
-                onMouseDown (DragSymbol symbol.code)
-              else
-                onMouseDown Noop
-            , onDoubleClick
-                (ReplaceSymbol symbol.code)
-            ]
-            [ Html.map SignView
-                (SWEditor.Display.symbolView1 "" symbol)
-            ]
+        [ Html.map SignView
+            (SWEditor.Display.symbolView1 "" symbol)
         ]
 
 

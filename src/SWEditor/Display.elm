@@ -71,46 +71,48 @@ symbolView nbcolor symbol =
 
 
 symbolView1 nbcolor symbol =
-    div
-        [ style
-            [ "display" => "inline-table"
-            ]
-        ]
-        [ span
-            [ class "symbol"
-            , style
-                [ "position" => "absolute"
-                , "display" => "block"
-                , scale symbol.size
-                , "height" => px symbol.height
-                , "width" => px symbol.width
+    let
+        top =
+            (33 - (truncate <| toFloat symbol.height / 2))
+
+        left =
+            (25 - (truncate <| toFloat symbol.width / 2))
+    in
+        span
+            [ style
+                [ "position"
+                    => "relative"
                 ]
+            , class "centerspancontainer"
             ]
             [ span
+                [ class "sym-fill centerspan"
+                , style
+                    [ "color"
+                        => symbol.nwcolor
+                    , "top" => px top
+                    , "left" => px left
+                    ]
+                ]
+                [ text symbol.pua ]
+            , span
+                [ class "sym-line centerspan"
+                , style
+                    [ "color"
+                        => (nbcolor)
+                    , "top" => px top
+                    , "left" => px left
+                    ]
+                ]
+                [ text symbol.pua ]
+            , span
                 [ style
                     [ "display"
                         => "none"
                     ]
                 ]
                 [ text symbol.key ]
-            , span
-                [ class "sym-fill"
-                , style
-                    [ "color"
-                        => symbol.nwcolor
-                    ]
-                ]
-                [ text symbol.pua ]
-            , span
-                [ class "sym-line"
-                , style
-                    [ "color"
-                        => (nbcolor)
-                    ]
-                ]
-                [ text symbol.pua ]
             ]
-        ]
 
 
 mulInt : Int -> Float -> Int
