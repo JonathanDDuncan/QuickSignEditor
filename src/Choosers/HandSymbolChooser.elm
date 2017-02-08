@@ -144,7 +144,7 @@ handselection handsymbol rowheight handType symbolgetter topoffset marginbottom 
             [ style
                 [ "position" => "relative"
                 , "display" => "block"
-                , "top" => px (6 + topoffset)
+                , "top" => px (2 + topoffset)
                 , "left" => px 0
                 , "margin-bottom" => px marginbottom
                 ]
