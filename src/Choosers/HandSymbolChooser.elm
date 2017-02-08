@@ -19,6 +19,7 @@ import List.Extra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Choosers.CompassRose exposing (..)
 import Choosers.HandPng exposing (..)
+import Convert.ConvertFsw exposing (rotation)
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> Html Msg
@@ -79,13 +80,34 @@ fillsview handsymbol rowheight =
                     [ style
                         [ "position" => "relative"
                         , "display" => "block"
-                        , "top" => px -8
-                        , "left" => px -15
+                        , "top"
+                            => px
+                                (6
+                                    + if rotation handfillitem.symbol.code < 9 then
+                                        2
+                                      else
+                                        0
+                                )
+                        , "left" => px 0
+                        , "margin-bottom"
+                            => (px
+                                    (if (Debug.log "rotation" <| rotation handfillitem.symbol.code) >= 9 then
+                                        10
+                                     else
+                                        0
+                                    )
+                               )
                         ]
                     ]
-                    [ symbolcentered False handfillitem.symbol 50 rowheight
+                    [ Html.map SignView
+                        (symbolaloneView handfillitem.symbol 0)
                     ]
-                , div [] [ text description ]
+                , div
+                    [ style
+                        [ "clear" => "both"
+                        ]
+                    ]
+                    [ text description ]
                 ]
         )
         (List.reverse
@@ -99,8 +121,8 @@ fillsview handsymbol rowheight =
 
 handselectionboth : HandSymbol -> Int -> List (Html Msg)
 handselectionboth handsymbol rowheight =
-    [ handselection handsymbol rowheight Left .symbollefthand "Left"
-    , handselection handsymbol rowheight Right .symbolrighthand "Right"
+    [ handselection handsymbol rowheight Left .symbollefthand 6 10 "Left"
+    , handselection handsymbol rowheight Right .symbolrighthand 6 0 "Right"
     ]
 
 
@@ -109,20 +131,33 @@ handselection :
     -> Int
     -> Hands
     -> ({ a | hand : Hands } -> EditorSymbol)
+    -> Int
+    -> Int
     -> String
     -> Html Msg
-handselection handsymbol rowheight handType symbolgetter label =
-    td [ onClick (SelectHand handType), selectedbackground handType handsymbol.hand ]
+handselection handsymbol rowheight handType symbolgetter topoffset marginbottom label =
+    td
+        [ onClick (SelectHand handType)
+        , selectedbackground handType handsymbol.hand
+        ]
         [ div
             [ style
                 [ "position" => "relative"
                 , "display" => "block"
-                , "top" => px -8
-                , "left" => px -15
+                , "top" => px (6 + topoffset)
+                , "left" => px 0
+                , "margin-bottom" => px marginbottom
                 ]
             ]
-            [ symbolcentered False (symbolgetter handsymbol) 50 rowheight ]
-        , div [] [ text label ]
+            [ Html.map SignView
+                (symbolaloneView (symbolgetter handsymbol) 0)
+            ]
+        , div
+            [ style
+                [ "clear" => "both"
+                ]
+            ]
+            [ text label ]
         ]
 
 
