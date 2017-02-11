@@ -56,19 +56,18 @@
             }
 
             .sym-fill {
-                font-family: 'SignWriting 2010 Filling';
+                font-family: 'SuttonSignWritingFill';
                 fill: white;
+                display:block;
+                
             }
 
             .sym-line {
-                font-family: 'SignWriting 2010';
+                font-family: 'SuttonSignWriting';
                 fill: black;
+                display:block;
             }
-  .sym-fill1 {
-                font-family: 'SignWriting 2010 Filling';
-                fill: white;
-            }
- 
+  
             .sym-fill,
             .sym-line {
                 left: 0;

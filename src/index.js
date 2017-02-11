@@ -10,7 +10,7 @@ window.app = app;
 //subscribe javacript functions to Elm command ports
 app.ports.requestSign.subscribe(function(fsw) {
     try {
-        var sign = sw10.symbolsList(fsw);
+        var sign = ssw.symbolsList(fsw);
         //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
@@ -62,7 +62,7 @@ app.ports.requestInitialChoosings.subscribe(function(str) {
         console.log("requestInitialChoosings called")
         var fsw = "M600x697S33000476x489S2ff00484x489S30a50495x495S30a40516x495S31430498x506S33e10501x524S33110510x511S36d10481x558S36a10500x541S36d00481x558S37601546x560S37609463x560S14c10554x555S20500576x542S21600552x542S22800463x558S2f700562x519S22a00470x636S22e00583x587S23800487x631S24200506x631S24b00534x628S28800468x668S29900491x663S2e300534x665S2ed00568x587S2f100448x542S2f500564x655S36b10463x454S36c00493x447S38500534x443S37e0f440x559S29600511x663S38700476x695--Z01,1.48Z02,1.51Z05,1.21Z06,1.45Z08,1.63Z09,1.27Z10,1.6Z11,1.6Z12,1.6Z26,0.79Z29,0.79Z30,0.79Z31,0.79";
 
-        var sign = sw10.symbolsList(fsw);
+        var sign = ssw.symbolsList(fsw);
         var x = 10;
         var y = 10;
         var signs = splitintosigns(sign);
@@ -108,7 +108,7 @@ app.ports.sendKeyboardMode.subscribe(function(mode) {
 
 function getchoosings(fsw) {
 
-    var sign = sw10.symbolsList(fsw);
+    var sign = ssw.symbolsList(fsw);
     var x = 10;
     var y = 10;
     var signs = splitintosigns(sign);
@@ -177,7 +177,7 @@ function getchoosingvalue(values) {
 
 function getchoosing(fsw, offsetx, offsety) {
 
-    var sign = sw10.symbolsList(fsw);
+    var sign = ssw.symbolsList(fsw);
     var offset1 = {};
     offset1.offsetx = offsetx;
     offset1.offsety = offsety;
@@ -243,7 +243,7 @@ function requestSign(str) {
             var fsw = window.initialFSW
         }
 
-        var sign = sw10.symbolsList(fsw);
+        var sign = ssw.symbolsList(fsw);
 
         //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
