@@ -25,7 +25,7 @@ type alias Symbol =
     , y : Int
     , width : Int
     , height : Int
-    , fontsize : Int
+    , fontsize : Float
     , size : Float
     , nwcolor : String
     , pua : String

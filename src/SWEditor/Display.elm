@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SW.SymbolConverter exposing (..)
 
 
 signView :
@@ -24,9 +25,13 @@ signView :
     -> List (Attribute Msg)
     -> Html Msg
 signView sign attr =
-    div
-        attr
-        (List.map extractColor sign.syms)
+    let
+        sign1 =
+            Debug.log "signViewsign" sign
+    in
+        div
+            attr
+            (List.map extractColor sign.syms)
 
 
 extractColor : { a | nbcolor : String, nwcolor : String, pua : String, key : String, x : Int, y : Int, size : Float } -> Html Msg
@@ -36,38 +41,45 @@ extractColor symbol =
 
 symbolView : String -> { a | nwcolor : String, x : Int, y : Int, pua : String, key : String, size : Float } -> Html Msg
 symbolView nbcolor symbol =
-    span
-        [ class "symbol"
-        , style
-            [ scale symbol.size
-            , "left" => px symbol.x
-            , "top" => px symbol.y
-            ]
-        ]
-        [ span
-            [ style
-                [ "display"
-                    => "none"
-                ]
-            ]
-            [ text symbol.key ]
-        , span
-            [ class "sym-fill"
+    let
+        linechar =
+            puaCharCode <| linecodefromkey symbol.key
+
+        fillchar =
+            puaCharCode <| fillcodefromkey symbol.key
+    in
+        span
+            [ class "symbol"
             , style
-                [ "color"
-                    => symbol.nwcolor
+                [ scale symbol.size
+                , "left" => px symbol.x
+                , "top" => px symbol.y
                 ]
             ]
-            [ text symbol.pua ]
-        , span
-            [ class "sym-line"
-            , style
-                [ "color"
-                    => (nbcolor)
+            [ span
+                [ style
+                    [ "display"
+                        => "none"
+                    ]
                 ]
+                [ text symbol.key ]
+            , span
+                [ class "sym-fill"
+                , style
+                    [ "color"
+                        => symbol.nwcolor
+                    ]
+                ]
+                [ text fillchar ]
+            , span
+                [ class "sym-line"
+                , style
+                    [ "color"
+                        => (nbcolor)
+                    ]
+                ]
+                [ text linechar ]
             ]
-            [ text symbol.pua ]
-        ]
 
 
 symbolView1 nbcolor symbol =
@@ -77,6 +89,12 @@ symbolView1 nbcolor symbol =
 
         left =
             (25 - (truncate <| toFloat symbol.width / 2))
+
+        linechar =
+            puaCharCode <| linecodefromkey symbol.key
+
+        fillchar =
+            puaCharCode <| fillcodefromkey symbol.key
     in
         span
             [ style
@@ -94,7 +112,7 @@ symbolView1 nbcolor symbol =
                     , "left" => px left
                     ]
                 ]
-                [ text symbol.pua ]
+                [ text fillchar ]
             , span
                 [ class "sym-line centerspan"
                 , style
@@ -104,7 +122,7 @@ symbolView1 nbcolor symbol =
                     , "left" => px left
                     ]
                 ]
-                [ text symbol.pua ]
+                [ text linechar ]
             , span
                 [ style
                     [ "display"
@@ -122,39 +140,46 @@ mulInt num1 num2 =
 
 symbolaloneView : EditorSymbol -> Int -> Html Msg
 symbolaloneView symbol margin =
-    div
-        [ class "font-30"
-        , style
-            [ scale symbol.size
-            , "width" => px (symbol.width + margin * 2)
-            , "height" => px (symbol.height + margin * 2)
-            , "margin" => "0 auto"
-            ]
-        ]
-        [ span
-            [ style
-                [ "display"
-                    => "none"
-                ]
-            ]
-            [ text symbol.key ]
-        , span
-            [ class "sym-fill"
+    let
+        linechar =
+            puaCharCode <| linecodefromkey symbol.key
+
+        fillchar =
+            puaCharCode <| fillcodefromkey symbol.key
+    in
+        div
+            [ class "font-30"
             , style
-                [ "color"
-                    => symbol.nwcolor
+                [ scale symbol.size
+                , "width" => px (symbol.width + margin * 2)
+                , "height" => px (symbol.height + margin * 2)
+                , "margin" => "0 auto"
                 ]
             ]
-            [ text symbol.pua ]
-        , span
-            [ class "sym-line"
-            , style
-                [ "color"
-                    => symbol.nbcolor
+            [ span
+                [ style
+                    [ "display"
+                        => "none"
+                    ]
                 ]
+                [ text symbol.key ]
+            , span
+                [ class "sym-fill"
+                , style
+                    [ "color"
+                        => symbol.nwcolor
+                    ]
+                ]
+                [ text fillchar ]
+            , span
+                [ class "sym-line"
+                , style
+                    [ "color"
+                        => symbol.nbcolor
+                    ]
+                ]
+                [ text linechar ]
             ]
-            [ text symbol.pua ]
-        ]
 
 
 scaledSignView :

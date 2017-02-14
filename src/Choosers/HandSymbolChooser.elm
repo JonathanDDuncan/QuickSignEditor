@@ -241,7 +241,7 @@ handimagecenter petalcontent parentsize parentitemsize fullwidth =
         top =
             Debug.log "top" <|
                 truncate <|
-                    toFloat (Debug.log "parentsize" parentsize - Debug.log "fullwidth" fullwidth)
+                    toFloat (parentsize - fullwidth)
                         / 2
     in
         div

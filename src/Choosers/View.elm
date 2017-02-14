@@ -31,8 +31,9 @@ root model parentwidth parentheight =
             [ div
                 [ style [ "height" => px (halfheight - 30) ]
                 , onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
+                , style [ "position" => "relative" ]
                 ]
-                (List.map displayChoosing model.choosings)
+                (List.map displayChoosing <| Debug.log "modelchoosings" model.choosings)
             , div
                 [ class "generalsymbolchooser"
                 , style

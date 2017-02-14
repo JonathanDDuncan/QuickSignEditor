@@ -1065,7 +1065,7 @@ var ssw = {
           gelem += '<text ';
           gelem += 'class="sym-fill" ';
           if (!options.css) {
-              exsym.fontsize = Math.round (options.F[i + 1] ? 30 * options.F[i + 1][0] : 30);
+              exsym.fontsize = options.F[i + 1] ? 30 * options.F[i + 1][0] : 30;
               exsym.nwcolor = (options.E[i + 1] ? options.E[i + 1][1] ? options.E[i + 1][1] : options.fill : options.fill);
               gelem += 'style="pointer-events:none;font-family:\'SuttonSignWritingFill\';font-size:' + (options.F[i + 1] ? 30 * options.F[i + 1][0] : 30) + 'px;fill:' + (options.E[i + 1] ? options.E[i + 1][1] ? options.E[i + 1][1] : options.fill : options.fill) + ';';
               gelem += '"';

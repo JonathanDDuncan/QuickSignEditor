@@ -27,6 +27,30 @@ code base fill rotation =
     0x00100000 + 96 * (base - 256) + 16 * (fill) + rotation + 1
 
 
+linecode : Base -> Fill -> Rotation -> Int
+linecode base fill rotation =
+    0x00040000 + 96 * (base - 256) + 16 * (fill) + rotation + 1
+
+
+linecodefromkey : Key -> Int
+linecodefromkey key =
+    linecode (hexbaseFromKey key) (hexfillFromKey key) (hexrotationFromKey key)
+
+
+fillcode : Base -> Fill -> Rotation -> Int
+fillcode base fill rotation =
+    0x00100000 + 96 * (base - 256) + 16 * (fill) + rotation + 1
+
+
+
+--  var pua = 0x100000 + ((parseInt(key.slice(1,4),16) - 256) * 96) + ((parseInt(key.slice(4,5),16))*16) + parseInt(key.slice(5,6),16) + 1;
+
+
+fillcodefromkey : Key -> Int
+fillcodefromkey key =
+    fillcode (hexbaseFromKey key) (hexfillFromKey key) (hexrotationFromKey key)
+
+
 key : Base -> Fill -> Rotation -> Key
 key base fill rotation =
     "S" ++ dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1)

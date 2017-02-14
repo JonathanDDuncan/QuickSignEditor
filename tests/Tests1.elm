@@ -58,7 +58,10 @@ all1 =
         , test "String.left" <|
             \() ->
                 Expect.equal "a" (String.left 1 "abcdefg")
-          -- , test "This test should fail" <|
-          --     \() ->
-          --         Expect.fail "failed as expected!"
+        , test "fillcodefromkey S1870a" <|
+            \() ->
+                Expect.equal (puaCharCode <| fillcodefromkey "S1870a") ("\x1032AB")
+        , test "linecodefromkey S1870a" <|
+            \() ->
+                Expect.equal (puaCharCode <| linecodefromkey "S1870a") ("\x432AB")
         ]

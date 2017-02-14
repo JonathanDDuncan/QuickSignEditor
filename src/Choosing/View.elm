@@ -4,6 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Choosing.Types exposing (..)
 import SWEditor.Display exposing (..)
+import SWEditor.DisplaySvg exposing (..)
 import SWEditor.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 
@@ -13,10 +14,7 @@ import ViewHelper.ViewExtra exposing (..)
 
 root : Choosing.Types.Model -> Html Choosing.Types.Msg
 root model =
-    div
-        []
-        [ Html.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign (attributes1 model))
-        ]
+    Html.map Choosing.Types.Display (SWEditor.DisplaySvg.signdisplaysvg model.displaySign model.offset.offsetx model.offset.offsety)
 
 
 normal : Choosing.Types.Model -> Html Choosing.Types.Msg
@@ -27,7 +25,7 @@ normal model =
         ]
 
 
-attributes1 : Choosing.Types.Model -> List (Attribute SWEditor.Types.Msg)
+attributes1 : Choosing.Types.Model -> List (Attribute msg)
 attributes1 model =
     [ Html.Attributes.style
         [ "position" => "relative"
@@ -39,10 +37,7 @@ attributes1 model =
 
 keyview : Choosing.Types.Model -> Int -> Html Choosing.Types.Msg
 keyview model paddingtop =
-    div
-        []
-        [ Html.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign <| keyviewattributes paddingtop)
-        ]
+    Html.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign <| keyviewattributes paddingtop)
 
 
 keyviewattributes : Int -> List (Attribute SWEditor.Types.Msg)

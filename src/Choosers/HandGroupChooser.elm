@@ -225,7 +225,7 @@ createcolumndata1 model cat col choosings =
 
 filterhandgroupitems : Int -> Int -> List ChooserItem -> List ChooserItem
 filterhandgroupitems col handgroupfilter choosings =
-    case Debug.log "handgroupfilter" handgroupfilter of
+    case handgroupfilter of
         2 ->
             List.filter (\item -> item.col == col && item.common == False) choosings
 
