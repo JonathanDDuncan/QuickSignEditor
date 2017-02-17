@@ -292,3 +292,13 @@
     vertical-align:middle;
     display:table-cell;
     }
+ 
+   .border {
+     border-width: 1px;
+                border-color: black;
+                border-style: solid;
+}
+
+   .hover:hover {
+     background-color:deepskyblue
+}

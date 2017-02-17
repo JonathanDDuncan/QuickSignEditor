@@ -1,4 +1,4 @@
-module Choosers.View exposing (root)
+module Choosers.View exposing (root, choosingroot)
 
 import Html exposing (..)
 import String exposing (..)
@@ -28,12 +28,7 @@ root parentwidth parentheight model =
             (Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2))
     in
         div []
-            [ div
-                [ style [ "height" => px (halfheight - 30) ]
-                , onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
-                , style [ "position" => "relative" ]
-                ]
-                (List.map displayChoosing <| Debug.log "modelchoosings" model.choosings)
+            [ choosingroot halfheight model
             , div
                 [ class "generalsymbolchooser"
                 , style
@@ -63,6 +58,15 @@ root parentwidth parentheight model =
                 [ choosesubgroupchooser model
                 ]
             ]
+
+
+choosingroot height model =
+    div
+        [ style [ "height" => px (height - 30) ]
+        , onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
+        , style [ "position" => "relative" ]
+        ]
+        (List.map displayChoosing <| Debug.log "modelchoosings" model.choosings)
 
 
 symbolchooser : Choosers.Types.Model -> Int -> Int -> Html Choosers.Types.Msg
