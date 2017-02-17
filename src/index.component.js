@@ -3,14 +3,14 @@ require('./assets/styles/main.scss');
 
 // inject bundled Elm app into div#main
 //To change aplication name change the three words Starter in the next two line and in the div in index.html
-var Elm = require('./Testing');
-var app = Elm.Testing.embed(document.getElementById('quicksigneditor'));
+var Elm = require('./RunComponent');
+var app = Elm.RunComponent.embed(document.getElementById('quicksigneditor'));
 window.app = app;
-
+alert ("runing components");
 //subscribe javacript functions to Elm command ports
 app.ports.requestSign.subscribe(function(fsw) {
     try {
-        var sign = sw10.symbolsList(fsw);
+        var sign = ssw.symbolsList(fsw);
         //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
@@ -48,13 +48,35 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 });
 
+app.ports.hideOverlay.subscribe(function(val) {
+    try {
+        if ("signmaker" in window) {
+        } else {
+            callbackObj.hideOverlay("");
+        }
+    } catch (e) { console.log(e) }
+});
 
 app.ports.requestInitialChoosings.subscribe(function(str) {
     try {
         console.log("requestInitialChoosings called")
-        var fsw = "M595x704S31430495x510S33e10498x524S30a40513x498S30a50492x498S2ff00480x491S33110507x509S36a10497x541S36d00478x558S37601543x560S37609460x560S14c10551x555S14c18449x552S36d00482x601S20500571x542S21600547x542S22800466x544S2f700558x519S22a00439x646S22e00578x587S23800456x641S24200475x641S24b00503x638S25500534x642S28800437x678S29200460x673S2a200480x673S2a600508x676S2b800554x673S2e300528x672S2ed00563x587S2f100451x528S2f500564x650S33000472x491S36b10461x454S36c00491x447S38500532x443S37e0f443x545--Z01,1.21Z02,1.45Z05,1.51Z07,1.27Z08,1.6Z09,1.6Z10,1.6Z13,1.48Z30,0.79Z33,1.48Z34,0.79Z35,0.79Z36,0.79";
-        var choosings = getchoosings(fsw);
+        var fsw = "M600x697S33000476x489S2ff00484x489S30a50495x495S30a40516x495S31430498x506S33e10501x524S33110510x511S36d10481x558S36a10500x541S36d00481x558S37601546x560S37609463x560S14c10554x555S20500576x542S21600552x542S22800463x558S2f700562x519S22a00470x636S22e00583x587S23800487x631S24200506x631S24b00534x628S28800468x668S29900491x663S2e300534x665S2ed00568x587S2f100448x542S2f500564x655S36b10463x454S36c00493x447S38500534x443S37e0f440x559S29600511x663S38700476x695--Z01,1.48Z02,1.51Z05,1.21Z06,1.45Z08,1.63Z09,1.27Z10,1.6Z11,1.6Z12,1.6Z26,0.79Z29,0.79Z30,0.79Z31,0.79";
 
+        var sign = ssw.symbolsList(fsw);
+        var x = 10;
+        var y = 10;
+        var signs = splitintosigns(sign);
+
+
+        var newsigns = [];
+        sign.syms.forEach(function(symbol) {
+            newsigns.push(createnewsign(symbol, 500 - sign.x, 500 - sign.y));
+        });
+
+        var choosings = [];
+        newsigns.forEach(function(newsign) {
+            choosings.push(getchoosingsign(newsign, x, y));
+        });
         //send values to Elm subscription ports
         app.ports.receiveInitialChoosings.send(choosings);
     } catch (e) { console.log(e) }
@@ -62,17 +84,31 @@ app.ports.requestInitialChoosings.subscribe(function(str) {
 
 app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
     try {
-        console.log("requestInitialGroupHandChoosings called")
-        var choosings = getgrouphandchoosings();
-        console.log(choosings)
-            //send values to Elm subscription ports
-        app.ports.receiveInitialGroupHandChoosings.send(choosings);
+        console.log("requestInitialGroupHandChoosings called");
+        chooserclassification.symbolsizes = symbolsizes;
+        app.ports.receiveInitialGroupHandChoosings.send(chooserclassification);
+
     } catch (e) { console.log(e) }
+});
+app.ports.cmdDragSymbol.subscribe(function(symbol) {
+    app.ports.subDragSymbol.send(symbol);
+});
+app.ports.cmdAddSymbol.subscribe(function(symbol) {
+    app.ports.subAddSymbol.send(symbol);
+});
+app.ports.cmdReplaceSymbol.subscribe(function(symbol) {
+    app.ports.subReplaceSymbol.send(symbol);
+});
+app.ports.sendKeyboardCommand.subscribe(function(keyboardcommand) {
+    app.ports.receiveKeyboardCommand.send(keyboardcommand);
+});
+app.ports.sendKeyboardMode.subscribe(function(mode) {
+    app.ports.receiveKeyboardMode.send(mode);
 });
 
 function getchoosings(fsw) {
 
-    var sign = sw10.symbolsList(fsw);
+    var sign = ssw.symbolsList(fsw);
     var x = 10;
     var y = 10;
     var signs = splitintosigns(sign);
@@ -141,7 +177,7 @@ function getchoosingvalue(values) {
 
 function getchoosing(fsw, offsetx, offsety) {
 
-    var sign = sw10.symbolsList(fsw);
+    var sign = ssw.symbolsList(fsw);
     var offset1 = {};
     offset1.offsetx = offsetx;
     offset1.offsety = offsety;
@@ -207,7 +243,7 @@ function requestSign(str) {
             var fsw = window.initialFSW
         }
 
-        var sign = sw10.symbolsList(fsw);
+        var sign = ssw.symbolsList(fsw);
 
         //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
@@ -224,30 +260,35 @@ app.ports.requestSignfromOtherAppDelayed.subscribe(requestSignDelayed);
 
 
 function touchHandler(event) {
-    var touches = event.changedTouches,
-        first = touches[0],
-        type = "";
-    switch (event.type) {
-        case "touchstart":
-            type = "mousedown";
-            break;
-        case "touchmove":
-            type = "mousemove";
-            break;
-        case "touchend":
-            type = "mouseup";
-            break;
-        default:
-            return;
-    }
-    var simulatedEvent = document.createEvent("MouseEvent");
-    simulatedEvent.initMouseEvent(type, true, true, window, 1,
-        first.screenX, first.screenY,
-        first.clientX, first.clientY, false,
-        false, false, false, 0 /*left*/ , null);
+    var touches = event.changedTouches
+    if (touches) {
+        var first = touches[0],
+            type = "";
+        switch (event.type) {
+            case "touchstart":
+                type = "mousedown";
+                break;
+            case "touchmove":
+                type = "mousemove";
+                break;
+            case "touchend":
+                type = "mouseup";
+                break;
+            default:
+                return;
+        }
+        if (first) {
+            var simulatedEvent = document.createEvent("MouseEvent");
+            simulatedEvent.initMouseEvent(type, true, true, window, 1,
+                first.screenX, first.screenY,
+                first.clientX, first.clientY, false,
+                false, false, false, 0 /*left*/ , null);
 
-    first.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
+            first.target.dispatchEvent(simulatedEvent);
+
+            // event.preventDefault();
+        }
+    }
 }
 
 function init() {

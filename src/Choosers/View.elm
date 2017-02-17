@@ -18,8 +18,8 @@ import SW.Types exposing (..)
 import Keyboard.Shared exposing (KeyboardMode)
 
 
-root : Choosers.Types.Model -> Int -> Int -> Html Choosers.Types.Msg
-root model parentwidth parentheight =
+root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
+root parentwidth parentheight model =
     let
         halfheight =
             (Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2))

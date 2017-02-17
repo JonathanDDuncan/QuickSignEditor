@@ -1,7 +1,6 @@
 module Layout.RightSpace exposing (rightspace)
 
 import Html exposing (..)
- 
 import Layout.Types exposing (..)
 import Html.Attributes exposing (href, class, style)
 import Choosers.View
@@ -24,7 +23,7 @@ rightspace model =
                 , ( "margin-left", toString model.rightspacemarginleftpercentage ++ "%" )
                 ]
             ]
-            [ Html.map Choosers (Choosers.View.root model.mainchooser rightspacewidth model.containerHeight)
+            [ Html.map Choosers (Choosers.View.root rightspacewidth model.containerHeight model.mainchooser)
             ]
 
 
