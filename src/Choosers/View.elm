@@ -66,7 +66,7 @@ choosingroot height model =
         , onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
         , style [ "position" => "relative" ]
         ]
-        (List.map displayChoosing <| Debug.log "modelchoosings" model.choosings)
+        (List.map displayChoosing model.choosings)
 
 
 symbolchooser : Choosers.Types.Model -> Int -> Int -> Html Choosers.Types.Msg

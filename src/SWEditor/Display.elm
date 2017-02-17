@@ -25,13 +25,9 @@ signView :
     -> List (Attribute Msg)
     -> Html Msg
 signView sign attr =
-    let
-        sign1 =
-            Debug.log "signViewsign" sign
-    in
-        div
-            attr
-            (List.map extractColor sign.syms)
+    div
+        attr
+        (List.map extractColor sign.syms)
 
 
 extractColor : { a | nbcolor : String, nwcolor : String, pua : String, key : String, x : Int, y : Int, size : Float } -> Html Msg
