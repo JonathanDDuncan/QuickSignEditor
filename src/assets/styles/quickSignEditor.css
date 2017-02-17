@@ -300,5 +300,9 @@
 }
 
    .hover:hover {
-     background-color:deepskyblue
+ 
+                   border-width: 1px;
+                border-color: deepskyblue;
+                border-style: solid;
+
 }
