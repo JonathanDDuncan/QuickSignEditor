@@ -75,7 +75,9 @@ symbolchooser model halfwidth halfheight =
         generalsymbolchooserdata =
             getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
     in
-        if iskey model.groupselected.symbolkey "hand" then
+        if model.groupselected.symbolkey == "" then
+            text ""
+        else if iskey model.groupselected.symbolkey "hand" then
             handsymbolchooser model halfwidth halfheight
         else
             generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
