@@ -7,11 +7,6 @@ import Svg exposing (..)
 import SW.SymbolConverter exposing (..)
 
 
--- import SWEditor.Types exposing (..)
-
-import SWEditor.EditorSymbol exposing (..)
-
-
 signdisplaysvg sign offsetx offsety =
     div [ Html.Attributes.style [ "position" => "absolute", "left" => px offsetx, "top" => px offsety ] ]
         (List.map symbolsvg sign.syms)
