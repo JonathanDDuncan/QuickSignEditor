@@ -53,7 +53,7 @@ fillcodefromkey key =
 
 key : Base -> Fill -> Rotation -> Key
 key base fill rotation =
-    "S" ++ dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1)
+    "S" ++ String.toLower (dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1))
 
 
 dectoHex : Int -> String
