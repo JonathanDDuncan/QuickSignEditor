@@ -3,13 +3,9 @@ module Choosing.View exposing (root, normal, keyview)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Choosing.Types exposing (..)
-import SWEditor.Display exposing (..)
-import SWEditor.DisplaySvg exposing (..)
+import SWEditor.DisplaySvg exposing (signdisplaysvg, symbolsvg)
 import SWEditor.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-
-
---import SubChoosing.View exposing (root)
 
 
 root : Choosing.Types.Model -> Html Choosing.Types.Msg
@@ -21,7 +17,7 @@ normal : Choosing.Types.Model -> Html Choosing.Types.Msg
 normal model =
     div
         []
-        [ Html.map Choosing.Types.Display (SWEditor.Display.noScaleSignView model.displaySign)
+        [ Html.map Choosing.Types.Display (signdisplaysvg model.displaySign 0 0)
         ]
 
 
@@ -37,7 +33,7 @@ attributes1 model =
 
 keyview : Choosing.Types.Model -> Int -> Html Choosing.Types.Msg
 keyview model paddingtop =
-    Html.map Choosing.Types.Display (SWEditor.Display.signView model.displaySign <| keyviewattributes paddingtop)
+    Html.map Choosing.Types.Display (signdisplaysvg model.displaySign 0 0)
 
 
 keyviewattributes : Int -> List (Attribute SWEditor.Types.Msg)

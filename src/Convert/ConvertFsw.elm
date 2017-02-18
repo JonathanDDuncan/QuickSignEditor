@@ -26,7 +26,7 @@ code base fill rotation =
 
 key : Int -> Int -> Int -> String
 key base fill rotation =
-    "S" ++ (ParseInt.toRadixUnsafe 16 base) ++ (ParseInt.toRadixUnsafe 16 (fill - 1)) ++ (ParseInt.toRadixUnsafe 16 (rotation - 1))
+    "S" ++ String.toLower ((ParseInt.toRadixUnsafe 16 base) ++ (ParseInt.toRadixUnsafe 16 (fill - 1)) ++ (ParseInt.toRadixUnsafe 16 (rotation - 1)))
 
 
 keyfromcode : Int -> String

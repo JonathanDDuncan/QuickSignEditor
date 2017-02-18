@@ -7,7 +7,7 @@ import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import SWEditor.Display exposing (symbolView)
+import SWEditor.DisplaySvg exposing (symbolsvg)
 import Keyboard.Shared exposing (KeyboardMode)
 
 
@@ -70,4 +70,4 @@ symbolView symbol =
             else
                 symbol.nbcolor
     in
-        SWEditor.Display.symbolView nbcolor symbol
+        symbolsvg 0 (Just nbcolor) symbol

@@ -5,10 +5,9 @@ import Choosers.Types exposing (..)
 import Keyboard.Shared exposing (..)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser)
 import List.Extra exposing (..)
-import SWEditor.Display exposing (signView)
+import SWEditor.DisplaySvg exposing (signdisplaysvg)
+import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import Html.Attributes exposing (..)
-import ViewHelper.ViewExtra exposing (..)
 import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
 
@@ -83,16 +82,16 @@ creatcolumnkeyactionlist data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signView { syms = [ symbol ] }
-                                    [ Html.Attributes.style
-                                        [ "position" => "relative"
-                                        , "margin" => "auto"
-                                        , "left" => px 0
-                                        , "top" => px 4
-                                        , "width" => px symbol.width
-                                        , "height" => px symbol.height
-                                        ]
-                                    ]
+                                (signdisplaysvg { signinit | syms = [ symbol ] } 0 0
+                                 -- [ Html.Attributes.style
+                                 --     [ "position" => "relative"
+                                 --     , "margin" => "auto"
+                                 --     , "left" => px 0
+                                 --     , "top" => px 4
+                                 --     , "width" => px symbol.width
+                                 --     , "height" => px symbol.height
+                                 --     ]
+                                 -- ]
                                 )
                         }
                     }
@@ -120,16 +119,16 @@ createkeyactionlist data range =
                             item.symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signView { syms = [ item.symbol ] }
-                                    [ Html.Attributes.style
-                                        [ "position" => "relative"
-                                        , "margin" => "auto"
-                                        , "left" => px 0
-                                        , "top" => px 4
-                                        , "width" => px item.symbol.width
-                                        , "height" => px item.symbol.height
-                                        ]
-                                    ]
+                                (signdisplaysvg { signinit | syms = [ item.symbol ] } 0 0
+                                 -- [ Html.Attributes.style
+                                 --     [ "position" => "relative"
+                                 --     , "margin" => "auto"
+                                 --     , "left" => px 0
+                                 --     , "top" => px 4
+                                 --     , "width" => px item.symbol.width
+                                 --     , "height" => px item.symbol.height
+                                 --     ]
+                                 -- ]
                                 )
                         }
                     }
@@ -189,16 +188,16 @@ createfillkeyactionlist data range =
                             handfillitem.symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signView { syms = [ handfillitem.symbol ] }
-                                    [ Html.Attributes.style
-                                        [ "position" => "relative"
-                                        , "margin" => "auto"
-                                        , "left" => px 0
-                                        , "top" => px 4
-                                        , "width" => px handfillitem.symbol.width
-                                        , "height" => px handfillitem.symbol.height
-                                        ]
-                                    ]
+                                (signdisplaysvg { signinit | syms = [ handfillitem.symbol ] } 0 0
+                                 -- [ Html.Attributes.style
+                                 --     [ "position" => "relative"
+                                 --     , "margin" => "auto"
+                                 --     , "left" => px 0
+                                 --     , "top" => px 4
+                                 --     , "width" => px handfillitem.symbol.width
+                                 --     , "height" => px handfillitem.symbol.height
+                                 --     ]
+                                 -- ]
                                 )
                         }
                     }
@@ -225,16 +224,16 @@ createflowerkeyactionlist data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signView { syms = [ symbol ] }
-                                    [ Html.Attributes.style
-                                        [ "position" => "relative"
-                                        , "margin" => "auto"
-                                        , "left" => px 0
-                                        , "top" => px 4
-                                        , "width" => px symbol.width
-                                        , "height" => px symbol.height
-                                        ]
-                                    ]
+                                (signdisplaysvg { signinit | syms = [ symbol ] } 0 0
+                                 -- [ Html.Attributes.style
+                                 --     [ "position" => "relative"
+                                 --     , "margin" => "auto"
+                                 --     , "left" => px 0
+                                 --     , "top" => px 4
+                                 --     , "width" => px symbol.width
+                                 --     , "height" => px symbol.height
+                                 --     ]
+                                 -- ]
                                 )
                         }
                     }
@@ -261,16 +260,16 @@ createhandkeyactionlist message data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signView { syms = [ symbol ] }
-                                    [ Html.Attributes.style
-                                        [ "position" => "relative"
-                                        , "margin" => "auto"
-                                        , "left" => px 0
-                                        , "top" => px 4
-                                        , "width" => px symbol.width
-                                        , "height" => px symbol.height
-                                        ]
-                                    ]
+                                (signdisplaysvg { signinit | syms = [ symbol ] } 0 0
+                                 -- [ Html.Attributes.style
+                                 --     [ "position" => "relative"
+                                 --     , "margin" => "auto"
+                                 --     , "left" => px 0
+                                 --     , "top" => px 4
+                                 --     , "width" => px symbol.width
+                                 --     , "height" => px symbol.height
+                                 --     ]
+                                 -- ]
                                 )
                         }
                     }

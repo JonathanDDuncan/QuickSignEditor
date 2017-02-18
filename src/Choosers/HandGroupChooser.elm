@@ -15,7 +15,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Choosers.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import SWEditor.Display exposing (signView, symbolaloneView)
+import SWEditor.DisplaySvg exposing (symbolsvg)
 import SWEditor.SymbolToolTip exposing (..)
 
 
@@ -65,7 +65,7 @@ symbol symboldata =
             2
             RightThumbEdge
             [ Html.map SignView
-                (symbolaloneView symboldata.symbol 5)
+                (symbolsvg 5 Nothing symboldata.symbol)
             ]
         )
 

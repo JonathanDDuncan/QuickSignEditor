@@ -89,8 +89,20 @@ getSymbolEditorKey key symbolsizes =
         code =
             SW.SymbolConverter.codefromkey key
 
+        symbolsizeresult =
+            Dict.get key symbolsizes
+
         size =
-            Maybe.withDefault { width = 20, height = 20 } <| Dict.get key symbolsizes
+            case symbolsizeresult of
+                Just value ->
+                    value
+
+                Nothing ->
+                    let
+                        notfound =
+                            Debug.log "symbols size search not found " key
+                    in
+                        { width = 58, height = 58 }
 
         symbol =
             { x = 0

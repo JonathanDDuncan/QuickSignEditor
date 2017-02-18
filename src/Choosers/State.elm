@@ -115,7 +115,7 @@ update action model =
 
                 sizes =
                     Dict.fromList <|
-                        List.map (\symbolsize -> (String.toUpper <| .k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) chooserclassification.symbolsizes
+                        List.map (\symbolsize -> (.k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) chooserclassification.symbolsizes
             in
                 ( { model
                     | allgroupchoosings = allgroupchoosings1

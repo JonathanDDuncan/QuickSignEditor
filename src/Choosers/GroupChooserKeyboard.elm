@@ -3,11 +3,7 @@ module Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.Types exposing (..)
 import Html
 import Keyboard.Shared exposing (KeyAction)
-
-
--- import Choosers.GeneralGroupChooser exposing (..)
-
-import SWEditor.Display exposing (signView, symbolaloneView)
+import SWEditor.DisplaySvg exposing (symbolsvg)
 import List.Extra exposing (..)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
@@ -102,7 +98,7 @@ createkeyactionlist data =
                             item.symbol.width
                         , height =
                             item.symbol.height
-                        , view = Html.map SignView (symbolaloneView item.symbol 5)
+                        , view = Html.map SignView (symbolsvg 0 Nothing item.symbol)
                         }
                     }
                 )

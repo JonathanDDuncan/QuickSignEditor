@@ -2,7 +2,7 @@ module Choosers.HandSymbolChooser exposing (..)
 
 import Choosers.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import SWEditor.Display exposing (..)
+import SWEditor.DisplaySvg exposing (symbolsvg)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import Choosers.HandPng exposing (..)
@@ -100,7 +100,7 @@ fillsview handsymbol rowheight =
                         ]
                     ]
                     [ Html.map SignView
-                        (symbolaloneView handfillitem.symbol 0)
+                        (symbolsvg 0 Nothing handfillitem.symbol)
                     ]
                 , div
                     [ style
@@ -150,7 +150,7 @@ handselection handsymbol rowheight handType symbolgetter topoffset marginbottom 
                 ]
             ]
             [ Html.map SignView
-                (symbolaloneView (symbolgetter handsymbol) 0)
+                (symbolsvg 0 Nothing (symbolgetter handsymbol))
             ]
         , div
             [ style
@@ -266,7 +266,7 @@ symbolcentered drag symbol width height =
             (ReplaceSymbol symbol.code)
         ]
         [ Html.map SignView
-            (SWEditor.Display.symbolView1 "" symbol)
+            (symbolsvg 0 Nothing symbol)
         ]
 
 

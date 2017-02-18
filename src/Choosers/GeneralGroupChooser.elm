@@ -5,7 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Choosers.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import SWEditor.Display exposing (signView, symbolaloneView)
+import SWEditor.DisplaySvg exposing (symbolsvg)
 import Material.Tooltip as Tooltip exposing (attach, render, left)
 import Material.Options as Options exposing (div, cs, when)
 import SWEditor.EditorSymbol exposing (..)
@@ -51,7 +51,7 @@ symbol symboldata =
         [ Options.div
             [ Tooltip.attach Mdl [ symboldata.mdlid ] ]
             [ Html.map SignView
-                (symbolaloneView symboldata.symbol 3)
+                (symbolsvg 3 Nothing symboldata.symbol)
             ]
         , Tooltip.render Mdl
             [ symboldata.mdlid ]

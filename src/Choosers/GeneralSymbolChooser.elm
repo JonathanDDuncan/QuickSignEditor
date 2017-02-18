@@ -6,7 +6,12 @@ import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Choosers.Types exposing (..)
-import SWEditor.Display exposing (signView)
+import SWEditor.DisplaySvg exposing (signdisplaysvg)
+import SWEditor.EditorSign exposing (..)
+
+
+-- import SWEditor.Display exposing (signView)
+
 import SW.Types exposing (..)
 import Dict exposing (..)
 
@@ -193,16 +198,16 @@ generalsymbolcol drag scale symbol =
         , Html.Attributes.style (scaling scale)
         ]
         [ Html.map SignView
-            (signView { syms = [ symbol ] }
-                [ Html.Attributes.style
-                    [ "position" => "relative"
-                    , "margin" => "auto"
-                    , "left" => px 0
-                    , "top" => px 4
-                    , "width" => px symbol.width
-                    , "height" => px symbol.height
-                    ]
-                ]
+            (signdisplaysvg { signinit | syms = [ symbol ] } 0 0
+             -- [ Html.Attributes.style
+             --     [ "position" => "relative"
+             --     , "margin" => "auto"
+             --     , "left" => px 0
+             --     , "top" => px 4
+             --     , "width" => px symbol.width
+             --     , "height" => px symbol.height
+             --     ]
+             -- ]
             )
         ]
 
