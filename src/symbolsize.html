@@ -5,13 +5,13 @@
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quick SignEditor</title>
-    <meta name="description" content="Quick SignEditor" />
+    <meta name="description" content="Quick SignEditor Symbol Size as per SuttonSignWriting" />
     <meta name="author" content="Jonathan Duncan" />
     <link rel="shortcut icon" type="image/png" href="./assets/favicon.ico" />
 
-    <script src="chooserclassification.js"></script>
-    <script src="sw10.js"></script>
-    <link rel="stylesheet" href="styles/quickSignEditor.css">
+    <script src="assets/lib/chooserclassification.js"></script>
+    <script src="assets/lib/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" href="assets/lib/styles/quickSignEditor.css">
     <link rel="stylesheet" href="images/hands12.png.css">
     <link rel="stylesheet" href="images/hands34.png.css">
     <link rel="stylesheet" href="images/hands56.png.css">
@@ -20,8 +20,9 @@
 </head>
 
 <body style="background-color: lightyellow">
+    <span id="symbol"> </span>
     <script>
-        var getvalidfills = function(fillstr) {
+        var getvalidfills = function (fillstr) {
             if (fillstr === "1 - 6")
 
                 return [1, 2, 3, 4, 5, 6]
@@ -40,7 +41,7 @@
 
             else if (fillstr === "1 - 5")
 
-                return [15]
+                return [1, 2, 3, 4, 5]
 
             else if (fillstr === "1")
 
@@ -51,7 +52,7 @@
                 return [2]
             else return []
         }
-        var getvalidrotations = function(rotationstr) {
+        var getvalidrotations = function (rotationstr) {
             if (rotationstr === "1 - 16")
 
                 return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -90,31 +91,51 @@
             else
                 return []
         }
+
+        var getsymbolsize = function (key1) {
+
+            var size2 = ssw.size(key1);
+
+            if (size2 != "") {
+                var keysize = {};
+                var sizearray = size2.split('x')
+                keysize.k = key1;
+                keysize.w = parseInt(sizearray[0]);
+                keysize.h = parseInt(sizearray[1]);
+                return keysize;
+            }
+            else {
+                return null;
+            }
+        }
+        var addsize = function (key1) {
+            var keysize = getsymbolsize(key1);
+            if (keysize != null)
+
+                keysizes.push(keysize)
+        }
         var keysizes = []
+        var count = 0;
         for (let item of chooserclassification.basechooseritems) {
-            let validfills = getvalidfills(item.validfills)
-            let validrotations = getvalidrotations(item.validfills)
+            // let validfills = getvalidfills(item.validfills)
+            // let validrotations = getvalidrotations(item.validrotations)
+            let validfills = [1, 2, 3, 4, 5, 6]
+            let validrotations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+            count += 1;
+
             for (let rotation of validrotations) {
                 for (let fill of validfills) {
+                    var key1 = item.symbolkey + (fill - 1).toString(16).toLowerCase()  + (rotation - 1).toString(16).toLowerCase()
 
-                    var key1 = item.symbolkey + (rotation - 1 ).toString(16) + (fill - 1).toString(16)
-                    var size1 = sw10.size(key1);
-                    if (size1.includes("x")) {
-                        var keysize = {}
-                        keysize.k = key1;
-
-                        var size2 = size1.split('x');
- 
-                        keysize.w = parseInt(size2[0]);
-                        keysize.h = parseInt(size2[1]);
-                        keysizes.push(keysize)
-                        // console.log(key1 + "," + size1);
-                    }
+                    addsize(key1);
 
                 }
             }
         }
-        console.log (JSON.stringify(keysizes));
+        //  addsize("S11807");
+        console.log(JSON.stringify(keysizes));
+        console.log("Count " + count);
     </script>
-    </body>
-        </html>
+</body>
+
+</html>
