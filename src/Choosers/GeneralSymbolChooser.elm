@@ -198,7 +198,7 @@ generalsymbolcol drag scale symbol =
         , Html.Attributes.style (scaling scale)
         ]
         [ Html.map SignView
-            (signdisplaysvg { signinit | syms = [ symbol ] } 0 0
+            (signdisplaysvg { signinit | syms = [ symbol ] }
              -- [ Html.Attributes.style
              --     [ "position" => "relative"
              --     , "margin" => "auto"

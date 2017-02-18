@@ -100,7 +100,7 @@ fillsview handsymbol rowheight =
                         ]
                     ]
                     [ Html.map SignView
-                        (symbolsvg 0 Nothing handfillitem.symbol)
+                        (symbolsvg handfillitem.symbol)
                     ]
                 , div
                     [ style
@@ -150,7 +150,7 @@ handselection handsymbol rowheight handType symbolgetter topoffset marginbottom 
                 ]
             ]
             [ Html.map SignView
-                (symbolsvg 0 Nothing (symbolgetter handsymbol))
+                (symbolsvg (symbolgetter handsymbol))
             ]
         , div
             [ style
@@ -266,7 +266,7 @@ symbolcentered drag symbol width height =
             (ReplaceSymbol symbol.code)
         ]
         [ Html.map SignView
-            (symbolsvg 0 Nothing symbol)
+            (symbolsvg symbol)
         ]
 
 

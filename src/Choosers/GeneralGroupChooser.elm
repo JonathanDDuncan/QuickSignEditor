@@ -51,7 +51,7 @@ symbol symboldata =
         [ Options.div
             [ Tooltip.attach Mdl [ symboldata.mdlid ] ]
             [ Html.map SignView
-                (symbolsvg 3 Nothing symboldata.symbol)
+                (symbolsvg symboldata.symbol)
             ]
         , Tooltip.render Mdl
             [ symboldata.mdlid ]

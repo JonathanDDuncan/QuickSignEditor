@@ -10,14 +10,14 @@ import ViewHelper.ViewExtra exposing (..)
 
 root : Choosing.Types.Model -> Html Choosing.Types.Msg
 root model =
-    Html.map Choosing.Types.Display (SWEditor.DisplaySvg.signdisplaysvg model.displaySign model.offset.offsetx model.offset.offsety)
+    Html.map Choosing.Types.Display (SWEditor.DisplaySvg.signdisplaysvgposition model.displaySign model.offset.offsetx model.offset.offsety)
 
 
 normal : Choosing.Types.Model -> Html Choosing.Types.Msg
 normal model =
     div
         []
-        [ Html.map Choosing.Types.Display (signdisplaysvg model.displaySign 0 0)
+        [ Html.map Choosing.Types.Display (signdisplaysvg model.displaySign)
         ]
 
 
@@ -33,7 +33,7 @@ attributes1 model =
 
 keyview : Choosing.Types.Model -> Int -> Html Choosing.Types.Msg
 keyview model paddingtop =
-    Html.map Choosing.Types.Display (signdisplaysvg model.displaySign 0 0)
+    Html.map Choosing.Types.Display (signdisplaysvg model.displaySign)
 
 
 keyviewattributes : Int -> List (Attribute SWEditor.Types.Msg)

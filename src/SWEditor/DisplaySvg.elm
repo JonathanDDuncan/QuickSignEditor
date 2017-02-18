@@ -9,42 +9,33 @@ import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 
 
-signdisplaysvg : EditorSign -> Int -> Int -> Html msg
-signdisplaysvg sign offsetx offsety =
+signdisplaysvg : EditorSign -> Html msg
+signdisplaysvg sign =
+    div []
+        (List.map symbolsvg sign.syms)
+
+
+signdisplaysvgposition : EditorSign -> Int -> Int -> Html msg
+signdisplaysvgposition sign offsetx offsety =
     div [ Html.Attributes.style [ "position" => "absolute", "left" => px offsetx, "top" => px offsety ] ]
-        (List.map (symbolsvg 0 Nothing) sign.syms)
+        (List.map symbolsvg sign.syms)
 
 
-symbolsvg margin color symbol =
-    symbolsvgnoposition Nothing Nothing margin color symbol
+symbolsvg : EditorSymbol -> Html msg
+symbolsvg symbol =
+    symbolsvgmargincolor 0 Nothing symbol
 
 
-symbolsvgnoposition : Maybe Int -> Maybe Int -> Int -> Maybe String -> EditorSymbol -> Html msg
-symbolsvgnoposition x y margin color symbol =
+symbolsvgmargincolor : Int -> Maybe String -> EditorSymbol -> Html msg
+symbolsvgmargincolor margin color symbol =
     let
         symbolheight =
             round <| toFloat symbol.height * symbol.size
 
         symbolwidth =
             round <| toFloat symbol.width * symbol.size
-
-        xpos =
-            case x of
-                Just xvalue ->
-                    [ attribute "x" <| toString xvalue ]
-
-                Nothing ->
-                    []
-
-        ypos =
-            case y of
-                Just yvalue ->
-                    [ attribute "y" <| toString yvalue ]
-
-                Nothing ->
-                    []
-
-        defaultattributes =
+    in
+        svg
             [ attribute "class" "hover background2"
             , attribute "margin" <| px margin
             , attribute "width" <| toString symbolwidth
@@ -53,21 +44,7 @@ symbolsvgnoposition x y margin color symbol =
             , attribute "viewBox" <| "0 0 " ++ toString symbolwidth ++ " " ++ toString symbolheight
             , attribute "xmlns" "http://www.w3.org/2000/svg"
             ]
-
-        svgattributes =
-            List.concat [ xpos, ypos, defaultattributes ]
-    in
-        svg
-            svgattributes
             (symbolview Nothing Nothing color symbol)
-
-
-symbolsvgposition margin color symbol =
-    symbolsvgnoposition (Just symbol.x) (Just symbol.y) margin color symbol
-
-
-symbolviewposition color symbol =
-    symbolview (Just symbol.x) (Just symbol.y) color symbol
 
 
 symbolview x y color symbol =

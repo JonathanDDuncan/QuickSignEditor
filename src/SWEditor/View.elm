@@ -7,7 +7,7 @@ import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import ViewHelper.ViewExtra exposing (..)
-import SWEditor.DisplaySvg exposing (symbolsvg)
+import SWEditor.DisplaySvg exposing (symbolsvgmargincolor)
 import Keyboard.Shared exposing (KeyboardMode)
 
 
@@ -73,4 +73,4 @@ symbolView symbol =
         divattributes =
             [ style [ "left" => px symbol.x, "top" => px symbol.y ] ]
     in
-        div divattributes [ symbolsvg 0 (Just nbcolor) symbol ]
+        div divattributes [ symbolsvgmargincolor 0 (Just nbcolor) symbol ]
