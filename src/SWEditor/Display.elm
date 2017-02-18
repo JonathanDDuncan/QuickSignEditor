@@ -1,11 +1,11 @@
 module SWEditor.Display exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import ViewHelper.ViewExtra exposing (..)
-import SWEditor.Types exposing (..)
-import SWEditor.EditorSymbol exposing (..)
-import SW.SymbolConverter exposing (..)
+-- import Html exposing (..)
+-- import Html.Attributes exposing (..)
+-- import ViewHelper.ViewExtra exposing (..)
+-- import SWEditor.Types exposing (..)
+-- import SWEditor.EditorSymbol exposing (..)
+-- import SW.SymbolConverter exposing (..)
 
 
 sbs =

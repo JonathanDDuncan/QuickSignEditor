@@ -69,5 +69,8 @@ symbolView symbol =
                 "blue"
             else
                 symbol.nbcolor
+
+        divattributes =
+            [ style [ "left" => px symbol.x, "top" => px symbol.y ] ]
     in
-        symbolsvg 0 (Just nbcolor) symbol
+        div divattributes [ symbolsvg 0 (Just nbcolor) symbol ]
