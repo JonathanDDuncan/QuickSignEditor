@@ -14,6 +14,7 @@ import SWEditor.EditorSign exposing (..)
 
 import SW.Types exposing (..)
 import Dict exposing (..)
+import MaybeHelper.MaybeExtra exposing (..)
 
 
 --View
@@ -33,8 +34,8 @@ generalsymbolchooser :
                         { a
                             | show1 : Bool
                             , show2 : Bool
-                            , symbol2 : EditorSymbol
-                            , symbol1 : EditorSymbol
+                            , symbol2 : Maybe EditorSymbol
+                            , symbol1 : Maybe EditorSymbol
                         }
                 }
        }
@@ -61,7 +62,8 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
         smallestscalebody =
             Maybe.withDefault 1 <|
                 getscales columnwidth rowheight <|
-                    List.map (\d -> d.generalsymbolonecolumndata.symbol1) generalsymbolchooserdata.symbolcolumnsdata
+                    removemaybe symbolinit <|
+                        List.map (\d -> d.generalsymbolonecolumndata.symbol1) generalsymbolchooserdata.symbolcolumnsdata
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -90,8 +92,8 @@ symbolcolumns :
                 { a
                     | show1 : Bool
                     , show2 : Bool
-                    , symbol1 : EditorSymbol
-                    , symbol2 : EditorSymbol
+                    , symbol1 : Maybe EditorSymbol
+                    , symbol2 : Maybe EditorSymbol
                 }
         }
     -> Float
@@ -127,8 +129,8 @@ generalsymbolonecolumn :
             { a
                 | show1 : Bool
                 , show2 : Bool
-                , symbol1 : EditorSymbol
-                , symbol2 : EditorSymbol
+                , symbol1 : Maybe EditorSymbol
+                , symbol2 : Maybe EditorSymbol
             }
        }
     -> List (Html Msg)
@@ -141,19 +143,24 @@ generalsymbolonecolumn scale data =
     ]
 
 
-showrotation : EditorSymbol -> Bool -> comparable -> Html Msg
+showrotation : Maybe EditorSymbol -> Bool -> comparable -> Html Msg
 showrotation symbol show scale =
-    if show then
-        td
-            [ Html.Attributes.style
-                [ "text-align" => "center"
-                , "display" => "block"
-                , "width" => "45%"
-                ]
-            ]
-            [ generalsymbolcol True scale symbol ]
-    else
-        blanktd
+    case symbol of
+        Just symb ->
+            if show then
+                td
+                    [ Html.Attributes.style
+                        [ "text-align" => "center"
+                        , "display" => "block"
+                        , "width" => "45%"
+                        ]
+                    ]
+                    [ generalsymbolcol True scale symb ]
+            else
+                blanktd
+
+        Nothing ->
+            blanktd
 
 
 blanktd : Html a
@@ -239,8 +246,8 @@ getgeneralsymbolchooser :
                 { generalsymbolonecolumndata :
                     { show1 : Bool
                     , show2 : Bool
-                    , symbol1 : EditorSymbol
-                    , symbol2 : EditorSymbol
+                    , symbol1 : Maybe EditorSymbol
+                    , symbol2 : Maybe EditorSymbol
                     }
                 }
        }
@@ -285,8 +292,8 @@ getsymbolcolumnsdata :
         { generalsymbolonecolumndata :
             { show1 : Bool
             , show2 : Bool
-            , symbol1 : EditorSymbol
-            , symbol2 : EditorSymbol
+            , symbol1 : Maybe EditorSymbol
+            , symbol2 : Maybe EditorSymbol
             }
         }
 getsymbolcolumnsdata base column vr symbolsizes =
@@ -306,8 +313,8 @@ getrowdata :
     -> { generalsymbolonecolumndata :
             { show1 : Bool
             , show2 : Bool
-            , symbol1 : EditorSymbol
-            , symbol2 : EditorSymbol
+            , symbol1 : Maybe EditorSymbol
+            , symbol2 : Maybe EditorSymbol
             }
        }
 getrowdata base column rotation vr symbolsizes =
@@ -325,8 +332,8 @@ getgeneralsymbolonecolumndata :
     -> List Rotation
     -> Dict String Size
     -> { show1 : Bool
-       , symbol1 : EditorSymbol
-       , symbol2 : EditorSymbol
+       , symbol1 : Maybe EditorSymbol
+       , symbol2 : Maybe EditorSymbol
        , show2 : Bool
        }
 getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
@@ -344,10 +351,16 @@ getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
             isValidRotation rotation2 validrotations
 
         symbol1 =
-            getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
+            if isValidRotation rotation1 validrotations then
+                Just <| getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
+            else
+                Nothing
 
         symbol2 =
-            getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
+            if isValidRotation rotation2 validrotations then
+                Just <| getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
+            else
+                Nothing
     in
         { show1 = showrotation1, symbol1 = symbol1, show2 = showrotation2, symbol2 = symbol2 }
 

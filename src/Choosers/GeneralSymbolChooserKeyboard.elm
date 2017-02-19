@@ -10,6 +10,7 @@ import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
+import MaybeHelper.MaybeExtra exposing (..)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)
@@ -54,14 +55,14 @@ creategeneralsymbolchooserkeyboard model =
 
 
 getgeneralsymbolcolumn :
-    number
-    -> List { c | generalsymbolonecolumndata : { b | symbol1 : a, symbol2 : a } }
-    -> List a
+    Int
+    -> List { b | generalsymbolonecolumndata : { a | symbol1 : Maybe EditorSymbol, symbol2 : Maybe EditorSymbol } }
+    -> List EditorSymbol
 getgeneralsymbolcolumn col symbolcolumndata =
     if col == 1 then
-        List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol1) symbolcolumndata
+        removemaybe symbolinit <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol1) symbolcolumndata
     else
-        List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol2) symbolcolumndata
+        removemaybe symbolinit <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol2) symbolcolumndata
 
 
 creatcolumnkeyactionlist : List EditorSymbol -> List Int -> List (KeyAction Msg)
