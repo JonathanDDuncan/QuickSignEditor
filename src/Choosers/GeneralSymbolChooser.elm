@@ -301,7 +301,7 @@ getsymbolcolumnsdata base column vr symbolsizes =
         (\rotation ->
             getrowdata base column rotation vr symbolsizes
         )
-        (List.range 1 8)
+        vr
 
 
 getrowdata :
@@ -351,13 +351,13 @@ getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
             isValidRotation rotation2 validrotations
 
         symbol1 =
-            if isValidRotation rotation1 validrotations then
+            if showrotation1 then
                 Just <| getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
             else
                 Nothing
 
         symbol2 =
-            if isValidRotation rotation2 validrotations then
+            if showrotation2 then
                 Just <| getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
             else
                 Nothing
