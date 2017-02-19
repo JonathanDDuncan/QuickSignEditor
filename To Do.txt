@@ -1,6 +1,5 @@
 To Do
 
-Move over to SuttonFont 
 Fix symbol position compassrose
 Fix symbol position and scaling in keys in keyboard
 In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
@@ -14,15 +13,12 @@ Add original 1 to 10
 
 Double click lookup symbol
 Add favorites
-Highlight symbol hovering in GeneralChooser
-
-
-
 
 Add fingerspelling layout to keyboard
 Add color choooser
 Add align right left
 Add Bring to top or bottom
+Make symbol bigger or smaller
 
 Add symbol hand preview to fills and SignArea
 Can't type in input boxes
