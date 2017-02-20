@@ -2,9 +2,9 @@ module Choosers.GeneralChooserKeyboard exposing (..)
 
 import Choosers.Types exposing (..)
 import Html
-import Choosing.View exposing (root)
 import Choosing.Types exposing (Model)
 import Keyboard.Shared exposing (..)
+import SWEditor.DisplaySvg exposing (signdisplaysvg, signsvg)
 
 
 runKeyboardCommand :
@@ -39,21 +39,15 @@ creategeneralchooserkeyboard choosings =
             let
                 layoutsetting =
                     getlayoutsettings i layout
-
-                displayheight =
-                    case layoutsetting.overrideheight of
-                        Just value ->
-                            value
-
-                        Nothing ->
-                            choosing.displaySign.height
             in
                 { test = { key = layoutsetting.key, ctrl = False, shift = False, alt = False }
                 , action = (Clicked choosing.value)
                 , display =
                     { width = choosing.displaySign.width
-                    , height = displayheight
-                    , view = Html.map Choosing (Choosing.View.keyview choosing layoutsetting.toppadding)
+                    , height = choosing.displaySign.height
+                    , view =
+                        Html.map Choosers.Types.SignView
+                            (signsvg choosing.displaySign)
                     }
                 }
         )

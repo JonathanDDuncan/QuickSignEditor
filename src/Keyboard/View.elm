@@ -147,8 +147,14 @@ nkey model n displays keyboardwidth rowheight =
         originalsize =
             { height = display.height, width = display.width }
 
+        finalheight =
+            (rowheight - 5.0)
+
+        finalwidth =
+            ((minkeywidth keyboardwidth) - leftmargin)
+
         scale =
-            shrinkdontzoom originalsize (rowheight - 5.0) ((minkeywidth keyboardwidth) - leftmargin)
+            shrinkdontzoom originalsize finalheight finalwidth
 
         ispressed =
             checkifkeypressed model n
@@ -165,16 +171,19 @@ nkey model n displays keyboardwidth rowheight =
             else
                 ""
     in
-        div [ class <| "key k" ++ toString n, onClick (KeyClicked n), onTouchEnd (KeyClicked n) ]
-            [ div [ class <| "scaletoparent" ++ pressed ++ activemode ]
-                [ div
-                    [ style
-                        [ ( "transform", ("scale(" ++ toString scale ++ ")") )
-                        , ( "margin-left", px leftmargin )
-                        ]
+        div
+            [ class <| "key k" ++ toString n ++ pressed ++ activemode
+            , onClick (KeyClicked n)
+            , onTouchEnd (KeyClicked n)
+            ]
+            [ div
+                [ style
+                    [ ( "transform-origin", "top left" )
+                    , ( "transform", ("scale(" ++ toString scale ++ ")") )
+                    , ( "margin-left", px leftmargin )
                     ]
-                    [ display.view ]
                 ]
+                [ display.view ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
 
