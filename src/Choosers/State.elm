@@ -127,7 +127,7 @@ update action model =
         Clicked clickvalue ->
             let
                 clickval1 =
-                    Debug.log "clickvalue" clickvalue
+                    clickvalue
 
                 basesymbol =
                     String.slice 0 4 clickvalue
@@ -380,9 +380,6 @@ updatechooserkeyboard model =
     let
         groupchooserkeyboard =
             creategroupchooserkeyboard model
-
-        deb =
-            Debug.log "updatechooserkeyboard" ""
 
         symbolchooserkeyboard =
             createsymbolchooserkeyboard model
