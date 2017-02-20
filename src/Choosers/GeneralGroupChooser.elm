@@ -47,6 +47,8 @@ symbol symboldata =
         [ onClick (GroupSelected symboldata.chooseritem)
         , onMouseDown (DragSymbol symboldata.symbol.code)
         , onDoubleClick (ReplaceSymbol symboldata.symbol.code)
+        , style
+            [ "margin-top" => px 3 ]
         ]
         [ Options.div
             [ Tooltip.attach Mdl [ symboldata.mdlid ] ]

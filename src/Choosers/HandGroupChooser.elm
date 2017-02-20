@@ -55,6 +55,8 @@ symbol symboldata =
         [ Html.Events.onClick (GroupSelected symboldata.chooseritem)
         , onMouseDown (DragSymbol symboldata.symbol.code)
         , onDoubleClick (ReplaceSymbol symboldata.symbol.code)
+        , style
+            [ "margin-top" => px 3 ]
         ]
         (symboltooltip
             symboldata.modelmdl
