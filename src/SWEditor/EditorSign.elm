@@ -127,10 +127,10 @@ getSignBounding symbols =
             List.foldr (\s -> min s.y) 10000 symbols
 
         x2 =
-            List.foldr (\s -> max (s.x + s.width)) 0 symbols
+            List.foldr (\s -> max (s.x + round (toFloat s.width * s.size))) 0 symbols
 
         y2 =
-            List.foldr (\s -> max (s.y + s.height)) 0 symbols
+            List.foldr (\s -> max (s.y + round (toFloat s.height * s.size))) 0 symbols
     in
         { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
 
