@@ -16,7 +16,6 @@ import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Choosers.Types exposing (..)
 import List.Extra exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import Choosers.CompassRose exposing (..)
 import Choosers.HandPng exposing (..)
 import Convert.ConvertFsw exposing (rotation)
@@ -25,20 +24,35 @@ import Convert.ConvertFsw exposing (rotation)
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> Html Msg
 handsymbolchooser model width height =
     let
+        fullwidth =
+            220
+
+        fullheight =
+            fullwidth
+
+        outeritemwidth =
+            50
+
+        outeritemheight =
+            outeritemwidth
+
         handsymbol =
             model.handsymbol
 
         rosecenterpetaldata =
             List.map (\fs -> handpngpetal fs.handpng) handsymbol.flowersymbols
 
+        outerpetalsymbolpositions =
+            getouterpetalsymbolpositions SWEditor.EditorSymbol.symbolinit (List.map (\fs -> fs.symbol) handsymbol.flowersymbols) outeritemwidth outeritemheight
+
+        outerpetalvaluesandpositions =
+            List.Extra.zip outerpetalsymbolpositions handsymbol.flowersymbols
+
         roseouterpetaldata =
-            List.map petal handsymbol.flowersymbols
+            List.map petal outerpetalvaluesandpositions
 
         rowheight =
             truncate <| toFloat height / toFloat 10
-
-        fullwidth =
-            220
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -62,8 +76,75 @@ handsymbolchooser model width height =
                 [ tr []
                     (fillsview handsymbol rowheight)
                 ]
-            , compassrose handsymbol.handfill rosecenterpetaldata roseouterpetaldata fullwidth
+            , compassrose
+                handsymbol.handfill
+                rosecenterpetaldata
+                roseouterpetaldata
+                fullwidth
+                fullheight
+                outeritemwidth
+                outeritemheight
             ]
+
+
+petal : ( List (Attribute Msg), Petal ) -> Html Msg
+petal ( attrib, handfill ) =
+    div
+        [ attribute "position" "relative"
+        , attribute "style" "width:100%; height: inherit"
+        , onMouseDown (DragSymbol handfill.symbol.code)
+        , onDoubleClick
+            (ReplaceSymbol handfill.symbol.code)
+        ]
+        [ div attrib
+            [ Html.map SignView
+                (symbolsvg handfill.symbol)
+            ]
+        ]
+
+
+getouterpetalsymbolpositions : { a | width : Int, height : Int } -> List { a | width : Int, height : Int } -> Int -> Int -> List (List (Attribute msg))
+getouterpetalsymbolpositions defaultsymbol items outeritemwidth outeritemheight =
+    let
+        top =
+            "top:0px;"
+
+        bottom =
+            "bottom:0px;"
+
+        left =
+            "left:0px;"
+
+        right =
+            "right:0px;"
+    in
+        [ [ attribute "style" <| "position:absolute;" ++ top ++ getleftforcenter (getitem items 1 defaultsymbol).width outeritemwidth ]
+        , [ attribute "style" <| "position:absolute;" ++ top ++ left ]
+        , [ attribute "style" <| "position:absolute;" ++ gettopformiddle (getitem items 3 defaultsymbol).height outeritemheight ++ left ]
+        , [ attribute "style" <| "position:absolute;" ++ bottom ++ left ]
+        , [ attribute "style" <| "position:absolute;" ++ bottom ++ getleftforcenter (getitem items 5 defaultsymbol).width outeritemwidth ]
+        , [ attribute "style" <| "position:absolute;" ++ bottom ++ right ]
+        , [ attribute "style" <| "position:absolute;" ++ gettopformiddle (getitem items 7 defaultsymbol).height outeritemheight ++ right ]
+        , [ attribute "style" <| "position:absolute;" ++ top ++ right ]
+        ]
+
+
+getitem : List { a | width : Int, height : Int } -> Int -> { a | width : Int, height : Int } -> { a | width : Int, height : Int }
+getitem items n default =
+    items
+        |> List.drop (n - 1)
+        |> List.head
+        |> Maybe.withDefault default
+
+
+getleftforcenter : Int -> Int -> String
+getleftforcenter itemwidth outeritemwidth =
+    "left:" ++ (toString <| round <| (toFloat outeritemwidth - toFloat itemwidth) / 2) ++ "px;"
+
+
+gettopformiddle : Int -> Int -> String
+gettopformiddle itemheight outeritemheight =
+    "top:" ++ (toString <| round <| (toFloat outeritemheight - toFloat itemheight) / 2) ++ "px;"
 
 
 fillsview : HandSymbol -> Int -> List (Html Msg)
@@ -91,7 +172,7 @@ fillsview handsymbol rowheight =
                         , "left" => px 0
                         , "margin-bottom"
                             => (px
-                                    (if (Debug.log "rotation" <| rotation handfillitem.symbol.code) >= 9 then
+                                    (if (rotation handfillitem.symbol.code) >= 9 then
                                         10
                                      else
                                         0
@@ -199,19 +280,9 @@ selectedbackground expected currentselected =
         style []
 
 
-compassrose : HandFills -> List (Html msg) -> List (Html msg) -> Int -> Html msg
-compassrose handfill rosecenterpetaldata petalcontent fullwidth =
+compassrose : HandFills -> List (Html msg) -> List (Html msg) -> Int -> Int -> Int -> Int -> Html msg
+compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outeritemwidth outeritemheight =
     let
-        fullheight =
-            fullwidth
-
-        itemwidth =
-            50
-
-        -- truncate (toFloat fullwidth / 5)
-        itemheight =
-            itemwidth
-
         innersize =
             truncate <| toFloat fullwidth * 0.6
 
@@ -219,7 +290,7 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth =
             if (handfill == LeftBabyEdge || handfill == RightBabyEdge) then
                 text ""
             else
-                handimagecenter rosecenterpetaldata fullwidth itemwidth innersize
+                handimagecenter rosecenterpetaldata fullwidth outeritemwidth innersize
     in
         div
             [ style
@@ -228,7 +299,7 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth =
                 , "margin" => "auto"
                 ]
             ]
-            [ compassrosediv fullwidth fullheight itemwidth itemheight 0 innersize petalcontent rosecenterimagehands
+            [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent rosecenterimagehands
             ]
 
 
@@ -239,10 +310,9 @@ handimagecenter petalcontent parentsize parentitemsize fullwidth =
             truncate (toFloat fullwidth / 4) + 10
 
         top =
-            Debug.log "top" <|
-                truncate <|
-                    toFloat (parentsize - fullwidth)
-                        / 2
+            truncate <|
+                toFloat (parentsize - fullwidth)
+                    / 2
     in
         div
             [ style
@@ -253,21 +323,6 @@ handimagecenter petalcontent parentsize parentitemsize fullwidth =
             ]
             [ compassrosediv fullwidth fullwidth itemwidth itemwidth top 10 petalcontent (text "")
             ]
-
-
-symbolcentered : Bool -> EditorSymbol -> Int -> Int -> Html Msg
-symbolcentered drag symbol width height =
-    div
-        [ if drag then
-            onMouseDown (DragSymbol symbol.code)
-          else
-            onMouseDown Noop
-        , onDoubleClick
-            (ReplaceSymbol symbol.code)
-        ]
-        [ Html.map SignView
-            (symbolsvg symbol)
-        ]
 
 
 
@@ -284,11 +339,6 @@ createflowersymbols handsymbol base symbolsizes =
             List.map (createpetal symbolsizes base selectedhandfillitem) [ 1, 2, 3, 4, 5, 6, 7, 8 ]
         else
             List.map (createpetal symbolsizes base selectedhandfillitem) [ 1, 8, 7, 6, 5, 4, 3, 2 ]
-
-
-petal : Petal -> Html Msg
-petal handfill =
-    symbolcentered True handfill.symbol handfill.symbol.width handfill.symbol.height
 
 
 handpngpetal :
