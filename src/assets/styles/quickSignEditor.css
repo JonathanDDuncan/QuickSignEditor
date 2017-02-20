@@ -113,7 +113,6 @@
                 position: relative;
                 display: inline-block;
                 height: 33px;
-                /*min-width: 33px;*/
                 border-radius: 2px;
                 border: 1px solid #AAA;
                 background-position: 50% 50%;
@@ -189,27 +188,6 @@
                 left: 2px;
                 bottom: 7px;
             }
-            /*scale svg to size of parent */
-
-            .scaletoparent {
-                position: absolute;
-                display: block;
-                top: 2.5%;
-                bottom: 2.5%;
-                left: 2.5%;
-                right: 2.5%;
-                margin: auto;
-                max-width: 95%;
-                max-height: 95%;
-                cursor: default;
-            }
-
-            .scaletoparent div {
-                display: block;
-                position: absolute;
-                top: 6px;
-                margin: auto;
-            }
 
             .symbol {
                 position: absolute;
@@ -257,12 +235,12 @@
             }
 
              .pressed {
-                background-color: darkslategray;
+                background-color: darkslategray !important;
 
             }
 
               .activemode {
-                background-color: paleturquoise;
+                background-color: paleturquoise  !important;
 
             }
 
@@ -300,34 +278,16 @@
 }
 
    .hover:hover {
- 
                    border-width: 1px;
                 border-color: deepskyblue;
                 border-style: solid;
-
-}
-
-.background1 {
-background-color: gold;
-
-}
-
-.background2 {
-background-color: darkorchid;
-
-}
-.background3{
-background-color: lightcoral;
-
 }
 
 .signview div {
     position: absolute;
-   
 }
 
 .signview div svg {
-    /* display: block; */
     top: 0;
     left: 0;
 }
