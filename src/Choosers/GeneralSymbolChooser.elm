@@ -285,7 +285,7 @@ getsymbolcolumnsdata base column vr symbolsizes =
         (\rotation ->
             getrowdata base column rotation vr symbolsizes
         )
-        vr
+        (List.range 1 8)
 
 
 getrowdata :
