@@ -6,12 +6,7 @@ import Html.Events exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Choosers.Types exposing (..)
-import SWEditor.DisplaySvg exposing (signdisplaysvg)
-import SWEditor.EditorSign exposing (..)
-
-
--- import SWEditor.Display exposing (signView)
-
+import SWEditor.DisplaySvg exposing (symbolsvgscale)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import MaybeHelper.MaybeExtra exposing (..)
@@ -143,7 +138,7 @@ generalsymbolonecolumn scale data =
     ]
 
 
-showrotation : Maybe EditorSymbol -> Bool -> comparable -> Html Msg
+showrotation : Maybe EditorSymbol -> Bool -> Float -> Html Msg
 showrotation symbol show scale =
     case symbol of
         Just symb ->
@@ -176,7 +171,7 @@ generalsymbolrow :
             , symbol :
                 EditorSymbol
         }
-    -> comparable
+    -> Float
     -> List (Html Msg)
 generalsymbolrow generalsymbolrowdata scale =
     List.map
@@ -191,7 +186,7 @@ generalsymbolrow generalsymbolrowdata scale =
         generalsymbolrowdata
 
 
-generalsymbolcol : Bool -> comparable -> EditorSymbol -> Html Msg
+generalsymbolcol : Bool -> Float -> EditorSymbol -> Html Msg
 generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
@@ -202,20 +197,9 @@ generalsymbolcol drag scale symbol =
             )
         , onDoubleClick
             (ReplaceSymbol symbol.code)
-        , Html.Attributes.style (scaling scale)
         ]
         [ Html.map SignView
-            (signdisplaysvg { signinit | syms = [ symbol ] }
-             -- [ Html.Attributes.style
-             --     [ "position" => "relative"
-             --     , "margin" => "auto"
-             --     , "left" => px 0
-             --     , "top" => px 4
-             --     , "width" => px symbol.width
-             --     , "height" => px symbol.height
-             --     ]
-             -- ]
-            )
+            (symbolsvgscale scale symbol)
         ]
 
 

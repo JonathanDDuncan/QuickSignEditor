@@ -23,17 +23,22 @@ signdisplaysvgposition sign offsetx offsety =
 
 symbolsvg : EditorSymbol -> Html msg
 symbolsvg symbol =
-    symbolsvgmargincolor 0 Nothing symbol
+    symbolsvgmargincolor 0 Nothing 1 symbol
 
 
-symbolsvgmargincolor : Int -> Maybe String -> EditorSymbol -> Html msg
-symbolsvgmargincolor margin color symbol =
+symbolsvgscale : Float -> EditorSymbol -> Html msg
+symbolsvgscale scale symbol =
+    symbolsvgmargincolor 0 Nothing scale symbol
+
+
+symbolsvgmargincolor : Int -> Maybe String -> Float -> EditorSymbol -> Html msg
+symbolsvgmargincolor margin color scale symbol =
     let
         symbolheight =
-            round <| toFloat symbol.height * symbol.size
+            round <| toFloat symbol.height * symbol.size * scale
 
         symbolwidth =
-            round <| toFloat symbol.width * symbol.size
+            round <| toFloat symbol.width * symbol.size * scale
     in
         svg
             [ attribute "class" "hover background2"
@@ -44,10 +49,10 @@ symbolsvgmargincolor margin color symbol =
             , attribute "viewBox" <| "0 0 " ++ toString symbolwidth ++ " " ++ toString symbolheight
             , attribute "xmlns" "http://www.w3.org/2000/svg"
             ]
-            (symbolview Nothing Nothing color symbol)
+            (symbolview Nothing Nothing color scale symbol)
 
 
-symbolview x y color symbol =
+symbolview x y color scale symbol =
     let
         xpos =
             case x of
@@ -99,7 +104,7 @@ symbolview x y color symbol =
         [ Svg.node "text"
             [ attribute "style" "font-size:0%;" ]
             [ Svg.text symbol.key ]
-        , g [ attribute "transform" <| scale symbol.size ]
+        , g [ attribute "transform" <| scaling (symbol.size * scale) ]
             [ Svg.text_ fillcharattributes
                 [ Svg.text fillchar ]
             , Svg.text_ linecharattributes
@@ -108,5 +113,5 @@ symbolview x y color symbol =
         ]
 
 
-scale scalevalue =
+scaling scalevalue =
     "scale(" ++ toString scalevalue ++ ") "

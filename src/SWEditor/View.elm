@@ -73,4 +73,4 @@ symbolView symbol =
         divattributes =
             [ style [ "left" => px symbol.x, "top" => px symbol.y ] ]
     in
-        div divattributes [ symbolsvgmargincolor 0 (Just nbcolor) symbol ]
+        div divattributes [ symbolsvgmargincolor 0 (Just nbcolor) 1 symbol ]
