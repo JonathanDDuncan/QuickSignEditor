@@ -176,14 +176,19 @@ nkey model n displays keyboardwidth rowheight =
             , onClick (KeyClicked n)
             , onTouchEnd (KeyClicked n)
             ]
-            [ div
-                [ style
-                    [ ( "transform-origin", "top left" )
-                    , ( "transform", ("scale(" ++ toString scale ++ ")") )
-                    , ( "margin-left", px leftmargin )
+            [ div [ class " centerdivcontainer" ]
+                [ div
+                    [ style
+                        [ ( "transform-origin", "top left" )
+                        , ( "transform", ("scale(" ++ toString scale ++ ")") )
+                        , ( "margin-left", px leftmargin )
+                        , ( "width", px <| round <| toFloat originalsize.width * scale )
+                        , ( "height", px <| round <| toFloat originalsize.height * scale )
+                        ]
+                    , class "centerdiv"
                     ]
+                    [ display.view ]
                 ]
-                [ display.view ]
             , span [] [ text <| getKeyDisplay n model ]
             ]
 
