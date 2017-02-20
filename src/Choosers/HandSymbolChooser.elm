@@ -158,28 +158,7 @@ fillsview handsymbol rowheight =
                 , selectedbackground handfillitem.filltype handsymbol.handfill
                 ]
                 [ div
-                    [ style
-                        [ "position" => "relative"
-                        , "display" => "block"
-                        , "top"
-                            => px
-                                (6
-                                    + if rotation handfillitem.symbol.code < 9 then
-                                        2
-                                      else
-                                        0
-                                )
-                        , "left" => px 0
-                        , "margin-bottom"
-                            => (px
-                                    (if (rotation handfillitem.symbol.code) >= 9 then
-                                        10
-                                     else
-                                        0
-                                    )
-                               )
-                        ]
-                    ]
+                    []
                     [ Html.map SignView
                         (symbolsvg handfillitem.symbol)
                     ]
@@ -222,14 +201,7 @@ handselection handsymbol rowheight handType symbolgetter topoffset marginbottom 
         , selectedbackground handType handsymbol.hand
         ]
         [ div
-            [ style
-                [ "position" => "relative"
-                , "display" => "block"
-                , "top" => px (2 + topoffset)
-                , "left" => px 0
-                , "margin-bottom" => px marginbottom
-                ]
-            ]
+            []
             [ Html.map SignView
                 (symbolsvg (symbolgetter handsymbol))
             ]
