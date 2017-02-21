@@ -275,10 +275,16 @@
                 border-style: solid;
             }
             
+            .hover {
+                text-shadow: none;
+                -webkit-transition: 300ms ease-out 0s;
+                -moz-transition: 300ms ease-out 0s;
+                -o-transition: 300ms ease-out 0s;
+                transition: 300ms ease-out 0s;
+            }
+            
             .hover:hover {
-                border-width: 1px;
-                border-color: deepskyblue;
-                border-style: solid;
+                text-shadow: -1px 1px 15px gold, 1px -1px 15px gold;
             }
             
             .signview div {
