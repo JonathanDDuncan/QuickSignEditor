@@ -1,12 +1,10 @@
 To Do
 
-Fix symbol position compassrose
-Fix symbol position and scaling in keys in keyboard
 In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
 Add Adam and Steve and Val on credits
 
 Switch to Keyboard-Extra package instead of inline source code
-
+Make list of compatible browsers
 
 Arrow symbol chooser
 Add original 1 to 10 
