@@ -22,3 +22,6 @@ Add symbol hand preview to fills and SignArea
 Can't type in input boxes
 
 Add Service Workers for offline first
+
+
+Make symbols with oposing thumbs
