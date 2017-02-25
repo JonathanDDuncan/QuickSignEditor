@@ -31,7 +31,7 @@ createKeyDisplay :
     -> c
     -> { code : number, keypress : Keypress, sign : EditorSign }
 createKeyDisplay keyboardtemplate key =
-    { sign = SW.State.signinit
+    { sign = SWEditor.EditorSign.signinit
     , code = 0
     , keypress = None
     }
