@@ -14,6 +14,7 @@ type alias EditorSign =
     , backfill : String
     , syms : List EditorSymbol
     , left : Int
+    , lane : Lane
     }
 
 
@@ -27,6 +28,7 @@ signinit =
     , backfill = ""
     , syms = []
     , left = 0
+    , lane = MiddleLane
     }
 
 
@@ -49,9 +51,17 @@ toEditorSign sign id =
                 , backfill = sign.backfill
                 , syms = editorsymbols
                 , left = sign.left
+                , lane = MiddleLane
                 }
     in
         centeredSmallest
+
+
+type Lane
+    = BLane
+    | LeftLane
+    | MiddleLane
+    | RightLane
 
 
 centerSignViewposition : NamedPosition -> EditorSign -> EditorSign

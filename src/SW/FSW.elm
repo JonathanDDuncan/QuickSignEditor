@@ -18,6 +18,7 @@ toEditorSign fsw =
         { signinit
             | x = x
             , y = y
+            , lane = lane
         }
 
 
@@ -26,10 +27,13 @@ getlane fsw =
         laneandcoordinate =
             getlaneandcoordinate fsw
 
-        lane =
+        lanestring =
             String.left 1 laneandcoordinate
     in
-        lane
+        List.filter (\( value, lane ) -> value == lanestring) lanes
+            |> List.map (\( value, lane ) -> lane)
+            |> List.head
+            |> Maybe.withDefault MiddleLane
 
 
 getsignx : String -> Int
@@ -101,8 +105,12 @@ startwithlanevalue item =
 
 laneValues : List String
 laneValues =
-    [ "B"
-    , "L"
-    , "M"
-    , "R"
+    List.map (\( value, lane ) -> value) lanes
+
+
+lanes =
+    [ ( "B", BLane )
+    , ( "L", LeftLane )
+    , ( "M", MiddleLane )
+    , ( "R", RightLane )
     ]
