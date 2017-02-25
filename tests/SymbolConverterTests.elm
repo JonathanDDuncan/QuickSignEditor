@@ -1,4 +1,4 @@
-module Tests1 exposing (..)
+module SymbolConverterTests exposing (..)
 
 import Test exposing (..)
 import Expect
@@ -7,8 +7,8 @@ import String as String exposing (..)
 import SW.SymbolConverter exposing (..)
 
 
-all1 : Test
-all1 =
+symbolConverterTests: Test
+symbolConverterTests=
     describe "A Test Suite"
         [ test "Code 1061538 " <|
             \() ->

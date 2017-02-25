@@ -1,11 +1,11 @@
 module Tests exposing (..)
 
 import Test exposing (..)
-import Tests1 exposing (..)
+import SymbolConverterTests exposing (..)
 
 
 all : Test
 all =
     describe "All Test Suite"
-        [ all1
+        [ symbolConverterTests
         ]
