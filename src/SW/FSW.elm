@@ -6,46 +6,36 @@ import SWEditor.EditorSign exposing (..)
 toEditorSign : String -> Result String EditorSign
 toEditorSign fsw =
     let
-        lane =
-            Ok <| getlane fsw
+        laneresult =
+            getlane fsw
 
-        x =
-            Debug.log "x" <| getsignx fsw
+        xresult =
+            getsignx fsw
 
-        y =
-            Debug.log "y" <| getsigny fsw
+        yresult =
+            getsigny fsw
 
         sign =
             Ok signinit
                 |> Result.andThen
-                    (\sign ->
-                        case x of
-                            Ok xvalue ->
-                                Ok { sign | x = xvalue }
-
-                            Err msg ->
-                                Err msg
-                    )
+                    (setresultvalue xresult (\sign value -> { sign | x = value }))
                 |> Result.andThen
-                    (\sign ->
-                        case y of
-                            Ok yvalue ->
-                                Ok { sign | y = yvalue }
-
-                            Err msg ->
-                                Err msg
-                    )
+                    (setresultvalue yresult (\sign value -> { sign | y = value }))
                 |> Result.andThen
-                    (\sign ->
-                        case lane of
-                            Ok lanevalue ->
-                                Ok { sign | lane = lanevalue }
-
-                            Err msg ->
-                                Err msg
-                    )
+                    (setresultvalue laneresult (\sign value -> { sign | lane = value }))
     in
         sign
+
+
+setresultvalue result setter =
+    (\recd ->
+        case result of
+            Ok value ->
+                Ok (setter recd value)
+
+            Err msg ->
+                Err msg
+    )
 
 
 getlane fsw =
@@ -54,12 +44,23 @@ getlane fsw =
             getlaneandcoordinate fsw
 
         lanestring =
-            String.left 1 laneandcoordinate
+            case laneandcoordinate of
+                Ok value ->
+                    Ok <| String.left 1 value
+
+                Err msg ->
+                    Err msg
     in
-        List.filter (\( value, lane ) -> value == lanestring) lanes
-            |> List.map (\( value, lane ) -> lane)
-            |> List.head
-            |> Maybe.withDefault MiddleLane
+        case lanestring of
+            Ok lanestringvalue ->
+                List.filter (\( value, lane ) -> value == lanestringvalue) lanes
+                    |> List.map (\( value, lane ) -> lane)
+                    |> List.head
+                    |> Maybe.withDefault MiddleLane
+                    |> Ok
+
+            Err msg ->
+                Err msg
 
 
 getsignx : String -> Result String Int
@@ -77,7 +78,7 @@ getsignx fsw =
                         |> Ok
 
                 Err msg ->
-                    Err <| "Could not get y of " ++ fsw ++ "|" ++ msg
+                    Err <| "Could not get y of '" ++ fsw ++ "'|" ++ msg
     in
         x
 
@@ -97,7 +98,7 @@ getsigny fsw =
                         |> Ok
 
                 Err msg ->
-                    Err <| "Could not get y of " ++ fsw ++ "|" ++ msg
+                    Err <| "Could not get y of '" ++ fsw ++ "'|" ++ msg
     in
         y
 
@@ -109,15 +110,40 @@ getcoordinatelist fsw =
             getlaneandcoordinate fsw
 
         coordinatestring =
-            String.dropLeft 1 laneandcoordinate
+            case laneandcoordinate of
+                Ok value ->
+                    Ok <| String.dropLeft 1 value
+
+                Err msg ->
+                    Err msg
+
+        goodcoordinatestring =
+            case coordinatestring of
+                Ok value ->
+                    if String.length value == 7 then
+                        Ok value
+                    else
+                        Err <| "Sign coordinate '" ++ value ++ "'should be 7 characters long."
+
+                Err msg ->
+                    Err msg
 
         coordinatelist =
-            String.split "x" coordinatestring
+            case goodcoordinatestring of
+                Ok value ->
+                    let
+                        split =
+                            String.split "x" value
+                    in
+                        if List.length split == 2 then
+                            Ok split
+                        else
+                            Err <| "Could not split coordinate value '" ++ value ++ "' into two pieces on 'x'"
+
+                Err msg ->
+                    Err msg
     in
-        if String.length coordinatestring == 7 then
-            Ok coordinatelist
-        else
-            Err <| "Sign coordinate " ++ coordinatestring ++ "should be 7 characters long"
+        coordinatelist
 
 
 toValue : Maybe String -> Int
@@ -128,7 +154,7 @@ toValue str =
         |> Result.withDefault 0
 
 
-getlaneandcoordinate : String -> String
+getlaneandcoordinate : String -> Result String String
 getlaneandcoordinate fsw =
     let
         symbolsplit =
@@ -136,7 +162,7 @@ getlaneandcoordinate fsw =
     in
         List.filter (\item -> startwithlanevalue item) symbolsplit
             |> List.head
-            |> Maybe.withDefault ""
+            |> Result.fromMaybe ("Could not find lane and coordinate: " ++ fsw)
 
 
 startwithlanevalue : String -> Bool

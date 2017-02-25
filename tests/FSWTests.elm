@@ -12,6 +12,9 @@ fswTests =
         [ test "Empty sign x 500" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").x 500
+        , test "Empty sign 500x500" <|
+            \() ->
+                Expect.equal (getsignerrmessage "500x500") "Could not get y of '500x500'|Could not find lane and coordinate: 500x500"
         , test "Empty sign y 500" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").y 500
@@ -42,3 +45,16 @@ fswTests =
 defaultResultsign : String -> EditorSign
 defaultResultsign fsw =
     Result.withDefault SWEditor.EditorSign.signinit <| Debug.log "result" <| FSW.toEditorSign fsw
+
+
+getsignerrmessage fsw =
+    let
+        result =
+            FSW.toEditorSign fsw
+    in
+        case result of
+            Ok value ->
+                "Ok"
+
+            Err msg ->
+                msg
