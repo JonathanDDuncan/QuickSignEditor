@@ -2,7 +2,6 @@ module Keyboard.KeyboardLayouts exposing (..)
 
 import Keyboard.Types exposing (..)
 import Dict exposing (..)
-import SW.State exposing (..)
 import SWEditor.EditorSign exposing (..)
 
 
