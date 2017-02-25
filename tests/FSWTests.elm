@@ -2,64 +2,29 @@ module FSWTests exposing (..)
 
 import Test exposing (..)
 import Expect
-import SW.FSW exposing (..)
+import SW.FSW as FSW exposing (..)
 
 
 fswTests : Test
 fswTests =
-    describe "FSW Test Suite"
-        [ test "failing test " <|
+    describe "FSW to EditorSign Test Suite"
+        [ test "Empty sign x 500" <|
             \() ->
-                Expect.equal False True
-          -- , test "Code S31430 " <|
+                Expect.equal (FSW.toEditorSign "M500x500").x 500
+        , test "Empty sign y 500" <|
+            \() ->
+                Expect.equal (FSW.toEditorSign "M500x500").y 500
+        , test "Empty sign x 498" <|
+            \() ->
+                Expect.equal (FSW.toEditorSign "M498x497").x 498
+        , test "Empty sign y 497" <|
+            \() ->
+                Expect.equal (FSW.toEditorSign "M498x497").y 497
+        , test "Empty sign no symbols" <|
+            \() ->
+                Expect.equal (FSW.toEditorSign "M500x500").syms []
+          --  create lane for EditorSign for and Sign for full FSW both way converssion
+          -- , test "lane is middle" <|
           --     \() ->
-          --         Expect.equal (code (hexbaseFromKey "S31430") (hexfillFromKey "S31430") (hexrotationFromKey "S31430")) 1099697
-          -- , test "Pua S10000 base" <|
-          --     \() ->
-          --         Expect.equal (hexbaseFromKey "S10000") 256
-          -- , test "Pua S10000 fill" <|
-          --     \() ->
-          --         Expect.equal (hexfillFromKey "S10000") 0
-          -- , test "Pua S10000 rotation" <|
-          --     \() ->
-          --         Expect.equal (hexrotationFromKey "S10000") 0
-          -- , test "Pua S10000 puabase" <|
-          --     \() ->
-          --         Expect.equal (hexbaseFromKey "S10000" + puabasestart) 1038384
-          -- , test "Pua S10000 puafill" <|
-          --     \() ->
-          --         Expect.equal (hexfillFromKey "S10000" + puafillstart) 1038352
-          -- , test "Pua S10000 puarotation" <|
-          --     \() ->
-          --         Expect.equal (hexrotationFromKey "S10000" + puarotationstart) 1038368
-          -- , test "Pua S10000" <|
-          --     \() ->
-          --         Expect.equal (pua "S10000") "\xFD830\xFD810\xFD820"
-          -- , test "Pua S10000" <|
-          --     \() ->
-          --         Expect.equal (pua "S10000") "\xFD830\xFD810\xFD820"
-          -- , test "Pua lefthalf" <|
-          --     \() ->
-          --         Expect.equal (lefthalf 1038353) 56246
-          -- , test "Pua righthalf" <|
-          --     \() ->
-          --         Expect.equal (righthalf 1038353) 56337
-          -- , test "Pua lefthalf" <|
-          --     \() ->
-          --         Expect.equal (lefthalf 1038606) 56246
-          -- , test "Pua righthalf" <|
-          --     \() ->
-          --         Expect.equal (righthalf 1038606) 56590
-          -- , test "Addition" <|
-          --     \() ->
-          --         Expect.equal (3 + 7) 10
-          -- , test "String.left" <|
-          --     \() ->
-          --         Expect.equal "a" (String.left 1 "abcdefg")
-          -- , test "fillcodefromkey S1870a" <|
-          --     \() ->
-          --         Expect.equal (puaCharCode <| fillcodefromkey "S1870a") ("\x1032AB")
-          -- , test "linecodefromkey S1870a" <|
-          --     \() ->
-          --         Expect.equal (puaCharCode <| linecodefromkey "S1870a") ("\x432AB")
+          --         Expect.equal (FSW.toEditorSign "M500x500").lane "middle"
         ]
