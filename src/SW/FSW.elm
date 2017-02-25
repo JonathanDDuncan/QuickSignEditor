@@ -3,23 +3,49 @@ module SW.FSW exposing (..)
 import SWEditor.EditorSign exposing (..)
 
 
-toEditorSign : String -> EditorSign
+toEditorSign : String -> Result String EditorSign
 toEditorSign fsw =
     let
         lane =
-            getlane fsw
+            Ok <| getlane fsw
 
         x =
-            getsignx fsw
+            Debug.log "x" <| getsignx fsw
 
         y =
-            getsigny fsw
+            Debug.log "y" <| getsigny fsw
+
+        sign =
+            Ok signinit
+                |> Result.andThen
+                    (\sign ->
+                        case x of
+                            Ok xvalue ->
+                                Ok { sign | x = xvalue }
+
+                            Err msg ->
+                                Err msg
+                    )
+                |> Result.andThen
+                    (\sign ->
+                        case y of
+                            Ok yvalue ->
+                                Ok { sign | y = yvalue }
+
+                            Err msg ->
+                                Err msg
+                    )
+                |> Result.andThen
+                    (\sign ->
+                        case lane of
+                            Ok lanevalue ->
+                                Ok { sign | lane = lanevalue }
+
+                            Err msg ->
+                                Err msg
+                    )
     in
-        { signinit
-            | x = x
-            , y = y
-            , lane = lane
-        }
+        sign
 
 
 getlane fsw =
@@ -36,35 +62,47 @@ getlane fsw =
             |> Maybe.withDefault MiddleLane
 
 
-getsignx : String -> Int
+getsignx : String -> Result String Int
 getsignx fsw =
     let
-        coordinatelist =
+        coordinatelistresult =
             getcoordinatelist fsw
 
         x =
-            coordinatelist
-                |> List.head
-                |> toValue
+            case coordinatelistresult of
+                Ok coordinatelist ->
+                    coordinatelist
+                        |> List.head
+                        |> toValue
+                        |> Ok
+
+                Err msg ->
+                    Err <| "Could not get y of " ++ fsw ++ "|" ++ msg
     in
         x
 
 
-getsigny : String -> Int
+getsigny : String -> Result String Int
 getsigny fsw =
     let
-        coordinatelist =
+        coordinatelistresult =
             getcoordinatelist fsw
 
         y =
-            List.drop 1 coordinatelist
-                |> List.head
-                |> toValue
+            case coordinatelistresult of
+                Ok coordinatelist ->
+                    List.drop 1 coordinatelist
+                        |> List.head
+                        |> toValue
+                        |> Ok
+
+                Err msg ->
+                    Err <| "Could not get y of " ++ fsw ++ "|" ++ msg
     in
         y
 
 
-getcoordinatelist : String -> List String
+getcoordinatelist : String -> Result String (List String)
 getcoordinatelist fsw =
     let
         laneandcoordinate =
@@ -76,7 +114,10 @@ getcoordinatelist fsw =
         coordinatelist =
             String.split "x" coordinatestring
     in
-        coordinatelist
+        if String.length coordinatestring == 7 then
+            Ok coordinatelist
+        else
+            Err <| "Sign coordinate " ++ coordinatestring ++ "should be 7 characters long"
 
 
 toValue : Maybe String -> Int
