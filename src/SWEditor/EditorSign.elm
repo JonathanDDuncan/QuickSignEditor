@@ -13,7 +13,6 @@ type alias EditorSign =
     , y : Int
     , backfill : String
     , syms : List EditorSymbol
-    , laned : Bool
     , left : Int
     }
 
@@ -27,7 +26,6 @@ signinit =
     , y = 0
     , backfill = ""
     , syms = []
-    , laned = False
     , left = 0
     }
 
@@ -50,7 +48,6 @@ toEditorSign sign id =
                 , y = boundingbox.y
                 , backfill = sign.backfill
                 , syms = editorsymbols
-                , laned = sign.laned
                 , left = sign.left
                 }
     in
