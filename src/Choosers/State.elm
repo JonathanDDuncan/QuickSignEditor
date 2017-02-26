@@ -1,11 +1,5 @@
 module Choosers.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
--- import PlatformHelpers exposing (..)
-
 import Choosers.Types exposing (..)
 import Ports exposing (..)
 import Choosing.State exposing (..)
@@ -26,9 +20,6 @@ import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 import Keyboard.Shared exposing (KeyboardMode)
 import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
-
-
--- import SubMainChoosers.State
 
 
 init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
@@ -57,9 +48,6 @@ init =
             , keyboardpage = 1
             }
       }
-      -- To initiate Choosers state
-      --  { MainChooserFieldName = fst Choosers.State.init
-      --  }
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
 

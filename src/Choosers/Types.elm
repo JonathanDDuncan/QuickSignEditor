@@ -357,6 +357,5 @@ type alias HandGroupChooserViewSymbolData =
     { chooseritem : ChooserItem
     , mdlid : Int
     , modelmdl : Material.Model
-    , symbol :
-        EditorSymbol
+    , symbol : EditorSymbol
     }

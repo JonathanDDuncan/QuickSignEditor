@@ -107,16 +107,6 @@ getscales columnwidth rowheight symbols =
     List.minimum (List.map (\symbol -> calcscale symbol.width symbol.height columnwidth rowheight) symbols)
 
 
-getsymbols :
-    Base
-    -> List Fill
-    -> List Int
-    -> Dict String Size
-    -> List EditorSymbol
-getsymbols base fills rotations symbolsizes =
-    List.concatMap (\rotation -> List.map (\fill -> getSymbolEditorBaseFillRotation base fill rotation symbolsizes) fills) rotations
-
-
 generalsymbolonecolumn :
     Float
     -> { b
@@ -201,14 +191,6 @@ generalsymbolcol drag scale symbol =
         [ Html.map SignView
             (symbolsvgscale scale symbol)
         ]
-
-
-scaling : comparable -> List ( String, String )
-scaling scale =
-    if scale <= 1 then
-        [ "transform" => ("scale(" ++ toString scale ++ ")") ]
-    else
-        []
 
 
 calcscale : Int -> Int -> Int -> Int -> Float

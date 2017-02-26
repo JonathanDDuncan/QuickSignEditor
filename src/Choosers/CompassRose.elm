@@ -132,7 +132,3 @@ centered full item =
         - toFloat item
         / 2
         |> truncate
-
-
-
---State

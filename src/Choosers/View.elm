@@ -60,6 +60,7 @@ root parentwidth parentheight model =
             ]
 
 
+choosingroot : Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
 choosingroot height model =
     div
         [ style [ "height" => px (height - 30) ]
@@ -111,13 +112,3 @@ choosesubgroupchooser model =
 
             _ ->
                 generalgroupchooser model.generalgroupchooserdata
-
-
-
--- "margin-left" => (toString (20 * (col - 1)) ++ "%"),
-
-
-nogroupchooser : a -> Html b
-nogroupchooser model =
-    div []
-        [ text "nogroupchooser" ]

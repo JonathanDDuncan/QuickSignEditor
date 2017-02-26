@@ -83,17 +83,7 @@ creatcolumnkeyactionlist data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ symbol ] }
-                                 -- [ Html.Attributes.style
-                                 --     [ "position" => "relative"
-                                 --     , "margin" => "auto"
-                                 --     , "left" => px 0
-                                 --     , "top" => px 4
-                                 --     , "width" => px symbol.width
-                                 --     , "height" => px symbol.height
-                                 --     ]
-                                 -- ]
-                                )
+                                (signdisplaysvg { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -120,17 +110,7 @@ createkeyactionlist data range =
                             item.symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ item.symbol ] }
-                                 -- [ Html.Attributes.style
-                                 --     [ "position" => "relative"
-                                 --     , "margin" => "auto"
-                                 --     , "left" => px 0
-                                 --     , "top" => px 4
-                                 --     , "width" => px item.symbol.width
-                                 --     , "height" => px item.symbol.height
-                                 --     ]
-                                 -- ]
-                                )
+                                (signdisplaysvg { signinit | syms = [ item.symbol ] })
                         }
                     }
                 )
@@ -189,17 +169,7 @@ createfillkeyactionlist data range =
                             handfillitem.symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ handfillitem.symbol ] }
-                                 -- [ Html.Attributes.style
-                                 --     [ "position" => "relative"
-                                 --     , "margin" => "auto"
-                                 --     , "left" => px 0
-                                 --     , "top" => px 4
-                                 --     , "width" => px handfillitem.symbol.width
-                                 --     , "height" => px handfillitem.symbol.height
-                                 --     ]
-                                 -- ]
-                                )
+                                (signdisplaysvg { signinit | syms = [ handfillitem.symbol ] })
                         }
                     }
                 )
@@ -225,17 +195,7 @@ createflowerkeyactionlist data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ symbol ] }
-                                 -- [ Html.Attributes.style
-                                 --     [ "position" => "relative"
-                                 --     , "margin" => "auto"
-                                 --     , "left" => px 0
-                                 --     , "top" => px 4
-                                 --     , "width" => px symbol.width
-                                 --     , "height" => px symbol.height
-                                 --     ]
-                                 -- ]
-                                )
+                                (signdisplaysvg { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -261,17 +221,7 @@ createhandkeyactionlist message data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ symbol ] }
-                                 -- [ Html.Attributes.style
-                                 --     [ "position" => "relative"
-                                 --     , "margin" => "auto"
-                                 --     , "left" => px 0
-                                 --     , "top" => px 4
-                                 --     , "width" => px symbol.width
-                                 --     , "height" => px symbol.height
-                                 --     ]
-                                 -- ]
-                                )
+                                (signdisplaysvg { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -291,19 +241,3 @@ createplanekeyaction message view width height key =
         , view = view
         }
     }
-
-
-
---    [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
--- { generalsymbolrowdata : List { fill : Int, symbol : EditorSymbol }
--- , symbolcolumnsdata :
---     List
---         { generalsymbolonecolumndata :
---             { show1 : Bool
---             , show2 : Bool
---             , symbol1 : EditorSymbol
---             , symbol2 : EditorSymbol
---             }
---         }
--- }
--- -> List { fill : Int, symbol : EditorSymbol }
