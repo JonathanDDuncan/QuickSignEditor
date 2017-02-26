@@ -18,7 +18,6 @@ import Choosers.Types exposing (..)
 import List.Extra exposing (..)
 import Choosers.CompassRose exposing (..)
 import Choosers.HandPng exposing (..)
-import Convert.ConvertFsw exposing (rotation)
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> Html Msg
@@ -92,9 +91,9 @@ petal ( attrib, handfill ) =
     div
         [ attribute "position" "relative"
         , attribute "style" "width:100%; height: inherit"
-        , onMouseDown (DragSymbol handfill.symbol.code)
+        , onMouseDown (DragSymbol handfill.symbol.key)
         , onDoubleClick
-            (ReplaceSymbol handfill.symbol.code)
+            (ReplaceSymbol handfill.symbol.key)
         ]
         [ div attrib
             [ Html.map SignView
@@ -153,8 +152,8 @@ fillsview handsymbol rowheight =
         (\( handfillitem, description ) ->
             td
                 [ onClick (SelectHandFill handfillitem.filltype)
-                , onMouseDown (DragSymbol handfillitem.symbol.code)
-                , onDoubleClick (ReplaceSymbol handfillitem.symbol.code)
+                , onMouseDown (DragSymbol handfillitem.symbol.key)
+                , onDoubleClick (ReplaceSymbol handfillitem.symbol.key)
                 , selectedbackground handfillitem.filltype handsymbol.handfill
                 ]
                 [ div

@@ -50,8 +50,8 @@ type Msg
     | SelectedColumn Int
     | GroupSelected ChooserItem
     | AddSymbol EditorSymbol
-    | DragSymbol Code
-    | ReplaceSymbol Code
+    | DragSymbol Key
+    | ReplaceSymbol Key
     | FilterHandGroup Int
     | Mdl (Material.Msg Msg)
     | SelectHand Hands

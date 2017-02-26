@@ -19,7 +19,6 @@ symbolinit =
     , fontsize = 0.0
     , size = 1
     , nwcolor = ""
-    , code = 0
     , key = ""
     , nbcolor = ""
     , selected = False
@@ -36,7 +35,6 @@ toEditorSymbol id index symbol =
     , fontsize = symbol.fontsize
     , size = symbol.size
     , nwcolor = symbol.nwcolor
-    , code = symbol.code
     , key = symbol.key
     , nbcolor = symbol.nbcolor
     , selected = False
@@ -53,7 +51,6 @@ fromEditorSymbol symbol =
     , fontsize = symbol.fontsize
     , size = symbol.size
     , nwcolor = symbol.nwcolor
-    , code = symbol.code
     , key = symbol.key
     , nbcolor = symbol.nbcolor
     }
@@ -80,9 +77,6 @@ getSymbolEditorCode code symbolsizes =
 getSymbolEditorKey : Key -> Dict String Size -> EditorSymbol
 getSymbolEditorKey key symbolsizes =
     let
-        code =
-            SW.SymbolConverter.codefromkey key
-
         symbolsizeresult =
             Dict.get key symbolsizes
 
@@ -106,7 +100,6 @@ getSymbolEditorKey key symbolsizes =
             , fontsize = 30
             , size = 1
             , nwcolor = "white"
-            , code = code
             , key = key
             , nbcolor = "black"
             }

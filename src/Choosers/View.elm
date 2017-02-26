@@ -87,9 +87,9 @@ displayChoosing : Choosing.Types.Model -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
         [ onClick (Clicked choosing.value)
-        , onMouseDown (DragSymbol (firstsymbol choosing).code)
+        , onMouseDown (DragSymbol (firstsymbol choosing).key)
         , onDoubleClick
-            (ReplaceSymbol (firstsymbol choosing).code)
+            (ReplaceSymbol (firstsymbol choosing).key)
         ]
         [ Html.map Choosing (Choosing.View.root choosing) ]
 

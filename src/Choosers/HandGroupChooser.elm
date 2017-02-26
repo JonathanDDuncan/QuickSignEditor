@@ -6,6 +6,7 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import String exposing (..)
 import List.Extra exposing (..)
+import SW.SymbolConverter exposing (codefromkey)
 
 
 --View
@@ -53,8 +54,8 @@ symbol : HandGroupChooserViewSymbolData -> Html Msg
 symbol symboldata =
     Html.div
         [ Html.Events.onClick (GroupSelected symboldata.chooseritem)
-        , onMouseDown (DragSymbol symboldata.symbol.code)
-        , onDoubleClick (ReplaceSymbol symboldata.symbol.code)
+        , onMouseDown (DragSymbol symboldata.symbol.key)
+        , onDoubleClick (ReplaceSymbol symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]
@@ -265,7 +266,7 @@ createdisplayhanditem symbolsizes chooseritem =
             getSymbolEditorBaseFillRotation base fill rotation symbolsizes
 
         mdlid =
-            symbol.code + 1000
+            codefromkey symbol.key + 1000
     in
         { mdlid = mdlid, symbol = symbol, chooseritem = chooseritem }
 

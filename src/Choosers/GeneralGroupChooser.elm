@@ -10,6 +10,7 @@ import Material.Tooltip as Tooltip exposing (attach, render, left)
 import Material.Options as Options exposing (div, cs, when)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
+import SW.SymbolConverter exposing (codefromkey)
 
 
 -- View
@@ -45,8 +46,8 @@ symbol : GeneralGroupChooserSymbolData -> Html Msg
 symbol symboldata =
     Html.div
         [ onClick (GroupSelected symboldata.chooseritem)
-        , onMouseDown (DragSymbol symboldata.symbol.code)
-        , onDoubleClick (ReplaceSymbol symboldata.symbol.code)
+        , onMouseDown (DragSymbol symboldata.symbol.key)
+        , onDoubleClick (ReplaceSymbol symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]
@@ -131,7 +132,7 @@ creategeneralgroupchoosersymboldata model chooseritem =
             getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
 
         mdlid =
-            symbol.code + 1000
+            codefromkey symbol.key + 1000
 
         modelmdl =
             model.mdl

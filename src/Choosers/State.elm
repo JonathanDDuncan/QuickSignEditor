@@ -200,10 +200,10 @@ update action model =
             )
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
 
-        DragSymbol code ->
+        DragSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolEditorCode code model.symbolsizes)
+                    (getSymbolEditorKey key model.symbolsizes)
 
                 symbol =
                     fromEditorSymbol editorsymbol
@@ -212,10 +212,10 @@ update action model =
                 , cmdDragSymbol <| symbol
                 )
 
-        ReplaceSymbol code ->
+        ReplaceSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolEditorCode code model.symbolsizes)
+                    (getSymbolEditorKey key model.symbolsizes)
 
                 symbol =
                     fromEditorSymbol editorsymbol

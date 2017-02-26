@@ -28,7 +28,6 @@ type alias Symbol =
     , fontsize : Float
     , size : Float
     , nwcolor : String
-    , code : Int
     , key : String
     , nbcolor : String
     }

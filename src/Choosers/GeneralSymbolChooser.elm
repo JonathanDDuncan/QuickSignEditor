@@ -178,8 +178,8 @@ generalsymbolrow generalsymbolrowdata scale =
         (\d ->
             td
                 [ onClick (SelectedColumn d.fill)
-                , onMouseDown (DragSymbol d.symbol.code)
-                , onDoubleClick (ReplaceSymbol d.symbol.code)
+                , onMouseDown (DragSymbol d.symbol.key)
+                , onDoubleClick (ReplaceSymbol d.symbol.key)
                 ]
                 [ (generalsymbolcol False scale d.symbol) ]
         )
@@ -191,12 +191,12 @@ generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
             (if (drag) then
-                DragSymbol symbol.code
+                DragSymbol symbol.key
              else
                 Noop
             )
         , onDoubleClick
-            (ReplaceSymbol symbol.code)
+            (ReplaceSymbol symbol.key)
         ]
         [ Html.map SignView
             (symbolsvgscale scale symbol)
