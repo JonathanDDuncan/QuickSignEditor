@@ -16,7 +16,7 @@ symbolinit =
     , y = 0
     , width = 0
     , height = 0
-    , fontsize = 0.0
+ 
     , size = 1
     , nwcolor = ""
     , key = ""
@@ -32,7 +32,7 @@ toEditorSymbol id index symbol =
     , y = symbol.y
     , width = symbol.width
     , height = symbol.height
-    , fontsize = symbol.fontsize
+ 
     , size = symbol.size
     , nwcolor = symbol.nwcolor
     , key = symbol.key
@@ -48,7 +48,7 @@ fromEditorSymbol symbol =
     , y = symbol.y
     , width = symbol.width
     , height = symbol.height
-    , fontsize = symbol.fontsize
+   
     , size = symbol.size
     , nwcolor = symbol.nwcolor
     , key = symbol.key
@@ -97,7 +97,7 @@ getSymbolEditorKey key symbolsizes =
             , y = 0
             , width = size.width
             , height = size.height
-            , fontsize = 30
+         
             , size = 1
             , nwcolor = "white"
             , key = key

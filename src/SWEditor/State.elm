@@ -388,7 +388,7 @@ replaceselected sym symbol =
         { sym
             | width = symbol.width
             , height = symbol.height
-            , fontsize = symbol.fontsize
+    
             , nwcolor = symbol.nwcolor
             , key = symbol.key
             , nbcolor = symbol.nbcolor
