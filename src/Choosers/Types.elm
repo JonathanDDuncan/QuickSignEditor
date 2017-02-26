@@ -380,11 +380,6 @@ type alias ChoosingImportModel =
     }
 
 
-type ChoosingMsg
-    = ChoosingMessage
-    | Display SWEditor.Types.Msg
-
-
 
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types
