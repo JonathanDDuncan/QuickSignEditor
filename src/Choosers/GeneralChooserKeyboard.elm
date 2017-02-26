@@ -2,7 +2,7 @@ module Choosers.GeneralChooserKeyboard exposing (..)
 
 import Choosers.Types exposing (..)
 import Html
-import Choosing.Types exposing (Model)
+import Choosing.Types exposing (ChoosingModel)
 import Keyboard.Shared exposing (..)
 import SWEditor.DisplaySvg exposing (signdisplaysvg, signsvg)
 
@@ -31,7 +31,7 @@ runKeyboardCommand model command update =
 
 
 creategeneralchooserkeyboard :
-    List Choosing.Types.Model
+    List Choosing.Types.ChoosingModel
     -> List (KeyAction Msg)
 creategeneralchooserkeyboard choosings =
     List.indexedMap

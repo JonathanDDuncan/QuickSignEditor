@@ -21,7 +21,7 @@ port requestSignfromOtherApp : String -> Cmd msg
 port receiveSignfromOtherApp : (Sign -> msg) -> Sub msg
 
 
-port receiveInitialChoosings : (List Choosing.ImportModel -> msg) -> Sub msg
+port receiveInitialChoosings : (List Choosing.ChoosingImportModel -> msg) -> Sub msg
 
 
 port receiveInitialGroupHandChoosings : (Choosers.HandGroupImportModel -> msg) -> Sub msg

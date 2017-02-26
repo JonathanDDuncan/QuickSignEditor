@@ -14,7 +14,7 @@ import Keyboard.Shared exposing (..)
 type alias Model =
     { lastmdlid : Int
     , mdl : Material.Model
-    , choosings : List Choosing.Model
+    , choosings : List Choosing.ChoosingModel
     , handgroupchoosings : HandGroupModel
     , allgroupchoosings : AllGroupChoosings
     , clicked : String
@@ -41,7 +41,7 @@ type Msg
     = Noop
     | MainChooserMessage
     | RequestInitialChoosings
-    | ReceiveInitialChoosings (List Choosing.ImportModel)
+    | ReceiveInitialChoosings (List Choosing.ChoosingImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
     | Clicked String
     | SymbolView SWEditor.Types.Msg

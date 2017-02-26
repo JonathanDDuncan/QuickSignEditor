@@ -5,7 +5,7 @@ import SWEditor.Types exposing (..)
 import SWEditor.EditorSign as EditorSign exposing (..)
 
 
-init : String -> Int -> Int -> ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
+init : String -> Int -> Int -> ( Choosing.Types.ChoosingModel, Cmd Choosing.Types.ChoosingMsg )
 init key x y =
     ( { displaySign = EditorSign.signinit
       , valuestoAdd = []
@@ -16,7 +16,7 @@ init key x y =
     )
 
 
-update : Choosing.Types.Msg -> Choosing.Types.Model -> ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
+update : Choosing.Types.ChoosingMsg -> Choosing.Types.ChoosingModel -> ( Choosing.Types.ChoosingModel, Cmd Choosing.Types.ChoosingMsg )
 update action model =
     case action of
         ChoosingMessage ->
@@ -36,7 +36,7 @@ update action model =
 --          lift .featureFieldName (\m x -> { m | featureFieldName = x })  ChoosingMsg Choosing.State.update action model
 
 
-subscriptions : Choosing.Types.Model -> Sub Choosing.Types.Msg
+subscriptions : Choosing.Types.ChoosingModel -> Sub Choosing.Types.ChoosingMsg
 subscriptions _ =
     Sub.none
 

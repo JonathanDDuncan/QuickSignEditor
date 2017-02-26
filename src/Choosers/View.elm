@@ -84,7 +84,7 @@ symbolchooser model halfwidth halfheight =
             generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 
 
-displayChoosing : Choosing.Types.Model -> Html Choosers.Types.Msg
+displayChoosing : Choosing.Types.ChoosingModel -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
         [ onClick (Clicked choosing.value)

@@ -7,7 +7,7 @@ import SWEditor.Types exposing (..)
 import SW.Types exposing (..)
 
 
-type alias Model =
+type alias ChoosingModel =
     { displaySign : SWEditor.EditorSign.EditorSign
     , valuestoAdd : List SWEditor.EditorSymbol.EditorSymbol
     , value : String
@@ -15,7 +15,7 @@ type alias Model =
     }
 
 
-type alias ImportModel =
+type alias ChoosingImportModel =
     { displaySign : Sign
     , valuestoAdd : List Symbol
     , value : String
@@ -23,7 +23,7 @@ type alias ImportModel =
     }
 
 
-type Msg
+type ChoosingMsg
     = ChoosingMessage
     | Display SWEditor.Types.Msg
 
@@ -33,7 +33,7 @@ type Msg
 -- Plus any library function to run on the types
 
 
-toModel : Int -> ImportModel -> Model
+toModel : Int -> ChoosingImportModel -> ChoosingModel
 toModel id importmodel =
     let
         sign =
