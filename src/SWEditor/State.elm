@@ -390,7 +390,6 @@ replaceselected sym symbol =
             , height = symbol.height
             , fontsize = symbol.fontsize
             , nwcolor = symbol.nwcolor
-            , pua = symbol.pua
             , code = symbol.code
             , key = symbol.key
             , nbcolor = symbol.nbcolor
