@@ -1,17 +1,8 @@
 module Choosing.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
--- import PlatformHelpers exposing (..)
-
 import Choosing.Types exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign as EditorSign exposing (..)
-
-
--- import SubChoosings.State
 
 
 init : String -> Int -> Int -> ( Choosing.Types.Model, Cmd Choosing.Types.Msg )
@@ -21,9 +12,6 @@ init key x y =
       , value = key
       , offset = Offset x y
       }
-      -- To initiate feature state
-      --  { featureFieldName = fst Choosing.State.init
-      --  }
     , Cmd.none
     )
 

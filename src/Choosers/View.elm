@@ -5,7 +5,6 @@ import String exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Choosers.Types exposing (..)
-import Choosing.View exposing (..)
 import Choosing.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Choosers.HandGroupChooser exposing (..)
@@ -16,6 +15,7 @@ import SW.Types exposing (iskey)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 import Keyboard.Shared exposing (KeyboardMode)
+import SWEditor.DisplaySvg exposing (..)
 
 
 root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
@@ -92,7 +92,9 @@ displayChoosing choosing =
         , onDoubleClick
             (ReplaceSymbol (firstsymbol choosing).key)
         ]
-        [ Html.map Choosing (Choosing.View.root choosing) ]
+        [ Html.map SignView
+            (SWEditor.DisplaySvg.signdisplaysvgposition choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
+        ]
 
 
 firstsymbol : { b | valuestoAdd : List EditorSymbol } -> EditorSymbol

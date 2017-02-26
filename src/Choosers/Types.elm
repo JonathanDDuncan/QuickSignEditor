@@ -43,7 +43,6 @@ type Msg
     | RequestInitialChoosings
     | ReceiveInitialChoosings (List Choosing.ImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
-    | Choosing Choosing.Msg
     | Clicked String
     | SymbolView SWEditor.Types.Msg
     | SignView SWEditor.Types.Msg

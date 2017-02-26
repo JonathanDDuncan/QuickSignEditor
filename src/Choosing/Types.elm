@@ -1,7 +1,5 @@
 module Choosing.Types exposing (..)
 
--- import SubChoosings.Types
-
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)

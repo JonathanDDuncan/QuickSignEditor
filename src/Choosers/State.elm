@@ -65,11 +65,6 @@ update action model =
             , Cmd.none
             )
 
-        Choosing msg ->
-            ( model
-            , Cmd.none
-            )
-
         RequestInitialChoosings ->
             ( model
             , Ports.requestInitialChoosings ""
