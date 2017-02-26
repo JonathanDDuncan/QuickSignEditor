@@ -47,10 +47,7 @@ createsymbol : Dict.Dict String Size -> String -> Result String SWEditor.EditorS
 createsymbol symbolsizes symbolstring =
     let
         key =
-            Regex.find (Regex.AtMost 1) (regex (re_sym ++ re_coord)) symbolstring
-                |> matchestostrings
-                |> List.head
-                |> Result.fromMaybe (couldnoterror "get key" symbolstring)
+            getkeystr symbolstring
 
         coordinatestr =
             getcoordinatestr symbolstring
@@ -67,20 +64,6 @@ createsymbol symbolsizes symbolstring =
                     (setresultvalue coordinateresult (\symbol value -> { symbol | x = value.x, y = value.y }))
     in
         symbol
-
-
-getcoordinatestr : String -> Result String String
-getcoordinatestr str =
-    Regex.find (Regex.AtMost 1) (regex re_coord) str
-        |> matchestostrings
-        |> List.head
-        |> Result.fromMaybe (couldnoterror "get coordinate" str)
-
-
-getsymbolsstrings : String -> List String
-getsymbolsstrings fsw =
-    Regex.find All (regex (re_sym ++ re_coord)) fsw
-        |> matchestostrings
 
 
 getlane : String -> Result String Lane
@@ -152,18 +135,6 @@ splitcoordinatestring str =
         createrule split
             (\value -> List.length value == 2)
             (\value -> couldnoterror "split coordinate value into two pieces on 'x'" str)
-
-
-getlanestr : String -> Result String String
-getlanestr fsw =
-    let
-        symbolsplit =
-            Regex.find All (regex re_lane) fsw
-                |> matchestostrings
-    in
-        List.filter (\item -> startwithlanevalue item) symbolsplit
-            |> List.head
-            |> Result.fromMaybe (couldnoterror "find lane" fsw)
 
 
 startwithlanevalue : String -> Bool
@@ -258,6 +229,40 @@ applyToOkValueAppendMsg message callback result =
 
 
 -- Regex
+
+
+getkeystr : String -> Result String String
+getkeystr str =
+    Regex.find (Regex.AtMost 1) (regex (re_sym ++ re_coord)) str
+        |> matchestostrings
+        |> List.head
+        |> Result.fromMaybe (couldnoterror "get key" str)
+
+
+getlanestr : String -> Result String String
+getlanestr fsw =
+    let
+        symbolsplit =
+            Regex.find All (regex re_lane) fsw
+                |> matchestostrings
+    in
+        List.filter (\item -> startwithlanevalue item) symbolsplit
+            |> List.head
+            |> Result.fromMaybe (couldnoterror "find lane" fsw)
+
+
+getcoordinatestr : String -> Result String String
+getcoordinatestr str =
+    Regex.find (Regex.AtMost 1) (regex re_coord) str
+        |> matchestostrings
+        |> List.head
+        |> Result.fromMaybe (couldnoterror "get coordinate" str)
+
+
+getsymbolsstrings : String -> List String
+getsymbolsstrings fsw =
+    Regex.find All (regex (re_sym ++ re_coord)) fsw
+        |> matchestostrings
 
 
 matchestostrings : List { b | match : a } -> List a
