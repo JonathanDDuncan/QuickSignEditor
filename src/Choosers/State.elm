@@ -2,8 +2,6 @@ module Choosers.State exposing (init, update, subscriptions)
 
 import Choosers.Types exposing (..)
 import Ports exposing (..)
-import Choosing.State exposing (..)
-import Choosing.Types exposing (..)
 import Exts.List exposing (..)
 import Dict exposing (..)
 import String exposing (..)
@@ -20,13 +18,15 @@ import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 import Keyboard.Shared exposing (KeyboardMode)
 import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
+import SWEditor.Types exposing (Offset)
+import SWEditor.EditorSign as EditorSign exposing (signinit)
 
 
 init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 init =
     ( { lastmdlid = 0
       , mdl = Material.model
-      , choosings = [ Tuple.first (Choosing.State.init "S5" 6 8) ]
+      , choosings = [ (choosinginit "S5" 6 8) ]
       , clicked = ""
       , selectedcolumn = 1
       , handgroupchoosings = []
@@ -50,6 +50,15 @@ init =
       }
     , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
     )
+
+
+choosinginit : String -> Int -> Int -> ChoosingModel
+choosinginit key x y =
+    { displaySign = EditorSign.signinit
+    , valuestoAdd = []
+    , value = key
+    , offset = Offset x y
+    }
 
 
 update : Choosers.Types.Msg -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )

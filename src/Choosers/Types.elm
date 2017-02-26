@@ -2,9 +2,9 @@ module Choosers.Types exposing (..)
 
 -- import SubMainChoosers.Types
 
-import Choosing.Types as Choosing
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import Material exposing (..)
@@ -14,7 +14,7 @@ import Keyboard.Shared exposing (..)
 type alias Model =
     { lastmdlid : Int
     , mdl : Material.Model
-    , choosings : List Choosing.ChoosingModel
+    , choosings : List ChoosingModel
     , handgroupchoosings : HandGroupModel
     , allgroupchoosings : AllGroupChoosings
     , clicked : String
@@ -41,7 +41,7 @@ type Msg
     = Noop
     | MainChooserMessage
     | RequestInitialChoosings
-    | ReceiveInitialChoosings (List Choosing.ChoosingImportModel)
+    | ReceiveInitialChoosings (List ChoosingImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
     | Clicked String
     | SymbolView SWEditor.Types.Msg
@@ -358,3 +358,51 @@ type alias HandGroupChooserViewSymbolData =
     , modelmdl : Material.Model
     , symbol : EditorSymbol
     }
+
+
+
+-- Choosing
+
+
+type alias ChoosingModel =
+    { displaySign : SWEditor.EditorSign.EditorSign
+    , valuestoAdd : List SWEditor.EditorSymbol.EditorSymbol
+    , value : String
+    , offset : Offset
+    }
+
+
+type alias ChoosingImportModel =
+    { displaySign : Sign
+    , valuestoAdd : List Symbol
+    , value : String
+    , offset : Offset
+    }
+
+
+type ChoosingMsg
+    = ChoosingMessage
+    | Display SWEditor.Types.Msg
+
+
+
+-- Plus any other types unique to this feature
+-- Plus any library function to run on the types
+
+
+toModel : Int -> ChoosingImportModel -> ChoosingModel
+toModel id importmodel =
+    let
+        sign =
+            SWEditor.EditorSign.toEditorSign importmodel.displaySign id
+
+        symbols =
+            List.indexedMap (SWEditor.EditorSymbol.toEditorSymbol id)
+                importmodel.valuestoAdd
+    in
+        { displaySign =
+            sign
+        , valuestoAdd = symbols
+        , value = importmodel.value
+        , offset = importmodel.offset
+        }

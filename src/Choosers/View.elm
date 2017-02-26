@@ -5,7 +5,6 @@ import String exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Choosers.Types exposing (..)
-import Choosing.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Choosers.HandGroupChooser exposing (..)
 import Choosers.GeneralGroupChooser exposing (..)
@@ -84,7 +83,7 @@ symbolchooser model halfwidth halfheight =
             generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 
 
-displayChoosing : Choosing.Types.ChoosingModel -> Html Choosers.Types.Msg
+displayChoosing : ChoosingModel -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
         [ onClick (Clicked choosing.value)
