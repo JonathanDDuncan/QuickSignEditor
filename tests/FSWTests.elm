@@ -14,7 +14,22 @@ fswTests =
                 Expect.equal (defaultResultsign "M500x500").x 500
         , test "Empty sign 500x500" <|
             \() ->
-                Expect.equal (getsignerrmessage "500x500") "Could not get x of '500x500' | Could not find lane and coordinate: 500x500"
+                Expect.equal (getsignerrmessage "500x500") "Could not get x coordinate of '' | Could not find lane and coordinate: 500x500"
+        , test "Empty sign 000x500" <|
+            \() ->
+                Expect.equal (getsignerrmessage "000x500") "Could not get x coordinate of '' | Could not find lane and coordinate: 000x500"
+        , test "Empty sign 500500" <|
+            \() ->
+                Expect.equal (getsignerrmessage "500500") "Could not get x coordinate of '' | Could not find lane and coordinate: 500500"
+        , test "Empty sign M500500" <|
+            \() ->
+                Expect.equal (getsignerrmessage "M500500") "Could not get x coordinate of '' | Could not find lane and coordinate: M500500"
+        , test "Empty sign M500f500" <|
+            \() ->
+                Expect.equal (getsignerrmessage "M500f500") "Could not get x coordinate of '' | Could not find lane and coordinate: M500f500"
+        , test "Empty sign " <|
+            \() ->
+                Expect.equal (getsignerrmessage "") "Could not get x coordinate of '' | Could not find lane and coordinate: "
         , test "Empty sign y 500" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").y 500
@@ -29,7 +44,7 @@ fswTests =
         , test "lane is middle lane" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").lane MiddleLane
-        , test "lane is b lane" <|
+        , test "lane is B lane" <|
             \() ->
                 Expect.equal (defaultResultsign "B500x500").lane BLane
         , test "lane is left lane" <|
@@ -38,7 +53,11 @@ fswTests =
         , test "lane is right lane" <|
             \() ->
                 Expect.equal (defaultResultsign "R500x500").lane RightLane
-          -- Give error when bad values
+        , test "lane is F lane" <|
+            \() ->
+                Expect.equal (getsignerrmessage "F500x500") "Could not get x coordinate of '' | Could not find lane and coordinate: F500x500"
+        , test "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468 4 symbols" <|
+            \() -> Expect.equal (List.length (defaultResultsign "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468").syms) 4
         ]
 
 

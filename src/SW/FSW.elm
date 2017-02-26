@@ -1,6 +1,10 @@
 module SW.FSW exposing (..)
 
 import SWEditor.EditorSign exposing (..)
+import Regex exposing (..)
+import SWEditor.EditorSymbol exposing (getSymbolEditorKey)
+import Dict
+import SW.Types exposing (..)
 
 
 toEditorSign : String -> Result String EditorSign
@@ -9,11 +13,20 @@ toEditorSign fsw =
         laneresult =
             getlane fsw
 
+        lanecoord =
+            getlaneandcoordinate fsw
+
         xresult =
-            getsignx fsw
+            getx lanecoord
 
         yresult =
-            getsigny fsw
+            gety lanecoord
+
+        symbolsstrings =
+            getsymbolsstrings fsw
+
+        symsresult =
+            createsymbols symbolsstrings
 
         sign =
             Ok signinit
@@ -23,8 +36,106 @@ toEditorSign fsw =
                     (setresultvalue yresult (\sign value -> { sign | y = value }))
                 |> Result.andThen
                     (setresultvalue laneresult (\sign value -> { sign | lane = value }))
+                |> Result.andThen
+                    (setresultvalue symsresult (\sign value -> { sign | syms = value }))
     in
         sign
+
+
+createsymbols symbolsstrings =
+    List.map createsymbol symbolsstrings
+        |> combine
+
+
+combine : List (Result x a) -> Result x (List a)
+combine =
+    List.foldr (Result.map2 (::)) (Ok [])
+
+
+createsymbol symbolstring =
+    let
+        key =
+            Regex.find (Regex.AtMost 1) (regex (re_sym ++ re_coord)) symbolstring
+                |> matchestostrings
+                |> List.head
+                |> Result.fromMaybe ("Could not get key from '" ++ symbolstring ++ "'")
+
+        coordinate =
+            Regex.find (Regex.AtMost 1) (regex re_coord) symbolstring
+                |> matchestostrings
+                |> List.head
+                |> Result.fromMaybe ("Could not get coordinate from '" ++ symbolstring ++ "'")
+
+        symbolonly =
+            applyToOkValue (\key1 -> getSymbolEditorKey key1 partialsymbolsizes) key
+
+        xresult =
+            getx coordinate
+
+        yresult =
+            gety coordinate
+
+        symbol =
+            symbolonly
+                |> Result.andThen
+                    (setresultvalue xresult (\sign value -> { sign | x = value }))
+                |> Result.andThen
+                    (setresultvalue yresult (\sign value -> { sign | y = value }))
+    in
+        symbol
+
+
+partialsymbolsizes =
+    let
+        symbolsizes =
+            [ { k = "", w = 0, h = 0 }
+            , { k = "", w = 0, h = 0 }
+            , { k = "", w = 0, h = 0 }
+            ]
+    in
+        Dict.fromList <|
+            List.map (\symbolsize -> (.k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) symbolsizes
+
+
+(=>) : a -> b -> ( a, b )
+(=>) =
+    (,)
+
+
+getsymbolsstrings : String -> List String
+getsymbolsstrings fsw =
+    Regex.find All (regex (re_sym ++ re_coord)) fsw
+        |> matchestostrings
+
+
+matchestostrings : List { b | match : a } -> List a
+matchestostrings matches =
+    List.map (\match -> match.match) matches
+
+
+re_sym : String
+re_sym =
+    "S[123][0-9a-f]{2}[0-5][0-9a-f]"
+
+
+re_coord : String
+re_coord =
+    "[0-9]{3}x[0-9]{3}"
+
+
+re_lanecoord : String
+re_lanecoord =
+    "[BLMR](" ++ re_coord ++ ")"
+
+
+re_word : String
+re_word =
+    "[BLMR](" ++ re_coord ++ ")(" ++ re_sym ++ re_coord ++ ")*"
+
+
+re_term : String
+re_term =
+    "(A(" ++ re_sym ++ ")+)"
 
 
 setresultvalue : Result a b -> (c -> b -> value) -> c -> Result a value
@@ -71,13 +182,13 @@ applyToOkValueAppendMsg message callback result =
             Err <| message ++ " | " ++ msg
 
 
-getsignx : String -> Result String Int
-getsignx fsw =
+getx : Result String String -> Result String Int
+getx coordinatestr =
     let
         coordinatelistresult =
-            getcoordinatelist fsw
+            getcoordinatelist coordinatestr
     in
-        applyToOkValueAppendMsg ("Could not get x of '" ++ fsw ++ "'")
+        applyToOkValueAppendMsg ("Could not get x coordinate of '" ++ Result.withDefault "" coordinatestr ++ "'")
             (\value ->
                 value
                     |> List.head
@@ -86,13 +197,13 @@ getsignx fsw =
             coordinatelistresult
 
 
-getsigny : String -> Result String Int
-getsigny fsw =
+gety : Result String String -> Result String Int
+gety coordinatestr =
     let
         coordinatelistresult =
-            getcoordinatelist fsw
+            getcoordinatelist coordinatestr
     in
-        applyToOkValueAppendMsg ("Could not get x of '" ++ fsw ++ "'")
+        applyToOkValueAppendMsg ("Could not get y coordinate of '" ++ Result.withDefault "" coordinatestr ++ "'")
             (\value ->
                 value
                     |> List.drop 1
@@ -102,14 +213,11 @@ getsigny fsw =
             coordinatelistresult
 
 
-getcoordinatelist : String -> Result String (List String)
-getcoordinatelist fsw =
+getcoordinatelist : Result String String -> Result String (List String)
+getcoordinatelist coordinatestr =
     let
-        laneandcoordinate =
-            getlaneandcoordinate fsw
-
         coordinatestring =
-            applyToOkValue (String.dropLeft 1) laneandcoordinate
+            getcoordinate coordinatestr
 
         goodcoordinatestring =
             createrule (\value -> "Sign coordinate '" ++ value ++ "'should be 7 characters long.") (\value -> String.length value == 7) coordinatestring
@@ -130,6 +238,18 @@ getcoordinatelist fsw =
                     Err msg
     in
         coordinatelist
+
+
+getcoordinate : Result b String -> Result b String
+getcoordinate stringcoordinate =
+    applyToOkValue
+        (\value ->
+            Regex.find (Regex.AtMost 1) (regex re_coord) value
+                |> matchestostrings
+                |> List.head
+                |> Maybe.withDefault ""
+        )
+        stringcoordinate
 
 
 createrule : (value -> a) -> (value -> Bool) -> Result a value -> Result a value
@@ -167,7 +287,8 @@ getlaneandcoordinate : String -> Result String String
 getlaneandcoordinate fsw =
     let
         symbolsplit =
-            String.split "S" fsw
+            Regex.find All (regex re_lanecoord) fsw
+                |> matchestostrings
     in
         List.filter (\item -> startwithlanevalue item) symbolsplit
             |> List.head
