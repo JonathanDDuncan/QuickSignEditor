@@ -14,22 +14,22 @@ fswTests =
                 Expect.equal (defaultResultsign "M500x500").x 500
         , test "Empty sign 500x500" <|
             \() ->
-                Expect.equal (getsignerrmessage "500x500") "Could not get x coordinate of '' | Could not find lane and coordinate: 500x500"
+                Expect.equal (getsignerrmessage "500x500") "Could not find lane and coordinate from '500x500'."
         , test "Empty sign 000x500" <|
             \() ->
-                Expect.equal (getsignerrmessage "000x500") "Could not get x coordinate of '' | Could not find lane and coordinate: 000x500"
+                Expect.equal (getsignerrmessage "000x500") "Could not find lane and coordinate from '000x500'."
         , test "Empty sign 500500" <|
             \() ->
-                Expect.equal (getsignerrmessage "500500") "Could not get x coordinate of '' | Could not find lane and coordinate: 500500"
+                Expect.equal (getsignerrmessage "500500") "Could not get x coordinate from ''. | Could not get coordinate from '500500'."
         , test "Empty sign M500500" <|
             \() ->
-                Expect.equal (getsignerrmessage "M500500") "Could not get x coordinate of '' | Could not find lane and coordinate: M500500"
+                Expect.equal (getsignerrmessage "M500500") "Could not get x coordinate from ''. | Could not get coordinate from 'M500500'."
         , test "Empty sign M500f500" <|
             \() ->
-                Expect.equal (getsignerrmessage "M500f500") "Could not get x coordinate of '' | Could not find lane and coordinate: M500f500"
+                Expect.equal (getsignerrmessage "M500f500") "Could not get x coordinate from ''. | Could not get coordinate from 'M500f500'."
         , test "Empty sign " <|
             \() ->
-                Expect.equal (getsignerrmessage "") "Could not get x coordinate of '' | Could not find lane and coordinate: "
+                Expect.equal (getsignerrmessage "") "Could not get x coordinate from ''. | Could not get coordinate from ''."
         , test "Empty sign y 500" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").y 500
@@ -55,7 +55,7 @@ fswTests =
                 Expect.equal (defaultResultsign "R500x500").lane RightLane
         , test "lane is F lane" <|
             \() ->
-                Expect.equal (getsignerrmessage "F500x500") "Could not get x coordinate of '' | Could not find lane and coordinate: F500x500"
+                Expect.equal (getsignerrmessage "F500x500") "Could not find lane and coordinate from 'F500x500'."
         , test "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468 4 symbols" <|
             \() -> Expect.equal (List.length (defaultResultsign "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468").syms) 4
         ]
