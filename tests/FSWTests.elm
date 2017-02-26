@@ -14,7 +14,7 @@ fswTests =
                 Expect.equal (defaultResultsign "M500x500").x 500
         , test "Empty sign 500x500" <|
             \() ->
-                Expect.equal (getsignerrmessage "500x500") "Could not get y of '500x500'|Could not find lane and coordinate: 500x500"
+                Expect.equal (getsignerrmessage "500x500") "Could not get x of '500x500' | Could not find lane and coordinate: 500x500"
         , test "Empty sign y 500" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").y 500

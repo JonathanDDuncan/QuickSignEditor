@@ -27,40 +27,48 @@ toEditorSign fsw =
         sign
 
 
+setresultvalue : Result a b -> (c -> b -> value) -> c -> Result a value
 setresultvalue result setter =
-    (\recd ->
-        case result of
-            Ok value ->
-                Ok (setter recd value)
-
-            Err msg ->
-                Err msg
-    )
+    (\recd -> applyToOkValue (setter recd) result)
 
 
+getlane : String -> Result String Lane
 getlane fsw =
     let
         laneandcoordinate =
             getlaneandcoordinate fsw
 
         lanestring =
-            case laneandcoordinate of
-                Ok value ->
-                    Ok <| String.left 1 value
-
-                Err msg ->
-                    Err msg
+            applyToOkValue (String.left 1) laneandcoordinate
     in
-        case lanestring of
-            Ok lanestringvalue ->
-                List.filter (\( value, lane ) -> value == lanestringvalue) lanes
-                    |> List.map (\( value, lane ) -> lane)
+        applyToOkValue
+            (\lanestringvalue ->
+                List.filter (\( str, lane ) -> str == lanestringvalue) lanes
+                    |> List.map (\( str, lane ) -> lane)
                     |> List.head
                     |> Maybe.withDefault MiddleLane
-                    |> Ok
+            )
+            lanestring
 
-            Err msg ->
-                Err msg
+
+applyToOkValue : (a -> value) -> Result b a -> Result b value
+applyToOkValue callback result =
+    case result of
+        Ok value ->
+            Ok <| callback value
+
+        Err msg ->
+            Err msg
+
+
+applyToOkValueAppendMsg : String -> (a -> value) -> Result String a -> Result String value
+applyToOkValueAppendMsg message callback result =
+    case result of
+        Ok value ->
+            Ok <| callback value
+
+        Err msg ->
+            Err <| message ++ " | " ++ msg
 
 
 getsignx : String -> Result String Int
@@ -68,19 +76,14 @@ getsignx fsw =
     let
         coordinatelistresult =
             getcoordinatelist fsw
-
-        x =
-            case coordinatelistresult of
-                Ok coordinatelist ->
-                    coordinatelist
-                        |> List.head
-                        |> toValue
-                        |> Ok
-
-                Err msg ->
-                    Err <| "Could not get y of '" ++ fsw ++ "'|" ++ msg
     in
-        x
+        applyToOkValueAppendMsg ("Could not get x of '" ++ fsw ++ "'")
+            (\value ->
+                value
+                    |> List.head
+                    |> toValueDefaultZero
+            )
+            coordinatelistresult
 
 
 getsigny : String -> Result String Int
@@ -88,19 +91,15 @@ getsigny fsw =
     let
         coordinatelistresult =
             getcoordinatelist fsw
-
-        y =
-            case coordinatelistresult of
-                Ok coordinatelist ->
-                    List.drop 1 coordinatelist
-                        |> List.head
-                        |> toValue
-                        |> Ok
-
-                Err msg ->
-                    Err <| "Could not get y of '" ++ fsw ++ "'|" ++ msg
     in
-        y
+        applyToOkValueAppendMsg ("Could not get x of '" ++ fsw ++ "'")
+            (\value ->
+                value
+                    |> List.drop 1
+                    |> List.head
+                    |> toValueDefaultZero
+            )
+            coordinatelistresult
 
 
 getcoordinatelist : String -> Result String (List String)
@@ -110,23 +109,10 @@ getcoordinatelist fsw =
             getlaneandcoordinate fsw
 
         coordinatestring =
-            case laneandcoordinate of
-                Ok value ->
-                    Ok <| String.dropLeft 1 value
-
-                Err msg ->
-                    Err msg
+            applyToOkValue (String.dropLeft 1) laneandcoordinate
 
         goodcoordinatestring =
-            case coordinatestring of
-                Ok value ->
-                    if String.length value == 7 then
-                        Ok value
-                    else
-                        Err <| "Sign coordinate '" ++ value ++ "'should be 7 characters long."
-
-                Err msg ->
-                    Err msg
+            createrule (\value -> "Sign coordinate '" ++ value ++ "'should be 7 characters long.") (\value -> String.length value == 7) coordinatestring
 
         coordinatelist =
             case goodcoordinatestring of
@@ -146,8 +132,31 @@ getcoordinatelist fsw =
         coordinatelist
 
 
-toValue : Maybe String -> Int
-toValue str =
+createrule : (value -> a) -> (value -> Bool) -> Result a value -> Result a value
+createrule errormessage test result =
+    applyToOkValuedontreOk (\value -> rule errormessage test value) result
+
+
+applyToOkValuedontreOk : (a -> Result b value) -> Result b a -> Result b value
+applyToOkValuedontreOk callback result =
+    case result of
+        Ok value ->
+            callback value
+
+        Err msg ->
+            Err msg
+
+
+rule : (value -> a) -> (value -> Bool) -> value -> Result a value
+rule errormessage test value =
+    if test value then
+        Ok value
+    else
+        Err <| errormessage value
+
+
+toValueDefaultZero : Maybe String -> Int
+toValueDefaultZero str =
     str
         |> Maybe.withDefault "0"
         |> String.toInt
@@ -175,6 +184,7 @@ laneValues =
     List.map (\( value, lane ) -> value) lanes
 
 
+lanes : List ( String, Lane )
 lanes =
     [ ( "B", BLane )
     , ( "L", LeftLane )
