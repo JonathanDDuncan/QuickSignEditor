@@ -103,6 +103,7 @@ getfield getter recd =
         recd
 
 
+world : String
 world =
     "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
 
