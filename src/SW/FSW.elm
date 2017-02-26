@@ -146,19 +146,20 @@ getcoordinatelist coordinatestr =
         coordinatelist =
             case goodcoordinatestring of
                 Ok value ->
-                    let
-                        split =
-                            String.split "x" value
-                    in
-                        if List.length split == 2 then
-                            Ok split
-                        else
-                            Err <| couldnoterror "split coordinate value into two pieces on 'x'" value
+                    splitcoordinatestring value
 
                 Err msg ->
                     Err msg
     in
         coordinatelist
+
+
+splitcoordinatestring str =
+    let
+        split =
+            String.split "x" str
+    in
+        createrule (\value -> couldnoterror "split coordinate value into two pieces on 'x'" str) (\value -> List.length value == 2) (Ok split)
 
 
 getlanestr : String -> Result String String
