@@ -56,7 +56,7 @@ createsymbol symbolsizes symbolstring =
             getcoordinatestr symbolstring
 
         symbolonly =
-            applyToOkValue (\key1 -> getSymbolEditorKey key1 symbolsizes |> Ok) key
+            Result.andThen (\key1 -> getSymbolEditorKey key1 symbolsizes |> Ok) key
 
         coordinateresult =
             getcooordinate coordinatestr
@@ -90,9 +90,9 @@ getlane fsw =
             getlanestr fsw
 
         lanestring =
-            applyToOkValue (\value -> String.left 1 value |> Ok) laneandcoordinate
+            Result.andThen (\value -> String.left 1 value |> Ok) laneandcoordinate
     in
-        applyToOkValue
+        Result.andThen
             (\lanestringvalue ->
                 List.filter (\( str, lane ) -> str == lanestringvalue) lanes
                     |> List.map (\( str, lane ) -> lane)
@@ -110,21 +110,12 @@ getcooordinate coordinatestr =
 
         xresult =
             applyToOkValueAppendMsg (couldnoterror "get x coordinate" <| Result.withDefault "" coordinatestr)
-                (\value ->
-                    value
-                        |> List.head
-                        |> toInt
-                )
+                (\value -> value |> List.head |> toInt)
                 coordinatelistresult
 
         yresult =
             applyToOkValueAppendMsg (couldnoterror "get y coordinate" <| Result.withDefault "" coordinatestr)
-                (\value ->
-                    value
-                        |> List.drop 1
-                        |> List.head
-                        |> toInt
-                )
+                (\value -> value |> List.drop 1 |> List.head |> toInt)
                 coordinatelistresult
 
         coordinate =
@@ -141,25 +132,26 @@ getcoordinatelist : Result String String -> Result String (List String)
 getcoordinatelist coordinatestr =
     let
         goodcoordinatestring =
-            createrule (\value -> expectederror "Sign coordinate" value "to be 7 characters long") (\value -> String.length value == 7) coordinatestr
+            createrule coordinatestr
+                (\value -> String.length value == 7)
+                (\value -> expectederror "Sign coordinate" value "to be 7 characters long")
 
         coordinatelist =
-            case goodcoordinatestring of
-                Ok value ->
-                    splitcoordinatestring value
-
-                Err msg ->
-                    Err msg
+            Result.andThen splitcoordinatestring goodcoordinatestring
     in
         coordinatelist
 
 
+splitcoordinatestring : String -> Result String (List String)
 splitcoordinatestring str =
     let
         split =
             String.split "x" str
+                |> Ok
     in
-        createrule (\value -> couldnoterror "split coordinate value into two pieces on 'x'" str) (\value -> List.length value == 2) (Ok split)
+        createrule split
+            (\value -> List.length value == 2)
+            (\value -> couldnoterror "split coordinate value into two pieces on 'x'" str)
 
 
 getlanestr : String -> Result String String
@@ -211,9 +203,9 @@ couldnoterror action source =
 -- Rules
 
 
-createrule : (value -> a) -> (value -> Bool) -> Result a value -> Result a value
-createrule errormessage test result =
-    applyToOkValue (\value -> rule errormessage test value) result
+createrule : Result a value -> (value -> Bool) -> (value -> a) -> Result a value
+createrule result test errormessage =
+    Result.andThen (\value -> rule errormessage test value) result
 
 
 rule : (value -> a) -> (value -> Bool) -> value -> Result a value
@@ -239,7 +231,7 @@ rule errormessage test value =
 
 setresultvalue : Result a b -> (c -> b -> value) -> c -> Result a value
 setresultvalue result setter =
-    (\recd -> applyToOkValue (\value -> setter recd value |> Ok) result)
+    (\recd -> Result.andThen (\value -> setter recd value |> Ok) result)
 
 
 toInt : Maybe String -> Result String Int
@@ -252,16 +244,6 @@ toInt str =
 combine : List (Result x a) -> Result x (List a)
 combine =
     List.foldr (Result.map2 (::)) (Ok [])
-
-
-applyToOkValue : (a -> Result b value) -> Result b a -> Result b value
-applyToOkValue callback result =
-    case result of
-        Ok value ->
-            callback value
-
-        Err msg ->
-            Err msg
 
 
 applyToOkValueAppendMsg : String -> (a -> Result String value) -> Result String a -> Result String value
