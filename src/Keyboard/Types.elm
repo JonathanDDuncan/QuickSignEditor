@@ -4,7 +4,7 @@ module Keyboard.Types exposing (..)
 
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (..)
-import Keyboard.Extra as KeyboardExtra
+import Keyboard.Extra
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg)
@@ -14,7 +14,7 @@ type alias Model =
     { keyboardlayout : KeyboardLayout
     , keyboarddisplay : KeyboardDisplay
     , keyboardhistory : List String
-    , keyboardExtraModel : KeyboardExtra.Model
+    , keyboardExtraModel : Keyboard.Extra.State
     , keyList : List Int
     , keyboardmode : KeyboardMode
     }
@@ -24,7 +24,7 @@ type Msg
     = KeyClicked Int
     | DisplaySignView SWEditor.Types.Msg
     | DisplayChoosers Choosers.Types.Msg
-    | KeyboardExtraMsg KeyboardExtra.Msg
+    | KeyboardExtraMsg Keyboard.Extra.Msg
     | SetKeyboardMode Int
 
 

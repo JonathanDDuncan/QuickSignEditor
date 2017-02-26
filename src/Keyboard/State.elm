@@ -1,38 +1,23 @@
 module Keyboard.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
--- import PlatformHelpers exposing (..)
-
 import Keyboard.Types exposing (..)
 import Keyboard.KeyboardLayouts exposing (..)
-import Keyboard.Extra as KeyboardExtra
+import Keyboard.Extra
 import Keyboard.Shared exposing (..)
 import Ports exposing (..)
 
 
--- import SubFeatures.State
-
-
 init : ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
 init =
-    let
-        ( keyboardModel, keyboardCmd ) =
-            KeyboardExtra.init
-    in
-        ( { keyboardlayout = querty
-          , keyboarddisplay = fingerspellingQueryAsl
-          , keyboardhistory = []
-          , keyboardExtraModel = keyboardModel
-          , keyList = []
-          , keyboardmode = GeneralChooser
-          }
-        , Cmd.batch
-            [ Cmd.map KeyboardExtraMsg keyboardCmd
-            ]
-        )
+    ( { keyboardlayout = querty
+      , keyboarddisplay = fingerspellingQueryAsl
+      , keyboardhistory = []
+      , keyboardExtraModel = Keyboard.Extra.initialState
+      , keyList = []
+      , keyboardmode = GeneralChooser
+      }
+    , Cmd.none
+    )
 
 
 update : Keyboard.Types.Msg -> Keyboard.Types.Model -> ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
@@ -41,7 +26,7 @@ update action model =
         KeyboardExtraMsg keyMsg ->
             let
                 ( keyboardExtraModel, keyboardCmd ) =
-                    KeyboardExtra.update keyMsg model.keyboardExtraModel
+                    Keyboard.Extra.updateWithKeyChange keyMsg model.keyboardExtraModel
 
                 keyList =
                     getKeyList model.keyboardlayout.keys keyboardExtraModel
@@ -58,8 +43,7 @@ update action model =
                     , keyboardmode = newmode
                   }
                 , Cmd.batch
-                    [ Cmd.map KeyboardExtraMsg keyboardCmd
-                    , Ports.sendKeyboardCommand keyboardcommand
+                    [ Ports.sendKeyboardCommand keyboardcommand
                     ]
                 )
 
@@ -124,19 +108,19 @@ getmode keyList model =
 subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg
 subscriptions model =
     Sub.batch
-        [ Sub.map KeyboardExtraMsg KeyboardExtra.subscriptions
+        [ Sub.map KeyboardExtraMsg Keyboard.Extra.subscriptions
         , receiveKeyboardMode SetKeyboardMode
         ]
 
 
-getKeyList : List Key -> KeyboardExtra.Model -> List Int
+getKeyList : List Key -> Keyboard.Extra.State -> List Int
 getKeyList keys keyboardExtraModel =
     let
         keyExtraList =
-            KeyboardExtra.pressedDown keyboardExtraModel
+            Keyboard.Extra.pressedDown keyboardExtraModel
 
         listExtraCodes =
-            List.map (\key -> KeyboardExtra.toCode key) keyExtraList
+            List.map (\key -> Keyboard.Extra.toCode key) keyExtraList
 
         keyids =
             List.map (\key -> key.keyId) (List.concatMap (\code -> List.filter (keyhasCode code) keys) listExtraCodes)

@@ -4,10 +4,6 @@ import Update.Extra exposing (..)
 import Html
 
 
--- import SWEditor.Types exposing (..)
--- import Choosers.Types exposing (..)
-
-
 type KeyboardMode
     = GeneralChooser
     | GroupChooser
