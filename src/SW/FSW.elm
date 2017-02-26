@@ -7,8 +7,8 @@ import Dict
 import SW.Types exposing (..)
 
 
-toEditorSign : String -> Result String EditorSign
-toEditorSign fsw =
+toEditorSign : Dict.Dict String Size -> String -> Result String EditorSign
+toEditorSign symbolsizes fsw =
     let
         laneresult =
             getlane fsw
@@ -23,7 +23,7 @@ toEditorSign fsw =
             getsymbolsstrings fsw
 
         symsresult =
-            createsymbols symbolsstrings
+            createsymbols symbolsizes symbolsstrings
 
         sign =
             Ok signinit
@@ -37,14 +37,14 @@ toEditorSign fsw =
         sign
 
 
-createsymbols : List String -> Result String (List SWEditor.EditorSymbol.EditorSymbol)
-createsymbols symbolsstrings =
-    List.map createsymbol symbolsstrings
+createsymbols : Dict.Dict String Size -> List String -> Result String (List SWEditor.EditorSymbol.EditorSymbol)
+createsymbols symbolsizes symbolsstrings =
+    List.map (createsymbol symbolsizes) symbolsstrings
         |> combine
 
 
-createsymbol : String -> Result String SWEditor.EditorSymbol.EditorSymbol
-createsymbol symbolstring =
+createsymbol : Dict.Dict String Size -> String -> Result String SWEditor.EditorSymbol.EditorSymbol
+createsymbol symbolsizes symbolstring =
     let
         key =
             Regex.find (Regex.AtMost 1) (regex (re_sym ++ re_coord)) symbolstring
@@ -56,7 +56,7 @@ createsymbol symbolstring =
             getcoordinatestr symbolstring
 
         symbolonly =
-            applyToOkValue (\key1 -> getSymbolEditorKey key1 partialsymbolsizes |> Ok) key
+            applyToOkValue (\key1 -> getSymbolEditorKey key1 symbolsizes |> Ok) key
 
         coordinateresult =
             getcooordinate coordinatestr
@@ -87,7 +87,7 @@ getlane : String -> Result String Lane
 getlane fsw =
     let
         laneandcoordinate =
-            getlaneandcoordinate fsw
+            getlanestr fsw
 
         lanestring =
             applyToOkValue (\value -> String.left 1 value |> Ok) laneandcoordinate
@@ -97,8 +97,7 @@ getlane fsw =
                 List.filter (\( str, lane ) -> str == lanestringvalue) lanes
                     |> List.map (\( str, lane ) -> lane)
                     |> List.head
-                    |> Maybe.withDefault MiddleLane
-                    |> Ok
+                    |> Result.fromMaybe (couldnoterror "get lane" lanestringvalue)
             )
             lanestring
 
@@ -141,11 +140,8 @@ getcooordinate coordinatestr =
 getcoordinatelist : Result String String -> Result String (List String)
 getcoordinatelist coordinatestr =
     let
-        coordinatestring =
-            getcoordinate coordinatestr
-
         goodcoordinatestring =
-            createrule (\value -> expectederror "Sign coordinate" value "to be 7 characters long") (\value -> String.length value == 7) coordinatestring
+            createrule (\value -> expectederror "Sign coordinate" value "to be 7 characters long") (\value -> String.length value == 7) coordinatestr
 
         coordinatelist =
             case goodcoordinatestring of
@@ -165,29 +161,16 @@ getcoordinatelist coordinatestr =
         coordinatelist
 
 
-getcoordinate : Result b String -> Result b String
-getcoordinate stringcoordinate =
-    applyToOkValue
-        (\value ->
-            Regex.find (Regex.AtMost 1) (regex re_coord) value
-                |> matchestostrings
-                |> List.head
-                |> Maybe.withDefault ""
-                |> Ok
-        )
-        stringcoordinate
-
-
-getlaneandcoordinate : String -> Result String String
-getlaneandcoordinate fsw =
+getlanestr : String -> Result String String
+getlanestr fsw =
     let
         symbolsplit =
-            Regex.find All (regex re_lanecoord) fsw
+            Regex.find All (regex re_lane) fsw
                 |> matchestostrings
     in
         List.filter (\item -> startwithlanevalue item) symbolsplit
             |> List.head
-            |> Result.fromMaybe (couldnoterror "find lane and coordinate" fsw)
+            |> Result.fromMaybe (couldnoterror "find lane" fsw)
 
 
 startwithlanevalue : String -> Bool
@@ -198,19 +181,6 @@ startwithlanevalue item =
 laneValues : List String
 laneValues =
     List.map (\( value, lane ) -> value) lanes
-
-
-partialsymbolsizes : Dict.Dict String Size
-partialsymbolsizes =
-    let
-        symbolsizes =
-            [ { k = "", w = 0, h = 0 }
-            , { k = "", w = 0, h = 0 }
-            , { k = "", w = 0, h = 0 }
-            ]
-    in
-        Dict.fromList <|
-            List.map (\symbolsize -> (.k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) symbolsizes
 
 
 lanes : List ( String, Lane )
@@ -322,14 +292,19 @@ re_coord =
     "[0-9]{3}x[0-9]{3}"
 
 
+re_lane : String
+re_lane =
+    "[BLMR]"
+
+
 re_lanecoord : String
 re_lanecoord =
-    "[BLMR](" ++ re_coord ++ ")"
+    re_lane ++ "(" ++ re_coord ++ ")"
 
 
 re_word : String
 re_word =
-    "[BLMR](" ++ re_coord ++ ")(" ++ re_sym ++ re_coord ++ ")*"
+    re_lane ++ "(" ++ re_coord ++ ")(" ++ re_sym ++ re_coord ++ ")*"
 
 
 re_term : String

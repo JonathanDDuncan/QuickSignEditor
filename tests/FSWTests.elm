@@ -4,6 +4,8 @@ import Test exposing (..)
 import Expect
 import SW.FSW as FSW exposing (..)
 import SWEditor.EditorSign exposing (..)
+import Dict
+import SW.Types exposing (..)
 
 
 fswTests : Test
@@ -14,10 +16,10 @@ fswTests =
                 Expect.equal (defaultResultsign "M500x500").x 500
         , test "Empty sign 500x500" <|
             \() ->
-                Expect.equal (getsignerrmessage "500x500") "Could not find lane and coordinate from '500x500'."
+                Expect.equal (getsignerrmessage "500x500") "Could not find lane from '500x500'."
         , test "Empty sign 000x500" <|
             \() ->
-                Expect.equal (getsignerrmessage "000x500") "Could not find lane and coordinate from '000x500'."
+                Expect.equal (getsignerrmessage "000x500") "Could not find lane from '000x500'."
         , test "Empty sign 500500" <|
             \() ->
                 Expect.equal (getsignerrmessage "500500") "Could not get x coordinate from ''. | Could not get coordinate from '500500'."
@@ -55,7 +57,7 @@ fswTests =
                 Expect.equal (defaultResultsign "R500x500").lane RightLane
         , test "lane is F lane" <|
             \() ->
-                Expect.equal (getsignerrmessage "F500x500") "Could not find lane and coordinate from 'F500x500'."
+                Expect.equal (getsignerrmessage "F500x500") "Could not find lane from 'F500x500'."
         , test "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468 4 symbols" <|
             \() -> Expect.equal (List.length (defaultResultsign "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468").syms) 4
         ]
@@ -63,13 +65,14 @@ fswTests =
 
 defaultResultsign : String -> EditorSign
 defaultResultsign fsw =
-    Result.withDefault SWEditor.EditorSign.signinit <| Debug.log "result" <| FSW.toEditorSign fsw
+    Result.withDefault SWEditor.EditorSign.signinit <| FSW.toEditorSign partialsymbolsizes fsw
 
 
+getsignerrmessage : String -> String
 getsignerrmessage fsw =
     let
         result =
-            FSW.toEditorSign fsw
+            FSW.toEditorSign partialsymbolsizes fsw
     in
         case result of
             Ok value ->
@@ -77,3 +80,20 @@ getsignerrmessage fsw =
 
             Err msg ->
                 msg
+
+
+
+-- partialsymbolsizes only as place holder can be populated with some real values for specific cases
+
+
+partialsymbolsizes : Dict.Dict String Size
+partialsymbolsizes =
+    let
+        symbolsizes =
+            [ { k = "", w = 0, h = 0 }
+            , { k = "", w = 0, h = 0 }
+            , { k = "", w = 0, h = 0 }
+            ]
+    in
+        Dict.fromList <|
+            List.map (\symbolsize -> (.k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) symbolsizes
