@@ -46,14 +46,14 @@ createsymbols symbolsizes symbolsstrings =
 createsymbol : Dict.Dict String Size -> String -> Result String SWEditor.EditorSymbol.EditorSymbol
 createsymbol symbolsizes symbolstring =
     let
-        key =
+        keystr =
             getkeystr symbolstring
 
         coordinatestr =
             getcoordinatestr symbolstring
 
         symbolonly =
-            Result.andThen (\key1 -> getSymbolEditorKey key1 symbolsizes |> Ok) key
+            Result.andThen (\key1 -> getSymbolEditorKey key1 symbolsizes |> Ok) keystr
 
         coordinateresult =
             getcooordinate coordinatestr
@@ -233,7 +233,7 @@ applyToOkValueAppendMsg message callback result =
 
 getkeystr : String -> Result String String
 getkeystr str =
-    Regex.find (Regex.AtMost 1) (regex (re_sym ++ re_coord)) str
+    Regex.find (Regex.AtMost 1) (regex (re_sym)) str
         |> matchestostrings
         |> List.head
         |> Result.fromMaybe (couldnoterror "get key" str)

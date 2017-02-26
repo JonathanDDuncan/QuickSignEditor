@@ -58,9 +58,53 @@ fswTests =
         , test "lane is F lane" <|
             \() ->
                 Expect.equal (getsignerrmessage "F500x500") "Could not find lane from 'F500x500'."
-        , test "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468 4 symbols" <|
-            \() -> Expect.equal (List.length (defaultResultsign "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468").syms) 4
+        , test "world 4 symbols" <|
+            \() -> Expect.equal (List.length (defaultResultsign world).syms) 4
+        , test "world first symbol key S1870a" <|
+            \() ->
+                Expect.equal
+                    (defaultResultsign world
+                        |> .syms
+                        |> List.head
+                        |> getfield .key
+                    )
+                    "S1870a"
+        , test "world first symbol x " <|
+            \() ->
+                Expect.equal
+                    (defaultResultsign world
+                        |> .syms
+                        |> List.head
+                        |> getfield (\value -> .x value |> toString)
+                    )
+                    "489"
+        , test "world first symbol y" <|
+            \() ->
+                Expect.equal
+                    (defaultResultsign world
+                        |> .syms
+                        |> List.head
+                        |> getfield (\value -> .y value |> toString)
+                    )
+                    "515"
         ]
+
+
+getfield : (a -> String) -> Maybe a -> String
+getfield getter recd =
+    (\mayb ->
+        case mayb of
+            Nothing ->
+                "Nothing"
+
+            Just value ->
+                getter value
+    )
+        recd
+
+
+world =
+    "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
 
 
 defaultResultsign : String -> EditorSign
