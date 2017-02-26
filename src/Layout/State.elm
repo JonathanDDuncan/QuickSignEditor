@@ -257,10 +257,3 @@ subscriptions model =
         , Choosers.State.subscriptions model.mainchooser |> Sub.map Choosers
         , pleaseShareFsw PleaseShareFsw
         ]
-
-
-
--- To nest subscriptions
--- Sub.batch
---       [ SubLayout.State.subscriptions model.subLayoutFieldName |> Sub.map SubLayoutMsg
---       ]

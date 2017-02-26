@@ -77,9 +77,3 @@ smallscreen model =
                 ]
             )
         ]
-
-
-
--- containerHeight : Model -> Int
--- containerHeight model =
---     model.window.windowSize.height - model.footerheight
