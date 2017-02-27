@@ -1,9 +1,8 @@
 To Do
 
-In SignWriter Studio, be able to edit symbols after saving from QuickSignEditor
+Create only one Symbol and Sign representation
+Consolidate movesymbols in SignArea with EditorSymbol
 Add Adam and Steve and Val on credits
-
-Switch to Keyboard-Extra package instead of inline source code
 Make list of compatible browsers
 
 Arrow symbol chooser
