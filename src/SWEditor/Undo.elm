@@ -5,11 +5,6 @@ import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
 
 
-addundoitem : Model -> String -> List UndoItem
-addundoitem model actionname =
-    (List.append model.undolist [ { actionname = actionname, sign = model.sign } ])
-
-
 addUndo : Bool -> String -> Model -> Model
 addUndo changed actionname model =
     let

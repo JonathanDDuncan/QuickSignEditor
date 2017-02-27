@@ -4,9 +4,6 @@ import Html exposing (..)
 import WindowSize.Types exposing (..)
 
 
---import SubWindow.View exposing (root)
-
-
 root : Model -> Html Msg
 root model =
     div []

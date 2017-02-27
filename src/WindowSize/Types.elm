@@ -1,7 +1,5 @@
 module WindowSize.Types exposing (..)
 
--- import SubWindows.Types
-
 import Window
 
 
