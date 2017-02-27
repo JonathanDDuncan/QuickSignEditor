@@ -57,7 +57,7 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
         smallestscalebody =
             Maybe.withDefault 1 <|
                 getscales columnwidth rowheight <|
-                    List.filterMap (\value -> value) <|
+                    removeNothings <|
                         List.map (\d -> d.generalsymbolonecolumndata.symbol1) generalsymbolchooserdata.symbolcolumnsdata
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
