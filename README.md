@@ -3,6 +3,8 @@ It is Licensed under the MIT License
 
 The latest version of this project is hosted at https://jonathandduncan.github.io/QuickSignEditor/
 
+You may have to install the Sutton SignWriting Fonts below on your computer to use it.
+
 A version running inside SignMaker2015 (http://signbank.org/signmaker.html https://github.com/Slevinski/signmaker) is available at https://jonathandduncan.github.io/QuickSignEditor/signmaker/#?ui=en
 
 A version also runs inside SignWriter Studio Windows program which can be download at http://www.signwriterstudio.com/
@@ -30,3 +32,14 @@ http://www.movementwriting.org/symbolbank/downloads/ISWA2010/ISWA2010_Photos/
 * 
 * 
 * 
+
+### Browser compatibility
+IE 11.576.14393:   Not compatible
+Microsoft Edge 38.14393.0.0:  Works but not the keyboard
+FireFox 51.0.1: Compatible
+Chrome Version 56.0.2924.87: Compatible
+Safari: Not tested
+Opera 43.0: Compatible
+iOS Safari: Not tested
+Android Browser: Not tested
+Chrome for Android: Not tested
