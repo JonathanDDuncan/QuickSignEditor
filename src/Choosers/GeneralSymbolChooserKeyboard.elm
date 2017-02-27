@@ -60,9 +60,9 @@ getgeneralsymbolcolumn :
     -> List EditorSymbol
 getgeneralsymbolcolumn col symbolcolumndata =
     if col == 1 then
-        removemaybe symbolinit <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol1) symbolcolumndata
+        removeNothings <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol1) symbolcolumndata
     else
-        removemaybe symbolinit <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol2) symbolcolumndata
+        removeNothings <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol2) symbolcolumndata
 
 
 creatcolumnkeyactionlist : List EditorSymbol -> List Int -> List (KeyAction Msg)
