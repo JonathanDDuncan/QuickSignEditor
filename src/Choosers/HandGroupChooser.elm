@@ -6,7 +6,7 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import String exposing (..)
 import List.Extra exposing (..)
-import SW.SymbolConverter exposing (codefromkey)
+import SW.Pua exposing (codefromkey)
 
 
 --View

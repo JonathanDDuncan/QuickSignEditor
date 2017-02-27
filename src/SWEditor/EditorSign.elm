@@ -171,11 +171,6 @@ getFsw editorSign =
         fsw
 
 
-
--- Todo check keyfromcode and use instead
--- (Convert.ConvertFsw.keyfromcode symbol.code) ++ toString symbol.x ++ "x" ++ toString symbol.y
-
-
 symbolsFsw : { c | key : String, x : a, y : b } -> String
 symbolsFsw symbol =
     symbol.key ++ toString symbol.x ++ "x" ++ toString symbol.y

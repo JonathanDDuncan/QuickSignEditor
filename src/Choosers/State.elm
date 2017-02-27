@@ -7,7 +7,7 @@ import Dict exposing (..)
 import String exposing (..)
 import SW.Types exposing (..)
 import Material
-import SWEditor.EditorSymbol exposing (getSymbolEditorCode, fromEditorSymbol)
+import SWEditor.EditorSymbol exposing (fromEditorSymbol)
 import Choosers.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Update.Extra exposing (..)

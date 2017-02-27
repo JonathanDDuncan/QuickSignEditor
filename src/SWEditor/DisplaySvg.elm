@@ -4,7 +4,7 @@ import Html as Html exposing (..)
 import Html.Attributes exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Svg exposing (..)
-import SW.SymbolConverter exposing (..)
+import SW.Pua exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 

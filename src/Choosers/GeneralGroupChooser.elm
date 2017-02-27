@@ -10,7 +10,7 @@ import Material.Tooltip as Tooltip exposing (attach, render, left)
 import Material.Options as Options exposing (div, cs, when)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
-import SW.SymbolConverter exposing (codefromkey)
+import SW.Pua exposing (codefromkey)
 
 
 -- View

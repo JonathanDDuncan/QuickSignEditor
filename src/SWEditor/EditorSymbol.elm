@@ -2,7 +2,7 @@ module SWEditor.EditorSymbol exposing (..)
 
 import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
-import SW.SymbolConverter exposing (..)
+import SW.Pua exposing (..)
 import Dict exposing (..)
 
 
@@ -16,7 +16,6 @@ symbolinit =
     , y = 0
     , width = 0
     , height = 0
- 
     , size = 1
     , nwcolor = ""
     , key = ""
@@ -32,7 +31,6 @@ toEditorSymbol id index symbol =
     , y = symbol.y
     , width = symbol.width
     , height = symbol.height
- 
     , size = symbol.size
     , nwcolor = symbol.nwcolor
     , key = symbol.key
@@ -48,7 +46,6 @@ fromEditorSymbol symbol =
     , y = symbol.y
     , width = symbol.width
     , height = symbol.height
-   
     , size = symbol.size
     , nwcolor = symbol.nwcolor
     , key = symbol.key
@@ -60,16 +57,7 @@ getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -
 getSymbolEditorBaseFillRotation base fill rotation symbolsizes =
     let
         key =
-            SW.SymbolConverter.key base fill rotation
-    in
-        getSymbolEditorKey key symbolsizes
-
-
-getSymbolEditorCode : Code -> Dict String Size -> EditorSymbol
-getSymbolEditorCode code symbolsizes =
-    let
-        key =
-            SW.SymbolConverter.keyfromcode code
+            SW.Pua.key base fill rotation
     in
         getSymbolEditorKey key symbolsizes
 
@@ -97,7 +85,6 @@ getSymbolEditorKey key symbolsizes =
             , y = 0
             , width = size.width
             , height = size.height
-         
             , size = 1
             , nwcolor = "white"
             , key = key
