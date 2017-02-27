@@ -34,12 +34,12 @@ http://www.movementwriting.org/symbolbank/downloads/ISWA2010/ISWA2010_Photos/
 * 
 
 ### Browser compatibility
-IE 11.576.14393:   Not compatible
-Microsoft Edge 38.14393.0.0:  Works but not the keyboard
-FireFox 51.0.1: Compatible
-Chrome Version 56.0.2924.87: Compatible
-Safari: Not tested
-Opera 43.0: Compatible
-iOS Safari: Not tested
-Android Browser: Not tested
-Chrome for Android: Not tested
+* IE 11.576.14393:   Not compatible
+* Microsoft Edge 38.14393.0.0:  Works but not the keyboard
+* FireFox 51.0.1: Compatible
+* Chrome Version 56.0.2924.87: Compatible
+* Safari: Not tested
+* Opera 43.0: Compatible
+* iOS Safari: Not tested
+* Android Browser: Not tested
+* Chrome for Android: Not tested
