@@ -87,6 +87,7 @@ fswTests =
                         |> getfield (\value -> .y value |> toString)
                     )
                     "515"
+          -- move getFSW from EditorSign to FSW file and add tests
         ]
 
 

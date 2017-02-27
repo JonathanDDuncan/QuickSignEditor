@@ -1,17 +1,8 @@
 module WindowSize.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
--- import PlatformHelpers exposing (..)
-
 import WindowSize.Types exposing (..)
 import Task
 import Window
-
-
--- import SubWindows.State
 
 
 init : ( Model, Cmd Msg )

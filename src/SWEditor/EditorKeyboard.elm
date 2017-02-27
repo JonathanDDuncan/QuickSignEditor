@@ -26,12 +26,13 @@ runKeyboardCommand model command update =
         updatetuple
 
 
-keyboarddisplay :
-    { signview :
-        List (KeyConfig Msg)
-    }
-keyboarddisplay =
-    { signview = List.map (\config -> { test = config.test, display = { width = 20, height = 20, view = config.display.view } }) configKeyboardSignView }
+
+-- keyboarddisplay :
+--     { signview :
+--         List (KeyConfig Msg)
+--     }
+-- keyboarddisplay =
+--     { signview = List.map (\config -> { test = config.test, display = { width = 20, height = 20, view = config.display.view } }) configKeyboardSignView }
 
 
 configKeyboardSignView : List (KeyAction Msg)
@@ -132,11 +133,6 @@ getkeyaction dist zoom shift range =
                 (keyrange)
     in
         viewkeylist
-
-
-
---    { test = { key = 67, ctrl = ctrl, shift = False, alt = False }
---   ,
 
 
 arrowupdisplay scale =

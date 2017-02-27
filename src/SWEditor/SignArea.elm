@@ -36,20 +36,6 @@ updatesignsymbols sign newsymbols =
         newsign
 
 
-removenewlydroppedsymbolifnotinview model =
-    let
-        undroppedsymbol =
-            getundroppedsymbol model.editormode model.sign.syms
-
-        iswithinview =
-            issymbolwithinview model.viewposition undroppedsymbol
-    in
-        if not iswithinview then
-            deletesymbols model
-        else
-            model
-
-
 getundroppedsymbol :
     EditorMode
     -> List { a | selected : Bool }

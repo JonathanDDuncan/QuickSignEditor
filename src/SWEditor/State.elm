@@ -1,11 +1,5 @@
 module SWEditor.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
--- import PlatformHelpers exposing (..)
-
 import Ports as Ports exposing (..)
 import Update.Extra exposing (..)
 import SWEditor.Types exposing (..)
@@ -21,9 +15,6 @@ import List.Extra exposing (..)
 import SWEditor.SignArea exposing (..)
 import SWEditor.EditorKeyboard exposing (..)
 import Keyboard.Shared exposing (KeyboardMode)
-
-
--- import SubSWEditors.State
 
 
 init : ( Model, Cmd Msg )
@@ -388,7 +379,6 @@ replaceselected sym symbol =
         { sym
             | width = symbol.width
             , height = symbol.height
-    
             , nwcolor = symbol.nwcolor
             , key = symbol.key
             , nbcolor = symbol.nbcolor
@@ -398,10 +388,6 @@ replaceselected sym symbol =
 symbolshavechanged : List a -> List a -> Bool
 symbolshavechanged firstsymbols secondsymbols =
     not <| List.Extra.isPermutationOf firstsymbols secondsymbols
-
-
-
--- { model | editormode = Dragging, dragstart = model.xy, dragsign = model.sign } ! []
 
 
 subscriptions : Model -> Sub Msg
