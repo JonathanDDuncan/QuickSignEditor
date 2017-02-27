@@ -52,6 +52,7 @@ symbolsvgmargincolor margin color scale symbol =
             (symbolview Nothing Nothing color scale symbol)
 
 
+signsvg : EditorSign -> Html msg
 signsvg sign =
     signsvgmargincolor 0 Nothing 1 sign
 
@@ -66,11 +67,7 @@ signsvgmargincolor margin color scale sign =
             round <| toFloat sign.width * scale
     in
         svg
-            [ --      attribute "class" "hover background2"
-              -- ,
-              -- attribute "margin" <| px margin
-              --   ,
-              attribute "width" <| toString signwidth
+            [ attribute "width" <| toString signwidth
             , attribute "height" <|
                 toString signheight
             , attribute
@@ -84,10 +81,7 @@ signsvgmargincolor margin color scale sign =
             )
 
 
-
--- (symbolview Nothing Nothing color scale symbol)
-
-
+symbolview : Maybe a -> Maybe b -> Maybe String -> Float -> EditorSymbol -> List (Svg msg)
 symbolview x y color scale symbol =
     let
         xpos =
@@ -149,5 +143,6 @@ symbolview x y color scale symbol =
         ]
 
 
+scaling : a -> String
 scaling scalevalue =
     "scale(" ++ toString scalevalue ++ ") "

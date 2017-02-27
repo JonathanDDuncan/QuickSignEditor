@@ -25,7 +25,6 @@ type alias Symbol =
     , y : Int
     , width : Int
     , height : Int
- 
     , size : Float
     , nwcolor : String
     , key : String
@@ -176,10 +175,6 @@ typerange typename =
             { start = "100"
             , end = "38b"
             }
-
-
-
---typerange "hand" -> { start = "100", end = "204" } : { start : String, end : String }
 
 
 iskey : String -> String -> Bool
