@@ -5,6 +5,7 @@ The latest version of this project is hosted at https://jonathandduncan.github.i
 
 A version running inside SignMaker2015 (http://signbank.org/signmaker.html https://github.com/Slevinski/signmaker) is available at https://jonathandduncan.github.io/QuickSignEditor/signmaker/#?ui=en
 
+A version also runs inside SignWriter Studio Windows program which can be download at http://www.signwriterstudio.com/
 
 For more information about SignWriting see www.signwriting.org created by Valerie Sutton.
 

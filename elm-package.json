@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "Sign Editor for SignWriting symbols",
-    "repository": "https://github.com/JonathanDDuncan/QuickSignEditor.git",
+    "repository": "https://github.com/jonathandduncan/quicksigneditor.git",
     "license": "MIT",
     "source-directories": [
         "src"
