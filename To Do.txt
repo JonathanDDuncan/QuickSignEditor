@@ -1,14 +1,20 @@
 To Do
 
+FSW SignSpelling back and forth
+Add FSW Rich text for size and color
+Fix bug QSE freezing in SWS when click on symbols that is starting to glow.
 Create only one Symbol and Sign representation
 Consolidate movesymbols in SignArea with EditorSymbol
-Add Adam and Steve and Val on credits
 Make list of compatible browsers
+Upfacing palms fingers up
+Downfacing palms fingers down
 
+Add symbols duplication command
+General circle symbol chooser
 Arrow symbol chooser
 Add original 1 to 10 
 
-Double click lookup symbol
+Double click lookup symbol to open chooser
 Add favorites
 
 Add fingerspelling layout to keyboard
