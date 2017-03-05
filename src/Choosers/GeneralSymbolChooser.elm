@@ -45,12 +45,6 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
             Maybe.withDefault 1 <|
                 getscales columnwidth rowheight <|
                     List.map (\d -> d.symbol) generalsymbolchooserdata.generalsymbolrowdata
-
-        smallestscalebody =
-            Maybe.withDefault 1 <|
-                getscales columnwidth rowheight <|
-                    removeNothings <|
-                        List.map (\symbol -> symbol) generalsymbolchooserdata.symbolcolumnsdata.column1
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -68,16 +62,19 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
                     , "height" => px (rowheight * 8)
                     ]
                 ]
-                (showincolumns generalsymbolchooserdata.symbolcolumnsdata smallestscalebody)
+                (showincolumns generalsymbolchooserdata.symbolcolumnsdata columnwidth rowheight)
             ]
 
 
-showincolumns :
-    SymbolColumnsData
-    -> Float
-    -> List (Html Msg)
-showincolumns data scale =
+showincolumns : SymbolColumnsData -> Int -> Int -> List (Html Msg)
+showincolumns data columnwidth rowheight =
     let
+        scale =
+            Maybe.withDefault 1 <|
+                getscales columnwidth rowheight <|
+                    removeNothings <|
+                        List.map (\symbol -> symbol) data.column1
+
         zipped =
             List.Extra.zip data.column1 data.column2
     in
