@@ -132,3 +132,47 @@ centered full item =
         - toFloat item
         / 2
         |> truncate
+
+
+getouterpetalsymbolpositions : { a | width : Int, height : Int } -> List { a | width : Int, height : Int } -> Int -> Int -> List (List (Attribute msg))
+getouterpetalsymbolpositions defaultsymbol items outeritemwidth outeritemheight =
+    let
+        top =
+            "top:0px;"
+
+        bottom =
+            "bottom:0px;"
+
+        left =
+            "left:0px;"
+
+        right =
+            "right:0px;"
+    in
+        [ [ attribute "style" <| "position:absolute;" ++ top ++ getleftforcenter (getitem items 1 defaultsymbol).width outeritemwidth ]
+        , [ attribute "style" <| "position:absolute;" ++ top ++ left ]
+        , [ attribute "style" <| "position:absolute;" ++ gettopformiddle (getitem items 3 defaultsymbol).height outeritemheight ++ left ]
+        , [ attribute "style" <| "position:absolute;" ++ bottom ++ left ]
+        , [ attribute "style" <| "position:absolute;" ++ bottom ++ getleftforcenter (getitem items 5 defaultsymbol).width outeritemwidth ]
+        , [ attribute "style" <| "position:absolute;" ++ bottom ++ right ]
+        , [ attribute "style" <| "position:absolute;" ++ gettopformiddle (getitem items 7 defaultsymbol).height outeritemheight ++ right ]
+        , [ attribute "style" <| "position:absolute;" ++ top ++ right ]
+        ]
+
+
+getitem : List { a | width : Int, height : Int } -> Int -> { a | width : Int, height : Int } -> { a | width : Int, height : Int }
+getitem items n default =
+    items
+        |> List.drop (n - 1)
+        |> List.head
+        |> Maybe.withDefault default
+
+
+getleftforcenter : Int -> Int -> String
+getleftforcenter itemwidth outeritemwidth =
+    "left:" ++ (toString <| round <| (toFloat outeritemwidth - toFloat itemwidth) / 2) ++ "px;"
+
+
+gettopformiddle : Int -> Int -> String
+gettopformiddle itemheight outeritemheight =
+    "top:" ++ (toString <| round <| (toFloat outeritemheight - toFloat itemheight) / 2) ++ "px;"

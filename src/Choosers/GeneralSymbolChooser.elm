@@ -11,6 +11,8 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import MaybeHelper.MaybeExtra exposing (..)
 import List.Extra exposing (..)
+import Choosers.CompassRose exposing (..)
+import Choosers.Petalhelper exposing (..)
 
 
 --View
@@ -56,18 +58,97 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
                 ]
                 [ tr [] (generalsymbolrow generalsymbolchooserdata.generalsymbolrowdata smallestscaleheader)
                 ]
-            , table
-                [ Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px (rowheight * 8)
-                    ]
-                ]
-                (showincolumns generalsymbolchooserdata.symbolcolumnsdata columnwidth rowheight)
+            , showincompassrose generalsymbolchooserdata.symbolcolumnsdata width height
             ]
 
 
-showincolumns : SymbolColumnsData -> Int -> Int -> List (Html Msg)
-showincolumns data columnwidth rowheight =
+showincompassrose : SymbolColumnsData -> Int -> Int -> Html Msg
+showincompassrose data width height =
+    let
+        spacerwidth =
+            20
+
+        fullwidth =
+            (truncate <| toFloat width / 2) - (truncate <| toFloat spacerwidth / 2)
+
+        fullheight =
+            fullwidth
+
+        outeritemwidth =
+            truncate <| toFloat fullwidth / 2
+
+        outeritemheight =
+            outeritemwidth
+
+        innersize =
+            1
+
+        petalcontent1 =
+            getoutersymbolpetalsMaybe data.column1 outeritemwidth outeritemheight
+
+        petalcontent2 =
+            getoutersymbolpetalsMaybe data.column2 outeritemwidth outeritemheight
+
+        rosecenterimagehands =
+            text ""
+    in
+        div
+            [ style
+                [ "position" => "relative"
+                , "width" => px width
+                , "margin" => "auto"
+                ]
+            ]
+            [ div
+                [ style
+                    [ "position" => "relative"
+                    , "float" => "left"
+                    ]
+                ]
+                [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent1 rosecenterimagehands ]
+            , div
+                [ style
+                    [ "position" => "relative"
+                    , "float" => "left"
+                    , "width" => px spacerwidth
+                    , "height" => px 1
+                    ]
+                ]
+                []
+            , div
+                [ style
+                    [ "position" => "relative"
+                    , "float" => "left"
+                    ]
+                ]
+                [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent2 rosecenterimagehands ]
+            ]
+
+
+getpetalcontent : List (Maybe EditorSymbol) -> Float -> List (Html Msg)
+getpetalcontent symbols scale =
+    List.map
+        (\symbol ->
+            case symbol of
+                Just symb ->
+                    generalsymbolcol True scale symb
+
+                Nothing ->
+                    text ""
+        )
+        symbols
+
+
+
+-- List.map
+--     (\value ->
+--         blanktd
+--     )
+--     []
+
+
+showincolumns : SymbolColumnsData -> Int -> Int -> Int -> Html Msg
+showincolumns data width columnwidth rowheight =
     let
         scale =
             Maybe.withDefault 1 <|
@@ -78,11 +159,18 @@ showincolumns data columnwidth rowheight =
         zipped =
             List.Extra.zip data.column1 data.column2
     in
-        List.map
-            (\data ->
-                row (generalsymbolonerow scale data)
+        table
+            [ Html.Attributes.style
+                [ "width" => px (width - 12)
+                , "height" => px (rowheight * 8)
+                ]
+            ]
+            (List.map
+                (\data ->
+                    row (generalsymbolonerow scale data)
+                )
+                zipped
             )
-            zipped
 
 
 row : List (Html msg) -> Html msg
