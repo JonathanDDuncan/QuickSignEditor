@@ -37,10 +37,10 @@ creategeneralsymbolchooserkeyboard model =
             createkeyactionlist symbolrowdata (List.range 43 52)
 
         firstcolumn =
-            getgeneralsymbolcolumn 1 symbolcolumndata
+            getgeneralsymbolcolumn symbolcolumndata.column1
 
         secondcolumn =
-            getgeneralsymbolcolumn 2 symbolcolumndata
+            getgeneralsymbolcolumn symbolcolumndata.column2
 
         columnkeyactionlist1 =
             creatcolumnkeyactionlist firstcolumn (List.range 30 40)
@@ -54,15 +54,9 @@ creategeneralsymbolchooserkeyboard model =
         fulllist
 
 
-getgeneralsymbolcolumn :
-    Int
-    -> List { b | generalsymbolonecolumndata : { a | symbol1 : Maybe EditorSymbol, symbol2 : Maybe EditorSymbol } }
-    -> List EditorSymbol
-getgeneralsymbolcolumn col symbolcolumndata =
-    if col == 1 then
-        removeNothings <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol1) symbolcolumndata
-    else
-        removeNothings <| List.map (\colitem -> colitem.generalsymbolonecolumndata.symbol2) symbolcolumndata
+getgeneralsymbolcolumn : List (Maybe a) -> List a
+getgeneralsymbolcolumn symbolcolumndata =
+    removeNothings <| List.map (\symbol -> symbol) symbolcolumndata
 
 
 creatcolumnkeyactionlist : List EditorSymbol -> List Int -> List (KeyAction Msg)

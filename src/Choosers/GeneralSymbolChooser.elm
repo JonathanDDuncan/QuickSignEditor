@@ -10,6 +10,7 @@ import SWEditor.DisplaySvg exposing (symbolsvgscale)
 import SW.Types exposing (..)
 import Dict exposing (..)
 import MaybeHelper.MaybeExtra exposing (..)
+import List.Extra exposing (..)
 
 
 --View
@@ -23,16 +24,7 @@ generalsymbolchooser :
         | generalsymbolrowdata :
             List { a1 | fill : Int, symbol : EditorSymbol }
         , symbolcolumnsdata :
-            List
-                { c
-                    | generalsymbolonecolumndata :
-                        { a
-                            | show1 : Bool
-                            , show2 : Bool
-                            , symbol2 : Maybe EditorSymbol
-                            , symbol1 : Maybe EditorSymbol
-                        }
-                }
+            SymbolColumnsData
        }
     -> Html Msg
 generalsymbolchooser choosing width height generalsymbolchooserdata =
@@ -58,7 +50,7 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
             Maybe.withDefault 1 <|
                 getscales columnwidth rowheight <|
                     removeNothings <|
-                        List.map (\d -> d.generalsymbolonecolumndata.symbol1) generalsymbolchooserdata.symbolcolumnsdata
+                        List.map (\symbol -> symbol) generalsymbolchooserdata.symbolcolumnsdata.column1
     in
         div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
             [ table
@@ -76,25 +68,24 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
                     , "height" => px (rowheight * 8)
                     ]
                 ]
-                (symbolcolumns generalsymbolchooserdata.symbolcolumnsdata smallestscalebody)
+                (showincolumns generalsymbolchooserdata.symbolcolumnsdata smallestscalebody)
             ]
 
 
-symbolcolumns :
-    List
-        { b
-            | generalsymbolonecolumndata :
-                { a
-                    | show1 : Bool
-                    , show2 : Bool
-                    , symbol1 : Maybe EditorSymbol
-                    , symbol2 : Maybe EditorSymbol
-                }
-        }
+showincolumns :
+    SymbolColumnsData
     -> Float
     -> List (Html Msg)
-symbolcolumns symbolcolumnsdata scale =
-    List.map row (List.map (generalsymbolonecolumn scale) symbolcolumnsdata)
+showincolumns data scale =
+    let
+        zipped =
+            List.Extra.zip data.column1 data.column2
+    in
+        List.map
+            (\data ->
+                row (generalsymbolonerow scale data)
+            )
+            zipped
 
 
 row : List (Html msg) -> Html msg
@@ -107,42 +98,38 @@ getscales columnwidth rowheight symbols =
     List.minimum (List.map (\symbol -> calcscale symbol.width symbol.height columnwidth rowheight) symbols)
 
 
-generalsymbolonecolumn :
+generalsymbolonerow :
     Float
-    -> { b
-        | generalsymbolonecolumndata :
-            { a
-                | show1 : Bool
-                , show2 : Bool
-                , symbol1 : Maybe EditorSymbol
-                , symbol2 : Maybe EditorSymbol
-            }
-       }
+    -> ( Maybe EditorSymbol, Maybe EditorSymbol )
     -> List (Html Msg)
-generalsymbolonecolumn scale data =
-    [ blanktd
-    , blanktd
-    , showrotation data.generalsymbolonecolumndata.symbol1 data.generalsymbolonecolumndata.show1 scale
-    , blanktd
-    , showrotation data.generalsymbolonecolumndata.symbol2 data.generalsymbolonecolumndata.show2 scale
-    ]
+generalsymbolonerow scale data =
+    let
+        symbol1 =
+            Tuple.first data
+
+        symbol2 =
+            Tuple.second data
+    in
+        [ blanktd
+        , blanktd
+        , showrotation symbol1 scale
+        , blanktd
+        , showrotation symbol2 scale
+        ]
 
 
-showrotation : Maybe EditorSymbol -> Bool -> Float -> Html Msg
-showrotation symbol show scale =
+showrotation : Maybe EditorSymbol -> Float -> Html Msg
+showrotation symbol scale =
     case symbol of
         Just symb ->
-            if show then
-                td
-                    [ Html.Attributes.style
-                        [ "text-align" => "center"
-                        , "display" => "block"
-                        , "width" => "45%"
-                        ]
+            td
+                [ Html.Attributes.style
+                    [ "text-align" => "center"
+                    , "display" => "block"
+                    , "width" => "45%"
                     ]
-                    [ generalsymbolcol True scale symb ]
-            else
-                blanktd
+                ]
+                [ generalsymbolcol True scale symb ]
 
         Nothing ->
             blanktd
@@ -208,14 +195,7 @@ getgeneralsymbolchooser :
     -> Int
     -> { generalsymbolrowdata : List { fill : Int, symbol : EditorSymbol }
        , symbolcolumnsdata :
-            List
-                { generalsymbolonecolumndata :
-                    { show1 : Bool
-                    , show2 : Bool
-                    , symbol1 : Maybe EditorSymbol
-                    , symbol2 : Maybe EditorSymbol
-                    }
-                }
+            SymbolColumnsData
        }
 getgeneralsymbolchooser choosing symbolsizes selectedcolumn =
     let
@@ -249,86 +229,50 @@ getgeneralsymbolchooser choosing symbolsizes selectedcolumn =
         { generalsymbolrowdata = generalsymbolrowdata, symbolcolumnsdata = symbolcolumnsdata }
 
 
+type alias SymbolColumnsData =
+    { column1 : List (Maybe EditorSymbol)
+    , column2 : List (Maybe EditorSymbol)
+    }
+
+
 getsymbolcolumnsdata :
     Base
     -> Fill
     -> List Rotation
     -> Dict String Size
-    -> List
-        { generalsymbolonecolumndata :
-            { show1 : Bool
-            , show2 : Bool
-            , symbol1 : Maybe EditorSymbol
-            , symbol2 : Maybe EditorSymbol
-            }
-        }
+    -> SymbolColumnsData
 getsymbolcolumnsdata base column vr symbolsizes =
-    List.map
-        (\rotation ->
-            getrowdata base column rotation vr symbolsizes
-        )
-        (List.range 1 8)
-
-
-getrowdata :
-    Base
-    -> Fill
-    -> Int
-    -> List Rotation
-    -> Dict String Size
-    -> { generalsymbolonecolumndata :
-            { show1 : Bool
-            , show2 : Bool
-            , symbol1 : Maybe EditorSymbol
-            , symbol2 : Maybe EditorSymbol
-            }
-       }
-getrowdata base column rotation vr symbolsizes =
     let
-        generalsymbolonecolumndata =
-            getgeneralsymbolonecolumndata base column rotation vr symbolsizes
+        column1 =
+            List.map
+                (\rotation ->
+                    getsymbol base column rotation vr symbolsizes
+                )
+                (List.range 1 8)
+
+        column2 =
+            List.map
+                (\rotation ->
+                    getsymbol base column rotation vr symbolsizes
+                )
+                (List.range 9 16)
     in
-        { generalsymbolonecolumndata = generalsymbolonecolumndata }
+        { column1 = column1, column2 = column2 }
 
 
-getgeneralsymbolonecolumndata :
-    Base
-    -> Fill
-    -> Int
-    -> List Rotation
-    -> Dict String Size
-    -> { show1 : Bool
-       , symbol1 : Maybe EditorSymbol
-       , symbol2 : Maybe EditorSymbol
-       , show2 : Bool
-       }
-getgeneralsymbolonecolumndata base fill rotation validrotations symbolsizes =
+getsymbol : Base -> Fill -> Int -> List Rotation -> Dict String Size -> Maybe EditorSymbol
+getsymbol base fill rotation validrotations symbolsizes =
     let
-        rotation1 =
-            rotation
+        isvalid =
+            isValidRotation rotation validrotations
 
-        rotation2 =
-            rotation + 8
-
-        showrotation1 =
-            isValidRotation rotation1 validrotations
-
-        showrotation2 =
-            isValidRotation rotation2 validrotations
-
-        symbol1 =
-            if showrotation1 then
-                Just <| getSymbolEditorBaseFillRotation base fill rotation1 symbolsizes
-            else
-                Nothing
-
-        symbol2 =
-            if showrotation2 then
-                Just <| getSymbolEditorBaseFillRotation base fill rotation2 symbolsizes
+        symbol =
+            if isvalid then
+                Just <| getSymbolEditorBaseFillRotation base fill rotation symbolsizes
             else
                 Nothing
     in
-        { show1 = showrotation1, symbol1 = symbol1, show2 = showrotation2, symbol2 = symbol2 }
+        symbol
 
 
 getsymbolfill :
