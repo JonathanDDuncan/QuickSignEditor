@@ -17,6 +17,17 @@ type alias Sign =
     }
 
 
+signinit : Sign
+signinit =
+    { width = 0
+    , height = 0
+    , x = 0
+    , y = 0
+    , backfill = ""
+    , syms = []
+    }
+
+
 type alias Symbol =
     { key : String
     , id : Int

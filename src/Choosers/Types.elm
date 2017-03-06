@@ -389,7 +389,7 @@ toModel : Int -> ChoosingImportModel -> ChoosingModel
 toModel id importmodel =
     let
         sign =
-            SWEditor.EditorSign.toEditorSign importmodel.displaySign id
+            SWEditor.EditorSign.updateSymbolIds importmodel.displaySign id
 
         symbols =
             List.indexedMap (SWEditor.EditorSymbol.updateId id)

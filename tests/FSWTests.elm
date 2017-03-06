@@ -111,14 +111,14 @@ world =
 
 defaultResultsign : String -> Sign
 defaultResultsign fsw =
-    Result.withDefault SWEditor.EditorSign.signinit <| FSW.toEditorSign partialsymbolsizes fsw
+    Result.withDefault SWEditor.EditorSign.signinit <| FSW.updateSymbolIds partialsymbolsizes fsw
 
 
 getsignerrmessage : String -> String
 getsignerrmessage fsw =
     let
         result =
-            FSW.toEditorSign partialsymbolsizes fsw
+            FSW.updateSymbolIds partialsymbolsizes fsw
     in
         case result of
             Ok value ->

@@ -3,7 +3,6 @@ module SWEditor.Types exposing (..)
 -- import SubSWEditors.Types
 
 import SW.Types exposing (..)
-import SWEditor.EditorSign exposing (..)
 import Keyboard.Shared exposing (..)
 
 

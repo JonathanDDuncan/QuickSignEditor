@@ -2,8 +2,7 @@ module Keyboard.KeyboardLayouts exposing (..)
 
 import Keyboard.Types exposing (..)
 import Dict exposing (..)
-import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (Sign)
+import SW.Types exposing (Sign, signinit)
 
 
 fingerspellingQueryAsl :
@@ -31,7 +30,7 @@ createKeyDisplay :
     -> c
     -> { code : number, keypress : Keypress, sign : Sign }
 createKeyDisplay keyboardtemplate key =
-    { sign = SWEditor.EditorSign.signinit
+    { sign = signinit
     , code = 0
     , keypress = None
     }

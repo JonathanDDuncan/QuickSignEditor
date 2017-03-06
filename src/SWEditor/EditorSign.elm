@@ -5,19 +5,8 @@ import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
 
 
-signinit : Sign
-signinit =
-    { width = 0
-    , height = 0
-    , x = 0
-    , y = 0
-    , backfill = ""
-    , syms = []
-    }
-
-
-toEditorSign : Sign -> Int -> Sign
-toEditorSign sign id =
+updateSymbolIds : Sign -> Int -> Sign
+updateSymbolIds sign id =
     let
         editorsymbols =
             List.indexedMap (updateId id) sign.syms

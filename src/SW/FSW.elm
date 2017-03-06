@@ -7,8 +7,8 @@ import Dict
 import SW.Types exposing (..)
 
 
-toEditorSign : Dict.Dict String Size -> String -> Result String Sign
-toEditorSign symbolsizes fsw =
+updateSymbolIds : Dict.Dict String Size -> String -> Result String Sign
+updateSymbolIds symbolsizes fsw =
     let
         laneresult =
             getlane fsw

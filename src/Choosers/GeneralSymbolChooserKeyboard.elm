@@ -6,11 +6,10 @@ import Keyboard.Shared exposing (..)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser)
 import List.Extra exposing (..)
 import SWEditor.DisplaySvg exposing (signdisplaysvg)
-import SWEditor.EditorSign exposing (..)
 import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
 import MaybeHelper.MaybeExtra exposing (..)
-import SW.Types exposing (Symbol)
+import SW.Types exposing (Symbol, signinit)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)
