@@ -1,6 +1,5 @@
 module SW.FSW exposing (..)
 
-import SWEditor.EditorSign exposing (..)
 import Regex exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import Dict
@@ -37,13 +36,13 @@ updateSymbolIds symbolsizes fsw =
         sign
 
 
-createsymbols : Dict.Dict String Size -> List String -> Result String (List SWEditor.EditorSymbol.Symbol)
+createsymbols : Dict.Dict String Size -> List String -> Result String (List Symbol)
 createsymbols symbolsizes symbolsstrings =
     List.map (createsymbol symbolsizes) symbolsstrings
         |> combine
 
 
-createsymbol : Dict.Dict String Size -> String -> Result String SWEditor.EditorSymbol.Symbol
+createsymbol : Dict.Dict String Size -> String -> Result String Symbol
 createsymbol symbolsizes symbolstring =
     let
         keystr =

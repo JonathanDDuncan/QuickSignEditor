@@ -3,7 +3,6 @@ module FSWTests exposing (..)
 import Test exposing (..)
 import Expect
 import SW.FSW as FSW exposing (..)
-import SWEditor.EditorSign exposing (..)
 import Dict
 import SW.Types exposing (..)
 
@@ -111,7 +110,7 @@ world =
 
 defaultResultsign : String -> Sign
 defaultResultsign fsw =
-    Result.withDefault SWEditor.EditorSign.signinit <| FSW.updateSymbolIds partialsymbolsizes fsw
+    Result.withDefault signinit <| FSW.updateSymbolIds partialsymbolsizes fsw
 
 
 getsignerrmessage : String -> String

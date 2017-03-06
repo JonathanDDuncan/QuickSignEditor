@@ -7,8 +7,8 @@ import String as String exposing (..)
 import SW.Pua exposing (..)
 
 
-symbolConverterTests : Test
-symbolConverterTests =
+puaTests : Test
+puaTests =
     describe "A Test Suite"
         [ test "Pua S10000 base" <|
             \() ->
