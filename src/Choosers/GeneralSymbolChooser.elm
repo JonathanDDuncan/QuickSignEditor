@@ -57,11 +57,11 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
         compassheight =
             compasswidth
 
-        compassrose =
-            showincompassrose generalsymbolchooserdata.symbolcolumnsdata compasswidth compassheight spacerwidth rowheight
-
-        columns =
-            showincolumns generalsymbolchooserdata.symbolcolumnsdata width columnwidth rowheight
+        symbolsdisplayer =
+            if True then
+                showincompassrose generalsymbolchooserdata.symbolcolumnsdata compasswidth compassheight spacerwidth rowheight
+            else
+                showincolumns generalsymbolchooserdata.symbolcolumnsdata width columnwidth rowheight
     in
         { display =
             div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
@@ -74,23 +74,16 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
                     ]
                     [ tr [] (generalsymbolrow generalsymbolchooserdata.generalsymbolrowdata smallestscaleheader)
                     ]
-                , compassrose.display
-                  -- , columns.display
+                , symbolsdisplayer.display
                 ]
-        , width = compassrose.width
-        , height = compassrose.height
+        , width = symbolsdisplayer.width
+        , height = symbolsdisplayer.height
         }
 
 
 showincompassrose : SymbolColumnsData -> Int -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-showincompassrose data width height spacerwidth rowheight =
+showincompassrose data fullwidth fullheight spacerwidth rowheight =
     let
-        fullwidth =
-            width
-
-        fullheight =
-            height
-
         outeritemwidth =
             truncate <| toFloat fullwidth / 3
 
@@ -106,14 +99,14 @@ showincompassrose data width height spacerwidth rowheight =
         petalcontent2 =
             getoutersymbolpetalsMaybe data.column2 outeritemwidth outeritemheight
 
-        rosecenterimagehands =
+        rosecenter =
             text ""
     in
         { display =
             div
                 [ style
                     [ "position" => "relative"
-                    , "width" => px (width * 2 + spacerwidth)
+                    , "width" => px (fullwidth * 2 + spacerwidth)
                     , "margin" => "auto"
                     ]
                 ]
@@ -123,7 +116,7 @@ showincompassrose data width height spacerwidth rowheight =
                         , "float" => "left"
                         ]
                     ]
-                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent1 rosecenterimagehands ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent1 rosecenter ]
                 , div
                     [ style
                         [ "position" => "relative"
@@ -139,7 +132,7 @@ showincompassrose data width height spacerwidth rowheight =
                         , "float" => "left"
                         ]
                     ]
-                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent2 rosecenterimagehands ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent2 rosecenter ]
                 ]
         , width = fullwidth * 2 + spacerwidth
         , height = rowheight + fullheight + 20
@@ -296,20 +289,11 @@ getgeneralsymbolchooser :
        }
 getgeneralsymbolchooser choosing symbolsizes selectedcolumn =
     let
-        validfills =
-            choosing.validfills
-
-        validrotations =
-            choosing.validrotations
-
-        base =
-            choosing.base
-
         vf =
-            getvalidfills validfills
+            getvalidfills choosing.validfills
 
         vr =
-            getvalidrotations validrotations
+            getvalidrotations choosing.validrotations
 
         column =
             if isValidRotation selectedcolumn vf then
@@ -318,10 +302,10 @@ getgeneralsymbolchooser choosing symbolsizes selectedcolumn =
                 1
 
         generalsymbolrowdata =
-            getsymbolfill base 1 vf symbolsizes
+            getsymbolfill choosing.base 1 vf symbolsizes
 
         symbolcolumnsdata =
-            getsymbolcolumnsdata base column vr symbolsizes
+            getsymbolcolumnsdata choosing.base column vr symbolsizes
     in
         { generalsymbolrowdata = generalsymbolrowdata, symbolcolumnsdata = symbolcolumnsdata }
 
