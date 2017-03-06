@@ -90,11 +90,17 @@ centerSignSmallest sign =
 getSignBounding : List Symbol -> Rect
 getSignBounding symbols =
     let
+        maxvalue =
+            if List.length symbols == 0 then
+                0
+            else
+                10000
+
         x1 =
-            List.foldr (\s -> min s.x) 10000 symbols
+            List.foldr (\s -> min s.x) maxvalue symbols
 
         y1 =
-            List.foldr (\s -> min s.y) 10000 symbols
+            List.foldr (\s -> min s.y) maxvalue symbols
 
         x2 =
             List.foldr (\s -> max (s.x + round (toFloat s.width * s.size))) 0 symbols

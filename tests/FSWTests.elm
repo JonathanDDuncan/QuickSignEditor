@@ -86,6 +86,8 @@ fswTests =
                         |> getfield (\value -> .y value |> toString)
                     )
                     "515"
+        , test "fsw default sign" <|
+            \() -> Expect.equal (getFsw signinit) "M500x500"
           -- move getFSW from Sign to FSW file and add tests
         ]
 
