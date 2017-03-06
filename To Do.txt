@@ -3,7 +3,8 @@ To Do
 Add FSW Rich text for size and color
 Fix bug QSE freezing in SWS when click on symbols that is starting to glow.
 
-Consolidate movesymbols in SignArea with EditorSymbol
+Consolidate movesymbols in SignArea.elm with EditorSymbol.elm
+
 Make list of compatible browsers
 Upfacing palms fingers up
 Downfacing palms fingers down
@@ -11,7 +12,7 @@ Tooltip on general group chooser
 
 Add symbols duplication command
 
-Add original 1 to 10 
+Add original 1 to 10 handsymbols display
 
 Double click lookup symbol to open chooser
 Add favorites
