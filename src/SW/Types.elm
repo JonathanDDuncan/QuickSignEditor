@@ -29,15 +29,24 @@ type alias Symbol =
     , nwcolor : String
     , key : String
     , nbcolor : String
+    , id : Int
+    , selected : Bool
     }
 
 
-type alias Selectable a =
-    { a | selected : Bool }
-
-
-type alias Idable a =
-    { a | id : Int }
+symbolinit : Symbol
+symbolinit =
+    { x = 0
+    , y = 0
+    , width = 0
+    , height = 0
+    , size = 1
+    , nwcolor = ""
+    , key = ""
+    , nbcolor = ""
+    , selected = False
+    , id = 0
+    }
 
 
 type alias NamedPosition =

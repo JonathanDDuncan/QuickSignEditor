@@ -48,7 +48,7 @@ type Msg
     | SignView SWEditor.Types.Msg
     | SelectedColumn Int
     | GroupSelected ChooserItem
-    | AddSymbol EditorSymbol
+    | AddSymbol Symbol
     | DragSymbol Key
     | ReplaceSymbol Key
     | FilterHandGroup Int
@@ -73,7 +73,7 @@ type alias HandGroupChooserSubList =
         List
             { chooseritem : ChooserItem
             , mdlid : Int
-            , symbol : EditorSymbol
+            , symbol : Symbol
             }
     }
 
@@ -91,8 +91,8 @@ type alias HandSymbol =
     , handfill : HandFills
     , rotationselection : Int
     , flowersymbols : List Petal
-    , symbollefthand : EditorSymbol
-    , symbolrighthand : EditorSymbol
+    , symbollefthand : Symbol
+    , symbolrighthand : Symbol
     , handfillitems : List HandFillItem
     }
 
@@ -245,7 +245,7 @@ type alias HandFillItem =
     , filltype : HandFills
     , planetype : Planes
     , rotation : Int
-    , symbol : EditorSymbol
+    , symbol : Symbol
     }
 
 
@@ -287,7 +287,7 @@ type alias Petal =
     , planetype : Planes
     , rotation : Int
     , rotationoffset : Int
-    , symbol : EditorSymbol
+    , symbol : Symbol
     , handpng : HandPng
     }
 
@@ -340,7 +340,7 @@ type alias GeneralGroupChooserSymbolData =
     { chooseritem : ChooserItem
     , mdlid : Int
     , modelmdl : Material.Model
-    , symbol : EditorSymbol
+    , symbol : Symbol
     }
 
 
@@ -356,7 +356,7 @@ type alias HandGroupChooserViewSymbolData =
     { chooseritem : ChooserItem
     , mdlid : Int
     , modelmdl : Material.Model
-    , symbol : EditorSymbol
+    , symbol : Symbol
     }
 
 
@@ -366,7 +366,7 @@ type alias HandGroupChooserViewSymbolData =
 
 type alias ChoosingModel =
     { displaySign : SWEditor.EditorSign.EditorSign
-    , valuestoAdd : List SWEditor.EditorSymbol.EditorSymbol
+    , valuestoAdd : List Symbol
     , value : String
     , offset : Offset
     }
@@ -392,7 +392,7 @@ toModel id importmodel =
             SWEditor.EditorSign.toEditorSign importmodel.displaySign id
 
         symbols =
-            List.indexedMap (SWEditor.EditorSymbol.toEditorSymbol id)
+            List.indexedMap (SWEditor.EditorSymbol.updateId id)
                 importmodel.valuestoAdd
     in
         { displaySign =

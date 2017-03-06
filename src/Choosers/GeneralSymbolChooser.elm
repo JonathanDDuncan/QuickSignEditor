@@ -24,7 +24,7 @@ generalsymbolchooser :
     -> Int
     -> { d
         | generalsymbolrowdata :
-            List { a1 | fill : Int, symbol : EditorSymbol }
+            List { a1 | fill : Int, symbol : Symbol }
         , symbolcolumnsdata :
             SymbolColumnsData
        }
@@ -139,7 +139,7 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
         }
 
 
-getpetalcontent : List (Maybe EditorSymbol) -> Float -> List (Html Msg)
+getpetalcontent : List (Maybe Symbol) -> Float -> List (Html Msg)
 getpetalcontent symbols scale =
     List.map
         (\symbol ->
@@ -195,7 +195,7 @@ getscales columnwidth rowheight symbols =
 
 generalsymbolonerow :
     Float
-    -> ( Maybe EditorSymbol, Maybe EditorSymbol )
+    -> ( Maybe Symbol, Maybe Symbol )
     -> List (Html Msg)
 generalsymbolonerow scale data =
     let
@@ -213,7 +213,7 @@ generalsymbolonerow scale data =
         ]
 
 
-showrotation : Maybe EditorSymbol -> Float -> Html Msg
+showrotation : Maybe Symbol -> Float -> Html Msg
 showrotation symbol scale =
     case symbol of
         Just symb ->
@@ -241,7 +241,7 @@ generalsymbolrow :
         { a
             | fill : Int
             , symbol :
-                EditorSymbol
+                Symbol
         }
     -> Float
     -> List (Html Msg)
@@ -258,7 +258,7 @@ generalsymbolrow generalsymbolrowdata scale =
         generalsymbolrowdata
 
 
-generalsymbolcol : Bool -> Float -> EditorSymbol -> Html Msg
+generalsymbolcol : Bool -> Float -> Symbol -> Html Msg
 generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
@@ -283,7 +283,7 @@ getgeneralsymbolchooser :
     { a | base : Base, validfills : String, validrotations : String }
     -> Dict String Size
     -> Int
-    -> { generalsymbolrowdata : List { fill : Int, symbol : EditorSymbol }
+    -> { generalsymbolrowdata : List { fill : Int, symbol : Symbol }
        , symbolcolumnsdata :
             SymbolColumnsData
        }
@@ -311,8 +311,8 @@ getgeneralsymbolchooser choosing symbolsizes selectedcolumn =
 
 
 type alias SymbolColumnsData =
-    { column1 : List (Maybe EditorSymbol)
-    , column2 : List (Maybe EditorSymbol)
+    { column1 : List (Maybe Symbol)
+    , column2 : List (Maybe Symbol)
     }
 
 
@@ -341,7 +341,7 @@ getsymbolcolumnsdata base column vr symbolsizes =
         { column1 = column1, column2 = column2 }
 
 
-getsymbol : Base -> Fill -> Int -> List Rotation -> Dict String Size -> Maybe EditorSymbol
+getsymbol : Base -> Fill -> Int -> List Rotation -> Dict String Size -> Maybe Symbol
 getsymbol base fill rotation validrotations symbolsizes =
     let
         isvalid =
@@ -349,7 +349,7 @@ getsymbol base fill rotation validrotations symbolsizes =
 
         symbol =
             if isvalid then
-                Just <| getSymbolEditorBaseFillRotation base fill rotation symbolsizes
+                Just <| getSymbolbyBaseFillRotation base fill rotation symbolsizes
             else
                 Nothing
     in
@@ -361,13 +361,13 @@ getsymbolfill :
     -> Rotation
     -> List Fill
     -> Dict String Size
-    -> List { fill : Int, symbol : EditorSymbol }
+    -> List { fill : Int, symbol : Symbol }
 getsymbolfill base rotation validfills symbolsizes =
     List.map
         (\fill ->
             let
                 symbol =
-                    getSymbolEditorBaseFillRotation base fill rotation symbolsizes
+                    getSymbolbyBaseFillRotation base fill rotation symbolsizes
             in
                 { symbol = symbol, fill = fill }
         )

@@ -11,8 +11,7 @@ import Choosers.GeneralGroupChooser exposing (..)
 import Choosers.GeneralSymbolChooser exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
 import SW.Types exposing (iskey)
-import SWEditor.EditorSymbol exposing (..)
-import SW.Types exposing (..)
+import SW.Types exposing (Symbol, symbolinit)
 import Keyboard.Shared exposing (KeyboardMode)
 import SWEditor.DisplaySvg exposing (..)
 
@@ -173,9 +172,9 @@ displayChoosing choosing =
         ]
 
 
-firstsymbol : { b | valuestoAdd : List EditorSymbol } -> EditorSymbol
+firstsymbol : { b | valuestoAdd : List Symbol } -> Symbol
 firstsymbol choosing =
-    choosing.valuestoAdd |> List.head |> Maybe.withDefault SWEditor.EditorSymbol.symbolinit
+    choosing.valuestoAdd |> List.head |> Maybe.withDefault symbolinit
 
 
 choosesubgroupchooser : Choosers.Types.Model -> Html Choosers.Types.Msg

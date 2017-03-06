@@ -12,7 +12,7 @@ type alias EditorSign =
     , x : Int
     , y : Int
     , backfill : String
-    , syms : List EditorSymbol
+    , syms : List Symbol
     , left : Int
     , lane : Lane
     }
@@ -36,7 +36,7 @@ toEditorSign : Sign -> Int -> EditorSign
 toEditorSign sign id =
     let
         editorsymbols =
-            List.indexedMap (toEditorSymbol id) sign.syms
+            List.indexedMap (updateId id) sign.syms
 
         boundingbox =
             getSignBounding editorsymbols
@@ -124,7 +124,7 @@ centerSignSmallest sign =
         centerSign desiredxcenter desiredycenter sign
 
 
-getSignBounding : List EditorSymbol -> Rect
+getSignBounding : List Symbol -> Rect
 getSignBounding symbols =
     let
         x1 =

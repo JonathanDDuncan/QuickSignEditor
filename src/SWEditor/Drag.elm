@@ -2,7 +2,7 @@ module SWEditor.Drag exposing (..)
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
+import SW.Types exposing (Symbol)
 
 
 dragsign : Model -> EditorSign
@@ -23,7 +23,7 @@ dragsign model =
         { sign | syms = symbols, width = bounds.width, height = bounds.height, x = bounds.x, y = bounds.y }
 
 
-dragSymbols : Offset -> List EditorSymbol -> List EditorSymbol
+dragSymbols : Offset -> List Symbol -> List Symbol
 dragSymbols offset symbols =
     List.map
         (\symbol ->

@@ -1,8 +1,8 @@
 module Choosers.Petalhelper exposing (..)
 
 import Choosers.Types exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)
+import SW.Types exposing (Symbol, symbolinit)
 
 
 --View
@@ -15,7 +15,7 @@ import List.Extra exposing (..)
 import Maybe.Extra exposing (join)
 
 
-getoutersymbolpetals : List EditorSymbol -> Int -> Int -> List (Html Msg)
+getoutersymbolpetals : List Symbol -> Int -> Int -> List (Html Msg)
 getoutersymbolpetals symbols itemwidth itemheight =
     getoutersymbolpetalsMaybe (toListMaybe symbols) itemwidth itemheight
 
@@ -25,11 +25,11 @@ toListMaybe symbols =
     List.map (Just) symbols
 
 
-getoutersymbolpetalsMaybe : List (Maybe EditorSymbol) -> Int -> Int -> List (Html Msg)
+getoutersymbolpetalsMaybe : List (Maybe Symbol) -> Int -> Int -> List (Html Msg)
 getoutersymbolpetalsMaybe symbols itemwidth itemheight =
     let
         outerpetalsymbolpositions =
-            getouterpetalsymbolpositions SWEditor.EditorSymbol.symbolinit symbols itemwidth itemheight
+            getouterpetalsymbolpositions symbolinit symbols itemwidth itemheight
 
         outerpetalvaluesandpositions =
             List.Extra.zip outerpetalsymbolpositions symbols
@@ -40,7 +40,7 @@ getoutersymbolpetalsMaybe symbols itemwidth itemheight =
         roseouterpetaldata
 
 
-symbolpetal : ( List (Attribute Msg), Maybe EditorSymbol ) -> Html Msg
+symbolpetal : ( List (Attribute Msg), Maybe Symbol ) -> Html Msg
 symbolpetal ( attrib, symb ) =
     case symb of
         Just symbol ->

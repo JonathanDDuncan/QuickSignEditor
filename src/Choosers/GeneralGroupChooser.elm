@@ -129,7 +129,7 @@ creategeneralgroupchoosersymboldata : Choosers.Types.Model -> ChooserItem -> Gen
 creategeneralgroupchoosersymboldata model chooseritem =
     let
         symbol =
-            getSymbolEditorBaseFillRotation chooseritem.base 1 1 model.symbolsizes
+            getSymbolbyBaseFillRotation chooseritem.base 1 1 model.symbolsizes
 
         mdlid =
             codefromkey symbol.key + 1000

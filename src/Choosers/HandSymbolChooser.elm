@@ -131,7 +131,7 @@ handselection :
     { a | hand : Hands }
     -> Int
     -> Hands
-    -> ({ a | hand : Hands } -> EditorSymbol)
+    -> ({ a | hand : Hands } -> Symbol)
     -> Int
     -> Int
     -> String
@@ -315,7 +315,7 @@ createhandfillitem : Base -> Dict String Size -> HandItem -> HandFillItem
 createhandfillitem base symbolsizes basefillitem =
     let
         symbol =
-            getSymbolEditorBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
+            getSymbolbyBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
     in
         { fill = basefillitem.fill, rotation = basefillitem.rotation, filltype = basefillitem.filltype, planetype = basefillitem.planetype, symbol = symbol }
 
@@ -330,7 +330,7 @@ createpetal symbolsizes base selectedhandfillitem rotationoffset =
             (selectedhandfillitem.rotation + finalrotationoffset)
 
         symbol =
-            getSymbolEditorBaseFillRotation base selectedhandfillitem.fill rotation symbolsizes
+            getSymbolbyBaseFillRotation base selectedhandfillitem.fill rotation symbolsizes
 
         handpng =
             gethandpng symbol.key rotation selectedhandfillitem.fill selectedhandfillitem.filltype

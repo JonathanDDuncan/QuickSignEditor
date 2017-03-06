@@ -135,6 +135,8 @@ function splitintosigns(sign) {
 function createnewsign(symbol, x, y) {
     var sign = {};
     sign.syms = [];
+    symbol.selected = false
+    symbol.id = 0
     sign.syms.push(symbol);
 
     sign.backfill =
@@ -157,7 +159,7 @@ function getchoosingsign(sign, x, y) {
     var offset1 = {};
     offset1.offsetx = sign.x - 500 + x;
     offset1.offsety = sign.y - 500 + y;
-
+  
     var choosing = {};
     choosing.displaySign = sign;
     choosing.valuestoAdd = sign.syms;

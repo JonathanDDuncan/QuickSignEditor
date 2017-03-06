@@ -6,64 +6,24 @@ import SW.Pua exposing (..)
 import Dict exposing (..)
 
 
-type alias EditorSymbol =
-    Idable (Selectable Symbol)
-
-
-symbolinit : EditorSymbol
-symbolinit =
-    { x = 0
-    , y = 0
-    , width = 0
-    , height = 0
-    , size = 1
-    , nwcolor = ""
-    , key = ""
-    , nbcolor = ""
-    , selected = False
-    , id = 0
+updateId : Int -> Int -> Symbol -> Symbol
+updateId id index symbol =
+    { symbol
+        | id = id + index + 1
     }
 
 
-toEditorSymbol : Int -> Int -> Symbol -> EditorSymbol
-toEditorSymbol id index symbol =
-    { x = symbol.x
-    , y = symbol.y
-    , width = symbol.width
-    , height = symbol.height
-    , size = symbol.size
-    , nwcolor = symbol.nwcolor
-    , key = symbol.key
-    , nbcolor = symbol.nbcolor
-    , selected = False
-    , id = id + index + 1
-    }
-
-
-fromEditorSymbol : EditorSymbol -> Symbol
-fromEditorSymbol symbol =
-    { x = symbol.x
-    , y = symbol.y
-    , width = symbol.width
-    , height = symbol.height
-    , size = symbol.size
-    , nwcolor = symbol.nwcolor
-    , key = symbol.key
-    , nbcolor = symbol.nbcolor
-    }
-
-
-getSymbolEditorBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> EditorSymbol
-getSymbolEditorBaseFillRotation base fill rotation symbolsizes =
+getSymbolbyBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> Symbol
+getSymbolbyBaseFillRotation base fill rotation symbolsizes =
     let
         key =
             SW.Pua.key base fill rotation
     in
-        getSymbolEditorKey key symbolsizes
+        getSymbolbyKey key symbolsizes
 
 
-getSymbolEditorKey : Key -> Dict String Size -> EditorSymbol
-getSymbolEditorKey key symbolsizes =
+getSymbolbyKey : Key -> Dict String Size -> Symbol
+getSymbolbyKey key symbolsizes =
     let
         symbolsizeresult =
             Dict.get key symbolsizes
@@ -81,20 +41,21 @@ getSymbolEditorKey key symbolsizes =
                         { width = 58, height = 58 }
 
         symbol =
-            { x = 0
-            , y = 0
-            , width = size.width
-            , height = size.height
-            , size = 1
-            , nwcolor = "white"
-            , key = key
-            , nbcolor = "black"
+            { symbolinit
+                | x = 0
+                , y = 0
+                , width = size.width
+                , height = size.height
+                , size = 1
+                , nwcolor = "white"
+                , key = key
+                , nbcolor = "black"
             }
     in
-        toEditorSymbol 0 0 symbol
+        updateId 0 0 symbol
 
 
-getsymbolRectangle : EditorSymbol -> Rect
+getsymbolRectangle : Symbol -> Rect
 getsymbolRectangle symbol =
     { x = symbol.x
     , y = symbol.y
@@ -103,7 +64,7 @@ getsymbolRectangle symbol =
     }
 
 
-symbolId : Maybe EditorSymbol -> Int
+symbolId : Maybe Symbol -> Int
 symbolId symbol =
     case symbol of
         Nothing ->
@@ -113,7 +74,7 @@ symbolId symbol =
             symb.id
 
 
-countselectedsymbols : List EditorSymbol -> Int
+countselectedsymbols : List Symbol -> Int
 countselectedsymbols symbols =
     List.length
         (List.filter
@@ -124,17 +85,17 @@ countselectedsymbols symbols =
         )
 
 
-moveSymbols : Int -> Int -> List EditorSymbol -> List EditorSymbol
+moveSymbols : Int -> Int -> List Symbol -> List Symbol
 moveSymbols movex movey symbols =
     List.map (moveSymbol movex movey) symbols
 
 
-moveSymbol : Int -> Int -> EditorSymbol -> EditorSymbol
+moveSymbol : Int -> Int -> Symbol -> Symbol
 moveSymbol movex movey symbol =
     { symbol | x = symbol.x + movex, y = symbol.y + movey }
 
 
-symbolsUnderPosition : Position -> List EditorSymbol -> List EditorSymbol
+symbolsUnderPosition : Position -> List Symbol -> List Symbol
 symbolsUnderPosition signviewposition symbols =
     let
         seachrectangle =

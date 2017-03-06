@@ -7,7 +7,6 @@ import Dict exposing (..)
 import String exposing (..)
 import SW.Types exposing (..)
 import Material
-import SWEditor.EditorSymbol exposing (fromEditorSymbol)
 import Choosers.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Update.Extra exposing (..)
@@ -177,32 +176,26 @@ update action model =
 
         AddSymbol symbol ->
             ( model
-            , cmdAddSymbol <| fromEditorSymbol symbol
+            , cmdAddSymbol symbol
             )
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
 
         DragSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolEditorKey key model.symbolsizes)
-
-                symbol =
-                    fromEditorSymbol editorsymbol
+                    (getSymbolbyKey key model.symbolsizes)
             in
                 ( model
-                , cmdDragSymbol <| symbol
+                , cmdDragSymbol <| editorsymbol
                 )
 
         ReplaceSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolEditorKey key model.symbolsizes)
-
-                symbol =
-                    fromEditorSymbol editorsymbol
+                    (getSymbolbyKey key model.symbolsizes)
             in
                 ( model
-                , cmdReplaceSymbol <| symbol
+                , cmdReplaceSymbol <| editorsymbol
                 )
 
         FilterHandGroup value ->
@@ -309,10 +302,10 @@ update action model =
                     createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
 
                 symbollefthand =
-                    getSymbolEditorBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
+                    getSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
 
                 symbolrighthand =
-                    getSymbolEditorBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
+                    getSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
 
                 handfillitems =
                     gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane

@@ -232,7 +232,7 @@ update action model =
         DragSymbol symbol ->
             let
                 editorSymbol =
-                    toEditorSymbol model.uid 0 symbol
+                    updateId model.uid 0 symbol
 
                 selectedsymbol =
                     { editorSymbol | selected = True }
@@ -266,7 +266,7 @@ update action model =
         AddSymbol symbol ->
             let
                 editorSymbol =
-                    toEditorSymbol model.uid 0 symbol
+                    updateId model.uid 0 symbol
 
                 selectedsymbol =
                     { editorSymbol | selected = True }
@@ -366,12 +366,12 @@ update action model =
                 )
 
 
-replaceselectedsymbols : List EditorSymbol -> Symbol -> List EditorSymbol
+replaceselectedsymbols : List Symbol -> Symbol -> List Symbol
 replaceselectedsymbols syms symbol =
     List.map (\sym -> replaceselected sym symbol) syms
 
 
-replaceselected : EditorSymbol -> Symbol -> EditorSymbol
+replaceselected : Symbol -> Symbol -> Symbol
 replaceselected sym symbol =
     if not sym.selected then
         sym

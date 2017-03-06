@@ -6,7 +6,7 @@ import ViewHelper.ViewExtra exposing (..)
 import Svg exposing (..)
 import SW.Pua exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
+import SW.Types exposing (Symbol)
 
 
 signdisplaysvg : EditorSign -> Html msg
@@ -21,17 +21,17 @@ signdisplaysvgposition sign offsetx offsety =
         (List.map symbolsvg sign.syms)
 
 
-symbolsvg : EditorSymbol -> Html msg
+symbolsvg : Symbol -> Html msg
 symbolsvg symbol =
     symbolsvgmargincolor 0 Nothing 1 symbol
 
 
-symbolsvgscale : Float -> EditorSymbol -> Html msg
+symbolsvgscale : Float -> Symbol -> Html msg
 symbolsvgscale scale symbol =
     symbolsvgmargincolor 0 Nothing scale symbol
 
 
-symbolsvgmargincolor : Int -> Maybe String -> Float -> EditorSymbol -> Html msg
+symbolsvgmargincolor : Int -> Maybe String -> Float -> Symbol -> Html msg
 symbolsvgmargincolor margin color scale symbol =
     let
         symbolheight =
@@ -81,7 +81,7 @@ signsvgmargincolor margin color scale sign =
             )
 
 
-symbolview : Maybe a -> Maybe b -> Maybe String -> Float -> EditorSymbol -> List (Svg msg)
+symbolview : Maybe a -> Maybe b -> Maybe String -> Float -> Symbol -> List (Svg msg)
 symbolview x y color scale symbol =
     let
         xpos =

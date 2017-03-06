@@ -2,7 +2,6 @@ module SWEditor.SignArea exposing (..)
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)
 
 
@@ -18,7 +17,7 @@ deletesymbols model =
         { model | sign = newsign }
 
 
-updatesignsymbols : EditorSign -> List EditorSymbol -> EditorSign
+updatesignsymbols : EditorSign -> List Symbol -> EditorSign
 updatesignsymbols sign newsymbols =
     let
         bounds =
@@ -51,7 +50,7 @@ getundroppedsymbol editormode symbols =
 
 issymbolwithinview :
     NamedPosition
-    -> Maybe EditorSymbol
+    -> Maybe Symbol
     -> Bool
 issymbolwithinview viewposition undroppedsymbol =
     case undroppedsymbol of
@@ -118,7 +117,7 @@ movesymbols model direction distance =
         { model | sign = newsign }
 
 
-movesymbol : EditorSymbol -> Direction -> Distance -> EditorSymbol
+movesymbol : Symbol -> Direction -> Distance -> Symbol
 movesymbol symbol direction distance =
     let
         newsymbol =
@@ -156,7 +155,7 @@ putsymbolswithinbounds sign bounds =
         }
 
 
-maintainwithinbounds : EditorSymbol -> { b | height : number__, width : number___ } -> EditorSymbol
+maintainwithinbounds : Symbol -> { b | height : number__, width : number___ } -> Symbol
 maintainwithinbounds sym bounds =
     let
         left =

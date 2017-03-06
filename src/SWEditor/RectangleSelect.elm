@@ -4,6 +4,7 @@ import SWEditor.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SW.Types exposing (Symbol)
 
 
 rectangleselect : Model -> EditorSign
@@ -21,7 +22,7 @@ selectSymbolsIntersection rectangle sign =
     { sign | syms = List.map (selectIntersected rectangle) sign.syms }
 
 
-selectIntersected : Rect -> EditorSymbol -> EditorSymbol
+selectIntersected : Rect -> Symbol -> Symbol
 selectIntersected rectangle symbol =
     if intersect rectangle (getsymbolRectangle symbol) then
         { symbol | selected = True }

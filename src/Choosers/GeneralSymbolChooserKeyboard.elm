@@ -7,10 +7,10 @@ import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser)
 import List.Extra exposing (..)
 import SWEditor.DisplaySvg exposing (signdisplaysvg)
 import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
 import MaybeHelper.MaybeExtra exposing (..)
+import SW.Types exposing (Symbol)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)
@@ -59,7 +59,7 @@ getgeneralsymbolcolumn symbolcolumndata =
     removeNothings <| List.map (\symbol -> symbol) symbolcolumndata
 
 
-creatcolumnkeyactionlist : List EditorSymbol -> List Int -> List (KeyAction Msg)
+creatcolumnkeyactionlist : List Symbol -> List Int -> List (KeyAction Msg)
 creatcolumnkeyactionlist data range =
     let
         keyrange =
@@ -86,7 +86,7 @@ creatcolumnkeyactionlist data range =
         viewkeylist
 
 
-createkeyactionlist : List { fill : Int, symbol : EditorSymbol } -> List Int -> List (KeyAction Msg)
+createkeyactionlist : List { fill : Int, symbol : Symbol } -> List Int -> List (KeyAction Msg)
 createkeyactionlist data range =
     let
         keyrange =

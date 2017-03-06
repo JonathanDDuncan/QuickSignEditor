@@ -171,7 +171,7 @@ createrowdata1 :
                 List
                     { chooseritem : ChooserItem
                     , mdlid : Int
-                    , symbol : EditorSymbol
+                    , symbol : Symbol
                     }
             }
         )
@@ -208,7 +208,7 @@ createcolumndata1 :
     -> List ChooserItem
     -> { backgroundcolor : String
        , displayhanditems :
-            List { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
+            List { chooseritem : ChooserItem, mdlid : Int, symbol : Symbol }
        }
 createcolumndata1 model cat col choosings =
     let
@@ -242,7 +242,7 @@ filterhandgroupitems col handgroupfilter choosings =
 createdisplayhanditems :
     Model
     -> List ChooserItem
-    -> List { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
+    -> List { chooseritem : ChooserItem, mdlid : Int, symbol : Symbol }
 createdisplayhanditems model items =
     List.map (createdisplayhanditem model.symbolsizes) items
 
@@ -250,7 +250,7 @@ createdisplayhanditems model items =
 createdisplayhanditem :
     Dict String Size
     -> ChooserItem
-    -> { chooseritem : ChooserItem, mdlid : Int, symbol : EditorSymbol }
+    -> { chooseritem : ChooserItem, mdlid : Int, symbol : Symbol }
 createdisplayhanditem symbolsizes chooseritem =
     let
         base =
@@ -263,7 +263,7 @@ createdisplayhanditem symbolsizes chooseritem =
             1
 
         symbol =
-            getSymbolEditorBaseFillRotation base fill rotation symbolsizes
+            getSymbolbyBaseFillRotation base fill rotation symbolsizes
 
         mdlid =
             codefromkey symbol.key + 1000

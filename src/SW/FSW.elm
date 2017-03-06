@@ -2,7 +2,7 @@ module SW.FSW exposing (..)
 
 import SWEditor.EditorSign exposing (..)
 import Regex exposing (..)
-import SWEditor.EditorSymbol exposing (getSymbolEditorKey)
+import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import Dict
 import SW.Types exposing (..)
 
@@ -37,13 +37,13 @@ toEditorSign symbolsizes fsw =
         sign
 
 
-createsymbols : Dict.Dict String Size -> List String -> Result String (List SWEditor.EditorSymbol.EditorSymbol)
+createsymbols : Dict.Dict String Size -> List String -> Result String (List SWEditor.EditorSymbol.Symbol)
 createsymbols symbolsizes symbolsstrings =
     List.map (createsymbol symbolsizes) symbolsstrings
         |> combine
 
 
-createsymbol : Dict.Dict String Size -> String -> Result String SWEditor.EditorSymbol.EditorSymbol
+createsymbol : Dict.Dict String Size -> String -> Result String SWEditor.EditorSymbol.Symbol
 createsymbol symbolsizes symbolstring =
     let
         keystr =
@@ -53,7 +53,7 @@ createsymbol symbolsizes symbolstring =
             getcoordinatestr symbolstring
 
         symbolonly =
-            Result.andThen (\key1 -> getSymbolEditorKey key1 symbolsizes |> Ok) keystr
+            Result.andThen (\key1 -> getSymbolbyKey key1 symbolsizes |> Ok) keystr
 
         coordinateresult =
             getcooordinate coordinatestr

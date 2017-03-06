@@ -5,10 +5,10 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvgmargincolor)
 import Keyboard.Shared exposing (KeyboardMode)
+import SW.Types exposing (Symbol)
 
 
 root : Model -> Html Msg
@@ -61,7 +61,7 @@ signView model =
         (List.map symbolView model.sign.syms)
 
 
-symbolView : EditorSymbol -> Html Msg
+symbolView : Symbol -> Html Msg
 symbolView symbol =
     let
         nbcolor =

@@ -2,7 +2,7 @@ module SWEditor.Select exposing (..)
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SWEditor.EditorSymbol exposing (..)
+import SW.Types exposing (Symbol)
 
 
 unselectSymbols : EditorSign -> EditorSign
@@ -10,7 +10,7 @@ unselectSymbols sign =
     { sign | syms = List.map unselectSymbol sign.syms }
 
 
-unselectSymbol : EditorSymbol -> EditorSymbol
+unselectSymbol : Symbol -> Symbol
 unselectSymbol symbol =
     { symbol | selected = False }
 
@@ -27,7 +27,7 @@ selectSymbolId id model =
         { sign | syms = symbols }
 
 
-selectId : Int -> List EditorSymbol -> List EditorSymbol
+selectId : Int -> List Symbol -> List Symbol
 selectId id symbols =
     List.map
         (\symbol ->
