@@ -8,7 +8,8 @@ import String exposing (..)
 
 
 type alias Sign =
-    { width : Int
+    { lane : Lane
+    , width : Int
     , height : Int
     , x : Int
     , y : Int
@@ -19,7 +20,8 @@ type alias Sign =
 
 signinit : Sign
 signinit =
-    { width = 0
+    { lane = MiddleLane
+    , width = 0
     , height = 0
     , x = 0
     , y = 0
@@ -70,6 +72,13 @@ type alias Size =
     { width : Int
     , height : Int
     }
+
+
+type Lane
+    = BLane
+    | LeftLane
+    | MiddleLane
+    | RightLane
 
 
 type alias Base =

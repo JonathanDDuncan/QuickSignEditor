@@ -16,12 +16,12 @@ updateSymbolIds sign id =
 
         centeredSmallest =
             centerSignSmallest
-                { width = boundingbox.width
-                , height = boundingbox.height
-                , x = boundingbox.x
-                , y = boundingbox.y
-                , backfill = sign.backfill
-                , syms = editorsymbols
+                { sign
+                    | width = boundingbox.width
+                    , height = boundingbox.height
+                    , x = boundingbox.x
+                    , y = boundingbox.y
+                    , syms = editorsymbols
                 }
     in
         centeredSmallest
