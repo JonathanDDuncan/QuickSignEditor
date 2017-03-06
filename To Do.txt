@@ -10,8 +10,7 @@ Upfacing palms fingers up
 Downfacing palms fingers down
 
 Add symbols duplication command
-General circle symbol chooser
-Arrow symbol chooser
+
 Add original 1 to 10 
 
 Double click lookup symbol to open chooser
