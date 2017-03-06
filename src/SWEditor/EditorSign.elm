@@ -113,27 +113,3 @@ getlastuid editorSign =
 
         Just sign ->
             sign.id
-
-
-getFsw : Sign -> String
-getFsw editorSign =
-    let
-        centered =
-            centerSign 500 500 editorSign
-
-        boundingbox =
-            "M" ++ toString (centered.x + centered.width) ++ "x" ++ toString (centered.y + centered.height)
-
-        -- M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468
-        symbols =
-            List.foldr (++) "" (List.map symbolsFsw centered.syms)
-
-        fsw =
-            boundingbox ++ symbols
-    in
-        fsw
-
-
-symbolsFsw : { c | key : String, x : a, y : b } -> String
-symbolsFsw symbol =
-    symbol.key ++ toString symbol.x ++ "x" ++ toString symbol.y

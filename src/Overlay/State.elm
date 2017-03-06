@@ -11,6 +11,7 @@ import Layout.Types exposing (..)
 import Layout.State
 import Ports exposing (..)
 import SWEditor.EditorSign exposing (..)
+import SW.FSW exposing (..)
 
 
 -- import SubOverlays.State
@@ -47,14 +48,14 @@ layoutactions action model =
         ShareFsw ->
             let
                 fsw =
-                    SWEditor.EditorSign.getFsw model.layout.signbox.sign
+                    getFsw model.layout.signbox.sign
             in
                 ( { model | show = False }, Cmd.batch [ Ports.shareFsw fsw, Ports.hideOverlay "" ] )
 
         PleaseShareFsw msg ->
             let
                 fsw =
-                    SWEditor.EditorSign.getFsw model.layout.signbox.sign
+                    getFsw model.layout.signbox.sign
             in
                 ( model, Ports.shareFsw fsw )
 
