@@ -15,6 +15,7 @@ type alias Sign =
     , y : Int
     , backfill : String
     , syms : List Symbol
+    , spelling : String
     }
 
 
@@ -27,6 +28,7 @@ signinit =
     , y = 0
     , backfill = ""
     , syms = []
+    , spelling = ""
     }
 
 
@@ -50,6 +52,7 @@ portableSigntoSign portableSign =
     , y = portableSign.y
     , backfill = portableSign.backfill
     , syms = portableSign.syms
+    , spelling = ""
     }
 
 

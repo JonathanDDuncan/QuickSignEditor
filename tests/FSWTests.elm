@@ -91,6 +91,8 @@ fswTests =
             \() -> Expect.equal (getFsw signinit) "M500x500"
         , test "fsw default worldsign" <|
             \() -> Expect.equal (getFsw worldsign) world
+        , test "roundtrip fsw with sorting sequence" <|
+            \() -> Expect.equal (getFsw (defaultResultsign worldspelling)) worldspelling
         ]
 
 
@@ -153,16 +155,21 @@ world =
     "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
 
 
+worldspelling : String
+worldspelling =
+    "AS18701S1870aS2e734S20500" ++ world
+
+
 defaultResultsign : String -> Sign
 defaultResultsign fsw =
-    Result.withDefault signinit <| FSW.updateSymbolIds partialsymbolsizes fsw
+    Result.withDefault signinit <| FSW.fswtoSign partialsymbolsizes fsw
 
 
 getsignerrmessage : String -> String
 getsignerrmessage fsw =
     let
         result =
-            FSW.updateSymbolIds partialsymbolsizes fsw
+            FSW.fswtoSign partialsymbolsizes fsw
     in
         case result of
             Ok value ->

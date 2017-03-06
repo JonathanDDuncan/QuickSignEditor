@@ -7,8 +7,8 @@ import Dict
 import SW.Types exposing (..)
 
 
-updateSymbolIds : Dict.Dict String Size -> String -> Result String Sign
-updateSymbolIds symbolsizes fsw =
+fswtoSign : Dict.Dict String Size -> String -> Result String Sign
+fswtoSign symbolsizes fsw =
     let
         laneresult =
             getFSWlane fsw
@@ -22,6 +22,9 @@ updateSymbolIds symbolsizes fsw =
         symbolsstrings =
             getsymbolsstrings fsw
 
+        spellingstring =
+            getspellingstring fsw
+
         symsresult =
             createsymbols symbolsizes symbolsstrings
 
@@ -33,6 +36,8 @@ updateSymbolIds symbolsizes fsw =
                     (setresultvalue laneresult (\sign value -> { sign | lane = value }))
                 |> Result.andThen
                     (setresultvalue symsresult (\sign value -> { sign | syms = value }))
+                |> Result.andThen
+                    (setresultvalue (Ok spellingstring) (\sign value -> { sign | spelling = value }))
     in
         sign
 
@@ -150,14 +155,14 @@ laneValues =
 
 
 getFsw : Sign -> String
-getFsw editorSign =
+getFsw sign =
     let
         centered =
             Debug.log "centered" <|
-                centerSign 500 500 editorSign
+                centerSign 500 500 sign
 
         boundingbox =
-            "M" ++ toString (500 + (round <| toFloat centered.width / 2)) ++ "x" ++ toString (500 + (round <| toFloat centered.height / 2))
+            sign.spelling ++ "M" ++ toString (500 + (round <| toFloat centered.width / 2)) ++ "x" ++ toString (500 + (round <| toFloat centered.height / 2))
 
         symbols =
             List.foldr (++) "" (List.map symbolsFsw centered.syms)
@@ -254,6 +259,18 @@ getkeystr str =
         |> matchestostrings
         |> List.head
         |> Result.fromMaybe (couldnoterror "get key" str)
+
+
+getspellingstring : String -> String
+getspellingstring fsw =
+    let
+        spelling =
+            Regex.find All (regex re_term) fsw
+                |> matchestostrings
+                |> List.head
+                |> Maybe.withDefault ""
+    in
+        spelling
 
 
 getFSWlanestr : String -> Result String String
