@@ -4,10 +4,11 @@ FSW SignSpelling back and forth
 Add FSW Rich text for size and color
 Fix bug QSE freezing in SWS when click on symbols that is starting to glow.
 Create only one Symbol and Sign representation
-Consolidate movesymbols in SignArea with EditorSymbol
+Consolidate movesymbols in SignArea with Symbol
 Make list of compatible browsers
 Upfacing palms fingers up
 Downfacing palms fingers down
+Tooltip on general group chooser
 
 Add symbols duplication command
 
