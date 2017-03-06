@@ -20,18 +20,18 @@ root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
 root parentwidth parentheight model =
     let
         halfheight =
-            Debug.log "halfheight" <|
-                (Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2))
+           
+                Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2)
 
         halfwidth =
-            Debug.log "halfwidth" <|
-                (Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2))
+            
+                Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2)
 
         maniquin =
             choosingroot model halfheight halfwidth 10
 
         maniquinscale =
-            Debug.log "maniquinscale" <|
+         
                 calculatescale (Basics.toFloat maniquin.width) (Basics.toFloat maniquin.height) (Basics.toFloat halfwidth) (Basics.toFloat halfheight)
 
         maniquindivheight =
@@ -46,7 +46,7 @@ root parentwidth parentheight model =
             getsymbolchooser model halfwidth symbolchooserheight
 
         symbolchooserscale =
-            Debug.log "symbolchooserscale" <|
+          
                 calculatescale (Basics.toFloat symbolchooser.width) (Basics.toFloat symbolchooser.height) (Basics.toFloat halfwidth) (Basics.toFloat (parentheight - maniquindivheight))
     in
         div []
@@ -104,7 +104,7 @@ choosingroot : Choosers.Types.Model -> Int -> Int -> Int -> { display : Html Cho
 choosingroot model width height bottompadding =
     let
         size =
-            Debug.log "choosingroot" <|
+           
                 List.foldr
                     (\choosing accumulator ->
                         let
