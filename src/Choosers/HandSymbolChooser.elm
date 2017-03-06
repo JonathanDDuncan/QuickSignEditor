@@ -21,7 +21,7 @@ import Choosers.CompassRose exposing (..)
 import Choosers.HandPng exposing (..)
 
 
-handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> Html Msg
+handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 handsymbolchooser model width height =
     let
         fullwidth =
@@ -51,37 +51,41 @@ handsymbolchooser model width height =
         rowheight =
             truncate <| toFloat height / toFloat 10
     in
-        div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
-            [ table
-                [ class "symbolchooserheader"
-                , Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px rowheight
+        { display =
+            div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
+                [ table
+                    [ class "symbolchooserheader"
+                    , Html.Attributes.style
+                        [ "width" => px (width - 12)
+                        , "height" => px rowheight
+                        ]
                     ]
-                ]
-                [ tr [] <|
-                    List.append (handselectionboth handsymbol rowheight)
-                        (planeselection handsymbol)
-                ]
-            , table
-                [ class "symbolchooserheader"
-                , Html.Attributes.style
-                    [ "width" => "100%"
-                    , "height" => px 50
+                    [ tr [] <|
+                        List.append (handselectionboth handsymbol rowheight)
+                            (planeselection handsymbol)
                     ]
+                , table
+                    [ class "symbolchooserheader"
+                    , Html.Attributes.style
+                        [ "width" => "100%"
+                        , "height" => px 50
+                        ]
+                    ]
+                    [ tr []
+                        (fillsview handsymbol rowheight)
+                    ]
+                , compassrose
+                    handsymbol.handfill
+                    rosecenterpetaldata
+                    outersymbolpetals
+                    fullwidth
+                    fullheight
+                    outeritemwidth
+                    outeritemheight
                 ]
-                [ tr []
-                    (fillsview handsymbol rowheight)
-                ]
-            , compassrose
-                handsymbol.handfill
-                rosecenterpetaldata
-                outersymbolpetals
-                fullwidth
-                fullheight
-                outeritemwidth
-                outeritemheight
-            ]
+        , width = width
+        , height = height
+        }
 
 
 fillsview : HandSymbol -> Int -> List (Html Msg)

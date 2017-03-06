@@ -21,13 +21,46 @@ root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
 root parentwidth parentheight model =
     let
         halfheight =
-            (Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2))
+            Debug.log "halfheight" <|
+                (Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2))
 
         halfwidth =
-            (Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2))
+            Debug.log "halfwidth" <|
+                (Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2))
+
+        maniquin =
+            choosingroot model halfheight halfwidth 10
+
+        maniquinscale =
+            Debug.log "maniquinscale" <|
+                calculatescale (Basics.toFloat maniquin.width) (Basics.toFloat maniquin.height) (Basics.toFloat halfwidth) (Basics.toFloat halfheight)
+
+        maniquindivheight =
+            truncate <|
+                Basics.toFloat maniquin.height
+                    * maniquinscale
+
+        symbolchooserheight =
+            parentheight - maniquin.height
+
+        symbolchooser =
+            getsymbolchooser model halfwidth symbolchooserheight
+
+        symbolchooserscale =
+            Debug.log "symbolchooserscale" <|
+                calculatescale (Basics.toFloat symbolchooser.width) (Basics.toFloat symbolchooser.height) (Basics.toFloat halfwidth) (Basics.toFloat (parentheight - maniquindivheight))
     in
         div []
-            [ choosingroot halfheight model
+            [ div
+                [ style
+                    [ ( "transform-origin", "top left" )
+                    , transformscale maniquinscale
+                    , "height" => px maniquindivheight
+                    , "width" => px halfwidth
+                      -- , "margin-top" => px -10
+                    ]
+                ]
+                [ maniquin.display ]
             , div
                 [ class "generalsymbolchooser"
                 , style
@@ -38,7 +71,16 @@ root parentwidth parentheight model =
                     ]
                 , onMouseEnter (SetKeyboardMode Keyboard.Shared.SymbolChooser)
                 ]
-                [ symbolchooser model halfwidth halfheight
+                [ div
+                    [ style
+                        [ "position" => "relative"
+                        , ( "transform-origin", "top left" )
+                        , transformscale symbolchooserscale
+                        , "height" => px symbolchooserheight
+                        , "width" => px halfwidth
+                        ]
+                    ]
+                    [ symbolchooser.display ]
                 ]
             , div
                 [ style
@@ -59,28 +101,63 @@ root parentwidth parentheight model =
             ]
 
 
-choosingroot : Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
-choosingroot height model =
-    div
-        [ style [ "height" => px (height - 30) ]
-        , onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
-        , style [ "position" => "relative" ]
-        ]
-        (List.map displayChoosing model.choosings)
+choosingroot : Choosers.Types.Model -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+choosingroot model width height bottompadding =
+    let
+        size =
+            Debug.log "choosingroot" <|
+                List.foldr
+                    (\choosing accumulator ->
+                        let
+                            newright =
+                                Basics.max accumulator.right (choosing.offset.offsetx + choosing.displaySign.width)
+
+                            newleft =
+                                Basics.min accumulator.left (choosing.offset.offsetx)
+
+                            newbottom =
+                                Basics.max accumulator.bottom (choosing.offset.offsety + choosing.displaySign.height)
+
+                            newtop =
+                                Basics.min accumulator.top (choosing.offset.offsety)
+                        in
+                            { top = newtop, bottom = newbottom, right = newright, left = newleft }
+                    )
+                    { top = 0, bottom = 0, right = 0, left = 0 }
+                    model.choosings
+    in
+        { display =
+            div
+                [ onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
+                , style [ "position" => "relative" ]
+                ]
+                (List.map displayChoosing model.choosings)
+        , width = size.right - size.left
+        , height = size.bottom - size.top + bottompadding
+        }
 
 
-symbolchooser : Choosers.Types.Model -> Int -> Int -> Html Choosers.Types.Msg
-symbolchooser model halfwidth halfheight =
+getsymbolchooser : Choosers.Types.Model -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+getsymbolchooser model halfwidth halfheight =
+    let
+        chooser =
+            if model.groupselected.symbolkey == "" then
+                { display = text "", width = 1, height = 1 }
+            else if iskey model.groupselected.symbolkey "hand" then
+                handsymbolchooser model halfwidth halfheight
+            else
+                gensymbolchooser model halfwidth halfheight
+    in
+        chooser
+
+
+gensymbolchooser : Choosers.Types.Model -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+gensymbolchooser model halfwidth halfheight =
     let
         generalsymbolchooserdata =
             getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
     in
-        if model.groupselected.symbolkey == "" then
-            text ""
-        else if iskey model.groupselected.symbolkey "hand" then
-            handsymbolchooser model halfwidth halfheight
-        else
-            generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
+        generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
 
 
 displayChoosing : ChoosingModel -> Html Choosers.Types.Msg

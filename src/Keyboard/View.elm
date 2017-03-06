@@ -154,7 +154,7 @@ nkey model n displays keyboardwidth rowheight =
             ((minkeywidth keyboardwidth) - leftmargin)
 
         scale =
-            shrinkdontzoom originalsize finalheight finalwidth
+            shrinkdontzoom (toFloat originalsize.width) (toFloat originalsize.height) finalwidth finalheight
 
         ispressed =
             checkifkeypressed model n
@@ -180,7 +180,7 @@ nkey model n displays keyboardwidth rowheight =
                 [ div
                     [ style
                         [ ( "transform-origin", "top left" )
-                        , ( "transform", ("scale(" ++ toString scale ++ ")") )
+                        , transformscale scale
                         , ( "margin-left", px leftmargin )
                         , ( "width", px <| round <| toFloat originalsize.width * scale )
                         , ( "height", px <| round <| toFloat originalsize.height * scale )
@@ -227,39 +227,6 @@ checkifkeypressed model n =
 minkeywidth : Int -> Float
 minkeywidth keyboardwidth =
     toFloat keyboardwidth * 0.66 * 0.063 - 3
-
-
-shrinkdontzoom : { a | height : Int, width : Int } -> Float -> Float -> Float
-shrinkdontzoom size finalheight finalwidth =
-    let
-        calcedscale =
-            calcscale size finalheight finalwidth
-    in
-        if calcedscale > 1 then
-            1
-        else
-            calcedscale
-
-
-calcscale : { a | height : Int, width : Int } -> Float -> Float -> Float
-calcscale signsize height width =
-    let
-        availableWidth =
-            width
-
-        contentWidth =
-            signsize.width
-
-        availableHeight =
-            height
-
-        contentHeight =
-            signsize.height
-
-        scale =
-            Basics.min (availableWidth / toFloat contentWidth) (availableHeight / toFloat contentHeight)
-    in
-        scale
 
 
 getKeyDisplay : Int -> Model -> String

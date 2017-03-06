@@ -28,7 +28,7 @@ generalsymbolchooser :
         , symbolcolumnsdata :
             SymbolColumnsData
        }
-    -> Html Msg
+    -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 generalsymbolchooser choosing width height generalsymbolchooserdata =
     let
         vf =
@@ -48,18 +48,22 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
                 getscales columnwidth rowheight <|
                     List.map (\d -> d.symbol) generalsymbolchooserdata.generalsymbolrowdata
     in
-        div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
-            [ table
-                [ class "symbolchooserheader"
-                , Html.Attributes.style
-                    [ "width" => px (width - 12)
-                    , "height" => px rowheight
+        { display =
+            div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
+                [ table
+                    [ class "symbolchooserheader"
+                    , Html.Attributes.style
+                        [ "width" => px (width - 12)
+                        , "height" => px rowheight
+                        ]
                     ]
+                    [ tr [] (generalsymbolrow generalsymbolchooserdata.generalsymbolrowdata smallestscaleheader)
+                    ]
+                , showincompassrose generalsymbolchooserdata.symbolcolumnsdata width height
                 ]
-                [ tr [] (generalsymbolrow generalsymbolchooserdata.generalsymbolrowdata smallestscaleheader)
-                ]
-            , showincompassrose generalsymbolchooserdata.symbolcolumnsdata width height
-            ]
+        , width = width
+        , height = height
+        }
 
 
 showincompassrose : SymbolColumnsData -> Int -> Int -> Html Msg
@@ -75,7 +79,7 @@ showincompassrose data width height =
             fullwidth
 
         outeritemwidth =
-            truncate <| toFloat fullwidth / 2
+            truncate <| toFloat fullwidth / 3
 
         outeritemheight =
             outeritemwidth
