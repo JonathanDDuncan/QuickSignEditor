@@ -2,12 +2,11 @@ module SWEditor.RectangleSelect exposing (..)
 
 import SWEditor.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
-import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import SW.Types exposing (Symbol)
+import SW.Types exposing (Symbol, Sign)
 
 
-rectangleselect : Model -> EditorSign
+rectangleselect : Model -> Sign
 rectangleselect model =
     selectSymbolsIntersection (rectangleStartCurrent model) model.sign
 
@@ -17,7 +16,7 @@ rectangleStartCurrent model =
     rect model.rectanglestart.x model.xy.x model.rectanglestart.y model.xy.y
 
 
-selectSymbolsIntersection : Rect -> EditorSign -> EditorSign
+selectSymbolsIntersection : Rect -> Sign -> Sign
 selectSymbolsIntersection rectangle sign =
     { sign | syms = List.map (selectIntersected rectangle) sign.syms }
 

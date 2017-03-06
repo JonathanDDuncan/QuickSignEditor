@@ -3,10 +3,11 @@ module Keyboard.KeyboardLayouts exposing (..)
 import Keyboard.Types exposing (..)
 import Dict exposing (..)
 import SWEditor.EditorSign exposing (..)
+import SW.Types exposing (Sign)
 
 
 fingerspellingQueryAsl :
-    { keys : List { code : number, keypress : Keypress, sign : EditorSign }
+    { keys : List { code : number, keypress : Keypress, sign : Sign }
     , name : String
     }
 fingerspellingQueryAsl =
@@ -16,7 +17,7 @@ fingerspellingQueryAsl =
 keyboardDisplay :
     List a
     -> b
-    -> List { code : number, keypress : Keypress, sign : EditorSign }
+    -> List { code : number, keypress : Keypress, sign : Sign }
 keyboardDisplay keyboardlayout keyboardtemplate =
     let
         display =
@@ -28,7 +29,7 @@ keyboardDisplay keyboardlayout keyboardtemplate =
 createKeyDisplay :
     b
     -> c
-    -> { code : number, keypress : Keypress, sign : EditorSign }
+    -> { code : number, keypress : Keypress, sign : Sign }
 createKeyDisplay keyboardtemplate key =
     { sign = SWEditor.EditorSign.signinit
     , code = 0
@@ -36,7 +37,7 @@ createKeyDisplay keyboardtemplate key =
     }
 
 
-aslTemplate : List { fsw : String, letter : String, sign : Maybe EditorSign }
+aslTemplate : List { fsw : String, letter : String, sign : Maybe Sign }
 aslTemplate =
     [ { letter = "A", fsw = "M507x507S1f720487x492", sign = Nothing }
     , { letter = "B", fsw = "M507x507S14720493x485", sign = Nothing }

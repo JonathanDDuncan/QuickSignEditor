@@ -1,11 +1,10 @@
 module SWEditor.Select exposing (..)
 
 import SWEditor.Types exposing (..)
-import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (Symbol)
+import SW.Types exposing (Symbol, Sign)
 
 
-unselectSymbols : EditorSign -> EditorSign
+unselectSymbols : Sign -> Sign
 unselectSymbols sign =
     { sign | syms = List.map unselectSymbol sign.syms }
 
@@ -15,7 +14,7 @@ unselectSymbol symbol =
     { symbol | selected = False }
 
 
-selectSymbolId : Int -> Model -> EditorSign
+selectSymbolId : Int -> Model -> Sign
 selectSymbolId id model =
     let
         sign =

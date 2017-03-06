@@ -5,34 +5,18 @@ import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)
 
 
-type alias EditorSign =
-    { width : Int
-    , height : Int
-    , text : String
-    , x : Int
-    , y : Int
-    , backfill : String
-    , syms : List Symbol
-    , left : Int
-    , lane : Lane
-    }
-
-
-signinit : EditorSign
+signinit : Sign
 signinit =
     { width = 0
     , height = 0
-    , text = ""
     , x = 0
     , y = 0
     , backfill = ""
     , syms = []
-    , left = 0
-    , lane = MiddleLane
     }
 
 
-toEditorSign : Sign -> Int -> EditorSign
+toEditorSign : Sign -> Int -> Sign
 toEditorSign sign id =
     let
         editorsymbols =
@@ -45,26 +29,16 @@ toEditorSign sign id =
             centerSignSmallest
                 { width = boundingbox.width
                 , height = boundingbox.height
-                , text = sign.text
                 , x = boundingbox.x
                 , y = boundingbox.y
                 , backfill = sign.backfill
                 , syms = editorsymbols
-                , left = sign.left
-                , lane = MiddleLane
                 }
     in
         centeredSmallest
 
 
-type Lane
-    = BLane
-    | LeftLane
-    | MiddleLane
-    | RightLane
-
-
-centerSignViewposition : NamedPosition -> EditorSign -> EditorSign
+centerSignViewposition : NamedPosition -> Sign -> Sign
 centerSignViewposition viewposition sign =
     let
         width =
@@ -82,7 +56,7 @@ centerSignViewposition viewposition sign =
         centerSign desiredxcenter desiredycenter sign
 
 
-centerSign : Int -> Int -> EditorSign -> EditorSign
+centerSign : Int -> Int -> Sign -> Sign
 centerSign desiredxcenter desiredycenter sign =
     let
         bounding =
@@ -109,7 +83,7 @@ centerSign desiredxcenter desiredycenter sign =
         { sign | x = newsignx, y = newsigny, syms = moveSymbols movex movey sign.syms }
 
 
-centerSignSmallest : EditorSign -> EditorSign
+centerSignSmallest : Sign -> Sign
 centerSignSmallest sign =
     let
         bounding =
@@ -142,7 +116,7 @@ getSignBounding symbols =
         { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
 
 
-getlastuid : EditorSign -> Int
+getlastuid : Sign -> Int
 getlastuid editorSign =
     case maximumBy .id editorSign.syms of
         Nothing ->
@@ -152,7 +126,7 @@ getlastuid editorSign =
             sign.id
 
 
-getFsw : EditorSign -> String
+getFsw : Sign -> String
 getFsw editorSign =
     let
         centered =

@@ -9,10 +9,10 @@ import Keyboard.Shared exposing (..)
 
 type alias Model =
     { fsw : String
-    , sign : EditorSign
+    , sign : Sign
     , xy : Position
     , dragstart : Position
-    , dragsign : EditorSign
+    , dragsign : Sign
     , viewposition : NamedPosition
     , rectanglestart : Position
     , windowresized : Bool
@@ -33,7 +33,7 @@ type alias Offset =
 
 type alias UndoItem =
     { actionname : String
-    , sign : EditorSign
+    , sign : Sign
     }
 
 

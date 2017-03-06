@@ -365,7 +365,7 @@ type alias HandGroupChooserViewSymbolData =
 
 
 type alias ChoosingModel =
-    { displaySign : SWEditor.EditorSign.EditorSign
+    { displaySign : Sign
     , valuestoAdd : List Symbol
     , value : String
     , offset : Offset

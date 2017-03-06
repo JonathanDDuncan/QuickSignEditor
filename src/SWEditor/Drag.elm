@@ -2,10 +2,10 @@ module SWEditor.Drag exposing (..)
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (Symbol)
+import SW.Types exposing (Symbol, Sign)
 
 
-dragsign : Model -> EditorSign
+dragsign : Model -> Sign
 dragsign model =
     let
         dragoffset =

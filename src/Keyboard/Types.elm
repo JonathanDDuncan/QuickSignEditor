@@ -2,12 +2,11 @@ module Keyboard.Types exposing (..)
 
 -- import SubFeatures.Types
 
-import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (..)
 import Keyboard.Extra
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg)
+import SW.Types exposing (Symbol, Sign)
 
 
 type alias Model =
@@ -60,7 +59,7 @@ type alias Key =
 
 
 type alias KeyDisplay =
-    { sign : EditorSign
+    { sign : Sign
     , code : Int
     , keypress : Keypress
     }

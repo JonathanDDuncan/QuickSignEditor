@@ -10,7 +10,7 @@ import SW.Types exposing (..)
 
 fswTests : Test
 fswTests =
-    describe "FSW to EditorSign Test Suite"
+    describe "FSW to Sign Test Suite"
         [ test "Empty sign x 500" <|
             \() ->
                 Expect.equal (defaultResultsign "M500x500").x 500
@@ -87,7 +87,7 @@ fswTests =
                         |> getfield (\value -> .y value |> toString)
                     )
                     "515"
-          -- move getFSW from EditorSign to FSW file and add tests
+          -- move getFSW from Sign to FSW file and add tests
         ]
 
 
@@ -109,7 +109,7 @@ world =
     "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
 
 
-defaultResultsign : String -> EditorSign
+defaultResultsign : String -> Sign
 defaultResultsign fsw =
     Result.withDefault SWEditor.EditorSign.signinit <| FSW.toEditorSign partialsymbolsizes fsw
 

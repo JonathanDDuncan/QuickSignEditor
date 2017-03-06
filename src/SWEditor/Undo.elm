@@ -2,7 +2,7 @@ module SWEditor.Undo exposing (..)
 
 import List.Extra exposing (..)
 import SWEditor.Types exposing (..)
-import SWEditor.EditorSign exposing (..)
+import SW.Types exposing (Sign)
 
 
 addUndo : Bool -> String -> Model -> Model
@@ -89,6 +89,6 @@ redo model =
         model1
 
 
-createundoitem : String -> EditorSign -> UndoItem
+createundoitem : String -> Sign -> UndoItem
 createundoitem actionname value =
     { actionname = actionname, sign = value }

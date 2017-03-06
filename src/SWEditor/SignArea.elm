@@ -17,7 +17,7 @@ deletesymbols model =
         { model | sign = newsign }
 
 
-updatesignsymbols : EditorSign -> List Symbol -> EditorSign
+updatesignsymbols : Sign -> List Symbol -> Sign
 updatesignsymbols sign newsymbols =
     let
         bounds =
@@ -137,7 +137,7 @@ movesymbol symbol direction distance =
         newsymbol
 
 
-putsymbolswithinbounds : EditorSign -> { f | height : number, width : number_ } -> EditorSign
+putsymbolswithinbounds : Sign -> { f | height : number, width : number_ } -> Sign
 putsymbolswithinbounds sign bounds =
     let
         movedsyms =

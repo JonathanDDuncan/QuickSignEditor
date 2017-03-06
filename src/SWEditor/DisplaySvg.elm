@@ -5,17 +5,16 @@ import Html.Attributes exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Svg exposing (..)
 import SW.Pua exposing (..)
-import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (Symbol)
+import SW.Types exposing (Symbol, Sign)
 
 
-signdisplaysvg : EditorSign -> Html msg
+signdisplaysvg : Sign -> Html msg
 signdisplaysvg sign =
     div []
         (List.map symbolsvg sign.syms)
 
 
-signdisplaysvgposition : EditorSign -> Int -> Int -> Html msg
+signdisplaysvgposition : Sign -> Int -> Int -> Html msg
 signdisplaysvgposition sign offsetx offsety =
     div [ Html.Attributes.style [ "position" => "absolute", "left" => px offsetx, "top" => px offsety ] ]
         (List.map symbolsvg sign.syms)
@@ -52,12 +51,12 @@ symbolsvgmargincolor margin color scale symbol =
             (symbolview Nothing Nothing color scale symbol)
 
 
-signsvg : EditorSign -> Html msg
+signsvg : Sign -> Html msg
 signsvg sign =
     signsvgmargincolor 0 Nothing 1 sign
 
 
-signsvgmargincolor : Int -> Maybe String -> Float -> EditorSign -> Html msg
+signsvgmargincolor : Int -> Maybe String -> Float -> Sign -> Html msg
 signsvgmargincolor margin color scale sign =
     let
         signheight =

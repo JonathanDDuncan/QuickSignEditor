@@ -10,42 +10,39 @@ import String exposing (..)
 type alias Sign =
     { width : Int
     , height : Int
-    , text : String
     , x : Int
     , y : Int
     , backfill : String
     , syms : List Symbol
-    , laned : Bool
-    , left : Int
     }
 
 
 type alias Symbol =
-    { x : Int
+    { key : String
+    , id : Int
+    , selected : Bool
+    , x : Int
     , y : Int
     , width : Int
     , height : Int
     , size : Float
     , nwcolor : String
-    , key : String
     , nbcolor : String
-    , id : Int
-    , selected : Bool
     }
 
 
 symbolinit : Symbol
 symbolinit =
-    { x = 0
+    { key = ""
+    , id = 0
+    , selected = False
+    , x = 0
     , y = 0
     , width = 0
     , height = 0
     , size = 1
     , nwcolor = ""
-    , key = ""
     , nbcolor = ""
-    , selected = False
-    , id = 0
     }
 
 
