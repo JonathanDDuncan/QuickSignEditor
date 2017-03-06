@@ -158,8 +158,7 @@ getFsw : Sign -> String
 getFsw sign =
     let
         centered =
-            Debug.log "centered" <|
-                centerSign 500 500 sign
+            centerSign 500 500 sign
 
         boundingbox =
             sign.spelling ++ "M" ++ toString (500 + (round <| toFloat centered.width / 2)) ++ "x" ++ toString (500 + (round <| toFloat centered.height / 2))
