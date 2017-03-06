@@ -5,6 +5,7 @@ import Expect
 import SW.FSW as FSW exposing (..)
 import Dict
 import SW.Types exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 fswTests : Test
@@ -86,10 +87,52 @@ fswTests =
                         |> getfield (\value -> .y value |> toString)
                     )
                     "515"
-        , test "fsw default sign" <|
+        , test "fsw default signinit" <|
             \() -> Expect.equal (getFsw signinit) "M500x500"
-          -- move getFSW from Sign to FSW file and add tests
+        , test "fsw default worldsign" <|
+            \() -> Expect.equal (getFsw worldsign) world
         ]
+
+
+worldsign : Sign
+worldsign =
+    { signinit | syms = [ symbol1, symbol2, symbol3, symbol4 ] }
+
+
+symbol1 : Symbol
+symbol1 =
+    let
+        symbol =
+            getSymbolbyKey "S1870a" partialsymbolsizes
+    in
+        { symbol | x = 295, y = 289 }
+
+
+symbol2 : Symbol
+symbol2 =
+    let
+        symbol =
+            getSymbolbyKey "S18701" partialsymbolsizes
+    in
+        { symbol | x = 288, y = 264 }
+
+
+symbol3 : Symbol
+symbol3 =
+    let
+        symbol =
+            getSymbolbyKey "S20500" partialsymbolsizes
+    in
+        { symbol | x = 314, y = 270 }
+
+
+symbol4 : Symbol
+symbol4 =
+    let
+        symbol =
+            getSymbolbyKey "S2e734" partialsymbolsizes
+    in
+        { symbol | x = 306, y = 242 }
 
 
 getfield : (a -> String) -> Maybe a -> String
@@ -137,9 +180,10 @@ partialsymbolsizes : Dict.Dict String Size
 partialsymbolsizes =
     let
         symbolsizes =
-            [ { k = "", w = 0, h = 0 }
-            , { k = "", w = 0, h = 0 }
-            , { k = "", w = 0, h = 0 }
+            [ { k = "S1870a", w = 29, h = 18 }
+            , { k = "S18701", w = 24, h = 24 }
+            , { k = "S20500", w = 10, h = 11 }
+            , { k = "S2e734", w = 16, h = 25 }
             ]
     in
         Dict.fromList <|

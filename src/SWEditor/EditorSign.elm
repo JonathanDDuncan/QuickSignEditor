@@ -63,13 +63,13 @@ centerSign desiredxcenter desiredycenter sign =
         movey =
             desiredycenter - currentycenter
 
-        newsignx =
-            sign.x + movex
+        movedsymbols =
+            moveSymbols movex movey sign.syms
 
-        newsigny =
-            sign.y + movey
+        newbounding =
+            getSignBounding movedsymbols
     in
-        { sign | x = newsignx, y = newsigny, syms = moveSymbols movex movey sign.syms }
+        { sign | width = newbounding.width, height = newbounding.height, x = newbounding.x, y = newbounding.y, syms = movedsymbols }
 
 
 centerSignSmallest : Sign -> Sign

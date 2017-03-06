@@ -153,12 +153,12 @@ getFsw : Sign -> String
 getFsw editorSign =
     let
         centered =
-            centerSign 500 500 editorSign
+            Debug.log "centered" <|
+                centerSign 500 500 editorSign
 
         boundingbox =
-            "M" ++ toString (centered.x + centered.width) ++ "x" ++ toString (centered.y + centered.height)
+            "M" ++ toString (500 + (round <| toFloat centered.width / 2)) ++ "x" ++ toString (500 + (round <| toFloat centered.height / 2))
 
-        -- M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468
         symbols =
             List.foldr (++) "" (List.map symbolsFsw centered.syms)
 
