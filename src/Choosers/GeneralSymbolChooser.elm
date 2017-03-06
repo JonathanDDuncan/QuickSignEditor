@@ -41,12 +41,27 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
             truncate <| ((toFloat (width) / 2) / len)
 
         rowheight =
-            truncate <| toFloat height / toFloat 10
+            30
 
         smallestscaleheader =
             Maybe.withDefault 1 <|
                 getscales columnwidth rowheight <|
                     List.map (\d -> d.symbol) generalsymbolchooserdata.generalsymbolrowdata
+
+        spacerwidth =
+            20
+
+        compasswidth =
+            (truncate <| toFloat width / 2) - (truncate <| toFloat spacerwidth / 2)
+
+        compassheight =
+            compasswidth
+
+        compassrose =
+            showincompassrose generalsymbolchooserdata.symbolcolumnsdata compasswidth compassheight spacerwidth rowheight
+
+        columns =
+            showincolumns generalsymbolchooserdata.symbolcolumnsdata width columnwidth rowheight
     in
         { display =
             div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
@@ -59,24 +74,22 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
                     ]
                     [ tr [] (generalsymbolrow generalsymbolchooserdata.generalsymbolrowdata smallestscaleheader)
                     ]
-                , showincompassrose generalsymbolchooserdata.symbolcolumnsdata width height
+                , compassrose.display
+                  -- , columns.display
                 ]
-        , width = width
-        , height = height
+        , width = compassrose.width
+        , height = compassrose.height
         }
 
 
-showincompassrose : SymbolColumnsData -> Int -> Int -> Html Msg
-showincompassrose data width height =
+showincompassrose : SymbolColumnsData -> Int -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+showincompassrose data width height spacerwidth rowheight =
     let
-        spacerwidth =
-            20
-
         fullwidth =
-            (truncate <| toFloat width / 2) - (truncate <| toFloat spacerwidth / 2)
+            width
 
         fullheight =
-            fullwidth
+            height
 
         outeritemwidth =
             truncate <| toFloat fullwidth / 3
@@ -96,37 +109,41 @@ showincompassrose data width height =
         rosecenterimagehands =
             text ""
     in
-        div
-            [ style
-                [ "position" => "relative"
-                , "width" => px width
-                , "margin" => "auto"
-                ]
-            ]
-            [ div
+        { display =
+            div
                 [ style
                     [ "position" => "relative"
-                    , "float" => "left"
+                    , "width" => px (width * 2 + spacerwidth)
+                    , "margin" => "auto"
                     ]
                 ]
-                [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent1 rosecenterimagehands ]
-            , div
-                [ style
-                    [ "position" => "relative"
-                    , "float" => "left"
-                    , "width" => px spacerwidth
-                    , "height" => px 1
+                [ div
+                    [ style
+                        [ "position" => "relative"
+                        , "float" => "left"
+                        ]
                     ]
-                ]
-                []
-            , div
-                [ style
-                    [ "position" => "relative"
-                    , "float" => "left"
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent1 rosecenterimagehands ]
+                , div
+                    [ style
+                        [ "position" => "relative"
+                        , "float" => "left"
+                        , "width" => px spacerwidth
+                        , "height" => px 1
+                        ]
                     ]
+                    []
+                , div
+                    [ style
+                        [ "position" => "relative"
+                        , "float" => "left"
+                        ]
+                    ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent2 rosecenterimagehands ]
                 ]
-                [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent2 rosecenterimagehands ]
-            ]
+        , width = fullwidth * 2 + spacerwidth
+        , height = rowheight + fullheight + 20
+        }
 
 
 getpetalcontent : List (Maybe EditorSymbol) -> Float -> List (Html Msg)
@@ -143,15 +160,7 @@ getpetalcontent symbols scale =
         symbols
 
 
-
--- List.map
---     (\value ->
---         blanktd
---     )
---     []
-
-
-showincolumns : SymbolColumnsData -> Int -> Int -> Int -> Html Msg
+showincolumns : SymbolColumnsData -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 showincolumns data width columnwidth rowheight =
     let
         scale =
@@ -163,18 +172,22 @@ showincolumns data width columnwidth rowheight =
         zipped =
             List.Extra.zip data.column1 data.column2
     in
-        table
-            [ Html.Attributes.style
-                [ "width" => px (width - 12)
-                , "height" => px (rowheight * 8)
+        { display =
+            table
+                [ Html.Attributes.style
+                    [ "width" => px (width - 12)
+                    , "height" => px (rowheight * 8)
+                    ]
                 ]
-            ]
-            (List.map
-                (\data ->
-                    row (generalsymbolonerow scale data)
+                (List.map
+                    (\data ->
+                        row (generalsymbolonerow scale data)
+                    )
+                    zipped
                 )
-                zipped
-            )
+        , width = width - 12
+        , height = rowheight * 10
+        }
 
 
 row : List (Html msg) -> Html msg
@@ -184,7 +197,7 @@ row rowdata =
 
 getscales : Int -> Int -> List { a | height : Int, width : Int } -> Maybe Float
 getscales columnwidth rowheight symbols =
-    List.minimum (List.map (\symbol -> calcscale symbol.width symbol.height columnwidth rowheight) symbols)
+    List.minimum (List.map (\symbol -> shrinkdontzoom (toFloat symbol.width) (toFloat symbol.height) (toFloat columnwidth) (toFloat rowheight)) symbols)
 
 
 generalsymbolonerow :
@@ -267,11 +280,6 @@ generalsymbolcol drag scale symbol =
         [ Html.map SignView
             (symbolsvgscale scale symbol)
         ]
-
-
-calcscale : Int -> Int -> Int -> Int -> Float
-calcscale swidth sheight columnwidth rowheight =
-    Basics.min (toFloat columnwidth / toFloat swidth) (toFloat rowheight / toFloat sheight)
 
 
 

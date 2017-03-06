@@ -24,11 +24,14 @@ import Choosers.HandPng exposing (..)
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 handsymbolchooser model width height =
     let
-        fullwidth =
-            220
+        rowheight =
+            54
 
         fullheight =
-            fullwidth
+            230
+
+        fullwidth =
+            fullheight
 
         outeritemwidth =
             50
@@ -47,9 +50,6 @@ handsymbolchooser model width height =
 
         outersymbolpetals =
             getoutersymbolpetals outerpetalsymbols outeritemwidth outeritemheight
-
-        rowheight =
-            truncate <| toFloat height / toFloat 10
     in
         { display =
             div [ attribute "ondragstart" "return false;", attribute "ondrop" "return false;" ]
@@ -68,7 +68,7 @@ handsymbolchooser model width height =
                     [ class "symbolchooserheader"
                     , Html.Attributes.style
                         [ "width" => "100%"
-                        , "height" => px 50
+                        , "height" => px rowheight
                         ]
                     ]
                     [ tr []
@@ -83,8 +83,8 @@ handsymbolchooser model width height =
                     outeritemwidth
                     outeritemheight
                 ]
-        , width = width
-        , height = height
+        , width = width - 12
+        , height = rowheight * 2 + fullheight + 10
         }
 
 
