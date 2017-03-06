@@ -43,7 +43,7 @@ type alias PortableSign =
 
 portableSigntoSign : PortableSign -> Sign
 portableSigntoSign portableSign =
-    { lane = MiddleLane
+    { lane = getlane portableSign.lane |> Maybe.withDefault MiddleLane
     , width = portableSign.width
     , height = portableSign.height
     , x = portableSign.x
@@ -51,6 +51,22 @@ portableSigntoSign portableSign =
     , backfill = portableSign.backfill
     , syms = portableSign.syms
     }
+
+
+getlane : String -> Maybe Lane
+getlane lanestringvalue =
+    List.filter (\( str, lane ) -> str == lanestringvalue) lanes
+        |> List.map (\( str, lane ) -> lane)
+        |> List.head
+
+
+lanes : List ( String, Lane )
+lanes =
+    [ ( "B", BLane )
+    , ( "L", LeftLane )
+    , ( "M", MiddleLane )
+    , ( "R", RightLane )
+    ]
 
 
 type alias Symbol =

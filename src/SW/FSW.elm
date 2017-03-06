@@ -11,7 +11,7 @@ updateSymbolIds : Dict.Dict String Size -> String -> Result String Sign
 updateSymbolIds symbolsizes fsw =
     let
         laneresult =
-            getlane fsw
+            getFSWlane fsw
 
         coordinatestr =
             getcoordinatestr fsw
@@ -66,20 +66,18 @@ createsymbol symbolsizes symbolstring =
         symbol
 
 
-getlane : String -> Result String Lane
-getlane fsw =
+getFSWlane : String -> Result String Lane
+getFSWlane fsw =
     let
         laneandcoordinate =
-            getlanestr fsw
+            getFSWlanestr fsw
 
         lanestring =
             Result.andThen (\value -> String.left 1 value |> Ok) laneandcoordinate
     in
         Result.andThen
             (\lanestringvalue ->
-                List.filter (\( str, lane ) -> str == lanestringvalue) lanes
-                    |> List.map (\( str, lane ) -> lane)
-                    |> List.head
+                getlane lanestringvalue
                     |> Result.fromMaybe (couldnoterror "get lane" lanestringvalue)
             )
             lanestring
@@ -145,15 +143,6 @@ startwithlanevalue item =
 laneValues : List String
 laneValues =
     List.map (\( value, lane ) -> value) lanes
-
-
-lanes : List ( String, Lane )
-lanes =
-    [ ( "B", BLane )
-    , ( "L", LeftLane )
-    , ( "M", MiddleLane )
-    , ( "R", RightLane )
-    ]
 
 
 
@@ -267,8 +256,8 @@ getkeystr str =
         |> Result.fromMaybe (couldnoterror "get key" str)
 
 
-getlanestr : String -> Result String String
-getlanestr fsw =
+getFSWlanestr : String -> Result String String
+getFSWlanestr fsw =
     let
         symbolsplit =
             Regex.find All (regex re_lane) fsw
