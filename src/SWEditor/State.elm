@@ -53,7 +53,7 @@ update action model =
         SetSign newsign ->
             let
                 editorSign =
-                    updateSymbolIds newsign model.uid
+                    updateSymbolIds (portableSigntoSign newsign) model.uid
 
                 lastuid =
                     getlastuid <| editorSign

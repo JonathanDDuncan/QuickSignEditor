@@ -373,7 +373,7 @@ type alias ChoosingModel =
 
 
 type alias ChoosingImportModel =
-    { displaySign : Sign
+    { displaySign : PortableSign
     , valuestoAdd : List Symbol
     , value : String
     , offset : Offset
@@ -389,7 +389,7 @@ toModel : Int -> ChoosingImportModel -> ChoosingModel
 toModel id importmodel =
     let
         sign =
-            SWEditor.EditorSign.updateSymbolIds importmodel.displaySign id
+            SWEditor.EditorSign.updateSymbolIds (portableSigntoSign importmodel.displaySign) id
 
         symbols =
             List.indexedMap (SWEditor.EditorSymbol.updateId id)

@@ -143,6 +143,7 @@ function createnewsign(symbol, x, y) {
         "";
     sign.height = symbol.height;
     sign.laned = false;
+    sign.lane = ""
     sign.left = 0;
     sign.width = symbol.width;
 

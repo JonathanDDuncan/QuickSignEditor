@@ -40,7 +40,7 @@ type Msg
     = ChangeFSW String
     | RequestSign
     | RequestSignfromOtherApp
-    | SetSign Sign
+    | SetSign PortableSign
     | RequestElementPosition String
     | ReceiveElementPosition NamedPosition
     | CenterSign

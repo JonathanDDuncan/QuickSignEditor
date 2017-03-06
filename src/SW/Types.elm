@@ -30,6 +30,29 @@ signinit =
     }
 
 
+type alias PortableSign =
+    { lane : String
+    , width : Int
+    , height : Int
+    , x : Int
+    , y : Int
+    , backfill : String
+    , syms : List Symbol
+    }
+
+
+portableSigntoSign : PortableSign -> Sign
+portableSigntoSign portableSign =
+    { lane = MiddleLane
+    , width = portableSign.width
+    , height = portableSign.height
+    , x = portableSign.x
+    , y = portableSign.y
+    , backfill = portableSign.backfill
+    , syms = portableSign.syms
+    }
+
+
 type alias Symbol =
     { key : String
     , id : Int
