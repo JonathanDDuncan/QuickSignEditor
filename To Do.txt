@@ -1,7 +1,6 @@
 To Do
 
 Add FSW Rich text for size and color
-Fix bug QSE freezing in SWS when click on symbols that is starting to glow.
 
 Consolidate movesymbols in SignArea.elm with EditorSymbol.elm
 
