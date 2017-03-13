@@ -20,19 +20,16 @@ root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
 root parentwidth parentheight model =
     let
         halfheight =
-           
-                Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2)
+            Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2)
 
         halfwidth =
-            
-                Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2)
+            Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2)
 
         maniquin =
             choosingroot model halfheight halfwidth 10
 
         maniquinscale =
-         
-                calculatescale (Basics.toFloat maniquin.width) (Basics.toFloat maniquin.height) (Basics.toFloat halfwidth) (Basics.toFloat halfheight)
+            calculatescale (Basics.toFloat maniquin.width) (Basics.toFloat maniquin.height) (Basics.toFloat halfwidth) (Basics.toFloat halfheight)
 
         maniquindivheight =
             truncate <|
@@ -46,8 +43,7 @@ root parentwidth parentheight model =
             getsymbolchooser model halfwidth symbolchooserheight
 
         symbolchooserscale =
-          
-                calculatescale (Basics.toFloat symbolchooser.width) (Basics.toFloat symbolchooser.height) (Basics.toFloat halfwidth) (Basics.toFloat (parentheight - maniquindivheight))
+            calculatescale (Basics.toFloat symbolchooser.width) (Basics.toFloat symbolchooser.height) (Basics.toFloat halfwidth) (Basics.toFloat (parentheight - maniquindivheight))
     in
         div []
             [ div
@@ -104,26 +100,25 @@ choosingroot : Choosers.Types.Model -> Int -> Int -> Int -> { display : Html Cho
 choosingroot model width height bottompadding =
     let
         size =
-           
-                List.foldr
-                    (\choosing accumulator ->
-                        let
-                            newright =
-                                Basics.max accumulator.right (choosing.offset.offsetx + choosing.displaySign.width)
+            List.foldr
+                (\choosing accumulator ->
+                    let
+                        newright =
+                            Basics.max accumulator.right (choosing.offset.offsetx + choosing.displaySign.width)
 
-                            newleft =
-                                Basics.min accumulator.left (choosing.offset.offsetx)
+                        newleft =
+                            Basics.min accumulator.left (choosing.offset.offsetx)
 
-                            newbottom =
-                                Basics.max accumulator.bottom (choosing.offset.offsety + choosing.displaySign.height)
+                        newbottom =
+                            Basics.max accumulator.bottom (choosing.offset.offsety + choosing.displaySign.height)
 
-                            newtop =
-                                Basics.min accumulator.top (choosing.offset.offsety)
-                        in
-                            { top = newtop, bottom = newbottom, right = newright, left = newleft }
-                    )
-                    { top = 0, bottom = 0, right = 0, left = 0 }
-                    model.choosings
+                        newtop =
+                            Basics.min accumulator.top (choosing.offset.offsety)
+                    in
+                        { top = newtop, bottom = newbottom, right = newright, left = newleft }
+                )
+                { top = 0, bottom = 0, right = 0, left = 0 }
+                model.choosings
     in
         { display =
             div
