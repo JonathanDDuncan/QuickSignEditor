@@ -4,9 +4,14 @@ import SWEditor.Types exposing (..)
 import SW.Types exposing (Symbol, Sign)
 
 
-unselectSymbols : Sign -> Sign
-unselectSymbols sign =
+unselectSignSymbols : Sign -> Sign
+unselectSignSymbols sign =
     { sign | syms = List.map unselectSymbol sign.syms }
+
+
+unselectSymbols : List Symbol -> List Symbol
+unselectSymbols symbols =
+    List.map unselectSymbol symbols
 
 
 unselectSymbol : Symbol -> Symbol

@@ -56,7 +56,7 @@ update action model =
                     updateSymbolIds (portableSigntoSign newsign) model.uid
 
                 lastuid =
-                    getlastuid <| editorSign
+                    getlastsignuid <| editorSign
             in
                 { model | sign = editorSign, uid = lastuid }
                     ! []
@@ -111,7 +111,7 @@ update action model =
         UnSelectSymbols ->
             let
                 newsign =
-                    unselectSymbols model.sign
+                    unselectSignSymbols model.sign
 
                 changed =
                     symbolshavechanged model.sign.syms newsign.syms
@@ -238,7 +238,7 @@ update action model =
                     { editorSymbol | selected = True }
 
                 sign1 =
-                    unselectSymbols model.sign
+                    unselectSignSymbols model.sign
 
                 sign =
                     { sign1
@@ -253,7 +253,7 @@ update action model =
                     }
 
                 lastuid =
-                    getlastuid <| sign
+                    getlastsignuid <| sign
             in
                 { model
                     | uid = lastuid
@@ -272,7 +272,7 @@ update action model =
                     { editorSymbol | selected = True }
 
                 sign1 =
-                    unselectSymbols model.sign
+                    unselectSignSymbols model.sign
 
                 sign =
                     { sign1
@@ -287,7 +287,7 @@ update action model =
                     }
 
                 lastuid =
-                    getlastuid <| sign
+                    getlastsignuid <| sign
 
                 newmodel =
                     { model
@@ -346,6 +346,12 @@ update action model =
                 ! []
                 |> Update.Extra.andThen update
                     (AddUndo True "DeleteSymbols" <| deletesymbols model)
+
+        DuplicateSymbols ->
+            model
+                ! []
+                |> Update.Extra.andThen update
+                    (AddUndo True "DuplicateSymbols" <| duplicatesymbols model)
 
         Keyboard command ->
             runKeyboardCommand model command update

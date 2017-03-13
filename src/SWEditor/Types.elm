@@ -62,6 +62,7 @@ type Msg
     | Undo
     | Redo
     | DeleteSymbols
+    | DuplicateSymbols
     | Keyboard KeyboardCommand
     | MoveSymbols Direction Distance
     | SetKeyboardMode KeyboardMode

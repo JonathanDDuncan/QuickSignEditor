@@ -3,6 +3,8 @@ module SWEditor.SignArea exposing (..)
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (..)
+import SWEditor.Select exposing (..)
+import SWEditor.EditorSymbol exposing (..)
 
 
 deletesymbols : Model -> Model
@@ -15,6 +17,31 @@ deletesymbols model =
             updatesignsymbols model.sign newsyms
     in
         { model | sign = newsign }
+
+
+duplicatesymbols : Model -> Model
+duplicatesymbols model =
+    let
+        selectedsyms =
+            List.filter (\sym -> sym.selected) model.sign.syms
+
+        unselectedsyms =
+            List.filter (\sym -> not sym.selected) model.sign.syms
+
+        newsymbols =
+            List.map (\sym -> { sym | selected = True, x = sym.x + 5, y = sym.y + 5 }) selectedsyms
+                |> updateIds model.uid
+
+        lastuid =
+            getlastuid newsymbols
+
+        newsyms =
+            List.concat [ unselectedsyms, (unselectSymbols selectedsyms), newsymbols ]
+
+        newsign =
+            updatesignsymbols model.sign newsyms
+    in
+        { model | sign = newsign, uid = lastuid }
 
 
 updatesignsymbols : Sign -> List Symbol -> Sign

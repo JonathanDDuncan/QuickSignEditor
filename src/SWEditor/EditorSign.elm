@@ -9,7 +9,7 @@ updateSymbolIds : Sign -> Int -> Sign
 updateSymbolIds sign id =
     let
         editorsymbols =
-            List.indexedMap (updateId id) sign.syms
+            updateIds id sign.syms
 
         boundingbox =
             getSignBounding editorsymbols
@@ -111,9 +111,14 @@ getSignBounding symbols =
         { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
 
 
-getlastuid : Sign -> Int
-getlastuid editorSign =
-    case maximumBy .id editorSign.syms of
+getlastsignuid : Sign -> Int
+getlastsignuid editorSign =
+    getlastuid editorSign.syms
+
+
+getlastuid : List Symbol -> Int
+getlastuid symbols =
+    case maximumBy .id symbols of
         Nothing ->
             0
 

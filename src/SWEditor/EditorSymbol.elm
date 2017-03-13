@@ -6,6 +6,11 @@ import SW.Pua exposing (..)
 import Dict exposing (..)
 
 
+updateIds : Int -> List Symbol -> List Symbol
+updateIds id syms =
+    List.indexedMap (updateId id) syms
+
+
 updateId : Int -> Int -> Symbol -> Symbol
 updateId id index symbol =
     { symbol
