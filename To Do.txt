@@ -1,6 +1,5 @@
 To Do
 
-Add symbols duplication command
 Tooltip on general group chooser
 
 Upfacing palms fingers up
