@@ -143,6 +143,10 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
         }
 
 
+
+-- Reorder so that is in in rotation order [9,16,15,14,13,12,11,10]
+
+
 reorderedcolumnforpetal2 : List a -> List a
 reorderedcolumnforpetal2 column2data =
     let
