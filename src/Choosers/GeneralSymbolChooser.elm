@@ -11,6 +11,7 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import MaybeHelper.MaybeExtra exposing (..)
 import List.Extra exposing (..)
+import Maybe.Extra exposing (..)
 import Choosers.CompassRose exposing (..)
 import Choosers.Petalhelper exposing (..)
 
@@ -93,11 +94,14 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
         innersize =
             1
 
+        reorderedcolumn2 =
+            reorderedcolumnforpetal2 data.column2
+
         petalcontent1 =
             getoutersymbolpetalsMaybe data.column1 outeritemwidth outeritemheight
 
         petalcontent2 =
-            getoutersymbolpetalsMaybe data.column2 outeritemwidth outeritemheight
+            getoutersymbolpetalsMaybe reorderedcolumn2 outeritemwidth outeritemheight
 
         rosecenter =
             text ""
@@ -137,6 +141,21 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
         , width = fullwidth * 2 + spacerwidth
         , height = rowheight + fullheight + 20
         }
+
+
+reorderedcolumnforpetal2 : List a -> List a
+reorderedcolumnforpetal2 column2data =
+    let
+        reversedcolumn2 =
+            List.reverse column2data
+
+        last =
+            List.Extra.last reversedcolumn2 |> Maybe.Extra.toList
+
+        init =
+            List.Extra.init reversedcolumn2 |> Maybe.Extra.toList |> List.concat
+    in
+        List.concat [ last, init ]
 
 
 getpetalcontent : List (Maybe Symbol) -> Float -> List (Html Msg)
