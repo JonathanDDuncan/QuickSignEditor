@@ -168,7 +168,7 @@ displayChoosing choosing =
             (ReplaceSymbol (firstsymbol choosing).key)
         ]
         [ Html.map SignView
-            (SWEditor.DisplaySvg.signdisplaysvgposition choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
+            (SWEditor.DisplaySvg.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
         ]
 
 

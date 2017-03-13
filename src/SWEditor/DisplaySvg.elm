@@ -8,30 +8,30 @@ import SW.Pua exposing (..)
 import SW.Types exposing (Symbol, Sign)
 
 
-signdisplaysvg : Sign -> Html msg
-signdisplaysvg sign =
+signdisplaysvg : String -> Sign -> Html msg
+signdisplaysvg symbolclass sign =
     div []
-        (List.map symbolsvg sign.syms)
+        (List.map (symbolsvg symbolclass) sign.syms)
 
 
-signdisplaysvgposition : Sign -> Int -> Int -> Html msg
-signdisplaysvgposition sign offsetx offsety =
+signdisplaysvgposition : String -> Sign -> Int -> Int -> Html msg
+signdisplaysvgposition symbolclass sign offsetx offsety =
     div [ Html.Attributes.style [ "position" => "absolute", "left" => px offsetx, "top" => px offsety ] ]
-        (List.map symbolsvg sign.syms)
+        (List.map (symbolsvg symbolclass) sign.syms)
 
 
-symbolsvg : Symbol -> Html msg
-symbolsvg symbol =
-    symbolsvgmargincolor 0 Nothing 1 symbol
+symbolsvg : String -> Symbol -> Html msg
+symbolsvg class symbol =
+    symbolsvgmargincolor 0 Nothing 1 class symbol
 
 
-symbolsvgscale : Float -> Symbol -> Html msg
-symbolsvgscale scale symbol =
-    symbolsvgmargincolor 0 Nothing scale symbol
+symbolsvgscale : Float -> String -> Symbol -> Html msg
+symbolsvgscale scale class symbol =
+    symbolsvgmargincolor 0 Nothing scale class symbol
 
 
-symbolsvgmargincolor : Int -> Maybe String -> Float -> Symbol -> Html msg
-symbolsvgmargincolor margin color scale symbol =
+symbolsvgmargincolor : Int -> Maybe String -> Float -> String -> Symbol -> Html msg
+symbolsvgmargincolor margin color scale class symbol =
     let
         symbolheight =
             round <| toFloat symbol.height * symbol.size * scale
@@ -40,7 +40,7 @@ symbolsvgmargincolor margin color scale symbol =
             round <| toFloat symbol.width * symbol.size * scale
     in
         svg
-            [ attribute "class" "hover background2"
+            [ attribute "class" class
             , attribute "margin" <| px margin
             , attribute "width" <| toString symbolwidth
             , attribute "height" <| toString symbolheight

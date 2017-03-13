@@ -98,7 +98,7 @@ createkeyactionlist data =
                             item.symbol.width
                         , height =
                             item.symbol.height
-                        , view = Html.map SignView (symbolsvg item.symbol)
+                        , view = Html.map SignView (symbolsvg "hover" item.symbol)
                         }
                     }
                 )

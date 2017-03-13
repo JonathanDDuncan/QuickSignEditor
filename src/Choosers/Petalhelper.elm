@@ -53,7 +53,7 @@ symbolpetal ( attrib, symb ) =
                 ]
                 [ div attrib
                     [ Html.map SignView
-                        (symbolsvg symbol)
+                        (symbolsvg "hover" symbol)
                     ]
                 ]
 

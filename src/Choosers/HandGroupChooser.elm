@@ -68,7 +68,7 @@ symbol symboldata =
             2
             RightThumbEdge
             [ Html.map SignView
-                (symbolsvg symboldata.symbol)
+                (symbolsvg "hover" symboldata.symbol)
             ]
         )
 

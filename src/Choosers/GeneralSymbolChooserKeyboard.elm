@@ -76,7 +76,7 @@ creatcolumnkeyactionlist data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ symbol ] })
+                                (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -103,7 +103,7 @@ createkeyactionlist data range =
                             item.symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ item.symbol ] })
+                                (signdisplaysvg "hover" { signinit | syms = [ item.symbol ] })
                         }
                     }
                 )
@@ -162,7 +162,7 @@ createfillkeyactionlist data range =
                             handfillitem.symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ handfillitem.symbol ] })
+                                (signdisplaysvg "hover" { signinit | syms = [ handfillitem.symbol ] })
                         }
                     }
                 )
@@ -188,7 +188,7 @@ createflowerkeyactionlist data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ symbol ] })
+                                (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -214,7 +214,7 @@ createhandkeyactionlist message data range =
                             symbol.height
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg { signinit | syms = [ symbol ] })
+                                (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
                         }
                     }
                 )

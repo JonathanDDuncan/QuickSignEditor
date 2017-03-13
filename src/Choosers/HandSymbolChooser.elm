@@ -101,7 +101,7 @@ fillsview handsymbol rowheight =
                 [ div
                     []
                     [ Html.map SignView
-                        (symbolsvg handfillitem.symbol)
+                        (symbolsvg "hover" handfillitem.symbol)
                     ]
                 , div
                     [ style
@@ -144,7 +144,7 @@ handselection handsymbol rowheight handType symbolgetter topoffset marginbottom 
         [ div
             []
             [ Html.map SignView
-                (symbolsvg (symbolgetter handsymbol))
+                (symbolsvg "hover" (symbolgetter handsymbol))
             ]
         , div
             [ style

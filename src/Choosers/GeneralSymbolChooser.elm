@@ -271,7 +271,7 @@ generalsymbolcol drag scale symbol =
             (ReplaceSymbol symbol.key)
         ]
         [ Html.map SignView
-            (symbolsvgscale scale symbol)
+            (symbolsvgscale scale "hover" symbol)
         ]
 
 
