@@ -47,3 +47,21 @@ rect px1 px2 py1 py2 =
         , width = x2 - x1
         , height = y2 - y1
         }
+
+
+minrectangle : Rect -> Int -> Int -> Rect
+minrectangle rectangle minwidth minheight =
+    let
+        newwidth =
+            if abs (rectangle.width) < minwidth then
+                minwidth
+            else
+                rectangle.width
+
+        newheigth =
+            if abs (rectangle.height) < minheight then
+                minheight
+            else
+                rectangle.height
+    in
+        { rectangle | width = newwidth, height = newheigth }
