@@ -192,7 +192,7 @@ maintainwithinbounds sym bounds =
             0 + bounds.width - 20
 
         top =
-            5
+            0
 
         bottom =
             0 + bounds.height - 10
