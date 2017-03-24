@@ -29,6 +29,7 @@ init =
       , editormode = Awaiting
       , viewposition = { name = "", x = 0, y = 0, width = 0, height = 0 }
       , containerheight = 500
+      , signviewmargin = 5
       , uid = 0
       , undolist = []
       , redolist = []
@@ -66,9 +67,13 @@ update action model =
             ( model, Ports.requestElementPosition elementid )
 
         ReceiveElementPosition namedposition ->
-            { model | viewposition = namedposition }
-                ! []
-                |> Update.Extra.andThen update CenterSign
+            let
+                adjustedformargin =
+                    { namedposition | x = namedposition.x + model.signviewmargin, y = namedposition.y + model.signviewmargin }
+            in
+                { model | viewposition = adjustedformargin }
+                    ! []
+                    |> Update.Extra.andThen update CenterSign
 
         UpdateSignViewPosition ->
             { model | windowresized = False }

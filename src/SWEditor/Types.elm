@@ -17,6 +17,7 @@ type alias Model =
     , windowresized : Bool
     , editormode : EditorMode
     , containerheight : Int
+    , signviewmargin : Int
     , uid : Int
     , undolist : List UndoItem
     , redolist : List UndoItem

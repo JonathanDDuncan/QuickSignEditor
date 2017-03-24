@@ -44,10 +44,11 @@ rectangleselect model =
                 div [] []
 
 
-editorattributes : Int -> List (Attribute Msg)
-editorattributes height =
+editorattributes : Int -> Int -> List (Attribute Msg)
+editorattributes height signviewmargin =
     [ Html.Attributes.style
         [ "height" => px (height - 50)
+        , "margin" => px signviewmargin
         ]
     , Html.Attributes.id "signView"
     , Html.Attributes.class "disablePanZoom signview"
@@ -57,7 +58,7 @@ editorattributes height =
 signView : Model -> Html Msg
 signView model =
     div
-        (List.append (editorattributes model.containerheight) [ onMouseEnter (SetKeyboardMode Keyboard.Shared.SignView) ])
+        (List.append (editorattributes model.containerheight model.signviewmargin) [ onMouseEnter (SetKeyboardMode Keyboard.Shared.SignView) ])
         (List.map symbolView model.sign.syms)
 
 
