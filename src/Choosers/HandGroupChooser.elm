@@ -17,7 +17,7 @@ import Html.Events exposing (..)
 import Choosers.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)
-import SWEditor.SymbolToolTip exposing (..)
+import Choosers.SymbolToolTip exposing (..)
 
 
 handgroupchooser : List (List HandGroupChooserViewColumnData) -> Html Msg

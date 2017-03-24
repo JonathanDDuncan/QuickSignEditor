@@ -1,4 +1,4 @@
-module SWEditor.SymbolToolTip exposing (..)
+module Choosers.SymbolToolTip exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
