@@ -92,9 +92,9 @@ type EditorMode
 -- Plus any library function to run on the types
 
 
-signViewPosition : Position -> NamedPosition -> Position
-signViewPosition position viewposition =
-    { x = position.x - viewposition.x, y = position.y - viewposition.y }
+signViewPosition : Position -> NamedPosition -> Int -> Position
+signViewPosition position viewposition margin =
+    { x = position.x - viewposition.x + margin, y = position.y - viewposition.y + margin }
 
 
 withinSignView : Position -> NamedPosition -> Bool

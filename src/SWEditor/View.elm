@@ -29,8 +29,8 @@ rectangleselect model =
             RectangleSelect ->
                 div
                     [ Html.Attributes.style
-                        [ "left" => px selectrectangle.x
-                        , "top" => px (selectrectangle.y + model.viewposition.y)
+                        [ "left" => px (selectrectangle.x + model.viewposition.y - model.signviewmargin)
+                        , "top" => px (selectrectangle.y + model.viewposition.y - model.signviewmargin)
                         , "width" => px selectrectangle.width
                         , "height" => px selectrectangle.height
                         , "position" => "absolute"
@@ -59,11 +59,11 @@ signView : Model -> Html Msg
 signView model =
     div
         (List.append (editorattributes model.containerheight model.signviewmargin) [ onMouseEnter (SetKeyboardMode Keyboard.Shared.SignView) ])
-        (List.map symbolView model.sign.syms)
+        (List.map (symbolView (model.viewposition.y + model.signviewmargin)) model.sign.syms)
 
 
-symbolView : Symbol -> Html Msg
-symbolView symbol =
+symbolView : Int -> Symbol -> Html Msg
+symbolView signviewmargin symbol =
     let
         nbcolor =
             if symbol.selected then

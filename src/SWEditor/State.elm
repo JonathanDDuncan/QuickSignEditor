@@ -128,7 +128,7 @@ update action model =
         MouseDown position ->
             let
                 signviewposition =
-                    (signViewPosition position model.viewposition)
+                    (signViewPosition position model.viewposition model.signviewmargin)
 
                 withinsignview =
                     (withinSignView signviewposition model.viewposition)
@@ -162,7 +162,7 @@ update action model =
         MouseUp position ->
             let
                 signviewposition =
-                    (signViewPosition position model.viewposition)
+                    (signViewPosition position model.viewposition model.signviewmargin)
 
                 withinsignview =
                     (withinSignView signviewposition model.viewposition)
@@ -180,7 +180,7 @@ update action model =
         MouseMove position ->
             let
                 signviewposition =
-                    signViewPosition position model.viewposition
+                    signViewPosition position model.viewposition model.signviewmargin
 
                 withinsignview =
                     withinSignView signviewposition model.viewposition
