@@ -25,8 +25,11 @@ symboltooltip mdl mdlid name key rotation fill handfill content =
         ishand =
             iskey key "hand"
 
-        handpng =
-            gethandpng key rotation fill handfill
+        handpngs =
+            if ishand then
+                handpnglist key rotation handfill
+            else
+                []
     in
         [ Options.div
             [ Tooltip.attach Mdl [ mdlid ] ]
@@ -35,10 +38,31 @@ symboltooltip mdl mdlid name key rotation fill handfill content =
             [ mdlid ]
             mdl
             [ Tooltip.left ]
-            [ if ishand then
-                handpngspan handpng "" "margin: auto;" "" "inline-block"
-              else
-                text ""
-            , Html.div [ attribute "style" "width:100%;" ] [ text name ]
-            ]
+            (tooltipbody handpngs name)
         ]
+
+
+tooltipbody : List (Html Choosers.Types.Msg) -> String -> List (Html Choosers.Types.Msg)
+tooltipbody handpngs name =
+    List.append handpngs
+        [ Html.div [ attribute "style" "width:100%;" ] [ text name ]
+        ]
+
+
+handpnglist key rotation handfill =
+    let
+        handpngs1 =
+            List.range 1 3
+                |> List.map (\fill -> gethandpng key rotation fill handfill)
+
+        handpngs2 =
+            List.range 4 6
+                |> List.map (\fill -> gethandpng key rotation fill handfill)
+
+        pngs1 =
+            List.map (\handpng -> handpngspan handpng "" "margin: auto;" "" "inline-block") handpngs1
+
+        pngs2 =
+            List.map (\handpng -> handpngspan handpng "" "margin: auto;" "" "inline-block") handpngs2
+    in
+        List.concat [ pngs1, [ br [] [] ], pngs2 ]
