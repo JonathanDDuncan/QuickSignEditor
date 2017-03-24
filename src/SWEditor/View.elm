@@ -59,11 +59,11 @@ signView : Model -> Html Msg
 signView model =
     div
         (List.append (editorattributes model.containerheight model.signviewmargin) [ onMouseEnter (SetKeyboardMode Keyboard.Shared.SignView) ])
-        (List.map (symbolView (model.viewposition.y + model.signviewmargin)) model.sign.syms)
+        (List.map symbolView model.sign.syms)
 
 
-symbolView : Int -> Symbol -> Html Msg
-symbolView signviewmargin symbol =
+symbolView : Symbol -> Html Msg
+symbolView symbol =
     let
         nbcolor =
             if symbol.selected then
