@@ -42,11 +42,32 @@ handsymboltooltip mdl mdlid name key rotation fill handfill content =
         ]
 
 
+symboltooltip :
+    Material.Model
+    -> Int
+    -> String
+    -> List (Html Choosers.Types.Msg)
+    -> List (Html Choosers.Types.Msg)
+symboltooltip mdl mdlid name content =
+    [ Options.div
+        [ Tooltip.attach Mdl [ mdlid ] ]
+        content
+    , Tooltip.render Mdl
+        [ mdlid ]
+        mdl
+        [ Tooltip.left ]
+        (tooltipname name)
+    ]
+
+
 tooltipbody : List (Html Choosers.Types.Msg) -> String -> List (Html Choosers.Types.Msg)
 tooltipbody handpngs name =
-    List.append handpngs
-        [ Html.div [ attribute "style" "width:100%;" ] [ text name ]
-        ]
+    List.append handpngs (tooltipname name)
+
+
+tooltipname name =
+    [ Html.div [ attribute "style" "width:100%;" ] [ text name ]
+    ]
 
 
 handpnglist key rotation handfill =

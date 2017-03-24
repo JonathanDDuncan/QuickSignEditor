@@ -11,6 +11,7 @@ import Material.Options as Options exposing (div, cs, when)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
 import SW.Pua exposing (codefromkey)
+import Choosers.SymbolToolTip exposing (..)
 
 
 -- View
@@ -51,18 +52,14 @@ symbol symboldata =
         , style
             [ "margin-top" => px 3 ]
         ]
-        [ Options.div
-            [ Tooltip.attach Mdl [ symboldata.mdlid ] ]
-            [ Html.map SignView
-                (symbolsvg "hover" symboldata.symbol)
-            ]
-        , Tooltip.render Mdl
-            [ symboldata.mdlid ]
+        (symboltooltip
             symboldata.modelmdl
-            [ Tooltip.left ]
-            [ Html.div [ attribute "style" "float:left;" ] [ text symboldata.chooseritem.name ]
+            symboldata.mdlid
+            symboldata.chooseritem.name
+            [ Html.map SignView
+                (symbolsvg "" symboldata.symbol)
             ]
-        ]
+        )
 
 
 
