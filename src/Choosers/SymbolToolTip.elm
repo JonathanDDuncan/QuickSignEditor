@@ -10,7 +10,7 @@ import Choosers.HandPng exposing (..)
 import SW.Types exposing (..)
 
 
-symboltooltip :
+handsymboltooltip :
     Material.Model
     -> Int
     -> String
@@ -20,7 +20,7 @@ symboltooltip :
     -> HandFills
     -> List (Html Choosers.Types.Msg)
     -> List (Html Choosers.Types.Msg)
-symboltooltip mdl mdlid name key rotation fill handfill content =
+handsymboltooltip mdl mdlid name key rotation fill handfill content =
     let
         ishand =
             iskey key "hand"

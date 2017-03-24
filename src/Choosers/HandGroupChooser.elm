@@ -59,7 +59,7 @@ symbol symboldata =
         , style
             [ "margin-top" => px 3 ]
         ]
-        (symboltooltip
+        (handsymboltooltip
             symboldata.modelmdl
             symboldata.mdlid
             symboldata.chooseritem.name
