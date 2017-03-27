@@ -26,7 +26,7 @@ handpngspan handpng classes morestyle moretransform displaystyle =
             (moretransform) ++ " " ++ (miror) ++ " " ++ (rotate) ++ ";"
 
         transform =
-            if String.length transformvalue /= 0 then
+            if String.length transformvalue > 3 then
                 "transform: " ++ transformvalue
             else
                 ""
