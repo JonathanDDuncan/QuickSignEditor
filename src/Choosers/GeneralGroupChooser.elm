@@ -6,8 +6,6 @@ import Html.Events exposing (..)
 import Choosers.Types exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)
-import Material.Tooltip as Tooltip exposing (attach, render, left)
-import Material.Options as Options exposing (div, cs, when)
 import SWEditor.EditorSymbol exposing (..)
 import Exts.List exposing (..)
 import SW.Pua exposing (codefromkey)
@@ -57,7 +55,7 @@ symbol symboldata =
             symboldata.mdlid
             symboldata.chooseritem.name
             [ Html.map SignView
-                (symbolsvg "" symboldata.symbol)
+                (symbolsvg "hover" symboldata.symbol)
             ]
         )
 
