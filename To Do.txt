@@ -1,13 +1,10 @@
 To Do
 
-Tooltip on general group chooser
-Test Chrome freezing
-Circle symbols on keyboard too
 Add FSW Rich text for size and color
 
 Double click lookup symbol to open chooser
 Add favorites
-
+Tooltip on general group chooser
 
 
 Consolidate movesymbols in SignArea.elm with EditorSymbol.elm
