@@ -3,7 +3,7 @@ module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboa
 import Html
 import Choosers.Types exposing (..)
 import Keyboard.Shared exposing (..)
-import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser)
+import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
 import List.Extra exposing (..)
 import SWEditor.DisplaySvg exposing (signdisplaysvg)
 import Choosers.GroupChooserKeyboard exposing (..)
@@ -20,6 +20,21 @@ createsymbolchooserkeyboard model =
         creategeneralsymbolchooserkeyboard model
 
 
+handflowerkeyidrange : List Int
+handflowerkeyidrange =
+    [ 24, 23, 36, 49, 50, 51, 39, 25 ]
+
+
+flower1keyidrange : List Int
+flower1keyidrange =
+    [ 21, 20, 33, 46, 47, 48, 36, 22 ]
+
+
+flower2keyidrange : List Int
+flower2keyidrange =
+    [ 25, 24, 37, 50, 51, 52, 40, 26 ]
+
+
 creategeneralsymbolchooserkeyboard : Model -> List (KeyAction Msg)
 creategeneralsymbolchooserkeyboard model =
     let
@@ -33,7 +48,7 @@ creategeneralsymbolchooserkeyboard model =
             generalsymbolchooserdata.symbolcolumnsdata
 
         rowkeyactionlist =
-            createkeyactionlist symbolrowdata (List.range 43 52)
+            createkeyactionlist symbolrowdata (List.range 16 19)
 
         firstcolumn =
             getgeneralsymbolcolumn symbolcolumndata.column1
@@ -41,14 +56,14 @@ creategeneralsymbolchooserkeyboard model =
         secondcolumn =
             getgeneralsymbolcolumn symbolcolumndata.column2
 
-        columnkeyactionlist1 =
-            creatcolumnkeyactionlist firstcolumn (List.range 30 40)
+        flowerkeyactionlist1 =
+            createflowerkeyactionlist firstcolumn flower1keyidrange
 
-        columnkeyactionlist2 =
-            creatcolumnkeyactionlist secondcolumn (List.range 16 28)
+        flowerkeyactionlist2 =
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange
 
         fulllist =
-            List.append (List.append rowkeyactionlist columnkeyactionlist1) columnkeyactionlist2
+            List.append (List.append rowkeyactionlist flowerkeyactionlist1) flowerkeyactionlist2
     in
         fulllist
 
@@ -137,7 +152,7 @@ createhandsymbolchooserkeyboard model =
             createfillkeyactionlist (List.reverse model.handsymbol.handfillitems) (List.range 30 33)
 
         flowerkeyactionlist =
-            createflowerkeyactionlist petals [ 24, 23, 36, 49, 50, 51, 39, 25 ]
+            createflowerkeyactionlist petals handflowerkeyidrange
 
         fulllist =
             List.concat [ lefthandactionlist, righthandactionlist, wallplaneactionlist, floorplaneactionlist, fillactionlist, flowerkeyactionlist ]

@@ -1,4 +1,4 @@
-module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
+module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser,reorderedcolumnforpetal2)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
