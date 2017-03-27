@@ -1,9 +1,14 @@
 To Do
 
+Tooltip on general group chooser
+Test Chrome freezing
+Circle symbols on keyboard too
+Add FSW Rich text for size and color
+
 Double click lookup symbol to open chooser
 Add favorites
 
-Add FSW Rich text for size and color
+
 
 Consolidate movesymbols in SignArea.elm with EditorSymbol.elm
 Make list of compatible browsers
@@ -24,5 +29,5 @@ Can't type in input boxes
 
 Add Service Workers for offline first
 
-Tooltip on general group chooser
+
 Make symbols with oposing thumbs
