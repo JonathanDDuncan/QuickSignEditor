@@ -124,3 +124,11 @@ getlastuid symbols =
 
         Just sign ->
             sign.id
+
+
+colorsymbols : Sign -> Colors -> Sign
+colorsymbols sign colors =
+    if colors.nbcolor == Nothing && colors.nwcolor == Nothing then
+        sign
+    else
+        { sign | syms = List.map (\syms -> colorsymbol colors syms) sign.syms }

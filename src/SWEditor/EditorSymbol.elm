@@ -107,3 +107,18 @@ symbolsUnderPosition signviewposition symbols =
             { x = signviewposition.x, y = signviewposition.y, width = 1, height = 1 }
     in
         List.filter (\symbol -> (SWEditor.Rectangle.intersect seachrectangle (getsymbolRectangle symbol))) symbols
+
+
+colorsymbol : Colors -> Symbol -> Symbol
+colorsymbol colors symbol =
+    if colors.nbcolor == Nothing && colors.nwcolor == Nothing then
+        symbol
+    else
+        let
+            nbcolor =
+                Maybe.withDefault symbol.nbcolor colors.nbcolor
+
+            nwcolor =
+                Maybe.withDefault symbol.nwcolor colors.nwcolor
+        in
+            { symbol | nbcolor = nbcolor, nwcolor = nwcolor }

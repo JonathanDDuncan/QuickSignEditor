@@ -2,7 +2,7 @@ module SW.FSW exposing (..)
 
 import Regex exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
-import SWEditor.EditorSign exposing (centerSign)
+import SWEditor.EditorSign exposing (centerSign, colorsymbols)
 import Dict
 import SW.Types exposing (..)
 
@@ -59,27 +59,6 @@ stylesign richtext sign =
         colorsymbols sign signcolors
 
 
-colorsymbols : Sign -> Colors -> Sign
-colorsymbols sign colors =
-    let
-        symbols =
-            List.map (\syms -> colorsymbol colors syms) sign.syms
-    in
-        { sign | syms = symbols }
-
-
-colorsymbol : Colors -> Symbol -> Symbol
-colorsymbol (Colors colors) symbol =
-    let
-        nbcolor =
-            Maybe.withDefault symbol.nbcolor colors.nbcolor
-
-        nwcolor =
-            Maybe.withDefault symbol.nwcolor colors.nwcolor
-    in
-        { symbol | nbcolor = nbcolor, nwcolor = nwcolor }
-
-
 getsigncolors : List String -> Colors
 getsigncolors stylings =
     let
@@ -99,13 +78,9 @@ getsigncolors stylings =
             getcolor (colorsstring |> List.drop 1 |> List.head)
 
         colors =
-            Colors { nbcolor = color1, nwcolor = color2 }
+            { nbcolor = color1, nwcolor = color2 }
     in
         colors
-
-
-type Colors
-    = Colors { nbcolor : Maybe String, nwcolor : Maybe String }
 
 
 getcolor : Maybe String -> Maybe String

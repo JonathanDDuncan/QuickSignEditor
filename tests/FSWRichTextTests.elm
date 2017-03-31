@@ -3,7 +3,6 @@ module FSWRichTextTests exposing (..)
 import Test exposing (..)
 import Expect
 import SW.Types exposing (..)
-import SWEditor.EditorSymbol exposing (..)
 import FSWTestHelper exposing (..)
 
 
@@ -21,14 +20,5 @@ fswtoRichTextTests =
                     "blue"
         , test "Signsymbols blue" <|
             \() ->
-                Expect.equal (allsymbolscolor "blue" (defaultResultsign worldblue)) True
+                Expect.equal (allsymbolsnbcolor "blue" (defaultResultsign worldblue)) True
         ]
-
-
-worldblue =
-    world ++ "-D_blue_"
-
-
-allsymbolscolor : String -> Sign -> Bool
-allsymbolscolor color sign =
-    List.all (\symbol -> (Debug.log "nbcolor" <| symbol.nbcolor) == color) sign.syms

@@ -1,12 +1,11 @@
 module FSWTestHelper exposing (..)
 
-  
 import SW.FSW as FSW exposing (..)
 import Dict
 import SW.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
- 
- 
+
+
 worldsign : Sign
 worldsign =
     { signinit | syms = [ symbol1, symbol2, symbol3, symbol4 ] }
@@ -88,6 +87,16 @@ getsignerrmessage fsw =
 
             Err msg ->
                 msg
+
+
+worldblue : String
+worldblue =
+    world ++ "-D_blue_"
+
+
+allsymbolsnbcolor : String -> Sign -> Bool
+allsymbolsnbcolor color sign =
+    List.all (\symbol -> symbol.nbcolor == color) sign.syms
 
 
 

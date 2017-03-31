@@ -101,6 +101,10 @@ symbolinit =
     }
 
 
+type alias Colors =
+    { nbcolor : Maybe String, nwcolor : Maybe String }
+
+
 type alias NamedPosition =
     { x : Int
     , y : Int
