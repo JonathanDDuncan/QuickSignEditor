@@ -76,31 +76,24 @@ getsigncolors stylings =
 
         color2 =
             getcolor (colorsstring |> List.drop 1 |> List.head)
-
-        colors =
-            { nbcolor = color1, nwcolor = color2 }
     in
-        colors
+        { nbcolor = color1, nwcolor = color2 }
 
 
 getcolor : Maybe String -> Maybe String
 getcolor colorstring =
-    let
-        color =
-            colorstring
-                |> Maybe.andThen
-                    (\cstring ->
-                        if testcolorrgb cstring then
-                            Just ("#" ++ cstring)
-                        else
-                            (if cstring /= "" then
-                                Just (cstring)
-                             else
-                                Nothing
-                            )
+    colorstring
+        |> Maybe.andThen
+            (\cstring ->
+                if testcolorrgb cstring then
+                    Just ("#" ++ cstring)
+                else
+                    (if cstring /= "" then
+                        Just (cstring)
+                     else
+                        Nothing
                     )
-    in
-        color
+            )
 
 
 createsymbols : Dict.Dict String Size -> List String -> Result String (List Symbol)
@@ -123,13 +116,10 @@ createsymbol symbolsizes symbolstring =
 
         coordinateresult =
             getcooordinate coordinatestr
-
-        symbol =
-            symbolonly
-                |> Result.andThen
-                    (setresultvalue coordinateresult (\symbol value -> { symbol | x = value.x, y = value.y }))
     in
-        symbol
+        symbolonly
+            |> Result.andThen
+                (setresultvalue coordinateresult (\symbol value -> { symbol | x = value.x, y = value.y }))
 
 
 getFSWlane : String -> Result String Lane
@@ -164,15 +154,12 @@ getcooordinate coordinatestr =
             applyToOkValueAppendMsg (couldnoterror "get y coordinate" <| Result.withDefault "" coordinatestr)
                 (\value -> value |> List.drop 1 |> List.head |> toInt)
                 coordinatelistresult
-
-        coordinate =
-            (Ok { x = 0, y = 0 })
-                |> Result.andThen
-                    (setresultvalue xresult (\position value -> { position | x = value }))
-                |> Result.andThen
-                    (setresultvalue yresult (\position value -> { position | y = value }))
     in
-        coordinate
+        (Ok { x = 0, y = 0 })
+            |> Result.andThen
+                (setresultvalue xresult (\position value -> { position | x = value }))
+            |> Result.andThen
+                (setresultvalue yresult (\position value -> { position | y = value }))
 
 
 getcoordinatelist : Result String String -> Result String (List String)
@@ -182,11 +169,8 @@ getcoordinatelist coordinatestr =
             createrule coordinatestr
                 (\value -> String.length value == 7)
                 (\value -> expectederror "Sign coordinate" value "to be 7 characters long")
-
-        coordinatelist =
-            Result.andThen splitcoordinatestring goodcoordinatestring
     in
-        coordinatelist
+        Result.andThen splitcoordinatestring goodcoordinatestring
 
 
 splitcoordinatestring : String -> Result String (List String)
@@ -226,11 +210,8 @@ getFsw sign =
 
         symbols =
             List.foldr (++) "" (List.map symbolsFsw centered.syms)
-
-        fsw =
-            boundingbox ++ symbols
     in
-        fsw
+        boundingbox ++ symbols
 
 
 symbolsFsw : { c | key : String, x : a, y : b } -> String
@@ -328,26 +309,18 @@ getkeystr str =
 
 getspellingstring : String -> String
 getspellingstring fsw =
-    let
-        spelling =
-            Regex.find All (regex re_term) fsw
-                |> matchestostrings
-                |> List.head
-                |> Maybe.withDefault ""
-    in
-        spelling
+    Regex.find All (regex re_term) fsw
+        |> matchestostrings
+        |> List.head
+        |> Maybe.withDefault ""
 
 
 getrichtextstring : String -> String
 getrichtextstring fsw =
-    let
-        richtextstring =
-            Regex.find All (regex q_styling) fsw
-                |> matchestostrings
-                |> List.head
-                |> Maybe.withDefault ""
-    in
-        richtextstring
+    Regex.find All (regex q_styling) fsw
+        |> matchestostrings
+        |> List.head
+        |> Maybe.withDefault ""
 
 
 getFSWlanestr : String -> Result String String
