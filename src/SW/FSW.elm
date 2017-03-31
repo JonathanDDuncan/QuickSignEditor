@@ -28,6 +28,9 @@ fswtoSign symbolsizes fsw =
         symsresult =
             createsymbols symbolsizes symbolsstrings
 
+        richtext =
+            getrichtextstring fsw
+
         sign =
             Ok signinit
                 |> Result.andThen
@@ -38,8 +41,91 @@ fswtoSign symbolsizes fsw =
                     (setresultvalue symsresult (\sign value -> { sign | syms = value }))
                 |> Result.andThen
                     (setresultvalue (Ok spellingstring) (\sign value -> { sign | spelling = value }))
+                |> Result.andThen
+                    (\sign -> stylesign richtext sign |> Ok)
     in
         sign
+
+
+stylesign : String -> Sign -> Sign
+stylesign richtext sign =
+    let
+        stylings =
+            String.split "-" richtext
+
+        signcolors =
+            getsigncolors stylings
+    in
+        colorsymbols sign signcolors
+
+
+colorsymbols : Sign -> Colors -> Sign
+colorsymbols sign colors =
+    let
+        symbols =
+            List.map (\syms -> colorsymbol colors syms) sign.syms
+    in
+        { sign | syms = symbols }
+
+
+colorsymbol : Colors -> Symbol -> Symbol
+colorsymbol (Colors colors) symbol =
+    let
+        nbcolor =
+            Maybe.withDefault symbol.nbcolor colors.nbcolor
+
+        nwcolor =
+            Maybe.withDefault symbol.nwcolor colors.nwcolor
+    in
+        { symbol | nbcolor = nbcolor, nwcolor = nwcolor }
+
+
+getsigncolors : List String -> Colors
+getsigncolors stylings =
+    let
+        secondstyling =
+            stylings |> List.drop 1 |> List.head |> Maybe.withDefault ""
+
+        cleanedstyling =
+            String.slice 2 ((String.length secondstyling) - 1) secondstyling
+
+        colorsstring =
+            String.split "," cleanedstyling
+
+        color1 =
+            getcolor (colorsstring |> List.head)
+
+        color2 =
+            getcolor (colorsstring |> List.drop 1 |> List.head)
+
+        colors =
+            Colors { nbcolor = color1, nwcolor = color2 }
+    in
+        colors
+
+
+type Colors
+    = Colors { nbcolor : Maybe String, nwcolor : Maybe String }
+
+
+getcolor : Maybe String -> Maybe String
+getcolor colorstring =
+    let
+        color =
+            colorstring
+                |> Maybe.andThen
+                    (\cstring ->
+                        if testcolorrgb cstring then
+                            Just ("#" ++ cstring)
+                        else
+                            (if cstring /= "" then
+                                Just (cstring)
+                             else
+                                Nothing
+                            )
+                    )
+    in
+        color
 
 
 createsymbols : Dict.Dict String Size -> List String -> Result String (List Symbol)
@@ -252,6 +338,11 @@ applyToOkValueAppendMsg message callback result =
 -- Regex
 
 
+testcolorrgb : String -> Bool
+testcolorrgb colorstring =
+    contains (regex q_colorrgb) colorstring
+
+
 getkeystr : String -> Result String String
 getkeystr str =
     Regex.find (Regex.AtMost 1) (regex (re_sym)) str
@@ -270,6 +361,18 @@ getspellingstring fsw =
                 |> Maybe.withDefault ""
     in
         spelling
+
+
+getrichtextstring : String -> String
+getrichtextstring fsw =
+    let
+        richtextstring =
+            Regex.find All (regex q_styling) fsw
+                |> matchestostrings
+                |> List.head
+                |> Maybe.withDefault ""
+    in
+        richtextstring
 
 
 getFSWlanestr : String -> Result String String
@@ -331,3 +434,24 @@ re_word =
 re_term : String
 re_term =
     "(A(" ++ re_sym ++ ")+)"
+
+
+q_styling : String
+q_styling =
+    "-C?(P[0-9]{2})?"
+        ++ "(G_([0-9a-fA-F]{3}([0-9a-fA-F]{3})?|[a-zA-Z]+)_)?"
+        ++ "(D_([0-9a-fA-F]{3}([0-9a-fA-F]{3})?|[a-zA-Z]+)(,([0-9a-fA-F]{3}([0-9a-fA-F]{3})?|[a-zA-Z]+))?_)?"
+        ++ "(Z([0-9]+(.[0-9]+)?|x))?"
+        ++ "(-(D[0-9]{2}_([0-9a-fA-F]{3}([0-9a-fA-F]{3})?|[a-zA-Z]+)(,([0-9a-fA-F]{3}([0-9a-fA-F]{3})?|[a-zA-Z]+))?_)*"
+        ++ "(Z[0-9]{2},[0-9]+(.[0-9]+)?(,[0-9]{3}x[0-9]{3})?)*)?"
+        ++ "(--?[_a-zA-Z][_a-zA-Z0-9-]{0,100}( -?[_a-zA-Z][_a-zA-Z0-9-]{0,100})*!([a-zA-Z][_a-zA-Z0-9-]{0,100}!)?)?"
+
+
+q_Dstyling : String
+q_Dstyling =
+    "(/D_([0-9a-f]{3}([0-9a-f]{3})?|[a-zA-Z]+)(,([0-9a-f]{3}([0-9a-f]{3})?|[a-zA-Z]+))?_/)"
+
+
+q_colorrgb : String
+q_colorrgb =
+    "/^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/g"
