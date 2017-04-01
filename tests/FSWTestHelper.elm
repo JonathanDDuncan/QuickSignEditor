@@ -94,6 +94,11 @@ worldblue =
     world ++ "-D_blue_"
 
 
+worldthirdblue : String
+worldthirdblue =
+    world ++ "--D03_blue_"
+
+
 allsymbolsnbcolor : String -> Sign -> Bool
 allsymbolsnbcolor color sign =
     List.all (\symbol -> symbol.nbcolor == color) sign.syms

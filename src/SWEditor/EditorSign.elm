@@ -126,9 +126,26 @@ getlastuid symbols =
             sign.id
 
 
-colorsymbols : Sign -> Colors -> Sign
-colorsymbols sign colors =
+colorallsymbols : Colors -> Sign -> Sign
+colorallsymbols colors sign =
     if colors.nbcolor == Nothing && colors.nwcolor == Nothing then
         sign
     else
         { sign | syms = List.map (\syms -> colorsymbol colors syms) sign.syms }
+
+
+colorsymbols : List { colors : Colors, pos : Int } -> Sign -> Sign
+colorsymbols symbolscolors sign =
+    { sign
+        | syms =
+            List.indexedMap (\index symbol -> changesymbolcolor symbol (index + 1) symbolscolors) sign.syms
+    }
+
+
+changesymbolcolor : Symbol -> Int -> List { colors : Colors, pos : Int } -> Symbol
+changesymbolcolor symbol index symbolscolors =
+    symbolscolors
+        |> List.filter (\symbolcolor -> symbolcolor.pos == index)
+        |> List.map (\symbolcolor -> colorsymbol symbolcolor.colors symbol)
+        |> List.head
+        |> Maybe.withDefault symbol

@@ -21,4 +21,24 @@ fswtoRichTextTests =
         , test "Signsymbols blue" <|
             \() ->
                 Expect.equal (allsymbolsnbcolor "blue" (defaultResultsign worldblue)) True
+        , test "third symbol blue" <|
+            \() ->
+                Expect.equal
+                    ((Debug.log "sign " <| defaultResultsign worldthirdblue).syms
+                        |> List.drop 2
+                        |> List.head
+                        |> Maybe.withDefault symbolinit
+                        |> .nbcolor
+                    )
+                    "blue"
+        , test "third symbol blue others black" <|
+            \() ->
+                Expect.equal
+                    ((defaultResultsign worldthirdblue).syms
+                        |> (\mylist ->
+                                List.append (List.take 2 mylist) (List.drop 3 mylist)
+                           )
+                        |> List.all (\symbol -> symbol.nbcolor == "black")
+                    )
+                    True
         ]

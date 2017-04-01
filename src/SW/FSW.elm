@@ -2,7 +2,7 @@ module SW.FSW exposing (..)
 
 import Regex exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
-import SWEditor.EditorSign exposing (centerSign, colorsymbols)
+import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols)
 import Dict
 import SW.Types exposing (..)
 
@@ -48,28 +48,44 @@ fswtoSign symbolsizes fsw =
 
 
 stylesign : String -> Sign -> Sign
-stylesign richtext sign =
+stylesign stylingstring sign =
     let
         stylings =
-            String.split "-" richtext
+            String.split "-" stylingstring
 
         signcolors =
             getsigncolors stylings
+
+        symbolscolors =
+            getsymbolscolors stylings
+
+        styledsign =
+            colorallsymbols signcolors sign
+                |> colorsymbols symbolscolors
     in
-        colorsymbols sign signcolors
+        styledsign
 
 
-getsigncolors : List String -> Colors
-getsigncolors stylings =
+getsymbolscolors : List String -> List { colors : Colors, pos : Int }
+getsymbolscolors stylings =
     let
-        secondstyling =
-            stylings |> List.drop 1 |> List.head |> Maybe.withDefault ""
+        thirdstyling =
+            stylings |> List.drop 2 |> List.head |> Maybe.withDefault ""
 
-        cleanedstyling =
-            String.slice 2 ((String.length secondstyling) - 1) secondstyling
+        symbolscolorstring =
+            getsymbolscolorstring thirdstyling
 
+        symbolscolors =
+            List.map (\str -> { pos = getcolorsymbolposition str, colors = getsymbolcolors str }) symbolscolorstring
+    in
+        List.filter (\symbolcolors -> symbolcolors.pos /= 0) symbolscolors
+
+
+createcolors : String -> Colors
+createcolors styling =
+    let
         colorsstring =
-            String.split "," cleanedstyling
+            String.split "," styling
 
         color1 =
             getcolor (colorsstring |> List.head)
@@ -78,6 +94,38 @@ getsigncolors stylings =
             getcolor (colorsstring |> List.drop 1 |> List.head)
     in
         { nbcolor = color1, nwcolor = color2 }
+
+
+getcolorsymbolposition : String -> Int
+getcolorsymbolposition str =
+    str
+        |> String.slice 1 3
+        |> String.toInt
+        |> Result.withDefault 0
+
+
+getsymbolcolors : String -> Colors
+getsymbolcolors styling =
+    let
+        cleanedstyling =
+            String.slice 4 ((String.length styling) - 1) styling
+    in
+        createcolors cleanedstyling
+
+
+getsigncolors : List String -> Colors
+getsigncolors stylings =
+    let
+        secondstyling =
+            stylings |> List.drop 1 |> List.head |> Maybe.withDefault ""
+
+        signcolorstring =
+            getsigncolorstring secondstyling |> Result.withDefault ""
+
+        cleanedstyling =
+            String.slice 2 ((String.length signcolorstring) - 1) signcolorstring
+    in
+        createcolors cleanedstyling
 
 
 getcolor : Maybe String -> Maybe String
@@ -349,6 +397,20 @@ getsymbolsstrings fsw =
         |> matchestostrings
 
 
+getsigncolorstring : String -> Result String String
+getsigncolorstring str =
+    Regex.find (Regex.AtMost 1) (regex q_Dstylingsign) str
+        |> matchestostrings
+        |> List.head
+        |> Result.fromMaybe ""
+
+
+getsymbolscolorstring : String -> List String
+getsymbolscolorstring str =
+    Regex.find (Regex.All) (regex q_Dstylingsymbols) str
+        |> matchestostrings
+
+
 matchestostrings : List { b | match : a } -> List a
 matchestostrings matches =
     List.map (\match -> match.match) matches
@@ -395,9 +457,14 @@ q_styling =
         ++ "(--?[_a-zA-Z][_a-zA-Z0-9-]{0,100}( -?[_a-zA-Z][_a-zA-Z0-9-]{0,100})*!([a-zA-Z][_a-zA-Z0-9-]{0,100}!)?)?"
 
 
-q_Dstyling : String
-q_Dstyling =
-    "(/D_([0-9a-f]{3}([0-9a-f]{3})?|[a-zA-Z]+)(,([0-9a-f]{3}([0-9a-f]{3})?|[a-zA-Z]+))?_/)"
+q_Dstylingsign : String
+q_Dstylingsign =
+    "D_([0-9a-f]{3}([0-9a-f]{3})?|[a-zA-Z]+)(,([0-9a-f]{3}([0-9a-f]{3})?|[a-zA-Z]+))?_"
+
+
+q_Dstylingsymbols : String
+q_Dstylingsymbols =
+    "D[0-9]{2}_([0-9a-f]{3}([0-9a-f]{3})?|[a-wyzA-Z]+)(,([0-9a-f]{3}([0-9a-f]{3})?|[a-wyzA-Z]+))?_"
 
 
 q_colorrgb : String
