@@ -2,7 +2,7 @@ module SW.FSW exposing (..)
 
 import Regex exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
-import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols)
+import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
 import Dict
 import SW.Types exposing (..)
 
@@ -66,6 +66,7 @@ stylesign stylingstring sign =
             colorallsymbols signcolors sign
                 |> colorsymbols symbolscolors
                 |> sizesymbols symbolssizes
+                |> adjustpositionsymbols symbolssizes
     in
         styledsign
 
@@ -165,7 +166,8 @@ getadjustement styling =
                 |> List.head
                 |> Maybe.withDefault ""
                 |> String.toInt
-                |> Result.withDefault 0
+                |> Result.withDefault 500
+                |> (-) 500
 
         y =
             split
@@ -173,7 +175,8 @@ getadjustement styling =
                 |> List.head
                 |> Maybe.withDefault ""
                 |> String.toInt
-                |> Result.withDefault 0
+                |> Result.withDefault 500
+                |> (-) 500
     in
         { x = x, y = y }
 

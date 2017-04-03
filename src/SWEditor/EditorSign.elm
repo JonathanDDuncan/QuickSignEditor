@@ -150,6 +150,14 @@ sizesymbols symbolsizes sign =
     }
 
 
+adjustpositionsymbols : List { size : Float, pos : Int, adjustment : { x : Int, y : Int } } -> Sign -> Sign
+adjustpositionsymbols symbolsizes sign =
+    { sign
+        | syms =
+            List.indexedMap (\index symbol -> applychangetoSymbol (\symbolsize -> adjustposition symbolsize symbol) symbol (index + 1) symbolsizes) sign.syms
+    }
+
+
 applychangetoSymbol : ({ b | pos : Int } -> Symbol) -> Symbol -> Int -> List { b | pos : Int } -> Symbol
 applychangetoSymbol action symbol index changedata =
     changedata

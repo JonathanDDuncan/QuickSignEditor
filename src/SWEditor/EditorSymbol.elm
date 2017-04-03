@@ -127,3 +127,8 @@ colorsymbol colors symbol =
 sizesymbol : { size : Float, pos : Int, adjustment : { x : Int, y : Int } } -> Symbol -> Symbol
 sizesymbol size symbol =
     { symbol | size = size.size }
+
+
+adjustposition : { size : Float, pos : Int, adjustment : { x : Int, y : Int } } -> Symbol -> Symbol
+adjustposition size symbol =
+    { symbol | x = symbol.x + size.adjustment.x, y = symbol.y + size.adjustment.y }

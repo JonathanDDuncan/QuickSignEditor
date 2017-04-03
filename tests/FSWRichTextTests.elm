@@ -172,4 +172,40 @@ fswRichTextSymbolZoomLevelTests =
                         |> .size
                     )
                     2.3
+        , test "second symbol x adjustment -20" <|
+            \() ->
+                let
+                    symbolnormalposition =
+                        (defaultResultsign world).syms
+                            |> List.drop 1
+                            |> List.head
+                            |> Maybe.withDefault symbolinit
+
+                    symboladjustedposition =
+                        (defaultResultsign worldsecondzoomdoubleadjusted).syms
+                            |> List.drop 1
+                            |> List.head
+                            |> Maybe.withDefault symbolinit
+                in
+                    Expect.equal
+                        (symbolnormalposition.x - symboladjustedposition.x)
+                        -20
+        , test "second symbol y adjustment -20" <|
+            \() ->
+                let
+                    symbolnormalposition =
+                        (defaultResultsign world).syms
+                            |> List.drop 1
+                            |> List.head
+                            |> Maybe.withDefault symbolinit
+
+                    symboladjustedposition =
+                        (defaultResultsign worldsecondzoomdoubleadjusted).syms
+                            |> List.drop 1
+                            |> List.head
+                            |> Maybe.withDefault symbolinit
+                in
+                    Expect.equal
+                        (symbolnormalposition.y - symboladjustedposition.y)
+                        -20
         ]
