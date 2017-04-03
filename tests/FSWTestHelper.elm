@@ -111,7 +111,7 @@ worldsecondrgbredmagenta =
 
 worldsecondzoomdoubleadjusted : String
 worldsecondzoomdoubleadjusted =
-    world ++ "--Z02,2,480x490"
+    world ++ "--Z02,2.3,480x490"
 
 
 allsymbolscolor : (Symbol -> String) -> String -> Sign -> Bool

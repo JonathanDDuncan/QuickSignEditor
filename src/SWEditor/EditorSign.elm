@@ -138,14 +138,22 @@ colorsymbols : List { colors : Colors, pos : Int } -> Sign -> Sign
 colorsymbols symbolscolors sign =
     { sign
         | syms =
-            List.indexedMap (\index symbol -> changesymbolcolor symbol (index + 1) symbolscolors) sign.syms
+            List.indexedMap (\index symbol -> applychangetoSymbol (\symbolcolor -> colorsymbol symbolcolor.colors symbol) symbol (index + 1) symbolscolors) sign.syms
     }
 
 
-changesymbolcolor : Symbol -> Int -> List { colors : Colors, pos : Int } -> Symbol
-changesymbolcolor symbol index symbolscolors =
-    symbolscolors
-        |> List.filter (\symbolcolor -> symbolcolor.pos == index)
-        |> List.map (\symbolcolor -> colorsymbol symbolcolor.colors symbol)
+sizesymbols : List { size : Float, pos : Int, adjustment : { x : Int, y : Int } } -> Sign -> Sign
+sizesymbols symbolsizes sign =
+    { sign
+        | syms =
+            List.indexedMap (\index symbol -> applychangetoSymbol (\symbolsize -> sizesymbol symbolsize symbol) symbol (index + 1) symbolsizes) sign.syms
+    }
+
+
+applychangetoSymbol : ({ b | pos : Int } -> Symbol) -> Symbol -> Int -> List { b | pos : Int } -> Symbol
+applychangetoSymbol action symbol index changedata =
+    changedata
+        |> List.filter (\item -> item.pos == index)
+        |> List.map action
         |> List.head
         |> Maybe.withDefault symbol

@@ -122,3 +122,8 @@ colorsymbol colors symbol =
                 Maybe.withDefault symbol.nwcolor colors.nwcolor
         in
             { symbol | nbcolor = nbcolor, nwcolor = nwcolor }
+
+
+sizesymbol : { size : Float, pos : Int, adjustment : { x : Int, y : Int } } -> Symbol -> Symbol
+sizesymbol size symbol =
+    { symbol | size = size.size }

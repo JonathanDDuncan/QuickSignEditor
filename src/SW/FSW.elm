@@ -2,7 +2,7 @@ module SW.FSW exposing (..)
 
 import Regex exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
-import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols)
+import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols)
 import Dict
 import SW.Types exposing (..)
 
@@ -59,11 +59,30 @@ stylesign stylingstring sign =
         symbolscolors =
             getsymbolscolors stylings
 
+        symbolssizes =
+            getsymbolssizes stylings
+
         styledsign =
             colorallsymbols signcolors sign
                 |> colorsymbols symbolscolors
+                |> sizesymbols symbolssizes
     in
         styledsign
+
+
+getsymbolssizes : List String -> List { size : Float, pos : Int, adjustment : { x : Int, y : Int } }
+getsymbolssizes stylings =
+    let
+        thirdstyling =
+            stylings |> List.drop 2 |> List.head |> Maybe.withDefault ""
+
+        symbolssizestring =
+            getsymbolssizestring thirdstyling
+
+        symbolssizes =
+            List.map (\str -> { size = getsymbolsize str, pos = getsymbolsizeposition str, adjustment = getadjustement str }) symbolssizestring
+    in
+        List.filter (\symbolsize -> symbolsize.pos /= 0) symbolssizes
 
 
 getsymbolscolors : List String -> List { colors : Colors, pos : Int }
@@ -104,6 +123,61 @@ getcolorsymbolposition str =
         |> Result.withDefault 0
 
 
+getsymbolsizeposition : String -> Int
+getsymbolsizeposition str =
+    str
+        |> String.split ","
+        |> List.head
+        |> Maybe.withDefault ""
+        |> (\str1 -> String.slice 1 (String.length str1) str)
+        |> String.toInt
+        |> Result.withDefault 0
+
+
+getsymbolsize : String -> Float
+getsymbolsize str =
+    str
+        |> String.split ","
+        |> List.drop 1
+        |> List.head
+        |> Maybe.withDefault ""
+        |> String.toFloat
+        |> Result.withDefault 1.0
+
+
+getadjustement : String -> { x : Int, y : Int }
+getadjustement styling =
+    let
+        cleanedstyling =
+            styling
+                |> String.split ","
+                |> List.drop 2
+                |> List.head
+                |> Maybe.withDefault ""
+
+        split =
+            cleanedstyling
+                |> String.toUpper
+                |> String.split "X"
+
+        x =
+            split
+                |> List.head
+                |> Maybe.withDefault ""
+                |> String.toInt
+                |> Result.withDefault 0
+
+        y =
+            split
+                |> List.drop 1
+                |> List.head
+                |> Maybe.withDefault ""
+                |> String.toInt
+                |> Result.withDefault 0
+    in
+        { x = x, y = y }
+
+
 getsymbolcolors : String -> Colors
 getsymbolcolors styling =
     let
@@ -133,7 +207,7 @@ getcolor colorstring =
     colorstring
         |> Maybe.andThen
             (\cstring ->
-                if testcolorrgb <| Debug.log "cstring" cstring then
+                if testcolorrgb cstring then
                     Just ("#" ++ cstring)
                 else
                     (if cstring /= "" then
@@ -411,6 +485,12 @@ getsymbolscolorstring str =
         |> matchestostrings
 
 
+getsymbolssizestring : String -> List String
+getsymbolssizestring str =
+    Regex.find (Regex.All) (regex q_Zstylingsymbols) str
+        |> matchestostrings
+
+
 matchestostrings : List { b | match : a } -> List a
 matchestostrings matches =
     List.map (\match -> match.match) matches
@@ -465,6 +545,11 @@ q_Dstylingsign =
 q_Dstylingsymbols : String
 q_Dstylingsymbols =
     "D[0-9]{2}_([0-9a-f]{3}([0-9a-f]{3})?|[a-wyzA-Z]+)(,([0-9a-f]{3}([0-9a-f]{3})?|[a-wyzA-Z]+))?_"
+
+
+q_Zstylingsymbols : String
+q_Zstylingsymbols =
+    "Z[0-9]{2},[0-9]+(.[0-9]+)?(,[0-9]{3}x[0-9]{3})?"
 
 
 q_colorrgb : String

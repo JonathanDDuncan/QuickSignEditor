@@ -166,7 +166,7 @@ fswRichTextSymbolZoomLevelTests =
             \() ->
                 Expect.equal
                     ((defaultResultsign worldsecondzoomdoubleadjusted).syms
-                        |> List.drop 2
+                        |> List.drop 1
                         |> List.head
                         |> Maybe.withDefault symbolinit
                         |> .size
