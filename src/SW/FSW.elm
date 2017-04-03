@@ -133,7 +133,7 @@ getcolor colorstring =
     colorstring
         |> Maybe.andThen
             (\cstring ->
-                if testcolorrgb cstring then
+                if testcolorrgb <| Debug.log "cstring" cstring then
                     Just ("#" ++ cstring)
                 else
                     (if cstring /= "" then
@@ -469,4 +469,4 @@ q_Dstylingsymbols =
 
 q_colorrgb : String
 q_colorrgb =
-    "/^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/g"
+    "^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$"

@@ -89,19 +89,34 @@ getsignerrmessage fsw =
                 msg
 
 
-worldblue : String
-worldblue =
-    world ++ "-D_blue_"
+worldbluegreen : String
+worldbluegreen =
+    world ++ "-D_blue,green_"
 
 
-worldthirdblue : String
-worldthirdblue =
-    world ++ "--D03_blue_"
+worldrgbredmagenta : String
+worldrgbredmagenta =
+    world ++ "-D_f44242,f441ee_"
 
 
-allsymbolsnbcolor : String -> Sign -> Bool
-allsymbolsnbcolor color sign =
-    List.all (\symbol -> symbol.nbcolor == color) sign.syms
+worldthirdbluegreen : String
+worldthirdbluegreen =
+    world ++ "--D03_blue,green_"
+
+
+worldsecondrgbredmagenta : String
+worldsecondrgbredmagenta =
+    world ++ "--D02_f44242,f441ee_"
+
+
+worldsecondzoomdoubleadjusted : String
+worldsecondzoomdoubleadjusted =
+    world ++ "--Z02,2,480x490"
+
+
+allsymbolscolor : (Symbol -> String) -> String -> Sign -> Bool
+allsymbolscolor getter color sign =
+    List.all (\symbol -> getter symbol == color) sign.syms
 
 
 
