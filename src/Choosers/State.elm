@@ -37,7 +37,6 @@ init =
       , symbolsizes = Dict.empty
       , handsymbol = handsymbolinit
       , handgroupchooseritems = []
-      , generalgroupchooserdata = []
       , chooserskeyboard =
             { generalchooserkeyboard = []
             , groupchooserkeyboard = []
@@ -117,7 +116,7 @@ update action model =
                         | clicked = clickvalue
                     }
 
-                updatingmodel1 =
+                newmodel =
                     case basesymbol of
                         "S14c" ->
                             let
@@ -131,16 +130,8 @@ update action model =
 
                         _ ->
                             updatedclicked
-
-                generalgroupchooserdata =
-                    creategeneralgroupchooserdata updatingmodel1
-
-                updatingmodel2 =
-                    { updatingmodel1
-                        | generalgroupchooserdata = generalgroupchooserdata
-                    }
             in
-                ( updatingmodel2
+                ( newmodel
                 , Cmd.none
                 )
                     |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)

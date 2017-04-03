@@ -7,6 +7,7 @@ import SWEditor.DisplaySvg exposing (symbolsvg)
 import List.Extra exposing (..)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
+import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 
 
 creategroupchooserkeyboard : Model -> List (KeyAction Msg)
@@ -38,7 +39,7 @@ totalkeyboardpages model =
             if ishandgroupchooser model.clicked then
                 getprepagedatahand <| createhandgroupchooserdata model
             else
-                getprepagedatageneral model.generalgroupchooserdata
+                getprepagedatageneral <| creategeneralgroupchooserdata model
 
         totalpages =
             gettotalpages keyranges prepagedata
@@ -50,7 +51,7 @@ generalgroupchooserkeyboard : Model -> List (KeyAction Msg)
 generalgroupchooserkeyboard model =
     let
         prepagedata =
-            getprepagedatageneral model.generalgroupchooserdata
+            getprepagedatageneral <| creategeneralgroupchooserdata model
 
         pageddata =
             pagedata prepagedata model.chooserskeyboard.keyboardpage
