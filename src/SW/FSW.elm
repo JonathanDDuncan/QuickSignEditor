@@ -5,6 +5,7 @@ import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
 import Dict
 import SW.Types exposing (..)
+import Helpers.ResultExtra exposing (..)
 
 
 fswtoSign : Dict.Dict String Size -> String -> Result String Sign
@@ -42,63 +43,50 @@ fswtoSign symbolsizes fsw =
                 |> Result.andThen
                     (setresultvalue (Ok spellingstring) (\sign value -> { sign | spelling = value }))
                 |> Result.andThen
-                    (\sign -> stylesign richtext sign |> Ok)
+                    (\sign -> stylesign richtext sign)
     in
         sign
 
 
-stylesign : String -> Sign -> Sign
+stylesign : String -> Sign -> Result String Sign
 stylesign stylingstring sign =
     let
         stylings =
             String.split "-" stylingstring
 
-        signcolors =
-            getsigncolors stylings
-
-        symbolscolors =
-            getsymbolscolors stylings
-
         symbolssizes =
             getsymbolssizes stylings
 
-        styledsign =
-            colorallsymbols signcolors sign
-                |> colorsymbols symbolscolors
-                |> sizesymbols symbolssizes
-                |> adjustpositionsymbols symbolssizes
+        symbolcolors =
+            getsymbolscolors stylings
     in
-        styledsign
+        sign
+            |> colorallsymbols (getsigncolors stylings)
+            |> colorsymbols symbolcolors
+            |> sizesymbols symbolssizes
+            |> adjustpositionsymbols symbolssizes
+            |> Debug.log "sign"
 
 
-getsymbolssizes : List String -> List { size : Float, pos : Int, adjustment : { x : Int, y : Int } }
-getsymbolssizes stylings =
-    let
-        thirdstyling =
-            stylings |> List.drop 2 |> List.head |> Maybe.withDefault ""
 
-        symbolssizestring =
-            getsymbolssizestring thirdstyling
-
-        symbolssizes =
-            List.map (\str -> { size = getsymbolsize str, pos = getsymbolsizeposition str, adjustment = getadjustement str }) symbolssizestring
-    in
-        List.filter (\symbolsize -> symbolsize.pos /= 0) symbolssizes
+-- Colors
 
 
-getsymbolscolors : List String -> List { colors : Colors, pos : Int }
+getsymbolscolors : List String -> Result String (List { colors : Colors, pos : Int })
 getsymbolscolors stylings =
-    let
-        thirdstyling =
-            stylings |> List.drop 2 |> List.head |> Maybe.withDefault ""
-
-        symbolscolorstring =
-            getsymbolscolorstring thirdstyling
-
-        symbolscolors =
-            List.map (\str -> { pos = getcolorsymbolposition str, colors = getsymbolcolors str }) symbolscolorstring
-    in
-        List.filter (\symbolcolors -> symbolcolors.pos /= 0) symbolscolors
+    stylings
+        |> List.drop 2
+        |> List.head
+        |> (\maybval ->
+                if (List.foldr (++) "" stylings) /= "" then
+                    maybval
+                        |> Result.fromMaybe (couldnoterror "get colors" (List.foldr (++) "" stylings))
+                else
+                    Ok ""
+           )
+        |> andThentoResult getsymbolscolorstring
+        |> andThentoResult (List.map (\str -> { pos = getcolorsymbolposition str, colors = getsymbolcolors str }))
+        |> andThentoResult (List.filter (\symbolcolors -> symbolcolors.pos /= 0))
 
 
 createcolors : String -> Colors
@@ -122,6 +110,88 @@ getcolorsymbolposition str =
         |> String.slice 1 3
         |> String.toInt
         |> Result.withDefault 0
+
+
+getsymbolcolors : String -> Colors
+getsymbolcolors styling =
+    String.slice 4 ((String.length styling) - 1) styling
+        |> createcolors
+
+
+getsigncolors : List String -> Result String Colors
+getsigncolors stylings =
+    let
+        signcolorstring =
+            stylings
+                |> List.drop 1
+                |> List.head
+                |> (\maybval ->
+                        if (List.foldr (++) "" stylings) /= "" then
+                            maybval
+                                |> Result.fromMaybe (couldnoterror "get signcolorstring" (List.foldr (++) "" stylings))
+                        else
+                            Ok ""
+                   )
+                |> getsigncolorstring
+
+        cleanedstyling =
+            signcolorstring
+                |> andThentoResult
+                    (\signcolorstringvalue -> String.slice 2 ((String.length signcolorstringvalue) - 1) signcolorstringvalue)
+    in
+        cleanedstyling
+            |> andThentoResult (createcolors)
+
+
+getcolor : Maybe String -> Maybe String
+getcolor colorstring =
+    colorstring
+        |> Maybe.andThen
+            (\cstring ->
+                if testcolorrgb cstring then
+                    Just ("#" ++ cstring)
+                else
+                    (if cstring /= "" then
+                        Just (cstring)
+                     else
+                        Nothing
+                    )
+            )
+
+
+
+-- Sizes
+
+
+getsymbolssizes : List String -> Result String (List { size : Float, pos : Int, adjustment : { x : Int, y : Int } })
+getsymbolssizes stylings =
+    let
+        symbolssizestring =
+            stylings
+                |> List.drop 2
+                |> List.head
+                |> (\maybval ->
+                        if (List.foldr (++) "" stylings) /= "" then
+                            maybval
+                                |> Result.fromMaybe (couldnoterror "get signcolorstring" (List.foldr (++) "" stylings))
+                        else
+                            Ok ""
+                   )
+                |> getsymbolssizestring
+    in
+        symbolssizestring
+            |> andThentoResult
+                (\sss ->
+                    sss
+                        |> List.map
+                            (\str ->
+                                { size = getsymbolsize str
+                                , pos = getsymbolsizeposition str
+                                , adjustment = getadjustement str
+                                }
+                            )
+                        |> List.filter (\symbolsize -> symbolsize.pos /= 0)
+                )
 
 
 getsymbolsizeposition : String -> Int
@@ -181,44 +251,8 @@ getadjustement styling =
         { x = x, y = y }
 
 
-getsymbolcolors : String -> Colors
-getsymbolcolors styling =
-    let
-        cleanedstyling =
-            String.slice 4 ((String.length styling) - 1) styling
-    in
-        createcolors cleanedstyling
 
-
-getsigncolors : List String -> Colors
-getsigncolors stylings =
-    let
-        secondstyling =
-            stylings |> List.drop 1 |> List.head |> Maybe.withDefault ""
-
-        signcolorstring =
-            getsigncolorstring secondstyling |> Result.withDefault ""
-
-        cleanedstyling =
-            String.slice 2 ((String.length signcolorstring) - 1) signcolorstring
-    in
-        createcolors cleanedstyling
-
-
-getcolor : Maybe String -> Maybe String
-getcolor colorstring =
-    colorstring
-        |> Maybe.andThen
-            (\cstring ->
-                if testcolorrgb cstring then
-                    Just ("#" ++ cstring)
-                else
-                    (if cstring /= "" then
-                        Just (cstring)
-                     else
-                        Nothing
-                    )
-            )
+-- Create Symbol
 
 
 createsymbols : Dict.Dict String Size -> List String -> Result String (List Symbol)
@@ -474,12 +508,22 @@ getsymbolsstrings fsw =
         |> matchestostrings
 
 
-getsigncolorstring : String -> Result String String
+getsigncolorstring : Result String String -> Result String String
 getsigncolorstring str =
-    Regex.find (Regex.AtMost 1) (regex q_Dstylingsign) str
-        |> matchestostrings
-        |> List.head
-        |> Result.fromMaybe ""
+    str
+        |> Result.andThen
+            (\str1 ->
+                Regex.find (Regex.AtMost 1) (regex q_Dstylingsign) str1
+                    |> matchestostrings
+                    |> List.head
+                    |> (\maybval ->
+                            if str1 /= "" then
+                                maybval
+                                    |> Result.fromMaybe (couldnoterror "getsigncolorstring" str1)
+                            else
+                                Ok ""
+                       )
+            )
 
 
 getsymbolscolorstring : String -> List String
@@ -488,10 +532,14 @@ getsymbolscolorstring str =
         |> matchestostrings
 
 
-getsymbolssizestring : String -> List String
+getsymbolssizestring : Result String String -> Result String (List String)
 getsymbolssizestring str =
-    Regex.find (Regex.All) (regex q_Zstylingsymbols) str
-        |> matchestostrings
+    str
+        |> andThentoResult
+            (\str1 ->
+                Regex.find (Regex.All) (regex q_Zstylingsymbols) str1
+                    |> matchestostrings
+            )
 
 
 matchestostrings : List { b | match : a } -> List a
