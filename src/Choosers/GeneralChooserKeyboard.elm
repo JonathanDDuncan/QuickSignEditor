@@ -75,28 +75,28 @@ layout =
     , { index = 7, key = 35, overrideheight = Just 55, toppadding = 8 }
     , { index = 8, key = 8, overrideheight = Just 20, toppadding = 12 }
     , { index = 9, key = 0, overrideheight = Nothing, toppadding = 5 }
-    , { index = 10, key = 36, overrideheight = Just 60, toppadding = 8 }
-    , { index = 11, key = 0, overrideheight = Nothing, toppadding = 5 }
-    , { index = 12, key = 34, overrideheight = Just 20, toppadding = 3 }
-    , { index = 13, key = 20, overrideheight = Just 25, toppadding = 5 }
-    , { index = 14, key = 21, overrideheight = Just 25, toppadding = 5 }
-    , { index = 15, key = 43, overrideheight = Just 20, toppadding = 5 }
-    , { index = 16, key = 22, overrideheight = Just 20, toppadding = 8 }
-    , { index = 17, key = 16, overrideheight = Nothing, toppadding = 5 }
-    , { index = 18, key = 46, overrideheight = Just 20, toppadding = 5 }
+    , { index = 10, key = 21, overrideheight = Just 60, toppadding = 8 }
+    , { index = 11, key = 33, overrideheight = Nothing, toppadding = 5 }
+    , { index = 12, key = 30, overrideheight = Just 20, toppadding = 3 }
+    , { index = 13, key = 31, overrideheight = Just 25, toppadding = 5 }
+    , { index = 14, key = 48, overrideheight = Just 25, toppadding = 5 }
+    , { index = 15, key = 32, overrideheight = Just 20, toppadding = 5 }
+    , { index = 16, key = 19, overrideheight = Just 20, toppadding = 8 }
+    , { index = 17, key = 20, overrideheight = Nothing, toppadding = 5 }
+    , { index = 18, key = 18, overrideheight = Just 20, toppadding = 5 }
     , { index = 19, key = 17, overrideheight = Nothing, toppadding = 5 }
-    , { index = 20, key = 18, overrideheight = Nothing, toppadding = 5 }
-    , { index = 21, key = 19, overrideheight = Nothing, toppadding = 5 }
-    , { index = 22, key = 30, overrideheight = Nothing, toppadding = 5 }
-    , { index = 23, key = 31, overrideheight = Nothing, toppadding = 5 }
-    , { index = 24, key = 33, overrideheight = Nothing, toppadding = 5 }
+    , { index = 20, key = 16, overrideheight = Nothing, toppadding = 5 }
+    , { index = 21, key = 46, overrideheight = Nothing, toppadding = 5 }
+    , { index = 22, key = 45, overrideheight = Nothing, toppadding = 5 }
+    , { index = 23, key = 43, overrideheight = Nothing, toppadding = 5 }
+    , { index = 24, key = 34, overrideheight = Nothing, toppadding = 5 }
     , { index = 25, key = 47, overrideheight = Just 20, toppadding = 5 }
-    , { index = 26, key = 44, overrideheight = Just 20, toppadding = 5 }
-    , { index = 27, key = 52, overrideheight = Just 20, toppadding = 8 }
-    , { index = 28, key = 48, overrideheight = Just 30, toppadding = 1 }
-    , { index = 29, key = 49, overrideheight = Just 40, toppadding = 1 }
-    , { index = 30, key = 50, overrideheight = Just 40, toppadding = 1 }
-    , { index = 31, key = 45, overrideheight = Just 20, toppadding = 5 }
-    , { index = 32, key = 32, overrideheight = Nothing, toppadding = 5 }
-    , { index = 33, key = 51, overrideheight = Just 20, toppadding = 8 }
+    , { index = 26, key = 9, overrideheight = Just 20, toppadding = 5 }
+    , { index = 27, key = 50, overrideheight = Just 20, toppadding = 8 }
+    , { index = 28, key = 51, overrideheight = Just 30, toppadding = 1 }
+    , { index = 29, key = 52, overrideheight = Just 40, toppadding = 1 }
+    , { index = 30, key = 49, overrideheight = Just 40, toppadding = 1 }
+    , { index = 31, key = 44, overrideheight = Just 20, toppadding = 5 }
+    , { index = 32, key = 10, overrideheight = Nothing, toppadding = 5 }
+    , { index = 33, key = 11, overrideheight = Just 20, toppadding = 8 }
     ]
