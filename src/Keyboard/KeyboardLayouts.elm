@@ -110,7 +110,7 @@ querty =
         , { keyId = 36, code = 74, display = "J", keypress = None }
         , { keyId = 37, code = 75, display = "K", keypress = None }
         , { keyId = 38, code = 76, display = "L", keypress = None }
-        , { keyId = 39, code = 186, display = ";", keypress = None }
+        , { keyId = 39, code = 59, display = ";", keypress = None }
         , { keyId = 40, code = 222, display = "'", keypress = None }
         , { keyId = 41, code = 13, display = "Enter", keypress = None }
         , { keyId = 42, code = 16, display = "Shift", keypress = None }
