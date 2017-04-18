@@ -336,6 +336,13 @@ update action model =
                                 , editormode = Awaiting
                             }
                         )
+                    |> (\modelcheckwithinview ->
+                            if iswithinview then
+                                modelcheckwithinview
+                                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
+                            else
+                                modelcheckwithinview
+                       )
 
         AddUndo changed actiononame model1 ->
             addUndo changed actiononame model1 ! []
