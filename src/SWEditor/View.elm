@@ -58,7 +58,7 @@ editorattributes height signviewmargin =
 signView : Model -> Html Msg
 signView model =
     div
-        (List.append (editorattributes model.containerheight model.signviewmargin) [ onMouseEnter (SetKeyboardMode Keyboard.Shared.SignView) ])
+        (List.append (editorattributes model.containerheight model.signviewmargin) [])
         (List.map symbolView model.sign.syms)
 
 

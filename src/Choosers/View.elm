@@ -64,7 +64,6 @@ root parentwidth parentheight model =
                     , "margin-top" => "5px"
                     , "float" => "left"
                     ]
-                , onMouseEnter (SetKeyboardMode Keyboard.Shared.SymbolChooser)
                 ]
                 [ div
                     [ style
@@ -89,7 +88,6 @@ root parentwidth parentheight model =
                     , "overflow-y" => "scroll"
                     , "overflow-x" => "scroll"
                     ]
-                , onMouseEnter (SetKeyboardMode Keyboard.Shared.GroupChooser)
                 ]
                 [ choosesubgroupchooser model
                 ]
@@ -122,8 +120,7 @@ choosingroot model width height bottompadding =
     in
         { display =
             div
-                [ onMouseEnter (SetKeyboardMode Keyboard.Shared.GeneralChooser)
-                , style [ "position" => "relative" ]
+                [ style [ "position" => "relative" ]
                 ]
                 (List.map displayChoosing model.choosings)
         , width = size.right - size.left
