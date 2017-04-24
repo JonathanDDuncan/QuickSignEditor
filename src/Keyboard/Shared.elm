@@ -121,21 +121,21 @@ isPressedAlt keyList =
 type alias KeyAction a =
     { test : KeyTestConfig
     , action : a
-    , display :
-        { width : Int
-        , height : Int
-        , view : Html.Html a
-        }
+    , display : KeyDisplay a
+    }
+
+
+type alias KeyDisplay a =
+    { width : Int
+    , height : Int
+    , backgroundcolor : Maybe String
+    , view : Html.Html a
     }
 
 
 type alias KeyConfig a =
     { test : KeyTestConfig
-    , display :
-        { width : Int
-        , height : Int
-        , view : Html.Html a
-        }
+    , display : KeyDisplay a
     }
 
 
