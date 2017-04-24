@@ -75,10 +75,7 @@ getundroppedsymbol editormode symbols =
         Nothing
 
 
-issymbolwithinview :
-    NamedPosition
-    -> Maybe Symbol
-    -> Bool
+issymbolwithinview : NamedPosition -> Maybe Symbol -> Bool
 issymbolwithinview viewposition undroppedsymbol =
     case undroppedsymbol of
         Just symbol ->
