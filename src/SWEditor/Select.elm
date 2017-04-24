@@ -6,7 +6,7 @@ import SW.Types exposing (Symbol, Sign)
 
 unselectSignSymbols : Sign -> Sign
 unselectSignSymbols sign =
-    { sign | syms = List.map unselectSymbol sign.syms }
+    { sign | syms = unselectSymbols sign.syms }
 
 
 unselectSymbols : List Symbol -> List Symbol
