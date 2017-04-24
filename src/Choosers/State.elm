@@ -134,8 +134,8 @@ update action model =
                 ( newmodel
                 , Cmd.none
                 )
-                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
                     |> Update.Extra.andThen update UpdateChooserKeyboards
+                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
 
         SymbolView msg ->
             ( model
@@ -162,8 +162,8 @@ update action model =
             , Cmd.none
             )
                 |> Update.Extra.andThen update UpdateChooserKeyboards
-                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
                 |> Update.Extra.andThen update UpdateHandSymbolChooser
+                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
 
         AddSymbol key ->
             let
