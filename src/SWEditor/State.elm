@@ -346,13 +346,6 @@ update action model =
                             }
                         )
                     |> addUndoEntry True "EndDragging"
-                    |> (\modelcheckwithinview ->
-                            if not (isNothing undroppedsymbol) && undroppediswithinview then
-                                modelcheckwithinview
-                                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
-                            else
-                                modelcheckwithinview
-                       )
 
         AddUndo changed actiononame model1 ->
             addUndo changed actiononame model1 ! []
