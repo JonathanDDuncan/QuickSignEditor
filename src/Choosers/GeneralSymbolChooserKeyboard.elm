@@ -1,6 +1,6 @@
 module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
-import Html
+import Html exposing (..)
 import Choosers.Types exposing (..)
 import Keyboard.Shared exposing (..)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
@@ -56,14 +56,20 @@ creategeneralsymbolchooserkeyboard model =
         secondcolumn =
             getgeneralsymbolcolumn symbolcolumndata.column2
 
-        flowerkeyactionlist1 =
-            createflowerkeyactionlist firstcolumn flower1keyidrange
+        flowerkeyactionlistAdd1 =
+            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
 
-        flowerkeyactionlist2 =
-            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange
+        flowerkeyactionlistAdd2 =
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+
+        flowerkeyactionlistReplace1 =
+            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+
+        flowerkeyactionlistReplace2 =
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
 
         fulllist =
-            List.append (List.append rowkeyactionlist flowerkeyactionlist1) flowerkeyactionlist2
+            List.concat [ rowkeyactionlist, flowerkeyactionlistAdd1, flowerkeyactionlistAdd2, flowerkeyactionlistReplace1, flowerkeyactionlistReplace2 ]
     in
         fulllist
 
@@ -83,12 +89,13 @@ creatcolumnkeyactionlist data range =
             List.map
                 (\( key, symbol ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = AddSymbol symbol
+                    , action = AddSymbol symbol.key
                     , display =
                         { width =
                             symbol.width
                         , height =
                             symbol.height
+                        , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
                                 (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
@@ -116,6 +123,7 @@ createkeyactionlist data range =
                             item.symbol.width
                         , height =
                             item.symbol.height
+                        , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
                                 (signdisplaysvg "hover" { signinit | syms = [ item.symbol ] })
@@ -151,11 +159,14 @@ createhandsymbolchooserkeyboard model =
         fillactionlist =
             createfillkeyactionlist (List.reverse model.handsymbol.handfillitems) (List.range 30 33)
 
-        flowerkeyactionlist =
-            createflowerkeyactionlist petals handflowerkeyidrange
+        flowerkeyactionlistadd =
+            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+
+        flowerkeyactionlistreplace =
+            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
 
         fulllist =
-            List.concat [ lefthandactionlist, righthandactionlist, wallplaneactionlist, floorplaneactionlist, fillactionlist, flowerkeyactionlist ]
+            List.concat [ lefthandactionlist, righthandactionlist, wallplaneactionlist, floorplaneactionlist, fillactionlist, flowerkeyactionlistadd, flowerkeyactionlistreplace ]
     in
         fulllist
 
@@ -175,6 +186,7 @@ createfillkeyactionlist data range =
                             handfillitem.symbol.width
                         , height =
                             handfillitem.symbol.height
+                        , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
                                 (signdisplaysvg "hover" { signinit | syms = [ handfillitem.symbol ] })
@@ -186,7 +198,7 @@ createfillkeyactionlist data range =
         viewkeylist
 
 
-createflowerkeyactionlist data range =
+createflowerkeyactionlist data range modifiers action backgroundcolor =
     let
         keyrange =
             List.Extra.zip range data
@@ -194,13 +206,14 @@ createflowerkeyactionlist data range =
         viewkeylist =
             List.map
                 (\( key, symbol ) ->
-                    { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = AddSymbol symbol
+                    { test = { modifiers | key = key }
+                    , action = action symbol.key
                     , display =
                         { width =
                             symbol.width
                         , height =
                             symbol.height
+                        , backgroundcolor = Just backgroundcolor
                         , view =
                             Html.map Choosers.Types.SignView
                                 (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
@@ -227,6 +240,7 @@ createhandkeyactionlist message data range =
                             symbol.width
                         , height =
                             symbol.height
+                        , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
                                 (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
@@ -246,6 +260,7 @@ createplanekeyaction message view width height key =
             width
         , height =
             height
+        , backgroundcolor = Nothing
         , view = view
         }
     }

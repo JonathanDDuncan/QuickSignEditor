@@ -44,6 +44,7 @@ creategeneralchooserkeyboard choosings =
                 , display =
                     { width = choosing.displaySign.width
                     , height = choosing.displaySign.height
+                    , backgroundcolor = Nothing
                     , view =
                         Html.map Choosers.Types.SignView
                             (signsvg choosing.displaySign)

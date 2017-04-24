@@ -165,11 +165,15 @@ update action model =
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
                 |> Update.Extra.andThen update UpdateHandSymbolChooser
 
-        AddSymbol symbol ->
-            ( model
-            , cmdAddSymbol symbol
-            )
-                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
+        AddSymbol key ->
+            let
+                editorsymbol =
+                    (getSymbolbyKey key model.symbolsizes)
+            in
+                ( model
+                , cmdAddSymbol <| editorsymbol
+                )
+                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
 
         DragSymbol key ->
             let

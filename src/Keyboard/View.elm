@@ -96,6 +96,7 @@ convertotkeyboardmsg keyboardcommand newmsg keyboarddisplay =
             { display =
                 { width = config.display.width
                 , height = config.display.height
+                , backgroundcolor = config.display.backgroundcolor
                 , view = Html.map newmsg config.display.view
                 }
             , test = config.test
@@ -147,6 +148,9 @@ nkey model n displays keyboardwidth rowheight =
         originalsize =
             { height = display.height, width = display.width }
 
+        backgroundcolor =
+            display.backgroundcolor
+
         finalheight =
             (rowheight - 5.0)
 
@@ -175,6 +179,14 @@ nkey model n displays keyboardwidth rowheight =
             [ class <| "key k" ++ toString n ++ pressed ++ activemode
             , onClick (KeyClicked n)
             , onTouchEnd (KeyClicked n)
+            , style
+                [ case display.backgroundcolor of
+                    Just color ->
+                        ( "background-color", color )
+
+                    Nothing ->
+                        ( "", "" )
+                ]
             ]
             [ div [ class " centerdivcontainer" ]
                 [ div
@@ -198,7 +210,7 @@ getkeydisplay n display =
     List.filter (\disp -> disp.test.key == n) display
         |> List.head
         |> Maybe.withDefault
-            { display = { width = 20, height = 20, view = text "" }
+            { display = { width = 20, height = 20, backgroundcolor = Nothing, view = text "" }
             , test = { key = 0, ctrl = False, shift = False, alt = True }
             }
 

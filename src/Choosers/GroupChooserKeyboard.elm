@@ -99,6 +99,7 @@ createkeyactionlist data =
                             item.symbol.width
                         , height =
                             item.symbol.height
+                        , backgroundcolor = Nothing
                         , view = Html.map SignView (symbolsvg "hover" item.symbol)
                         }
                     }
@@ -140,12 +141,7 @@ keyranges =
     [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
 
 
-nextpagelist :
-    List
-        { action : Msg
-        , display : { height : number, view : Html.Html msg, width : number1 }
-        , test : { alt : Bool, ctrl : Bool, key : Int, shift : Bool }
-        }
+nextpagelist : List (KeyAction Msg)
 nextpagelist =
     [ { test = { key = 57, ctrl = False, shift = False, alt = False }
       , action = NextKeyboardPage
@@ -154,6 +150,7 @@ nextpagelist =
                 50
             , height =
                 30
+            , backgroundcolor = Nothing
             , view = Html.text "Next Page"
             }
       }

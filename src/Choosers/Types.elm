@@ -47,7 +47,7 @@ type Msg
     | SignView SWEditor.Types.Msg
     | SelectedColumn Int
     | GroupSelected ChooserItem
-    | AddSymbol Symbol
+    | AddSymbol Key
     | DragSymbol Key
     | ReplaceSymbol Key
     | FilterHandGroup Int
