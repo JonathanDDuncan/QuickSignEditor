@@ -13,6 +13,7 @@ import SW.Types exposing (..)
 import Mouse as Mouse exposing (downs, moves, ups)
 import List.Extra exposing (..)
 import SWEditor.SignArea exposing (..)
+import Helpers.MaybeExtra exposing (..)
 import SWEditor.EditorKeyboard exposing (..)
 import Keyboard.Shared exposing (KeyboardMode)
 
@@ -417,16 +418,6 @@ addUndoEntry changed name updatetuple =
                 )
     )
         updatetuple
-
-
-isNothing : Maybe a -> Bool
-isNothing val =
-    case val of
-        Just v ->
-            False
-
-        Nothing ->
-            True
 
 
 replaceselectedsymbols : List Symbol -> Symbol -> List Symbol
