@@ -83,7 +83,11 @@ update action model =
         CenterSign ->
             model
                 ! []
-                |> Update.Extra.andThen update (AddUndo True "CenterSign" { model | sign = centerSignViewposition model.viewposition model.sign })
+                |> updateModel
+                    (\model ->
+                        { model | sign = centerSignViewposition model.viewposition model.sign }
+                    )
+                |> addUndoEntry True "CenterSign"
 
         StartRectangleSelect ->
             { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
@@ -98,7 +102,11 @@ update action model =
             in
                 model
                     ! []
-                    |> Update.Extra.andThen update (AddUndo changed "EndRectangleSelect" { model | editormode = Awaiting, sign = newsign })
+                    |> updateModel
+                        (\model ->
+                            { model | editormode = Awaiting, sign = newsign }
+                        )
+                    |> addUndoEntry changed "EndRectangleSelect"
 
         SelectSymbol id ->
             let
@@ -110,7 +118,8 @@ update action model =
             in
                 model
                     ! []
-                    |> Update.Extra.andThen update (AddUndo changed "SelectSymbol" { model | sign = newsign })
+                    |> updateModel (\model -> { model | sign = newsign })
+                    |> addUndoEntry changed "SelectSymbol"
                     |> Update.Extra.andThen update (StartDragging)
 
         UnSelectSymbols ->
@@ -123,7 +132,8 @@ update action model =
             in
                 model
                     ! []
-                    |> Update.Extra.andThen update (AddUndo changed "UnSelectSymbols" { model | sign = newsign })
+                    |> updateModel (\model -> { model | sign = newsign })
+                    |> addUndoEntry changed "UnSelectSymbols"
 
         MouseDown position ->
             let
@@ -303,22 +313,21 @@ update action model =
             in
                 newmodel
                     ! []
-                    |> Update.Extra.andThen update
-                        (AddUndo True
-                            "AddSymbol"
-                            newmodel
-                        )
+                    |> addUndoEntry True "AddSymbol"
 
         EndDragging ->
             let
+                model1 =
+                    model.sign
+
                 undroppedsymbol =
                     getundroppedsymbol model.editormode model.sign.syms
 
-                iswithinview =
+                undroppediswithinview =
                     issymbolwithinview model.viewposition undroppedsymbol
 
                 newmodel =
-                    if not iswithinview then
+                    if not undroppediswithinview then
                         deletesymbols model
                     else
                         model
@@ -328,16 +337,16 @@ update action model =
             in
                 newmodel
                     ! []
-                    |> Update.Extra.andThen update
-                        (AddUndo True
-                            "EndDragging"
-                            { newmodel
+                    |> updateModel
+                        (\model ->
+                            { model
                                 | sign = signwithinbounds
                                 , editormode = Awaiting
                             }
                         )
+                    |> addUndoEntry True "EndDragging"
                     |> (\modelcheckwithinview ->
-                            if iswithinview then
+                            if not (isNothing undroppedsymbol) && undroppediswithinview then
                                 modelcheckwithinview
                                     |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
                             else
@@ -356,14 +365,20 @@ update action model =
         DeleteSymbols ->
             model
                 ! []
-                |> Update.Extra.andThen update
-                    (AddUndo True "DeleteSymbols" <| deletesymbols model)
+                |> updateModel
+                    (\model ->
+                        deletesymbols model
+                    )
+                |> addUndoEntry True "DeleteSymbols"
 
         DuplicateSymbols ->
             model
                 ! []
-                |> Update.Extra.andThen update
-                    (AddUndo True "DuplicateSymbols" <| duplicatesymbols model)
+                |> updateModel
+                    (\model ->
+                        duplicatesymbols model
+                    )
+                |> addUndoEntry True "DuplicateSymbols"
 
         Keyboard command ->
             runKeyboardCommand model command update
@@ -371,8 +386,11 @@ update action model =
         MoveSymbols direction distance ->
             model
                 ! []
-                |> Update.Extra.andThen update
-                    (AddUndo True "MoveSymbols" <| movesymbols model direction distance)
+                |> updateModel
+                    (\model ->
+                        movesymbols model direction distance
+                    )
+                |> addUndoEntry True "MoveSymbols"
 
         SetKeyboardMode mode ->
             let
@@ -382,6 +400,33 @@ update action model =
                 ( model
                 , sendKeyboardMode num
                 )
+
+
+addUndoEntry :
+    Bool
+    -> String
+    -> ( Model, Cmd Msg )
+    -> ( Model, Cmd Msg )
+addUndoEntry changed name updatetuple =
+    (\(( model, cmd ) as updatetuple1) ->
+        updatetuple1
+            |> Update.Extra.andThen update
+                (AddUndo changed
+                    name
+                    model
+                )
+    )
+        updatetuple
+
+
+isNothing : Maybe a -> Bool
+isNothing val =
+    case val of
+        Just v ->
+            False
+
+        Nothing ->
+            True
 
 
 replaceselectedsymbols : List Symbol -> Symbol -> List Symbol
