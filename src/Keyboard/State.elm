@@ -76,13 +76,9 @@ update action model =
             )
 
         SetKeyboardMode num ->
-            let
-                mode =
-                    getKeyboardMode num
-            in
-                ( { model | keyboardmode = mode }
-                , Cmd.none
-                )
+            ( { model | keyboardmode = getKeyboardMode num }
+            , Cmd.none
+            )
 
 
 
