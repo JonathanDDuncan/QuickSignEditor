@@ -122,7 +122,7 @@ issymbolwithinview viewposition undroppedsymbol =
                 iswithin
 
         Nothing ->
-            False
+            True
 
 
 movesymbols : Model -> Direction -> Distance -> Model
