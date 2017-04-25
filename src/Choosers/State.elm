@@ -14,7 +14,6 @@ import Choosers.HandGroupChooser exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import Choosers.GeneralChooserKeyboard exposing (..)
 import Choosers.GroupChooserKeyboard exposing (..)
-import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 import Keyboard.Shared exposing (KeyboardMode)
 import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
@@ -171,7 +170,7 @@ update action model =
                     (getSymbolbyKey key model.symbolsizes)
             in
                 ( model
-                , cmdAddSymbol <| editorsymbol
+                , cmdAddSymbol editorsymbol
                 )
                     |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
 
@@ -181,7 +180,7 @@ update action model =
                     (getSymbolbyKey key model.symbolsizes)
             in
                 ( model
-                , cmdDragSymbol <| editorsymbol
+                , cmdDragSymbol editorsymbol
                 )
 
         ReplaceSymbol key ->
@@ -190,7 +189,7 @@ update action model =
                     (getSymbolbyKey key model.symbolsizes)
             in
                 ( model
-                , cmdReplaceSymbol <| editorsymbol
+                , cmdReplaceSymbol editorsymbol
                 )
 
         FilterHandGroup value ->

@@ -44,7 +44,11 @@ runKeyboard :
     -> List (KeyAction msg)
     -> ( a, Cmd msg )
 runKeyboard model command update config =
-    List.foldl (\item -> runkeycommand command update item) (model ! []) config
+    let
+        filteredconfig =
+            List.filter (\item -> runtest command item.test) config
+    in
+        List.foldl (\item -> runkeycommand command update item) (model ! []) filteredconfig
 
 
 runkeycommand :
@@ -54,18 +58,17 @@ runkeycommand :
     -> ( model, Cmd a )
     -> ( model, Cmd a )
 runkeycommand command update config =
-    Update.Extra.filter (runtest command config.test)
-        (Update.Extra.andThen update <| config.action)
+    Update.Extra.andThen update config.action
 
 
 runtest : KeyboardCommand -> KeyTestConfig -> Bool
 runtest command test =
     (pressed command test.key)
-        && command.ctrlPressed
+        && (isPressedCtrl command.keys)
         == test.ctrl
-        && command.shiftPressed
+        && (isPressedShift command.keys)
         == test.shift
-        && command.altPressed
+        && (isPressedAlt command.keys)
         == test.alt
 
 
