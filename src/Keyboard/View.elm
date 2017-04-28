@@ -177,8 +177,6 @@ nkey model n displays keyboardwidth rowheight =
     in
         div
             [ class <| "key k" ++ toString n ++ pressed ++ activemode
-            , onClick (KeyClicked n)
-            , onTouchEnd (KeyClicked n)
             , style
                 [ case display.backgroundcolor of
                     Just color ->

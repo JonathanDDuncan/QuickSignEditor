@@ -98,7 +98,7 @@ creatcolumnkeyactionlist data range =
                         , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
+                                (signdisplaysvg "" { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -126,7 +126,7 @@ createkeyactionlist data range =
                         , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg "hover" { signinit | syms = [ item.symbol ] })
+                                (signdisplaysvg "" { signinit | syms = [ item.symbol ] })
                         }
                     }
                 )
@@ -189,7 +189,7 @@ createfillkeyactionlist data range =
                         , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg "hover" { signinit | syms = [ handfillitem.symbol ] })
+                                (signdisplaysvg "" { signinit | syms = [ handfillitem.symbol ] })
                         }
                     }
                 )
@@ -216,7 +216,7 @@ createflowerkeyactionlist data range modifiers action backgroundcolor =
                         , backgroundcolor = Just backgroundcolor
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
+                                (signdisplaysvg "" { signinit | syms = [ symbol ] })
                         }
                     }
                 )
@@ -243,7 +243,7 @@ createhandkeyactionlist message data range =
                         , backgroundcolor = Nothing
                         , view =
                             Html.map Choosers.Types.SignView
-                                (signdisplaysvg "hover" { signinit | syms = [ symbol ] })
+                                (signdisplaysvg "" { signinit | syms = [ symbol ] })
                         }
                     }
                 )

@@ -100,7 +100,7 @@ createkeyactionlist data =
                         , height =
                             item.symbol.height
                         , backgroundcolor = Nothing
-                        , view = Html.map SignView (symbolsvg "hover" item.symbol)
+                        , view = Html.map SignView (symbolsvg "" item.symbol)
                         }
                     }
                 )
