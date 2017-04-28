@@ -7,14 +7,15 @@ import SWEditor.Types exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import ViewHelper.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvgmargincolor)
-import Keyboard.Shared exposing (KeyboardMode)
 import SW.Types exposing (Symbol)
+import SWEditor.Icons exposing (..)
 
 
 root : Model -> Html Msg
 root model =
     div []
-        [ signView model
+        [ commandsview model
+        , signView model
         , rectangleselect model
         ]
 
@@ -48,7 +49,9 @@ editorattributes : Int -> Int -> List (Attribute Msg)
 editorattributes height signviewmargin =
     [ Html.Attributes.style
         [ "height" => px (height - 50)
+        , "width" => px (height - 60)
         , "margin" => px signviewmargin
+        , "float" => "left"
         ]
     , Html.Attributes.id "signView"
     , Html.Attributes.class "disablePanZoom signview"
@@ -60,6 +63,26 @@ signView model =
     div
         (List.append (editorattributes model.containerheight model.signviewmargin) [])
         (List.map symbolView model.sign.syms)
+
+
+commandsview : Model -> Html Msg
+commandsview model =
+    div
+        [ style
+            [ "float" => "right"
+            , "width" => px 60
+            , "border-style" => "inset"
+            , "border-width" => "4px"
+            , "margin-top" => "5px"
+            ]
+        ]
+        [ div []
+            [ a [ onClick Undo, title "Undo" ] [ undoicon ]
+            ]
+        , div [] [ a [ onClick Redo, title "Redo" ] [ redoicon ] ]
+        , div [] [ a [ onClick DuplicateSymbols, title "Duplicate" ] [ duplicateicon ] ]
+        , div [] [ a [ onClick DeleteSymbols, title "Delete" ] [ garbagecanicon ] ]
+        ]
 
 
 symbolView : Symbol -> Html Msg
