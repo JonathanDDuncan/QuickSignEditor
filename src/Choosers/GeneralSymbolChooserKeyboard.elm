@@ -58,15 +58,19 @@ creategeneralsymbolchooserkeyboard model =
 
         flowerkeyactionlistAdd1 =
             createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+                |> setassamesize
 
         flowerkeyactionlistAdd2 =
             createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+                |> setassamesize
 
         flowerkeyactionlistReplace1 =
             createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+                |> setassamesize
 
         flowerkeyactionlistReplace2 =
             createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+                |> setassamesize
 
         fulllist =
             List.concat [ rowkeyactionlist, flowerkeyactionlistAdd1, flowerkeyactionlistAdd2, flowerkeyactionlistReplace1, flowerkeyactionlistReplace2 ]
@@ -74,9 +78,30 @@ creategeneralsymbolchooserkeyboard model =
         fulllist
 
 
+setassamesize flowerkeyactionlist =
+    let
+        maxheight =
+            Maybe.withDefault 0 <| List.maximum <| List.map (\fka -> fka.display.height) flowerkeyactionlist
+
+        maxwidth =
+            Maybe.withDefault 0 <| List.maximum <| List.map (\fka -> fka.display.width) flowerkeyactionlist
+    in
+        List.map
+            (\fka ->
+                let
+                    previousdisplay =
+                        fka.display
+                in
+                    { fka
+                        | display = { previousdisplay | height = maxheight, width = maxwidth }
+                    }
+            )
+            flowerkeyactionlist
+
+
 getgeneralsymbolcolumn : List (Maybe a) -> List a
 getgeneralsymbolcolumn symbolcolumndata =
-    removeNothings <| List.map (\symbol -> symbol) symbolcolumndata
+    removeNothings <| symbolcolumndata
 
 
 creatcolumnkeyactionlist : List Symbol -> List Int -> List (KeyAction Msg)
@@ -161,9 +186,11 @@ createhandsymbolchooserkeyboard model =
 
         flowerkeyactionlistadd =
             createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+                |> setassamesize
 
         flowerkeyactionlistreplace =
             createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+                |> setassamesize
 
         fulllist =
             List.concat [ lefthandactionlist, righthandactionlist, wallplaneactionlist, floorplaneactionlist, fillactionlist, flowerkeyactionlistadd, flowerkeyactionlistreplace ]
