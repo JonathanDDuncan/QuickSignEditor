@@ -9,15 +9,20 @@ import FSWTestHelper exposing (..)
 fswtoRichTextTests : Test
 fswtoRichTextTests =
     describe "FSW to RichText Test Suite"
-        [ fswRichTextFullSignColorsTests
-        , fswRichTextSpecificSymbolColorsTests
-        , fswRichTextSymbolZoomLevelTests
-        ]
+        []
+
+
+
+-- [ fswRichTextFullSignColorsTests
+-- , fswRichTextSpecificSymbolColorsTests
+-- , fswRichTextSymbolZoomLevelTests
+-- ]
 
 
 fswRichTextFullSignColorsTests : Test
 fswRichTextFullSignColorsTests =
-    describe "FSW to RichText Full Sign Colors Test Suite"
+    describe
+        "FSW to RichText Full Sign Colors Test Suite"
         [ test "Signsymbols normally black first is now blue" <|
             \() ->
                 Expect.equal
