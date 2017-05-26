@@ -14,8 +14,12 @@ ZoomPrefix index:SymbolIndex "," zoom:Number
 
 ZoomPrefix = "Z"
 
+ColorizePrefix = "C"
 
-
+Colorize =
+ 	colorize:ColorizePrefix
+    { return colorize == "C"
+    }
 
 SignColors =  ColorPrefix color:Color
 	{ return  {fore: color.fore,back: color.back};  }
@@ -61,13 +65,13 @@ UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * styling:Styling
     symbols: symbols } }
 
 Styling = symbols: SymbolsStylings  ? sign:SignStylings ?
-	{ return { colors : sign ? sign.colors : null,
+	{ return { colorize:sign ? sign.colorize : null ,colors : sign ? sign.colors : null,
     symbolscolors : symbols ? symbols.symbolscolors :null,
     signzoom :  sign ? sign.signzoom : null,
     symbolszoom: symbols ? symbols.symbolszoom : null}}
 
-SignStylings = SignStylingPrefix colors:SignColors ? signzoom:SignZoom ?
-{ return { colors : colors, signzoom : signzoom}}
+SignStylings = SignStylingPrefix colorize:Colorize colors:SignColors ? signzoom:SignZoom ?
+{ return { colorize:  colorize , colors : colors, signzoom : signzoom}}
 
 SymbolsStylings = SymbolStylingPrefix  symbolscolors:SymbolsColors ? symbolszoom:SymbolsZoom ?
    { return {   symbolscolors : symbolscolors , symbolszoom: symbolszoom}}
