@@ -1,6 +1,24 @@
 
 Expression
-  = Document
+  = Sign
+
+Colors = SignStylingPrefix ColorPrefix color:Color
+	{ return  {fore: color.fore,back: color.back};  }
+
+SignStylingPrefix
+	= "-"
+
+ColorPrefix = "D"
+
+Color =  PairPrefix foregroundcolor: (RGB / ColorText) "," backgroundcolor: (RGB / ColorText) PairSuffix
+	{ return  {fore: foregroundcolor, back: backgroundcolor};  }
+
+RGB = [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]{return text()}
+ColorText =[a-wyzA-Z]+ {return text()}
+ColorPair = PairPrefix  PairSuffix
+
+PairPrefix = "_"
+PairSuffix  = "_"
 
 Document = SignSpacer *
 
@@ -9,8 +27,8 @@ Sign Space
 
 Sign =  sort:Sorting ?  sign:UnSortedSign
 	{ return  { sorting: sort, sign: sign } }
-UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate *
-	{ return  { l: prefix.lane, c: prefix.signcoordinate, symbols: symbols } }
+UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * colors:Colors ?
+	{ return  { l: prefix.lane, c: prefix.signcoordinate, colors: colors, symbols: symbols } }
 SymbolCoordinate = symb:Symbol coord:Coordinate
 	{ return { k: symb, c: coord
 
