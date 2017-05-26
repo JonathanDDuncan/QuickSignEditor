@@ -15,19 +15,22 @@ ZoomPrefix index:SymbolIndex "," zoom:Number
 ZoomPrefix = "Z"
 
 ColorizePrefix = "C"
+BackGroundColorPrefix = "G"
+BackGroundColor = BackGroundColorPrefix PairPrefix backgroundcolor: (RGB / ColorText) PairSuffix
+	{ return  backgroundcolor;  }
 
 Colorize =
  	colorize:ColorizePrefix
     { return colorize == "C"
     }
 
-SignColors =  ColorPrefix color:Color
+SignColors =  ColorPrefix color:SymbolColor
 	{ return  {fore: color.fore,back: color.back};  }
 
 SymbolsColors =   colors: SymbolColors *
 	{ return   colors;  }
 
-SymbolColors = ColorPrefix index:SymbolIndex color:Color
+SymbolColors = ColorPrefix index:SymbolIndex color:SymbolColor
 	{ return  {index: index, fore: color.fore,back: color.back};  }
 
 SymbolIndex = digits: (digit digit)
@@ -41,8 +44,9 @@ SymbolStylingPrefix
 
 ColorPrefix = "D"
 
-Color =  PairPrefix foregroundcolor: (RGB / ColorText) "," backgroundcolor: (RGB / ColorText) PairSuffix
+SymbolColor =  PairPrefix foregroundcolor: (RGB / ColorText) "," backgroundcolor: (RGB / ColorText) PairSuffix
 	{ return  {fore: foregroundcolor, back: backgroundcolor};  }
+
 
 RGB = hexa hexa hexa hexa hexa hexa {return text()}
 ColorText =[a-wyzA-Z]+ {return text()}
@@ -65,13 +69,16 @@ UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * styling:Styling
     symbols: symbols } }
 
 Styling = symbols: SymbolsStylings  ? sign:SignStylings ?
-	{ return { colorize:sign ? sign.colorize : null ,colors : sign ? sign.colors : null,
+	{ return { colorize:sign ? sign.colorize : null ,
+    backgroundcolor:sign ? sign.backgroundcolor : null ,
+
+    colors : sign ? sign.colors : null,
     symbolscolors : symbols ? symbols.symbolscolors :null,
     signzoom :  sign ? sign.signzoom : null,
     symbolszoom: symbols ? symbols.symbolszoom : null}}
 
-SignStylings = SignStylingPrefix colorize:Colorize colors:SignColors ? signzoom:SignZoom ?
-{ return { colorize:  colorize , colors : colors, signzoom : signzoom}}
+SignStylings = SignStylingPrefix colorize:Colorize ? backgroundcolor:BackGroundColor colors:SignColors ? signzoom:SignZoom ?
+{ return { colorize:  colorize , backgroundcolor: backgroundcolor, colors : colors, signzoom : signzoom}}
 
 SymbolsStylings = SymbolStylingPrefix  symbolscolors:SymbolsColors ? symbolszoom:SymbolsZoom ?
    { return {   symbolscolors : symbolscolors , symbolszoom: symbolszoom}}
