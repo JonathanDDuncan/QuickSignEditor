@@ -6,12 +6,13 @@ import SW.FSW as FSW exposing (..)
 import SW.Types exposing (..)
 import FSWTestHelper exposing (..)
 import FSWRichTextTests exposing (..)
+import FSWParserTests exposing (..)
 
-   
+
 fswTests : Test
 fswTests =
     describe "FSW Tests Suite"
-        [ fswtoSignTests, fswtoRichTextTests ]
+        [ fswtoSignTests, fswtoRichTextTests, fswParserTests ]
 
 
 fswtoSignTests : Test

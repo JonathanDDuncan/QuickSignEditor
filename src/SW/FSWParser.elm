@@ -6,5 +6,20 @@ import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, 
 import Dict
 import SW.Types exposing (..)
 import Helpers.ResultExtra exposing (..)
+import  Parser exposing (..)
 
-a= 5
+a =
+   5
+
+coordinate  =
+   succeed Coordinate
+
+    |= int
+
+    |. symbol "X"
+
+    |= int
+
+
+
+type alias Coordinate =  {x :Int, y:Int}
