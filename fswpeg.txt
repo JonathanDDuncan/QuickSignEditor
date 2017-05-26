@@ -2,6 +2,13 @@
 Expression
   = Sign
 
+SignZoom =   SignStylingPrefix ZoomPrefix zoom:Number
+	{return zoom}
+ZoomPrefix = "Z"
+
+
+
+
 SignColors = SignStylingPrefix ColorPrefix color:Color
 	{ return  {fore: color.fore,back: color.back};  }
 
@@ -40,10 +47,10 @@ Sign Space
 Sign =  sort:Sorting ?  sign:UnSortedSign
 	{ return  { sorting: sort, sign: sign } }
 UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * stylin:Styling
-	{ return  { l: prefix.lane, c: prefix.signcoordinate, colors: stylin.colors,  symbolscolors: stylin.symbolscolors, symbols: symbols } }
+	{ return  { l: prefix.lane, c: prefix.signcoordinate, colors: stylin.colors, zoom: stylin.signzoom, symbolscolors: stylin.symbolscolors, symbols: symbols } }
 
-Styling = colors:SignColors ? symbolscolors:SymbolsColors ?
-	{ return { colors : colors, symbolscolors : symbolscolors}}
+Styling = colors:SignColors ? symbolscolors:SymbolsColors ? signzoom:SignZoom ?
+	{ return { colors : colors, symbolscolors : symbolscolors, signzoom : signzoom}}
 
 SymbolCoordinate = symb:Symbol coord:Coordinate
 	{ return { k: symb, c: coord
@@ -71,8 +78,13 @@ Coordinate = x1:ThreeInts CoordinateSpacer y1:ThreeInts
 ThreeInts "threeints"
 	 = digit digit digit  { return parseInt(text(), 10); }
 
+Float "float"
+  = digit + ( "." digit +) ? { return parseFloat(text(), 10); }
+
 Integer "integer"
   = digit+ { return parseInt(text(), 10); }
+
+Number "number" = Float / Integer
 
 CoordinateSpacer "coordinatespacer"
   = [Xx]
