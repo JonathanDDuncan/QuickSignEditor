@@ -1,13 +1,18 @@
 
 Expression
-  = Sign
+  = Document
+
+Document = SignSpacer *
+
+SignSpacer =
+Sign Space
 
 Sign =  sort:Sorting ?  sign:UnSortedSign
 	{ return  { sorting: sort, sign: sign } }
 UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate *
-	{ return  { lane: prefix.lane, coordinate: prefix.signcoordinate, symbols: symbols } }
+	{ return  { l: prefix.lane, c: prefix.signcoordinate, symbols: symbols } }
 SymbolCoordinate = symb:Symbol coord:Coordinate
-	{ return { k: symb, x: coord.x , y: coord.y
+	{ return { k: symb, c: coord
 
     } }
 
@@ -38,5 +43,7 @@ Integer "integer"
 CoordinateSpacer "coordinatespacer"
   = [Xx]
 
-_ "whitespace"
+Space = " " *
+
+Whitespace "whitespace"
   = [ \t\n\r]*
