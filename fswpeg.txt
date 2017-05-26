@@ -1,6 +1,6 @@
 
 Expression
-  = Sign
+  = Document
 
 SignZoom =    ZoomPrefix zoom:Number
 	{return zoom}
@@ -49,9 +49,15 @@ SymbolStylingPrefix
 
 ColorPrefix = "D"
 
-SymbolColor =  PairPrefix foregroundcolor: (RGB / ColorText) "," backgroundcolor: (RGB / ColorText) PairSuffix
-	{ return  {fore: foregroundcolor, back: backgroundcolor};  }
+SymbolColor =  PairPrefix twocolors:TwoColors ?  foregroundonly: (RGB / ColorText)?   PairSuffix
+		{ if (foregroundonly)
+    	  {return  {fore: foregroundonly, back: null};}
+          else
+    {return  {fore:  twocolors.foregroundcolor, back: twocolors.backgroundcolor}; } }
 
+TwoColors =
+	  foregroundcolor: (RGB / ColorText) "," backgroundcolor: (RGB / ColorText)
+         {return  {foregroundcolor:  foregroundcolor, backgroundcolor: backgroundcolor}; }
 
 RGB = hexa hexa hexa hexa hexa hexa {return text()}
 ColorText =[a-wyzA-Z]+ {return text()}
@@ -84,7 +90,7 @@ backgroundcolor:sign ? sign.backgroundcolor : null ,
     signzoom :  sign ? sign.signzoom : null,
     symbolszoom: symbols ? symbols.symbolszoom : null}}
 
-SignStylings = SignStylingPrefix colorize:Colorize ? padding:Padding ? backgroundcolor:BackGroundColor colors:SignColors ? signzoom:SignZoom ?
+SignStylings = SignStylingPrefix colorize:Colorize ? padding:Padding ? backgroundcolor:BackGroundColor ? colors:SignColors ? signzoom:SignZoom ?
 { return { colorize:  colorize , padding: padding, backgroundcolor: backgroundcolor, colors : colors, signzoom : signzoom}}
 
 SymbolsStylings = SymbolStylingPrefix  symbolscolors:SymbolsColors ? symbolszoom:SymbolsZoom ?
