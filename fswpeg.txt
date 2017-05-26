@@ -15,6 +15,11 @@ ZoomPrefix index:SymbolIndex "," zoom:Number
 ZoomPrefix = "Z"
 
 ColorizePrefix = "C"
+PaddingPrefix = "P"
+Padding =
+	PaddingPrefix padding:Integer
+    {return padding}
+
 BackGroundColorPrefix = "G"
 BackGroundColor = BackGroundColorPrefix PairPrefix backgroundcolor: (RGB / ColorText) PairSuffix
 	{ return  backgroundcolor;  }
@@ -70,15 +75,17 @@ UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * styling:Styling
 
 Styling = symbols: SymbolsStylings  ? sign:SignStylings ?
 	{ return { colorize:sign ? sign.colorize : null ,
-    backgroundcolor:sign ? sign.backgroundcolor : null ,
+
+        padding:sign ? sign.padding : null ,
+backgroundcolor:sign ? sign.backgroundcolor : null ,
 
     colors : sign ? sign.colors : null,
     symbolscolors : symbols ? symbols.symbolscolors :null,
     signzoom :  sign ? sign.signzoom : null,
     symbolszoom: symbols ? symbols.symbolszoom : null}}
 
-SignStylings = SignStylingPrefix colorize:Colorize ? backgroundcolor:BackGroundColor colors:SignColors ? signzoom:SignZoom ?
-{ return { colorize:  colorize , backgroundcolor: backgroundcolor, colors : colors, signzoom : signzoom}}
+SignStylings = SignStylingPrefix colorize:Colorize ? padding:Padding ? backgroundcolor:BackGroundColor colors:SignColors ? signzoom:SignZoom ?
+{ return { colorize:  colorize , padding: padding, backgroundcolor: backgroundcolor, colors : colors, signzoom : signzoom}}
 
 SymbolsStylings = SymbolStylingPrefix  symbolscolors:SymbolsColors ? symbolszoom:SymbolsZoom ?
    { return {   symbolscolors : symbolscolors , symbolszoom: symbolszoom}}
