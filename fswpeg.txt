@@ -1,17 +1,25 @@
 
 Expression
-  = SignPrefix SymbolCoordinate *
+  = Sign
 
+Sign =  sort:Sorting ?  sign:UnSortedSign
+	{ return  { sorting: sort, sign: sign } }
+UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate *
+	{ return  { lane: prefix.lane, coordinate: prefix.signcoordinate, symbols: symbols } }
 SymbolCoordinate = symb:Symbol coord:Coordinate
-	{ return { key: symb, coordinate :coord
+	{ return { k: symb, x: coord.x , y: coord.y
 
     } }
+
+Sorting = "A" symbols: Symbol *
+	{ return  symbols  }
+
 
 Symbol =
 	result: "S"[123][0-9a-f][0-9a-f][0-5][0-9a-f]
    {return text()}
 
-SignPrefix = lane:[BLMR] signcoordinate: Coordinate
+SignPrefix = lane:[BLMR] signcoordinate: Coordinate ?
 	{return { lane: lane, signcoordinate:signcoordinate}}
 
 
