@@ -2,18 +2,26 @@
 Expression
   = Sign
 
-SignZoom =   SignStylingPrefix ZoomPrefix zoom:Number
+SignZoom =    ZoomPrefix zoom:Number
 	{return zoom}
+
+SymbolsZoom =    symbolzooms:(SymbolZoom *)
+	{return symbolzooms}
+
+SymbolZoom =
+ZoomPrefix index:SymbolIndex "," zoom:Number
+	{return {index : index, zoom: zoom}}
+
 ZoomPrefix = "Z"
 
 
 
 
-SignColors = SignStylingPrefix ColorPrefix color:Color
+SignColors =  ColorPrefix color:Color
 	{ return  {fore: color.fore,back: color.back};  }
 
-SymbolsColors = SymbolStylingPrefix  colors: SymbolColors *
-	{ return  {symbolcolors: colors};  }
+SymbolsColors =   colors: SymbolColors *
+	{ return   colors;  }
 
 SymbolColors = ColorPrefix index:SymbolIndex color:Color
 	{ return  {index: index, fore: color.fore,back: color.back};  }
@@ -34,7 +42,7 @@ Color =  PairPrefix foregroundcolor: (RGB / ColorText) "," backgroundcolor: (RGB
 
 RGB = hexa hexa hexa hexa hexa hexa {return text()}
 ColorText =[a-wyzA-Z]+ {return text()}
-ColorPair = PairPrefix  PairSuffix
+
 
 PairPrefix = "_"
 PairSuffix  = "_"
@@ -46,11 +54,23 @@ Sign Space
 
 Sign =  sort:Sorting ?  sign:UnSortedSign
 	{ return  { sorting: sort, sign: sign } }
-UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * stylin:Styling
-	{ return  { l: prefix.lane, c: prefix.signcoordinate, colors: stylin.colors, zoom: stylin.signzoom, symbolscolors: stylin.symbolscolors, symbols: symbols } }
+UnSortedSign = prefix:SignPrefix symbols:SymbolCoordinate * styling:Styling
+	{ return  { l: prefix.lane,
+    c: prefix.signcoordinate,
+    styling : styling,
+    symbols: symbols } }
 
-Styling = colors:SignColors ? symbolscolors:SymbolsColors ? signzoom:SignZoom ?
-	{ return { colors : colors, symbolscolors : symbolscolors, signzoom : signzoom}}
+Styling = symbols: SymbolsStylings  ? sign:SignStylings ?
+	{ return { colors : sign ? sign.colors : null,
+    symbolscolors : symbols ? symbols.symbolscolors :null,
+    signzoom :  sign ? sign.signzoom : null,
+    symbolszoom: symbols ? symbols.symbolszoom : null}}
+
+SignStylings = SignStylingPrefix colors:SignColors ? signzoom:SignZoom ?
+{ return { colors : colors, signzoom : signzoom}}
+
+SymbolsStylings = SymbolStylingPrefix  symbolscolors:SymbolsColors ? symbolszoom:SymbolsZoom ?
+   { return {   symbolscolors : symbolscolors , symbolszoom: symbolszoom}}
 
 SymbolCoordinate = symb:Symbol coord:Coordinate
 	{ return { k: symb, c: coord
@@ -92,7 +112,7 @@ CoordinateSpacer "coordinatespacer"
 digit = [0-9]
 hexa = [0-9a-f]
 
-Space = " " *
+Space "space"  = " " *
 
 Whitespace "whitespace"
   = [ \t\n\r]*
