@@ -8,18 +8,15 @@ import SW.Types exposing (..)
 import Helpers.ResultExtra exposing (..)
 import  Parser exposing (..)
 
-a =
-   5
-
 coordinate  =
    succeed Coordinate
+    |=    token ExpectingSymbol  int
 
-    |= int
-
-    |. symbol "X"
-
-    |= int
-
+    -- |. symbol "X"
+    --
+    -- |=    int
 
 
-type alias Coordinate =  {x :Int, y:Int}
+
+type alias Coordinate = {x :Int}
+  -- {x :Int, y:Int}

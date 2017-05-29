@@ -17,14 +17,22 @@ fswParserTests =
     describe "FSWParser Tests Suite"
         [ test "Parse coordinate"
             (\() ->
-                Expect.equal
-                    (case (run coordinate "6X2") of
-                        Ok value ->
-                            value
+                Expect.equal (extractvalue (run coordinate "62X 2")    { x = 0  }
+                -- { x = 0, y = 0 }
+                 )
 
-                        Err _ ->
-                            { x = 0, y = 0 }
-                    )
-                    { x = 6, y = 2 }
+                    { x = 62 }
+                    -- { x = 6, y = 2 }
             )
         ]
+
+extractvalue result default  =
+   case result of
+      Ok value ->
+          value
+
+      Err err ->
+          let
+              a =  Debug.log "" err
+          in
+          default
