@@ -63,17 +63,21 @@ function denormalizesymbols(symbols, symbolscolors, symbolszoom) {
 
     symbolscolors.forEach(function (element) {
         var symbol = getsymbol(element.index, newsymbols)
-        symbol.nwcolor = element.fore;
-        symbol.nbcolor = element.back;
+        if (symbol) {
+            symbol.nwcolor = element.fore;
+            symbol.nbcolor = element.back;
+        }
     }, this);
 
     symbolszoom.forEach(function (element) {
         var symbol = getsymbol(element.index, newsymbols)
-        symbol.size = element.zoom;
-        symbol.fontsize = symbol.fontsize * element.zoom;
-        if (element.offset) {
-            symbol.x = symbol.x + element.offset.x - 500;
-            symbol.y = symbol.y + element.offset.y - 500;
+        if (symbol) {
+            symbol.size = element.zoom;
+            symbol.fontsize = symbol.fontsize * element.zoom;
+            if (element.offset) {
+                symbol.x = symbol.x + element.offset.x - 500;
+                symbol.y = symbol.y + element.offset.y - 500;
+            }
         }
     }, this);
 
@@ -94,12 +98,12 @@ function createnewsign(symbol, x, y) {
     sign.syms.push(symbol);
 
     sign.backfill = "";
-    sign.height = symbol.height;
+    sign.height = Math.trunc(symbol.height);
     sign.laned = false;
     sign.lane = ""
 
     sign.left = 0;
-    sign.width = symbol.width;
+    sign.width = Math.trunc(symbol.width);
     sign.x = parseInt(symbol.x + x);
     sign.y = parseInt(symbol.y + y);
 
