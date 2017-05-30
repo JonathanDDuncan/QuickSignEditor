@@ -9,6 +9,7 @@ import SW.Types exposing (..)
 import Material
 import Choosers.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSign exposing (..)
 import Update.Extra exposing (..)
 import Choosers.HandGroupChooser exposing (..)
 import ViewHelper.ViewExtra exposing (..)
@@ -67,8 +68,11 @@ update action model =
 
         ReceiveInitialChoosings choosings1 ->
             let
+                choosing2 =
+                    getchoosingsdimentions choosings1 model.symbolsizes
+
                 choosings =
-                    List.map (toModel 0) choosings1
+                    List.map (toModel 0) choosing2
 
                 generalchooserkeyboard =
                     creategeneralchooserkeyboard choosings
@@ -341,6 +345,34 @@ update action model =
             ( updatechooserkeyboard model
             , Cmd.none
             )
+
+
+getchoosingsdimentions : List ChoosingImportModel -> Dict String Size -> List ChoosingImportModel
+getchoosingsdimentions choosings symbolsizes =
+    List.map
+        (\choosing ->
+            { choosing
+                | displaySign = setportablesigndimentions symbolsizes choosing.displaySign
+                , valuestoAdd = List.map (sizeSymbol symbolsizes) choosing.valuestoAdd
+            }
+        )
+        choosings
+
+
+setportablesigndimentions : Dict String Size -> PortableSign -> PortableSign
+setportablesigndimentions symbolsizes displaySign =
+    let
+        syms =
+            List.map (sizeSymbol symbolsizes) displaySign.syms
+
+        bounds =
+            getSignBounding syms
+    in
+        { displaySign
+            | width = bounds.width
+            , height = bounds.height
+            , syms = syms
+        }
 
 
 updatechooserkeyboard : Choosers.Types.Model -> Choosers.Types.Model

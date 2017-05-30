@@ -27,6 +27,30 @@ getSymbolbyBaseFillRotation base fill rotation symbolsizes =
         getSymbolbyKey key symbolsizes
 
 
+sizeSymbol : Dict String Size -> Symbol -> Symbol
+sizeSymbol symbolsizes symbol =
+    let
+        symbolsizeresult =
+            Dict.get symbol.key symbolsizes
+
+        size =
+            case symbolsizeresult of
+                Just value ->
+                    value
+
+                Nothing ->
+                    let
+                        notfound =
+                            Debug.log "symbols size search not found " key
+                    in
+                        { width = 58, height = 58 }
+    in
+        { symbol
+            | width = size.width
+            , height = size.height
+        }
+
+
 getSymbolbyKey : Key -> Dict String Size -> Symbol
 getSymbolbyKey key symbolsizes =
     let
