@@ -186,17 +186,15 @@ function touchHandler(event) {
                 false, false, false, 0 /*left*/, null);
 
             first.target.dispatchEvent(simulatedEvent);
-
-            // event.preventDefault();
         }
     }
 }
 
 function init() {
-    document.addEventListener("touchstart", touchHandler, true);
-    document.addEventListener("touchmove", touchHandler, true);
-    document.addEventListener("touchend", touchHandler, true);
-    document.addEventListener("touchcancel", touchHandler, true);
+    document.addEventListener("touchstart", touchHandler,  {passive:true});
+    document.addEventListener("touchmove", touchHandler,  {passive:true});
+    document.addEventListener("touchend", touchHandler,  {passive:true});
+    document.addEventListener("touchcancel", touchHandler,  {passive:true});
 }
 
 window.onunload = function () {
