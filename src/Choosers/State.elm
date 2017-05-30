@@ -44,7 +44,7 @@ init =
             , keyboardpage = 1
             }
       }
-    , Cmd.batch [ Ports.requestInitialChoosings "", Ports.requestInitialGroupHandChoosings "" ]
+    , Cmd.batch [ Ports.requestInitialGroupHandChoosings "" ]
     )
 
 
@@ -103,7 +103,7 @@ update action model =
                     | allgroupchoosings = allgroupchoosings1
                     , symbolsizes = sizes
                   }
-                , Cmd.none
+                , Ports.requestInitialChoosings ""
                 )
 
         Clicked clickvalue ->
