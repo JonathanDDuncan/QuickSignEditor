@@ -116,7 +116,7 @@ symbolview x y color scale symbol =
 
         defaultfillchararttributes =
             [ attribute "class" "sym-fill"
-            , attribute "style" <| "pointer-events:none;font-family:'SuttonSignWritingFill';fill:white;font-size:30px;"
+            , attribute "style" <| "pointer-events:none;font-family:'SuttonSignWritingFill';font-size:30px;fill:" ++ symbol.nwcolor ++ ";"
             ]
 
         fillcharattributes =
