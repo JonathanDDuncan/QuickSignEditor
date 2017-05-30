@@ -8,7 +8,7 @@ var app = Elm.QuickSignEditor.embed(document.getElementById('quicksigneditor'));
 window.app = app;
 
 //subscribe javacript functions to Elm command ports
-app.ports.requestSign.subscribe(function(fsw) {
+app.ports.requestSign.subscribe(function (fsw) {
     try {
         var sign = ssw.symbolsList(fsw);
         //send values to Elm subscription ports
@@ -17,7 +17,7 @@ app.ports.requestSign.subscribe(function(fsw) {
 
 });
 
-app.ports.requestElementPosition.subscribe(function(id) {
+app.ports.requestElementPosition.subscribe(function (id) {
     try {
         var element = document.getElementById(id);
 
@@ -37,7 +37,7 @@ app.ports.requestElementPosition.subscribe(function(id) {
 
 });
 
-app.ports.shareFsw.subscribe(function(fsw) {
+app.ports.shareFsw.subscribe(function (fsw) {
     try {
         if ("signmaker" in window) {
             signmaker.vm.load(fsw)
@@ -48,7 +48,7 @@ app.ports.shareFsw.subscribe(function(fsw) {
     } catch (e) { console.log(e) }
 });
 
-app.ports.hideOverlay.subscribe(function(val) {
+app.ports.hideOverlay.subscribe(function (val) {
     try {
         if ("signmaker" in window) {
         } else {
@@ -57,8 +57,9 @@ app.ports.hideOverlay.subscribe(function(val) {
     } catch (e) { console.log(e) }
 });
 
-app.ports.requestInitialChoosings.subscribe(function(str) {
+app.ports.requestInitialChoosings.subscribe(function (str) {
     try {
+        console.log("requestInitialChoosings called")
         var choosings = getinitialchoosings();
         //send values to Elm subscription ports
         app.ports.receiveInitialChoosings.send(choosings);
@@ -66,7 +67,7 @@ app.ports.requestInitialChoosings.subscribe(function(str) {
 });
 
 
-app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
+app.ports.requestInitialGroupHandChoosings.subscribe(function (str) {
     try {
         console.log("requestInitialGroupHandChoosings called");
         chooserclassification.symbolsizes = symbolsizes;
@@ -74,19 +75,19 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function(str) {
 
     } catch (e) { console.log(e) }
 });
-app.ports.cmdDragSymbol.subscribe(function(symbol) {
+app.ports.cmdDragSymbol.subscribe(function (symbol) {
     app.ports.subDragSymbol.send(symbol);
 });
-app.ports.cmdAddSymbol.subscribe(function(symbol) {
+app.ports.cmdAddSymbol.subscribe(function (symbol) {
     app.ports.subAddSymbol.send(symbol);
 });
-app.ports.cmdReplaceSymbol.subscribe(function(symbol) {
+app.ports.cmdReplaceSymbol.subscribe(function (symbol) {
     app.ports.subReplaceSymbol.send(symbol);
 });
-app.ports.sendKeyboardCommand.subscribe(function(keyboardcommand) {
+app.ports.sendKeyboardCommand.subscribe(function (keyboardcommand) {
     app.ports.receiveKeyboardCommand.send(keyboardcommand);
 });
-app.ports.sendKeyboardMode.subscribe(function(mode) {
+app.ports.sendKeyboardMode.subscribe(function (mode) {
     app.ports.receiveKeyboardMode.send(mode);
 });
 
@@ -182,7 +183,7 @@ function touchHandler(event) {
             simulatedEvent.initMouseEvent(type, true, true, window, 1,
                 first.screenX, first.screenY,
                 first.clientX, first.clientY, false,
-                false, false, false, 0 /*left*/ , null);
+                false, false, false, 0 /*left*/, null);
 
             first.target.dispatchEvent(simulatedEvent);
 
@@ -198,7 +199,7 @@ function init() {
     document.addEventListener("touchcancel", touchHandler, true);
 }
 
-window.onunload = function() {
+window.onunload = function () {
     app.ports.pleaseShareFsw.send("");
 }
 
