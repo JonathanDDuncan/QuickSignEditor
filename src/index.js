@@ -79,6 +79,9 @@ app.ports.requestInitialGroupHandChoosings.subscribe(function (str) {
 
     } catch (e) { console.log(e) }
 });
+app.ports.cmdaddsigntosignview.subscribe(function (portablesign) {
+    app.ports.subaddsigntosignview.send(portablesign);
+});
 app.ports.cmdDragSymbol.subscribe(function (symbol) {
     app.ports.subDragSymbol.send(symbol);
 });

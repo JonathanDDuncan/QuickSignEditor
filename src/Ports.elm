@@ -78,3 +78,9 @@ port sendKeyboardMode : Int -> Cmd msg
 
 
 port receiveKeyboardMode : (Int -> msg) -> Sub msg
+
+
+port cmdaddsigntosignview : PortableSign -> Cmd msg
+
+
+port subaddsigntosignview : (PortableSign -> msg) -> Sub msg

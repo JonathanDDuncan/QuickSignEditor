@@ -60,6 +60,7 @@ type Msg
     | NextKeyboardPage
     | SetKeyboardMode KeyboardMode
     | UpdateChooserKeyboards
+    | UpdatePortableSignDimentions PortableSign
 
 
 type alias HandGroupChooser =

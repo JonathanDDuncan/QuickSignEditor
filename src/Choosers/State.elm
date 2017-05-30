@@ -346,6 +346,13 @@ update action model =
             , Cmd.none
             )
 
+        UpdatePortableSignDimentions portablesign ->
+            let
+                sizedportablesign =
+                    setportablesigndimentions model.symbolsizes portablesign
+            in
+                ( model, cmdaddsigntosignview sizedportablesign )
+
 
 getchoosingsdimentions : List ChoosingImportModel -> Dict String Size -> List ChoosingImportModel
 getchoosingsdimentions choosings symbolsizes =
@@ -524,4 +531,5 @@ subscriptions model =
         [ receiveInitialChoosings ReceiveInitialChoosings
         , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
         , receiveKeyboardCommand Keyboard
+        , receiveSign UpdatePortableSignDimentions
         ]
