@@ -52,10 +52,12 @@ update action model =
         RequestSignfromOtherApp ->
             ( model, Ports.requestSignfromOtherApp "" )
 
+        -- Need to move SetSign to Choosers.State or above.
         SetSign newsign ->
             let
                 editorSign =
-                    updateSymbolIds (portableSigntoSign newsign) model.uid
+                    sizesign newsign model.symbolsizes
+                        |> updateSymbolIds (portableSigntoSign newsign) model.uid
 
                 lastuid =
                     getlastsignuid <| editorSign

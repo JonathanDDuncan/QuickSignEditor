@@ -160,6 +160,18 @@ colorsymbols1 symbolscolors sign =
     }
 
 
+sizesign symbolsizes sign =
+    let
+        sign1 =
+            sign
+                |> sizesymbols1 symbolsizes
+
+        bounds =
+            getSignBounding sign1.syms
+    in
+        { sign1 | width = bounds.width, height = bounds.height }
+
+
 sizesymbols : Result String (List { size : Float, pos : Int, adjustment : { x : Int, y : Int } }) -> Result String Sign -> Result String Sign
 sizesymbols symbolsizes sign =
     symbolsizes

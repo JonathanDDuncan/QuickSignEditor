@@ -10,7 +10,11 @@ window.app = app;
 //subscribe javacript functions to Elm command ports
 app.ports.requestSign.subscribe(function (fsw) {
     try {
-        var sign = ssw.symbolsList(fsw);
+        var signparser = peg.generate(fswpeg.sign);
+        var parsed = signparser.parse(fsw);
+        var sign = denormalizesign(parsed);
+        // var sign = ssw.symbolsList(fsw);
+
         //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
@@ -143,11 +147,18 @@ function requestSign(str) {
         } else {
             var fsw = window.initialFSW
         }
+        var signparser = peg.generate(fswpeg.sign);
+        var parsed = signparser.parse(fsw);
 
+        var sign1 = denormalizesign(parsed);
         var sign = ssw.symbolsList(fsw);
+        console.log ("sign");
+        console.log (sign);
+        console.log ("sign1");
+        console.log (sign1);
 
         //send values to Elm subscription ports
-        app.ports.receiveSign.send(sign);
+        app.ports.receiveSign.send(sign1);
     } catch (e) { console.log(e) }
 }
 
@@ -191,10 +202,10 @@ function touchHandler(event) {
 }
 
 function init() {
-    document.addEventListener("touchstart", touchHandler,  {passive:true});
-    document.addEventListener("touchmove", touchHandler,  {passive:true});
-    document.addEventListener("touchend", touchHandler,  {passive:true});
-    document.addEventListener("touchcancel", touchHandler,  {passive:true});
+    document.addEventListener("touchstart", touchHandler, { passive: true });
+    document.addEventListener("touchmove", touchHandler, { passive: true });
+    document.addEventListener("touchend", touchHandler, { passive: true });
+    document.addEventListener("touchcancel", touchHandler, { passive: true });
 }
 
 window.onunload = function () {
