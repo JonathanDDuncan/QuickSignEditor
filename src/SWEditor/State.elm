@@ -139,13 +139,13 @@ update action model =
         MouseDown position ->
             let
                 signviewposition =
-                    (signViewPosition position model.viewposition model.signviewmargin)
+                    signViewPosition position model.viewposition model.signviewmargin
 
                 withinsignview =
-                    (withinSignView signviewposition model.viewposition)
+                    withinSignView signviewposition model.viewposition
 
                 symbolsunderposition =
-                    (symbolsUnderPosition signviewposition model.sign.syms)
+                    symbolsUnderPosition signviewposition model.sign.syms
 
                 howmanysymbolsunderposition =
                     List.length symbolsunderposition
@@ -173,13 +173,13 @@ update action model =
         MouseUp position ->
             let
                 signviewposition =
-                    (signViewPosition position model.viewposition model.signviewmargin)
+                    signViewPosition position model.viewposition model.signviewmargin
 
                 withinsignview =
-                    (withinSignView signviewposition model.viewposition)
+                    withinSignView signviewposition model.viewposition
 
                 symbolsunderposition =
-                    (symbolsUnderPosition signviewposition model.sign.syms)
+                    symbolsUnderPosition signviewposition model.sign.syms
             in
                 model
                     ! []

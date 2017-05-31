@@ -88,8 +88,8 @@ getsymbolRectangle : Symbol -> Rect
 getsymbolRectangle symbol =
     { x = symbol.x
     , y = symbol.y
-    , width = symbol.width
-    , height = symbol.height
+    , width = round <| toFloat symbol.width * symbol.size
+    , height = round <| toFloat symbol.height * symbol.size
     }
 
 
