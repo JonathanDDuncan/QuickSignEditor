@@ -13,8 +13,7 @@ app.ports.requestSign.subscribe(function (fsw) {
         var signparser = peg.generate(fswpeg.sign);
         var parsed = signparser.parse(fsw);
         var sign = denormalizesign(parsed);
-        // var sign = ssw.symbolsList(fsw);
-
+       
         //send values to Elm subscription ports
         app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
@@ -153,15 +152,10 @@ function requestSign(str) {
         var signparser = peg.generate(fswpeg.sign);
         var parsed = signparser.parse(fsw);
 
-        var sign1 = denormalizesign(parsed);
-        var sign = ssw.symbolsList(fsw);
-        console.log ("sign");
-        console.log (sign);
-        console.log ("sign1");
-        console.log (sign1);
-
+        var sign = denormalizesign(parsed);
+      
         //send values to Elm subscription ports
-        app.ports.receiveSign.send(sign1);
+        app.ports.receiveSign.send(sign);
     } catch (e) { console.log(e) }
 }
 
