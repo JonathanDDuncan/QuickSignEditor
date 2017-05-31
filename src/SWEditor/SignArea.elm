@@ -44,6 +44,34 @@ duplicatesymbols model =
         { model | sign = newsign, uid = lastuid }
 
 
+changesizesymbols : Model -> Float -> Model
+changesizesymbols model sizediff =
+    let
+        newsyms =
+            List.map
+                (\sym ->
+                    if sym.selected then
+                        changesizesymbol sym sizediff
+                    else
+                        sym
+                )
+                model.sign.syms
+
+        newsign =
+            updatesignsymbols model.sign newsyms
+    in
+        { model | sign = newsign }
+
+
+changesizesymbol : { a | size : Float } -> Float -> { a | size : Float }
+changesizesymbol symbol sizediff =
+    let
+        newsize =
+            symbol.size + sizediff
+    in
+        { symbol | size = newsize }
+
+
 updatesignsymbols : Sign -> List Symbol -> Sign
 updatesignsymbols sign newsymbols =
     let

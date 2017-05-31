@@ -67,6 +67,8 @@ type Msg
     | Keyboard KeyboardCommand
     | MoveSymbols Direction Distance
     | SetKeyboardMode KeyboardMode
+    | SizeIncreaseSymbols
+    | SizeDecreaseSymbols
 
 
 type alias Distance =

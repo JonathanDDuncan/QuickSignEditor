@@ -76,12 +76,12 @@ commandsview model =
             , "margin-top" => "5px"
             ]
         ]
-        [ div []
-            [ a [ onClick Undo, title "Undo" ] [ undoicon ]
-            ]
-        , div [] [ a [ onClick Redo, title "Redo" ] [ redoicon ] ]
-        , div [] [ a [ onClick DuplicateSymbols, title "Duplicate" ] [ duplicateicon ] ]
-        , div [] [ a [ onClick DeleteSymbols, title "Delete" ] [ garbagecanicon ] ]
+        [ div [] [ a [ onClick Undo, title "Undo" ] [ button [] [ undoicon ] ] ]
+        , div [] [ a [ onClick Redo, title "Redo" ] [ button [] [ redoicon ] ] ]
+        , div [] [ a [ onClick DuplicateSymbols, title "Duplicate" ] [ button [] [ duplicateicon ] ] ]
+        , div [] [ a [ onClick DeleteSymbols, title "Delete" ] [ button [] [ garbagecanicon ] ] ]
+        , div [] [ a [ onClick SizeIncreaseSymbols, title "Increase Size" ] [ button [] [ circleplus ] ] ]
+        , div [] [ a [ onClick SizeDecreaseSymbols, title "Decrease Size" ] [ button [] [ circleminus ] ] ]
         ]
 
 

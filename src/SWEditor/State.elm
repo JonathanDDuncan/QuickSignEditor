@@ -374,6 +374,24 @@ update action model =
                     )
                 |> addUndoEntry True "DuplicateSymbols"
 
+        SizeIncreaseSymbols ->
+            model
+                ! []
+                |> updateModel
+                    (\model ->
+                        changesizesymbols model 0.1
+                    )
+                |> addUndoEntry True "SizeIncreaseSymbols"
+
+        SizeDecreaseSymbols ->
+            model
+                ! []
+                |> updateModel
+                    (\model ->
+                        changesizesymbols model -0.1
+                    )
+                |> addUndoEntry True "SizeDecreaseSymbols"
+
         Keyboard command ->
             runKeyboardCommand model command update
 
