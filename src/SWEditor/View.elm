@@ -70,7 +70,6 @@ commandsview model =
     div
         [ style
             [ "float" => "right"
-            , "width" => px 60
             , "border-style" => "inset"
             , "border-width" => "4px"
             , "margin-top" => "5px"
