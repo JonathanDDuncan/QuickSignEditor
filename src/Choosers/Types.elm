@@ -41,21 +41,23 @@ type Msg
     | MainChooserMessage
     | SymbolView SWEditor.Types.Msg
     | SignView SWEditor.Types.Msg
-    | RequestInitialChoosings
-    | ReceiveInitialChoosings (List ChoosingImportModel)
-    | ReceiveInitialGroupHandChoosings HandGroupImportModel
     | Mdl (Material.Msg Msg)
-    | Keyboard KeyboardCommand
-    | NextKeyboardPage
-    | SetKeyboardMode KeyboardMode
-    | UpdateChooserKeyboards
-    | UpdatePortableSignDimentions PortableSign
     | FilterHandGroup Int
     | SelectHand Hands
     | SelectPlane Planes
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
     | Editor Editor
+      -- | Initial Initial
+    | RequestInitialChoosings
+    | ReceiveInitialChoosings (List ChoosingImportModel)
+    | ReceiveInitialGroupHandChoosings HandGroupImportModel
+    | UpdatePortableSignDimentions PortableSign
+      --   | Keyboard Keyboard
+    | Keyboard KeyboardCommand
+    | NextKeyboardPage
+    | SetKeyboardMode KeyboardMode
+    | UpdateChooserKeyboards
 
 
 type Editor
