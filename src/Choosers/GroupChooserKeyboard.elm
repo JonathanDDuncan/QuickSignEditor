@@ -93,7 +93,7 @@ createkeyactionlist data =
             List.map
                 (\( key, item ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (GroupSelected item.chooseritem)
+                    , action = ((Editor <<GroupSelected ) item.chooseritem)
                     , display =
                         { width =
                             item.symbol.width

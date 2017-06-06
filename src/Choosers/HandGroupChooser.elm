@@ -53,9 +53,9 @@ column columndata =
 symbol : HandGroupChooserViewSymbolData -> Html Msg
 symbol symboldata =
     Html.div
-        [ Html.Events.onClick (GroupSelected symboldata.chooseritem)
-        , onMouseDown (DragSymbol symboldata.symbol.key)
-        , onDoubleClick (ReplaceSymbol symboldata.symbol.key)
+        [ Html.Events.onClick ((Editor << GroupSelected) symboldata.chooseritem)
+        , onMouseDown ((Editor << DragSymbol) symboldata.symbol.key)
+        , onDoubleClick ((Editor << ReplaceSymbol) symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]

@@ -44,9 +44,9 @@ column columndata =
 symbol : GeneralGroupChooserSymbolData -> Html Msg
 symbol symboldata =
     Html.div
-        [ onClick (GroupSelected symboldata.chooseritem)
-        , onMouseDown (DragSymbol symboldata.symbol.key)
-        , onDoubleClick (ReplaceSymbol symboldata.symbol.key)
+        [ onClick ((Editor << GroupSelected) symboldata.chooseritem)
+        , onMouseDown ((Editor << DragSymbol) symboldata.symbol.key)
+        , onDoubleClick ((Editor << ReplaceSymbol) symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]

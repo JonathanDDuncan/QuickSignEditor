@@ -106,39 +106,8 @@ update action model =
                 , Ports.requestInitialChoosings ""
                 )
 
-        Clicked clickvalue ->
-            let
-                clickval1 =
-                    clickvalue
-
-                basesymbol =
-                    String.slice 0 4 clickvalue
-
-                updatedclicked =
-                    { model
-                        | clicked = clickvalue
-                    }
-
-                newmodel =
-                    case basesymbol of
-                        "S14c" ->
-                            let
-                                handgroupchooseritems =
-                                    gethandgroupchooserdata updatedclicked
-                            in
-                                { updatedclicked
-                                    | clicked = clickvalue
-                                    , handgroupchooseritems = handgroupchooseritems
-                                }
-
-                        _ ->
-                            updatedclicked
-            in
-                ( newmodel
-                , Cmd.none
-                )
-                    |> Update.Extra.andThen update UpdateChooserKeyboards
-                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
+        Editor msg ->
+            editorupdate msg model
 
         SymbolView msg ->
             ( model
@@ -149,52 +118,6 @@ update action model =
             ( model
             , Cmd.none
             )
-
-        SelectedColumn column ->
-            ( { model
-                | selectedcolumn = column
-              }
-            , Cmd.none
-            )
-                |> Update.Extra.andThen update UpdateChooserKeyboards
-
-        GroupSelected choosing ->
-            ( { model
-                | groupselected = choosing
-              }
-            , Cmd.none
-            )
-                |> Update.Extra.andThen update UpdateChooserKeyboards
-                |> Update.Extra.andThen update UpdateHandSymbolChooser
-                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
-
-        AddSymbol key ->
-            let
-                editorsymbol =
-                    (getSymbolbyKey key model.symbolsizes)
-            in
-                ( model
-                , cmdAddSymbol editorsymbol
-                )
-                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
-
-        DragSymbol key ->
-            let
-                editorsymbol =
-                    (getSymbolbyKey key model.symbolsizes)
-            in
-                ( model
-                , cmdDragSymbol editorsymbol
-                )
-
-        ReplaceSymbol key ->
-            let
-                editorsymbol =
-                    (getSymbolbyKey key model.symbolsizes)
-            in
-                ( model
-                , cmdReplaceSymbol editorsymbol
-                )
 
         FilterHandGroup value ->
             let
@@ -352,6 +275,90 @@ update action model =
                     setportablesigndimentions model.symbolsizes portablesign
             in
                 ( model, cmdaddsigntosignview sizedportablesign )
+
+
+editorupdate : Choosers.Types.Editor -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
+editorupdate action model =
+    case action of
+        SelectedColumn column ->
+            ( { model
+                | selectedcolumn = column
+              }
+            , Cmd.none
+            )
+                |> Update.Extra.andThen update UpdateChooserKeyboards
+
+        Clicked clickvalue ->
+            let
+                clickval1 =
+                    clickvalue
+
+                basesymbol =
+                    String.slice 0 4 clickvalue
+
+                updatedclicked =
+                    { model
+                        | clicked = clickvalue
+                    }
+
+                newmodel =
+                    case basesymbol of
+                        "S14c" ->
+                            let
+                                handgroupchooseritems =
+                                    gethandgroupchooserdata updatedclicked
+                            in
+                                { updatedclicked
+                                    | clicked = clickvalue
+                                    , handgroupchooseritems = handgroupchooseritems
+                                }
+
+                        _ ->
+                            updatedclicked
+            in
+                ( newmodel
+                , Cmd.none
+                )
+                    |> Update.Extra.andThen update UpdateChooserKeyboards
+                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
+
+        GroupSelected choosing ->
+            ( { model
+                | groupselected = choosing
+              }
+            , Cmd.none
+            )
+                |> Update.Extra.andThen update UpdateChooserKeyboards
+                |> Update.Extra.andThen update UpdateHandSymbolChooser
+                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
+
+        AddSymbol key ->
+            let
+                editorsymbol =
+                    (getSymbolbyKey key model.symbolsizes)
+            in
+                ( model
+                , cmdAddSymbol editorsymbol
+                )
+                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
+
+        DragSymbol key ->
+            let
+                editorsymbol =
+                    (getSymbolbyKey key model.symbolsizes)
+            in
+                ( model
+                , cmdDragSymbol editorsymbol
+                )
+
+        ReplaceSymbol key ->
+            let
+                editorsymbol =
+                    (getSymbolbyKey key model.symbolsizes)
+            in
+                ( model
+                , cmdReplaceSymbol editorsymbol
+                )
 
 
 getchoosingsdimentions : List ChoosingImportModel -> Dict String Size -> List ChoosingImportModel

@@ -272,9 +272,9 @@ generalsymbolrow generalsymbolrowdata scale =
     List.map
         (\d ->
             td
-                [ onClick (SelectedColumn d.fill)
-                , onMouseDown (DragSymbol d.symbol.key)
-                , onDoubleClick (ReplaceSymbol d.symbol.key)
+                [ onClick( (Choosers.Types.Editor <<  SelectedColumn) d.fill)
+                , onMouseDown ((Editor << DragSymbol) d.symbol.key)
+                , onDoubleClick ((Editor << ReplaceSymbol) d.symbol.key)
                 ]
                 [ (generalsymbolcol False scale d.symbol) ]
         )
@@ -286,12 +286,12 @@ generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
             (if (drag) then
-                DragSymbol symbol.key
+                (Editor << DragSymbol) symbol.key
              else
                 Noop
             )
         , onDoubleClick
-            (ReplaceSymbol symbol.key)
+            ((Editor << ReplaceSymbol) symbol.key)
         ]
         [ Html.map SignView
             (symbolsvgscale scale "hover" symbol)

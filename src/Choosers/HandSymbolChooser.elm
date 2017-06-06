@@ -94,8 +94,8 @@ fillsview handsymbol rowheight =
         (\( handfillitem, description ) ->
             td
                 [ onClick (SelectHandFill handfillitem.filltype)
-                , onMouseDown (DragSymbol handfillitem.symbol.key)
-                , onDoubleClick (ReplaceSymbol handfillitem.symbol.key)
+                , onMouseDown ((Editor << DragSymbol) handfillitem.symbol.key)
+                , onDoubleClick ((Editor << ReplaceSymbol) handfillitem.symbol.key)
                 , selectedbackground handfillitem.filltype handsymbol.handfill
                 ]
                 [ div

@@ -40,7 +40,7 @@ creategeneralchooserkeyboard choosings =
                     getlayoutsettings i layout
             in
                 { test = { key = layoutsetting.key, ctrl = False, shift = False, alt = False }
-                , action = (Clicked choosing.value)
+                , action = ((Editor << Clicked) choosing.value)
                 , display =
                     { width = choosing.displaySign.width
                     , height = choosing.displaySign.height

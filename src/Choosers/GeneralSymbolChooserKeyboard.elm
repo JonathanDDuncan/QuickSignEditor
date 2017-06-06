@@ -57,19 +57,19 @@ creategeneralsymbolchooserkeyboard model =
             getgeneralsymbolcolumn symbolcolumndata.column2
 
         flowerkeyactionlistAdd1 =
-            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol)  "green"
                 |> setassamesize
 
         flowerkeyactionlistAdd2 =
-            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol)  "green"
                 |> setassamesize
 
         flowerkeyactionlistReplace1 =
-            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = True, alt = False } (Editor << ReplaceSymbol) "red"
                 |> setassamesize
 
         flowerkeyactionlistReplace2 =
-            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = True, alt = False } (Editor << ReplaceSymbol) "red"
                 |> setassamesize
 
         fulllist =
@@ -114,7 +114,7 @@ creatcolumnkeyactionlist data range =
             List.map
                 (\( key, symbol ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = AddSymbol symbol.key
+                    , action = (Editor << AddSymbol)  symbol.key
                     , display =
                         { width =
                             symbol.width
@@ -142,7 +142,7 @@ createkeyactionlist data range =
             List.map
                 (\( key, item ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (SelectedColumn item.fill)
+                    , action = ((Choosers.Types.Editor << SelectedColumn) item.fill)
                     , display =
                         { width =
                             item.symbol.width
@@ -185,11 +185,11 @@ createhandsymbolchooserkeyboard model =
             createfillkeyactionlist (List.reverse model.handsymbol.handfillitems) (List.range 30 33)
 
         flowerkeyactionlistadd =
-            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = False, alt = False } AddSymbol "green"
+            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol) "green"
                 |> setassamesize
 
         flowerkeyactionlistreplace =
-            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = True, alt = False } ReplaceSymbol "red"
+            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = True, alt = False } (Editor << ReplaceSymbol) "red"
                 |> setassamesize
 
         fulllist =

@@ -47,9 +47,9 @@ symbolpetal ( attrib, symb ) =
             div
                 [ attribute "position" "relative"
                 , attribute "style" "width:100%; height: inherit"
-                , onMouseDown (DragSymbol symbol.key)
+                , onMouseDown ((Editor << DragSymbol) symbol.key)
                 , onDoubleClick
-                    (ReplaceSymbol symbol.key)
+                    ((Editor << ReplaceSymbol) symbol.key)
                 ]
                 [ div attrib
                     [ Html.map SignView

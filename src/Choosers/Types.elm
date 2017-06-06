@@ -39,28 +39,32 @@ type alias ChoosersKeyboard =
 type Msg
     = Noop
     | MainChooserMessage
+    | SymbolView SWEditor.Types.Msg
+    | SignView SWEditor.Types.Msg
     | RequestInitialChoosings
     | ReceiveInitialChoosings (List ChoosingImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
-    | Clicked String
-    | SymbolView SWEditor.Types.Msg
-    | SignView SWEditor.Types.Msg
-    | SelectedColumn Int
-    | GroupSelected ChooserItem
-    | AddSymbol Key
-    | DragSymbol Key
-    | ReplaceSymbol Key
-    | FilterHandGroup Int
     | Mdl (Material.Msg Msg)
-    | SelectHand Hands
-    | SelectPlane Planes
-    | SelectHandFill HandFills
-    | UpdateHandSymbolChooser
     | Keyboard KeyboardCommand
     | NextKeyboardPage
     | SetKeyboardMode KeyboardMode
     | UpdateChooserKeyboards
     | UpdatePortableSignDimentions PortableSign
+    | FilterHandGroup Int
+    | SelectHand Hands
+    | SelectPlane Planes
+    | SelectHandFill HandFills
+    | UpdateHandSymbolChooser
+    | Editor Editor
+
+
+type Editor
+    = SelectedColumn Int
+    | Clicked String
+    | GroupSelected ChooserItem
+    | AddSymbol Key
+    | DragSymbol Key
+    | ReplaceSymbol Key
 
 
 type alias HandGroupChooser =

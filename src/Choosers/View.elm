@@ -154,10 +154,10 @@ gensymbolchooser model halfwidth halfheight =
 displayChoosing : ChoosingModel -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
-        [ onClick (Clicked choosing.value)
-        , onMouseDown (DragSymbol (firstsymbol choosing).key)
+        [ onClick ((Editor << Clicked) choosing.value)
+        , onMouseDown ((Editor << DragSymbol) (firstsymbol choosing).key)
         , onDoubleClick
-            (ReplaceSymbol (firstsymbol choosing).key)
+            ((Editor << ReplaceSymbol) (firstsymbol choosing).key)
         ]
         [ Html.map SignView
             (SWEditor.DisplaySvg.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
