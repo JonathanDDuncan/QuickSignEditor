@@ -57,11 +57,11 @@ creategeneralsymbolchooserkeyboard model =
             getgeneralsymbolcolumn symbolcolumndata.column2
 
         flowerkeyactionlistAdd1 =
-            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol)  "green"
+            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol) "green"
                 |> setassamesize
 
         flowerkeyactionlistAdd2 =
-            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol)  "green"
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol) "green"
                 |> setassamesize
 
         flowerkeyactionlistReplace1 =
@@ -114,7 +114,7 @@ creatcolumnkeyactionlist data range =
             List.map
                 (\( key, symbol ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (Editor << AddSymbol)  symbol.key
+                    , action = (Editor << AddSymbol) symbol.key
                     , display =
                         { width =
                             symbol.width

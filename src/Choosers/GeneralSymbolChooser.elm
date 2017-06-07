@@ -1,4 +1,4 @@
-module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser,reorderedcolumnforpetal2)
+module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser, reorderedcolumnforpetal2)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -272,7 +272,7 @@ generalsymbolrow generalsymbolrowdata scale =
     List.map
         (\d ->
             td
-                [ onClick( (Choosers.Types.Editor <<  SelectedColumn) d.fill)
+                [ onClick ((Choosers.Types.Editor << SelectedColumn) d.fill)
                 , onMouseDown ((Editor << DragSymbol) d.symbol.key)
                 , onDoubleClick ((Editor << ReplaceSymbol) d.symbol.key)
                 ]
