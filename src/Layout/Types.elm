@@ -58,10 +58,6 @@ type Msg
     | Mdl (Material.Msg Msg)
 
 
-type alias Mdl =
-    Material.Model
-
-
 type alias DrawerModel =
     { active : Bool
     , showing : Bool

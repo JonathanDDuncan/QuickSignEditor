@@ -46,17 +46,6 @@ type alias KeyboardDisplay =
     }
 
 
-type alias FingerSpellingTemplate =
-    List FingerSpellingLetterTemplate
-
-
-type alias FingerSpellingLetterTemplate =
-    { letter : String
-    , fsw : String
-    , sign : Maybe Sign
-    }
-
-
 type alias Key =
     { display : String
     , code : Int
