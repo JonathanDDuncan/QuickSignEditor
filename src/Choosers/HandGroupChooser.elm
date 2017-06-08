@@ -13,7 +13,7 @@ import Choosers.Types
         , getchoosings
         , bkcolor
         )
-import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Symbol, Size)
 import Dict exposing (Dict)
 import String exposing (..)

@@ -12,7 +12,7 @@ module SWEditor.EditorSign
         , getlastsignuid
         )
 
-import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSymbol exposing (updateIds, moveSymbols, colorsymbol, sizesymbol, adjustposition)
 import SW.Types exposing (Symbol, Sign, Colors, NamedPosition, maximumBy)
 import SWEditor.Rectangle exposing (..)
 import Helpers.ResultExtra exposing (..)

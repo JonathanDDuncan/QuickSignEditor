@@ -3,7 +3,7 @@ module FSWTestHelper exposing (..)
 import SW.FSW as FSW exposing (..)
 import Dict
 import SW.Types exposing (Symbol, Sign, Size, signinit)
-import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 
 
 worldsign : Sign

@@ -1,7 +1,7 @@
 module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, floorplaneimg, gethandfillitems, createflowersymbols)
 
 import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills(..), Planes(..), HandSymbol, HandItem, HandFillItem, Petal)
-import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SW.Types exposing (Symbol, Base, Size, symbolinit)
 import Dict exposing (Dict)

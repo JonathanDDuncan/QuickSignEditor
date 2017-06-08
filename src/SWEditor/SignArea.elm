@@ -13,7 +13,7 @@ import SWEditor.Types exposing (Model, Msg, EditorMode(..), Direction(..), Dista
 import SWEditor.EditorSign exposing (getSignBounding, getlastuid)
 import SW.Types exposing (Symbol, Sign, NamedPosition)
 import SWEditor.Select exposing (..)
-import SWEditor.EditorSymbol exposing (..)
+import SWEditor.EditorSymbol exposing (updateIds)
 
 
 deletesymbols : Model -> Model
