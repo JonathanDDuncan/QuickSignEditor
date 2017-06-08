@@ -13,7 +13,7 @@ module SWEditor.Icons
         )
 
 import Svg exposing (svg, path)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style, class, attribute)
 import Html exposing (img)
 
 

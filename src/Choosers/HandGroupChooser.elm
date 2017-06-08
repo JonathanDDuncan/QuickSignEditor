@@ -24,7 +24,7 @@ import SW.Pua exposing (codefromkey)
 --View
 
 import Html exposing (Html, button, text, table, tr, td)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (..)
 import Helpers.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)

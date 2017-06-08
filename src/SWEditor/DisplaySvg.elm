@@ -9,7 +9,7 @@ module SWEditor.DisplaySvg
         )
 
 import Html as Html exposing (Html, div)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style, class, attribute)
 import Helpers.ViewExtra exposing (..)
 import Svg exposing (..)
 import SW.Pua exposing (..)

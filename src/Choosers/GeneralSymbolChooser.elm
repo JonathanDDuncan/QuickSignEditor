@@ -1,7 +1,7 @@
 module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser, reorderedcolumnforpetal2)
 
 import Html exposing (Html, div, table, tr, td, text)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (..)
 import Helpers.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)

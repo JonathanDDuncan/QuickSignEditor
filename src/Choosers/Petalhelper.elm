@@ -8,7 +8,7 @@ import SW.Types exposing (Symbol, symbolinit)
 --View
 
 import Html exposing (Html, Attribute, div)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (..)
 import List.Extra exposing (..)
 import Maybe.Extra

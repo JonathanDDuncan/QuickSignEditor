@@ -2,7 +2,7 @@ module Choosers.View exposing (root, choosingroot)
 
 import Html exposing (Html, div, text)
 import String exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (..)
 import Choosers.Types exposing (Model, Msg(..), Editor(..), ChoosingModel)
 import Helpers.ViewExtra exposing (..)
