@@ -1,7 +1,7 @@
 module View exposing (root)
 
 import Html exposing (Html)
-import Types exposing (Model, Msg(..))
+import Types exposing (Model, Msg(Overlay))
 import Overlay.State
 
 

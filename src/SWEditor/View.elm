@@ -3,12 +3,12 @@ module SWEditor.View exposing (root)
 import Html exposing (Html, Attribute, div, button, a)
 import Html.Attributes exposing (style, title)
 import Html.Events exposing (onClick)
-import SWEditor.Types exposing (Model, Msg(..), EditorMode(RectangleSelect))
-import SWEditor.RectangleSelect exposing (..)
-import Helpers.ViewExtra exposing (..)
+import SWEditor.Types exposing (Model, Msg(Undo, Redo, DuplicateSymbols, DeleteSymbols, SizeIncreaseSymbols, SizeDecreaseSymbols), EditorMode(RectangleSelect))
+import SWEditor.RectangleSelect exposing (rectangleStartCurrent)
+import Helpers.ViewExtra exposing (px, (=>))
 import SWEditor.DisplaySvg exposing (symbolsvgmargincolor)
 import SW.Types exposing (Symbol)
-import SWEditor.Icons exposing (..)
+import SWEditor.Icons exposing (undoicon, redoicon, duplicateicon, garbagecanicon, circleplus, circleminus)
 
 
 root : Model -> Html Msg

@@ -1,7 +1,6 @@
 module Keyboard.KeyboardLayouts exposing (querty, fingerspellingQueryAsl)
 
-import Keyboard.Types exposing (Model, Msg(..), Keypress(..), KeyboardLayout)
-import Dict exposing (Dict)
+import Keyboard.Types exposing (Model, Msg, Keypress(None), KeyboardLayout)
 import SW.Types exposing (Sign, signinit)
 
 

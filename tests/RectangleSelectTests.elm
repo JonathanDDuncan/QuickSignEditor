@@ -5,7 +5,7 @@ import Expect
 import SWEditor.Rectangle exposing (..)
 import SWEditor.RectangleSelect exposing (..)
 import SW.Types exposing (Symbol, Sign)
-import SWEditor.Types exposing (Model, Msg(..))
+import SWEditor.Types exposing (Model, Msg)
 import SWEditor.State exposing (..)
 
 

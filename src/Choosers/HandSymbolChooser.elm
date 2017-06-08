@@ -3,7 +3,7 @@ module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, flo
 import Choosers.Types
     exposing
         ( Model
-        , Msg(..)
+        , Msg(Editor, SelectHandFill, SignView, SelectHand, SelectPlane)
         , HandSymbol
         , HandItem
         , HandFillItem
