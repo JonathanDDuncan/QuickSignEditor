@@ -24,7 +24,7 @@ root parentwidth parentheight model =
             Basics.truncate (Basics.toFloat parentwidth / Basics.toFloat 2)
 
         maniquin =
-            choosingroot model halfheight halfwidth 10
+            choosingroot model halfwidth 10
 
         maniquinscale =
             calculatescale (Basics.toFloat maniquin.width)
@@ -98,8 +98,8 @@ root parentwidth parentheight model =
             ]
 
 
-choosingroot : Choosers.Types.Model -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-choosingroot model width height bottompadding =
+choosingroot : Choosers.Types.Model -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+choosingroot model height bottompadding =
     let
         size =
             List.foldr
