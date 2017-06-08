@@ -25,7 +25,7 @@ import SWEditor.Types
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.Drag as Drag exposing (..)
 import SWEditor.Select exposing (..)
-import SWEditor.EditorSign exposing (..)
+import SWEditor.EditorSign exposing (updateSymbolIds, getlastsignuid, centerSignViewposition)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Undo exposing (..)
 import SW.Types exposing (Symbol, Position, signinit, portableSigntoSign)

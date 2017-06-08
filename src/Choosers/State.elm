@@ -22,7 +22,7 @@ import SW.Types exposing (Size, PortableSign)
 import Material
 import Choosers.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)
-import SWEditor.EditorSign exposing (..)
+import SWEditor.EditorSign exposing (getSignBounding)
 import Update.Extra exposing (..)
 import Choosers.HandGroupChooser exposing (..)
 import Helpers.ViewExtra exposing (..)
