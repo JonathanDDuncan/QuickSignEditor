@@ -1,4 +1,16 @@
-module SWEditor.EditorSign exposing (..)
+module SWEditor.EditorSign
+    exposing
+        ( updateSymbolIds
+        , centerSign
+        , centerSignViewposition
+        , colorallsymbols
+        , colorsymbols
+        , sizesymbols
+        , adjustpositionsymbols
+        , getSignBounding
+        , getlastuid
+        , getlastsignuid
+        )
 
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (..)

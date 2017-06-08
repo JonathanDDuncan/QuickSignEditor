@@ -1,4 +1,4 @@
-module Choosers.GroupChooserKeyboard exposing (..)
+module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishandgroupchooser, totalkeyboardpages)
 
 import Choosers.Types exposing (..)
 import Html

@@ -1,4 +1,4 @@
-module Choosers.GeneralChooserKeyboard exposing (..)
+module Choosers.GeneralChooserKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard)
 
 import Choosers.Types exposing (..)
 import Html

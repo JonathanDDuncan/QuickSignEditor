@@ -1,4 +1,4 @@
-module SWEditor.EditorKeyboard exposing (..)
+module SWEditor.EditorKeyboard exposing (runKeyboardCommand, configKeyboardSignView)
 
 import SWEditor.Types exposing (..)
 import Keyboard.Shared exposing (..)

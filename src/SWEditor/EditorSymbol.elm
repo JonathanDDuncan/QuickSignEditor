@@ -1,4 +1,19 @@
-module SWEditor.EditorSymbol exposing (..)
+module SWEditor.EditorSymbol
+    exposing
+        ( updateId
+        , updateIds
+        , symbolId
+        , moveSymbols
+        , colorsymbol
+        , sizesymbol
+        , sizeSymbol
+        , adjustposition
+        , getsymbolRectangle
+        , getSymbolbyKey
+        , getSymbolbyBaseFillRotation
+        , symbolsUnderPosition
+        , countselectedsymbols
+        )
 
 import SW.Types exposing (..)
 import SWEditor.Rectangle exposing (..)

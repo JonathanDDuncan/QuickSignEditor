@@ -1,4 +1,4 @@
-module DebugHelper.DebugExtra exposing (..)
+module DebugHelper.DebugExtra exposing (debugkey)
 
 
 debugkey : comparable -> String -> a -> a

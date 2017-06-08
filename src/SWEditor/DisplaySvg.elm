@@ -1,4 +1,12 @@
-module SWEditor.DisplaySvg exposing (..)
+module SWEditor.DisplaySvg
+    exposing
+        ( symbolsvg
+        , symbolsvgmargincolor
+        , symbolsvgscale
+        , signsvg
+        , signdisplaysvg
+        , signdisplaysvgposition
+        )
 
 import Html as Html exposing (..)
 import Html.Attributes exposing (..)

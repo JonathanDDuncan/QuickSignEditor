@@ -1,4 +1,4 @@
-module Helpers.ResultExtra exposing (..)
+module Helpers.ResultExtra exposing (andThentoResult, toResult)
 
 
 andThentoResult : (a -> value) -> Result error a -> Result error value

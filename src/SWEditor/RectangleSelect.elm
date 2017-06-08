@@ -1,4 +1,4 @@
-module SWEditor.RectangleSelect exposing (..)
+module SWEditor.RectangleSelect exposing (rectangleselect, rectangleStartCurrent)
 
 import SWEditor.Types exposing (..)
 import SWEditor.Rectangle exposing (..)

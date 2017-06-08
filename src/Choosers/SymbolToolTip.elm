@@ -1,4 +1,4 @@
-module Choosers.SymbolToolTip exposing (..)
+module Choosers.SymbolToolTip exposing (handsymboltooltip, symboltooltip)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

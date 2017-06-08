@@ -1,4 +1,4 @@
-module Keyboard.KeyboardLayouts exposing (..)
+module Keyboard.KeyboardLayouts exposing (querty, fingerspellingQueryAsl)
 
 import Keyboard.Types exposing (..)
 import Dict exposing (..)

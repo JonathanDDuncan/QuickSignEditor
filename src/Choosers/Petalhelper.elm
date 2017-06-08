@@ -1,4 +1,4 @@
-module Choosers.Petalhelper exposing (..)
+module Choosers.Petalhelper exposing (getoutersymbolpetals, getoutersymbolpetalsMaybe)
 
 import Choosers.Types exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)

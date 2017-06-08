@@ -1,4 +1,4 @@
-module Choosers.HandSymbolChooser exposing (..)
+module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, floorplaneimg, gethandfillitems, createflowersymbols)
 
 import Choosers.Types exposing (..)
 import SWEditor.EditorSymbol exposing (..)
