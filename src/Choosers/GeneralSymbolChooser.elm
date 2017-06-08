@@ -11,8 +11,8 @@ import SWEditor.DisplaySvg exposing (symbolsvgscale)
 import SW.Types exposing (Symbol, Base, Size, Fill, Rotation, getvalidrotations, getvalidfills, isValidRotation)
 import Dict exposing (Dict)
 import Helpers.MaybeExtra exposing (removeNothings)
-import List.Extra exposing (last, init, zip)
-import Maybe.Extra exposing (toList)
+import List.Extra
+import Maybe.Extra
 import Choosers.CompassRose exposing (compassrosediv)
 import Choosers.Petalhelper exposing (getoutersymbolpetalsMaybe)
 

@@ -11,7 +11,7 @@ import SW.Types exposing (Symbol, symbolinit)
 import Html exposing (Html, Attribute, div)
 import Html.Attributes exposing (attribute)
 import Html.Events exposing (onMouseDown, onDoubleClick)
-import List.Extra exposing (zip)
+import List.Extra
 import Maybe.Extra
 
 

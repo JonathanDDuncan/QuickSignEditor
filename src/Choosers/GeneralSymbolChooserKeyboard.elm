@@ -7,7 +7,7 @@ import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as Planes exposing (Planes)
 import Keyboard.Shared exposing (KeyAction)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
-import List.Extra exposing (zip)
+import List.Extra
 import SWEditor.DisplaySvg exposing (signdisplaysvg)
 import Choosers.GroupChooserKeyboard exposing (ishandgroupchooser)
 import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)

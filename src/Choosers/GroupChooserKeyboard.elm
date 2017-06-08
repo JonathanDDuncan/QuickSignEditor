@@ -4,7 +4,7 @@ import Choosers.Types exposing (Model, Msg(Editor, SignView, NextKeyboardPage), 
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SWEditor.DisplaySvg exposing (symbolsvg)
-import List.Extra exposing (zip, unique)
+import List.Extra exposing (unique)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
 import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)

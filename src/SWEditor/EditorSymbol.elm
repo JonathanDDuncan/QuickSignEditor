@@ -16,7 +16,7 @@ module SWEditor.EditorSymbol
         )
 
 import SW.Types exposing (Symbol, Sign, Size, Rotation, Fill, Size, Base, Key, Position, Colors, symbolinit)
-import SWEditor.Rectangle exposing (Rect, intersect)
+import SWEditor.Rectangle exposing (Rect)
 import SW.Pua exposing (key)
 import Dict exposing (Dict)
 

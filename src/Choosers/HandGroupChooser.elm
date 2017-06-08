@@ -16,7 +16,7 @@ import Choosers.Types as HandFills exposing (HandFills)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Symbol, Size)
 import Dict exposing (Dict)
-import List.Extra exposing (unique)
+import List.Extra
 import SW.Pua exposing (codefromkey)
 
 

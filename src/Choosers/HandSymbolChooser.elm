@@ -28,7 +28,7 @@ import Html exposing (Html, Attribute, div, table, tr, td, text, img)
 import Html.Attributes exposing (style, class, attribute, src, width)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (px, (=>))
-import List.Extra exposing (zip)
+import List.Extra
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }

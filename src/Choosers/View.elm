@@ -11,7 +11,7 @@ import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 import Choosers.HandSymbolChooser exposing (handsymbolchooser)
 import SW.Types exposing (Symbol, Sign, symbolinit, iskey)
-import SWEditor.DisplaySvg exposing (signdisplaysvgposition)
+import SWEditor.DisplaySvg
 
 
 root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
