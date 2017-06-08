@@ -15,7 +15,7 @@ import Choosers.Types
         )
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (Symbol, Size)
-import Dict exposing (..)
+import Dict exposing (Dict)
 import String exposing (..)
 import List.Extra exposing (..)
 import SW.Pua exposing (codefromkey)

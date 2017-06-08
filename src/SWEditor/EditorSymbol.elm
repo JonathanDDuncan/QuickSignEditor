@@ -18,7 +18,7 @@ module SWEditor.EditorSymbol
 import SW.Types exposing (Symbol, Sign, Size, Rotation, Fill, Size, Base, Key, Position, Colors, symbolinit)
 import SWEditor.Rectangle exposing (..)
 import SW.Pua exposing (..)
-import Dict exposing (..)
+import Dict exposing (Dict)
 
 
 updateIds : Int -> List Symbol -> List Symbol

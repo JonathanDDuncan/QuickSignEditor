@@ -16,7 +16,7 @@ import Ports
         , receiveSign
         )
 import Exts.List exposing (..)
-import Dict exposing (..)
+import Dict exposing (Dict)
 import String exposing (..)
 import SW.Types exposing (Size, PortableSign)
 import Material

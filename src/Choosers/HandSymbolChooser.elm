@@ -4,7 +4,7 @@ import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SW.Types exposing (Symbol, Base, Size, symbolinit)
-import Dict exposing (..)
+import Dict exposing (Dict)
 import Choosers.HandPng exposing (..)
 import Choosers.Petalhelper exposing (..)
 import Choosers.CompassRose exposing (..)
