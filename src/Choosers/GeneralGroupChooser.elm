@@ -34,7 +34,7 @@ column columndata =
     td
         [ class "chosercolumn"
         , style
-            [ "background-color" => bkcolor columndata.row columndata.col ]
+            [ "background-color" => bkcolor columndata.row ]
         ]
         (List.map
             symbol
