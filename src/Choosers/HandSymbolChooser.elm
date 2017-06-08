@@ -221,7 +221,7 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outer
                 , "margin" => "auto"
                 ]
             ]
-            [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent rosecenterimagehands
+            [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight innersize petalcontent rosecenterimagehands
             ]
 
 
@@ -243,7 +243,7 @@ handimagecenter petalcontent parentsize parentitemsize fullwidth =
                 , "height" => "100%"
                 ]
             ]
-            [ compassrosediv fullwidth fullwidth itemwidth itemwidth top 10 petalcontent (text "")
+            [ compassrosediv fullwidth fullwidth itemwidth itemwidth 10 petalcontent (text "")
             ]
 
 

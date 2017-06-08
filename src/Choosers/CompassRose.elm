@@ -9,8 +9,8 @@ import List.Extra
 --View
 
 
-compassrosediv : Int -> Int -> Int -> Int -> Int -> Int -> List (Html b) -> Html b -> Html b
-compassrosediv fullwidth fullheight itemwidth itemheight top innersize petalcontent rosecenter =
+compassrosediv : Int -> Int -> Int -> Int ->  Int -> List (Html b) -> Html b -> Html b
+compassrosediv fullwidth fullheight itemwidth itemheight   innersize petalcontent rosecenter =
     let
         radius =
             (toFloat fullwidth / 2) - (toFloat itemwidth / 2)

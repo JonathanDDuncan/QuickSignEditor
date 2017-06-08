@@ -121,7 +121,7 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
                         , "float" => "left"
                         ]
                     ]
-                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent1 rosecenter ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight   innersize petalcontent1 rosecenter ]
                 , div
                     [ style
                         [ "position" => "relative"
@@ -137,7 +137,7 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
                         , "float" => "left"
                         ]
                     ]
-                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight 0 innersize petalcontent2 rosecenter ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight   innersize petalcontent2 rosecenter ]
                 ]
         , width = fullwidth * 2 + spacerwidth
         , height = rowheight + fullheight + 20
