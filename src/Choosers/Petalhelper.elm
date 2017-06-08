@@ -1,6 +1,6 @@
 module Choosers.Petalhelper exposing (getoutersymbolpetals, getoutersymbolpetalsMaybe)
 
-import Choosers.Types exposing (Model, Msg(..), Editor(DragSymbol, ReplaceSymbol))
+import Choosers.Types exposing (Model, Msg(..), Editor(..))
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SW.Types exposing (Symbol, symbolinit)
 

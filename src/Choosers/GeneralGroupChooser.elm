@@ -3,7 +3,7 @@ module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(..), Editor(GroupSelected, DragSymbol, ReplaceSymbol), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
+import Choosers.Types exposing (Model, Msg(..), Editor(..), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
 import Helpers.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SWEditor.EditorSymbol exposing (..)

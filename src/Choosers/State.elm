@@ -1,24 +1,6 @@
 module Choosers.State exposing (init, update, subscriptions)
 
-import Choosers.Types
-    exposing
-        ( Model
-        , Msg(..)
-        , Editor
-            ( SelectedColumn
-            , Clicked
-            , GroupSelected
-            , AddSymbol
-            , DragSymbol
-            , ReplaceSymbol
-            )
-        , Hands(..)
-        , HandFills(..)
-        , ChoosingImportModel
-        , toModel
-        , handsymbolinit
-        , chooseriteminit
-        )
+import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills(..), ChoosingImportModel, toModel, handsymbolinit, chooseriteminit)
 import Ports
     exposing
         ( requestInitialGroupHandChoosings
