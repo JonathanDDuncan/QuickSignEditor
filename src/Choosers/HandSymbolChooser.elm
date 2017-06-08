@@ -7,6 +7,7 @@ import SW.Types exposing (..)
 import Dict exposing (..)
 import Choosers.HandPng exposing (..)
 import Choosers.Petalhelper exposing (..)
+import Choosers.CompassRose exposing (..)
 
 
 --View
@@ -15,10 +16,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Helpers.ViewExtra exposing (..)
-import Choosers.Types exposing (..)
 import List.Extra exposing (..)
-import Choosers.CompassRose exposing (..)
-import Choosers.HandPng exposing (..)
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }

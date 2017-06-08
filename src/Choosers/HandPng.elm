@@ -4,7 +4,6 @@ import Choosers.Types exposing (..)
 import String exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Choosers.Types exposing (..)
 
 
 handpngspan : { a | miror : Bool, pngcss : String, rotate : number } -> String -> String -> String -> String -> Html c

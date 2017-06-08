@@ -10,7 +10,6 @@ import SW.Types exposing (Symbol, symbolinit)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Choosers.Types exposing (..)
 import List.Extra exposing (..)
 import Maybe.Extra exposing (join)
 
