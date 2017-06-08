@@ -182,11 +182,19 @@ createhandsymbolchooserkeyboard model =
             createfillkeyactionlist (List.reverse model.handsymbol.handfillitems) (List.range 30 33)
 
         flowerkeyactionlistadd =
-            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << Editor.AddSymbol) "green"
+            createflowerkeyactionlist petals
+                handflowerkeyidrange
+                { key = 0, ctrl = False, shift = False, alt = False }
+                (Editor << Editor.AddSymbol)
+                "green"
                 |> setassamesize
 
         flowerkeyactionlistreplace =
-            createflowerkeyactionlist petals handflowerkeyidrange { key = 0, ctrl = False, shift = True, alt = False } (Editor << Editor.ReplaceSymbol) "red"
+            createflowerkeyactionlist petals
+                handflowerkeyidrange
+                { key = 0, ctrl = False, shift = True, alt = False }
+                (Editor << Editor.ReplaceSymbol)
+                "red"
                 |> setassamesize
 
         fulllist =
