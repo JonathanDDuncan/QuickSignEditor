@@ -59,16 +59,15 @@ runKeyboard model command update config =
         filteredconfig =
             List.filter (\item -> runtest command item.test) config
     in
-        List.foldl (\item -> runkeycommand command update item) (model ! []) filteredconfig
+        List.foldl (\item -> runkeycommand update item) (model ! []) filteredconfig
 
 
 runkeycommand :
-    KeyboardCommand
-    -> (a -> model -> ( model, Cmd a ))
+    (a -> model -> ( model, Cmd a ))
     -> KeyAction a
     -> ( model, Cmd a )
     -> ( model, Cmd a )
-runkeycommand command update config =
+runkeycommand update config =
     andThen update config.action
 
 
