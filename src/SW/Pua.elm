@@ -1,9 +1,9 @@
 module SW.Pua exposing (key, puaCharCode, linecodefromkey, fillcodefromkey, codefromkey)
 
 import ParseInt as ParseInt exposing (toRadix, parseIntHex)
-import String as String exposing (..)
-import Char as Char exposing (..)
-import Bitwise as Bitwise exposing (..)
+import String as String exposing (slice)
+import Char as Char exposing (fromCode)
+import Bitwise as Bitwise exposing (shiftRightBy, and)
 import SW.Types exposing (Base, Fill, Rotation, Key, Code)
 
 
