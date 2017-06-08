@@ -82,7 +82,7 @@ handsymbolchooser model chooserwidth =
                         ]
                     ]
                     [ tr []
-                        (fillsview handsymbol rowheight)
+                        (fillsview handsymbol)
                     ]
                 , compassrose
                     handsymbol.handfill
@@ -98,8 +98,8 @@ handsymbolchooser model chooserwidth =
         }
 
 
-fillsview : HandSymbol -> Int -> List (Html Msg)
-fillsview handsymbol rowheight =
+fillsview : HandSymbol -> List (Html Msg)
+fillsview handsymbol =
     List.map
         (\( handfillitem, description ) ->
             td
