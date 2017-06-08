@@ -5,7 +5,8 @@ import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
-import Choosers.Types exposing (Model, Msg(..), Editor(..))
+import Choosers.Types exposing (Model, Msg(..))
+import Choosers.Types as Editor exposing (Editor)
 import SWEditor.DisplaySvg exposing (symbolsvgscale)
 import SW.Types exposing (Symbol, Base, Size, Fill, Rotation, getvalidrotations, getvalidfills, isValidRotation)
 import Dict exposing (Dict)
@@ -264,9 +265,9 @@ generalsymbolrow generalsymbolrowdata scale =
     List.map
         (\d ->
             td
-                [ onClick ((Choosers.Types.Editor << SelectedColumn) d.fill)
-                , onMouseDown ((Editor << DragSymbol) d.symbol.key)
-                , onDoubleClick ((Editor << ReplaceSymbol) d.symbol.key)
+                [ onClick ((Editor << Editor.SelectedColumn) d.fill)
+                , onMouseDown ((Editor << Editor.DragSymbol) d.symbol.key)
+                , onDoubleClick ((Editor << Editor.ReplaceSymbol) d.symbol.key)
                 ]
                 [ generalsymbolcol False scale d.symbol ]
         )
@@ -278,12 +279,12 @@ generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
             (if drag then
-                (Editor << DragSymbol) symbol.key
+                (Editor << Editor.DragSymbol) symbol.key
              else
                 Noop
             )
         , onDoubleClick
-            ((Editor << ReplaceSymbol) symbol.key)
+            ((Editor << Editor.ReplaceSymbol) symbol.key)
         ]
         [ Html.map SignView
             (symbolsvgscale scale "hover" symbol)

@@ -1,6 +1,8 @@
 module Choosers.HandPng exposing (handpngspan, gethandpng)
 
-import Choosers.Types exposing (Model, Msg(..), HandFills(..), Hands(..), HandPng, gethandtype)
+import Choosers.Types exposing (Model, Msg(..), HandPng, gethandtype)
+import Choosers.Types as Hands exposing (Hands)
+import Choosers.Types as HandFills exposing (HandFills)
 import String exposing (..)
 import Html exposing (Html)
 import Html.Attributes exposing (class, attribute)
@@ -64,7 +66,7 @@ gethandpng key rotation fill filltype =
 gethandpngrotation : Int -> Hands -> Int
 gethandpngrotation rotation handtype =
     case handtype of
-        Right ->
+        Hands.Right ->
             case rotation of
                 2 ->
                     315
@@ -90,7 +92,7 @@ gethandpngrotation rotation handtype =
                 _ ->
                     0
 
-        Left ->
+        Hands.Left ->
             case rotation of
                 2 ->
                     45
@@ -143,7 +145,7 @@ gethandpngrotation rotation handtype =
 
 gethandpngmiror : Hands -> Bool
 gethandpngmiror handtype =
-    if handtype == Right then
+    if handtype == Hands.Right then
         False
     else
         True
@@ -151,7 +153,7 @@ gethandpngmiror handtype =
 
 handpngcss : String -> Int -> HandFills -> String
 handpngcss symbolkey fill filltype =
-    if filltype == LeftBabyEdge || filltype == RightBabyEdge then
+    if filltype == HandFills.LeftBabyEdge || filltype == HandFills.RightBabyEdge then
         ""
     else
         String.toLower "hands-" ++ toLower (String.slice 1 4 symbolkey) ++ toString (fill - 1) ++ "0"

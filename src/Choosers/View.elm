@@ -4,7 +4,8 @@ import Html exposing (Html, div, text)
 import String exposing (..)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(..), Editor(..), ChoosingModel)
+import Choosers.Types exposing (Model, Msg(..), ChoosingModel)
+import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (..)
 import Choosers.HandGroupChooser exposing (..)
 import Choosers.GeneralGroupChooser exposing (..)
@@ -158,10 +159,10 @@ gensymbolchooser model halfwidth halfheight =
 displayChoosing : ChoosingModel -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
-        [ onClick ((Editor << Clicked) choosing.value)
-        , onMouseDown ((Editor << DragSymbol) (firstsymbol choosing).key)
+        [ onClick ((Editor << Editor.Clicked) choosing.value)
+        , onMouseDown ((Editor << Editor.DragSymbol) (firstsymbol choosing).key)
         , onDoubleClick
-            ((Editor << ReplaceSymbol) (firstsymbol choosing).key)
+            ((Editor << Editor.ReplaceSymbol) (firstsymbol choosing).key)
         ]
         [ Html.map SignView
             (SWEditor.DisplaySvg.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)

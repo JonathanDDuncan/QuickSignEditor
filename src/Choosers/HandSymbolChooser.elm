@@ -1,6 +1,18 @@
 module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, floorplaneimg, gethandfillitems, createflowersymbols)
 
-import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills(..), Planes(..), HandSymbol, HandItem, HandFillItem, Petal)
+import Choosers.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , HandSymbol
+        , HandItem
+        , HandFillItem
+        , Petal
+        )
+import Choosers.Types as Editor exposing (Editor)
+import Choosers.Types as Hands exposing (Hands)
+import Choosers.Types as HandFills exposing (HandFills)
+import Choosers.Types as Planes exposing (Planes)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SW.Types exposing (Symbol, Base, Size, symbolinit)
@@ -92,8 +104,8 @@ fillsview handsymbol rowheight =
         (\( handfillitem, description ) ->
             td
                 [ onClick (SelectHandFill handfillitem.filltype)
-                , onMouseDown ((Editor << DragSymbol) handfillitem.symbol.key)
-                , onDoubleClick ((Editor << ReplaceSymbol) handfillitem.symbol.key)
+                , onMouseDown ((Editor << Editor.DragSymbol) handfillitem.symbol.key)
+                , onDoubleClick ((Editor << Editor.ReplaceSymbol) handfillitem.symbol.key)
                 , selectedbackground handfillitem.filltype handsymbol.handfill
                 ]
                 [ div
@@ -119,8 +131,8 @@ fillsview handsymbol rowheight =
 
 handselectionboth : HandSymbol -> Int -> List (Html Msg)
 handselectionboth handsymbol rowheight =
-    [ handselection handsymbol rowheight Left .symbollefthand 6 10 "Left"
-    , handselection handsymbol rowheight Right .symbolrighthand 6 0 "Right"
+    [ handselection handsymbol rowheight Hands.Left .symbollefthand 6 10 "Left"
+    , handselection handsymbol rowheight Hands.Right .symbolrighthand 6 0 "Right"
     ]
 
 
@@ -160,12 +172,12 @@ pngfolder =
 planeselection : { a | plane : Planes } -> List (Html Msg)
 planeselection handsymbol =
     [ td
-        [ onClick (SelectPlane Wall), selectedbackground Wall handsymbol.plane ]
+        [ onClick (SelectPlane Planes.Wall), selectedbackground Planes.Wall handsymbol.plane ]
         [ wallplaneimg
         , div [] [ text "Wall" ]
         ]
     , td
-        [ onClick (SelectPlane Floor), selectedbackground Floor handsymbol.plane ]
+        [ onClick (SelectPlane Planes.Floor), selectedbackground Planes.Floor handsymbol.plane ]
         [ floorplaneimg
         , div [] [ text "Floor" ]
         ]
@@ -197,7 +209,7 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outer
             truncate <| toFloat fullwidth * 0.6
 
         rosecenterimagehands =
-            if handfill == LeftBabyEdge || handfill == RightBabyEdge then
+            if handfill == HandFills.LeftBabyEdge || handfill == HandFills.RightBabyEdge then
                 text ""
             else
                 handimagecenter rosecenterpetaldata fullwidth outeritemwidth innersize
@@ -264,17 +276,17 @@ handpngpetal handpng =
 gethandfillitems : Base -> Dict.Dict String Size -> Hands -> Planes -> List HandFillItem
 gethandfillitems base symbolsizes handtype planetype =
     List.map (gethandfillitem base symbolsizes planetype)
-        (if handtype == Right then
-            [ RightBabyEdge
-            , RightPalm
-            , RightThumbEdge
-            , RightBack
+        (if handtype == Hands.Right then
+            [ HandFills.RightBabyEdge
+            , HandFills.RightPalm
+            , HandFills.RightThumbEdge
+            , HandFills.RightBack
             ]
          else
-            [ LeftBabyEdge
-            , LeftPalm
-            , LeftThumbEdge
-            , LeftBack
+            [ HandFills.LeftBabyEdge
+            , HandFills.LeftPalm
+            , HandFills.LeftThumbEdge
+            , HandFills.LeftBack
             ]
         )
 
@@ -289,22 +301,22 @@ gethandfillitem base symbolsizes planetype handfilltype =
 handfillitems : Base -> Dict String Size -> List HandFillItem
 handfillitems base symbolsizes =
     List.map (createhandfillitem base symbolsizes)
-        [ { fill = 2, rotation = 9, filltype = RightBabyEdge, planetype = Wall }
-        , { fill = 1, rotation = 1, filltype = RightPalm, planetype = Wall }
-        , { fill = 2, rotation = 1, filltype = RightThumbEdge, planetype = Wall }
-        , { fill = 3, rotation = 1, filltype = RightBack, planetype = Wall }
-        , { fill = 2, rotation = 1, filltype = LeftBabyEdge, planetype = Wall }
-        , { fill = 1, rotation = 9, filltype = LeftPalm, planetype = Wall }
-        , { fill = 2, rotation = 9, filltype = LeftThumbEdge, planetype = Wall }
-        , { fill = 3, rotation = 9, filltype = LeftBack, planetype = Wall }
-        , { fill = 5, rotation = 9, filltype = RightBabyEdge, planetype = Floor }
-        , { fill = 4, rotation = 1, filltype = RightPalm, planetype = Floor }
-        , { fill = 5, rotation = 1, filltype = RightThumbEdge, planetype = Floor }
-        , { fill = 6, rotation = 1, filltype = RightBack, planetype = Floor }
-        , { fill = 5, rotation = 1, filltype = LeftBabyEdge, planetype = Floor }
-        , { fill = 4, rotation = 9, filltype = LeftPalm, planetype = Floor }
-        , { fill = 5, rotation = 9, filltype = LeftThumbEdge, planetype = Floor }
-        , { fill = 6, rotation = 9, filltype = LeftBack, planetype = Floor }
+        [ { fill = 2, rotation = 9, filltype = HandFills.RightBabyEdge, planetype = Planes.Wall }
+        , { fill = 1, rotation = 1, filltype = HandFills.RightPalm, planetype = Planes.Wall }
+        , { fill = 2, rotation = 1, filltype = HandFills.RightThumbEdge, planetype = Planes.Wall }
+        , { fill = 3, rotation = 1, filltype = HandFills.RightBack, planetype = Planes.Wall }
+        , { fill = 2, rotation = 1, filltype = HandFills.LeftBabyEdge, planetype = Planes.Wall }
+        , { fill = 1, rotation = 9, filltype = HandFills.LeftPalm, planetype = Planes.Wall }
+        , { fill = 2, rotation = 9, filltype = HandFills.LeftThumbEdge, planetype = Planes.Wall }
+        , { fill = 3, rotation = 9, filltype = HandFills.LeftBack, planetype = Planes.Wall }
+        , { fill = 5, rotation = 9, filltype = HandFills.RightBabyEdge, planetype = Planes.Floor }
+        , { fill = 4, rotation = 1, filltype = HandFills.RightPalm, planetype = Planes.Floor }
+        , { fill = 5, rotation = 1, filltype = HandFills.RightThumbEdge, planetype = Planes.Floor }
+        , { fill = 6, rotation = 1, filltype = HandFills.RightBack, planetype = Planes.Floor }
+        , { fill = 5, rotation = 1, filltype = HandFills.LeftBabyEdge, planetype = Planes.Floor }
+        , { fill = 4, rotation = 9, filltype = HandFills.LeftPalm, planetype = Planes.Floor }
+        , { fill = 5, rotation = 9, filltype = HandFills.LeftThumbEdge, planetype = Planes.Floor }
+        , { fill = 6, rotation = 9, filltype = HandFills.LeftBack, planetype = Planes.Floor }
         ]
 
 

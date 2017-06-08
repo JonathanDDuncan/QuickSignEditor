@@ -1,6 +1,17 @@
 module Choosers.State exposing (init, update, subscriptions)
 
-import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills(..), ChoosingImportModel, toModel, handsymbolinit, chooseriteminit)
+import Choosers.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , ChoosingImportModel
+        , toModel
+        , handsymbolinit
+        , chooseriteminit
+        )
+import Choosers.Types as Editor exposing (Editor)
+import Choosers.Types as Hands exposing (Hands)
+import Choosers.Types as HandFills exposing (HandFills)
 import Ports
     exposing
         ( requestInitialGroupHandChoosings
@@ -156,36 +167,36 @@ update action model =
 
                 handfill =
                     case hand of
-                        Left ->
+                        Hands.Left ->
                             case model.handsymbol.handfill of
-                                RightBack ->
-                                    LeftBack
+                                HandFills.RightBack ->
+                                    HandFills.LeftBack
 
-                                RightThumbEdge ->
-                                    LeftThumbEdge
+                                HandFills.RightThumbEdge ->
+                                    HandFills.LeftThumbEdge
 
-                                RightPalm ->
-                                    LeftPalm
+                                HandFills.RightPalm ->
+                                    HandFills.LeftPalm
 
-                                RightBabyEdge ->
-                                    LeftBabyEdge
+                                HandFills.RightBabyEdge ->
+                                    HandFills.LeftBabyEdge
 
                                 _ ->
                                     model.handsymbol.handfill
 
-                        Right ->
+                        Hands.Right ->
                             case model.handsymbol.handfill of
-                                LeftBack ->
-                                    RightBack
+                                HandFills.LeftBack ->
+                                    HandFills.RightBack
 
-                                LeftThumbEdge ->
-                                    RightThumbEdge
+                                HandFills.LeftThumbEdge ->
+                                    HandFills.RightThumbEdge
 
-                                LeftPalm ->
-                                    RightPalm
+                                HandFills.LeftPalm ->
+                                    HandFills.RightPalm
 
-                                LeftBabyEdge ->
-                                    RightBabyEdge
+                                HandFills.LeftBabyEdge ->
+                                    HandFills.RightBabyEdge
 
                                 _ ->
                                     model.handsymbol.handfill
@@ -293,7 +304,7 @@ update action model =
 editorupdate : Choosers.Types.Editor -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 editorupdate action model =
     case action of
-        SelectedColumn column ->
+        Editor.SelectedColumn column ->
             ( { model
                 | selectedcolumn = column
               }
@@ -301,7 +312,7 @@ editorupdate action model =
             )
                 |> Update.Extra.andThen update UpdateChooserKeyboards
 
-        Clicked clickvalue ->
+        Editor.Clicked clickvalue ->
             let
                 clickval1 =
                     clickvalue
@@ -335,7 +346,7 @@ editorupdate action model =
                     |> Update.Extra.andThen update UpdateChooserKeyboards
                     |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
 
-        GroupSelected choosing ->
+        Editor.GroupSelected choosing ->
             ( { model
                 | groupselected = choosing
               }
@@ -345,7 +356,7 @@ editorupdate action model =
                 |> Update.Extra.andThen update UpdateHandSymbolChooser
                 |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
 
-        AddSymbol key ->
+        Editor.AddSymbol key ->
             let
                 editorsymbol =
                     getSymbolbyKey key model.symbolsizes
@@ -355,7 +366,7 @@ editorupdate action model =
                 )
                     |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
 
-        DragSymbol key ->
+        Editor.DragSymbol key ->
             let
                 editorsymbol =
                     getSymbolbyKey key model.symbolsizes
@@ -364,7 +375,7 @@ editorupdate action model =
                 , cmdDragSymbol editorsymbol
                 )
 
-        ReplaceSymbol key ->
+        Editor.ReplaceSymbol key ->
             let
                 editorsymbol =
                     getSymbolbyKey key model.symbolsizes

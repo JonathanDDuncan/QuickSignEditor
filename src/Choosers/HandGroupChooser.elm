@@ -4,8 +4,6 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(..)
-        , Editor(..)
-        , HandFills(..)
         , ChooserItem
         , HandGroupChooserViewColumnData
         , HandGroupChooserViewSymbolData
@@ -13,6 +11,8 @@ import Choosers.Types
         , getchoosings
         , bkcolor
         )
+import Choosers.Types as Editor exposing (Editor)
+import Choosers.Types as HandFills exposing (HandFills)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Symbol, Size)
 import Dict exposing (Dict)
@@ -64,9 +64,9 @@ column columndata =
 symbol : HandGroupChooserViewSymbolData -> Html Msg
 symbol symboldata =
     Html.div
-        [ Html.Events.onClick ((Editor << GroupSelected) symboldata.chooseritem)
-        , onMouseDown ((Editor << DragSymbol) symboldata.symbol.key)
-        , onDoubleClick ((Editor << ReplaceSymbol) symboldata.symbol.key)
+        [ Html.Events.onClick ((Editor << Editor.GroupSelected) symboldata.chooseritem)
+        , onMouseDown ((Editor << Editor.DragSymbol) symboldata.symbol.key)
+        , onDoubleClick ((Editor << Editor.ReplaceSymbol) symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]
@@ -77,7 +77,7 @@ symbol symboldata =
             symboldata.chooseritem.symbolkey
             1
             2
-            RightThumbEdge
+            HandFills.RightThumbEdge
             [ Html.map SignView
                 (symbolsvg "hover" symboldata.symbol)
             ]
