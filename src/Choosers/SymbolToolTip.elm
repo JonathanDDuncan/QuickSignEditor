@@ -65,11 +65,13 @@ tooltipbody handpngs name =
     List.append handpngs (tooltipname name)
 
 
+tooltipname : String -> List (Html msg)
 tooltipname name =
     [ Html.div [ attribute "style" "width:100%;" ] [ text name ]
     ]
 
 
+handpnglist : String -> Int -> HandFills -> List (Html c)
 handpnglist key rotation handfill =
     let
         handpngs1 =

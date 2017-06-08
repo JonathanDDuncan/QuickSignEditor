@@ -472,6 +472,53 @@ nextkeybordpage model =
         )
 
 
+allgroupchoosings
+    : { l
+          | basechooseritems :
+                List
+                    { j
+                        | base : a
+                        , colname : String
+                        , common : b
+                        , feature : String
+                        , name : c
+                        , rank : d
+                        , rowname : String
+                        , symbolid : e
+                        , symbolkey : f
+                        , unicodepua : g
+                        , validfills : h
+                        , validrotations : i
+                        , groupchooser : String
+                    }
+          , chooseritemvalues :
+                List
+                    { k
+                        | choosertype : String
+                        , name : String
+                        , value : Int
+                        , symbolgroup : String
+                    }
+    }
+    -> List
+           { basesymbol : String
+           , choosings :
+                 List
+                     { base : a
+                     , col : Int
+                     , common : b
+                     , feature : Int
+                     , groupchooser : Int
+                     , name : c
+                     , rank : d
+                     , row : Int
+                     , symbolid : e
+                     , symbolkey : f
+                     , unicodepua : g
+                     , validfills : h
+                     , validrotations : i
+                     }
+           }
 allgroupchoosings chooserclassification =
     let
         basesymbols =
@@ -489,6 +536,46 @@ allgroupchoosings chooserclassification =
         allgroupchoosings1
 
 
+getchoosings
+    : a
+    -> List
+           { b
+               | choosertype : String
+               , symbolgroup : a
+               , name : String
+               , value : Int
+           }
+    -> List
+           { l
+               | base : c
+               , colname : String
+               , common : d
+               , feature : String
+               , name : e
+               , rank : f
+               , rowname : String
+               , symbolid : g
+               , symbolkey : h
+               , unicodepua : i
+               , validfills : j
+               , validrotations : k
+               , groupchooser : String
+           }
+    -> List
+           { base : c
+           , col : Int
+           , common : d
+           , feature : Int
+           , groupchooser : Int
+           , name : e
+           , rank : f
+           , row : Int
+           , symbolid : g
+           , symbolkey : h
+           , unicodepua : i
+           , validfills : j
+           , validrotations : k
+           }
 getchoosings symbolgroup chooseritemvalues basechooseritems =
     let
         groupchoosers =
@@ -524,6 +611,10 @@ getchoosings symbolgroup chooseritemvalues basechooseritems =
         converted
 
 
+getchooservalue
+    : String
+    -> List { a | choosertype : String, name : String, value : number }
+    -> number
 getchooservalue choosername itemsvalues =
     default choosername .value <|
         List.head <|
@@ -543,6 +634,39 @@ default text func val =
                 0
 
 
+creategroupchoosing
+    : b
+    -> List { a | name : String, value : Int }
+    -> List { a1 | name : String, value : Int }
+    -> List { a2 | name : String, value : Int }
+    -> { l
+           | base : c
+           , colname : String
+           , common : d
+           , feature : String
+           , name : e
+           , rank : f
+           , rowname : String
+           , symbolid : g
+           , symbolkey : h
+           , unicodepua : i
+           , validfills : j
+           , validrotations : k
+    }
+    -> { base : c
+    , col : Int
+    , common : d
+    , feature : Int
+    , groupchooser : b
+    , name : e
+    , rank : f
+    , row : Int
+    , symbolid : g
+    , symbolkey : h
+    , unicodepua : i
+    , validfills : j
+    , validrotations : k
+    }
 creategroupchoosing chooservalue itemsvalues colitemsvalues featureitemsvalues item =
     { base = item.base
     , name = item.name

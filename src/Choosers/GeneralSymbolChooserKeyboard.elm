@@ -103,6 +103,9 @@ creategeneralsymbolchooserkeyboard model =
         fulllist
 
 
+setassamesize
+    : List { b | display : { a | height : comparable, width : comparable } }
+    -> List { b | display : { a | height : comparable, width : comparable } }
 setassamesize flowerkeyactionlist =
     let
         maxheight =
@@ -203,6 +206,34 @@ createhandsymbolchooserkeyboard model =
         fulllist
 
 
+createfillkeyactionlist
+    : List
+          { b
+              | filltype : Hands.HandFills
+              , symbol :
+                    { height : Int
+                    , id : Int
+                    , key : String
+                    , nbcolor : String
+                    , nwcolor : String
+                    , selected : Bool
+                    , size : Float
+                    , width : Int
+                    , x : Int
+                    , y : Int
+                    }
+          }
+    -> List a
+    -> List
+           { action : Msg
+           , display :
+                 { backgroundcolor : Maybe a1
+                 , height : Int
+                 , view : Html Msg
+                 , width : Int
+                 }
+           , test : { alt : Bool, ctrl : Bool, key : a, shift : Bool }
+           }
 createfillkeyactionlist data range =
     let
         keyrange =
@@ -230,6 +261,22 @@ createfillkeyactionlist data range =
         viewkeylist
 
 
+createflowerkeyactionlist
+    : List Symbol
+    -> List a
+    -> { c | key : b }
+    -> (String -> d)
+    -> e
+    -> List
+           { action : d
+           , display :
+                 { backgroundcolor : Maybe e
+                 , height : Int
+                 , view : Html Msg
+                 , width : Int
+                 }
+           , test : { c | key : a }
+           }
 createflowerkeyactionlist data range modifiers action backgroundcolor =
     let
         keyrange =
@@ -257,6 +304,20 @@ createflowerkeyactionlist data range modifiers action backgroundcolor =
         viewkeylist
 
 
+createhandkeyactionlist
+    : b
+    -> List Symbol
+    -> List a
+    -> List
+           { action : b
+           , display :
+                 { backgroundcolor : Maybe a1
+                 , height : Int
+                 , view : Html Msg
+                 , width : Int
+                 }
+           , test : { alt : Bool, ctrl : Bool, key : a, shift : Bool }
+           }
 createhandkeyactionlist message data range =
     let
         keyrange =
@@ -284,6 +345,16 @@ createhandkeyactionlist message data range =
         viewkeylist
 
 
+createplanekeyaction
+    : b
+    -> c
+    -> d
+    -> e
+    -> f
+    -> { action : b
+    , display : { backgroundcolor : Maybe a, height : e, view : c, width : d }
+    , test : { alt : Bool, ctrl : Bool, key : f, shift : Bool }
+    }
 createplanekeyaction message view width height key =
     { test = { key = key, ctrl = False, shift = False, alt = False }
     , action = message

@@ -77,6 +77,26 @@ pagedata prepagedata page =
         getpagedata currentpage keyranges prepagedata
 
 
+createkeyactionlist :
+    List
+        (List
+            { a
+                | chooseritem : Choosers.Types.ChooserItem
+                , symbol :
+                    { height : Int
+                    , id : Int
+                    , key : String
+                    , nbcolor : String
+                    , nwcolor : String
+                    , selected : Bool
+                    , size : Float
+                    , width : Int
+                    , x : Int
+                    , y : Int
+                    }
+            }
+        )
+    -> List (KeyAction Msg)
 createkeyactionlist data =
     let
         colkeyranges =

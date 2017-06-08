@@ -4,6 +4,7 @@ import SWEditor.Types exposing (Model, Msg(Undo, Redo, DeleteSymbols, DuplicateS
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, getKeyboardMode, runKeyboard)
 import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
 import List.Extra
+import Html
 import SWEditor.Icons
     exposing
         ( undoicon
@@ -118,6 +119,21 @@ arrowkeys =
         List.concat [ keyactionnormal, keyactionfast, keyactionnormalwasd, keyactionfastwasd ]
 
 
+getkeyaction
+    : SWEditor.Types.Distance
+    -> b
+    -> c
+    -> List a
+    -> List
+           { action : Msg
+           , display :
+                 { backgroundcolor : Maybe a1
+                 , height : number
+                 , view : Html.Html msg
+                 , width : number1
+                 }
+           , test : { alt : Bool, ctrl : Bool, key : a, shift : c }
+           }
 getkeyaction dist zoom shift range =
     let
         values =
@@ -154,6 +170,13 @@ getkeyaction dist zoom shift range =
         viewkeylist
 
 
+arrowupdisplay
+    : b
+    -> { backgroundcolor : Maybe a
+    , height : number
+    , view : Html.Html msg
+    , width : number1
+    }
 arrowupdisplay scale =
     { width = 24
     , height = 24
@@ -163,6 +186,13 @@ arrowupdisplay scale =
     }
 
 
+arrowdowndisplay
+    : b
+    -> { backgroundcolor : Maybe a
+    , height : number
+    , view : Html.Html msg
+    , width : number1
+    }
 arrowdowndisplay scale =
     { width = 24
     , height = 24
@@ -172,6 +202,13 @@ arrowdowndisplay scale =
     }
 
 
+arrowrightdisplay
+    : b
+    -> { backgroundcolor : Maybe a
+    , height : number
+    , view : Html.Html msg
+    , width : number1
+    }
 arrowrightdisplay scale =
     { width = 18
     , height = 18
@@ -181,6 +218,13 @@ arrowrightdisplay scale =
     }
 
 
+arrowleftdisplay
+    : b
+    -> { backgroundcolor : Maybe a
+    , height : number
+    , view : Html.Html msg
+    , width : number1
+    }
 arrowleftdisplay scale =
     { width = 18
     , height = 18
