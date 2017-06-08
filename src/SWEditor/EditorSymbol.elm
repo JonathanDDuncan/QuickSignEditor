@@ -55,7 +55,7 @@ sizeSymbol symbolsizes symbol =
 
                 Nothing ->
                     let
-                        notfound =
+                        _ =
                             Debug.log "symbols size search not found " key
                     in
                         { width = 58, height = 58 }
@@ -79,7 +79,7 @@ getSymbolbyKey key symbolsizes =
 
                 Nothing ->
                     let
-                        notfound =
+                        _ =
                             Debug.log "symbols size search not found " key
                     in
                         { width = 58, height = 58 }
