@@ -1,7 +1,7 @@
 module WindowSize.View exposing (root)
 
 import Html exposing (Html, div, text)
-import WindowSize.Types exposing (..)
+import WindowSize.Types exposing (Model, Msg(..))
 
 
 root : Model -> Html Msg

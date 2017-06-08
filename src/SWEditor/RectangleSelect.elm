@@ -1,6 +1,6 @@
 module SWEditor.RectangleSelect exposing (rectangleselect, rectangleStartCurrent)
 
-import SWEditor.Types exposing (..)
+import SWEditor.Types exposing (Model, Msg(..))
 import SWEditor.Rectangle exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SW.Types exposing (Symbol, Sign)

@@ -4,7 +4,7 @@ import PlatformHelpers exposing (..)
 import Overlay.Types exposing (Model, Msg(..))
 import Layout.Types exposing (Model, Msg(..))
 import Layout.State
-import Ports exposing (..)
+import Ports exposing (requestSignfromOtherAppDelayed, hideOverlay, shareFsw)
 import SW.FSW exposing (..)
 
 
@@ -27,7 +27,7 @@ update msg model =
             ( { model | show = False }, Cmd.none )
 
         Show ->
-            ( { model | show = True }, Ports.requestSignfromOtherAppDelayed "" )
+            ( { model | show = True }, requestSignfromOtherAppDelayed "" )
 
         Layout action ->
             layoutactions action model
@@ -37,21 +37,21 @@ layoutactions : Layout.Types.Msg -> Overlay.Types.Model -> ( Overlay.Types.Model
 layoutactions action model =
     case action of
         HideOverlay ->
-            ( { model | show = False }, Ports.hideOverlay "" )
+            ( { model | show = False }, hideOverlay "" )
 
         ShareFsw ->
             let
                 fsw =
                     getFsw model.layout.signbox.sign
             in
-                ( { model | show = False }, Cmd.batch [ Ports.shareFsw fsw, Ports.hideOverlay "" ] )
+                ( { model | show = False }, Cmd.batch [ shareFsw fsw, hideOverlay "" ] )
 
         PleaseShareFsw msg ->
             let
                 fsw =
                     getFsw model.layout.signbox.sign
             in
-                ( model, Ports.shareFsw fsw )
+                ( model, shareFsw fsw )
 
         _ ->
             lift

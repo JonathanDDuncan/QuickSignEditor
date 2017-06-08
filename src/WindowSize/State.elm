@@ -1,6 +1,6 @@
 module WindowSize.State exposing (init, update, subscriptions)
 
-import WindowSize.Types exposing (..)
+import WindowSize.Types exposing (Model, Msg(..))
 import Task
 import Window
 

@@ -1,11 +1,5 @@
 module Layout.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
--- import PlatformHelpers exposing (..)
-
 import Layout.Types exposing (Model, Msg(..), DrawerModel, iswidescreenexplicit, ismediumscreenexplicit)
 import Material
 import WindowSize.State
@@ -14,7 +8,7 @@ import SWEditor.State
 import PlatformHelpers exposing (lift)
 import Keyboard.State
 import Choosers.State
-import Ports exposing (..)
+import Ports exposing (pleaseShareFsw)
 import Update.Extra exposing (..)
 
 

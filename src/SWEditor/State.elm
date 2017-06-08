@@ -1,8 +1,20 @@
 module SWEditor.State exposing (init, update, subscriptions)
 
-import Ports as Ports exposing (..)
+import Ports
+    exposing
+        ( requestSign
+        , requestSignfromOtherApp
+        , requestElementPosition
+        , sendKeyboardMode
+        , subaddsigntosignview
+        , receiveElementPosition
+        , subDragSymbol
+        , subAddSymbol
+        , subReplaceSymbol
+        , receiveKeyboardCommand
+        )
 import Update.Extra exposing (..)
-import SWEditor.Types exposing (..)
+import SWEditor.Types exposing (Model, Msg(..), EditorMode(..), signViewPosition, withinSignView)
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.Drag as Drag exposing (..)
 import SWEditor.Select exposing (..)
@@ -46,10 +58,10 @@ update action model =
             { model | fsw = newfsw, sign = signinit } ! []
 
         RequestSign ->
-            ( model, Ports.requestSign model.fsw )
+            ( model, requestSign model.fsw )
 
         RequestSignfromOtherApp ->
-            ( model, Ports.requestSignfromOtherApp "" )
+            ( model, requestSignfromOtherApp "" )
 
         SetSign portablesign ->
             let
@@ -64,7 +76,7 @@ update action model =
                     |> Update.Extra.andThen update UpdateSignViewPosition
 
         RequestElementPosition elementid ->
-            ( model, Ports.requestElementPosition elementid )
+            ( model, requestElementPosition elementid )
 
         ReceiveElementPosition namedposition ->
             let

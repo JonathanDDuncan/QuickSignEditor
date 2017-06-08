@@ -1,7 +1,20 @@
 module Choosers.State exposing (init, update, subscriptions)
 
 import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills(..), ChoosingImportModel, toModel, handsymbolinit, chooseriteminit)
-import Ports exposing (..)
+import Ports
+    exposing
+        ( requestInitialGroupHandChoosings
+        , requestInitialChoosings
+        , sendKeyboardMode
+        , cmdaddsigntosignview
+        , cmdAddSymbol
+        , cmdDragSymbol
+        , cmdReplaceSymbol
+        , receiveInitialChoosings
+        , receiveInitialGroupHandChoosings
+        , receiveKeyboardCommand
+        , receiveSign
+        )
 import Exts.List exposing (..)
 import Dict exposing (..)
 import String exposing (..)
@@ -44,7 +57,7 @@ init =
             , keyboardpage = 1
             }
       }
-    , Cmd.batch [ Ports.requestInitialGroupHandChoosings "" ]
+    , Cmd.batch [ requestInitialGroupHandChoosings "" ]
     )
 
 
@@ -63,7 +76,7 @@ update action model =
 
         RequestInitialChoosings ->
             ( model
-            , Ports.requestInitialChoosings ""
+            , requestInitialChoosings ""
             )
 
         ReceiveInitialChoosings choosings1 ->
@@ -103,7 +116,7 @@ update action model =
                     | allgroupchoosings = allgroupchoosings1
                     , symbolsizes = sizes
                   }
-                , Ports.requestInitialChoosings ""
+                , requestInitialChoosings ""
                 )
 
         Editor msg ->
@@ -524,12 +537,6 @@ getvalue name itemsvalues =
     default name .value <|
         List.head <|
             List.filter (\item -> item.name == name) itemsvalues
-
-
-
---To nest update of Choosers
---  MainChooserMsg action ->
---          lift .MainChooserFieldName (\m x -> { m | MainChooserFieldName = x })  MainChooserMsg Choosers.State.update action model
 
 
 subscriptions : Choosers.Types.Model -> Sub Choosers.Types.Msg

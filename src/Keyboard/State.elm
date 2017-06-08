@@ -4,7 +4,7 @@ import Keyboard.Types exposing (Model, Msg(..), Key)
 import Keyboard.KeyboardLayouts exposing (..)
 import Keyboard.Extra
 import Keyboard.Shared exposing (..)
-import Ports exposing (..)
+import Ports exposing (sendKeyboardCommand, receiveKeyboardMode)
 
 
 init : ( Keyboard.Types.Model, Cmd Keyboard.Types.Msg )
@@ -43,7 +43,7 @@ update action model =
                     , keyboardmode = newmode
                   }
                 , Cmd.batch
-                    [ Ports.sendKeyboardCommand keyboardcommand
+                    [ sendKeyboardCommand keyboardcommand
                     ]
                 )
 
