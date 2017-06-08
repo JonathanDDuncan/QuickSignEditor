@@ -151,23 +151,21 @@ createsymboldatalist model columndata =
 -- Prepare data for creating view data
 
 
-gethandgroupchooserdata
-    :Model
+gethandgroupchooserdata :
+    Model
     -> List
-           (
-           List
-               (
-               List
-                   { backgroundcolor : String
-                   , displayhanditems :
-                         List
-                             { chooseritem : ChooserItem
-                             , mdlid : Int
-                             , symbol : Symbol
-                             }
-                   }
-               )
-           )
+        (List
+            (List
+                { backgroundcolor : String
+                , displayhanditems :
+                    List
+                        { chooseritem : ChooserItem
+                        , mdlid : Int
+                        , symbol : Symbol
+                        }
+                }
+            )
+        )
 gethandgroupchooserdata model =
     let
         basesymbol =
@@ -222,17 +220,16 @@ createrowdata1 model row handgroupchoosings =
         featuredata
 
 
-converttocolumns
-    : Model
+converttocolumns :
+    Model
     -> Int
     -> List Int
     -> List ChooserItem
     -> List
-           { backgroundcolor : String
-           , displayhanditems :
-                 List
-                     { chooseritem : ChooserItem, mdlid : Int, symbol : Symbol }
-           }
+        { backgroundcolor : String
+        , displayhanditems :
+            List { chooseritem : ChooserItem, mdlid : Int, symbol : Symbol }
+        }
 converttocolumns model row colvalues items =
     filter (List.map (\col -> createcolumndata1 model row col items) colvalues)
 

@@ -119,21 +119,21 @@ arrowkeys =
         List.concat [ keyactionnormal, keyactionfast, keyactionnormalwasd, keyactionfastwasd ]
 
 
-getkeyaction
-    : SWEditor.Types.Distance
+getkeyaction :
+    SWEditor.Types.Distance
     -> b
     -> c
     -> List a
     -> List
-           { action : Msg
-           , display :
-                 { backgroundcolor : Maybe a1
-                 , height : number
-                 , view : Html.Html msg
-                 , width : number1
-                 }
-           , test : { alt : Bool, ctrl : Bool, key : a, shift : c }
-           }
+        { action : Msg
+        , display :
+            { backgroundcolor : Maybe a1
+            , height : number
+            , view : Html.Html msg
+            , width : number1
+            }
+        , test : { alt : Bool, ctrl : Bool, key : a, shift : c }
+        }
 getkeyaction dist zoom shift range =
     let
         values =
@@ -170,13 +170,13 @@ getkeyaction dist zoom shift range =
         viewkeylist
 
 
-arrowupdisplay
-    : b
+arrowupdisplay :
+    b
     -> { backgroundcolor : Maybe a
-    , height : number
-    , view : Html.Html msg
-    , width : number1
-    }
+       , height : number
+       , view : Html.Html msg
+       , width : number1
+       }
 arrowupdisplay scale =
     { width = 24
     , height = 24
@@ -186,13 +186,13 @@ arrowupdisplay scale =
     }
 
 
-arrowdowndisplay
-    : b
+arrowdowndisplay :
+    b
     -> { backgroundcolor : Maybe a
-    , height : number
-    , view : Html.Html msg
-    , width : number1
-    }
+       , height : number
+       , view : Html.Html msg
+       , width : number1
+       }
 arrowdowndisplay scale =
     { width = 24
     , height = 24
@@ -202,13 +202,13 @@ arrowdowndisplay scale =
     }
 
 
-arrowrightdisplay
-    : b
+arrowrightdisplay :
+    b
     -> { backgroundcolor : Maybe a
-    , height : number
-    , view : Html.Html msg
-    , width : number1
-    }
+       , height : number
+       , view : Html.Html msg
+       , width : number1
+       }
 arrowrightdisplay scale =
     { width = 18
     , height = 18
@@ -218,13 +218,13 @@ arrowrightdisplay scale =
     }
 
 
-arrowleftdisplay
-    : b
+arrowleftdisplay :
+    b
     -> { backgroundcolor : Maybe a
-    , height : number
-    , view : Html.Html msg
-    , width : number1
-    }
+       , height : number
+       , view : Html.Html msg
+       , width : number1
+       }
 arrowleftdisplay scale =
     { width = 18
     , height = 18
