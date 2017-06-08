@@ -3,7 +3,7 @@ module Choosers.HandGroupChooser exposing (gethandgroupchooserdata, createhandgr
 import Choosers.Types
     exposing
         ( Model
-        , Msg(..)
+        , Msg(Editor, FilterHandGroup, SignView)
         , ChooserItem
         , HandGroupChooserViewColumnData
         , HandGroupChooserViewSymbolData

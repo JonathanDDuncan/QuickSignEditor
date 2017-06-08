@@ -1,6 +1,6 @@
 module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishandgroupchooser, totalkeyboardpages)
 
-import Choosers.Types exposing (Model, Msg(..), Editor(GroupSelected))
+import Choosers.Types exposing (Model, Msg(Editor, SignView, NextKeyboardPage), Editor(GroupSelected))
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SWEditor.DisplaySvg exposing (symbolsvg)

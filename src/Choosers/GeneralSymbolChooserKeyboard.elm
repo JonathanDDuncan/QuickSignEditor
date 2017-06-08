@@ -1,7 +1,7 @@
 module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 import Html exposing (Html)
-import Choosers.Types exposing (Model, Msg(..))
+import Choosers.Types exposing (Model, Msg(Editor, SelectHand, SelectPlane, SelectHandFill))
 import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as Planes exposing (Planes)
