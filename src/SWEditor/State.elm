@@ -336,9 +336,6 @@ update action model =
 
         EndDragging ->
             let
-                model1 =
-                    model.sign
-
                 undroppedsymbol =
                     getundroppedsymbol model.editormode model.sign.syms
 

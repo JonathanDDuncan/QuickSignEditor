@@ -339,7 +339,7 @@ splitcoordinatestring str =
     in
         createrule split
             (\value -> List.length value == 2)
-            (\value -> couldnoterror "split coordinate value into two pieces on 'x'" str)
+            (\_ -> couldnoterror "split coordinate value into two pieces on 'x'" str)
 
 
 startwithlanevalue : String -> Bool
