@@ -1,17 +1,16 @@
-module Overlay.State exposing (init, update, subscriptions)
+module Overlay.State exposing (init, update, subscriptions, root, Model, Msg)
 
+import Html exposing (Html, div, button, text)
+import Html.Attributes exposing (class)
+import Html.Events exposing (onClick)
+import Layout.View
 import PlatformHelpers exposing (..)
-import Overlay.Types exposing (Model, Msg(..))
-import Layout.Types exposing (Model, Msg(HideOverlay, ShareFsw, PleaseShareFsw))
-import Layout.State
+import Layout.State exposing (Model, Msg(HideOverlay, ShareFsw, PleaseShareFsw))
 import Ports exposing (requestSignfromOtherAppDelayed, hideOverlay, shareFsw)
 import SW.FSW exposing (..)
 
 
--- import SubOverlays.State
-
-
-init : ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
+init : ( Model, Cmd Msg )
 init =
     ( { layout = Tuple.first Layout.State.init
       , show = True
@@ -20,7 +19,7 @@ init =
     )
 
 
-update : Overlay.Types.Msg -> Overlay.Types.Model -> ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Hide ->
@@ -33,7 +32,7 @@ update msg model =
             layoutactions action model
 
 
-layoutactions : Layout.Types.Msg -> Overlay.Types.Model -> ( Overlay.Types.Model, Cmd Overlay.Types.Msg )
+layoutactions : Layout.State.Msg -> Model -> ( Model, Cmd Msg )
 layoutactions action model =
     case action of
         HideOverlay ->
@@ -63,8 +62,40 @@ layoutactions action model =
                 model
 
 
-subscriptions : Overlay.Types.Model -> Sub Overlay.Types.Msg
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ Layout.State.subscriptions model.layout |> Sub.map Layout
         ]
+
+
+
+--View
+
+
+root : Model -> Html Msg
+root model =
+    if model.show then
+        div [ class "overlay" ]
+            [ Html.map Layout (Layout.View.root model.layout)
+            ]
+    else
+        div [ class "readytoshow" ]
+            [ button [ onClick Show ] [ text "Quick" ]
+            ]
+
+
+
+--Types
+
+
+type alias Model =
+    { layout : Layout.State.Model
+    , show : Bool
+    }
+
+
+type Msg
+    = Hide
+    | Show
+    | Layout Layout.State.Msg
