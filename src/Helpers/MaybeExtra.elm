@@ -1,4 +1,4 @@
-module Helpers.MaybeExtra exposing (isNothing)
+module Helpers.MaybeExtra exposing (isNothing, removeNothings)
 
 
 isNothing : Maybe a -> Bool
@@ -9,3 +9,8 @@ isNothing val =
 
         Nothing ->
             True
+
+
+removeNothings : List (Maybe a) -> List a
+removeNothings list =
+    List.filterMap (\value -> value) list
