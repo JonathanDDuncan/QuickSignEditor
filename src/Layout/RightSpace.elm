@@ -1,7 +1,7 @@
 module Layout.RightSpace exposing (rightspace)
 
 import Html exposing (Html, div)
-import Layout.Types exposing (Model, Msg(Choosers), ismediumscreen, iswidescreen)
+import Layout.State exposing (Model, Msg(Choosers), ismediumscreen, iswidescreen)
 import Html.Attributes exposing (class, style)
 import Choosers.View
 

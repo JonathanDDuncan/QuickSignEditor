@@ -1,6 +1,5 @@
-module Layout.State exposing (init, update, subscriptions)
+module Layout.State exposing (init, update, subscriptions, Model, Msg(..), DrawerModel, iswidescreen, ismediumscreen)
 
-import Layout.Types exposing (Model, Msg(..), DrawerModel, iswidescreenexplicit, ismediumscreenexplicit)
 import Material
 import WindowSize.State
 import WindowSize.Types
@@ -10,15 +9,62 @@ import Keyboard.State
 import Choosers.State
 import Ports exposing (pleaseShareFsw)
 import Update.Extra exposing (..)
+import SWEditor.Types
+import Keyboard.Types
+import Choosers.Types
 
 
--- Boilerplate: Always use this initial Mdl model store.
+type alias Model =
+    { count : Int
+    , mdl : Material.Model
+    , window : WindowSize.Types.Model
+    , signbox : SWEditor.Types.Model
+    , keyboard : Keyboard.Types.Model
+    , mainchooser : Choosers.Types.Model
+    , rightdrawer : DrawerModel
+    , footerheight : Int
+    , containerHeight : Int
+    , widescreenwidth : Int
+    , mediumscreenwidth : Int
+    , rightspacepercentage : Int
+    , centerspacepercentage : Int
+    , leftspacepercentage : Int
+    , rightspacemarginleftpercentage : Int
+    , centerspacemarginleftpercentage : Int
+    , drawerwidth : Int
+    }
 
 
+type Msg
+    = Increase
+    | Reset
+    | HideOverlay
+    | ShareFsw
+    | PleaseShareFsw String
+    | Window WindowSize.Types.Msg
+    | SWEditor SWEditor.Types.Msg
+    | Keyboard Keyboard.Types.Msg
+    | Choosers Choosers.Types.Msg
+    | DrawerShow
+    | DrawerHide
+    | Mdl (Material.Msg Msg)
+
+
+type alias DrawerModel =
+    { active : Bool
+    , showing : Bool
+    , fullwidth : Int
+    , alwaysShowpx : Int
+    , height : Int
+    }
+
+
+leftspacepercentage : number
 leftspacepercentage =
     20
 
 
+centerspacepercentage : number
 centerspacepercentage =
     40
 
@@ -235,13 +281,33 @@ getcontainerheight model windowheight =
     windowheight - model.footerheight
 
 
+iswidescreen : Model -> Bool
+iswidescreen model =
+    iswidescreenexplicit model.window.windowSize.width model.widescreenwidth
+
+
+iswidescreenexplicit : Int -> Int -> Bool
+iswidescreenexplicit width widescreenwidth =
+    width > widescreenwidth
+
+
+ismediumscreen : Model -> Bool
+ismediumscreen model =
+    ismediumscreenexplicit model.window.windowSize.width model.mediumscreenwidth
+
+
+ismediumscreenexplicit : Int -> Int -> Bool
+ismediumscreenexplicit width mediumscreenwidth =
+    width > mediumscreenwidth
+
+
 
 --To nest update of feature
 --  FeatureMsg action ->
 --          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Feature.State.update action model
 
 
-subscriptions : Layout.Types.Model -> Sub Layout.Types.Msg
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ WindowSize.State.subscriptions |> Sub.map Window
