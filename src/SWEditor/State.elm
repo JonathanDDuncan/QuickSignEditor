@@ -448,7 +448,7 @@ addUndoEntry :
     -> ( Model, Cmd Msg )
 addUndoEntry changed name updatetuple =
     updatetuple
-        |> \(( model, cmd ) as updatetuple1) ->
+        |> \(( model, _ ) as updatetuple1) ->
             updatetuple1
                 |> Update.Extra.andThen update
                     (AddUndo changed
