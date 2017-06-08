@@ -2,7 +2,7 @@ module Overlay.State exposing (init, update, subscriptions)
 
 import PlatformHelpers exposing (..)
 import Overlay.Types exposing (Model, Msg(..))
-import Layout.Types exposing (Model, Msg(..))
+import Layout.Types exposing (Model, Msg(HideOverlay, ShareFsw, PleaseShareFsw))
 import Layout.State
 import Ports exposing (requestSignfromOtherAppDelayed, hideOverlay, shareFsw)
 import SW.FSW exposing (..)

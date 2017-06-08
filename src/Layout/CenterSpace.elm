@@ -1,7 +1,7 @@
 module Layout.CenterSpace exposing (centerspace)
 
 import Html exposing (Html, div)
-import Layout.Types exposing (Model, Msg(..))
+import Layout.Types exposing (Model, Msg(SWEditor))
 import Html.Attributes exposing (class, style)
 import SWEditor.View
 

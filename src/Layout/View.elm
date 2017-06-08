@@ -2,7 +2,7 @@ module Layout.View exposing (root)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
-import Layout.Types exposing (Model, Msg(..))
+import Layout.Types exposing (Model, Msg)
 
 
 --import SubLayout.View exposing (root)
