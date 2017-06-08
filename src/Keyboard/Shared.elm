@@ -1,4 +1,15 @@
-module Keyboard.Shared exposing (..)
+module Keyboard.Shared
+    exposing
+        ( KeyAction
+        , KeyboardCommand
+        , KeyConfig
+        , KeyboardMode(..)
+        , getKeyboardMode
+        , runKeyboard
+        , createKeyboardCommand
+        , getKeyboardModeCode
+        , isPressedShift
+        )
 
 import Update.Extra exposing (..)
 import Html

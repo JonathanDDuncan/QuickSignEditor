@@ -1,4 +1,11 @@
-module Keyboard.Types exposing (..)
+module Keyboard.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , Keypress(..)
+        , KeyboardLayout
+        , Key
+        )
 
 -- import SubFeatures.Types
 

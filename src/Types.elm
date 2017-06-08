@@ -1,4 +1,4 @@
-module Types exposing (..)
+module Types exposing (Model, Msg(..))
 
 -- import Feature.Types
 

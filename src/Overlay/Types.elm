@@ -1,4 +1,4 @@
-module Overlay.Types exposing (..)
+module Overlay.Types exposing (Model, Msg(..))
 
 import Layout.Types
 

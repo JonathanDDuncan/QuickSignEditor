@@ -1,4 +1,4 @@
-module WindowSize.Types exposing (..)
+module WindowSize.Types exposing (Model, Msg(..))
 
 import Window
 

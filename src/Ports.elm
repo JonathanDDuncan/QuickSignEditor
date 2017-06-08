@@ -1,4 +1,31 @@
-port module Ports exposing (..)
+port module Ports
+    exposing
+        ( requestSign
+        , requestInitialGroupHandChoosings
+        , requestInitialChoosings
+        , sendKeyboardMode
+        , cmdaddsigntosignview
+        , cmdAddSymbol
+        , cmdDragSymbol
+        , cmdReplaceSymbol
+        , receiveInitialChoosings
+        , receiveInitialGroupHandChoosings
+        , receiveKeyboardCommand
+        , receiveSign
+        , requestSignfromOtherApp
+        , requestElementPosition
+        , subaddsigntosignview
+        , receiveElementPosition
+        , subDragSymbol
+        , subAddSymbol
+        , subReplaceSymbol
+        , sendKeyboardCommand
+        , receiveKeyboardMode
+        , pleaseShareFsw
+        , requestSignfromOtherAppDelayed
+        , hideOverlay
+        , shareFsw
+        )
 
 import SW.Types exposing (..)
 import Choosers.Types as Choosers exposing (..)

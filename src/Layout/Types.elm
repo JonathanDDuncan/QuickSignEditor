@@ -1,4 +1,13 @@
-module Layout.Types exposing (..)
+module Layout.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , DrawerModel
+        , iswidescreen
+        , ismediumscreen
+        , ismediumscreenexplicit
+        , iswidescreenexplicit
+        )
 
 -- import SubLayouts.Types
 

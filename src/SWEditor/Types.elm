@@ -1,4 +1,15 @@
-module SWEditor.Types exposing (..)
+module SWEditor.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , Direction(..)
+        , EditorMode(..)
+        , Distance
+        , Offset
+        , UndoItem
+        , signViewPosition
+        , withinSignView
+        )
 
 -- import SubSWEditors.Types
 
