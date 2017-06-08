@@ -2,7 +2,7 @@ module Overlay.View exposing (root)
 
 import Html exposing (Html, div, button, text)
 import Overlay.Types exposing (Model, Msg(..))
-import Html.Attributes exposing (class, attribute)
+import Html.Attributes exposing (class)
 import Html.Events exposing (..)
 import Layout.View
 

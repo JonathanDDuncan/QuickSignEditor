@@ -2,7 +2,7 @@ module Layout.LeftSpace exposing (leftspace)
 
 import Html exposing (Html, div)
 import Layout.Types exposing (Model, Msg(..), iswidescreen, ismediumscreen)
-import Html.Attributes exposing (href, class, style)
+import Html.Attributes exposing (class, style)
 import Material.Button as Button
 import Material.Options as Options
 import Material.Grid exposing (..)

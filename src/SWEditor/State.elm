@@ -22,7 +22,7 @@ import SWEditor.EditorSign exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.Undo exposing (..)
 import SW.Types exposing (Symbol, Position, signinit, portableSigntoSign)
-import Mouse as Mouse exposing (downs, moves, ups)
+import Mouse as Mouse
 import List.Extra exposing (..)
 import SWEditor.SignArea exposing (..)
 import SWEditor.EditorKeyboard exposing (..)

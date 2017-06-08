@@ -1,11 +1,11 @@
 module Choosers.SymbolToolTip exposing (handsymboltooltip, symboltooltip)
 
-import Html exposing (Html, div, text, br)
+import Html exposing (Html, text, br)
 import Html.Attributes exposing (..)
 import Choosers.Types exposing (Model, Msg(..), HandFills(..))
 import Material exposing (..)
 import Material.Tooltip as Tooltip exposing (..)
-import Material.Options as Options exposing (div, cs, when)
+import Material.Options as Options
 import Choosers.HandPng exposing (..)
 import SW.Types exposing (iskey)
 

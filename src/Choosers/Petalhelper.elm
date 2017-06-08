@@ -11,7 +11,7 @@ import Html exposing (Html, Attribute, div)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List.Extra exposing (..)
-import Maybe.Extra exposing (join)
+import Maybe.Extra
 
 
 getoutersymbolpetals : List Symbol -> Int -> Int -> List (Html Msg)

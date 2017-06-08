@@ -14,7 +14,7 @@ module SWEditor.Icons
 
 import Svg exposing (svg, path)
 import Html.Attributes exposing (..)
-import Html exposing (img, div)
+import Html exposing (img)
 
 
 undoicon : Html.Html msg
