@@ -31,8 +31,8 @@ import Helpers.ViewExtra exposing (px, (=>))
 import List.Extra
 
 
-handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-handsymbolchooser model chooserwidth chooserheight =
+handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+handsymbolchooser model chooserwidth =
     let
         rowheight =
             54

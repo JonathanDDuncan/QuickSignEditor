@@ -139,7 +139,7 @@ getsymbolchooser model halfwidth halfheight =
             if model.groupselected.symbolkey == "" then
                 { display = text "", width = 1, height = 1 }
             else if iskey model.groupselected.symbolkey "hand" then
-                handsymbolchooser model halfwidth halfheight
+                handsymbolchooser model halfwidth
             else
                 gensymbolchooser model halfwidth halfheight
     in
