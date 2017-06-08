@@ -41,7 +41,7 @@ root parentwidth parentheight model =
             parentheight - maniquin.height
 
         symbolchooser =
-            getsymbolchooser model halfwidth symbolchooserheight
+            getsymbolchooser model halfwidth
 
         symbolchooserscale =
             calculatescale (Basics.toFloat symbolchooser.width)
@@ -132,8 +132,8 @@ choosingroot model bottompadding =
         }
 
 
-getsymbolchooser : Choosers.Types.Model -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-getsymbolchooser model halfwidth halfheight =
+getsymbolchooser : Choosers.Types.Model -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+getsymbolchooser model halfwidth =
     let
         chooser =
             if model.groupselected.symbolkey == "" then
