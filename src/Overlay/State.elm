@@ -63,21 +63,8 @@ layoutactions action model =
                 model
 
 
-
---To nest update of feature
---  FeatureMsg action ->
---          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Feature.State.update action model
-
-
 subscriptions : Overlay.Types.Model -> Sub Overlay.Types.Msg
 subscriptions model =
     Sub.batch
         [ Layout.State.subscriptions model.layout |> Sub.map Layout
         ]
-
-
-
--- To nest subscriptions
--- Sub.batch
---       [ SubOverlay.State.subscriptions model.subOverlayFieldName |> Sub.map SubOverlayMsg
---       ]

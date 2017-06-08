@@ -557,8 +557,8 @@ getvalue name itemsvalues =
             List.filter (\item -> item.name == name) itemsvalues
 
 
-subscriptions : Choosers.Types.Model -> Sub Choosers.Types.Msg
-subscriptions model =
+subscriptions : Sub Choosers.Types.Msg
+subscriptions =
     Sub.batch
         [ receiveInitialChoosings ReceiveInitialChoosings
         , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings

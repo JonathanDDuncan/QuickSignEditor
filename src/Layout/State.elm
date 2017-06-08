@@ -244,9 +244,9 @@ getcontainerheight model windowheight =
 subscriptions : Layout.Types.Model -> Sub Layout.Types.Msg
 subscriptions model =
     Sub.batch
-        [ WindowSize.State.subscriptions model.window |> Sub.map Window
+        [ WindowSize.State.subscriptions |> Sub.map Window
         , SWEditor.State.subscriptions model.signbox |> Sub.map SWEditor
-        , Keyboard.State.subscriptions model.keyboard |> Sub.map Keyboard
-        , Choosers.State.subscriptions model.mainchooser |> Sub.map Choosers
+        , Keyboard.State.subscriptions |> Sub.map Keyboard
+        , Choosers.State.subscriptions |> Sub.map Choosers
         , pleaseShareFsw PleaseShareFsw
         ]

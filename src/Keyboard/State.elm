@@ -101,8 +101,8 @@ getmode keyList model =
         model.keyboardmode
 
 
-subscriptions : Keyboard.Types.Model -> Sub Keyboard.Types.Msg
-subscriptions model =
+subscriptions : Sub Keyboard.Types.Msg
+subscriptions =
     Sub.batch
         [ Sub.map KeyboardExtraMsg Keyboard.Extra.subscriptions
         , receiveKeyboardMode SetKeyboardMode

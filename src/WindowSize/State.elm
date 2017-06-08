@@ -33,19 +33,6 @@ update msg model =
             ( model, Cmd.none )
 
 
-
---To nest update of Window
---  WindowMsg action ->
---          lift .WindowFieldName (\m x -> { m | WindowFieldName = x })  WindowMsg Window.State.update action model
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions : Sub Msg
+subscriptions =
     Window.resizes Resize
-
-
-
--- To nest subscriptions
--- Sub.batch
---       [ SubWindow.State.subscriptions model.subWindowFieldName |> Sub.map SubWindowMsg
---       ]
