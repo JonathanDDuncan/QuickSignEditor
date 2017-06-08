@@ -213,7 +213,13 @@ row rowdata =
 
 getscales : Int -> Int -> List { a | height : Int, width : Int } -> Maybe Float
 getscales columnwidth rowheight symbols =
-    List.minimum (List.map (\symbol -> shrinkdontzoom (toFloat symbol.width) (toFloat symbol.height) (toFloat columnwidth) (toFloat rowheight)) symbols)
+    List.minimum
+        (List.map
+            (\symbol ->
+                shrinkdontzoom (toFloat symbol.width) (toFloat symbol.height) (toFloat columnwidth) (toFloat rowheight)
+            )
+            symbols
+        )
 
 
 generalsymbolonerow :

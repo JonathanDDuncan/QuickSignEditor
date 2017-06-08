@@ -168,7 +168,11 @@ colorsymbols1 : List { colors : Colors, pos : Int } -> Sign -> Sign
 colorsymbols1 symbolscolors sign =
     { sign
         | syms =
-            List.indexedMap (\index symbol -> applychangetoSymbol (\symbolcolor -> colorsymbol symbolcolor.colors symbol) symbol (index + 1) symbolscolors) sign.syms
+            List.indexedMap
+                (\index symbol ->
+                    applychangetoSymbol (\symbolcolor -> colorsymbol symbolcolor.colors symbol) symbol (index + 1) symbolscolors
+                )
+                sign.syms
     }
 
 
@@ -187,11 +191,18 @@ sizesymbols1 : List { size : Float, pos : Int, adjustment : { x : Int, y : Int }
 sizesymbols1 symbolsizes sign =
     { sign
         | syms =
-            List.indexedMap (\index symbol -> applychangetoSymbol (\symbolsize -> sizesymbol symbolsize symbol) symbol (index + 1) symbolsizes) sign.syms
+            List.indexedMap
+                (\index symbol ->
+                    applychangetoSymbol (\symbolsize -> sizesymbol symbolsize symbol) symbol (index + 1) symbolsizes
+                )
+                sign.syms
     }
 
 
-adjustpositionsymbols : Result String (List { size : Float, pos : Int, adjustment : { x : Int, y : Int } }) -> Result String Sign -> Result String Sign
+adjustpositionsymbols :
+    Result String (List { size : Float, pos : Int, adjustment : { x : Int, y : Int } })
+    -> Result String Sign
+    -> Result String Sign
 adjustpositionsymbols symbolsizes sign =
     symbolsizes
         |> Result.andThen
@@ -206,7 +217,11 @@ adjustpositionsymbols1 : List { size : Float, pos : Int, adjustment : { x : Int,
 adjustpositionsymbols1 symbolsizes sign =
     { sign
         | syms =
-            List.indexedMap (\index symbol -> applychangetoSymbol (\symbolsize -> adjustposition symbolsize symbol) symbol (index + 1) symbolsizes) sign.syms
+            List.indexedMap
+                (\index symbol ->
+                    applychangetoSymbol (\symbolsize -> adjustposition symbolsize symbol) symbol (index + 1) symbolsizes
+                )
+                sign.syms
     }
 
 

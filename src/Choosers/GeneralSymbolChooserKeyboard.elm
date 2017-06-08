@@ -57,23 +57,45 @@ creategeneralsymbolchooserkeyboard model =
             getgeneralsymbolcolumn symbolcolumndata.column2
 
         flowerkeyactionlistAdd1 =
-            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol) "green"
+            createflowerkeyactionlist firstcolumn
+                flower1keyidrange
+                { key = 0, ctrl = False, shift = False, alt = False }
+                (Editor << AddSymbol)
+                "green"
                 |> setassamesize
 
         flowerkeyactionlistAdd2 =
-            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = False, alt = False } (Editor << AddSymbol) "green"
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn)
+                flower2keyidrange
+                { key = 0, ctrl = False, shift = False, alt = False }
+                (Editor << AddSymbol)
+                "green"
                 |> setassamesize
 
         flowerkeyactionlistReplace1 =
-            createflowerkeyactionlist firstcolumn flower1keyidrange { key = 0, ctrl = False, shift = True, alt = False } (Editor << ReplaceSymbol) "red"
+            createflowerkeyactionlist firstcolumn
+                flower1keyidrange
+                { key = 0, ctrl = False, shift = True, alt = False }
+                (Editor << ReplaceSymbol)
+                "red"
                 |> setassamesize
 
         flowerkeyactionlistReplace2 =
-            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn) flower2keyidrange { key = 0, ctrl = False, shift = True, alt = False } (Editor << ReplaceSymbol) "red"
+            createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn)
+                flower2keyidrange
+                { key = 0, ctrl = False, shift = True, alt = False }
+                (Editor << ReplaceSymbol)
+                "red"
                 |> setassamesize
 
         fulllist =
-            List.concat [ rowkeyactionlist, flowerkeyactionlistAdd1, flowerkeyactionlistAdd2, flowerkeyactionlistReplace1, flowerkeyactionlistReplace2 ]
+            List.concat
+                [ rowkeyactionlist
+                , flowerkeyactionlistAdd1
+                , flowerkeyactionlistAdd2
+                , flowerkeyactionlistReplace1
+                , flowerkeyactionlistReplace2
+                ]
     in
         fulllist
 
@@ -193,7 +215,15 @@ createhandsymbolchooserkeyboard model =
                 |> setassamesize
 
         fulllist =
-            List.concat [ lefthandactionlist, righthandactionlist, wallplaneactionlist, floorplaneactionlist, fillactionlist, flowerkeyactionlistadd, flowerkeyactionlistreplace ]
+            List.concat
+                [ lefthandactionlist
+                , righthandactionlist
+                , wallplaneactionlist
+                , floorplaneactionlist
+                , fillactionlist
+                , flowerkeyactionlistadd
+                , flowerkeyactionlistreplace
+                ]
     in
         fulllist
 

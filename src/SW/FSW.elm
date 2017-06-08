@@ -363,7 +363,11 @@ getFsw sign =
             centerSign 500 500 sign
 
         boundingbox =
-            sign.spelling ++ "M" ++ toString (500 + (round <| toFloat centered.width / 2)) ++ "x" ++ toString (500 + (round <| toFloat centered.height / 2))
+            sign.spelling
+                ++ "M"
+                ++ toString (500 + (round <| toFloat centered.width / 2))
+                ++ "x"
+                ++ toString (500 + (round <| toFloat centered.height / 2))
 
         symbols =
             List.foldr (++) "" (List.map symbolsFsw centered.syms)

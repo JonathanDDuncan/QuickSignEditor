@@ -60,7 +60,12 @@ symbolpetal ( attrib, symb ) =
             div [] []
 
 
-getouterpetalsymbolpositions : { a | width : Int, height : Int } -> List (Maybe { a | width : Int, height : Int }) -> Int -> Int -> List (List (Attribute msg))
+getouterpetalsymbolpositions :
+    { a | width : Int, height : Int }
+    -> List (Maybe { a | width : Int, height : Int })
+    -> Int
+    -> Int
+    -> List (List (Attribute msg))
 getouterpetalsymbolpositions defaultsymbol items outeritemwidth outeritemheight =
     let
         top =

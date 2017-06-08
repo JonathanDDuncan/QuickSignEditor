@@ -468,7 +468,13 @@ allgroupchoosings chooserclassification =
             List.sort <| unique <| List.filter (\value -> value /= "") <| List.map (\item -> item.symbolgroup) chooserclassification.chooseritemvalues
 
         allgroupchoosings1 =
-            List.map (\basesymbol1 -> { basesymbol = basesymbol1, choosings = getchoosings basesymbol1 chooserclassification.chooseritemvalues chooserclassification.basechooseritems }) basesymbols
+            List.map
+                (\basesymbol1 ->
+                    { basesymbol = basesymbol1
+                    , choosings = getchoosings basesymbol1 chooserclassification.chooseritemvalues chooserclassification.basechooseritems
+                    }
+                )
+                basesymbols
     in
         allgroupchoosings1
 
@@ -476,7 +482,10 @@ allgroupchoosings chooserclassification =
 getchoosings symbolgroup chooseritemvalues basechooseritems =
     let
         groupchoosers =
-            List.sort <| unique <| List.map (\item -> item.name) <| List.filter (\item -> item.choosertype == "groupchooser" && item.symbolgroup == symbolgroup) chooseritemvalues
+            List.sort <|
+                unique <|
+                    List.map (\item -> item.name) <|
+                        List.filter (\item -> item.choosertype == "groupchooser" && item.symbolgroup == symbolgroup) chooseritemvalues
 
         items =
             List.filter (\basechooseritem -> List.any ((==) basechooseritem.groupchooser) groupchoosers) basechooseritems
@@ -491,7 +500,16 @@ getchoosings symbolgroup chooseritemvalues basechooseritems =
             List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "feature") chooseritemvalues
 
         converted =
-            List.map (\item -> creategroupchoosing (getchooservalue item.groupchooser chooseritemvalues) itemsvalues colitemsvalues featureitemsvalues item) items
+            List.map
+                (\item ->
+                    creategroupchoosing
+                        (getchooservalue item.groupchooser chooseritemvalues)
+                        itemsvalues
+                        colitemsvalues
+                        featureitemsvalues
+                        item
+                )
+                items
     in
         converted
 

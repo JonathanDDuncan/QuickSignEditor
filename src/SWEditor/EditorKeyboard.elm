@@ -25,15 +25,6 @@ runKeyboardCommand model command update =
         updatetuple
 
 
-
--- keyboarddisplay :
---     { signview :
---         List (KeyConfig Msg)
---     }
--- keyboarddisplay =
---     { signview = List.map (\config -> { test = config.test, display = { width = 20, height = 20, view = config.display.view } }) configKeyboardSignView }
-
-
 configKeyboardSignView : List (KeyAction Msg)
 configKeyboardSignView =
     List.append otherkeys arrowkeys

@@ -314,7 +314,12 @@ createhandfillitem base symbolsizes basefillitem =
         symbol =
             getSymbolbyBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
     in
-        { fill = basefillitem.fill, rotation = basefillitem.rotation, filltype = basefillitem.filltype, planetype = basefillitem.planetype, symbol = symbol }
+        { fill = basefillitem.fill
+        , rotation = basefillitem.rotation
+        , filltype = basefillitem.filltype
+        , planetype = basefillitem.planetype
+        , symbol = symbol
+        }
 
 
 createpetal : Dict String Size -> Base -> HandFillItem -> Int -> Petal

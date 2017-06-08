@@ -27,7 +27,10 @@ root parentwidth parentheight model =
             choosingroot model halfheight halfwidth 10
 
         maniquinscale =
-            calculatescale (Basics.toFloat maniquin.width) (Basics.toFloat maniquin.height) (Basics.toFloat halfwidth) (Basics.toFloat halfheight)
+            calculatescale (Basics.toFloat maniquin.width)
+                (Basics.toFloat maniquin.height)
+                (Basics.toFloat halfwidth)
+                (Basics.toFloat halfheight)
 
         maniquindivheight =
             truncate <|
@@ -41,7 +44,10 @@ root parentwidth parentheight model =
             getsymbolchooser model halfwidth symbolchooserheight
 
         symbolchooserscale =
-            calculatescale (Basics.toFloat symbolchooser.width) (Basics.toFloat symbolchooser.height) (Basics.toFloat halfwidth) (Basics.toFloat (parentheight - maniquindivheight))
+            calculatescale (Basics.toFloat symbolchooser.width)
+                (Basics.toFloat symbolchooser.height)
+                (Basics.toFloat halfwidth)
+                (Basics.toFloat (parentheight - maniquindivheight))
     in
         div []
             [ div
