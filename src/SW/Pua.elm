@@ -23,7 +23,7 @@ linecodefromkey key =
 
 fillcode : Base -> Fill -> Rotation -> Int
 fillcode base fill rotation =
-    0x00100000 + 96 * (base - 256) + 16 * (fill) + rotation + 1
+    0x00100000 + 96 * (base - 256) + 16 * fill + rotation + 1
 
 
 fillcodefromkey : Key -> Int
@@ -82,9 +82,9 @@ puaCharCode value =
 
 lefthalf : Int -> Int
 lefthalf value =
-    hextoDec "D800" + (Bitwise.shiftRightBy 10 (value - (hextoDec "10000")))
+    hextoDec "D800" + Bitwise.shiftRightBy 10 (value - hextoDec "10000")
 
 
 righthalf : Int -> Int
 righthalf value =
-    hextoDec "DC00" + (Bitwise.and (value - (hextoDec "10000")) (hextoDec "03FF"))
+    hextoDec "DC00" + Bitwise.and (value - hextoDec "10000") (hextoDec "03FF")

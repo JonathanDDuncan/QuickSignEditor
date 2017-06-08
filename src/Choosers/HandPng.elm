@@ -22,7 +22,7 @@ handpngspan handpng classes morestyle moretransform displaystyle =
                 ""
 
         transformvalue =
-            (moretransform) ++ " " ++ (miror) ++ " " ++ (rotate) ++ ";"
+            moretransform ++ " " ++ miror ++ " " ++ rotate ++ ";"
 
         transform =
             if String.length transformvalue > 3 then
@@ -36,8 +36,8 @@ handpngspan handpng classes morestyle moretransform displaystyle =
                 ("display:"
                     ++ displaystyle
                     ++ ";"
-                    ++ (morestyle)
-                    ++ (transform)
+                    ++ morestyle
+                    ++ transform
                 )
             ]
             []

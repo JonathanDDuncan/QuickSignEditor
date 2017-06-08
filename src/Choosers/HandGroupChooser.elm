@@ -91,7 +91,7 @@ symbol symboldata =
 createhandgroupchooserdata : Choosers.Types.Model -> List (List HandGroupChooserViewColumnData)
 createhandgroupchooserdata model =
     List.concat <|
-        (List.map
+        List.map
             (\data ->
                 let
                     tabledata2 =
@@ -100,7 +100,6 @@ createhandgroupchooserdata model =
                     tabledata2
             )
             model.handgroupchooseritems
-        )
 
 
 createrowdata : Choosers.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
@@ -125,7 +124,7 @@ createrowdata model tabledata =
 
 createcolumndata : Choosers.Types.Model -> List HandGroupChooserSubList -> Int -> List HandGroupChooserViewColumnData
 createcolumndata model rowdata row =
-    (List.indexedMap
+    List.indexedMap
         (\col coldata ->
             let
                 symboldatalist =
@@ -134,7 +133,6 @@ createcolumndata model rowdata row =
                 { col = col, row = row, symboldatalist = symboldatalist, backgroundcolor = coldata.backgroundcolor }
         )
         rowdata
-    )
 
 
 createsymboldatalist : Choosers.Types.Model -> HandGroupChooserSubList -> List HandGroupChooserViewSymbolData
@@ -166,7 +164,7 @@ gethandgroupchooserdata model =
             List.sort <| List.Extra.unique <| List.map (\item -> item.row) choosings
 
         handgroupchooserdata =
-            (List.map (\row -> createrowdata1 model row choosings) rowvalues)
+            List.map (\row -> createrowdata1 model row choosings) rowvalues
     in
         handgroupchooserdata
 
@@ -224,7 +222,7 @@ createcolumndata1 :
 createcolumndata1 model cat col choosings =
     let
         filteredhandgroupitems =
-            filterhandgroupitems col (model.handgroupfilter) choosings
+            filterhandgroupitems col model.handgroupfilter choosings
 
         backgroundcolor =
             bkcolor cat col

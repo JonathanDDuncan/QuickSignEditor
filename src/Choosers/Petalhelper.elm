@@ -21,7 +21,7 @@ getoutersymbolpetals symbols itemwidth itemheight =
 
 toListMaybe : List a -> List (Maybe a)
 toListMaybe symbols =
-    List.map (Just) symbols
+    List.map Just symbols
 
 
 getoutersymbolpetalsMaybe : List (Maybe Symbol) -> Int -> Int -> List (Html Msg)

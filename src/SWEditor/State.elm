@@ -132,7 +132,7 @@ update action model =
                     ! []
                     |> updateModel (\model -> { model | sign = newsign })
                     |> addUndoEntry changed "SelectSymbol"
-                    |> Update.Extra.andThen update (StartDragging)
+                    |> Update.Extra.andThen update StartDragging
 
         UnSelectSymbols ->
             let
@@ -173,11 +173,11 @@ update action model =
                 model
                     ! []
                     |> Update.Extra.filter (selectedsymbols > 0 && withinsignview)
-                        (Update.Extra.andThen update (StartDragging))
+                        (Update.Extra.andThen update StartDragging)
                     |> Update.Extra.filter (howmanysymbolsunderposition == 1 && withinsignview)
                         (Update.Extra.andThen update (SelectSymbol firstsymbolid))
                     |> Update.Extra.filter (howmanysymbolsunderposition == 0 && withinsignview)
-                        (Update.Extra.andThen update (UnSelectSymbols)
+                        (Update.Extra.andThen update UnSelectSymbols
                             >> Update.Extra.andThen update StartRectangleSelect
                         )
 
@@ -212,7 +212,7 @@ update action model =
             in
                 { model | xy = signviewposition }
                     ! []
-                    |> Update.Extra.filter (model.windowresized)
+                    |> Update.Extra.filter model.windowresized
                         (Update.Extra.andThen update UpdateSignViewPosition)
                     |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
                         (Update.Extra.andThen update DragSelected)
@@ -431,15 +431,14 @@ addUndoEntry :
     -> ( Model, Cmd Msg )
     -> ( Model, Cmd Msg )
 addUndoEntry changed name updatetuple =
-    (\(( model, cmd ) as updatetuple1) ->
-        updatetuple1
-            |> Update.Extra.andThen update
-                (AddUndo changed
-                    name
-                    model
-                )
-    )
-        updatetuple
+    updatetuple
+        |> \(( model, cmd ) as updatetuple1) ->
+            updatetuple1
+                |> Update.Extra.andThen update
+                    (AddUndo changed
+                        name
+                        model
+                    )
 
 
 replaceselectedsymbols : List Symbol -> Symbol -> List Symbol

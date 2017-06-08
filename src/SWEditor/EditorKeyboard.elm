@@ -42,7 +42,7 @@ configKeyboardSignView =
 otherkeys : List (KeyAction Msg)
 otherkeys =
     [ { test = { key = 43, ctrl = True, shift = False, alt = False }
-      , action = (Undo)
+      , action = Undo
       , display =
             { width = 24
             , height = 24
@@ -52,7 +52,7 @@ otherkeys =
             }
       }
     , { test = { key = 21, ctrl = True, shift = False, alt = False }
-      , action = (Redo)
+      , action = Redo
       , display =
             { width = 24
             , height = 24
@@ -64,7 +64,7 @@ otherkeys =
     , { test =
             -- Delete key
             { key = 62, ctrl = False, shift = False, alt = False }
-      , action = (DeleteSymbols)
+      , action = DeleteSymbols
       , display =
             { width = 24
             , height = 24
@@ -76,7 +76,7 @@ otherkeys =
     , { test =
             -- Backspace
             { key = 14, ctrl = False, shift = False, alt = False }
-      , action = (DeleteSymbols)
+      , action = DeleteSymbols
       , display =
             { width = 24
             , height = 24
@@ -86,7 +86,7 @@ otherkeys =
             }
       }
     , { test = { key = 33, ctrl = False, shift = False, alt = False }
-      , action = (DuplicateSymbols)
+      , action = DuplicateSymbols
       , display =
             { width = 24
             , height = 24
@@ -120,19 +120,19 @@ getkeyaction dist zoom shift range =
     let
         values =
             [ { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = (MoveSymbols Up dist)
+              , action = MoveSymbols Up dist
               , display = arrowupdisplay zoom
               }
             , { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = (MoveSymbols Down dist)
+              , action = MoveSymbols Down dist
               , display = arrowdowndisplay zoom
               }
             , { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = (MoveSymbols Right dist)
+              , action = MoveSymbols Right dist
               , display = arrowrightdisplay zoom
               }
             , { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = (MoveSymbols Left dist)
+              , action = MoveSymbols Left dist
               , display = arrowleftdisplay zoom
               }
             ]
@@ -147,7 +147,7 @@ getkeyaction dist zoom shift range =
                         | test = { key = key, ctrl = False, shift = shift, alt = False }
                     }
                 )
-                (keyrange)
+                keyrange
     in
         viewkeylist
 

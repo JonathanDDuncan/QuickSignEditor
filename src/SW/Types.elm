@@ -197,7 +197,7 @@ maximumBy : (a -> comparable) -> List a -> Maybe a
 maximumBy f ls =
     let
         maxBy f x y =
-            if (f x) > (f y) then
+            if f x > f y then
                 x
             else
                 y

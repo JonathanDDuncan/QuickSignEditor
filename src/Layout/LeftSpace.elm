@@ -23,7 +23,7 @@ leftspace model =
         ]
         [ [ mdlstyle 50
                 [ size All 6 ]
-                ([ Button.render
+                [ Button.render
                     Mdl
                     [ 1 ]
                     model.mdl
@@ -33,11 +33,10 @@ leftspace model =
                     , Options.onClick ShareFsw
                     ]
                     [ Html.text "Save" ]
-                 ]
-                )
+                ]
           , mdlstyle 50
                 [ size All 6 ]
-                ([ Button.render
+                [ Button.render
                     Mdl
                     [ 2 ]
                     model.mdl
@@ -48,8 +47,7 @@ leftspace model =
                     , Options.onClick HideOverlay
                     ]
                     [ Html.text "Cancel" ]
-                 ]
-                )
+                ]
           ]
             |> grid []
         ]

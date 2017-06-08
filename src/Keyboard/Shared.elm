@@ -74,12 +74,12 @@ runkeycommand command update config =
 
 runtest : KeyboardCommand -> KeyTestConfig -> Bool
 runtest command test =
-    (pressed command test.key)
-        && (isPressedCtrl command.keys)
+    pressed command test.key
+        && isPressedCtrl command.keys
         == test.ctrl
-        && (isPressedShift command.keys)
+        && isPressedShift command.keys
         == test.shift
-        && (isPressedAlt command.keys)
+        && isPressedAlt command.keys
         == test.alt
 
 

@@ -88,7 +88,7 @@ handsymbolchooser model width height =
 
 fillsview : HandSymbol -> Int -> List (Html Msg)
 fillsview handsymbol rowheight =
-    (List.map
+    List.map
         (\( handfillitem, description ) ->
             td
                 [ onClick (SelectHandFill handfillitem.filltype)
@@ -115,7 +115,6 @@ fillsview handsymbol rowheight =
                 [ "Baby Edge", "Palm", "Thumb Edge", "Back" ]
             )
         )
-    )
 
 
 handselectionboth : HandSymbol -> Int -> List (Html Msg)
@@ -198,7 +197,7 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outer
             truncate <| toFloat fullwidth * 0.6
 
         rosecenterimagehands =
-            if (handfill == LeftBabyEdge || handfill == RightBabyEdge) then
+            if handfill == LeftBabyEdge || handfill == RightBabyEdge then
                 text ""
             else
                 handimagecenter rosecenterpetaldata fullwidth outeritemwidth innersize

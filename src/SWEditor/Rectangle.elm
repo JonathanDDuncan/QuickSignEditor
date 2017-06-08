@@ -53,13 +53,13 @@ minrectangle : Rect -> Int -> Int -> Rect
 minrectangle rectangle minwidth minheight =
     let
         newwidth =
-            if abs (rectangle.width) < minwidth then
+            if abs rectangle.width < minwidth then
                 minwidth
             else
                 rectangle.width
 
         newheigth =
-            if abs (rectangle.height) < minheight then
+            if abs rectangle.height < minheight then
                 minheight
             else
                 rectangle.height

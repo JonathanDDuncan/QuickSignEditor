@@ -33,7 +33,7 @@ column columndata =
     td
         [ class "chosercolumn"
         , style
-            [ "background-color" => (bkcolor columndata.row columndata.col) ]
+            [ "background-color" => bkcolor columndata.row columndata.col ]
         ]
         (List.map
             symbol
@@ -98,7 +98,7 @@ creategeneralgroupchooserrowdata model row choosings =
             List.sort <| unique <| List.map (\item -> item.col) choosings
 
         rowdata =
-            (List.map (\col -> creategeneralgroupchoosercolumndata model row col choosings) colvalues)
+            List.map (\col -> creategeneralgroupchoosercolumndata model row col choosings) colvalues
     in
         rowdata
 
@@ -110,12 +110,11 @@ creategeneralgroupchoosercolumndata model row col choosings =
             List.filter (\item -> item.col == col && item.row == row) choosings
 
         symboldatalist =
-            (choosingsforcolumn
+            choosingsforcolumn
                 |> List.map
                     (\chooseritem ->
                         creategeneralgroupchoosersymboldata model chooseritem
                     )
-            )
     in
         { symboldatalist = symboldatalist, row = row, col = col }
 

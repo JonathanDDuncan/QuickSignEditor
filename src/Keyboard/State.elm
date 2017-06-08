@@ -58,7 +58,7 @@ update action model =
                 keyboardcommand =
                     createKeyboardCommand keyList newmode
             in
-                ( { model | keyboardhistory = (toString n :: model.keyboardhistory) }
+                ( { model | keyboardhistory = toString n :: model.keyboardhistory }
                 , Cmd.batch
                     [ Cmd.map KeyboardExtraMsg Cmd.none
                     , Ports.sendKeyboardCommand keyboardcommand
@@ -126,7 +126,7 @@ getKeyList keys keyboardExtraModel =
 
 keyhasCode : Int -> Key -> Bool
 keyhasCode code key =
-    if (key.code == code) then
+    if key.code == code then
         True
     else
         False

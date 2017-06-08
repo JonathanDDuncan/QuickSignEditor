@@ -127,7 +127,7 @@ creatcolumnkeyactionlist data range =
                         }
                     }
                 )
-                (keyrange)
+                keyrange
     in
         viewkeylist
 
@@ -142,7 +142,7 @@ createkeyactionlist data range =
             List.map
                 (\( key, item ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = ((Choosers.Types.Editor << SelectedColumn) item.fill)
+                    , action = (Choosers.Types.Editor << SelectedColumn) item.fill
                     , display =
                         { width =
                             item.symbol.width
@@ -155,7 +155,7 @@ createkeyactionlist data range =
                         }
                     }
                 )
-                (keyrange)
+                keyrange
     in
         viewkeylist
 
@@ -207,7 +207,7 @@ createfillkeyactionlist data range =
             List.map
                 (\( key, handfillitem ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (SelectHandFill handfillitem.filltype)
+                    , action = SelectHandFill handfillitem.filltype
                     , display =
                         { width =
                             handfillitem.symbol.width
@@ -220,7 +220,7 @@ createfillkeyactionlist data range =
                         }
                     }
                 )
-                (keyrange)
+                keyrange
     in
         viewkeylist
 
@@ -247,7 +247,7 @@ createflowerkeyactionlist data range modifiers action backgroundcolor =
                         }
                     }
                 )
-                (keyrange)
+                keyrange
     in
         viewkeylist
 

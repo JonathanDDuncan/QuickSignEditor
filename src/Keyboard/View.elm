@@ -50,36 +50,36 @@ root model signviewkeyboard chooserskeyboard keyboardwidth keyboardheight =
             , div
                 [ class "alphabetic", style [ ( "width", "66%" ) ] ]
                 (List.map (row model keyboarddisplay keyboardwidth rowheight)
-                    [ (List.range 1 14)
-                    , (List.range 15 28)
-                    , (List.range 29 41)
-                    , (List.range 42 53)
-                    , (List.range 54 60)
+                    [ List.range 1 14
+                    , List.range 15 28
+                    , List.range 29 41
+                    , List.range 42 53
+                    , List.range 54 60
                     ]
                 )
             , div
                 [ class "arrows", style [ ( "width", "14%" ) ] ]
                 [ div [ style [ ( "height", "40%" ), ( "margin-bottom", "15.5%" ) ] ]
                     (List.map (row model keyboarddisplay keyboardwidth rowheight)
-                        [ (List.range 61 63)
-                        , (List.range 64 66)
+                        [ List.range 61 63
+                        , List.range 64 66
                         ]
                     )
                 , div [ style [ ( "height", "40%" ) ] ]
                     (List.map (row model keyboarddisplay keyboardwidth rowheight)
-                        [ (List.range 67 67)
-                        , (List.range 68 70)
+                        [ List.range 67 67
+                        , List.range 68 70
                         ]
                     )
                 ]
             , div
                 [ class "numeric", style [ ( "width", "20%" ) ] ]
                 (List.map (row model keyboarddisplay keyboardwidth rowheight)
-                    [ (List.range 71 73)
-                    , (List.range 74 77)
-                    , (List.range 78 80)
-                    , (List.range 81 83)
-                    , (List.range 84 86)
+                    [ List.range 71 73
+                    , List.range 74 77
+                    , List.range 78 80
+                    , List.range 81 83
+                    , List.range 84 86
                     ]
                 )
             ]
@@ -152,10 +152,10 @@ nkey model n displays keyboardwidth rowheight =
             display.backgroundcolor
 
         finalheight =
-            (rowheight - 5.0)
+            rowheight - 5.0
 
         finalwidth =
-            ((minkeywidth keyboardwidth) - leftmargin)
+            minkeywidth keyboardwidth - leftmargin
 
         scale =
             shrinkdontzoom (toFloat originalsize.width) (toFloat originalsize.height) finalwidth finalheight
@@ -164,13 +164,13 @@ nkey model n displays keyboardwidth rowheight =
             checkifkeypressed model n
 
         pressed =
-            if (ispressed) then
+            if ispressed then
                 " pressed"
             else
                 ""
 
         activemode =
-            if (isactivemode n model) then
+            if isactivemode n model then
                 " activemode"
             else
                 ""

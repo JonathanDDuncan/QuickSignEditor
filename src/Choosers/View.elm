@@ -21,7 +21,7 @@ root parentwidth parentheight model =
             Basics.truncate (Basics.toFloat parentheight / Basics.toFloat 2)
 
         halfwidth =
-            Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2)
+            Basics.truncate (Basics.toFloat parentwidth / Basics.toFloat 2)
 
         maniquin =
             choosingroot model halfheight halfwidth 10
@@ -103,13 +103,13 @@ choosingroot model width height bottompadding =
                             Basics.max accumulator.right (choosing.offset.offsetx + choosing.displaySign.width)
 
                         newleft =
-                            Basics.min accumulator.left (choosing.offset.offsetx)
+                            Basics.min accumulator.left choosing.offset.offsetx
 
                         newbottom =
                             Basics.max accumulator.bottom (choosing.offset.offsety + choosing.displaySign.height)
 
                         newtop =
-                            Basics.min accumulator.top (choosing.offset.offsety)
+                            Basics.min accumulator.top choosing.offset.offsety
                     in
                         { top = newtop, bottom = newbottom, right = newright, left = newleft }
                 )

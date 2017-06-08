@@ -123,7 +123,7 @@ update msg model =
 
 windowSizeSetter : Model -> WindowSize.Types.Model -> Model
 windowSizeSetter =
-    (\m x ->
+    \m x ->
         let
             containerheight =
                 getcontainerheight m x.windowSize.height
@@ -149,7 +149,6 @@ windowSizeSetter =
                 , drawerwidth = drawerWidth rdrawer.active rdrawer.showing rdrawer.fullwidth rdrawer.alwaysShowpx
                 , signbox = { sbox | containerheight = containerheight, windowresized = True }
             }
-    )
 
 
 rightspaceMarginLeftPercentage : Model -> Int -> Int

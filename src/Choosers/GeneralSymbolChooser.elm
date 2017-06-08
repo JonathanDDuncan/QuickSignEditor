@@ -39,7 +39,7 @@ generalsymbolchooser choosing width height generalsymbolchooserdata =
             toFloat (List.length vf)
 
         columnwidth =
-            truncate <| ((toFloat (width) / 2) / len)
+            truncate <| ((toFloat width / 2) / len)
 
         rowheight =
             30
@@ -208,7 +208,7 @@ showincolumns data width columnwidth rowheight =
 
 row : List (Html msg) -> Html msg
 row rowdata =
-    tr [] (rowdata)
+    tr [] rowdata
 
 
 getscales : Int -> Int -> List { a | height : Int, width : Int } -> Maybe Float
@@ -285,7 +285,7 @@ generalsymbolcol : Bool -> Float -> Symbol -> Html Msg
 generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
-            (if (drag) then
+            (if drag then
                 (Editor << DragSymbol) symbol.key
              else
                 Noop

@@ -45,7 +45,7 @@ duplicatesymbols model =
             getlastuid newsymbols
 
         newsyms =
-            List.concat [ unselectedsyms, (unselectSymbols selectedsyms), newsymbols ]
+            List.concat [ unselectedsyms, unselectSymbols selectedsyms, newsymbols ]
 
         newsign =
             updatesignsymbols model.sign newsyms
@@ -232,7 +232,7 @@ maintainwithinbounds sym bounds =
             0 + bounds.height - 10
 
         newx =
-            if (sym.x < left) then
+            if sym.x < left then
                 left
             else if sym.x + sym.width > right then
                 right - sym.width
@@ -240,7 +240,7 @@ maintainwithinbounds sym bounds =
                 sym.x
 
         newy =
-            if (sym.y < top) then
+            if sym.y < top then
                 top
             else if sym.y + sym.height > bottom then
                 bottom - sym.height

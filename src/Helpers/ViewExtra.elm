@@ -30,4 +30,4 @@ calculatescale contentWidth contentHeight availableWidth availableHeight =
 
 transformscale : a -> ( String, String )
 transformscale scale =
-    ( "transform", ("scale(" ++ toString scale ++ ")") )
+    ( "transform", "scale(" ++ toString scale ++ ")" )

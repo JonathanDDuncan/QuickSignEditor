@@ -145,7 +145,7 @@ symbolsUnderPosition signviewposition symbols =
         seachrectangle =
             { x = signviewposition.x, y = signviewposition.y, width = 1, height = 1 }
     in
-        List.filter (\symbol -> (SWEditor.Rectangle.intersect seachrectangle (getsymbolRectangle symbol))) symbols
+        List.filter (\symbol -> SWEditor.Rectangle.intersect seachrectangle (getsymbolRectangle symbol)) symbols
 
 
 colorsymbol : Colors -> Symbol -> Symbol

@@ -78,7 +78,7 @@ getsymbolscolors stylings =
         |> List.drop 2
         |> List.head
         |> (\maybval ->
-                if (List.foldr (++) "" stylings) /= "" then
+                if List.foldr (++) "" stylings /= "" then
                     maybval
                         |> Result.fromMaybe (couldnoterror "get colors" (List.foldr (++) "" stylings))
                 else
@@ -114,7 +114,7 @@ getcolorsymbolposition str =
 
 getsymbolcolors : String -> Colors
 getsymbolcolors styling =
-    String.slice 4 ((String.length styling) - 1) styling
+    String.slice 4 (String.length styling - 1) styling
         |> createcolors
 
 
@@ -126,7 +126,7 @@ getsigncolors stylings =
                 |> List.drop 1
                 |> List.head
                 |> (\maybval ->
-                        if (List.foldr (++) "" stylings) /= "" then
+                        if List.foldr (++) "" stylings /= "" then
                             maybval
                                 |> Result.fromMaybe (couldnoterror "get signcolorstring" (List.foldr (++) "" stylings))
                         else
@@ -137,10 +137,10 @@ getsigncolors stylings =
         cleanedstyling =
             signcolorstring
                 |> andThentoResult
-                    (\signcolorstringvalue -> String.slice 2 ((String.length signcolorstringvalue) - 1) signcolorstringvalue)
+                    (\signcolorstringvalue -> String.slice 2 (String.length signcolorstringvalue - 1) signcolorstringvalue)
     in
         cleanedstyling
-            |> andThentoResult (createcolors)
+            |> andThentoResult createcolors
 
 
 getcolor : Maybe String -> Maybe String
@@ -150,12 +150,10 @@ getcolor colorstring =
             (\cstring ->
                 if testcolorrgb cstring then
                     Just ("#" ++ cstring)
+                else if cstring /= "" then
+                    Just cstring
                 else
-                    (if cstring /= "" then
-                        Just (cstring)
-                     else
-                        Nothing
-                    )
+                    Nothing
             )
 
 
@@ -171,7 +169,7 @@ getsymbolssizes stylings =
                 |> List.drop 2
                 |> List.head
                 |> (\maybval ->
-                        if (List.foldr (++) "" stylings) /= "" then
+                        if List.foldr (++) "" stylings /= "" then
                             maybval
                                 |> Result.fromMaybe (couldnoterror "get signcolorstring" (List.foldr (++) "" stylings))
                         else
@@ -516,13 +514,12 @@ getsigncolorstring str =
                 Regex.find (Regex.AtMost 1) (regex q_Dstylingsign) str1
                     |> matchestostrings
                     |> List.head
-                    |> (\maybval ->
-                            if str1 /= "" then
-                                maybval
-                                    |> Result.fromMaybe (couldnoterror "getsigncolorstring" str1)
-                            else
-                                Ok ""
-                       )
+                    |> \maybval ->
+                        if str1 /= "" then
+                            maybval
+                                |> Result.fromMaybe (couldnoterror "getsigncolorstring" str1)
+                        else
+                            Ok ""
             )
 
 

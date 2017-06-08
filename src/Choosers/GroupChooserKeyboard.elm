@@ -93,7 +93,7 @@ createkeyactionlist data =
             List.map
                 (\( key, item ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = ((Editor << GroupSelected) item.chooseritem)
+                    , action = (Editor << GroupSelected) item.chooseritem
                     , display =
                         { width =
                             item.symbol.width
@@ -104,7 +104,7 @@ createkeyactionlist data =
                         }
                     }
                 )
-                (groupchooserwithkey)
+                groupchooserwithkey
 
         listwithnextpage =
             List.append viewkeylist nextpagelist
@@ -138,7 +138,7 @@ getprepagedatageneral generalgroupchooserdata =
 
 keyranges : List (List Int)
 keyranges =
-    [ (List.range 43 52), (List.range 30 40), (List.range 16 28), (List.range 1 13) ]
+    [ List.range 43 52, List.range 30 40, List.range 16 28, List.range 1 13 ]
 
 
 nextpagelist : List (KeyAction Msg)
@@ -178,7 +178,7 @@ displace cols =
                     0
 
         toAdd =
-            (List.range 1 colstoInsert)
+            List.range 1 colstoInsert
                 |> List.map (\i -> [])
 
         newcols =
@@ -204,7 +204,7 @@ getpagedata page keyranges stackedcolumns =
                             (page - 1) * keyrangelength
 
                         data =
-                            List.take keyrangelength <| List.drop (toskip) sc
+                            List.take keyrangelength <| List.drop toskip sc
                     in
                         data
                 )
