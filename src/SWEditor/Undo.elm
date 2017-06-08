@@ -1,7 +1,7 @@
 module SWEditor.Undo exposing (addUndo, undo, redo)
 
-import List.Extra exposing (..)
-import SWEditor.Types exposing (..)
+import List.Extra exposing (last)
+import SWEditor.Types exposing (Model, UndoItem)
 import SW.Types exposing (Sign)
 
 
@@ -24,7 +24,7 @@ undo : Model -> Model
 undo model =
     let
         undoitem1 =
-            (Maybe.withDefault <| createundoitem "" model.sign) <| List.Extra.last model.undolist
+            (Maybe.withDefault <| createundoitem "" model.sign) <| last model.undolist
 
         lastsign =
             undoitem1.sign

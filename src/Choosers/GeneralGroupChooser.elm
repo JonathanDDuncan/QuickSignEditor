@@ -1,6 +1,6 @@
 module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
 
-import Html exposing (Html, div, table, tr, td)
+import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Choosers.Types exposing (..)

@@ -1,20 +1,14 @@
 module State exposing (init, update, subscriptions)
 
-import Types exposing (..)
+import Types exposing (Model, Msg(..))
 import PlatformHelpers exposing (lift)
 import Overlay.State
-
-
--- import Feature.State
 
 
 init : ( Types.Model, Cmd Types.Msg )
 init =
     ( { overlay = Tuple.first Overlay.State.init
       }
-      -- To initiate feature state
-      --  { featureFieldName = fst Feature.State.init
-      --  }
     , Cmd.map Overlay (Tuple.second Overlay.State.init)
     )
 
@@ -26,21 +20,8 @@ subscriptions model =
         ]
 
 
-
--- To nest subscriptions
--- Sub.batch
---       [ Feature.State.subscriptions model.featureFieldName |> Sub.map FeatureMsg
---       ]
-
-
 update : Types.Msg -> Types.Model -> ( Types.Model, Cmd Types.Msg )
 update action model =
     case action of
         Overlay action ->
             lift .overlay (\m x -> { m | overlay = x }) Overlay Overlay.State.update action model
-
-
-
---To nest update of feature
---  FeatureMsg action ->
---          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Feature.State.update action model

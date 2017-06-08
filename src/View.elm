@@ -1,11 +1,8 @@
 module View exposing (root)
 
-import Html exposing (Html, div)
-import Types exposing (..)
+import Html exposing (Html)
+import Types exposing (Model, Msg(..))
 import Overlay.View
-
-
--- import Feature.View exposing (root)
 
 
 root : Model -> Html Msg

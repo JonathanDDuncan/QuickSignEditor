@@ -1,6 +1,6 @@
 module SW.FSW exposing (fswtoSign, getFsw)
 
-import Regex exposing (..)
+import Regex exposing (regex, contains, HowMany(All))
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
 import Dict

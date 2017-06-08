@@ -11,8 +11,8 @@ module Keyboard.Shared
         , isPressedShift
         )
 
-import Update.Extra exposing (..)
-import Html
+import Update.Extra exposing (andThen)
+import Html exposing (Html)
 
 
 type KeyboardMode
@@ -69,7 +69,7 @@ runkeycommand :
     -> ( model, Cmd a )
     -> ( model, Cmd a )
 runkeycommand command update config =
-    Update.Extra.andThen update config.action
+    andThen update config.action
 
 
 runtest : KeyboardCommand -> KeyTestConfig -> Bool
