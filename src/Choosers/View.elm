@@ -1,6 +1,6 @@
 module Choosers.View exposing (root, choosingroot)
 
-import Html exposing (..)
+import Html exposing (Html, div, text)
 import String exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -12,7 +12,6 @@ import Choosers.GeneralSymbolChooser exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
 import SW.Types exposing (iskey)
 import SW.Types exposing (Symbol, symbolinit)
-import Keyboard.Shared exposing (KeyboardMode)
 import SWEditor.DisplaySvg exposing (..)
 
 

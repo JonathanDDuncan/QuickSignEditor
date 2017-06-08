@@ -1,6 +1,6 @@
 module Layout.View exposing (root)
 
-import Html exposing (..)
+import Html exposing (Html, div)
 import Html.Attributes exposing (href, class, style)
 import Layout.Types exposing (..)
 

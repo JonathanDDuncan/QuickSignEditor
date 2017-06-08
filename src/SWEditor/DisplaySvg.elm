@@ -8,7 +8,7 @@ module SWEditor.DisplaySvg
         , signdisplaysvgposition
         )
 
-import Html as Html exposing (..)
+import Html as Html exposing (Html, div)
 import Html.Attributes exposing (..)
 import Helpers.ViewExtra exposing (..)
 import Svg exposing (..)

@@ -12,7 +12,7 @@ import Choosers.CompassRose exposing (..)
 
 --View
 
-import Html exposing (..)
+import Html exposing (Html, Attribute, div, table, tr, td, text, img)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Helpers.ViewExtra exposing (..)

@@ -1,6 +1,6 @@
 module View exposing (root)
 
-import Html exposing (..)
+import Html exposing (Html, div)
 import Types exposing (..)
 import Overlay.View
 

@@ -1,6 +1,6 @@
 module Keyboard.View exposing (root)
 
-import Html exposing (..)
+import Html exposing (Html, Attribute, div, text, span)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Keyboard.Types exposing (..)

@@ -2,7 +2,7 @@ module Choosers.HandPng exposing (handpngspan, gethandpng)
 
 import Choosers.Types exposing (..)
 import String exposing (..)
-import Html exposing (..)
+import Html exposing (Html, div)
 import Html.Attributes exposing (..)
 
 

@@ -1,6 +1,6 @@
 module SWEditor.View exposing (root)
 
-import Html exposing (..)
+import Html exposing (Html, Attribute, div, button, a)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import SWEditor.Types exposing (..)

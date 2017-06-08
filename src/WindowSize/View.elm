@@ -1,6 +1,6 @@
 module WindowSize.View exposing (root)
 
-import Html exposing (..)
+import Html exposing (Html, div, text)
 import WindowSize.Types exposing (..)
 
 

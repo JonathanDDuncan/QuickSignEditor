@@ -11,7 +11,7 @@ import SW.Pua exposing (codefromkey)
 
 --View
 
-import Html exposing (..)
+import Html exposing (Html, div, button, text, table, tr, td)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Helpers.ViewExtra exposing (..)

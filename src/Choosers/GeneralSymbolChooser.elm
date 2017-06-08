@@ -1,6 +1,6 @@
 module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser, reorderedcolumnforpetal2)
 
-import Html exposing (..)
+import Html exposing (Html, div, table, tr, td, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Helpers.ViewExtra exposing (..)
