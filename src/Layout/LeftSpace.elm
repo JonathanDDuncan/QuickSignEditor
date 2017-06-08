@@ -4,9 +4,8 @@ import Html exposing (Html, div)
 import Layout.Types exposing (Model, Msg(..), iswidescreen, ismediumscreen)
 import Html.Attributes exposing (class, style)
 import Material.Button as Button
-import Material.Options as Options
 import Material.Grid exposing (..)
-import Material.Options exposing (Style, css)
+import Material.Options exposing (Style, css, onClick)
 
 
 leftspace : Model -> Html Msg
@@ -30,7 +29,7 @@ leftspace model =
                     [ Button.raised
                     , Button.ripple
                     , Button.colored
-                    , Options.onClick ShareFsw
+                    , onClick ShareFsw
                     ]
                     [ Html.text "Save" ]
                 ]
@@ -44,7 +43,7 @@ leftspace model =
                     , Button.ripple
                     , Button.accent
                     , Button.colored
-                    , Options.onClick HideOverlay
+                    , onClick HideOverlay
                     ]
                     [ Html.text "Cancel" ]
                 ]
