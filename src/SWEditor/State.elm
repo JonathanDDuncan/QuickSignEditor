@@ -201,9 +201,6 @@ update action model =
             let
                 signviewposition =
                     signViewPosition position model.viewposition model.signviewmargin
-
-                symbolsunderposition =
-                    symbolsUnderPosition signviewposition model.sign.syms
             in
                 model
                     ! []
@@ -216,9 +213,6 @@ update action model =
             let
                 signviewposition =
                     signViewPosition position model.viewposition model.signviewmargin
-
-                withinsignview =
-                    withinSignView signviewposition model.viewposition
 
                 symbolsunderposition =
                     symbolsUnderPosition signviewposition model.sign.syms
