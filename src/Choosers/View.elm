@@ -152,7 +152,7 @@ gensymbolchooser model halfwidth halfheight =
         generalsymbolchooserdata =
             getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
     in
-        generalsymbolchooser model.groupselected halfwidth halfheight generalsymbolchooserdata
+        generalsymbolchooser model.groupselected halfwidth generalsymbolchooserdata
 
 
 displayChoosing : ChoosingModel -> Html Choosers.Types.Msg

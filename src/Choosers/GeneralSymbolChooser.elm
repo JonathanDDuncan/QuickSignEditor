@@ -23,7 +23,6 @@ import Choosers.Petalhelper exposing (getoutersymbolpetalsMaybe)
 generalsymbolchooser :
     { b | validfills : String }
     -> Int
-    -> Int
     -> { d
         | generalsymbolrowdata :
             List { a1 | fill : Int, symbol : Symbol }
@@ -31,7 +30,7 @@ generalsymbolchooser :
             SymbolColumnsData
        }
     -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-generalsymbolchooser choosing width height generalsymbolchooserdata =
+generalsymbolchooser choosing width generalsymbolchooserdata =
     let
         vf =
             getvalidfills choosing.validfills
@@ -121,7 +120,7 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
                         , "float" => "left"
                         ]
                     ]
-                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight   innersize petalcontent1 rosecenter ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight innersize petalcontent1 rosecenter ]
                 , div
                     [ style
                         [ "position" => "relative"
@@ -137,7 +136,7 @@ showincompassrose data fullwidth fullheight spacerwidth rowheight =
                         , "float" => "left"
                         ]
                     ]
-                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight   innersize petalcontent2 rosecenter ]
+                    [ compassrosediv fullwidth fullheight outeritemwidth outeritemheight innersize petalcontent2 rosecenter ]
                 ]
         , width = fullwidth * 2 + spacerwidth
         , height = rowheight + fullheight + 20
