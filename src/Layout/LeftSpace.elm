@@ -4,7 +4,7 @@ import Html exposing (Html, div)
 import Layout.State exposing (Model, Msg(Mdl, ShareFsw, HideOverlay), iswidescreen, ismediumscreen)
 import Html.Attributes exposing (class, style)
 import Material.Button as Button
-import Material.Grid exposing (..)
+import Material.Grid exposing (grid, cell, Cell, size)
 import Material.Options exposing (Style, css, onClick)
 
 
@@ -21,7 +21,7 @@ leftspace model =
             ]
         ]
         [ [ mdlstyle 50
-                [ size All 6 ]
+                [ size Material.Grid.All 6 ]
                 [ Button.render
                     Mdl
                     [ 1 ]
@@ -34,7 +34,7 @@ leftspace model =
                     [ Html.text "Save" ]
                 ]
           , mdlstyle 50
-                [ size All 6 ]
+                [ size Material.Grid.All 6 ]
                 [ Button.render
                     Mdl
                     [ 2 ]

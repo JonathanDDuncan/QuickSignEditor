@@ -1,9 +1,20 @@
 module SWEditor.EditorKeyboard exposing (runKeyboardCommand, configKeyboardSignView)
 
 import SWEditor.Types exposing (Model, Msg(Undo, Redo, DeleteSymbols, DuplicateSymbols, MoveSymbols), Direction(..))
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyboardCommand, KeyAction, getKeyboardMode, runKeyboard)
+import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
 import List.Extra
-import SWEditor.Icons exposing (..)
+import SWEditor.Icons
+    exposing
+        ( undoicon
+        , redoicon
+        , garbagecanicon
+        , duplicateicon
+        , arrowupicon
+        , arrowdownicon
+        , arrowrighticon
+        , arrowlefticon
+        )
 
 
 runKeyboardCommand :
@@ -17,7 +28,7 @@ runKeyboardCommand model command update =
             getKeyboardMode command.mode
 
         updatetuple =
-            if mode == SignView then
+            if mode == KeyboardMode.SignView then
                 runKeyboard model command update configKeyboardSignView
             else
                 model ! []

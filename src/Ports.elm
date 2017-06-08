@@ -28,7 +28,7 @@ port module Ports
         )
 
 import SW.Types exposing (Symbol, PortableSign, NamedPosition)
-import Choosers.Types as Choosers exposing (..)
+import Choosers.Types as Choosers exposing (ChoosingImportModel, HandGroupImportModel)
 import Keyboard.Shared exposing (KeyboardCommand)
 
 

@@ -4,10 +4,10 @@ import Html exposing (Html, div, button, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Layout.View
-import PlatformHelpers exposing (..)
+import PlatformHelpers exposing (lift)
 import Layout.State exposing (Model, Msg(HideOverlay, ShareFsw, PleaseShareFsw))
 import Ports exposing (requestSignfromOtherAppDelayed, hideOverlay, shareFsw)
-import SW.FSW exposing (..)
+import SW.FSW exposing (getFsw)
 
 
 init : ( Model, Cmd Msg )

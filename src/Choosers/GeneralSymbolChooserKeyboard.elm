@@ -5,13 +5,13 @@ import Choosers.Types exposing (Model, Msg(Editor, SelectHand, SelectPlane, Sele
 import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as Planes exposing (Planes)
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyAction)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
-import List.Extra exposing (..)
+import List.Extra exposing (zip)
 import SWEditor.DisplaySvg exposing (signdisplaysvg)
-import Choosers.GroupChooserKeyboard exposing (..)
-import Choosers.HandSymbolChooser exposing (..)
-import Helpers.MaybeExtra exposing (..)
+import Choosers.GroupChooserKeyboard exposing (ishandgroupchooser)
+import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)
+import Helpers.MaybeExtra exposing (removeNothings)
 import SW.Types exposing (Symbol, signinit)
 
 

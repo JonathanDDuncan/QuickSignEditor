@@ -1,9 +1,10 @@
 module Keyboard.State exposing (init, update, subscriptions)
 
 import Keyboard.Types exposing (Model, Msg(..), Key)
-import Keyboard.KeyboardLayouts exposing (..)
+import Keyboard.KeyboardLayouts exposing (querty, fingerspellingQueryAsl)
 import Keyboard.Extra
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyboardMode, createKeyboardCommand, getKeyboardMode, isPressedShift)
+import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
 import Ports exposing (sendKeyboardCommand, receiveKeyboardMode)
 
 
@@ -14,7 +15,7 @@ init =
       , keyboardhistory = []
       , keyboardExtraModel = Keyboard.Extra.initialState
       , keyList = []
-      , keyboardmode = GeneralChooser
+      , keyboardmode = KeyboardMode.GeneralChooser
       }
     , Cmd.none
     )
@@ -90,13 +91,13 @@ update action model =
 getmode : List Int -> Model -> KeyboardMode
 getmode keyList model =
     if isPressedShift keyList && List.any ((==) 2) keyList then
-        GeneralChooser
+        KeyboardMode.GeneralChooser
     else if isPressedShift keyList && List.any ((==) 3) keyList then
-        GroupChooser
+        KeyboardMode.GroupChooser
     else if isPressedShift keyList && List.any ((==) 4) keyList then
-        SymbolChooser
+        KeyboardMode.SymbolChooser
     else if isPressedShift keyList && List.any ((==) 5) keyList then
-        SignView
+        KeyboardMode.SignView
     else
         model.keyboardmode
 

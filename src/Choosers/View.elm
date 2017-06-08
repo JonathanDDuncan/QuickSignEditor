@@ -1,18 +1,17 @@
 module Choosers.View exposing (root, choosingroot)
 
 import Html exposing (Html, div, text)
-import String exposing (..)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Choosers.Types exposing (Model, Msg(Editor, SignView), ChoosingModel)
 import Choosers.Types as Editor exposing (Editor)
-import Helpers.ViewExtra exposing (..)
-import Choosers.HandGroupChooser exposing (..)
-import Choosers.GeneralGroupChooser exposing (..)
-import Choosers.GeneralSymbolChooser exposing (..)
-import Choosers.HandSymbolChooser exposing (..)
+import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
+import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchooserdata)
+import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
+import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
+import Choosers.HandSymbolChooser exposing (handsymbolchooser)
 import SW.Types exposing (Symbol, Sign, symbolinit, iskey)
-import SWEditor.DisplaySvg exposing (..)
+import SWEditor.DisplaySvg exposing (signdisplaysvgposition)
 
 
 root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg

@@ -16,8 +16,7 @@ import Choosers.Types as HandFills exposing (HandFills)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Symbol, Size)
 import Dict exposing (Dict)
-import String exposing (..)
-import List.Extra exposing (..)
+import List.Extra exposing (unique)
 import SW.Pua exposing (codefromkey)
 
 
@@ -26,9 +25,9 @@ import SW.Pua exposing (codefromkey)
 import Html exposing (Html, button, text, table, tr, td)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onMouseDown, onDoubleClick)
-import Helpers.ViewExtra exposing (..)
+import Helpers.ViewExtra exposing (px, (=>))
 import SWEditor.DisplaySvg exposing (symbolsvg)
-import Choosers.SymbolToolTip exposing (..)
+import Choosers.SymbolToolTip exposing (handsymboltooltip)
 
 
 handgroupchooser : List (List HandGroupChooserViewColumnData) -> Html Msg

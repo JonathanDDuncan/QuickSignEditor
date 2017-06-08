@@ -13,7 +13,7 @@ import Ports
         , subReplaceSymbol
         , receiveKeyboardCommand
         )
-import Update.Extra exposing (..)
+import Update.Extra exposing (andThen, updateModel)
 import SWEditor.Types
     exposing
         ( Model
@@ -22,17 +22,26 @@ import SWEditor.Types
         , signViewPosition
         , withinSignView
         )
-import SWEditor.RectangleSelect exposing (..)
-import SWEditor.Drag as Drag exposing (..)
-import SWEditor.Select exposing (..)
+import SWEditor.RectangleSelect exposing (rectangleselect)
+import SWEditor.Drag as Drag exposing (dragsign)
+import SWEditor.Select exposing (selectSymbolId, unselectSignSymbols)
 import SWEditor.EditorSign exposing (updateSymbolIds, getlastsignuid, centerSignViewposition)
 import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId, updateId)
-import SWEditor.Undo exposing (..)
+import SWEditor.Undo exposing (addUndo, undo, redo)
 import SW.Types exposing (Symbol, Position, signinit, portableSigntoSign)
 import Mouse as Mouse
-import List.Extra exposing (..)
-import SWEditor.SignArea exposing (..)
-import SWEditor.EditorKeyboard exposing (..)
+import List.Extra exposing (isPermutationOf)
+import SWEditor.SignArea
+    exposing
+        ( getundroppedsymbol
+        , issymbolwithinview
+        , deletesymbols
+        , putsymbolswithinbounds
+        , duplicatesymbols
+        , changesizesymbols
+        , movesymbols
+        )
+import SWEditor.EditorKeyboard exposing (configKeyboardSignView, runKeyboardCommand)
 import Keyboard.Shared exposing (KeyboardMode)
 
 

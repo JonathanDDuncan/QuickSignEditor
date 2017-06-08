@@ -12,7 +12,7 @@ module SWEditor.SignArea
 import SWEditor.Types exposing (Model, Msg, EditorMode(..), Direction(..), Distance)
 import SWEditor.EditorSign exposing (getSignBounding, getlastuid)
 import SW.Types exposing (Symbol, Sign, NamedPosition)
-import SWEditor.Select exposing (..)
+import SWEditor.Select exposing (unselectSymbols)
 import SWEditor.EditorSymbol exposing (updateIds)
 
 

@@ -12,7 +12,7 @@ module SWEditor.Types
         )
 
 import SW.Types exposing (Symbol, Sign, PortableSign, Position, NamedPosition)
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 
 
 type alias Model =

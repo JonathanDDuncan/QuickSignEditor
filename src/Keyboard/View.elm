@@ -2,15 +2,14 @@ module Keyboard.View exposing (root)
 
 import Html exposing (Html, Attribute, div, text, span)
 import Html.Attributes exposing (style, class)
-import Html.Events exposing (on)
 import Keyboard.Types exposing (Model, Msg(DisplaySignView, DisplayChoosers), Keypress(None))
-import Array exposing (..)
+import Array exposing (get, fromList)
 import String
-import Json.Decode as Json
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyConfig, createKeyboardCommand)
+import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg, ChoosersKeyboard)
-import Helpers.ViewExtra exposing (..)
+import Helpers.ViewExtra exposing (px, (=>), shrinkdontzoom, transformscale)
 
 
 --import SubFeature.View exposing (root)
@@ -30,16 +29,16 @@ root model signviewkeyboard chooserskeyboard keyboardwidth keyboardheight =
 
         keyboarddisplay =
             case model.keyboardmode of
-                SignView ->
+                KeyboardMode.SignView ->
                     convertotkeyboardmsg keyboardcommand DisplaySignView signviewkeyboard
 
-                GeneralChooser ->
+                KeyboardMode.GeneralChooser ->
                     convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.generalchooserkeyboard
 
-                GroupChooser ->
+                KeyboardMode.GroupChooser ->
                     convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.groupchooserkeyboard
 
-                SymbolChooser ->
+                KeyboardMode.SymbolChooser ->
                     convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.symbolchooserkeyboard
 
         rowheight =
@@ -216,16 +215,16 @@ getkeydisplay n display =
 isactivemode : number -> { a | keyboardmode : KeyboardMode } -> Bool
 isactivemode n model =
     case model.keyboardmode of
-        GeneralChooser ->
+        KeyboardMode.GeneralChooser ->
             n == 2
 
-        GroupChooser ->
+        KeyboardMode.GroupChooser ->
             n == 3
 
-        SymbolChooser ->
+        KeyboardMode.SymbolChooser ->
             n == 4
 
-        SignView ->
+        KeyboardMode.SignView ->
             n == 5
 
 

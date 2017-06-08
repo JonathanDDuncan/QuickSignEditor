@@ -10,7 +10,7 @@ module Keyboard.Types
 -- import SubFeatures.Types
 
 import Keyboard.Extra
-import Keyboard.Shared exposing (..)
+import Keyboard.Shared exposing (KeyboardMode)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg)
 import SW.Types exposing (Symbol, Sign)

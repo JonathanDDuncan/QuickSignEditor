@@ -36,8 +36,8 @@ import SWEditor.EditorSymbol exposing (updateId)
 import SWEditor.EditorSign
 import SW.Types exposing (Symbol, Fill, Sign, PortableSign, Base, Size, Key, symbolinit, portableSigntoSign)
 import Dict exposing (Dict)
-import Material exposing (..)
-import Keyboard.Shared exposing (..)
+import Material exposing (Model)
+import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 
 
 type alias Model =

@@ -26,10 +26,6 @@ module SW.Types
         )
 
 import ParseInt as ParseInt
-import String exposing (..)
-
-
--- import SubDisplaySWs.Types
 
 
 type alias Sign =

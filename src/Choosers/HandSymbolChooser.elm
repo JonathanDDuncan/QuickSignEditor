@@ -17,9 +17,9 @@ import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SW.Types exposing (Symbol, Base, Size, symbolinit)
 import Dict exposing (Dict)
-import Choosers.HandPng exposing (..)
-import Choosers.Petalhelper exposing (..)
-import Choosers.CompassRose exposing (..)
+import Choosers.HandPng exposing (handpngspan, gethandpng)
+import Choosers.Petalhelper exposing (getoutersymbolpetals)
+import Choosers.CompassRose exposing (compassrosediv)
 
 
 --View
@@ -27,8 +27,8 @@ import Choosers.CompassRose exposing (..)
 import Html exposing (Html, Attribute, div, table, tr, td, text, img)
 import Html.Attributes exposing (style, class, attribute, src, width)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Helpers.ViewExtra exposing (..)
-import List.Extra exposing (..)
+import Helpers.ViewExtra exposing (px, (=>))
+import List.Extra exposing (zip)
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }

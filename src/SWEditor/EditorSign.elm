@@ -14,8 +14,8 @@ module SWEditor.EditorSign
 
 import SWEditor.EditorSymbol exposing (updateIds, moveSymbols, colorsymbol, sizesymbol, adjustposition)
 import SW.Types exposing (Symbol, Sign, Colors, NamedPosition, maximumBy)
-import SWEditor.Rectangle exposing (..)
-import Helpers.ResultExtra exposing (..)
+import SWEditor.Rectangle exposing (Rect)
+import Helpers.ResultExtra exposing (andThentoResult)
 
 
 updateSymbolIds : Sign -> Int -> Sign

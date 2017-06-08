@@ -26,19 +26,18 @@ import Ports
         , receiveKeyboardCommand
         , receiveSign
         )
-import Exts.List exposing (..)
+import Exts.List exposing (unique)
 import Dict exposing (Dict)
-import String exposing (..)
 import SW.Types exposing (Size, PortableSign)
 import Material
-import Choosers.HandSymbolChooser exposing (..)
+import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
 import SWEditor.EditorSign exposing (getSignBounding)
-import Update.Extra exposing (..)
-import Choosers.HandGroupChooser exposing (..)
-import Helpers.ViewExtra exposing (..)
-import Choosers.GeneralChooserKeyboard exposing (..)
-import Choosers.GroupChooserKeyboard exposing (..)
+import Update.Extra exposing (andThen)
+import Choosers.HandGroupChooser exposing (gethandgroupchooserdata)
+import Helpers.ViewExtra exposing (px, (=>))
+import Choosers.GeneralChooserKeyboard exposing (creategeneralchooserkeyboard, runKeyboardCommand)
+import Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, totalkeyboardpages)
 import Keyboard.Shared exposing (KeyboardMode)
 import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 

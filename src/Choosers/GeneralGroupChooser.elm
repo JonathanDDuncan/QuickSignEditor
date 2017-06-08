@@ -5,12 +5,12 @@ import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Choosers.Types exposing (Model, Msg(Editor, SignView), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
 import Choosers.Types as Editor exposing (Editor)
-import Helpers.ViewExtra exposing (..)
+import Helpers.ViewExtra exposing (px, (=>))
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
-import Exts.List exposing (..)
+import Exts.List exposing (unique)
 import SW.Pua exposing (codefromkey)
-import Choosers.SymbolToolTip exposing (..)
+import Choosers.SymbolToolTip exposing (symboltooltip)
 
 
 -- View

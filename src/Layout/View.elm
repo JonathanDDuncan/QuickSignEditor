@@ -3,15 +3,11 @@ module Layout.View exposing (root)
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Layout.State exposing (Model, Msg)
-
-
---import SubLayout.View exposing (root)
-
-import Layout.CenterSpace exposing (..)
-import Layout.LeftSpace exposing (..)
-import Layout.RightSpace exposing (..)
-import Layout.Footer exposing (..)
-import Layout.Drawer exposing (..)
+import Layout.CenterSpace exposing (centerspace)
+import Layout.LeftSpace exposing (leftspace)
+import Layout.RightSpace exposing (rightspace)
+import Layout.Footer exposing (stickyFooter)
+import Layout.Drawer exposing (drawer)
 
 
 root : Model -> Html Msg

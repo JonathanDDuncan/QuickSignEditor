@@ -8,7 +8,7 @@ import PlatformHelpers exposing (lift)
 import Keyboard.State
 import Choosers.State
 import Ports exposing (pleaseShareFsw)
-import Update.Extra exposing (..)
+import Update.Extra exposing (andThen)
 import SWEditor.Types
 import Keyboard.Types
 import Choosers.Types
