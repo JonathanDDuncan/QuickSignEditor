@@ -209,7 +209,7 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outer
             if handfill == HandFills.LeftBabyEdge || handfill == HandFills.RightBabyEdge then
                 text ""
             else
-                handimagecenter rosecenterpetaldata fullwidth outeritemwidth innersize
+                handimagecenter rosecenterpetaldata fullwidth innersize
     in
         div
             [ style
@@ -222,8 +222,8 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outer
             ]
 
 
-handimagecenter : List (Html msg) -> Int -> Int -> Int -> Html msg
-handimagecenter petalcontent parentsize parentitemsize fullwidth =
+handimagecenter : List (Html msg) -> Int -> Int -> Html msg
+handimagecenter petalcontent parentsize fullwidth =
     let
         itemwidth =
             truncate (toFloat fullwidth / 4) + 10
