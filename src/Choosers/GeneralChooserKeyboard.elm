@@ -1,6 +1,6 @@
 module Choosers.GeneralChooserKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard)
 
-import Choosers.Types exposing (Model, ChoosingModel, Msg(..), Editor(..))
+import Choosers.Types exposing (Model, ChoosingModel, Msg(..), Editor(Clicked))
 import Html
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
 import SWEditor.DisplaySvg exposing (signsvg)

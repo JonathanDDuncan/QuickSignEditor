@@ -17,7 +17,7 @@ module Choosers.Types
         , HandItem
         , HandFillItem
         , Petal
-        , Editor(..)
+        , Editor
         , HandFills(..)
         , Hands(..)
         , Planes(..)

@@ -4,7 +4,7 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(..)
-        , Editor(..)
+        , Editor(GroupSelected, DragSymbol, ReplaceSymbol)
         , HandFills(..)
         , ChooserItem
         , HandGroupChooserViewColumnData
