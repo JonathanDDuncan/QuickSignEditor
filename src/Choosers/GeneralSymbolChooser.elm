@@ -182,8 +182,8 @@ showincolumns data width columnwidth rowheight =
                     ]
                 ]
                 (List.map
-                    (\data ->
-                        row (generalsymbolonerow scale data)
+                    (\data1 ->
+                        row (generalsymbolonerow scale data1)
                     )
                     zipped
                 )

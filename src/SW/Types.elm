@@ -196,8 +196,8 @@ type alias Position =
 maximumBy : (a -> comparable) -> List a -> Maybe a
 maximumBy f ls =
     let
-        maxBy f x y =
-            if f x > f y then
+        maxBy f1 x y =
+            if f1 x > f1 y then
                 x
             else
                 y

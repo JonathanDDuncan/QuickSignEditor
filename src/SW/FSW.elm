@@ -35,15 +35,15 @@ fswtoSign symbolsizes fsw =
         sign =
             Ok signinit
                 |> Result.andThen
-                    (setresultvalue coordinateresult (\sign value -> { sign | x = value.x, y = value.y }))
+                    (setresultvalue coordinateresult (\sign1 value -> { sign1 | x = value.x, y = value.y }))
                 |> Result.andThen
-                    (setresultvalue laneresult (\sign value -> { sign | lane = value }))
+                    (setresultvalue laneresult (\sign2 value -> { sign2 | lane = value }))
                 |> Result.andThen
-                    (setresultvalue symsresult (\sign value -> { sign | syms = value }))
+                    (setresultvalue symsresult (\sign3 value -> { sign3 | syms = value }))
                 |> Result.andThen
-                    (setresultvalue (Ok spellingstring) (\sign value -> { sign | spelling = value }))
+                    (setresultvalue (Ok spellingstring) (\sign4 value -> { sign4 | spelling = value }))
                 |> Result.andThen
-                    (\sign -> stylesign richtext sign)
+                    (\sign5 -> stylesign richtext sign5)
     in
         sign
 

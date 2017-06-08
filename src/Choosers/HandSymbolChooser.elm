@@ -20,7 +20,7 @@ import List.Extra exposing (..)
 
 
 handsymbolchooser : { a | handsymbol : HandSymbol } -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-handsymbolchooser model width height =
+handsymbolchooser model chooserwidth chooserheight =
     let
         rowheight =
             54
@@ -54,7 +54,7 @@ handsymbolchooser model width height =
                 [ table
                     [ class "symbolchooserheader"
                     , Html.Attributes.style
-                        [ "width" => px (width - 12)
+                        [ "width" => px (chooserwidth - 12)
                         , "height" => px rowheight
                         ]
                     ]
@@ -81,7 +81,7 @@ handsymbolchooser model width height =
                     outeritemwidth
                     outeritemheight
                 ]
-        , width = width - 12
+        , width = chooserwidth - 12
         , height = rowheight * 2 + fullheight + 10
         }
 

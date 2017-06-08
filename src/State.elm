@@ -23,5 +23,5 @@ subscriptions model =
 update : Types.Msg -> Types.Model -> ( Types.Model, Cmd Types.Msg )
 update action model =
     case action of
-        Overlay action ->
-            lift .overlay (\m x -> { m | overlay = x }) Overlay Overlay.State.update action model
+        Overlay msg ->
+            lift .overlay (\m x -> { m | overlay = x }) Overlay Overlay.State.update msg model

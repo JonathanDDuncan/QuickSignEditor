@@ -103,8 +103,8 @@ update action model =
             model
                 ! []
                 |> updateModel
-                    (\model ->
-                        { model | sign = centerSignViewposition model.viewposition model.sign }
+                    (\model1 ->
+                        { model1 | sign = centerSignViewposition model.viewposition model.sign }
                     )
                 |> addUndoEntry True "CenterSign"
 
@@ -122,8 +122,8 @@ update action model =
                 model
                     ! []
                     |> updateModel
-                        (\model ->
-                            { model | editormode = Awaiting, sign = newsign }
+                        (\model1 ->
+                            { model1 | editormode = Awaiting, sign = newsign }
                         )
                     |> addUndoEntry changed "EndRectangleSelect"
 
@@ -137,7 +137,7 @@ update action model =
             in
                 model
                     ! []
-                    |> updateModel (\model -> { model | sign = newsign })
+                    |> updateModel (\model1 -> { model1 | sign = newsign })
                     |> addUndoEntry changed "SelectSymbol"
                     |> Update.Extra.andThen update StartDragging
 
@@ -151,7 +151,7 @@ update action model =
             in
                 model
                     ! []
-                    |> updateModel (\model -> { model | sign = newsign })
+                    |> updateModel (\model1 -> { model1 | sign = newsign })
                     |> addUndoEntry changed "UnSelectSymbols"
 
         MouseDown position ->
@@ -357,8 +357,8 @@ update action model =
                 newmodel
                     ! []
                     |> updateModel
-                        (\model ->
-                            { model
+                        (\model1 ->
+                            { model1
                                 | sign = signwithinbounds
                                 , editormode = Awaiting
                             }
@@ -378,8 +378,8 @@ update action model =
             model
                 ! []
                 |> updateModel
-                    (\model ->
-                        deletesymbols model
+                    (\model1 ->
+                        deletesymbols model1
                     )
                 |> addUndoEntry True "DeleteSymbols"
 
@@ -387,8 +387,8 @@ update action model =
             model
                 ! []
                 |> updateModel
-                    (\model ->
-                        duplicatesymbols model
+                    (\model1 ->
+                        duplicatesymbols model1
                     )
                 |> addUndoEntry True "DuplicateSymbols"
 
@@ -396,8 +396,8 @@ update action model =
             model
                 ! []
                 |> updateModel
-                    (\model ->
-                        changesizesymbols model 0.1
+                    (\model1 ->
+                        changesizesymbols model1 0.1
                     )
                 |> addUndoEntry True "SizeIncreaseSymbols"
 
@@ -405,8 +405,8 @@ update action model =
             model
                 ! []
                 |> updateModel
-                    (\model ->
-                        changesizesymbols model -0.1
+                    (\model1 ->
+                        changesizesymbols model1 -0.1
                     )
                 |> addUndoEntry True "SizeDecreaseSymbols"
 
@@ -417,8 +417,8 @@ update action model =
             model
                 ! []
                 |> updateModel
-                    (\model ->
-                        movesymbols model direction distance
+                    (\model1 ->
+                        movesymbols model1 direction distance
                     )
                 |> addUndoEntry True "MoveSymbols"
 

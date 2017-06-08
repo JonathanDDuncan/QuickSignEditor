@@ -73,11 +73,8 @@ pagedata prepagedata page =
                 totalpages
             else
                 page
-
-        pagedata =
-            getpagedata currentpage keyranges prepagedata
     in
-        pagedata
+        getpagedata currentpage keyranges prepagedata
 
 
 createkeyactionlist data =

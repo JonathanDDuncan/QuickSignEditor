@@ -54,11 +54,11 @@ leftspace model =
 
 mdlstyle : Int -> List (Style a) -> List (Html a) -> Cell a
 mdlstyle k styling =
-    cell <| List.concat [ style k, styling ]
+    cell <| List.concat [ leftspacestyle k, styling ]
 
 
-style : Int -> List (Style a)
-style h =
+leftspacestyle : Int -> List (Style a)
+leftspacestyle h =
     [ css "text-sizing" "border-box"
     , css "height" (toString h ++ "px")
     , css "padding-left" "8px"
