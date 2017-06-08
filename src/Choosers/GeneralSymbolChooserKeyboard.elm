@@ -12,7 +12,8 @@ import SWEditor.DisplaySvg exposing (signdisplaysvg)
 import Choosers.GroupChooserKeyboard exposing (ishandgroupchooser)
 import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)
 import Helpers.MaybeExtra exposing (removeNothings)
-import SW.Types exposing (Symbol, signinit)
+import SW.Types exposing (signinit)
+import SW.Symbol exposing (Symbol)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)

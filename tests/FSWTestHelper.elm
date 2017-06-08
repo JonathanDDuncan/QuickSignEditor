@@ -2,7 +2,8 @@ module FSWTestHelper exposing (..)
 
 import SW.FSW as FSW exposing (..)
 import Dict
-import SW.Types exposing (Symbol, Sign, Size, signinit)
+import SW.Types exposing (Sign, Size, signinit)
+import SW.Symbol exposing (Symbol)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 
 

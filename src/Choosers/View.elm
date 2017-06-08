@@ -10,7 +10,8 @@ import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchoo
 import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 import Choosers.HandSymbolChooser exposing (handsymbolchooser)
-import SW.Types exposing (Symbol, Sign, symbolinit, iskey)
+import SW.Types exposing (Sign)
+import SW.Symbol exposing (Symbol, symbolinit, iskey)
 import SWEditor.DisplaySvg
 
 

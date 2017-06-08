@@ -13,7 +13,8 @@ import Html.Attributes exposing (attribute)
 import Helpers.ViewExtra exposing (px, (=>))
 import Svg exposing (Svg, svg, g)
 import SW.Pua exposing (puaCharCode, linecodefromkey, fillcodefromkey)
-import SW.Types exposing (Symbol, Sign)
+import SW.Types exposing (Sign)
+import SW.Symbol exposing (Symbol)
 
 
 signdisplaysvg : String -> Sign -> Html msg

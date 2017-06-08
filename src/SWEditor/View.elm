@@ -7,7 +7,7 @@ import SWEditor.Types exposing (Model, Msg(Undo, Redo, DuplicateSymbols, DeleteS
 import SWEditor.RectangleSelect exposing (rectangleStartCurrent)
 import Helpers.ViewExtra exposing (px, (=>))
 import SWEditor.DisplaySvg exposing (symbolsvgmargincolor)
-import SW.Types exposing (Symbol)
+import SW.Symbol exposing (Symbol)
 import SWEditor.Icons exposing (undoicon, redoicon, duplicateicon, garbagecanicon, circleplus, circleminus)
 
 

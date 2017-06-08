@@ -28,7 +28,8 @@ import SWEditor.Select exposing (selectSymbolId, unselectSignSymbols)
 import SWEditor.EditorSign exposing (updateSymbolIds, getlastsignuid, centerSignViewposition)
 import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId, updateId)
 import SWEditor.Undo exposing (addUndo, undo, redo)
-import SW.Types exposing (Symbol, Position, signinit, portableSigntoSign)
+import SW.Types exposing (Position, signinit, portableSigntoSign)
+import SW.Symbol exposing (Symbol)
 import Mouse as Mouse
 import List.Extra
 import SWEditor.SignArea

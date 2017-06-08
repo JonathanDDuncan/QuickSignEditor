@@ -4,7 +4,7 @@ import ParseInt as ParseInt
 import String as String exposing (slice)
 import Char as Char
 import Bitwise as Bitwise
-import SW.Types exposing (Base, Fill, Rotation, Key, Code)
+import SW.Symbol exposing (Base, Fill, Rotation, Key, Code)
 
 
 linecode : Base -> Fill -> Rotation -> Int

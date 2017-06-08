@@ -7,7 +7,7 @@ import Material exposing (Model)
 import Material.Tooltip as Tooltip
 import Material.Options as Options
 import Choosers.HandPng exposing (gethandpng, handpngspan)
-import SW.Types exposing (iskey)
+import SW.Symbol exposing (iskey)
 
 
 handsymboltooltip :
