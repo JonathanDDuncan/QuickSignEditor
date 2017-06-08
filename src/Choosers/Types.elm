@@ -352,7 +352,10 @@ bkcolor cat col =
 
 
 type alias GeneralGroupChooserColumData =
-    { col : Int, row : Int, symboldatalist : List GeneralGroupChooserSymbolData }
+    { col : Int
+    , row : Int
+    , symboldatalist : List GeneralGroupChooserSymbolData
+    }
 
 
 type alias GeneralGroupChooserSymbolData =
