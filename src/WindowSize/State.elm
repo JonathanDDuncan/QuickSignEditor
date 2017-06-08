@@ -1,6 +1,6 @@
 module WindowSize.State exposing (init, update, subscriptions)
 
-import WindowSize.Types exposing (Model, Msg(..))
+import WindowSize.Types exposing (Model, Msg)
 import Task
 import Window
 
@@ -16,23 +16,23 @@ init =
 
 initialSizeCmd : Cmd Msg
 initialSizeCmd =
-    Task.perform Resize Window.size
+    Task.perform WindowSize.Types.Resize Window.size
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Resize newSize ->
+        WindowSize.Types.Resize newSize ->
             ( { model
                 | windowSize = newSize
               }
             , Cmd.none
             )
 
-        Idle ->
+        WindowSize.Types.Idle ->
             ( model, Cmd.none )
 
 
 subscriptions : Sub Msg
 subscriptions =
-    Window.resizes Resize
+    Window.resizes WindowSize.Types.Resize
