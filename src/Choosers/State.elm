@@ -1,11 +1,11 @@
 module Choosers.State exposing (init, update, subscriptions)
 
-import Choosers.Types exposing (..)
+import Choosers.Types exposing (Model, Msg(..), Editor(..), Hands(..), HandFills(..), ChoosingImportModel, toModel, handsymbolinit, chooseriteminit)
 import Ports exposing (..)
 import Exts.List exposing (..)
 import Dict exposing (..)
 import String exposing (..)
-import SW.Types exposing (..)
+import SW.Types exposing (Size, PortableSign)
 import Material
 import Choosers.HandSymbolChooser exposing (..)
 import SWEditor.EditorSymbol exposing (..)

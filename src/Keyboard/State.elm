@@ -1,6 +1,6 @@
 module Keyboard.State exposing (init, update, subscriptions)
 
-import Keyboard.Types exposing (..)
+import Keyboard.Types exposing (Model, Msg(..), Key)
 import Keyboard.KeyboardLayouts exposing (..)
 import Keyboard.Extra
 import Keyboard.Shared exposing (..)

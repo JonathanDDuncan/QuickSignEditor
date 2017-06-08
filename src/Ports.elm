@@ -27,7 +27,7 @@ port module Ports
         , shareFsw
         )
 
-import SW.Types exposing (..)
+import SW.Types exposing (Symbol, PortableSign, NamedPosition)
 import Choosers.Types as Choosers exposing (..)
 import Keyboard.Shared exposing (KeyboardCommand)
 

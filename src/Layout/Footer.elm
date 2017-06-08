@@ -1,7 +1,7 @@
 module Layout.Footer exposing (stickyFooter)
 
 import Html exposing (Html, div)
-import Layout.Types exposing (..)
+import Layout.Types exposing (Model, Msg(..))
 import Html.Attributes exposing (href, class, style)
 import Keyboard.View exposing (..)
 

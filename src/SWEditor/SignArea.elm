@@ -11,7 +11,7 @@ module SWEditor.SignArea
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (..)
+import SW.Types exposing (Symbol, Sign, NamedPosition)
 import SWEditor.Select exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 

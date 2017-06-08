@@ -6,7 +6,7 @@ module Layout.State exposing (init, update, subscriptions)
 -- if you have sub components
 -- import PlatformHelpers exposing (..)
 
-import Layout.Types exposing (..)
+import Layout.Types exposing (Model, Msg(..), DrawerModel, iswidescreenexplicit, ismediumscreenexplicit)
 import Material
 import WindowSize.State
 import WindowSize.Types

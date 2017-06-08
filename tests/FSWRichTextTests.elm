@@ -2,7 +2,10 @@ module FSWRichTextTests exposing (..)
 
 import Test exposing (..)
 import Expect
-import SW.Types exposing (..)
+
+
+--import SW.Types exposing ()
+
 import FSWTestHelper exposing (..)
 
 

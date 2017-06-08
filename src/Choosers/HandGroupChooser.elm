@@ -1,8 +1,20 @@
 module Choosers.HandGroupChooser exposing (gethandgroupchooserdata, createhandgroupchooserdata, handgroupchooser)
 
-import Choosers.Types exposing (..)
+import Choosers.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , Editor(..)
+        , HandFills(..)
+        , ChooserItem
+        , HandGroupChooserViewColumnData
+        , HandGroupChooserViewSymbolData
+        , HandGroupChooserSubList
+        , getchoosings
+        , bkcolor
+        )
 import SWEditor.EditorSymbol exposing (..)
-import SW.Types exposing (..)
+import SW.Types exposing (Symbol, Size)
 import Dict exposing (..)
 import String exposing (..)
 import List.Extra exposing (..)

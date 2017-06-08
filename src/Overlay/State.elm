@@ -1,16 +1,10 @@
 module Overlay.State exposing (init, update, subscriptions)
 
--- only includes Rest functions that are really needed
--- import Rest exposing (..)
--- import Ports exposing (..)
--- if you have sub components
-
 import PlatformHelpers exposing (..)
-import Overlay.Types exposing (..)
-import Layout.Types exposing (..)
+import Overlay.Types exposing (Model, Msg(..))
+import Layout.Types exposing (Model, Msg(..))
 import Layout.State
 import Ports exposing (..)
-import SWEditor.EditorSign exposing (..)
 import SW.FSW exposing (..)
 
 

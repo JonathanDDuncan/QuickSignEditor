@@ -1,7 +1,7 @@
 module Layout.Drawer exposing (drawer)
 
 import Html exposing (Html, div)
-import Layout.Types exposing (..)
+import Layout.Types exposing (Model, Msg(..), DrawerModel)
 import Html.Attributes exposing (href, class, style)
 import Material.Button as Button
 import Material.Options as Options

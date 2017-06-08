@@ -3,7 +3,7 @@ module Keyboard.View exposing (root)
 import Html exposing (Html, Attribute, div, text, span)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Keyboard.Types exposing (..)
+import Keyboard.Types exposing (Model, Msg(..), Keypress(..))
 import Array exposing (..)
 import String
 import Json.Decode as Json

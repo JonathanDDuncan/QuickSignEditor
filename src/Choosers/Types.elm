@@ -31,10 +31,10 @@ module Choosers.Types
 
 -- import SubMainChoosers.Types
 
-import SWEditor.Types exposing (..)
+import SWEditor.Types exposing (Model, Msg(..), Offset)
 import SWEditor.EditorSymbol exposing (..)
 import SWEditor.EditorSign exposing (..)
-import SW.Types exposing (..)
+import SW.Types exposing (Symbol, Fill, Sign, PortableSign, Base, Size, Key, symbolinit, portableSigntoSign)
 import Dict exposing (..)
 import Material exposing (..)
 import Keyboard.Shared exposing (..)

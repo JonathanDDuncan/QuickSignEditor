@@ -4,7 +4,7 @@ import Regex exposing (regex, contains, HowMany(All))
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
 import Dict
-import SW.Types exposing (..)
+import SW.Types exposing (Symbol, Sign, Lane, Size, Colors, lanes, getlane, signinit)
 import Helpers.ResultExtra exposing (..)
 
 
