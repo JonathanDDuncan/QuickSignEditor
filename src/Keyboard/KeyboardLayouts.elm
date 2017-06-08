@@ -19,16 +19,13 @@ keyboardDisplay :
 keyboardDisplay keyboardlayout keyboardtemplate =
     let
         display =
-            List.map (createKeyDisplay keyboardtemplate) keyboardlayout
+            List.map (\layout -> createKeyDisplay) keyboardlayout
     in
         display
 
 
-createKeyDisplay :
-    b
-    -> c
-    -> { code : number, keypress : Keypress, sign : Sign }
-createKeyDisplay keyboardtemplate key =
+createKeyDisplay : { code : number, keypress : Keypress, sign : Sign }
+createKeyDisplay =
     { sign = signinit
     , code = 0
     , keypress = None
