@@ -14,7 +14,14 @@ import Ports
         , receiveKeyboardCommand
         )
 import Update.Extra exposing (..)
-import SWEditor.Types exposing (Model, Msg(..), EditorMode(..), signViewPosition, withinSignView)
+import SWEditor.Types
+    exposing
+        ( Model
+        , Msg(..)
+        , EditorMode(..)
+        , signViewPosition
+        , withinSignView
+        )
 import SWEditor.RectangleSelect exposing (..)
 import SWEditor.Drag as Drag exposing (..)
 import SWEditor.Select exposing (..)

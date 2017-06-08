@@ -1,6 +1,6 @@
 module SWEditor.Drag exposing (dragsign)
 
-import SWEditor.Types exposing (Model, Msg(..), Offset)
+import SWEditor.Types exposing (Model, Msg, Offset)
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (Symbol, Sign)
 

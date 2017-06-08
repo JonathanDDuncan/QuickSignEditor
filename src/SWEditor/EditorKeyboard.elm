@@ -1,6 +1,6 @@
 module SWEditor.EditorKeyboard exposing (runKeyboardCommand, configKeyboardSignView)
 
-import SWEditor.Types exposing (Model, Msg(..), Direction(..))
+import SWEditor.Types exposing (Model, Msg(Undo, Redo, DeleteSymbols, DuplicateSymbols, MoveSymbols), Direction(..))
 import Keyboard.Shared exposing (..)
 import List.Extra
 import SWEditor.Icons exposing (..)

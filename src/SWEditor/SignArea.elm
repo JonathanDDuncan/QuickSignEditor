@@ -9,7 +9,7 @@ module SWEditor.SignArea
         , movesymbols
         )
 
-import SWEditor.Types exposing (Model, Msg(..), EditorMode(..), Direction(..), Distance)
+import SWEditor.Types exposing (Model, Msg, EditorMode(..), Direction(..), Distance)
 import SWEditor.EditorSign exposing (..)
 import SW.Types exposing (Symbol, Sign, NamedPosition)
 import SWEditor.Select exposing (..)
