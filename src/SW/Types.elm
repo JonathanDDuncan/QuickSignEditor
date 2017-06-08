@@ -328,7 +328,7 @@ getvalidfills validfillsstring =
 
         _ ->
             let
-                a =
+                _ =
                     Debug.log "Could not match valid fills string" validfillsstring
             in
                 []
