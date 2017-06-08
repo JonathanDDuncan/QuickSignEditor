@@ -147,9 +147,6 @@ nkey model n displays keyboardwidth rowheight =
         originalsize =
             { height = display.height, width = display.width }
 
-        backgroundcolor =
-            display.backgroundcolor
-
         finalheight =
             rowheight - 5.0
 

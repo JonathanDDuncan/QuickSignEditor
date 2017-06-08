@@ -141,13 +141,13 @@ getsymbolchooser model halfwidth halfheight =
             else if iskey model.groupselected.symbolkey "hand" then
                 handsymbolchooser model halfwidth
             else
-                gensymbolchooser model halfwidth halfheight
+                gensymbolchooser model halfwidth
     in
         chooser
 
 
-gensymbolchooser : Choosers.Types.Model -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
-gensymbolchooser model halfwidth halfheight =
+gensymbolchooser : Choosers.Types.Model -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+gensymbolchooser model halfwidth =
     let
         generalsymbolchooserdata =
             getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
