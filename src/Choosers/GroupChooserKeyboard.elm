@@ -196,7 +196,7 @@ displace cols =
 
         toAdd =
             List.range 1 colstoInsert
-                |> List.map (\i -> [])
+                |> List.map (\_ -> [])
 
         newcols =
             List.append toAdd cols

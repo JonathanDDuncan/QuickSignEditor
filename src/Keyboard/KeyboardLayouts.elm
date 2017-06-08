@@ -18,7 +18,7 @@ keyboardDisplay :
 keyboardDisplay keyboardlayout =
     let
         display =
-            List.map (\layout -> createKeyDisplay) keyboardlayout
+            List.map (\_ -> createKeyDisplay) keyboardlayout
     in
         display
 

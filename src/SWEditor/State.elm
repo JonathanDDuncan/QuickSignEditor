@@ -202,9 +202,6 @@ update action model =
                 signviewposition =
                     signViewPosition position model.viewposition model.signviewmargin
 
-                withinsignview =
-                    withinSignView signviewposition model.viewposition
-
                 symbolsunderposition =
                     symbolsUnderPosition signviewposition model.sign.syms
             in

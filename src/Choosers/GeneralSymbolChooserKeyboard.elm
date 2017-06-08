@@ -166,9 +166,6 @@ createhandsymbolchooserkeyboard model =
         petals =
             List.map (\petal -> petal.symbol) model.handsymbol.flowersymbols
 
-        handdata =
-            petals
-
         lefthandactionlist =
             createhandkeyactionlist (SelectHand Hands.Left) [ model.handsymbol.symbollefthand ] [ 16 ]
 
