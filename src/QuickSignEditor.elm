@@ -1,4 +1,4 @@
-module QuickSignEditor exposing (..)
+module QuickSignEditor exposing (main)
 
 import Html
 import State

@@ -1,4 +1,4 @@
-module Choosers.HandPng exposing (..)
+module Choosers.HandPng exposing (handpngspan, gethandpng)
 
 import Choosers.Types exposing (..)
 import String exposing (..)

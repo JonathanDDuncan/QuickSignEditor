@@ -1,4 +1,4 @@
-module SW.FSW exposing (..)
+module SW.FSW exposing (fswtoSign, getFsw)
 
 import Regex exposing (..)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)

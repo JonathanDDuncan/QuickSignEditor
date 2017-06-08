@@ -1,4 +1,4 @@
-module SW.Types exposing (..)
+module SW.Types exposing (Base, Fill, getvalidfills, Rotation, isValidRotation, getvalidrotations, Key, iskey, Code, Lane, lanes, getlane, Sign, signinit, PortableSign, portableSigntoSign, Symbol, symbolinit, Position, NamedPosition, Size, maximumBy, Colors)
 
 import ParseInt as ParseInt exposing (..)
 import String exposing (..)

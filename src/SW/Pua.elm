@@ -1,4 +1,4 @@
-module SW.Pua exposing (..)
+module SW.Pua exposing (key, puaCharCode, linecodefromkey, fillcodefromkey, codefromkey)
 
 import ParseInt as ParseInt exposing (..)
 import String as String exposing (..)

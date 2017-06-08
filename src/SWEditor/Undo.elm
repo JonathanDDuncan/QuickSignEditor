@@ -1,4 +1,4 @@
-module SWEditor.Undo exposing (..)
+module SWEditor.Undo exposing (addUndo, undo, redo)
 
 import List.Extra exposing (..)
 import SWEditor.Types exposing (..)

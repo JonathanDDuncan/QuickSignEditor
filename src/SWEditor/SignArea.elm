@@ -1,4 +1,13 @@
-module SWEditor.SignArea exposing (..)
+module SWEditor.SignArea
+    exposing
+        ( deletesymbols
+        , getundroppedsymbol
+        , issymbolwithinview
+        , putsymbolswithinbounds
+        , duplicatesymbols
+        , changesizesymbols
+        , movesymbols
+        )
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)

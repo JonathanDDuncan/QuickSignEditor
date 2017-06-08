@@ -1,4 +1,4 @@
-module Helpers.MaybeExtra exposing (..)
+module Helpers.MaybeExtra exposing (isNothing)
 
 
 isNothing : Maybe a -> Bool

@@ -1,4 +1,4 @@
-module SWEditor.Select exposing (..)
+module SWEditor.Select exposing (unselectSignSymbols, unselectSymbols, selectSymbolId)
 
 import SWEditor.Types exposing (..)
 import SW.Types exposing (Symbol, Sign)

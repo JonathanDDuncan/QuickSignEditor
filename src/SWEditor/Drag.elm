@@ -1,4 +1,4 @@
-module SWEditor.Drag exposing (..)
+module SWEditor.Drag exposing (dragsign)
 
 import SWEditor.Types exposing (..)
 import SWEditor.EditorSign exposing (..)

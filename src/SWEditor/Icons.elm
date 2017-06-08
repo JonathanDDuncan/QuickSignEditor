@@ -1,9 +1,20 @@
-module SWEditor.Icons exposing (..)
+module SWEditor.Icons
+    exposing
+        ( undoicon
+        , redoicon
+        , garbagecanicon
+        , duplicateicon
+        , arrowupicon
+        , arrowdownicon
+        , arrowrighticon
+        , arrowlefticon
+        , circleplus
+        , circleminus
+        )
 
 import Svg exposing (svg, path)
 import Html.Attributes exposing (..)
 import Html exposing (img, div)
-import ViewHelper.ViewExtra exposing (..)
 
 
 undoicon : Html.Html msg
