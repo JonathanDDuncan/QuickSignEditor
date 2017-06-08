@@ -227,11 +227,6 @@ handimagecenter petalcontent parentsize fullwidth =
     let
         itemwidth =
             truncate (toFloat fullwidth / 4) + 10
-
-        top =
-            truncate <|
-                toFloat (parentsize - fullwidth)
-                    / 2
     in
         div
             [ style
