@@ -14,7 +14,7 @@ import SWEditor.Icons exposing (undoicon, redoicon, duplicateicon, garbagecanico
 root : Model -> Html Msg
 root model =
     div []
-        [ commandsview model
+        [ commandsview
         , signView model
         , rectangleselect model
         ]
@@ -65,8 +65,8 @@ signView model =
         (List.map symbolView model.sign.syms)
 
 
-commandsview : Model -> Html Msg
-commandsview model =
+commandsview : Html Msg
+commandsview =
     div
         [ style
             [ "float" => "right"

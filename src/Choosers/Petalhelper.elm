@@ -29,7 +29,7 @@ getoutersymbolpetalsMaybe : List (Maybe Symbol) -> Int -> Int -> List (Html Msg)
 getoutersymbolpetalsMaybe symbols itemwidth itemheight =
     let
         outerpetalsymbolpositions =
-            getouterpetalsymbolpositions symbolinit symbols itemwidth itemheight
+            getouterpetalsymbolpositions symbols itemwidth itemheight
 
         outerpetalvaluesandpositions =
             List.Extra.zip outerpetalsymbolpositions symbols
@@ -62,12 +62,11 @@ symbolpetal ( attrib, symb ) =
 
 
 getouterpetalsymbolpositions :
-    { a | width : Int, height : Int }
-    -> List (Maybe { a | width : Int, height : Int })
+    List (Maybe { a | width : Int, height : Int })
     -> Int
     -> Int
     -> List (List (Attribute msg))
-getouterpetalsymbolpositions defaultsymbol items outeritemwidth outeritemheight =
+getouterpetalsymbolpositions items outeritemwidth outeritemheight =
     let
         top =
             "top:0px;"
