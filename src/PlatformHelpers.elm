@@ -1,14 +1,12 @@
 module PlatformHelpers exposing (lift)
 
-import Task
-
+{-| Variant of EA update function type, where effects may be
+lifted to a different type.
+-}
 
 -- excerpted from https://github.com/debois/elm-mdl/blob/66a1f2c10cb3850686eb610174710e9fcf176425/src/Material/Helpers.elm
 
 
-{-| Variant of EA update function type, where effects may be
-lifted to a different type.
--}
 type alias Update_ model action action_ =
     action -> model -> ( model, Cmd action_ )
 
