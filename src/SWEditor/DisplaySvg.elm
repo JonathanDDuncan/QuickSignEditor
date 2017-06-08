@@ -3,7 +3,7 @@ module SWEditor.DisplaySvg
         ( symbolsvg
         , symbolsvgmargincolor
         , symbolsvgscale
-        , signsvg
+        , signsvgnoscale
         , signdisplaysvg
         , signdisplaysvgposition
         )
@@ -59,13 +59,13 @@ symbolsvgmargincolor margin color scale class symbol =
             (symbolview Nothing Nothing color scale symbol)
 
 
-signsvg : Sign -> Html msg
-signsvg sign =
-    signsvgcolor 1 sign
+signsvgnoscale : Sign -> Html msg
+signsvgnoscale sign =
+    signsvg  1 sign
 
 
-signsvgcolor : Float -> Sign -> Html msg
-signsvgcolor scale sign =
+signsvg  : Float -> Sign -> Html msg
+signsvg  scale sign =
     let
         signheight =
             round <| toFloat sign.height * scale

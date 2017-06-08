@@ -4,7 +4,7 @@ import Choosers.Types exposing (Model, ChoosingModel, Msg(Editor))
 import Choosers.Types as Editor exposing (Editor)
 import Html
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
-import SWEditor.DisplaySvg exposing (signsvg)
+import SWEditor.DisplaySvg exposing (signsvgnoscale)
 
 
 runKeyboardCommand :
@@ -48,7 +48,7 @@ creategeneralchooserkeyboard choosings =
                     , backgroundcolor = Nothing
                     , view =
                         Html.map Choosers.Types.SignView
-                            (signsvg choosing.displaySign)
+                            (signsvgnoscale choosing.displaySign)
                     }
                 }
         )
