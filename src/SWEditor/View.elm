@@ -1,8 +1,8 @@
 module SWEditor.View exposing (root)
 
 import Html exposing (Html, Attribute, div, button, a)
-import Html.Attributes exposing (style, class, attribute, title)
-import Html.Events exposing (..)
+import Html.Attributes exposing (style, title)
+import Html.Events exposing (onClick)
 import SWEditor.Types exposing (Model, Msg(..), EditorMode(RectangleSelect))
 import SWEditor.RectangleSelect exposing (..)
 import Helpers.ViewExtra exposing (..)

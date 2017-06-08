@@ -25,7 +25,7 @@ module SW.Types
         , Colors
         )
 
-import ParseInt as ParseInt exposing (parseIntHex)
+import ParseInt as ParseInt
 import String exposing (..)
 
 

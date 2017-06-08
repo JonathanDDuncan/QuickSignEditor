@@ -14,7 +14,7 @@ import Choosers.CompassRose exposing (..)
 
 import Html exposing (Html, Attribute, div, table, tr, td, text, img)
 import Html.Attributes exposing (style, class, attribute, src, width)
-import Html.Events exposing (..)
+import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (..)
 import List.Extra exposing (..)
 

@@ -2,7 +2,7 @@ module Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generals
 
 import Html exposing (Html, div, table, tr, td, text)
 import Html.Attributes exposing (style, class, attribute)
-import Html.Events exposing (..)
+import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (..)
 import SWEditor.EditorSymbol exposing (..)
 import Choosers.Types exposing (Model, Msg(..), Editor(..))

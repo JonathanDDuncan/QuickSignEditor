@@ -33,7 +33,7 @@ module Choosers.Types
 
 import SWEditor.Types exposing (Model, Msg, Offset)
 import SWEditor.EditorSymbol exposing (..)
-import SWEditor.EditorSign exposing (updateSymbolIds)
+import SWEditor.EditorSign
 import SW.Types exposing (Symbol, Fill, Sign, PortableSign, Base, Size, Key, symbolinit, portableSigntoSign)
 import Dict exposing (Dict)
 import Material exposing (..)
