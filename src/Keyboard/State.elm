@@ -26,7 +26,7 @@ update action model =
     case action of
         KeyboardExtraMsg keyMsg ->
             let
-                ( keyboardExtraModel, keyboardCmd ) =
+                ( keyboardExtraModel, _ ) =
                     Keyboard.Extra.updateWithKeyChange keyMsg model.keyboardExtraModel
 
                 keyList =
