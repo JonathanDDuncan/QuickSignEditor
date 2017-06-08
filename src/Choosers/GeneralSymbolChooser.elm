@@ -162,20 +162,6 @@ reorderedcolumnforpetal2 column2data =
         List.concat [ last, init ]
 
 
-getpetalcontent : List (Maybe Symbol) -> Float -> List (Html Msg)
-getpetalcontent symbols scale =
-    List.map
-        (\symbol ->
-            case symbol of
-                Just symb ->
-                    generalsymbolcol True scale symb
-
-                Nothing ->
-                    text ""
-        )
-        symbols
-
-
 showincolumns : SymbolColumnsData -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 showincolumns data width columnwidth rowheight =
     let

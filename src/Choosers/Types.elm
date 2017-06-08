@@ -327,22 +327,6 @@ type alias Petal =
     }
 
 
-petalinit : Petal
-petalinit =
-    { fill = 1
-    , filltype = LeftBack
-    , planetype = Wall
-    , rotation = 1
-    , rotationoffset = 0
-    , symbol = symbolinit
-    , handpng =
-        { miror = False
-        , pngcss = ""
-        , rotate = 0
-        }
-    }
-
-
 
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types

@@ -412,15 +412,6 @@ rule errormessage test value =
 
 
 
--- Tuples
-
-
-(=>) : a -> b -> ( a, b )
-(=>) =
-    (,)
-
-
-
 -- Result
 
 
@@ -563,14 +554,13 @@ re_lane =
     "[BLMR]"
 
 
-re_lanecoord : String
-re_lanecoord =
-    re_lane ++ "(" ++ re_coord ++ ")"
 
-
-re_word : String
-re_word =
-    re_lane ++ "(" ++ re_coord ++ ")(" ++ re_sym ++ re_coord ++ ")*"
+-- re_lanecoord : String
+-- re_lanecoord =
+--     re_lane ++ "(" ++ re_coord ++ ")"
+-- re_word : String
+-- re_word =
+--     re_lane ++ "(" ++ re_coord ++ ")(" ++ re_sym ++ re_coord ++ ")*"
 
 
 re_term : String

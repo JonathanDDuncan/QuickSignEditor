@@ -19,21 +19,22 @@ type alias Update model action =
     Update_ model action action
 
 
-{-| Variant of `lift` for effect-free components.
--}
-lift_ :
-    (model -> submodel)
-    -> -- get
-       (model -> submodel -> model)
-    -> -- set
-       (subaction -> submodel -> submodel)
-    -> subaction
-    -> -- action
-       model
-    -> -- model
-       ( model, Cmd action )
-lift_ get set update action model =
-    ( set model (update action (get model)), Cmd.none )
+
+-- {-| Variant of `lift` for effect-free components.
+-- -}
+-- lift_ :
+--     (model -> submodel)
+--     -> -- get
+--        (model -> submodel -> model)
+--     -> -- set
+--        (subaction -> submodel -> submodel)
+--     -> subaction
+--     -> -- action
+--        model
+--     -> -- model
+--        ( model, Cmd action )
+-- lift_ get set update action model =
+--     ( set model (update action (get model)), Cmd.none )
 
 
 {-| Convenience function for writing update-function boilerplate. Example use:
@@ -75,9 +76,10 @@ lift get set fwd update action model =
         ( set model submodel_, Cmd.map fwd e )
 
 
-{-|
-  Lift any value of type `msg` to a `Cmd msg`.
--}
-cmd : msg -> Cmd msg
-cmd msg =
-    Task.perform (always msg) (Task.succeed msg)
+
+-- {-|
+--   Lift any value of type `msg` to a `Cmd msg`.
+-- -}
+-- cmd : msg -> Cmd msg
+-- cmd msg =
+--     Task.perform (always msg) (Task.succeed msg)

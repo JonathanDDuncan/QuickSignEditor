@@ -126,34 +126,6 @@ getgeneralsymbolcolumn symbolcolumndata =
     removeNothings <| symbolcolumndata
 
 
-creatcolumnkeyactionlist : List Symbol -> List Int -> List (KeyAction Msg)
-creatcolumnkeyactionlist data range =
-    let
-        keyrange =
-            List.Extra.zip range data
-
-        viewkeylist =
-            List.map
-                (\( key, symbol ) ->
-                    { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (Editor << AddSymbol) symbol.key
-                    , display =
-                        { width =
-                            symbol.width
-                        , height =
-                            symbol.height
-                        , backgroundcolor = Nothing
-                        , view =
-                            Html.map Choosers.Types.SignView
-                                (signdisplaysvg "" { signinit | syms = [ symbol ] })
-                        }
-                    }
-                )
-                keyrange
-    in
-        viewkeylist
-
-
 createkeyactionlist : List { fill : Int, symbol : Symbol } -> List Int -> List (KeyAction Msg)
 createkeyactionlist data range =
     let

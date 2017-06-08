@@ -253,11 +253,10 @@ nth i list =
     Array.get i (Array.fromList list)
 
 
-onTouchStart : msg -> Attribute msg
-onTouchStart message =
-    on "touchstart" (Json.succeed message)
 
-
-onTouchEnd : msg -> Attribute msg
-onTouchEnd message =
-    on "touchend" (Json.succeed message)
+-- onTouchStart : msg -> Attribute msg
+-- onTouchStart message =
+--     on "touchstart" (Json.succeed message)
+-- onTouchEnd : msg -> Attribute msg
+-- onTouchEnd message =
+--     on "touchend" (Json.succeed message)

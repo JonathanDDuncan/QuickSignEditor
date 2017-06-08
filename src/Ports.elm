@@ -44,9 +44,6 @@ port receiveSign : (PortableSign -> msg) -> Sub msg
 port requestSignfromOtherApp : String -> Cmd msg
 
 
-port receiveSignfromOtherApp : (PortableSign -> msg) -> Sub msg
-
-
 port receiveInitialChoosings : (List Choosers.ChoosingImportModel -> msg) -> Sub msg
 
 
