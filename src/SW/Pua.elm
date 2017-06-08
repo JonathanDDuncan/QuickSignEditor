@@ -1,4 +1,4 @@
-module SW.Pua exposing (key, puaCharCode, linecodefromkey, fillcodefromkey, codefromkey)
+module SW.Pua exposing (createkey, puaCharCode, linecodefromkey, fillcodefromkey, codefromkey)
 
 import ParseInt as ParseInt
 import String as String exposing (slice)
@@ -31,8 +31,8 @@ fillcodefromkey key =
     fillcode (hexbaseFromKey key) (hexfillFromKey key) (hexrotationFromKey key)
 
 
-key : Base -> Fill -> Rotation -> Key
-key base fill rotation =
+createkey : Base -> Fill -> Rotation -> Key
+createkey base fill rotation =
     "S" ++ String.toLower (dectoHex base ++ dectoHex (fill - 1) ++ dectoHex (rotation - 1))
 
 
@@ -56,23 +56,23 @@ hextoDec value =
 
 
 hexbaseFromKey : Key -> Base
-hexbaseFromKey key =
-    hextoDec (slice 1 4 key)
+hexbaseFromKey createkey =
+    hextoDec (slice 1 4 createkey)
 
 
 hexfillFromKey : Key -> Fill
-hexfillFromKey key =
-    hextoDec (slice 4 5 key)
+hexfillFromKey createkey =
+    hextoDec (slice 4 5 createkey)
 
 
 hexrotationFromKey : Key -> Rotation
-hexrotationFromKey key =
-    hextoDec (slice 5 6 key)
+hexrotationFromKey createkey =
+    hextoDec (slice 5 6 createkey)
 
 
 codefromkey : Key -> Code
-codefromkey key =
-    fillcode (hexbaseFromKey key) (hexfillFromKey key) (hexrotationFromKey key)
+codefromkey createkey =
+    fillcode (hexbaseFromKey createkey) (hexfillFromKey createkey) (hexrotationFromKey createkey)
 
 
 puaCharCode : Int -> String

@@ -17,7 +17,7 @@ module SWEditor.EditorSymbol
 
 import SW.Types exposing (Symbol, Sign, Size, Rotation, Fill, Size, Base, Key, Position, Colors, symbolinit)
 import SWEditor.Rectangle exposing (Rect)
-import SW.Pua exposing (key)
+import SW.Pua exposing (createkey)
 import Dict exposing (Dict)
 
 
@@ -37,7 +37,7 @@ getSymbolbyBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> Sy
 getSymbolbyBaseFillRotation base fill rotation symbolsizes =
     let
         key =
-            SW.Pua.key base fill rotation
+            SW.Pua.createkey base fill rotation
     in
         getSymbolbyKey key symbolsizes
 
@@ -56,7 +56,7 @@ sizeSymbol symbolsizes symbol =
                 Nothing ->
                     let
                         _ =
-                            Debug.log "symbols size search not found " key
+                            Debug.log "symbols size search not found " symbol.key
                     in
                         { width = 58, height = 58 }
     in
