@@ -1,4 +1,4 @@
-module ViewHelper.ViewExtra exposing (px, (=>), shrinkdontzoom, transformscale, calculatescale)
+module Helpers.ViewExtra exposing (px, (=>), shrinkdontzoom, transformscale, calculatescale)
 
 
 px : Int -> String

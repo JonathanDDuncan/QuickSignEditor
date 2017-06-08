@@ -10,7 +10,7 @@ import Json.Decode as Json
 import Keyboard.Shared exposing (..)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg, ChoosersKeyboard)
-import ViewHelper.ViewExtra exposing (..)
+import Helpers.ViewExtra exposing (..)
 
 
 --import SubFeature.View exposing (root)

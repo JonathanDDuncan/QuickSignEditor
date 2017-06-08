@@ -8,7 +8,7 @@ import List.Extra exposing (..)
 import SWEditor.DisplaySvg exposing (signdisplaysvg)
 import Choosers.GroupChooserKeyboard exposing (..)
 import Choosers.HandSymbolChooser exposing (..)
-import MaybeHelper.MaybeExtra exposing (..)
+import Helpers.MaybeExtra exposing (..)
 import SW.Types exposing (Symbol, signinit)
 
 

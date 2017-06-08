@@ -15,7 +15,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Choosers.Types exposing (..)
-import ViewHelper.ViewExtra exposing (..)
+import Helpers.ViewExtra exposing (..)
 import SWEditor.DisplaySvg exposing (symbolsvg)
 import Choosers.SymbolToolTip exposing (..)
 
