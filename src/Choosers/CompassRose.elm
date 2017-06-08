@@ -9,8 +9,8 @@ import List.Extra
 --View
 
 
-compassrosediv : Int -> Int -> Int -> Int ->  Int -> List (Html b) -> Html b -> Html b
-compassrosediv fullwidth fullheight itemwidth itemheight   innersize petalcontent rosecenter =
+compassrosediv : Int -> Int -> Int -> Int -> Int -> List (Html b) -> Html b -> Html b
+compassrosediv fullwidth fullheight itemwidth itemheight innersize petalcontent rosecenter =
     let
         radius =
             (toFloat fullwidth / 2) - (toFloat itemwidth / 2)
@@ -63,54 +63,46 @@ getpetallayout itemwidth fullwidth fullheight itemheight centerfloating =
         itemheight
         0
         (centered fullwidth itemwidth)
-        5
     , petaldiv
         itemwidth
         itemheight
         (centered (centerfloating * 2) itemwidth)
         (centered (centerfloating * 2) itemheight)
-        5
     , petaldiv
         itemwidth
         itemheight
         (centered fullheight itemheight)
         0
-        10
     , petaldiv
         itemwidth
         itemheight
         (centered ((fullheight - centerfloating) * 2) itemwidth)
         (centered (centerfloating * 2) itemwidth)
-        5
     , petaldiv
         itemwidth
         itemheight
         (fullheight - itemheight)
         (centered fullwidth itemwidth)
-        5
     , petaldiv
         itemwidth
         itemheight
         (centered ((fullheight - centerfloating) * 2) itemwidth)
         (centered ((fullwidth - centerfloating) * 2) itemwidth)
-        5
     , petaldiv
         itemwidth
         itemheight
         (centered fullheight itemheight)
         (fullwidth - itemwidth)
-        5
     , petaldiv
         itemwidth
         itemheight
         (centered (centerfloating * 2) itemwidth)
         (centered ((fullwidth - centerfloating) * 2) itemwidth)
-        10
     ]
 
 
-petaldiv : Int -> Int -> Int -> Int -> a -> Html b -> Html b
-petaldiv width height top left paddingtop display =
+petaldiv : Int -> Int -> Int -> Int -> Html b -> Html b
+petaldiv width height top left display =
     div
         [ style
             [ "position" => "absolute"
