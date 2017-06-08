@@ -312,6 +312,6 @@ filter rowitems =
             List.all (\item -> List.length item.displayhanditems == 0) rowitems
 
         filtered =
-            List.filter (\item -> not allempty) rowitems
+            List.filter (\_ -> not allempty) rowitems
     in
         filtered

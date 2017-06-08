@@ -313,9 +313,6 @@ editorupdate action model =
 
         Editor.Clicked clickvalue ->
             let
-                clickval1 =
-                    clickvalue
-
                 basesymbol =
                     String.slice 0 4 clickvalue
 

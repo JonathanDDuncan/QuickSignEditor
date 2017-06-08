@@ -288,7 +288,7 @@ completemissingcolumns maxcols cols =
             totalcolsneeded - List.length cols
 
         tobechunked =
-            List.append cols <| List.map (\i -> []) (List.range 1 colsmissing)
+            List.append cols <| List.map (\_ -> []) (List.range 1 colsmissing)
     in
         tobechunked
 
