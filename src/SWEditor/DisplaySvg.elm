@@ -61,11 +61,11 @@ symbolsvgmargincolor margin color scale class symbol =
 
 signsvg : Sign -> Html msg
 signsvg sign =
-    signsvgcolor Nothing 1 sign
+    signsvgcolor 1 sign
 
 
-signsvgcolor : Maybe String -> Float -> Sign -> Html msg
-signsvgcolor color scale sign =
+signsvgcolor : Float -> Sign -> Html msg
+signsvgcolor scale sign =
     let
         signheight =
             round <| toFloat sign.height * scale
