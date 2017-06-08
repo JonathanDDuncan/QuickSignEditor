@@ -131,8 +131,8 @@ fillsview handsymbol =
 
 handselectionboth : HandSymbol -> List (Html Msg)
 handselectionboth handsymbol =
-    [ handselection handsymbol Hands.Left .symbollefthand 6 10 "Left"
-    , handselection handsymbol Hands.Right .symbolrighthand 6 0 "Right"
+    [ handselection handsymbol Hands.Left .symbollefthand 10 "Left"
+    , handselection handsymbol Hands.Right .symbolrighthand 0 "Right"
     ]
 
 
@@ -141,10 +141,9 @@ handselection :
     -> Hands
     -> ({ a | hand : Hands } -> Symbol)
     -> Int
-    -> Int
     -> String
     -> Html Msg
-handselection handsymbol handType symbolgetter topoffset marginbottom label =
+handselection handsymbol handType symbolgetter marginbottom label =
     td
         [ onClick (SelectHand handType)
         , selectedbackground handType handsymbol.hand
