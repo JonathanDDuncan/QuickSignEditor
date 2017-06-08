@@ -248,7 +248,7 @@ createcolumndata1 model cat col choosings =
             filterhandgroupitems col model.handgroupfilter choosings
 
         backgroundcolor =
-            bkcolor cat  
+            bkcolor cat
 
         displayhanditems =
             createdisplayhanditems model filteredhandgroupitems

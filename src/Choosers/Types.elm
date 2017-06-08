@@ -332,8 +332,8 @@ type alias Petal =
 -- Plus any library function to run on the types
 
 
-bkcolor : number ->  String
-bkcolor cat   =
+bkcolor : number -> String
+bkcolor cat =
     case cat of
         1 ->
             "#ff9999"
