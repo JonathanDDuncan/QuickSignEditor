@@ -1,6 +1,6 @@
 module SW.Pua exposing (key, puaCharCode, linecodefromkey, fillcodefromkey, codefromkey)
 
-import ParseInt as ParseInt exposing (..)
+import ParseInt as ParseInt exposing (toRadix, parseIntHex)
 import String as String exposing (..)
 import Char as Char exposing (..)
 import Bitwise as Bitwise exposing (..)
