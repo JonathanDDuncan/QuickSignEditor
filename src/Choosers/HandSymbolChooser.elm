@@ -71,7 +71,7 @@ handsymbolchooser model chooserwidth =
                         ]
                     ]
                     [ tr [] <|
-                        List.append (handselectionboth handsymbol rowheight)
+                        List.append (handselectionboth handsymbol)
                             (planeselection handsymbol)
                     ]
                 , table
@@ -129,23 +129,22 @@ fillsview handsymbol =
         )
 
 
-handselectionboth : HandSymbol -> Int -> List (Html Msg)
-handselectionboth handsymbol rowheight =
-    [ handselection handsymbol rowheight Hands.Left .symbollefthand 6 10 "Left"
-    , handselection handsymbol rowheight Hands.Right .symbolrighthand 6 0 "Right"
+handselectionboth : HandSymbol -> List (Html Msg)
+handselectionboth handsymbol =
+    [ handselection handsymbol Hands.Left .symbollefthand 6 10 "Left"
+    , handselection handsymbol Hands.Right .symbolrighthand 6 0 "Right"
     ]
 
 
 handselection :
     { a | hand : Hands }
-    -> Int
     -> Hands
     -> ({ a | hand : Hands } -> Symbol)
     -> Int
     -> Int
     -> String
     -> Html Msg
-handselection handsymbol rowheight handType symbolgetter topoffset marginbottom label =
+handselection handsymbol handType symbolgetter topoffset marginbottom label =
     td
         [ onClick (SelectHand handType)
         , selectedbackground handType handsymbol.hand
