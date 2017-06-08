@@ -4,7 +4,7 @@ module Helpers.MaybeExtra exposing (isNothing, removeNothings)
 isNothing : Maybe a -> Bool
 isNothing val =
     case val of
-        Just v ->
+        Just _ ->
             False
 
         Nothing ->

@@ -122,12 +122,12 @@ update action model =
         Editor msg ->
             editorupdate msg model
 
-        SymbolView msg ->
+        SymbolView _ ->
             ( model
             , Cmd.none
             )
 
-        SignView msg ->
+        SignView _ ->
             ( model
             , Cmd.none
             )

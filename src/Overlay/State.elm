@@ -46,7 +46,7 @@ layoutactions action model =
             in
                 ( { model | show = False }, Cmd.batch [ shareFsw fsw, hideOverlay "" ] )
 
-        PleaseShareFsw msg ->
+        PleaseShareFsw _ ->
             let
                 fsw =
                     getFsw model.layout.signbox.sign

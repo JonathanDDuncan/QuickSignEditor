@@ -43,7 +43,7 @@ dectoHex value =
             ParseInt.toRadix 16 value
     in
         case val of
-            Err msg ->
+            Err _ ->
                 ""
 
             Ok str ->

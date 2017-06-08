@@ -65,12 +65,12 @@ update action model =
                     ]
                 )
 
-        DisplaySignView msg ->
+        DisplaySignView _ ->
             ( model
             , Cmd.none
             )
 
-        DisplayChoosers a ->
+        DisplayChoosers _ ->
             ( model
             , Cmd.none
             )

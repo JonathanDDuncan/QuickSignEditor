@@ -83,8 +83,8 @@ portableSigntoSign portableSign =
 
 getlane : String -> Maybe Lane
 getlane lanestringvalue =
-    List.filter (\( str, lane ) -> str == lanestringvalue) lanes
-        |> List.map (\( str, lane ) -> lane)
+    List.filter (\( str, _ ) -> str == lanestringvalue) lanes
+        |> List.map (\( _, lane ) -> lane)
         |> List.head
 
 

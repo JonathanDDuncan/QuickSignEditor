@@ -349,7 +349,7 @@ startwithlanevalue item =
 
 laneValues : List String
 laneValues =
-    List.map (\( value, lane ) -> value) lanes
+    List.map (\( value, _ ) -> value) lanes
 
 
 

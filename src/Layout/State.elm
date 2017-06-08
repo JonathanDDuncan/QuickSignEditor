@@ -89,7 +89,7 @@ update msg model =
             )
                 |> Update.Extra.andThen update HideOverlay
 
-        PleaseShareFsw action ->
+        PleaseShareFsw _ ->
             ( model
             , Cmd.none
             )
