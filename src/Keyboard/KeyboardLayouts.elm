@@ -9,14 +9,13 @@ fingerspellingQueryAsl :
     , name : String
     }
 fingerspellingQueryAsl =
-    { name = "quertyASL", keys = keyboardDisplay querty.keys aslTemplate }
+    { name = "quertyASL", keys = keyboardDisplay querty.keys }
 
 
 keyboardDisplay :
     List a
-    -> b
     -> List { code : number, keypress : Keypress, sign : Sign }
-keyboardDisplay keyboardlayout keyboardtemplate =
+keyboardDisplay keyboardlayout =
     let
         display =
             List.map (\layout -> createKeyDisplay) keyboardlayout
