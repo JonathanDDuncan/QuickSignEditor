@@ -276,7 +276,7 @@ generalsymbolrow generalsymbolrowdata scale =
                 , onMouseDown ((Editor << DragSymbol) d.symbol.key)
                 , onDoubleClick ((Editor << ReplaceSymbol) d.symbol.key)
                 ]
-                [ (generalsymbolcol False scale d.symbol) ]
+                [ generalsymbolcol False scale d.symbol ]
         )
         generalsymbolrowdata
 

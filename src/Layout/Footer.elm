@@ -9,7 +9,7 @@ import Keyboard.View exposing (..)
 stickyFooter : Layout.Types.Model -> Html Layout.Types.Msg
 stickyFooter model =
     div
-        [ class "footer", style [ ( "height", toString (model.footerheight) ++ "px" ) ] ]
+        [ class "footer", style [ ( "height", toString model.footerheight ++ "px" ) ] ]
         [ Html.map Keyboard
             (Keyboard.View.root model.keyboard
                 model.signbox.signviewkeyboard

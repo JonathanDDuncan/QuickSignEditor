@@ -9,7 +9,7 @@ import SW.Types exposing (Base, Fill, Rotation, Key, Code)
 
 linecode : Base -> Fill -> Rotation -> Int
 linecode base fill rotation =
-    0x00040000 + 96 * (base - 256) + 16 * (fill) + rotation + 1
+    0x00040000 + 96 * (base - 256) + 16 * fill + rotation + 1
 
 
 linecodefromkey : Key -> Int

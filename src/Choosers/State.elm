@@ -348,7 +348,7 @@ editorupdate action model =
         AddSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolbyKey key model.symbolsizes)
+                    getSymbolbyKey key model.symbolsizes
             in
                 ( model
                 , cmdAddSymbol editorsymbol
@@ -358,7 +358,7 @@ editorupdate action model =
         DragSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolbyKey key model.symbolsizes)
+                    getSymbolbyKey key model.symbolsizes
             in
                 ( model
                 , cmdDragSymbol editorsymbol
@@ -367,7 +367,7 @@ editorupdate action model =
         ReplaceSymbol key ->
             let
                 editorsymbol =
-                    (getSymbolbyKey key model.symbolsizes)
+                    getSymbolbyKey key model.symbolsizes
             in
                 ( model
                 , cmdReplaceSymbol editorsymbol

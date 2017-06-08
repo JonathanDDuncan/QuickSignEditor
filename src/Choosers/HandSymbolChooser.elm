@@ -325,7 +325,7 @@ createpetal symbolsizes base selectedhandfillitem rotationoffset =
             rotationoffset - 1
 
         rotation =
-            (selectedhandfillitem.rotation + finalrotationoffset)
+            selectedhandfillitem.rotation + finalrotationoffset
 
         symbol =
             getSymbolbyBaseFillRotation base selectedhandfillitem.fill rotation symbolsizes

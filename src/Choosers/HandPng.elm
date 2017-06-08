@@ -17,7 +17,7 @@ handpngspan handpng classes morestyle moretransform displaystyle =
 
         rotate =
             if handpng.rotate /= 0 then
-                "rotate(" ++ (toString handpng.rotate) ++ "deg)"
+                "rotate(" ++ toString handpng.rotate ++ "deg)"
             else
                 ""
 

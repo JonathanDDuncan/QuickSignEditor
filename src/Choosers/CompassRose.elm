@@ -16,7 +16,7 @@ compassrosediv fullwidth fullheight itemwidth itemheight top innersize petalcont
             (toFloat fullwidth / 2) - (toFloat itemwidth / 2)
 
         centerfloating =
-            truncate ((toFloat fullwidth / 2) - (sqrt (((radius) * (radius)) / 2)))
+            truncate ((toFloat fullwidth / 2) - sqrt ((radius * radius) / 2))
 
         centertop =
             truncate <|

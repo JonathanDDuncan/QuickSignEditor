@@ -274,7 +274,7 @@ createhandkeyactionlist message data range =
                         }
                     }
                 )
-                (keyrange)
+                keyrange
     in
         viewkeylist
 

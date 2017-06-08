@@ -11,7 +11,7 @@ addUndo changed actionname model =
         newmodel =
             if changed then
                 { model
-                    | undolist = (List.append model.undolist [ createundoitem actionname model.sign ])
+                    | undolist = List.append model.undolist [ createundoitem actionname model.sign ]
                     , redolist = []
                 }
             else

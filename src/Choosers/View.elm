@@ -18,7 +18,7 @@ root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
 root parentwidth parentheight model =
     let
         halfheight =
-            Basics.truncate ((Basics.toFloat parentheight) / Basics.toFloat 2)
+            Basics.truncate (Basics.toFloat parentheight / Basics.toFloat 2)
 
         halfwidth =
             Basics.truncate ((Basics.toFloat parentwidth) / Basics.toFloat 2)

@@ -314,7 +314,7 @@ getcooordinate coordinatestr =
                 (\value -> value |> List.drop 1 |> List.head |> toInt)
                 coordinatelistresult
     in
-        (Ok { x = 0, y = 0 })
+        Ok { x = 0, y = 0 }
             |> Result.andThen
                 (setresultvalue xresult (\position value -> { position | x = value }))
             |> Result.andThen
@@ -424,7 +424,7 @@ rule errormessage test value =
 
 setresultvalue : Result a b -> (c -> b -> value) -> c -> Result a value
 setresultvalue result setter =
-    (\recd -> Result.andThen (\value -> setter recd value |> Ok) result)
+    \recd -> Result.andThen (\value -> setter recd value |> Ok) result
 
 
 toInt : Maybe String -> Result String Int
@@ -460,7 +460,7 @@ testcolorrgb colorstring =
 
 getkeystr : String -> Result String String
 getkeystr str =
-    Regex.find (Regex.AtMost 1) (regex (re_sym)) str
+    Regex.find (Regex.AtMost 1) (regex re_sym) str
         |> matchestostrings
         |> List.head
         |> Result.fromMaybe (couldnoterror "get key" str)
@@ -528,7 +528,7 @@ getsigncolorstring str =
 
 getsymbolscolorstring : String -> List String
 getsymbolscolorstring str =
-    Regex.find (Regex.All) (regex q_Dstylingsymbols) str
+    Regex.find All (regex q_Dstylingsymbols) str
         |> matchestostrings
 
 
@@ -537,7 +537,7 @@ getsymbolssizestring str =
     str
         |> andThentoResult
             (\str1 ->
-                Regex.find (Regex.All) (regex q_Zstylingsymbols) str1
+                Regex.find All (regex q_Zstylingsymbols) str1
                     |> matchestostrings
             )
 
