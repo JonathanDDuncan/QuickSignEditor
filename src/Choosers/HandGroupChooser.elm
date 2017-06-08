@@ -75,7 +75,6 @@ symbol symboldata =
             symboldata.chooseritem.name
             symboldata.chooseritem.symbolkey
             1
-            2
             HandFills.RightThumbEdge
             [ Html.map SignView
                 (symbolsvg "hover" symboldata.symbol)

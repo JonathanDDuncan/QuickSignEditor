@@ -16,11 +16,10 @@ handsymboltooltip :
     -> String
     -> String
     -> Int
-    -> Int
     -> HandFills
     -> List (Html Choosers.Types.Msg)
     -> List (Html Choosers.Types.Msg)
-handsymboltooltip mdl mdlid name key rotation fill handfill content =
+handsymboltooltip mdl mdlid name key rotation handfill content =
     let
         ishand =
             iskey key "hand"
