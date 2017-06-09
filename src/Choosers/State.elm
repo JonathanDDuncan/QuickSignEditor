@@ -28,7 +28,8 @@ import Ports
         )
 import Exts.List exposing (unique)
 import Dict exposing (Dict)
-import SW.Types exposing (Size, PortableSign)
+import SW.Types exposing (Size)
+import SW.PortableSign exposing (PortableSign)
 import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)

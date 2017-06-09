@@ -15,7 +15,7 @@ module SWEditor.EditorSymbol
         , countselectedsymbols
         )
 
-import SW.Types exposing (Sign, Size, Position, Colors)
+import SW.Types exposing (Size, Position, Colors)
 import SW.Symbol exposing (Symbol, Rotation, Fill, Base, Key, symbolinit)
 import SWEditor.Rectangle exposing (Rect)
 import SW.Pua exposing (createkey)

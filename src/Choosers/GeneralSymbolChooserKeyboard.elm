@@ -12,7 +12,7 @@ import SWEditor.DisplaySvg exposing (signdisplaysvg)
 import Choosers.GroupChooserKeyboard exposing (ishandgroupchooser)
 import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)
 import Helpers.MaybeExtra exposing (removeNothings)
-import SW.Types exposing (signinit)
+import SW.Sign exposing (signinit)
 import SW.Symbol exposing (Symbol)
 
 

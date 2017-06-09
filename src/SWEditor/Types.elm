@@ -11,7 +11,9 @@ module SWEditor.Types
         , withinSignView
         )
 
-import SW.Types exposing (Sign, PortableSign, Position, NamedPosition)
+import SW.Types exposing (Position, NamedPosition)
+import SW.PortableSign exposing (PortableSign)
+import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 

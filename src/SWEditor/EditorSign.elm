@@ -13,7 +13,8 @@ module SWEditor.EditorSign
         )
 
 import SWEditor.EditorSymbol exposing (updateIds, moveSymbols, colorsymbol, sizesymbol, adjustposition)
-import SW.Types exposing (Sign, Colors, NamedPosition, maximumBy)
+import SW.Types exposing (Colors, NamedPosition, maximumBy)
+import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SWEditor.Rectangle exposing (Rect)
 import Helpers.ResultExtra exposing (andThentoResult)

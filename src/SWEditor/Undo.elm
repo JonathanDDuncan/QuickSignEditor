@@ -2,7 +2,7 @@ module SWEditor.Undo exposing (addUndo, undo, redo)
 
 import List.Extra exposing (last)
 import SWEditor.Types exposing (Model, UndoItem)
-import SW.Types exposing (Sign)
+import SW.Sign exposing (Sign)
 
 
 addUndo : Bool -> String -> Model -> Model

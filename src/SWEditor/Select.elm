@@ -1,7 +1,7 @@
 module SWEditor.Select exposing (unselectSignSymbols, unselectSymbols, selectSymbolId)
 
 import SWEditor.Types exposing (Model, Msg)
-import SW.Types exposing (Sign)
+import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 
 
