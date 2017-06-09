@@ -12,6 +12,9 @@ module SW.Symbol
         , iskey
         , ishand
         , Code
+        , HandFills(..)
+        , Hands(..)
+        , Planes(..)
         )
 
 import ParseInt exposing (parseIntHex)
@@ -244,3 +247,24 @@ typerange typename =
             { start = "100"
             , end = "38b"
             }
+
+
+type HandFills
+    = LeftBack
+    | LeftThumbEdge
+    | LeftPalm
+    | LeftBabyEdge
+    | RightBack
+    | RightThumbEdge
+    | RightPalm
+    | RightBabyEdge
+
+
+type Hands
+    = Right
+    | Left
+
+
+type Planes
+    = Wall
+    | Floor

@@ -1,7 +1,8 @@
 module Choosers.HandPng exposing (handpngspan, gethandpng)
 
-import Choosers.Types exposing (Model, Msg, HandPng, Hands(Right, Left), gethandtype)
-import Choosers.Types as HandFills exposing (HandFills)
+import Choosers.Types exposing (Model, Msg, HandPng, gethandtype)
+import SW.Symbol as HandFills exposing (HandFills)
+import SW.Symbol exposing (Hands(Right, Left))
 import String exposing (toLower)
 import Html exposing (Html)
 import Html.Attributes exposing (class, attribute)

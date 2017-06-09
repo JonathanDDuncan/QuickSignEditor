@@ -12,7 +12,7 @@ import Choosers.Types
         , bkcolor
         )
 import Choosers.Types as Editor exposing (Editor)
-import Choosers.Types as HandFills exposing (HandFills)
+import SW.Symbol as HandFills exposing (HandFills)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol)

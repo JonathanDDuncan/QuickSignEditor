@@ -4,7 +4,6 @@ import Choosers.Types exposing (Model, ChoosingModel, Msg(EditorMsg))
 import Choosers.Types as Editor exposing (Editor)
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
 import SW.Display exposing (signsvgnoscale)
-import Choosers.Types as Hands exposing (Hands)
 
 
 runKeyboardCommand :
@@ -105,7 +104,7 @@ layout =
 
 updatemaniquinkeyboard :
     { c | chooserskeyboard : { b | maniquinkeyboard : a } }
-    -> List Hands.ChoosingModel
+    -> List ChoosingModel
     -> { b | maniquinkeyboard : List (Keyboard.Shared.KeyAction Msg) }
 updatemaniquinkeyboard model maniquinchoosings =
     let

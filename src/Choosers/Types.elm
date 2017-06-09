@@ -23,9 +23,6 @@ module Choosers.Types
         , Editor(..)
         , KeyboardType(..)
         , Loading(..)
-        , HandFills(..)
-        , Hands(..)
-        , Planes(..)
         , gethandtype
         , bkcolor
         , getchoosings
@@ -40,7 +37,7 @@ import SWEditor.Types exposing (Model, Msg, Offset)
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
 import SW.PortableSign exposing (PortableSign)
-import SW.Symbol exposing (Symbol, Fill, Base, Key, symbolinit)
+import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..), symbolinit)
 import Dict exposing (Dict)
 import Material exposing (Model)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
@@ -183,17 +180,6 @@ gethandtype filltype =
             Right
 
 
-type HandFills
-    = LeftBack
-    | LeftThumbEdge
-    | LeftPalm
-    | LeftBabyEdge
-    | RightBack
-    | RightThumbEdge
-    | RightPalm
-    | RightBabyEdge
-
-
 type alias SymbolSize =
     { k : String
     , h : Int
@@ -273,16 +259,6 @@ type alias GroupChoosing =
     { basesymbol : String
     , choosings : List ChooserItem
     }
-
-
-type Hands
-    = Right
-    | Left
-
-
-type Planes
-    = Wall
-    | Floor
 
 
 type alias HandFillItem =
