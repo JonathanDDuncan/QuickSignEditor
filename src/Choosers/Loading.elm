@@ -10,16 +10,6 @@ import Choosers.Types
         , handsymbolinit
         , chooseriteminit
         )
-
-
--- import Choosers.Types as Editor exposing (Editor)
--- import Choosers.Types as KeyboardType exposing (KeyboardType)
-
-import Choosers.Types as Hands exposing (Hands)
-
-
--- import Choosers.Types as HandFills exposing (HandFills)
-
 import Ports
     exposing
         ( requestInitialGroupHandChoosings
@@ -37,13 +27,12 @@ import Ports
 import Exts.List exposing (unique)
 import Dict exposing (Dict)
 import SW.Types exposing (Size)
+import SW.Symbol exposing (Symbol)
 import SW.PortableSign exposing (PortableSign)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
 import SWEditor.EditorSign exposing (getSignBounding)
-import Update.Extra
 import Helpers.ViewExtra exposing ((=>))
-import Choosers.GeneralChooserKeyboard exposing (creategeneralchooserkeyboard, runKeyboardCommand)
-import Keyboard.Shared exposing (KeyboardMode)
+import Choosers.ManiquinKeyboard exposing (updatemaniquinkeyboard)
 
 
 loadingupdate : Loading -> Model -> ( Model, Cmd msg )
@@ -83,7 +72,7 @@ loadingupdate action model =
         LoadPortableSign portablesign ->
             let
                 sizedportablesign =
-                    setportablesigndimentions model.symbolsizes portablesign
+                    sizeportablesign model.symbolsizes portablesign
             in
                 ( model, cmdaddsigntosignview sizedportablesign )
 
@@ -93,8 +82,8 @@ getchoosingsdimentions choosings symbolsizes =
     List.map
         (\choosing ->
             { choosing
-                | displaySign = setportablesigndimentions symbolsizes choosing.displaySign
-                , valuestoAdd = List.map (sizeSymbol symbolsizes) choosing.valuestoAdd
+                | displaySign = sizeportablesign symbolsizes choosing.displaySign
+                , valuestoAdd = sizesymbols symbolsizes choosing.valuestoAdd
             }
         )
         choosings
@@ -162,21 +151,6 @@ allgroupchoosings chooserclassification =
                 basesymbols
     in
         allgroupchoosings1
-
-
-updatemaniquinkeyboard :
-    { c | chooserskeyboard : { b | maniquinkeyboard : a } }
-    -> List Hands.ChoosingModel
-    -> { b | maniquinkeyboard : List (Keyboard.Shared.KeyAction Msg) }
-updatemaniquinkeyboard model maniquinchoosings =
-    let
-        maniquinkeyboard =
-            creategeneralchooserkeyboard maniquinchoosings
-
-        chooserskeyboard =
-            model.chooserskeyboard
-    in
-        { chooserskeyboard | maniquinkeyboard = maniquinkeyboard }
 
 
 getchoosings :
@@ -311,20 +285,25 @@ getvalue name itemsvalues =
             List.filter (\item -> item.name == name) itemsvalues
 
 
-setportablesigndimentions : Dict String Size -> PortableSign -> PortableSign
-setportablesigndimentions symbolsizes displaySign =
+sizeportablesign : Dict String Size -> PortableSign -> PortableSign
+sizeportablesign symbolsizes portablesign =
     let
         syms =
-            List.map (sizeSymbol symbolsizes) displaySign.syms
+            sizesymbols symbolsizes portablesign.syms
 
         bounds =
             getSignBounding syms
     in
-        { displaySign
+        { portablesign
             | width = bounds.width
             , height = bounds.height
             , syms = syms
         }
+
+
+sizesymbols : Dict String Size -> List Symbol -> List Symbol
+sizesymbols symbolsizes symbols =
+    List.map (sizeSymbol symbolsizes) symbols
 
 
 getchooservalue :

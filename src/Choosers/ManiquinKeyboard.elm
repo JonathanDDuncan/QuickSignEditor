@@ -1,10 +1,11 @@
-module Choosers.GeneralChooserKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard)
+module Choosers.ManiquinKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard, updatemaniquinkeyboard)
 
 import Choosers.Types exposing (Model, ChoosingModel, Msg(EditorMsg))
 import Choosers.Types as Editor exposing (Editor)
 import Html
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
 import SW.Display exposing (signsvgnoscale)
+import Choosers.Types as Hands exposing (Hands)
 
 
 runKeyboardCommand :
@@ -101,3 +102,18 @@ layout =
     , { index = 32, key = 10, overrideheight = Nothing, toppadding = 5 }
     , { index = 33, key = 11, overrideheight = Just 20, toppadding = 8 }
     ]
+
+
+updatemaniquinkeyboard :
+    { c | chooserskeyboard : { b | maniquinkeyboard : a } }
+    -> List Hands.ChoosingModel
+    -> { b | maniquinkeyboard : List (Keyboard.Shared.KeyAction Msg) }
+updatemaniquinkeyboard model maniquinchoosings =
+    let
+        maniquinkeyboard =
+            creategeneralchooserkeyboard maniquinchoosings
+
+        chooserskeyboard =
+            model.chooserskeyboard
+    in
+        { chooserskeyboard | maniquinkeyboard = maniquinkeyboard }

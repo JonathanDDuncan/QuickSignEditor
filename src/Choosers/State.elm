@@ -34,7 +34,7 @@ import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitem
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
 import Update.Extra
 import Choosers.HandGroupChooser exposing (gethandgroupchooserdata)
-import Choosers.GeneralChooserKeyboard exposing (creategeneralchooserkeyboard, runKeyboardCommand)
+import Choosers.ManiquinKeyboard exposing (runKeyboardCommand)
 import Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, totalkeyboardpages)
 import Keyboard.Shared exposing (KeyboardMode)
 import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
