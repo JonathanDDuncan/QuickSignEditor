@@ -1,12 +1,12 @@
 module Choosers.Maniquin exposing (..)
 
-import Html exposing (Html, div, text)
-import Html.Attributes exposing (style, class)
+import Html exposing (Html, div)
+import Html.Attributes exposing (style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
-import SW.Symbol exposing (Symbol, symbolinit, iskey)
+import SW.Symbol exposing (Symbol, symbolinit)
 import SW.Display
 
 
@@ -17,18 +17,18 @@ maniquin :
     -> { divheight : Int, height : Int, view : Html Msg }
 maniquin model halfwidth halfheight =
     let
-        maniquin =
+        maniquinwithdimensions =
             choosingsview model.maniquinchoosings 10
 
         maniquinscale =
-            calculatescale (Basics.toFloat maniquin.width)
-                (Basics.toFloat maniquin.height)
+            calculatescale (Basics.toFloat maniquinwithdimensions.width)
+                (Basics.toFloat maniquinwithdimensions.height)
                 (Basics.toFloat halfwidth)
                 (Basics.toFloat halfheight)
 
         maniquindivheight =
             truncate <|
-                Basics.toFloat maniquin.height
+                Basics.toFloat maniquinwithdimensions.height
                     * maniquinscale
     in
         { view =
@@ -41,8 +41,8 @@ maniquin model halfwidth halfheight =
                       -- , "margin-top" => px -10
                     ]
                 ]
-                [ maniquin.display ]
-        , height = maniquin.height
+                [ maniquinwithdimensions.display ]
+        , height = maniquinwithdimensions.height
         , divheight = maniquindivheight
         }
 
