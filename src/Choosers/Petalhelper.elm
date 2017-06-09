@@ -27,17 +27,8 @@ toListMaybe symbols =
 
 getoutersymbolpetalsMaybe : List (Maybe Symbol) -> Int -> Int -> List (Html Msg)
 getoutersymbolpetalsMaybe symbols itemwidth itemheight =
-    let
-        outerpetalsymbolpositions =
-            getouterpetalsymbolpositions symbols itemwidth itemheight
-
-        outerpetalvaluesandpositions =
-            List.Extra.zip outerpetalsymbolpositions symbols
-
-        roseouterpetaldata =
-            List.map symbolpetal outerpetalvaluesandpositions
-    in
-        roseouterpetaldata
+    List.Extra.zip (getouterpetalsymbolpositions symbols itemwidth itemheight) symbols
+        |> List.map symbolpetal
 
 
 symbolpetal : ( List (Attribute Msg), Maybe Symbol ) -> Html Msg
