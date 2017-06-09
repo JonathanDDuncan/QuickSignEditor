@@ -7,8 +7,26 @@ import Choosers.Types
         , Loading(..)
         , ChoosingModel
         , ChoosingImportModel
+        , GroupChoosing
+        , BaseChooserItem
+        , ChooserItem
         , handsymbolinit
         , chooseriteminit
+        , HandGroupImportModel
+        , ChoosingImportModel
+        , GroupChoosing
+        , GeneralGroupChooserColumData
+        , ChoosersKeyboard
+        , HandSymbol
+        , HandPng
+        , ChooserItemValue
+        , HandGroupChooserViewColumnData
+        , HandGroupChooserViewSymbolData
+        , HandGroupChooserSubList
+        , GeneralGroupChooserSymbolData
+        , HandItem
+        , HandFillItem
+        , getchoosings
         )
 import Ports
     exposing
@@ -28,7 +46,7 @@ import Exts.List exposing (unique)
 import List.Extra exposing (scanl1)
 import Dict exposing (Dict)
 import SW.Types exposing (Size)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, Base)
 import SW.Sign exposing (lastsignid)
 import SW.PortableSign exposing (PortableSign, portableSigntoSign)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
@@ -103,52 +121,11 @@ sizechoosings symbolsizes choosings =
 
 
 creategroupchoosings :
-    { l
-        | basechooseritems :
-            List
-                { j
-                    | base : a
-                    , colname : String
-                    , common : b
-                    , feature : String
-                    , name : c
-                    , rank : d
-                    , rowname : String
-                    , symbolid : e
-                    , symbolkey : f
-                    , unicodepua : g
-                    , validfills : h
-                    , validrotations : i
-                    , groupchooser : String
-                }
-        , chooseritemvalues :
-            List
-                { k
-                    | choosertype : String
-                    , name : String
-                    , value : Int
-                    , symbolgroup : String
-                }
+    { a
+        | basechooseritems : List BaseChooserItem
+        , chooseritemvalues : List ChooserItemValue
     }
-    -> List
-        { basesymbol : String
-        , choosings :
-            List
-                { base : a
-                , col : Int
-                , common : b
-                , feature : Int
-                , groupchooser : Int
-                , name : c
-                , rank : d
-                , row : Int
-                , symbolid : e
-                , symbolkey : f
-                , unicodepua : g
-                , validfills : h
-                , validrotations : i
-                }
-        }
+    -> List GroupChoosing
 creategroupchoosings chooserclassification =
     chooserclassification.chooseritemvalues
         |> List.map (\item -> item.symbolgroup)
@@ -164,113 +141,68 @@ creategroupchoosings chooserclassification =
 
 
 getchoosings :
-    a
-    -> List
-        { b
-            | choosertype : String
-            , symbolgroup : a
-            , name : String
-            , value : Int
-        }
-    -> List
-        { l
-            | base : c
-            , colname : String
-            , common : d
-            , feature : String
-            , name : e
-            , rank : f
-            , rowname : String
-            , symbolid : g
-            , symbolkey : h
-            , unicodepua : i
-            , validfills : j
-            , validrotations : k
-            , groupchooser : String
-        }
-    -> List
-        { base : c
-        , col : Int
-        , common : d
-        , feature : Int
-        , groupchooser : Int
-        , name : e
-        , rank : f
-        , row : Int
-        , symbolid : g
-        , symbolkey : h
-        , unicodepua : i
-        , validfills : j
-        , validrotations : k
-        }
+    String
+    -> List ChooserItemValue
+    -> List BaseChooserItem
+    -> List ChooserItem
 getchoosings symbolgroup chooseritemvalues basechooseritems =
     let
         groupchoosers =
-            List.sort <|
-                unique <|
-                    List.map (\item -> item.name) <|
-                        List.filter (\item -> item.choosertype == "groupchooser" && item.symbolgroup == symbolgroup) chooseritemvalues
+            chooseritemvalues
+                |> List.filter (\item -> item.choosertype == "groupchooser" && item.symbolgroup == symbolgroup)
+                |> List.map (\item -> item.name)
+                |> unique
+                |> List.sort
 
         items =
-            List.filter (\basechooseritem -> List.any ((==) basechooseritem.groupchooser) groupchoosers) basechooseritems
+            List.filter
+                (\basechooseritem ->
+                    List.any ((==) basechooseritem.groupchooser)
+                        groupchoosers
+                )
+                basechooseritems
 
         itemsvalues =
-            List.filter (\chooseritemvalue -> List.any ((==) chooseritemvalue.choosertype) groupchoosers) chooseritemvalues
+            List.filter
+                (\chooseritemvalue ->
+                    List.any ((==) chooseritemvalue.choosertype)
+                        groupchoosers
+                )
+                chooseritemvalues
 
         colitemsvalues =
-            List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "colname") chooseritemvalues
+            List.filter
+                (\chooseritemvalue ->
+                    chooseritemvalue.choosertype == "colname"
+                )
+                chooseritemvalues
 
         featureitemsvalues =
-            List.filter (\chooseritemvalue -> chooseritemvalue.choosertype == "feature") chooseritemvalues
-
-        converted =
-            List.map
-                (\item ->
-                    creategroupchoosing
-                        (getchooservalue item.groupchooser chooseritemvalues)
-                        itemsvalues
-                        colitemsvalues
-                        featureitemsvalues
-                        item
+            List.filter
+                (\chooseritemvalue ->
+                    chooseritemvalue.choosertype == "feature"
                 )
-                items
+                chooseritemvalues
     in
-        converted
+        List.map
+            (\item ->
+                creategroupchoosing
+                    (getchooservalue item.groupchooser chooseritemvalues)
+                    itemsvalues
+                    colitemsvalues
+                    featureitemsvalues
+                    item
+            )
+            items
 
 
 creategroupchoosing :
-    b
+    Int
     -> List { a | name : String, value : Int }
     -> List { a1 | name : String, value : Int }
     -> List { a2 | name : String, value : Int }
-    -> { l
-        | base : c
-        , colname : String
-        , common : d
-        , feature : String
-        , name : e
-        , rank : f
-        , rowname : String
-        , symbolid : g
-        , symbolkey : h
-        , unicodepua : i
-        , validfills : j
-        , validrotations : k
-       }
-    -> { base : c
-       , col : Int
-       , common : d
-       , feature : Int
-       , groupchooser : b
-       , name : e
-       , rank : f
-       , row : Int
-       , symbolid : g
-       , symbolkey : h
-       , unicodepua : i
-       , validfills : j
-       , validrotations : k
-       }
+    -> BaseChooserItem
+    -> ChooserItem
 creategroupchoosing chooservalue itemsvalues colitemsvalues featureitemsvalues item =
     { base = item.base
     , name = item.name

@@ -5,11 +5,14 @@ module Choosers.Types
         , ChoosingModel
         , HandGroupImportModel
         , ChoosingImportModel
+        , GroupChoosing
         , GeneralGroupChooserColumData
         , ChoosersKeyboard
         , HandSymbol
         , HandPng
         , ChooserItem
+        , BaseChooserItem
+        , ChooserItemValue
         , HandGroupChooserViewColumnData
         , HandGroupChooserViewSymbolData
         , HandGroupChooserSubList
