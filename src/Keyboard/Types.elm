@@ -14,7 +14,6 @@ import Keyboard.Shared exposing (KeyboardMode)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg)
 import SW.Sign exposing (Sign)
-import SW.Symbol exposing (Symbol)
 
 
 type alias Model =
