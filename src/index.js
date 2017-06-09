@@ -15,7 +15,7 @@ app.ports.requestSign.subscribe(function (fsw) {
         var sign = denormalizesign(parsed);
        
         //send values to Elm subscription ports
-        app.ports.receiveSign.send(sign);
+        app.ports.loadPortableSign.send(sign);
     } catch (e) { console.log(e) }
 
 });
@@ -60,9 +60,9 @@ app.ports.hideOverlay.subscribe(function (val) {
     } catch (e) { console.log(e) }
 });
 
-app.ports.requestInitialChoosings.subscribe(function (str) {
+app.ports.cmdRequestChoosings.subscribe(function (str) {
     try {
-        console.log("requestInitialChoosings called")
+        console.log("cmdRequestChoosings called")
         var choosings = getinitialchoosings();
         //send values to Elm subscription ports
         app.ports.subLoadManiquinChoosings.send(choosings);
@@ -155,7 +155,7 @@ function requestSign(str) {
         var sign = denormalizesign(parsed);
       
         //send values to Elm subscription ports
-        app.ports.receiveSign.send(sign);
+        app.ports.loadPortableSign.send(sign);
     } catch (e) { console.log(e) }
 }
 

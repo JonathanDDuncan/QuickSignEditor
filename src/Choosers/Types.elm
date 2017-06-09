@@ -78,16 +78,15 @@ type Msg
     | SelectPlane Planes
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
-    | UpdatePortableSignDimentions PortableSign
     | EditorMsg Editor
     | KeyboardMsg KeyboardType
     | LoadingMsg Loading
 
 
 type Loading
-    = RequestInitialChoosings
-    | LoadManiquinChoosings (List ChoosingImportModel)
-    | ReceiveInitialGroupHandChoosings HandGroupImportModel
+    = LoadManiquinChoosings (List ChoosingImportModel)
+    | LoadGroupHandChoosings HandGroupImportModel
+    | LoadPortableSign PortableSign
 
 
 type KeyboardType

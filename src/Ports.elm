@@ -2,7 +2,7 @@ port module Ports
     exposing
         ( requestSign
         , requestInitialGroupHandChoosings
-        , requestInitialChoosings
+        , cmdRequestChoosings
         , sendKeyboardMode
         , cmdaddsigntosignview
         , cmdAddSymbol
@@ -11,7 +11,7 @@ port module Ports
         , subLoadManiquinChoosings
         , receiveInitialGroupHandChoosings
         , receiveKeyboardCommand
-        , receiveSign
+        , loadPortableSign
         , requestSignfromOtherApp
         , requestElementPosition
         , subaddsigntosignview
@@ -40,7 +40,7 @@ import Keyboard.Shared exposing (KeyboardCommand)
 port requestSign : String -> Cmd msg
 
 
-port receiveSign : (PortableSign -> msg) -> Sub msg
+port loadPortableSign : (PortableSign -> msg) -> Sub msg
 
 
 port requestSignfromOtherApp : String -> Cmd msg
@@ -70,7 +70,7 @@ port pleaseShareFsw : (String -> msg) -> Sub msg
 port requestSignfromOtherAppDelayed : String -> Cmd msg
 
 
-port requestInitialChoosings : String -> Cmd msg
+port cmdRequestChoosings : String -> Cmd msg
 
 
 port requestInitialGroupHandChoosings : String -> Cmd msg
