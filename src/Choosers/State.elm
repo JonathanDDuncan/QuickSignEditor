@@ -73,24 +73,12 @@ update action model =
             loadingupdate msg model
 
         FilterHandGroup value ->
-            let
-                updatedFilterHandGroup =
-                    { model
-                        | handgroupfilter = value
-                    }
-            in
-                ( { model
-                    | handgroupfilter =
-                        value
-                  }
-                , Cmd.none
-                )
+            ( { model | handgroupfilter = value }
+            , Cmd.none
+            )
 
         SelectHand hand ->
             let
-                handsymbol =
-                    model.handsymbol
-
                 handfill =
                     case hand of
                         Hands.Left ->
@@ -127,12 +115,13 @@ update action model =
                                 _ ->
                                     model.handsymbol.handfill
 
+                handsymbol =
+                    model.handsymbol
+
                 newhandsymbol =
                     { handsymbol | hand = hand, handfill = handfill }
             in
-                ( { model
-                    | handsymbol = newhandsymbol
-                  }
+                ( { model | handsymbol = newhandsymbol }
                 , Cmd.none
                 )
                     |> Update.Extra.andThen update UpdateHandSymbolChooser
@@ -169,27 +158,15 @@ update action model =
 
         UpdateHandSymbolChooser ->
             let
-                flowersymbols =
-                    createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
-
-                symbollefthand =
-                    getSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
-
-                symbolrighthand =
-                    getSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
-
-                handfillitems =
-                    gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane
-
                 handsymbol =
                     model.handsymbol
 
                 newhandsymbol =
                     { handsymbol
-                        | flowersymbols = flowersymbols
-                        , symbollefthand = symbollefthand
-                        , symbolrighthand = symbolrighthand
-                        , handfillitems = handfillitems
+                        | flowersymbols = createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
+                        , symbollefthand = getSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
+                        , symbolrighthand = getSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
+                        , handfillitems = gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane
                     }
             in
                 ( { model
