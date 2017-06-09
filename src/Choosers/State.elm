@@ -32,7 +32,6 @@ init =
       , maniquinchoosings = []
       , clicked = ""
       , selectedcolumn = 1
-      , handgroupchoosings = []
       , groupchoosings =
             [ { basesymbol = ""
               , choosings = []

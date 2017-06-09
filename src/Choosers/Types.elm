@@ -54,7 +54,6 @@ type alias Model =
     { lastmdlid : Int
     , mdl : Material.Model
     , maniquinchoosings : List ChoosingModel
-    , handgroupchoosings : HandGroupModel
     , groupchoosings : AllGroupChoosings
     , clicked : String
     , selectedcolumn : Int
