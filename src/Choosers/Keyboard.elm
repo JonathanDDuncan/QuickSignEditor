@@ -2,9 +2,6 @@ module Choosers.Keyboard exposing (keyboardupdate)
 
 import Choosers.Types exposing (Model, Msg, ChoosingImportModel, Editor, Update)
 import Choosers.Types as KeyboardType exposing (KeyboardType)
-import Choosers.Types exposing (Loading)
-import Choosers.Types exposing (Hands)
-import Choosers.Types exposing (HandFills)
 import Ports exposing (sendKeyboardMode)
 import Choosers.ManiquinKeyboard exposing (runKeyboardCommand)
 import Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, totalkeyboardpages)
@@ -19,13 +16,9 @@ keyboardupdate action model update =
             runKeyboardCommand model command update
 
         KeyboardType.SetKeyboardMode mode ->
-            let
-                num =
-                    Keyboard.Shared.getKeyboardModeCode mode
-            in
-                ( model
-                , sendKeyboardMode num
-                )
+            ( model
+            , sendKeyboardMode <| Keyboard.Shared.getKeyboardModeCode mode
+            )
 
         KeyboardType.UpdateChooserKeyboards ->
             ( updatechooserkeyboard model
@@ -39,27 +32,16 @@ keyboardupdate action model update =
 updatechooserkeyboard : Choosers.Types.Model -> Choosers.Types.Model
 updatechooserkeyboard model =
     let
-        groupchooserkeyboard =
-            creategroupchooserkeyboard model
-
-        symbolchooserkeyboard =
-            createsymbolchooserkeyboard model
-
-        chooserskeyboard1 =
+        chooserskeyboard =
             model.chooserskeyboard
-
-        chooserskeyboard2 =
-            { chooserskeyboard1
-                | groupchooserkeyboard = groupchooserkeyboard
-                , symbolchooserkeyboard = symbolchooserkeyboard
-            }
-
-        newmodel =
-            { model
-                | chooserskeyboard = chooserskeyboard2
-            }
     in
-        newmodel
+        { model
+            | chooserskeyboard =
+                { chooserskeyboard
+                    | groupchooserkeyboard = creategroupchooserkeyboard model
+                    , symbolchooserkeyboard = createsymbolchooserkeyboard model
+                }
+        }
 
 
 nextkeybordpage : Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
@@ -79,18 +61,10 @@ nextkeybordpage model =
 
         chooserskeyboard =
             model.chooserskeyboard
-
-        newchooserskeyboard =
-            { chooserskeyboard | keyboardpage = page }
-
-        modelpageupdated =
-            { model
-                | chooserskeyboard = newchooserskeyboard
-            }
-
-        newmodel =
-            updatechooserkeyboard modelpageupdated
     in
-        ( newmodel
+        ( updatechooserkeyboard
+            { model
+                | chooserskeyboard = { chooserskeyboard | keyboardpage = page }
+            }
         , Cmd.none
         )
