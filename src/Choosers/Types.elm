@@ -6,26 +6,19 @@ module Choosers.Types
         , HandGroupImportModel
         , ChoosingImportModel
         , GroupChoosing
-        , GeneralGroupChooserColumData
         , ChoosersKeyboard
         , HandSymbol
         , HandPng
         , ChooserItem
         , BaseChooserItem
         , ChooserItemValue
-        , HandGroupChooserViewColumnData
-        , HandGroupChooserViewSymbolData
         , HandGroupChooserSubList
-        , GeneralGroupChooserSymbolData
         , HandItem
         , HandFillItem
         , Petal
         , Editor(..)
         , KeyboardType(..)
         , Loading(..)
-        , HandFills(..)
-        , Hands(..)
-        , Planes(..)
         , gethandtype
         , bkcolor
         , getchoosings
@@ -41,9 +34,9 @@ import SWEditor.Types exposing (Model, Msg, Offset)
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
 import SW.PortableSign exposing (PortableSign)
-import SW.Symbol exposing (Symbol, Fill, Base, Key, symbolinit)
-import Dict exposing (Dict)
+import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..), symbolinit)
 import Material exposing (Model)
+import Dict exposing (Dict)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 
 
@@ -55,7 +48,7 @@ type alias Model =
     { lastmdlid : Int
     , mdl : Material.Model
     , maniquinchoosings : List ChoosingModel
-    , groupchoosings : AllGroupChoosings
+    , groupchoosings : List GroupChoosing
     , clicked : String
     , selectedcolumn : Int
     , groupselected : ChooserItem
@@ -184,17 +177,6 @@ gethandtype filltype =
             Right
 
 
-type HandFills
-    = LeftBack
-    | LeftThumbEdge
-    | LeftPalm
-    | LeftBabyEdge
-    | RightBack
-    | RightThumbEdge
-    | RightPalm
-    | RightBabyEdge
-
-
 type alias SymbolSize =
     { k : String
     , h : Int
@@ -266,24 +248,10 @@ type alias HandGroupModel =
     List ChooserItem
 
 
-type alias AllGroupChoosings =
-    List GroupChoosing
-
-
 type alias GroupChoosing =
     { basesymbol : String
     , choosings : List ChooserItem
     }
-
-
-type Hands
-    = Right
-    | Left
-
-
-type Planes
-    = Wall
-    | Floor
 
 
 type alias HandFillItem =
@@ -360,37 +328,6 @@ bkcolor cat =
 
         _ ->
             "#a8bcf0"
-
-
-type alias GeneralGroupChooserColumData =
-    { col : Int
-    , row : Int
-    , symboldatalist : List GeneralGroupChooserSymbolData
-    }
-
-
-type alias GeneralGroupChooserSymbolData =
-    { chooseritem : ChooserItem
-    , mdlid : Int
-    , modelmdl : Material.Model
-    , symbol : Symbol
-    }
-
-
-type alias HandGroupChooserViewColumnData =
-    { backgroundcolor : String
-    , symboldatalist : List HandGroupChooserViewSymbolData
-    , col : Int
-    , row : Int
-    }
-
-
-type alias HandGroupChooserViewSymbolData =
-    { chooseritem : ChooserItem
-    , mdlid : Int
-    , modelmdl : Material.Model
-    , symbol : Symbol
-    }
 
 
 

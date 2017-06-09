@@ -113,14 +113,6 @@ getgroupchoosings symbolgroup chooseritemvalues basechooseritems =
                 |> unique
                 |> List.sort
 
-        items =
-            List.filter
-                (\basechooseritem ->
-                    List.any ((==) basechooseritem.groupchooser)
-                        groupchoosers
-                )
-                basechooseritems
-
         itemsvalues =
             List.filter
                 (\chooseritemvalue ->
@@ -143,16 +135,18 @@ getgroupchoosings symbolgroup chooseritemvalues basechooseritems =
                 )
                 chooseritemvalues
     in
-        List.map
-            (\item ->
-                creategroupchoosing
-                    (getchooservalue item.groupchooser chooseritemvalues)
-                    itemsvalues
-                    colitemsvalues
-                    featureitemsvalues
-                    item
-            )
-            items
+        basechooseritems
+            |> List.filter
+                (\basechooseritem -> List.any ((==) basechooseritem.groupchooser) groupchoosers)
+            |> List.map
+                (\item ->
+                    creategroupchoosing
+                        (getchooservalue item.groupchooser chooseritemvalues)
+                        itemsvalues
+                        colitemsvalues
+                        featureitemsvalues
+                        item
+                )
 
 
 creategroupchoosing :

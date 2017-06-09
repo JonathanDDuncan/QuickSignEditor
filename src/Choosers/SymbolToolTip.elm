@@ -2,12 +2,12 @@ module Choosers.SymbolToolTip exposing (handsymboltooltip, symboltooltip)
 
 import Html exposing (Html, text, br)
 import Html.Attributes exposing (attribute)
-import Choosers.Types exposing (Model, Msg(Mdl), HandFills)
+import Choosers.Types exposing (Model, Msg(Mdl))
 import Material exposing (Model)
 import Material.Tooltip as Tooltip
 import Material.Options as Options
 import Choosers.HandPng exposing (gethandpng, handpngspan)
-import SW.Symbol exposing (iskey)
+import SW.Symbol exposing (ishand, HandFills)
 
 
 handsymboltooltip :
@@ -21,11 +21,8 @@ handsymboltooltip :
     -> List (Html Choosers.Types.Msg)
 handsymboltooltip mdl mdlid name key rotation handfill content =
     let
-        ishand =
-            iskey key "hand"
-
         handpngs =
-            if ishand then
+            if ishand key then
                 handpnglist key rotation handfill
             else
                 []

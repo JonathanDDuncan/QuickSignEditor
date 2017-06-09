@@ -5,20 +5,19 @@ import Choosers.Types
         ( Model
         , Msg(EditorMsg, FilterHandGroup)
         , ChooserItem
-        , HandGroupChooserViewColumnData
-        , HandGroupChooserViewSymbolData
         , HandGroupChooserSubList
         , getchoosings
         , bkcolor
         )
 import Choosers.Types as Editor exposing (Editor)
-import Choosers.Types as HandFills exposing (HandFills)
+import SW.Symbol as HandFills exposing (HandFills)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol)
 import Dict exposing (Dict)
 import List.Extra
 import SW.Pua exposing (codefromkey)
+import Material
 
 
 --View
@@ -262,7 +261,8 @@ filterhandgroupitems : Int -> Int -> List ChooserItem -> List ChooserItem
 filterhandgroupitems col handgroupfilter choosings =
     case handgroupfilter of
         2 ->
-            List.filter (\item -> item.col == col && item.common == False) choosings
+            List.filter (\item -> item.col == col && item.common == False)
+                choosings
 
         3 ->
             List.filter (\item -> item.col == col) choosings
@@ -315,3 +315,19 @@ filter rowitems =
             List.filter (\_ -> not allempty) rowitems
     in
         filtered
+
+
+type alias HandGroupChooserViewColumnData =
+    { backgroundcolor : String
+    , symboldatalist : List HandGroupChooserViewSymbolData
+    , col : Int
+    , row : Int
+    }
+
+
+type alias HandGroupChooserViewSymbolData =
+    { chooseritem : ChooserItem
+    , mdlid : Int
+    , modelmdl : Material.Model
+    , symbol : Symbol
+    }

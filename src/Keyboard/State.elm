@@ -33,10 +33,7 @@ update action model =
                     getKeyList model.keyboardlayout.keys keyboardExtraModel
 
                 newmode =
-                    getmode keyList model
-
-                keyboardcommand =
-                    createKeyboardCommand keyList newmode
+                    getmode model keyList
             in
                 ( { model
                     | keyboardExtraModel = keyboardExtraModel
@@ -44,7 +41,7 @@ update action model =
                     , keyboardmode = newmode
                   }
                 , Cmd.batch
-                    [ sendKeyboardCommand keyboardcommand
+                    [ sendKeyboardCommand <| createKeyboardCommand keyList newmode
                     ]
                 )
 
@@ -54,7 +51,7 @@ update action model =
                     [ n ]
 
                 newmode =
-                    getmode keyList model
+                    getmode model keyList
 
                 keyboardcommand =
                     createKeyboardCommand keyList newmode
@@ -88,8 +85,8 @@ update action model =
 --          lift .featureFieldName (\m x -> { m | featureFieldName = x })  FeatureMsg Keyboard.State.update action model
 
 
-getmode : List Int -> Model -> KeyboardMode
-getmode keyList model =
+getmode : Model -> List Int -> KeyboardMode
+getmode model keyList =
     if isPressedShift keyList && List.any ((==) 2) keyList then
         KeyboardMode.GeneralChooser
     else if isPressedShift keyList && List.any ((==) 3) keyList then
