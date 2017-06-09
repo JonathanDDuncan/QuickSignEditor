@@ -31,6 +31,7 @@ module Choosers.Types
         , getchoosings
         , handsymbolinit
         , chooseriteminit
+        , Update
         )
 
 -- import SubMainChoosers.Types
@@ -43,6 +44,10 @@ import SW.Symbol exposing (Symbol, Fill, Base, Key, symbolinit)
 import Dict exposing (Dict)
 import Material exposing (Model)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
+
+
+type alias Update =
+    Msg -> Model -> ( Model, Cmd Msg )
 
 
 type alias Model =
