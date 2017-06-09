@@ -20,7 +20,7 @@ import Ports
         , cmdDragSymbol
         , cmdReplaceSymbol
         , subLoadManiquinChoosings
-        , receiveInitialGroupHandChoosings
+        , loadGroupChoosings
         , receiveKeyboardCommand
         , loadPortableSign
         )
@@ -58,17 +58,16 @@ loadingupdate action model =
                 , Cmd.none
                 )
 
-        LoadGroupHandChoosings chooserclassification ->
+        LoadGroupChoosings chooserclassification ->
             let
-                allgroupchoosings1 =
-                    allgroupchoosings chooserclassification
+                choosings =
+                    creategroupchoosings chooserclassification
 
                 sizes =
-                    Dict.fromList <|
-                        List.map (\symbolsize -> .k symbolsize => Size (.w symbolsize) (.h symbolsize)) chooserclassification.symbolsizes
+                    createsymbolssizes chooserclassification.symbolsizes
             in
                 ( { model
-                    | allgroupchoosings = allgroupchoosings1
+                    | groupchoosings = choosings
                     , symbolsizes = sizes
                   }
                 , cmdRequestChoosings ""
@@ -80,6 +79,15 @@ loadingupdate action model =
                     sizeportablesign model.symbolsizes portablesign
             in
                 ( model, cmdaddsigntosignview sizedportablesign )
+
+
+createsymbolssizes :
+    List { a | h : Int, k : String, w : Int }
+    -> Dict String Size
+createsymbolssizes sizestoload =
+    sizestoload
+        |> List.map (\symbolsize -> .k symbolsize => Size (.w symbolsize) (.h symbolsize))
+        |> Dict.fromList
 
 
 sizechoosings : Dict String Size -> List ChoosingImportModel -> List ChoosingImportModel
@@ -94,7 +102,7 @@ sizechoosings symbolsizes choosings =
         choosings
 
 
-allgroupchoosings :
+creategroupchoosings :
     { l
         | basechooseritems :
             List
@@ -141,21 +149,18 @@ allgroupchoosings :
                 , validrotations : i
                 }
         }
-allgroupchoosings chooserclassification =
-    let
-        basesymbols =
-            List.sort <| unique <| List.filter (\value -> value /= "") <| List.map (\item -> item.symbolgroup) chooserclassification.chooseritemvalues
-
-        allgroupchoosings1 =
-            List.map
-                (\basesymbol1 ->
-                    { basesymbol = basesymbol1
-                    , choosings = getchoosings basesymbol1 chooserclassification.chooseritemvalues chooserclassification.basechooseritems
-                    }
-                )
-                basesymbols
-    in
-        allgroupchoosings1
+creategroupchoosings chooserclassification =
+    chooserclassification.chooseritemvalues
+        |> List.map (\item -> item.symbolgroup)
+        |> List.filter (\value -> value /= "")
+        |> unique
+        |> List.sort
+        |> List.map
+            (\basesymbol ->
+                { basesymbol = basesymbol
+                , choosings = getchoosings basesymbol chooserclassification.chooseritemvalues chooserclassification.basechooseritems
+                }
+            )
 
 
 getchoosings :

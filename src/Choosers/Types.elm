@@ -47,7 +47,7 @@ type alias Model =
     , mdl : Material.Model
     , maniquinchoosings : List ChoosingModel
     , handgroupchoosings : HandGroupModel
-    , allgroupchoosings : AllGroupChoosings
+    , groupchoosings : AllGroupChoosings
     , clicked : String
     , selectedcolumn : Int
     , groupselected : ChooserItem
@@ -82,7 +82,7 @@ type Msg
 
 type Loading
     = LoadManiquinChoosings (List ChoosingImportModel)
-    | LoadGroupHandChoosings HandGroupImportModel
+    | LoadGroupChoosings HandGroupImportModel
     | LoadPortableSign PortableSign
 
 
@@ -297,10 +297,10 @@ type alias HandItem =
 
 
 getchoosings : String -> List { b | basesymbol : String, choosings : List a } -> List a
-getchoosings basesymbol allgroupchoosings =
+getchoosings basesymbol groupchoosings =
     let
         firstfound =
-            List.head <| List.filter (\agc -> agc.basesymbol == basesymbol) allgroupchoosings
+            List.head <| List.filter (\agc -> agc.basesymbol == basesymbol) groupchoosings
 
         choosings =
             case firstfound of

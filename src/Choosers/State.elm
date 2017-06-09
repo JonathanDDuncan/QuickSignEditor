@@ -23,7 +23,7 @@ import Ports
         , cmdDragSymbol
         , cmdReplaceSymbol
         , subLoadManiquinChoosings
-        , receiveInitialGroupHandChoosings
+        , loadGroupChoosings
         , receiveKeyboardCommand
         , loadPortableSign
         )
@@ -48,7 +48,7 @@ init =
       , clicked = ""
       , selectedcolumn = 1
       , handgroupchoosings = []
-      , allgroupchoosings =
+      , groupchoosings =
             [ { basesymbol = ""
               , choosings = []
               }
@@ -386,7 +386,7 @@ subscriptions : Sub Choosers.Types.Msg
 subscriptions =
     Sub.batch
         [ subLoadManiquinChoosings (LoadingMsg << Loading.LoadManiquinChoosings)
-        , receiveInitialGroupHandChoosings (LoadingMsg << Loading.LoadGroupHandChoosings)
+        , loadGroupChoosings (LoadingMsg << Loading.LoadGroupChoosings)
         , receiveKeyboardCommand (KeyboardMsg << KeyboardType.Keyboard)
         , loadPortableSign (LoadingMsg << Loading.LoadPortableSign)
         ]

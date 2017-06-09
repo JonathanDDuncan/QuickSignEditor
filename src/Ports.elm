@@ -9,7 +9,7 @@ port module Ports
         , cmdDragSymbol
         , cmdReplaceSymbol
         , subLoadManiquinChoosings
-        , receiveInitialGroupHandChoosings
+        , loadGroupChoosings
         , receiveKeyboardCommand
         , loadPortableSign
         , requestSignfromOtherApp
@@ -49,7 +49,7 @@ port requestSignfromOtherApp : String -> Cmd msg
 port subLoadManiquinChoosings : (List Choosers.ChoosingImportModel -> msg) -> Sub msg
 
 
-port receiveInitialGroupHandChoosings : (Choosers.HandGroupImportModel -> msg) -> Sub msg
+port loadGroupChoosings : (Choosers.HandGroupImportModel -> msg) -> Sub msg
 
 
 port requestElementPosition : String -> Cmd msg

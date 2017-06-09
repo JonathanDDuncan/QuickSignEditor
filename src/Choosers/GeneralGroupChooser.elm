@@ -71,7 +71,7 @@ creategeneralgroupchooserdata model =
             String.slice 0 4 model.clicked
 
         choosings =
-            getchoosings basesymbol model.allgroupchoosings
+            getchoosings basesymbol model.groupchoosings
 
         rowvalues =
             List.sort <| unique <| List.map (\item -> item.row) choosings
