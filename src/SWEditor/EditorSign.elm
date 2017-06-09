@@ -1,7 +1,8 @@
 module SWEditor.EditorSign
     exposing
-        ( updateSymbolIds
-        , centerSign
+        ( --     updateSymbolIds
+          -- ,
+          centerSign
         , centerSignViewposition
         , colorallsymbols
         , colorsymbols
@@ -16,29 +17,26 @@ import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SW.Rectangle exposing (Rect)
 import Helpers.ResultExtra exposing (andThentoResult)
-import SW.Identifier exposing (updateIds, lastid)
 
 
-updateSymbolIds : Sign -> Int -> Sign
-updateSymbolIds sign id =
-    let
-        editorsymbols =
-            updateIds id sign.syms
-
-        boundingbox =
-            getSignBounding editorsymbols
-
-        centeredSmallest =
-            centerSignSmallest
-                { sign
-                    | width = boundingbox.width
-                    , height = boundingbox.height
-                    , x = boundingbox.x
-                    , y = boundingbox.y
-                    , syms = editorsymbols
-                }
-    in
-        centeredSmallest
+-- updateSymbolIds : Sign -> Int -> Sign
+-- updateSymbolIds sign id =
+--     let
+--         editorsymbols =
+--             updateIds id sign.syms
+--         boundingbox =
+--             getSignBounding editorsymbols
+--         centeredSmallest =
+--             centerSignSmallest
+--                 { sign
+--                     | width = boundingbox.width
+--                     , height = boundingbox.height
+--                     , x = boundingbox.x
+--                     , y = boundingbox.y
+--                     , syms = editorsymbols
+--                 }
+--     in
+--         centeredSmallest
 
 
 centerSignViewposition : NamedPosition -> Sign -> Sign

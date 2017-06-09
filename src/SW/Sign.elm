@@ -6,10 +6,12 @@ module SW.Sign
         , getlane
         , lanes
         , lastsignid
+        , refreshsign
         )
 
 import SW.Symbol exposing (Symbol)
-import SW.Identifier exposing (lastid)
+import SW.Identifier exposing (updateIds, lastid)
+import SW.Rectangle exposing (Rect, getBounding)
 
 
 type alias Sign =
@@ -63,3 +65,32 @@ lanes =
 lastsignid : { b | syms : List { a | id : Int } } -> Int
 lastsignid sign =
     lastid sign.syms
+
+
+updatesignids : Int -> Sign -> Sign
+updatesignids idstart sign =
+    { sign | syms = updateIds idstart sign.syms }
+
+
+boundsign : Sign -> Sign
+boundsign sign =
+    let
+        boundingbox =
+            getBounding sign.syms
+    in
+        { sign
+            | width = boundingbox.width
+            , height = boundingbox.height
+            , x = boundingbox.x
+            , y = boundingbox.y
+        }
+
+
+refreshsign : Int -> Sign -> Sign
+refreshsign idstart sign =
+    updatesignids idstart sign
+        |> boundsign
+
+
+
+-- |> centersign

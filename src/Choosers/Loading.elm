@@ -7,7 +7,7 @@ import List.Extra
 import Dict exposing (Dict)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, Base)
-import SW.Sign exposing (lastsignid)
+import SW.Sign exposing (lastsignid, refreshsign)
 import SW.PortableSign exposing (PortableSign, portableSigntoSign)
 import SWEditor.EditorSymbol exposing (sizeSymbol)
 import SWEditor.EditorSign exposing (getSignBounding)
@@ -240,7 +240,7 @@ updateChoosingModelid :
 updateChoosingModelid ( choosing, _ ) ( _, maxid ) =
     let
         sign =
-            SWEditor.EditorSign.updateSymbolIds choosing.displaySign maxid
+            refreshsign maxid choosing.displaySign
 
         symbols =
             List.indexedMap (updateId <| lastsignid sign)

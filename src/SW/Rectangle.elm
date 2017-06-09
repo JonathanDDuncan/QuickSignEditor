@@ -1,4 +1,4 @@
-module SW.Rectangle exposing (Rect, rect, minrectangle, intersect)
+module SW.Rectangle exposing (Rect, rect, minrectangle, intersect, getBounding)
 
 
 type alias Rect =
@@ -65,3 +65,29 @@ minrectangle rectangle minwidth minheight =
                 rectangle.height
     in
         { rectangle | width = newwidth, height = newheigth }
+
+
+getBounding :
+    List { a | height : Int, size : Float, width : Int, x : Int, y : Int }
+    -> Rect
+getBounding symbols =
+    let
+        maxvalue =
+            if List.length symbols == 0 then
+                0
+            else
+                10000
+
+        x1 =
+            List.foldr (\s -> min s.x) maxvalue symbols
+
+        y1 =
+            List.foldr (\s -> min s.y) maxvalue symbols
+
+        x2 =
+            List.foldr (\s -> max (s.x + round (toFloat s.width * s.size))) 0 symbols
+
+        y2 =
+            List.foldr (\s -> max (s.y + round (toFloat s.height * s.size))) 0 symbols
+    in
+        Rect x1 y1 (x2 - x1) (y2 - y1)
