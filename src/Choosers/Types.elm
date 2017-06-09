@@ -6,7 +6,7 @@ module Choosers.Types
         , HandGroupImportModel
         , ChoosingImportModel
         , GroupChoosing
-        , GeneralGroupChooserColumData
+      
         , ChoosersKeyboard
         , HandSymbol
         , HandPng
@@ -51,7 +51,7 @@ type alias Model =
     { lastmdlid : Int
     , mdl : Material.Model
     , maniquinchoosings : List ChoosingModel
-    , groupchoosings : AllGroupChoosings
+    , groupchoosings : List GroupChoosing
     , clicked : String
     , selectedcolumn : Int
     , groupselected : ChooserItem
@@ -251,10 +251,6 @@ type alias HandGroupModel =
     List ChooserItem
 
 
-type alias AllGroupChoosings =
-    List GroupChoosing
-
-
 type alias GroupChoosing =
     { basesymbol : String
     , choosings : List ChooserItem
@@ -337,11 +333,7 @@ bkcolor cat =
             "#a8bcf0"
 
 
-type alias GeneralGroupChooserColumData =
-    { col : Int
-    , row : Int
-    , symboldatalist : List GeneralGroupChooserSymbolData
-    }
+
 
 
 type alias GeneralGroupChooserSymbolData =

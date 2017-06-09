@@ -3,7 +3,7 @@ module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(EditorMsg), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
+import Choosers.Types exposing (Model, Msg(EditorMsg), ChooserItem, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvg)
@@ -132,3 +132,10 @@ creategeneralgroupchoosersymboldata model chooseritem =
             model.mdl
     in
         { modelmdl = modelmdl, chooseritem = chooseritem, symbol = symbol, mdlid = mdlid }
+
+
+type alias GeneralGroupChooserColumData =
+    { col : Int
+    , row : Int
+    , symboldatalist : List GeneralGroupChooserSymbolData
+    }
