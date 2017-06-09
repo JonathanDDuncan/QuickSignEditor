@@ -202,13 +202,15 @@ compassrose : HandFills -> List (Html msg) -> List (Html msg) -> Int -> Int -> I
 compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outeritemwidth outeritemheight =
     let
         innersize =
-            truncate <| toFloat fullwidth * 0.6
+            toFloat fullwidth
+                * 0.6
+                |> truncate
 
         rosecenterimagehands =
             if handfill == HandFills.LeftBabyEdge || handfill == HandFills.RightBabyEdge then
                 text ""
             else
-                handimagecenter rosecenterpetaldata fullwidth innersize
+                handimagecenter rosecenterpetaldata innersize
     in
         div
             [ style
@@ -221,10 +223,10 @@ compassrose handfill rosecenterpetaldata petalcontent fullwidth fullheight outer
             ]
 
 
-handimagecenter : List (Html msg) -> Int -> Int -> Html msg
-handimagecenter petalcontent parentsize fullwidth =
+handimagecenter : List (Html msg) -> Int -> Html msg
+handimagecenter petalcontent fullwidth =
     let
-        itemwidth =
+        heightwidth =
             truncate (toFloat fullwidth / 4) + 10
     in
         div
@@ -234,7 +236,7 @@ handimagecenter petalcontent parentsize fullwidth =
                 , "height" => "100%"
                 ]
             ]
-            [ compassrosediv fullwidth fullwidth itemwidth itemwidth 10 petalcontent (text "")
+            [ compassrosediv fullwidth fullwidth heightwidth heightwidth 10 petalcontent (text "")
             ]
 
 
@@ -313,16 +315,12 @@ handfillitems base symbolsizes =
 
 createhandfillitem : Base -> Dict String Size -> HandItem -> HandFillItem
 createhandfillitem base symbolsizes basefillitem =
-    let
-        symbol =
-            getSymbolbyBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
-    in
-        { fill = basefillitem.fill
-        , rotation = basefillitem.rotation
-        , filltype = basefillitem.filltype
-        , planetype = basefillitem.planetype
-        , symbol = symbol
-        }
+    { fill = basefillitem.fill
+    , rotation = basefillitem.rotation
+    , filltype = basefillitem.filltype
+    , planetype = basefillitem.planetype
+    , symbol = getSymbolbyBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
+    }
 
 
 createpetal : Dict String Size -> Base -> HandFillItem -> Int -> Petal
