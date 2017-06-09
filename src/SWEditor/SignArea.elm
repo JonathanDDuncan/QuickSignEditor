@@ -15,7 +15,7 @@ import SW.Types exposing (NamedPosition)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SWEditor.Select exposing (unselectSymbols)
-import SWEditor.EditorSymbol exposing (updateIds)
+import SW.Identifier exposing (updateIds)
 
 
 deletesymbols : Model -> Model

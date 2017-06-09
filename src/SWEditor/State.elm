@@ -26,7 +26,7 @@ import SWEditor.RectangleSelect exposing (rectangleselect)
 import SWEditor.Drag as Drag
 import SWEditor.Select exposing (selectSymbolId, unselectSignSymbols)
 import SWEditor.EditorSign exposing (updateSymbolIds, getlastsignuid, centerSignViewposition)
-import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId, updateId)
+import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId)
 import SWEditor.Undo exposing (addUndo, undo, redo)
 import SW.Types exposing (Position)
 import SW.Sign exposing (signinit)
@@ -46,6 +46,7 @@ import SWEditor.SignArea
         )
 import SWEditor.EditorKeyboard exposing (configKeyboardSignView, runKeyboardCommand)
 import Keyboard.Shared exposing (KeyboardMode)
+import SW.Identifier exposing (updateId)
 
 
 init : ( Model, Cmd Msg )

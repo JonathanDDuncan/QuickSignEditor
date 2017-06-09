@@ -12,12 +12,13 @@ module SWEditor.EditorSign
         , getlastsignuid
         )
 
-import SWEditor.EditorSymbol exposing (updateIds, moveSymbols, colorsymbol, sizesymbol, adjustposition)
+import SWEditor.EditorSymbol exposing (moveSymbols, colorsymbol, sizesymbol, adjustposition)
 import SW.Types exposing (Colors, NamedPosition, maximumBy)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SW.Rectangle exposing (Rect)
 import Helpers.ResultExtra exposing (andThentoResult)
+import SW.Identifier exposing (updateIds)
 
 
 updateSymbolIds : Sign -> Int -> Sign

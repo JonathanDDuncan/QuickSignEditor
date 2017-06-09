@@ -1,8 +1,6 @@
 module SWEditor.EditorSymbol
     exposing
-        ( updateId
-        , updateIds
-        , symbolId
+        ( symbolId
         , moveSymbols
         , colorsymbol
         , sizesymbol
@@ -20,18 +18,7 @@ import SW.Symbol exposing (Symbol, Rotation, Fill, Base, Key, symbolinit)
 import SW.Rectangle exposing (Rect)
 import SW.Pua exposing (createkey)
 import Dict exposing (Dict)
-
-
-updateIds : Int -> List Symbol -> List Symbol
-updateIds id syms =
-    List.indexedMap (updateId id) syms
-
-
-updateId : Int -> Int -> Symbol -> Symbol
-updateId id index symbol =
-    { symbol
-        | id = id + index + 1
-    }
+import SW.Identifier exposing (updateId)
 
 
 getSymbolbyBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> Symbol

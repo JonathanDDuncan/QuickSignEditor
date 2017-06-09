@@ -34,7 +34,7 @@ module Choosers.Types
 -- import SubMainChoosers.Types
 
 import SWEditor.Types exposing (Model, Msg, Offset)
-import SWEditor.EditorSymbol
+import SW.Identifier exposing (updateId)
 import SWEditor.EditorSign
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
@@ -421,7 +421,7 @@ toModel id importmodel =
             SWEditor.EditorSign.updateSymbolIds (portableSigntoSign importmodel.displaySign) id
 
         symbols =
-            List.indexedMap (SWEditor.EditorSymbol.updateId id)
+            List.indexedMap (updateId id)
                 importmodel.valuestoAdd
     in
         { displaySign =
