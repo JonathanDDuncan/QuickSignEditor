@@ -1,60 +1,19 @@
 module Choosers.Loading exposing (loadingupdate)
 
-import Choosers.Types
-    exposing
-        ( Model
-        , Msg(..)
-        , Loading(..)
-        , ChoosingModel
-        , ChoosingImportModel
-        , GroupChoosing
-        , BaseChooserItem
-        , ChooserItem
-        , handsymbolinit
-        , chooseriteminit
-        , HandGroupImportModel
-        , ChoosingImportModel
-        , GroupChoosing
-        , GeneralGroupChooserColumData
-        , ChoosersKeyboard
-        , HandSymbol
-        , HandPng
-        , ChooserItemValue
-        , HandGroupChooserViewColumnData
-        , HandGroupChooserViewSymbolData
-        , HandGroupChooserSubList
-        , GeneralGroupChooserSymbolData
-        , HandItem
-        , HandFillItem
-        , getchoosings
-        )
-import Ports
-    exposing
-        ( requestInitialGroupHandChoosings
-        , cmdRequestChoosings
-        , sendKeyboardMode
-        , cmdaddsigntosignview
-        , cmdAddSymbol
-        , cmdDragSymbol
-        , cmdReplaceSymbol
-        , subLoadManiquinChoosings
-        , loadGroupChoosings
-        , receiveKeyboardCommand
-        , loadPortableSign
-        )
+import Choosers.Types exposing (Model, Loading(..), ChoosingModel, ChoosingImportModel, BaseChooserItem, ChooserItem, GroupChoosing, ChooserItemValue)
+import Ports exposing (cmdRequestChoosings, cmdaddsigntosignview)
 import Exts.List exposing (unique)
-import List.Extra exposing (scanl1)
+import List.Extra
 import Dict exposing (Dict)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, Base)
 import SW.Sign exposing (lastsignid)
 import SW.PortableSign exposing (PortableSign, portableSigntoSign)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
+import SWEditor.EditorSymbol exposing (sizeSymbol)
 import SWEditor.EditorSign exposing (getSignBounding)
 import Helpers.ViewExtra exposing ((=>))
 import Choosers.ManiquinKeyboard exposing (updatemaniquinkeyboard)
 import SW.Identifier exposing (updateId, lastid)
-import SWEditor.EditorSign
 
 
 loadingupdate : Loading -> Model -> ( Model, Cmd msg )
@@ -315,20 +274,19 @@ updateChoosingModelids :
             }
        , Maybe Int
        )
-updateChoosingModelids lastid choosings =
-    List.map (\choosing -> ( choosing, lastid )) choosings
-        |> List.Extra.scanl1 (updateChoosingModelid)
-        |> (\choosings1 ->
-                ( List.map
-                    (\item ->
-                        Tuple.first item
-                    )
-                    choosings1
-                , List.map
-                    (\item ->
-                        Tuple.second item
-                    )
-                    choosings1
-                    |> List.maximum
+updateChoosingModelids maxid choosings =
+    List.map (\choosing -> ( choosing, maxid )) choosings
+        |> List.Extra.scanl1 updateChoosingModelid
+        |> \choosings1 ->
+            ( List.map
+                (\item ->
+                    Tuple.first item
                 )
-           )
+                choosings1
+            , List.map
+                (\item ->
+                    Tuple.second item
+                )
+                choosings1
+                |> List.maximum
+            )
