@@ -18,6 +18,7 @@ module Choosers.Types
         , HandFillItem
         , Petal
         , Editor(..)
+        , KeyboardType(..)
         , HandFills(..)
         , Hands(..)
         , Planes(..)
@@ -85,11 +86,14 @@ type Msg
     | LoadManiquinChoosings (List ChoosingImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
     | UpdatePortableSignDimentions PortableSign
-      --   | Keyboard Keyboard
-    | Keyboard KeyboardCommand
-    | NextKeyboardPage
+    | KeyboardMsg KeyboardType
+
+
+type KeyboardType
+    = Keyboard KeyboardCommand
     | SetKeyboardMode KeyboardMode
     | UpdateChooserKeyboards
+    | NextKeyboardPage
 
 
 type Editor

@@ -10,10 +10,11 @@ import Choosers.Types
         , chooseriteminit
         )
 import Choosers.Types as Editor exposing (Editor)
+import Choosers.Types as KeyboardType exposing (KeyboardType)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as HandFills exposing (HandFills)
 import Ports
-    exposing 
+    exposing
         ( requestInitialGroupHandChoosings
         , requestInitialChoosings
         , sendKeyboardMode
@@ -123,6 +124,9 @@ update action model =
 
         EditorMsg msg ->
             editorupdate msg model
+
+        KeyboardMsg msg ->
+            keyboardupdate msg model
 
         SymbolView _ ->
             ( model
@@ -262,27 +266,7 @@ update action model =
                   }
                 , Cmd.none
                 )
-                    |> Update.Extra.andThen update UpdateChooserKeyboards
-
-        Keyboard command ->
-            runKeyboardCommand model command update
-
-        NextKeyboardPage ->
-            nextkeybordpage model
-
-        SetKeyboardMode mode ->
-            let
-                num =
-                    Keyboard.Shared.getKeyboardModeCode mode
-            in
-                ( model
-                , sendKeyboardMode num
-                )
-
-        UpdateChooserKeyboards ->
-            ( updatechooserkeyboard model
-            , Cmd.none
-            )
+                    |> Update.Extra.andThen update ((KeyboardMsg <| KeyboardType.UpdateChooserKeyboards))
 
         UpdatePortableSignDimentions portablesign ->
             let
@@ -307,6 +291,30 @@ updatemaniquinkeyboard model maniquinchoosings =
         { chooserskeyboard | maniquinkeyboard = maniquinkeyboard }
 
 
+keyboardupdate : KeyboardType -> Model -> ( Model, Cmd Msg )
+keyboardupdate action model =
+    case action of
+        KeyboardType.Keyboard command ->
+            runKeyboardCommand model command update
+
+        KeyboardType.SetKeyboardMode mode ->
+            let
+                num =
+                    Keyboard.Shared.getKeyboardModeCode mode
+            in
+                ( model
+                , sendKeyboardMode num
+                )
+
+        KeyboardType.UpdateChooserKeyboards ->
+            ( updatechooserkeyboard model
+            , Cmd.none
+            )
+
+        KeyboardType.NextKeyboardPage ->
+            nextkeybordpage model
+
+
 editorupdate : Choosers.Types.Editor -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 editorupdate action model =
     case action of
@@ -316,7 +324,7 @@ editorupdate action model =
               }
             , Cmd.none
             )
-                |> Update.Extra.andThen update UpdateChooserKeyboards
+                |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
 
         Editor.Clicked clickvalue ->
             let
@@ -346,8 +354,8 @@ editorupdate action model =
                 ( newmodel
                 , Cmd.none
                 )
-                    |> Update.Extra.andThen update UpdateChooserKeyboards
-                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.GroupChooser)
+                    |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
+                    |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.GroupChooser)
 
         Editor.GroupSelected choosing ->
             ( { model
@@ -355,9 +363,9 @@ editorupdate action model =
               }
             , Cmd.none
             )
-                |> Update.Extra.andThen update UpdateChooserKeyboards
+                |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
                 |> Update.Extra.andThen update UpdateHandSymbolChooser
-                |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SymbolChooser)
+                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SymbolChooser)
 
         Editor.AddSymbol key ->
             let
@@ -367,7 +375,7 @@ editorupdate action model =
                 ( model
                 , cmdAddSymbol editorsymbol
                 )
-                    |> Update.Extra.andThen update (SetKeyboardMode Keyboard.Shared.SignView)
+                    |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SignView)
 
         Editor.DragSymbol key ->
             let
@@ -700,6 +708,6 @@ subscriptions =
     Sub.batch
         [ subLoadManiquinChoosings LoadManiquinChoosings
         , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
-        , receiveKeyboardCommand Keyboard
+        , receiveKeyboardCommand (KeyboardMsg << KeyboardType.Keyboard)
         , receiveSign UpdatePortableSignDimentions
         ]

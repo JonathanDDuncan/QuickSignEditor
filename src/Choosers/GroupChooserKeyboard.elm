@@ -1,6 +1,6 @@
 module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishandgroupchooser, totalkeyboardpages)
 
-import Choosers.Types exposing (Model, Msg(EditorMsg, SignView, NextKeyboardPage), Editor(GroupSelected))
+import Choosers.Types exposing (Model, Msg(EditorMsg, KeyboardMsg, SignView), Editor(GroupSelected), KeyboardType(NextKeyboardPage))
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SW.Display exposing (symbolsvg)
@@ -161,7 +161,7 @@ keyranges =
 nextpagelist : List (KeyAction Msg)
 nextpagelist =
     [ { test = { key = 57, ctrl = False, shift = False, alt = False }
-      , action = NextKeyboardPage
+      , action = KeyboardMsg <| NextKeyboardPage
       , display =
             { width =
                 50
