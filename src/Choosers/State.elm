@@ -5,7 +5,6 @@ import Choosers.Types
         ( Model
         , Msg(..)
         , ChoosingImportModel
-        , toModel
         , handsymbolinit
         , chooseriteminit
         )

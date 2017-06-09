@@ -25,11 +25,11 @@ import SWEditor.Types
 import SWEditor.RectangleSelect exposing (rectangleselect)
 import SWEditor.Drag as Drag
 import SWEditor.Select exposing (selectSymbolId, unselectSignSymbols)
-import SWEditor.EditorSign exposing (updateSymbolIds, getlastsignuid, centerSignViewposition)
+import SWEditor.EditorSign exposing (updateSymbolIds, centerSignViewposition)
 import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId)
 import SWEditor.Undo exposing (addUndo, undo, redo)
 import SW.Types exposing (Position)
-import SW.Sign exposing (signinit)
+import SW.Sign exposing (signinit, lastsignid)
 import SW.PortableSign exposing (portableSigntoSign)
 import SW.Symbol exposing (Symbol)
 import Mouse as Mouse
@@ -89,7 +89,7 @@ update action model =
                     updateSymbolIds (portableSigntoSign portablesign) model.uid
 
                 lastuid =
-                    getlastsignuid <| editorSign
+                    lastsignid <| editorSign
             in
                 { model | sign = editorSign, uid = lastuid }
                     ! []
@@ -291,7 +291,7 @@ update action model =
                     }
 
                 lastuid =
-                    getlastsignuid <| sign
+                    lastsignid <| sign
             in
                 { model
                     | uid = lastuid
@@ -325,7 +325,7 @@ update action model =
                     }
 
                 lastuid =
-                    getlastsignuid <| sign
+                    lastsignid sign
 
                 newmodel =
                     { model

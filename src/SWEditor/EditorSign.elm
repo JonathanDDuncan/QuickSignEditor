@@ -8,17 +8,15 @@ module SWEditor.EditorSign
         , sizesymbols
         , adjustpositionsymbols
         , getSignBounding
-        , getlastuid
-        , getlastsignuid
         )
 
 import SWEditor.EditorSymbol exposing (moveSymbols, colorsymbol, sizesymbol, adjustposition)
-import SW.Types exposing (Colors, NamedPosition, maximumBy)
+import SW.Types exposing (Colors, NamedPosition)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SW.Rectangle exposing (Rect)
 import Helpers.ResultExtra exposing (andThentoResult)
-import SW.Identifier exposing (updateIds)
+import SW.Identifier exposing (updateIds, lastid)
 
 
 updateSymbolIds : Sign -> Int -> Sign
@@ -125,21 +123,6 @@ getSignBounding symbols =
             List.foldr (\s -> max (s.y + round (toFloat s.height * s.size))) 0 symbols
     in
         { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
-
-
-getlastsignuid : Sign -> Int
-getlastsignuid editorSign =
-    getlastuid editorSign.syms
-
-
-getlastuid : List Symbol -> Int
-getlastuid symbols =
-    case maximumBy .id symbols of
-        Nothing ->
-            0
-
-        Just sign ->
-            sign.id
 
 
 colorallsymbols : Result String Colors -> Sign -> Result String Sign

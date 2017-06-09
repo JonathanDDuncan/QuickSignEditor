@@ -2,7 +2,6 @@ module Choosers.ManiquinKeyboard exposing (runKeyboardCommand, creategeneralchoo
 
 import Choosers.Types exposing (Model, ChoosingModel, Msg(EditorMsg))
 import Choosers.Types as Editor exposing (Editor)
-import Html
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
 import SW.Display exposing (signsvgnoscale)
 import Choosers.Types as Hands exposing (Hands)

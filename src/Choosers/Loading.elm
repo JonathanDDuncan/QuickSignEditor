@@ -5,8 +5,8 @@ import Choosers.Types
         ( Model
         , Msg(..)
         , Loading(..)
+        , ChoosingModel
         , ChoosingImportModel
-        , toModel
         , handsymbolinit
         , chooseriteminit
         )
@@ -25,14 +25,18 @@ import Ports
         , loadPortableSign
         )
 import Exts.List exposing (unique)
+import List.Extra exposing (scanl1)
 import Dict exposing (Dict)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol)
-import SW.PortableSign exposing (PortableSign)
+import SW.Sign exposing (lastsignid)
+import SW.PortableSign exposing (PortableSign, portableSigntoSign)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
 import SWEditor.EditorSign exposing (getSignBounding)
 import Helpers.ViewExtra exposing ((=>))
 import Choosers.ManiquinKeyboard exposing (updatemaniquinkeyboard)
+import SW.Identifier exposing (updateId, lastid)
+import SWEditor.EditorSign
 
 
 loadingupdate : Loading -> Model -> ( Model, Cmd msg )
@@ -43,12 +47,22 @@ loadingupdate action model =
                 sizedchoosings =
                     sizechoosings choosings model.symbolsizes
 
+                -- maniquinchoosings =
+                --     List.map (choosingImportModeltoChoosingModel model.lastmdlid) sizedchoosings
                 maniquinchoosings =
-                    List.map (toModel 0) sizedchoosings
+                    List.map choosingImportModeltoChoosingModel sizedchoosings
+
+                ( maniquinchoosings1, maxid ) =
+                    updateChoosingModelids model.lastmdlid maniquinchoosings
+
+                _ =
+                    Debug.log "maxid" maxid
             in
                 ( { model
-                    | maniquinchoosings = maniquinchoosings
-                    , chooserskeyboard = updatemaniquinkeyboard model maniquinchoosings
+                    | maniquinchoosings = maniquinchoosings1
+                    , chooserskeyboard =
+                        updatemaniquinkeyboard model maniquinchoosings
+                        -- , lastmdlid = lastid
                   }
                 , Cmd.none
                 )
@@ -327,3 +341,69 @@ default text func val =
                 Debug.log (text ++ " not found") 0
             else
                 0
+
+
+choosingImportModeltoChoosingModel : ChoosingImportModel -> ChoosingModel
+choosingImportModeltoChoosingModel importmodel =
+    { displaySign =
+        portableSigntoSign importmodel.displaySign
+    , valuestoAdd = importmodel.valuestoAdd
+    , value = importmodel.value
+    , offset = importmodel.offset
+    }
+
+
+updateChoosingModelid ( choosing, maxid ) ( choosingc, maxidc ) =
+    let
+        sign =
+            SWEditor.EditorSign.updateSymbolIds choosing.displaySign maxidc
+
+        maxid1 =
+            Debug.log "maxid1" <| lastsignid sign
+
+        symbols =
+            List.indexedMap (updateId maxid1)
+                choosing.valuestoAdd
+
+        maxid2 =
+            Debug.log "maxid2" <| lastid symbols
+    in
+        ( { choosing
+            | displaySign =
+                sign
+            , valuestoAdd = symbols
+          }
+        , maxid2
+        )
+
+
+updateChoosingModelids lastid choosings =
+    List.map (\choosing -> ( choosing, lastid )) choosings
+        |> List.Extra.scanl1 (updateChoosingModelid)
+        |> (\choosings1 ->
+                let
+                    choosings2 =
+                        List.map
+                            (\item ->
+                                Tuple.first item
+                            )
+                            choosings1
+
+                    maxid =
+                        List.map
+                            (\item ->
+                                Tuple.second item
+                            )
+                            choosings1
+                            |> List.maximum
+                in
+                    ( choosings2, maxid )
+           )
+
+
+
+-- lastchoosingid maniquinchoosings =
+--     let
+--       maxdisplay =  List.map (\choosing ->
+--       ) maniquinchoosings
+--     in

@@ -27,18 +27,15 @@ module Choosers.Types
         , bkcolor
         , getchoosings
         , handsymbolinit
-        , toModel
         , chooseriteminit
         )
 
 -- import SubMainChoosers.Types
 
 import SWEditor.Types exposing (Model, Msg, Offset)
-import SW.Identifier exposing (updateId)
-import SWEditor.EditorSign
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
-import SW.PortableSign exposing (PortableSign, portableSigntoSign)
+import SW.PortableSign exposing (PortableSign)
 import SW.Symbol exposing (Symbol, Fill, Base, Key, symbolinit)
 import Dict exposing (Dict)
 import Material exposing (Model)
@@ -412,21 +409,3 @@ type alias ChoosingImportModel =
 
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types
-
-
-toModel : Int -> ChoosingImportModel -> ChoosingModel
-toModel id importmodel =
-    let
-        sign =
-            SWEditor.EditorSign.updateSymbolIds (portableSigntoSign importmodel.displaySign) id
-
-        symbols =
-            List.indexedMap (updateId id)
-                importmodel.valuestoAdd
-    in
-        { displaySign =
-            sign
-        , valuestoAdd = symbols
-        , value = importmodel.value
-        , offset = importmodel.offset
-        }

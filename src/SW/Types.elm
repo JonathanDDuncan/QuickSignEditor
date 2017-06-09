@@ -3,7 +3,6 @@ module SW.Types
         ( Position
         , NamedPosition
         , Size
-        , maximumBy
         , Colors
         )
 
@@ -42,20 +41,3 @@ type alias Position =
 
 -- Plus any other types unique to this DisplaySW
 -- Plus any library function to run on the types
-
-
-maximumBy : (a -> comparable) -> List a -> Maybe a
-maximumBy f ls =
-    let
-        maxBy f1 x y =
-            if f1 x > f1 y then
-                x
-            else
-                y
-    in
-        case ls of
-            l_ :: ls_ ->
-                Just <| List.foldl (maxBy f) l_ ls_
-
-            _ ->
-                Nothing

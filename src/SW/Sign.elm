@@ -5,9 +5,11 @@ module SW.Sign
         , signinit
         , getlane
         , lanes
+        , lastsignid
         )
 
 import SW.Symbol exposing (Symbol)
+import SW.Identifier exposing (lastid)
 
 
 type alias Sign =
@@ -56,3 +58,8 @@ lanes =
     , ( "M", MiddleLane )
     , ( "R", RightLane )
     ]
+
+
+lastsignid : { b | syms : List { a | id : Int } } -> Int
+lastsignid sign =
+    lastid sign.syms
