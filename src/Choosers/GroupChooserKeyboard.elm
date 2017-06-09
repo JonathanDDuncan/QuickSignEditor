@@ -1,9 +1,17 @@
-module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishandgroupchooser, totalkeyboardpages)
+module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, totalkeyboardpages)
 
-import Choosers.Types exposing (Model, Msg(EditorMsg, KeyboardMsg), Editor(GroupSelected), KeyboardType(NextKeyboardPage))
+import Choosers.Types
+    exposing
+        ( Model
+        , Msg(EditorMsg, KeyboardMsg)
+        , Editor(GroupSelected)
+        , KeyboardType(NextKeyboardPage)
+        , ishandgroupchooser
+        )
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SW.Display exposing (symbolsvg)
+import SW.Symbol exposing (Symbol)
 import List.Extra exposing (unique)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
@@ -18,52 +26,27 @@ creategroupchooserkeyboard model =
         generalgroupchooserkeyboard model
 
 
-ishandgroupchooser : String -> Bool
-ishandgroupchooser clicked =
-    let
-        basesymbol =
-            String.slice 0 4 clicked
-    in
-        case basesymbol of
-            "S14c" ->
-                True
-
-            _ ->
-                False
-
-
 totalkeyboardpages : Model -> Int
 totalkeyboardpages model =
-    let
-        prepagedata =
-            if ishandgroupchooser model.clicked then
-                getprepagedatahand <| createhandgroupchooserdata model
-            else
-                getprepagedatageneral <| creategeneralgroupchooserdata model
-
-        totalpages =
-            gettotalpages keyranges prepagedata
-    in
-        totalpages
+    (if ishandgroupchooser model.clicked then
+        getprepagedatahand <| createhandgroupchooserdata model
+     else
+        getprepagedatageneral <| creategeneralgroupchooserdata model
+    )
+        |> gettotalpages keyranges
 
 
 generalgroupchooserkeyboard : Model -> List (KeyAction Msg)
 generalgroupchooserkeyboard model =
-    let
-        prepagedata =
-            getprepagedatageneral <| creategeneralgroupchooserdata model
-
-        pageddata =
-            pagedata prepagedata model.chooserskeyboard.keyboardpage
-
-        keyactionlist =
-            createkeyactionlist pageddata
-    in
-        keyactionlist
+    model
+        |> creategeneralgroupchooserdata
+        |> getprepagedatageneral
+        |> pagedata model.chooserskeyboard.keyboardpage
+        |> createkeyactionlist
 
 
-pagedata : List (List a1) -> Int -> List (List a1)
-pagedata prepagedata page =
+pagedata : Int -> List (List a1) -> List (List a1)
+pagedata page prepagedata =
     let
         totalpages =
             gettotalpages keyranges prepagedata
@@ -82,51 +65,28 @@ createkeyactionlist :
         (List
             { a
                 | chooseritem : Choosers.Types.ChooserItem
-                , symbol :
-                    { height : Int
-                    , id : Int
-                    , key : String
-                    , nbcolor : String
-                    , nwcolor : String
-                    , selected : Bool
-                    , size : Float
-                    , width : Int
-                    , x : Int
-                    , y : Int
-                    }
+                , symbol : Symbol
             }
         )
     -> List (KeyAction Msg)
 createkeyactionlist data =
-    let
-        colkeyranges =
-            getcolranges keyranges data
-
-        groupchooserwithkey =
-            List.concat <|
-                List.map (\( keyrange, cols ) -> List.Extra.zip keyrange cols) colkeyranges
-
-        viewkeylist =
-            List.map
-                (\( key, item ) ->
-                    { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (EditorMsg << GroupSelected) item.chooseritem
-                    , display =
-                        { width =
-                            item.symbol.width
-                        , height =
-                            item.symbol.height
-                        , backgroundcolor = Nothing
-                        , view = symbolsvg "" item.symbol
-                        }
+    data
+        |> getcolranges keyranges
+        |> List.map (\( keyrange, cols ) -> List.Extra.zip keyrange cols)
+        |> List.concat
+        |> List.map
+            (\( key, item ) ->
+                { test = { key = key, ctrl = False, shift = False, alt = False }
+                , action = (EditorMsg << GroupSelected) item.chooseritem
+                , display =
+                    { width = item.symbol.width
+                    , height = item.symbol.height
+                    , backgroundcolor = Nothing
+                    , view = symbolsvg "" item.symbol
                     }
-                )
-                groupchooserwithkey
-
-        listwithnextpage =
-            List.append viewkeylist nextpagelist
-    in
-        listwithnextpage
+                }
+            )
+        |> List.append nextpagelist
 
 
 getprepagedatageneral :
@@ -135,22 +95,13 @@ getprepagedatageneral :
 getprepagedatageneral generalgroupchooserdata =
     let
         concatenated =
-            List.concat <| generalgroupchooserdata
-
-        allcolvalues =
-            List.map .col concatenated
-                |> unique
-
-        cols =
-            List.map (getcolgeneral concatenated) allcolvalues
-
-        displacedcols =
-            displace cols
-
-        stackedcolumns =
-            stackcolumns 4 displacedcols
+            generalgroupchooserdata |> List.concat
     in
-        stackedcolumns
+        List.map .col concatenated
+            |> unique
+            |> List.map (getcolgeneral concatenated)
+            |> displace
+            |> stackcolumns 4
 
 
 keyranges : List (List Int)
@@ -177,11 +128,8 @@ nextpagelist =
 displace : List (List a) -> List (List a)
 displace cols =
     let
-        colcount =
-            List.length cols
-
         colstoInsert =
-            case colcount of
+            case List.length cols of
                 1 ->
                     1
 
@@ -193,56 +141,28 @@ displace cols =
 
                 _ ->
                     0
-
-        toAdd =
-            List.range 1 colstoInsert
-                |> List.map (\_ -> [])
-
-        newcols =
-            List.append toAdd cols
     in
-        newcols
+        List.range 1 colstoInsert
+            |> List.map (\_ -> [])
+            |> List.append cols
 
 
 getpagedata : Int -> List (List a) -> List (List a1) -> List (List a1)
 getpagedata page keyranges stackedcolumns =
-    let
-        zipped =
-            List.Extra.zip keyranges stackedcolumns
-
-        pagedata =
-            List.map
-                (\( kr, sc ) ->
-                    let
-                        keyrangelength =
-                            List.length kr
-
-                        toskip =
-                            (page - 1) * keyrangelength
-
-                        data =
-                            List.take keyrangelength <| List.drop toskip sc
-                    in
-                        data
-                )
-                zipped
-    in
-        pagedata
+    List.map
+        (\( kr, sc ) ->
+            List.drop ((page - 1) * List.length kr) sc
+                |> List.take (List.length kr)
+        )
+        (List.Extra.zip keyranges stackedcolumns)
 
 
 gettotalpages : List (List a) -> List (List a1) -> Int
 gettotalpages keyranges stackedcolumns =
-    let
-        zipped =
-            List.Extra.zip keyranges stackedcolumns
-
-        pagespercol =
-            List.map (\( kr, sc ) -> ceiling (toFloat (List.length sc) / toFloat (List.length kr))) zipped
-
-        maxpage =
-            List.maximum pagespercol
-    in
-        Maybe.withDefault 0 maxpage
+    List.Extra.zip keyranges stackedcolumns
+        |> List.map (\( kr, sc ) -> ceiling (toFloat (List.length sc) / toFloat (List.length kr)))
+        |> List.maximum
+        |> Maybe.withDefault 0
 
 
 getcolranges : List a -> List b -> List ( a, b )
@@ -257,100 +177,54 @@ getcolgeneral combined col =
 
 stackcolumns : Int -> List (List b) -> List (List b)
 stackcolumns maxcols cols =
-    let
-        tobechunked =
-            completemissingcolumns maxcols cols
-
-        chunked =
-            chunk maxcols tobechunked
-
-        folded =
-            List.Extra.foldl1 appendcols chunked
-    in
-        case folded of
-            Just value ->
-                value
-
-            Nothing ->
-                []
+    completemissingcolumns maxcols cols
+        |> chunk maxcols
+        |> List.Extra.foldl1 appendcols
+        |> Maybe.withDefault []
 
 
 completemissingcolumns : Int -> List (List b) -> List (List b)
 completemissingcolumns maxcols cols =
-    let
-        grouping =
-            toFloat (List.length cols) / toFloat maxcols |> ceiling
-
-        totalcolsneeded =
-            grouping * maxcols
-
-        colsmissing =
-            totalcolsneeded - List.length cols
-
-        tobechunked =
-            List.append cols <| List.map (\_ -> []) (List.range 1 colsmissing)
-    in
-        tobechunked
+    (toFloat (List.length cols) / toFloat maxcols)
+        |> ceiling
+        |> (\grouping -> maxcols * grouping)
+        |> (\totalcolsneeded -> totalcolsneeded - List.length cols)
+        |> List.range 1
+        |> List.map (\_ -> [])
+        |> List.append cols
 
 
 appendcols : List (List a) -> List (List a) -> List (List a)
 appendcols list1 list2 =
-    let
-        zipped =
-            List.Extra.zip list1 list2
-
-        appendedlists =
-            List.map (\( a, b ) -> List.append a b) zipped
-    in
-        appendedlists
+    List.Extra.zip list1 list2
+        |> List.map (\( a, b ) -> List.append a b)
 
 
 handgroupchooserkeyboard : Model -> List (KeyAction Msg)
 handgroupchooserkeyboard model =
-    let
-        handgroupchooserdata =
-            createhandgroupchooserdata model
-
-        prepagedatahand =
-            getprepagedatahand handgroupchooserdata
-
-        pageddata =
-            pagedata prepagedatahand model.chooserskeyboard.keyboardpage
-
-        keyactionlist =
-            createkeyactionlist pageddata
-    in
-        keyactionlist
+    model
+        |> createhandgroupchooserdata
+        |> getprepagedatahand
+        |> pagedata model.chooserskeyboard.keyboardpage
+        |> createkeyactionlist
 
 
 getprepagedatahand : List (List { a | col : Int, symboldatalist : List b }) -> List (List b)
 getprepagedatahand handgroupchooserdata =
     let
         concatenated =
-            List.concat <|
-                handgroupchooserdata
-
-        col1 =
-            gethandcolumnvalues concatenated 0
-
-        col2 =
-            gethandcolumnvalues concatenated 1
-
-        col3 =
-            gethandcolumnvalues concatenated 2
-
-        col4 =
-            gethandcolumnvalues concatenated 3
-
-        col5 =
-            gethandcolumnvalues concatenated 4
-
-        cols =
-            [ col1, col2, List.append col3 col4, col5 ]
+            handgroupchooserdata
+                |> List.concat
     in
-        cols
+        [ gethandcolumnvalues concatenated 0
+        , gethandcolumnvalues concatenated 1
+        , List.append (gethandcolumnvalues concatenated 2) (gethandcolumnvalues concatenated 3)
+        , gethandcolumnvalues concatenated 4
+        ]
 
 
 gethandcolumnvalues : List { c | col : Int, symboldatalist : List b } -> Int -> List b
 gethandcolumnvalues values col =
-    List.concatMap (\dl -> dl.symboldatalist) <| List.filter (\item -> item.col == col) values
+    values
+        |> List.filter (\item -> item.col == col)
+        |> List.concatMap (\dl -> dl.symboldatalist)

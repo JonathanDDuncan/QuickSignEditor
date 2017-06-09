@@ -1,7 +1,7 @@
 module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 import Html exposing (Html)
-import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill))
+import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill), ishandgroupchooser)
 import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as Planes exposing (Planes)
@@ -9,7 +9,6 @@ import Keyboard.Shared exposing (KeyAction)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
 import List.Extra
 import SW.Display exposing (signdisplaysvg)
-import Choosers.GroupChooserKeyboard exposing (ishandgroupchooser)
 import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)
 import Helpers.MaybeExtra exposing (removeNothings)
 import SW.Sign exposing (signinit)
