@@ -262,7 +262,8 @@ filterhandgroupitems : Int -> Int -> List ChooserItem -> List ChooserItem
 filterhandgroupitems col handgroupfilter choosings =
     case handgroupfilter of
         2 ->
-            List.filter (\item -> item.col == col && item.common == False) choosings
+            List.filter (\item -> item.col == col && item.common == False)
+                choosings
 
         3 ->
             List.filter (\item -> item.col == col) choosings
