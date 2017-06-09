@@ -1,10 +1,4 @@
-module SW.Types
-    exposing
-        ( Position
-        , NamedPosition
-        , Size
-        , Colors
-        )
+module SW.Types exposing (Position, NamedPosition, Size, Colors)
 
 
 type alias Colors =
