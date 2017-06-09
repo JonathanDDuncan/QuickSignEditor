@@ -40,11 +40,11 @@ loadingupdate action model =
     case action of
         LoadManiquinChoosings choosings ->
             let
-                choosingwithdimentions =
-                    getchoosingsdimentions choosings model.symbolsizes
+                sizedchoosings =
+                    sizechoosings choosings model.symbolsizes
 
                 maniquinchoosings =
-                    List.map (toModel 0) choosingwithdimentions
+                    List.map (toModel 0) sizedchoosings
             in
                 ( { model
                     | maniquinchoosings = maniquinchoosings
@@ -77,8 +77,8 @@ loadingupdate action model =
                 ( model, cmdaddsigntosignview sizedportablesign )
 
 
-getchoosingsdimentions : List ChoosingImportModel -> Dict String Size -> List ChoosingImportModel
-getchoosingsdimentions choosings symbolsizes =
+sizechoosings : List ChoosingImportModel -> Dict String Size -> List ChoosingImportModel
+sizechoosings choosings symbolsizes =
     List.map
         (\choosing ->
             { choosing
