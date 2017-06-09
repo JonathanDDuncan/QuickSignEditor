@@ -109,10 +109,7 @@ updatemaniquinkeyboard :
     -> { b | maniquinkeyboard : List (Keyboard.Shared.KeyAction Msg) }
 updatemaniquinkeyboard model maniquinchoosings =
     let
-        maniquinkeyboard =
-            creategeneralchooserkeyboard maniquinchoosings
-
         chooserskeyboard =
             model.chooserskeyboard
     in
-        { chooserskeyboard | maniquinkeyboard = maniquinkeyboard }
+        { chooserskeyboard | maniquinkeyboard = creategeneralchooserkeyboard maniquinchoosings }
