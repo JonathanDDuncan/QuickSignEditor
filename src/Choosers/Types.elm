@@ -302,8 +302,8 @@ type alias HandItem =
     }
 
 
-getchoosings : String -> List { b | basesymbol : String, choosings : List a } -> List a
-getchoosings basesymbol groupchoosings =
+getchoosings : List { b | basesymbol : String, choosings : List a } -> String -> List a
+getchoosings groupchoosings basesymbol =
     let
         firstfound =
             List.head <| List.filter (\agc -> agc.basesymbol == basesymbol) groupchoosings

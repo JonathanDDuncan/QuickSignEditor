@@ -171,7 +171,7 @@ gethandgroupchooserdata model =
             String.slice 0 4 model.clicked
 
         choosings =
-            getchoosings basesymbol model.groupchoosings
+            getchoosings model.groupchoosings basesymbol
 
         rowvalues =
             List.sort <| List.Extra.unique <| List.map (\item -> item.row) choosings

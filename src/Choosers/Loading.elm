@@ -94,17 +94,17 @@ creategroupchoosings chooserclassification =
         |> List.map
             (\basesymbol ->
                 { basesymbol = basesymbol
-                , choosings = getchoosings basesymbol chooserclassification.chooseritemvalues chooserclassification.basechooseritems
+                , choosings = getgroupchoosings basesymbol chooserclassification.chooseritemvalues chooserclassification.basechooseritems
                 }
             )
 
 
-getchoosings :
+getgroupchoosings :
     String
     -> List ChooserItemValue
     -> List BaseChooserItem
     -> List ChooserItem
-getchoosings symbolgroup chooseritemvalues basechooseritems =
+getgroupchoosings symbolgroup chooseritemvalues basechooseritems =
     let
         groupchoosers =
             chooseritemvalues
