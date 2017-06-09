@@ -55,11 +55,8 @@ runKeyboard :
     -> List (KeyAction msg)
     -> ( a, Cmd msg )
 runKeyboard model command update config =
-    let
-        filteredconfig =
-            List.filter (\item -> runtest command item.test) config
-    in
-        List.foldl (\item -> runkeycommand update item) (model ! []) filteredconfig
+    List.filter (\item -> runtest command item.test) config
+        |> List.foldl (\item -> runkeycommand update item) (model ! [])
 
 
 runkeycommand :
@@ -92,28 +89,12 @@ createKeyboardCommand :
     -> KeyboardMode
     -> KeyboardCommand
 createKeyboardCommand keyList mode =
-    let
-        shiftPressed =
-            isPressedShift keyList
-
-        ctrlPressed =
-            isPressedCtrl keyList
-
-        altPressed =
-            isPressedAlt keyList
-
-        modecode =
-            getKeyboardModeCode mode
-
-        keyboardcommand =
-            { shiftPressed = shiftPressed
-            , ctrlPressed = ctrlPressed
-            , altPressed = altPressed
-            , mode = modecode
-            , keys = keyList
-            }
-    in
-        keyboardcommand
+    { shiftPressed = isPressedShift keyList
+    , ctrlPressed = isPressedCtrl keyList
+    , altPressed = isPressedAlt keyList
+    , mode = getKeyboardModeCode mode
+    , keys = keyList
+    }
 
 
 isPressedShift : List Int -> Bool
