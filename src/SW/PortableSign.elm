@@ -1,8 +1,4 @@
-module SW.PortableSign
-    exposing
-        ( PortableSign
-        , portableSigntoSign
-        )
+module SW.PortableSign exposing (PortableSign, portableSigntoSign)
 
 import SW.Symbol exposing (Symbol)
 import SW.Sign exposing (Sign, Lane(MiddleLane), getlane)

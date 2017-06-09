@@ -104,9 +104,6 @@ drawerinit =
       , fullwidth = 200
       , height = 800
       }
-      -- To initiate Drawer state
-      --  { DrawerFieldName = fst Drawer.State.init
-      --  }
     , Cmd.none
     )
 
@@ -162,7 +159,7 @@ update msg model =
             , Cmd.none
             )
 
-        -- Boilerplate: Mdl action handler.
+     
         Mdl msg_ ->
             Material.update Mdl msg_ model
 

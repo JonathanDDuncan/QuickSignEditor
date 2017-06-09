@@ -109,19 +109,17 @@ symbolview x y color scale symbol =
                     []
 
         symbolcolor =
-            case color of
-                Just c ->
-                    c
-
-                Nothing ->
-                    symbol.nbcolor
+            Maybe.withDefault symbol.nbcolor color
 
         linechar =
-            puaCharCode <| linecodefromkey symbol.key
+            symbol.key
+                |> linecodefromkey
+                |> puaCharCode
 
         fillchar =
-            puaCharCode <|
-                fillcodefromkey symbol.key
+            symbol.key
+                |> fillcodefromkey
+                |> puaCharCode
 
         defaultfillchararttributes =
             [ attribute "class" "sym-fill"
