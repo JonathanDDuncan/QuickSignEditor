@@ -79,30 +79,25 @@ root parentwidth parentheight model =
 
 getsymbolchooser : Choosers.Types.Model -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 getsymbolchooser model halfwidth =
-    let
-        chooser =
-            if model.groupselected.symbolkey == "" then
-                { display = text "", width = 1, height = 1 }
-            else if ishand model.groupselected.symbolkey then
-                handsymbolchooser model halfwidth
-            else
-                gensymbolchooser model halfwidth
-    in
-        chooser
+    if model.groupselected.symbolkey == "" then
+        { display = text "", width = 1, height = 1 }
+    else if ishand model.groupselected.symbolkey then
+        handsymbolchooser model halfwidth
+    else
+        gensymbolchooser model halfwidth
 
 
 gensymbolchooser : Choosers.Types.Model -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 gensymbolchooser model halfwidth =
-    let
-        generalsymbolchooserdata =
-            getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
-    in
-        generalsymbolchooser model.groupselected halfwidth generalsymbolchooserdata
+    getgeneralsymbolchooser model.groupselected model.symbolsizes model.selectedcolumn
+        |> generalsymbolchooser model.groupselected halfwidth
 
 
 choosesubgroupchooser : Choosers.Types.Model -> Html Choosers.Types.Msg
 choosesubgroupchooser model =
     if ishand model.clicked then
-        handgroupchooser <| createhandgroupchooserdata model
+        createhandgroupchooserdata model
+            |> handgroupchooser
     else
-        generalgroupchooser <| creategeneralgroupchooserdata model
+        creategeneralgroupchooserdata model
+            |> generalgroupchooser
