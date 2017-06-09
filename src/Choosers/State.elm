@@ -82,10 +82,8 @@ update action model =
             , Cmd.none
             )
 
-        MainChooserMessage ->
-            ( model
-            , Cmd.none
-            )
+        Mdl msg ->
+            Material.update Mdl msg model
 
         EditorMsg msg ->
             editorupdate msg model
@@ -95,11 +93,6 @@ update action model =
 
         LoadingMsg msg ->
             loadingupdate msg model
-
-        SymbolView _ ->
-            ( model
-            , Cmd.none
-            )
 
         SignView _ ->
             ( model
@@ -119,9 +112,6 @@ update action model =
                   }
                 , Cmd.none
                 )
-
-        Mdl msg_ ->
-            Material.update Mdl msg_ model
 
         SelectHand hand ->
             let

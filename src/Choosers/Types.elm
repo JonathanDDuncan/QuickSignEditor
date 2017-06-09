@@ -72,8 +72,6 @@ type alias ChoosersKeyboard =
 
 type Msg
     = Noop
-    | MainChooserMessage
-    | SymbolView SWEditor.Types.Msg
     | SignView SWEditor.Types.Msg
     | Mdl (Material.Msg Msg)
     | FilterHandGroup Int
