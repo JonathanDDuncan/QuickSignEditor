@@ -13,24 +13,11 @@ import Choosers.Types as KeyboardType exposing (KeyboardType)
 import Choosers.Types as Loading exposing (Loading)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as HandFills exposing (HandFills)
-import Ports
-    exposing
-        ( requestInitialGroupHandChoosings
-        , cmdRequestChoosings
-        , sendKeyboardMode
-        , cmdaddsigntosignview
-        , cmdAddSymbol
-        , cmdDragSymbol
-        , cmdReplaceSymbol
-        , subLoadManiquinChoosings
-        , loadGroupChoosings
-        , receiveKeyboardCommand
-        , loadPortableSign
-        )
+import Ports exposing (requestInitialGroupHandChoosings, sendKeyboardMode, cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol, subLoadManiquinChoosings, loadGroupChoosings, receiveKeyboardCommand, loadPortableSign)
 import Dict exposing (Dict)
 import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey, sizeSymbol)
+import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation, getSymbolbyKey)
 import Update.Extra
 import Choosers.HandGroupChooser exposing (gethandgroupchooserdata)
 import Choosers.ManiquinKeyboard exposing (runKeyboardCommand)
