@@ -1,6 +1,6 @@
 module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishandgroupchooser, totalkeyboardpages)
 
-import Choosers.Types exposing (Model, Msg(EditorMsg, KeyboardMsg, SignView), Editor(GroupSelected), KeyboardType(NextKeyboardPage))
+import Choosers.Types exposing (Model, Msg(EditorMsg, KeyboardMsg), Editor(GroupSelected), KeyboardType(NextKeyboardPage))
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SW.Display exposing (symbolsvg)
@@ -117,7 +117,7 @@ createkeyactionlist data =
                         , height =
                             item.symbol.height
                         , backgroundcolor = Nothing
-                        , view = Html.map SignView (symbolsvg "" item.symbol)
+                        , view = symbolsvg "" item.symbol
                         }
                     }
                 )

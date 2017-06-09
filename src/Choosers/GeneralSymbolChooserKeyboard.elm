@@ -151,8 +151,7 @@ createkeyactionlist data range =
                             item.symbol.height
                         , backgroundcolor = Nothing
                         , view =
-                            Html.map Choosers.Types.SignView
-                                (signdisplaysvg "" { signinit | syms = [ item.symbol ] })
+                            signdisplaysvg "" { signinit | syms = [ item.symbol ] }
                         }
                     }
                 )
@@ -257,8 +256,7 @@ createfillkeyactionlist data range =
                             handfillitem.symbol.height
                         , backgroundcolor = Nothing
                         , view =
-                            Html.map Choosers.Types.SignView
-                                (signdisplaysvg "" { signinit | syms = [ handfillitem.symbol ] })
+                            signdisplaysvg "" { signinit | syms = [ handfillitem.symbol ] }
                         }
                     }
                 )
@@ -300,8 +298,7 @@ createflowerkeyactionlist data range modifiers action backgroundcolor =
                             symbol.height
                         , backgroundcolor = Just backgroundcolor
                         , view =
-                            Html.map Choosers.Types.SignView
-                                (signdisplaysvg "" { signinit | syms = [ symbol ] })
+                            signdisplaysvg "" { signinit | syms = [ symbol ] }
                         }
                     }
                 )
@@ -341,8 +338,7 @@ createhandkeyactionlist message data range =
                             symbol.height
                         , backgroundcolor = Nothing
                         , view =
-                            Html.map Choosers.Types.SignView
-                                (signdisplaysvg "" { signinit | syms = [ symbol ] })
+                            signdisplaysvg "" { signinit | syms = [ symbol ] }
                         }
                     }
                 )

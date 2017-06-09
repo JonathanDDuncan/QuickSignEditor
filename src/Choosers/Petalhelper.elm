@@ -1,6 +1,6 @@
 module Choosers.Petalhelper exposing (getoutersymbolpetals, getoutersymbolpetalsMaybe)
 
-import Choosers.Types exposing (Model, Msg(EditorMsg, SignView))
+import Choosers.Types exposing (Model, Msg(EditorMsg))
 import Choosers.Types as Editor exposing (Editor)
 import SW.Display exposing (symbolsvg)
 import SW.Symbol exposing (Symbol)
@@ -52,8 +52,7 @@ symbolpetal ( attrib, symb ) =
                     ((EditorMsg << Editor.ReplaceSymbol) symbol.key)
                 ]
                 [ div attrib
-                    [ Html.map SignView
-                        (symbolsvg "hover" symbol)
+                    [ symbolsvg "hover" symbol
                     ]
                 ]
 

@@ -5,7 +5,7 @@ import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (px, (=>), shrinkdontzoom)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
-import Choosers.Types exposing (Model, Msg(EditorMsg, SignView, Noop))
+import Choosers.Types exposing (Model, Msg(EditorMsg, Noop))
 import Choosers.Types as Editor exposing (Editor)
 import SW.Display exposing (symbolsvgscale)
 import SW.Types exposing (Size)
@@ -286,8 +286,7 @@ generalsymbolcol drag scale symbol =
         , onDoubleClick
             ((EditorMsg << Editor.ReplaceSymbol) symbol.key)
         ]
-        [ Html.map SignView
-            (symbolsvgscale scale "hover" symbol)
+        [ symbolsvgscale scale "hover" symbol
         ]
 
 

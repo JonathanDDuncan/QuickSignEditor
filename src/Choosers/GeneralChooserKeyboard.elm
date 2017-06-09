@@ -47,8 +47,7 @@ creategeneralchooserkeyboard choosings =
                     , height = choosing.displaySign.height
                     , backgroundcolor = Nothing
                     , view =
-                        Html.map Choosers.Types.SignView
-                            (signsvgnoscale choosing.displaySign)
+                        signsvgnoscale choosing.displaySign
                     }
                 }
         )

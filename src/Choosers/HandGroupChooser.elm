@@ -3,7 +3,7 @@ module Choosers.HandGroupChooser exposing (gethandgroupchooserdata, createhandgr
 import Choosers.Types
     exposing
         ( Model
-        , Msg(EditorMsg, FilterHandGroup, SignView)
+        , Msg(EditorMsg, FilterHandGroup)
         , ChooserItem
         , HandGroupChooserViewColumnData
         , HandGroupChooserViewSymbolData
@@ -77,8 +77,7 @@ symbol symboldata =
             symboldata.chooseritem.symbolkey
             1
             HandFills.RightThumbEdge
-            [ Html.map SignView
-                (symbolsvg "hover" symboldata.symbol)
+            [ symbolsvg "hover" symboldata.symbol
             ]
         )
 

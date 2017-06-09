@@ -3,7 +3,7 @@ module Choosers.Maniquin exposing (..)
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(EditorMsg, SignView), ChoosingModel)
+import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import SW.Symbol exposing (Symbol, symbolinit, iskey)
@@ -71,8 +71,7 @@ displayChoosing choosing =
         , onDoubleClick
             ((EditorMsg << Editor.ReplaceSymbol) (firstsymbol choosing).key)
         ]
-        [ Html.map SignView
-            (SW.Display.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
+        [ SW.Display.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety
         ]
 
 

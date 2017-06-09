@@ -3,7 +3,7 @@ module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(EditorMsg, SignView), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
+import Choosers.Types exposing (Model, Msg(EditorMsg), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvg)
@@ -55,8 +55,7 @@ symbol symboldata =
             symboldata.modelmdl
             symboldata.mdlid
             symboldata.chooseritem.name
-            [ Html.map SignView
-                (symbolsvg "hover" symboldata.symbol)
+            [ symbolsvg "hover" symboldata.symbol
             ]
         )
 

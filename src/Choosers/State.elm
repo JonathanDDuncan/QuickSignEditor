@@ -94,11 +94,6 @@ update action model =
         LoadingMsg msg ->
             loadingupdate msg model
 
-        SignView _ ->
-            ( model
-            , Cmd.none
-            )
-
         FilterHandGroup value ->
             let
                 updatedFilterHandGroup =

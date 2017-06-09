@@ -3,7 +3,7 @@ module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, flo
 import Choosers.Types
     exposing
         ( Model
-        , Msg(EditorMsg, SelectHandFill, SignView, SelectHand, SelectPlane)
+        , Msg(EditorMsg, SelectHandFill, SelectHand, SelectPlane)
         , HandSymbol
         , HandItem
         , HandFillItem
@@ -111,8 +111,7 @@ fillsview handsymbol =
                 ]
                 [ div
                     []
-                    [ Html.map SignView
-                        (symbolsvg "hover" handfillitem.symbol)
+                    [ symbolsvg "hover" handfillitem.symbol
                     ]
                 , div
                     [ style
@@ -150,8 +149,7 @@ handselection handsymbol handType symbolgetter label =
         ]
         [ div
             []
-            [ Html.map SignView
-                (symbolsvg "hover" (symbolgetter handsymbol))
+            [ symbolsvg "hover" (symbolgetter handsymbol)
             ]
         , div
             [ style
