@@ -38,16 +38,12 @@ createkey base fill rotation =
 
 dectoHex : Int -> String
 dectoHex value =
-    let
-        val =
-            ParseInt.toRadix 16 value
-    in
-        case val of
-            Err _ ->
-                ""
+    case ParseInt.toRadix 16 value of
+        Err _ ->
+            ""
 
-            Ok str ->
-                str
+        Ok str ->
+            str
 
 
 hextoDec : String -> Int
