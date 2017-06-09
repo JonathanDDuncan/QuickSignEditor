@@ -10,7 +10,13 @@ module SW.Symbol
         , getvalidrotations
         , Key
         , iskey
+        , ishand
         , Code
+        , HandFills(..)
+        , Hands(..)
+        , Planes(..)
+        , SymbolSize
+        , gethandtype
         )
 
 import ParseInt exposing (parseIntHex)
@@ -94,6 +100,11 @@ iskey key typename =
                 |> Maybe.withDefault 0
     in
         start <= char && end >= char
+
+
+ishand : String -> Bool
+ishand key =
+    iskey key "hand"
 
 
 
@@ -238,3 +249,59 @@ typerange typename =
             { start = "100"
             , end = "38b"
             }
+
+
+type HandFills
+    = LeftBack
+    | LeftThumbEdge
+    | LeftPalm
+    | LeftBabyEdge
+    | RightBack
+    | RightThumbEdge
+    | RightPalm
+    | RightBabyEdge
+
+
+type Hands
+    = Right
+    | Left
+
+
+type Planes
+    = Wall
+    | Floor
+
+
+gethandtype : HandFills -> Hands
+gethandtype filltype =
+    case filltype of
+        LeftBack ->
+            Left
+
+        LeftThumbEdge ->
+            Left
+
+        LeftPalm ->
+            Left
+
+        LeftBabyEdge ->
+            Left
+
+        RightBack ->
+            Right
+
+        RightThumbEdge ->
+            Right
+
+        RightPalm ->
+            Right
+
+        RightBabyEdge ->
+            Right
+
+
+type alias SymbolSize =
+    { k : String
+    , h : Int
+    , w : Int
+    }

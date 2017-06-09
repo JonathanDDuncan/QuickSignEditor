@@ -4,22 +4,20 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(..)
-        , ChoosingImportModel
         , Editor
         , handsymbolinit
         , chooseriteminit
         )
 import Choosers.Types as KeyboardType exposing (KeyboardType)
 import Choosers.Types as Loading exposing (Loading)
-import Choosers.Types as Hands exposing (Hands)
-import Choosers.Types as HandFills exposing (HandFills)
+import SW.Symbol as Hands exposing (Hands)
+import SW.Symbol as HandFills exposing (HandFills)
 import Ports exposing (requestInitialGroupHandChoosings, subLoadManiquinChoosings, loadGroupChoosings, receiveKeyboardCommand, loadPortableSign)
 import Dict exposing (Dict)
 import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import Update.Extra
-import Choosers.HandGroupChooser exposing (gethandgroupchooserdata)
 import Choosers.Loading exposing (loadingupdate)
 import Choosers.Editor exposing (editorupdate)
 import Choosers.Keyboard exposing (keyboardupdate)
@@ -73,24 +71,12 @@ update action model =
             loadingupdate msg model
 
         FilterHandGroup value ->
-            let
-                updatedFilterHandGroup =
-                    { model
-                        | handgroupfilter = value
-                    }
-            in
-                ( { model
-                    | handgroupfilter =
-                        value
-                  }
-                , Cmd.none
-                )
+            ( { model | handgroupfilter = value }
+            , Cmd.none
+            )
 
         SelectHand hand ->
             let
-                handsymbol =
-                    model.handsymbol
-
                 handfill =
                     case hand of
                         Hands.Left ->
@@ -127,12 +113,13 @@ update action model =
                                 _ ->
                                     model.handsymbol.handfill
 
+                handsymbol =
+                    model.handsymbol
+
                 newhandsymbol =
                     { handsymbol | hand = hand, handfill = handfill }
             in
-                ( { model
-                    | handsymbol = newhandsymbol
-                  }
+                ( { model | handsymbol = newhandsymbol }
                 , Cmd.none
                 )
                     |> Update.Extra.andThen update UpdateHandSymbolChooser
@@ -169,27 +156,15 @@ update action model =
 
         UpdateHandSymbolChooser ->
             let
-                flowersymbols =
-                    createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
-
-                symbollefthand =
-                    getSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
-
-                symbolrighthand =
-                    getSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
-
-                handfillitems =
-                    gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane
-
                 handsymbol =
                     model.handsymbol
 
                 newhandsymbol =
                     { handsymbol
-                        | flowersymbols = flowersymbols
-                        , symbollefthand = symbollefthand
-                        , symbolrighthand = symbolrighthand
-                        , handfillitems = handfillitems
+                        | flowersymbols = createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
+                        , symbollefthand = getSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
+                        , symbolrighthand = getSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
+                        , handfillitems = gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane
                     }
             in
                 ( { model

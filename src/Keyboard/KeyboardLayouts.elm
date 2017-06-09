@@ -12,15 +12,9 @@ fingerspellingQueryAsl =
     { name = "quertyASL", keys = keyboardDisplay querty.keys }
 
 
-keyboardDisplay :
-    List a
-    -> List { code : number, keypress : Keypress, sign : Sign }
+keyboardDisplay : List a -> List { code : number, keypress : Keypress, sign : Sign }
 keyboardDisplay keyboardlayout =
-    let
-        display =
-            List.map (\_ -> createKeyDisplay) keyboardlayout
-    in
-        display
+    List.map (\_ -> createKeyDisplay) keyboardlayout
 
 
 createKeyDisplay : { code : number, keypress : Keypress, sign : Sign }
