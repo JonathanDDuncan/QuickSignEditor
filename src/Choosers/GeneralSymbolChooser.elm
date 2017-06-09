@@ -5,8 +5,7 @@ import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (px, (=>), shrinkdontzoom)
 import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
-import Choosers.Types exposing (Model, Msg(EditorMsg, Noop))
-import Choosers.Types as Editor exposing (Editor)
+import Choosers.Types exposing (Model, Msg(EditorMsg, Noop), Editor(SelectedColumn, DragSymbol, ReplaceSymbol))
 import SW.Display exposing (symbolsvgscale)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, Base, Fill, Rotation, getvalidrotations, getvalidfills, isValidRotation)
@@ -33,14 +32,15 @@ generalsymbolchooser :
     -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 generalsymbolchooser choosing width generalsymbolchooserdata =
     let
-        vf =
-            getvalidfills choosing.validfills
-
-        len =
-            toFloat (List.length vf)
+        fillscount =
+            choosing.validfills
+                |> getvalidfills
+                |> List.length
+                |> toFloat
 
         columnwidth =
-            truncate <| ((toFloat width / 2) / len)
+            ((toFloat width / 2) / fillscount)
+                |> truncate
 
         rowheight =
             30
@@ -155,22 +155,32 @@ reorderedcolumnforpetal2 column2data =
             List.reverse column2data
 
         last =
-            List.Extra.last reversedcolumn2 |> Maybe.Extra.toList
+            reversedcolumn2
+                |> List.Extra.last
+                |> Maybe.Extra.toList
 
         init =
-            List.Extra.init reversedcolumn2 |> Maybe.Extra.toList |> List.concat
+            reversedcolumn2
+                |> List.Extra.init
+                |> Maybe.Extra.toList
+                |> List.concat
     in
         List.concat [ last, init ]
 
 
-showincolumns : SymbolColumnsData -> Int -> Int -> Int -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
+showincolumns :
+    SymbolColumnsData
+    -> Int
+    -> Int
+    -> Int
+    -> { display : Html Choosers.Types.Msg, width : Int, height : Int }
 showincolumns data width columnwidth rowheight =
     let
         scale =
-            Maybe.withDefault 1 <|
-                getscales columnwidth rowheight <|
-                    removeNothings <|
-                        List.map (\symbol -> symbol) data.column1
+            data.column1
+                |> removeNothings
+                |> getscales columnwidth rowheight
+                |> Maybe.withDefault 1
 
         zipped =
             List.Extra.zip data.column1 data.column2
@@ -203,7 +213,10 @@ getscales columnwidth rowheight symbols =
     List.minimum
         (List.map
             (\symbol ->
-                shrinkdontzoom (toFloat symbol.width) (toFloat symbol.height) (toFloat columnwidth) (toFloat rowheight)
+                shrinkdontzoom (toFloat symbol.width)
+                    (toFloat symbol.height)
+                    (toFloat columnwidth)
+                    (toFloat rowheight)
             )
             symbols
         )
@@ -214,19 +227,12 @@ generalsymbolonerow :
     -> ( Maybe Symbol, Maybe Symbol )
     -> List (Html Msg)
 generalsymbolonerow scale data =
-    let
-        symbol1 =
-            Tuple.first data
-
-        symbol2 =
-            Tuple.second data
-    in
-        [ blanktd
-        , blanktd
-        , showrotation symbol1 scale
-        , blanktd
-        , showrotation symbol2 scale
-        ]
+    [ blanktd
+    , blanktd
+    , showrotation (Tuple.first data) scale
+    , blanktd
+    , showrotation (Tuple.second data) scale
+    ]
 
 
 showrotation : Maybe Symbol -> Float -> Html Msg
@@ -265,9 +271,9 @@ generalsymbolrow generalsymbolrowdata scale =
     List.map
         (\d ->
             td
-                [ onClick ((EditorMsg << Editor.SelectedColumn) d.fill)
-                , onMouseDown ((EditorMsg << Editor.DragSymbol) d.symbol.key)
-                , onDoubleClick ((EditorMsg << Editor.ReplaceSymbol) d.symbol.key)
+                [ onClick ((EditorMsg << SelectedColumn) d.fill)
+                , onMouseDown ((EditorMsg << DragSymbol) d.symbol.key)
+                , onDoubleClick ((EditorMsg << ReplaceSymbol) d.symbol.key)
                 ]
                 [ generalsymbolcol False scale d.symbol ]
         )
@@ -279,12 +285,12 @@ generalsymbolcol drag scale symbol =
     div
         [ onMouseDown
             (if drag then
-                (EditorMsg << Editor.DragSymbol) symbol.key
+                (EditorMsg << DragSymbol) symbol.key
              else
                 Noop
             )
         , onDoubleClick
-            ((EditorMsg << Editor.ReplaceSymbol) symbol.key)
+            ((EditorMsg << ReplaceSymbol) symbol.key)
         ]
         [ symbolsvgscale scale "hover" symbol
         ]
@@ -358,17 +364,10 @@ getsymbolcolumnsdata base column vr symbolsizes =
 
 getsymbol : Base -> Fill -> Int -> List Rotation -> Dict String Size -> Maybe Symbol
 getsymbol base fill rotation validrotations symbolsizes =
-    let
-        isvalid =
-            isValidRotation rotation validrotations
-
-        symbol =
-            if isvalid then
-                Just <| getSymbolbyBaseFillRotation base fill rotation symbolsizes
-            else
-                Nothing
-    in
-        symbol
+    if isValidRotation rotation validrotations then
+        Just <| getSymbolbyBaseFillRotation base fill rotation symbolsizes
+    else
+        Nothing
 
 
 getsymbolfill :
@@ -380,10 +379,8 @@ getsymbolfill :
 getsymbolfill base rotation validfills symbolsizes =
     List.map
         (\fill ->
-            let
-                symbol =
-                    getSymbolbyBaseFillRotation base fill rotation symbolsizes
-            in
-                { symbol = symbol, fill = fill }
+            { symbol = getSymbolbyBaseFillRotation base fill rotation symbolsizes
+            , fill = fill
+            }
         )
         validfills

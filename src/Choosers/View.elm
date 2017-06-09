@@ -2,7 +2,7 @@ module Choosers.View exposing (root)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style, class)
-import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel)
+import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel, ishandgroupchooser)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchooserdata)
@@ -102,13 +102,7 @@ gensymbolchooser model halfwidth =
 
 choosesubgroupchooser : Choosers.Types.Model -> Html Choosers.Types.Msg
 choosesubgroupchooser model =
-    let
-        basesymbol =
-            String.slice 0 4 model.clicked
-    in
-        case basesymbol of
-            "S14c" ->
-                handgroupchooser <| createhandgroupchooserdata model
-
-            _ ->
-                generalgroupchooser <| creategeneralgroupchooserdata model
+    if ishandgroupchooser model.clicked then
+        handgroupchooser <| createhandgroupchooserdata model
+    else
+        generalgroupchooser <| creategeneralgroupchooserdata model
