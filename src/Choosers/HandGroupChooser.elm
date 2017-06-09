@@ -5,8 +5,6 @@ import Choosers.Types
         ( Model
         , Msg(EditorMsg, FilterHandGroup)
         , ChooserItem
-        , HandGroupChooserViewColumnData
-        , HandGroupChooserViewSymbolData
         , HandGroupChooserSubList
         , getchoosings
         , bkcolor
@@ -19,6 +17,7 @@ import SW.Symbol exposing (Symbol)
 import Dict exposing (Dict)
 import List.Extra
 import SW.Pua exposing (codefromkey)
+import Material
 
 
 --View
@@ -316,3 +315,19 @@ filter rowitems =
             List.filter (\_ -> not allempty) rowitems
     in
         filtered
+
+
+type alias HandGroupChooserViewColumnData =
+    { backgroundcolor : String
+    , symboldatalist : List HandGroupChooserViewSymbolData
+    , col : Int
+    , row : Int
+    }
+
+
+type alias HandGroupChooserViewSymbolData =
+    { chooseritem : ChooserItem
+    , mdlid : Int
+    , modelmdl : Material.Model
+    , symbol : Symbol
+    }

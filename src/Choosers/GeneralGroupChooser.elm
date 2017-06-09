@@ -3,7 +3,7 @@ module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(EditorMsg), ChooserItem, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
+import Choosers.Types exposing (Model, Msg(EditorMsg), ChooserItem, bkcolor, getchoosings)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvg)
@@ -11,6 +11,8 @@ import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import Exts.List exposing (unique)
 import SW.Pua exposing (codefromkey)
 import Choosers.SymbolToolTip exposing (symboltooltip)
+import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..), symbolinit)
+import Material as Material exposing (Model)
 
 
 -- View
@@ -64,7 +66,7 @@ symbol symboldata =
 --State functions
 
 
-creategeneralgroupchooserdata : Model -> List (List GeneralGroupChooserColumData)
+creategeneralgroupchooserdata : Choosers.Types.Model -> List (List GeneralGroupChooserColumData)
 creategeneralgroupchooserdata model =
     let
         basesymbol =
@@ -138,4 +140,12 @@ type alias GeneralGroupChooserColumData =
     { col : Int
     , row : Int
     , symboldatalist : List GeneralGroupChooserSymbolData
+    }
+
+
+type alias GeneralGroupChooserSymbolData =
+    { chooseritem : ChooserItem
+    , mdlid : Int
+    , modelmdl : Material.Model
+    , symbol : Symbol
     }

@@ -6,17 +6,13 @@ module Choosers.Types
         , HandGroupImportModel
         , ChoosingImportModel
         , GroupChoosing
-      
         , ChoosersKeyboard
         , HandSymbol
         , HandPng
         , ChooserItem
         , BaseChooserItem
         , ChooserItemValue
-        , HandGroupChooserViewColumnData
-        , HandGroupChooserViewSymbolData
         , HandGroupChooserSubList
-        , GeneralGroupChooserSymbolData
         , HandItem
         , HandFillItem
         , Petal
@@ -38,8 +34,8 @@ import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
 import SW.PortableSign exposing (PortableSign)
 import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..), symbolinit)
-import Dict exposing (Dict)
 import Material exposing (Model)
+import Dict exposing (Dict)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 
 
@@ -331,33 +327,6 @@ bkcolor cat =
 
         _ ->
             "#a8bcf0"
-
-
-
-
-
-type alias GeneralGroupChooserSymbolData =
-    { chooseritem : ChooserItem
-    , mdlid : Int
-    , modelmdl : Material.Model
-    , symbol : Symbol
-    }
-
-
-type alias HandGroupChooserViewColumnData =
-    { backgroundcolor : String
-    , symboldatalist : List HandGroupChooserViewSymbolData
-    , col : Int
-    , row : Int
-    }
-
-
-type alias HandGroupChooserViewSymbolData =
-    { chooseritem : ChooserItem
-    , mdlid : Int
-    , modelmdl : Material.Model
-    , symbol : Symbol
-    }
 
 
 
