@@ -19,6 +19,7 @@ module Choosers.Types
         , Petal
         , Editor(..)
         , KeyboardType(..)
+        , Loading(..)
         , HandFills(..)
         , Hands(..)
         , Planes(..)
@@ -80,13 +81,16 @@ type Msg
     | SelectPlane Planes
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
+    | UpdatePortableSignDimentions PortableSign
     | EditorMsg Editor
-      -- | Initial Initial
-    | RequestInitialChoosings
+    | KeyboardMsg KeyboardType
+    | LoadingMsg Loading
+
+
+type Loading
+    = RequestInitialChoosings
     | LoadManiquinChoosings (List ChoosingImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
-    | UpdatePortableSignDimentions PortableSign
-    | KeyboardMsg KeyboardType
 
 
 type KeyboardType

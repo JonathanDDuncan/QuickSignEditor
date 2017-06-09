@@ -11,6 +11,7 @@ import Choosers.Types
         )
 import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as KeyboardType exposing (KeyboardType)
+import Choosers.Types as Loading exposing (Loading)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as HandFills exposing (HandFills)
 import Ports
@@ -86,47 +87,14 @@ update action model =
             , Cmd.none
             )
 
-        RequestInitialChoosings ->
-            ( model
-            , requestInitialChoosings ""
-            )
-
-        LoadManiquinChoosings choosings ->
-            let
-                choosingwithdimentions =
-                    getchoosingsdimentions choosings model.symbolsizes
-
-                maniquinchoosings =
-                    List.map (toModel 0) choosingwithdimentions
-            in
-                ( { model
-                    | maniquinchoosings = maniquinchoosings
-                    , chooserskeyboard = updatemaniquinkeyboard model maniquinchoosings
-                  }
-                , Cmd.none
-                )
-
-        ReceiveInitialGroupHandChoosings chooserclassification ->
-            let
-                allgroupchoosings1 =
-                    allgroupchoosings chooserclassification
-
-                sizes =
-                    Dict.fromList <|
-                        List.map (\symbolsize -> .k symbolsize => Size (.w symbolsize) (.h symbolsize)) chooserclassification.symbolsizes
-            in
-                ( { model
-                    | allgroupchoosings = allgroupchoosings1
-                    , symbolsizes = sizes
-                  }
-                , requestInitialChoosings ""
-                )
-
         EditorMsg msg ->
             editorupdate msg model
 
         KeyboardMsg msg ->
             keyboardupdate msg model
+
+        LoadingMsg msg ->
+            loadingupdate msg model
 
         SymbolView _ ->
             ( model
@@ -289,6 +257,46 @@ updatemaniquinkeyboard model maniquinchoosings =
             model.chooserskeyboard
     in
         { chooserskeyboard | maniquinkeyboard = maniquinkeyboard }
+
+
+loadingupdate : Loading -> Model -> ( Model, Cmd msg )
+loadingupdate action model =
+    case action of
+        Loading.RequestInitialChoosings ->
+            ( model
+            , requestInitialChoosings ""
+            )
+
+        Loading.LoadManiquinChoosings choosings ->
+            let
+                choosingwithdimentions =
+                    getchoosingsdimentions choosings model.symbolsizes
+
+                maniquinchoosings =
+                    List.map (toModel 0) choosingwithdimentions
+            in
+                ( { model
+                    | maniquinchoosings = maniquinchoosings
+                    , chooserskeyboard = updatemaniquinkeyboard model maniquinchoosings
+                  }
+                , Cmd.none
+                )
+
+        Loading.ReceiveInitialGroupHandChoosings chooserclassification ->
+            let
+                allgroupchoosings1 =
+                    allgroupchoosings chooserclassification
+
+                sizes =
+                    Dict.fromList <|
+                        List.map (\symbolsize -> .k symbolsize => Size (.w symbolsize) (.h symbolsize)) chooserclassification.symbolsizes
+            in
+                ( { model
+                    | allgroupchoosings = allgroupchoosings1
+                    , symbolsizes = sizes
+                  }
+                , requestInitialChoosings ""
+                )
 
 
 keyboardupdate : KeyboardType -> Model -> ( Model, Cmd Msg )
@@ -706,8 +714,8 @@ getvalue name itemsvalues =
 subscriptions : Sub Choosers.Types.Msg
 subscriptions =
     Sub.batch
-        [ subLoadManiquinChoosings LoadManiquinChoosings
-        , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
+        [ subLoadManiquinChoosings (LoadingMsg << Loading.LoadManiquinChoosings)
+        , receiveInitialGroupHandChoosings (LoadingMsg << Loading.ReceiveInitialGroupHandChoosings)
         , receiveKeyboardCommand (KeyboardMsg << KeyboardType.Keyboard)
         , receiveSign UpdatePortableSignDimentions
         ]
