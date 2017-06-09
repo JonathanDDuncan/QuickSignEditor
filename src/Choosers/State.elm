@@ -41,7 +41,6 @@ init =
       , handgroupfilter = 1
       , symbolsizes = Dict.empty
       , handsymbol = handsymbolinit
-      , handgroupchooseritems = []
       , chooserskeyboard =
             { maniquinkeyboard = []
             , groupchooserkeyboard = []
@@ -81,8 +80,8 @@ update action model =
                     }
             in
                 ( { model
-                    | handgroupfilter = value
-                    , handgroupchooseritems = gethandgroupchooserdata updatedFilterHandGroup
+                    | handgroupfilter =
+                        value
                   }
                 , Cmd.none
                 )

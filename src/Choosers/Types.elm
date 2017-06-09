@@ -61,7 +61,6 @@ type alias Model =
     , handgroupfilter : Int
     , symbolsizes : Dict.Dict String Size
     , handsymbol : HandSymbol
-    , handgroupchooseritems : List HandGroupChooser
     , chooserskeyboard : ChoosersKeyboard
     }
 

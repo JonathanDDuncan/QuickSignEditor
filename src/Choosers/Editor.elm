@@ -8,7 +8,6 @@ import Choosers.Types exposing (HandFills)
 import Ports exposing (cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol)
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import Update.Extra
-import Choosers.HandGroupChooser exposing (gethandgroupchooserdata)
 import Keyboard.Shared exposing (KeyboardMode)
 
 
@@ -24,35 +23,11 @@ editorupdate action model update =
                 |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
 
         Clicked clickvalue ->
-            let
-                basesymbol =
-                    String.slice 0 4 clickvalue
-
-                updatedclicked =
-                    { model
-                        | clicked = clickvalue
-                    }
-
-                newmodel =
-                    case basesymbol of
-                        "S14c" ->
-                            let
-                                handgroupchooseritems =
-                                    gethandgroupchooserdata updatedclicked
-                            in
-                                { updatedclicked
-                                    | clicked = clickvalue
-                                    , handgroupchooseritems = handgroupchooseritems
-                                }
-
-                        _ ->
-                            updatedclicked
-            in
-                ( newmodel
-                , Cmd.none
-                )
-                    |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
-                    |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.GroupChooser)
+            ( { model | clicked = clickvalue }
+            , Cmd.none
+            )
+                |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
+                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.GroupChooser)
 
         GroupSelected choosing ->
             ( { model

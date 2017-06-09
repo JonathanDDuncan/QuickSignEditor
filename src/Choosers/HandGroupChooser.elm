@@ -97,7 +97,7 @@ createhandgroupchooserdata model =
                 in
                     tabledata2
             )
-            model.handgroupchooseritems
+            (gethandgroupchooserdata model)
 
 
 createrowdata : Choosers.Types.Model -> List (List HandGroupChooserSubList) -> List (List HandGroupChooserViewColumnData)
