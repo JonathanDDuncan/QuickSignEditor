@@ -65,7 +65,7 @@ app.ports.requestInitialChoosings.subscribe(function (str) {
         console.log("requestInitialChoosings called")
         var choosings = getinitialchoosings();
         //send values to Elm subscription ports
-        app.ports.receiveInitialChoosings.send(choosings);
+        app.ports.subLoadManiquinChoosings.send(choosings);
     } catch (e) { console.log(e) }
 });
 

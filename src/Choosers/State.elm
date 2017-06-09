@@ -21,7 +21,7 @@ import Ports
         , cmdAddSymbol
         , cmdDragSymbol
         , cmdReplaceSymbol
-        , receiveInitialChoosings
+        , subLoadManiquinChoosings
         , receiveInitialGroupHandChoosings
         , receiveKeyboardCommand
         , receiveSign
@@ -698,7 +698,7 @@ getvalue name itemsvalues =
 subscriptions : Sub Choosers.Types.Msg
 subscriptions =
     Sub.batch
-        [ receiveInitialChoosings LoadManiquinChoosings
+        [ subLoadManiquinChoosings LoadManiquinChoosings
         , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
         , receiveKeyboardCommand Keyboard
         , receiveSign UpdatePortableSignDimentions

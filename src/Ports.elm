@@ -8,7 +8,7 @@ port module Ports
         , cmdAddSymbol
         , cmdDragSymbol
         , cmdReplaceSymbol
-        , receiveInitialChoosings
+        , subLoadManiquinChoosings
         , receiveInitialGroupHandChoosings
         , receiveKeyboardCommand
         , receiveSign
@@ -46,7 +46,7 @@ port receiveSign : (PortableSign -> msg) -> Sub msg
 port requestSignfromOtherApp : String -> Cmd msg
 
 
-port receiveInitialChoosings : (List Choosers.ChoosingImportModel -> msg) -> Sub msg
+port subLoadManiquinChoosings : (List Choosers.ChoosingImportModel -> msg) -> Sub msg
 
 
 port receiveInitialGroupHandChoosings : (Choosers.HandGroupImportModel -> msg) -> Sub msg
