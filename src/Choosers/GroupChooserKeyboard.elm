@@ -3,7 +3,7 @@ module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishan
 import Choosers.Types exposing (Model, Msg(Editor, SignView, NextKeyboardPage), Editor(GroupSelected))
 import Html
 import Keyboard.Shared exposing (KeyAction)
-import SWEditor.DisplaySvg exposing (symbolsvg)
+import SW.Display exposing (symbolsvg)
 import List.Extra exposing (unique)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)

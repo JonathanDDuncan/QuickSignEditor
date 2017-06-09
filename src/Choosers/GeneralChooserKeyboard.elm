@@ -4,7 +4,7 @@ import Choosers.Types exposing (Model, ChoosingModel, Msg(Editor))
 import Choosers.Types as Editor exposing (Editor)
 import Html
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
-import SWEditor.DisplaySvg exposing (signsvgnoscale)
+import SW.Display exposing (signsvgnoscale)
 
 
 runKeyboardCommand :

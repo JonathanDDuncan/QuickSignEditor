@@ -11,7 +11,7 @@ import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 import Choosers.HandSymbolChooser exposing (handsymbolchooser)
 import SW.Symbol exposing (Symbol, symbolinit, iskey)
-import SWEditor.DisplaySvg
+import SW.Display
 
 
 root : Int -> Int -> Choosers.Types.Model -> Html Choosers.Types.Msg
@@ -164,7 +164,7 @@ displayChoosing choosing =
             ((Editor << Editor.ReplaceSymbol) (firstsymbol choosing).key)
         ]
         [ Html.map SignView
-            (SWEditor.DisplaySvg.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
+            (SW.Display.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)
         ]
 
 

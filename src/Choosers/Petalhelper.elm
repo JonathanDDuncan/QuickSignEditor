@@ -2,7 +2,7 @@ module Choosers.Petalhelper exposing (getoutersymbolpetals, getoutersymbolpetals
 
 import Choosers.Types exposing (Model, Msg(Editor, SignView))
 import Choosers.Types as Editor exposing (Editor)
-import SWEditor.DisplaySvg exposing (symbolsvg)
+import SW.Display exposing (symbolsvg)
 import SW.Symbol exposing (Symbol)
 
 

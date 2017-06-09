@@ -1,4 +1,4 @@
-module SWEditor.DisplaySvg
+module SW.Display
     exposing
         ( symbolsvg
         , symbolsvgmargincolor

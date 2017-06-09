@@ -27,7 +27,7 @@ import Html exposing (Html, button, text, table, tr, td)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (px, (=>))
-import SWEditor.DisplaySvg exposing (symbolsvg)
+import SW.Display exposing (symbolsvg)
 import Choosers.SymbolToolTip exposing (handsymboltooltip)
 
 
