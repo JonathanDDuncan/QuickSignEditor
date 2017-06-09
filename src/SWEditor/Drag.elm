@@ -1,9 +1,9 @@
 module SWEditor.Drag exposing (dragsign)
 
 import SWEditor.Types exposing (Model, Msg, Offset)
-import SWEditor.EditorSign exposing (getSignBounding)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
+import SW.Rectangle exposing (getBounding)
 
 
 dragsign : Model -> Sign
@@ -19,7 +19,7 @@ dragsign model =
             dragSymbols dragoffset sign.syms
 
         bounds =
-            getSignBounding symbols
+            getBounding symbols
     in
         { sign | syms = symbols, width = bounds.width, height = bounds.height, x = bounds.x, y = bounds.y }
 

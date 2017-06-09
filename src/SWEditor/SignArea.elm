@@ -10,12 +10,12 @@ module SWEditor.SignArea
         )
 
 import SWEditor.Types exposing (Model, Msg, EditorMode(..), Direction(..), Distance)
-import SWEditor.EditorSign exposing (getSignBounding)
 import SW.Types exposing (NamedPosition)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SWEditor.Select exposing (unselectSymbols)
 import SW.Identifier exposing (updateIds, lastid)
+import SW.Rectangle exposing (getBounding)
 
 
 deletesymbols : Model -> Model
@@ -87,7 +87,7 @@ updatesignsymbols : Sign -> List Symbol -> Sign
 updatesignsymbols sign newsymbols =
     let
         bounds =
-            getSignBounding newsymbols
+            getBounding newsymbols
 
         newsign =
             { sign
@@ -207,7 +207,7 @@ putsymbolswithinbounds sign bounds =
             List.map (\sym -> maintainwithinbounds sym <| bounds) sign.syms
 
         signbound =
-            getSignBounding movedsyms
+            getBounding movedsyms
     in
         { sign
             | syms = movedsyms

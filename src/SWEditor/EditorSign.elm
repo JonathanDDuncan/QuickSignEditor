@@ -1,42 +1,19 @@
 module SWEditor.EditorSign
     exposing
-        ( --     updateSymbolIds
-          -- ,
-          centerSign
+        ( centerSign
         , centerSignViewposition
         , colorallsymbols
         , colorsymbols
         , sizesymbols
         , adjustpositionsymbols
-        , getSignBounding
         )
 
 import SWEditor.EditorSymbol exposing (moveSymbols, colorsymbol, sizesymbol, adjustposition)
 import SW.Types exposing (Colors, NamedPosition)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
-import SW.Rectangle exposing (Rect)
+import SW.Rectangle exposing (Rect, getBounding)
 import Helpers.ResultExtra exposing (andThentoResult)
-
-
--- updateSymbolIds : Sign -> Int -> Sign
--- updateSymbolIds sign id =
---     let
---         editorsymbols =
---             updateIds id sign.syms
---         boundingbox =
---             getSignBounding editorsymbols
---         centeredSmallest =
---             centerSignSmallest
---                 { sign
---                     | width = boundingbox.width
---                     , height = boundingbox.height
---                     , x = boundingbox.x
---                     , y = boundingbox.y
---                     , syms = editorsymbols
---                 }
---     in
---         centeredSmallest
 
 
 centerSignViewposition : NamedPosition -> Sign -> Sign
@@ -61,7 +38,7 @@ centerSign : Int -> Int -> Sign -> Sign
 centerSign desiredxcenter desiredycenter sign =
     let
         bounding =
-            getSignBounding sign.syms
+            getBounding sign.syms
 
         currentxcenter =
             bounding.x + bounding.width // 2
@@ -79,7 +56,7 @@ centerSign desiredxcenter desiredycenter sign =
             moveSymbols movex movey sign.syms
 
         newbounding =
-            getSignBounding movedsymbols
+            getBounding movedsymbols
     in
         { sign | width = newbounding.width, height = newbounding.height, x = newbounding.x, y = newbounding.y, syms = movedsymbols }
 
@@ -88,7 +65,7 @@ centerSignSmallest : Sign -> Sign
 centerSignSmallest sign =
     let
         bounding =
-            getSignBounding sign.syms
+            getBounding sign.syms
 
         desiredxcenter =
             bounding.width // 2
@@ -99,28 +76,25 @@ centerSignSmallest sign =
         centerSign desiredxcenter desiredycenter sign
 
 
-getSignBounding : List Symbol -> Rect
-getSignBounding symbols =
-    let
-        maxvalue =
-            if List.length symbols == 0 then
-                0
-            else
-                10000
 
-        x1 =
-            List.foldr (\s -> min s.x) maxvalue symbols
-
-        y1 =
-            List.foldr (\s -> min s.y) maxvalue symbols
-
-        x2 =
-            List.foldr (\s -> max (s.x + round (toFloat s.width * s.size))) 0 symbols
-
-        y2 =
-            List.foldr (\s -> max (s.y + round (toFloat s.height * s.size))) 0 symbols
-    in
-        { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
+-- getSignBounding : List Symbol -> Rect
+-- getSignBounding symbols =
+--     let
+--         maxvalue =
+--             if List.length symbols == 0 then
+--                 0
+--             else
+--                 10000
+--         x1 =
+--             List.foldr (\s -> min s.x) maxvalue symbols
+--         y1 =
+--             List.foldr (\s -> min s.y) maxvalue symbols
+--         x2 =
+--             List.foldr (\s -> max (s.x + round (toFloat s.width * s.size))) 0 symbols
+--         y2 =
+--             List.foldr (\s -> max (s.y + round (toFloat s.height * s.size))) 0 symbols
+--     in
+--         { x = x1, y = y1, width = x2 - x1, height = y2 - y1 }
 
 
 colorallsymbols : Result String Colors -> Sign -> Result String Sign

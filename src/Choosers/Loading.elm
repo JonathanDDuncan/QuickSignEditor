@@ -8,9 +8,9 @@ import Dict exposing (Dict)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, Base)
 import SW.Sign exposing (lastsignid, refreshsign)
+import SW.Rectangle exposing (getBounding)
 import SW.PortableSign exposing (PortableSign, portableSigntoSign)
 import SWEditor.EditorSymbol exposing (sizeSymbol)
-import SWEditor.EditorSign exposing (getSignBounding)
 import Helpers.ViewExtra exposing ((=>))
 import Choosers.ManiquinKeyboard exposing (updatemaniquinkeyboard)
 import SW.Identifier exposing (updateId, lastid)
@@ -187,7 +187,7 @@ sizeportablesign symbolsizes portablesign =
             sizesymbols symbolsizes portablesign.syms
 
         bounds =
-            getSignBounding syms
+            getBounding syms
     in
         { portablesign
             | width = bounds.width
