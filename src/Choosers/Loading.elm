@@ -44,25 +44,16 @@ loadingupdate action model =
     case action of
         LoadManiquinChoosings choosings ->
             let
-                sizedchoosings =
-                    sizechoosings choosings model.symbolsizes
-
-                -- maniquinchoosings =
-                --     List.map (choosingImportModeltoChoosingModel model.lastmdlid) sizedchoosings
-                maniquinchoosings =
-                    List.map choosingImportModeltoChoosingModel sizedchoosings
-
-                ( maniquinchoosings1, maxid ) =
-                    updateChoosingModelids model.lastmdlid maniquinchoosings
-
-                _ =
-                    Debug.log "maxid" maxid
+                ( maniquinchoosings, maxid ) =
+                    sizechoosings model.symbolsizes choosings
+                        |> List.map choosingImportModeltoChoosingModel
+                        |> updateChoosingModelids model.lastmdlid
             in
                 ( { model
-                    | maniquinchoosings = maniquinchoosings1
+                    | maniquinchoosings = maniquinchoosings
                     , chooserskeyboard =
                         updatemaniquinkeyboard model maniquinchoosings
-                        -- , lastmdlid = lastid
+                    , lastmdlid = Maybe.withDefault model.lastmdlid maxid
                   }
                 , Cmd.none
                 )
@@ -91,8 +82,8 @@ loadingupdate action model =
                 ( model, cmdaddsigntosignview sizedportablesign )
 
 
-sizechoosings : List ChoosingImportModel -> Dict String Size -> List ChoosingImportModel
-sizechoosings choosings symbolsizes =
+sizechoosings : Dict String Size -> List ChoosingImportModel -> List ChoosingImportModel
+sizechoosings symbolsizes choosings =
     List.map
         (\choosing ->
             { choosing
@@ -345,65 +336,62 @@ default text func val =
 
 choosingImportModeltoChoosingModel : ChoosingImportModel -> ChoosingModel
 choosingImportModeltoChoosingModel importmodel =
-    { displaySign =
-        portableSigntoSign importmodel.displaySign
+    { displaySign = portableSigntoSign importmodel.displaySign
     , valuestoAdd = importmodel.valuestoAdd
     , value = importmodel.value
     , offset = importmodel.offset
     }
 
 
-updateChoosingModelid ( choosing, maxid ) ( choosingc, maxidc ) =
+updateChoosingModelid :
+    ( { c | displaySign : SW.Sign.Sign, valuestoAdd : List { b | id : a } }, d )
+    -> ( e, Int )
+    -> ( { c | displaySign : SW.Sign.Sign, valuestoAdd : List { b | id : Int } }, Int )
+updateChoosingModelid ( choosing, _ ) ( _, maxid ) =
     let
         sign =
-            SWEditor.EditorSign.updateSymbolIds choosing.displaySign maxidc
-
-        maxid1 =
-            Debug.log "maxid1" <| lastsignid sign
+            SWEditor.EditorSign.updateSymbolIds choosing.displaySign maxid
 
         symbols =
-            List.indexedMap (updateId maxid1)
+            List.indexedMap (updateId <| lastsignid sign)
                 choosing.valuestoAdd
-
-        maxid2 =
-            Debug.log "maxid2" <| lastid symbols
     in
         ( { choosing
-            | displaySign =
-                sign
+            | displaySign = sign
             , valuestoAdd = symbols
           }
-        , maxid2
+        , lastid symbols
         )
 
 
+updateChoosingModelids :
+    Int
+    -> List
+        { a
+            | displaySign : SW.Sign.Sign
+            , valuestoAdd : List { b | id : Int }
+        }
+    -> ( List
+            { a
+                | displaySign : SW.Sign.Sign
+                , valuestoAdd : List { b | id : Int }
+            }
+       , Maybe Int
+       )
 updateChoosingModelids lastid choosings =
     List.map (\choosing -> ( choosing, lastid )) choosings
         |> List.Extra.scanl1 (updateChoosingModelid)
         |> (\choosings1 ->
-                let
-                    choosings2 =
-                        List.map
-                            (\item ->
-                                Tuple.first item
-                            )
-                            choosings1
-
-                    maxid =
-                        List.map
-                            (\item ->
-                                Tuple.second item
-                            )
-                            choosings1
-                            |> List.maximum
-                in
-                    ( choosings2, maxid )
+                ( List.map
+                    (\item ->
+                        Tuple.first item
+                    )
+                    choosings1
+                , List.map
+                    (\item ->
+                        Tuple.second item
+                    )
+                    choosings1
+                    |> List.maximum
+                )
            )
-
-
-
--- lastchoosingid maniquinchoosings =
---     let
---       maxdisplay =  List.map (\choosing ->
---       ) maniquinchoosings
---     in
