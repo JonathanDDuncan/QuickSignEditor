@@ -1,6 +1,6 @@
 module Choosers.Editor exposing (editorupdate)
 
-import Choosers.Types exposing (Model, Msg(KeyboardMsg, UpdateHandSymbolChooser), ChoosingImportModel, Update, Editor(..))
+import Choosers.Types exposing (Model, Msg(KeyboardMsg, UpdateHandSymbolChooser),  Update, Editor(..))
 import Choosers.Types as KeyboardType exposing (KeyboardType)
 import Choosers.Types exposing (Loading)
 import Ports exposing (cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol)

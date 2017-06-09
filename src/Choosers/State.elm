@@ -4,7 +4,6 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(..)
-        , ChoosingImportModel
         , Editor
         , handsymbolinit
         , chooseriteminit
