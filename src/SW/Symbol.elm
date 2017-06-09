@@ -15,6 +15,8 @@ module SW.Symbol
         , HandFills(..)
         , Hands(..)
         , Planes(..)
+        , SymbolSize
+        , gethandtype
         )
 
 import ParseInt exposing (parseIntHex)
@@ -268,3 +270,38 @@ type Hands
 type Planes
     = Wall
     | Floor
+
+
+gethandtype : HandFills -> Hands
+gethandtype filltype =
+    case filltype of
+        LeftBack ->
+            Left
+
+        LeftThumbEdge ->
+            Left
+
+        LeftPalm ->
+            Left
+
+        LeftBabyEdge ->
+            Left
+
+        RightBack ->
+            Right
+
+        RightThumbEdge ->
+            Right
+
+        RightPalm ->
+            Right
+
+        RightBabyEdge ->
+            Right
+
+
+type alias SymbolSize =
+    { k : String
+    , h : Int
+    , w : Int
+    }
