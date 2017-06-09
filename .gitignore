@@ -12,3 +12,9 @@ node_modules
 
 # Desktop Services Store on macOS
 .DS_Store
+atom1.cmd
+analyse.cmd
+Symbols.SWS
+.vscode/formatter.json
+Keyboard proportions.txt
+Keycodes.ods
