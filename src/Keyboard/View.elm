@@ -33,7 +33,7 @@ root model signviewkeyboard chooserskeyboard keyboardwidth keyboardheight =
                     convertotkeyboardmsg keyboardcommand DisplaySignView signviewkeyboard
 
                 KeyboardMode.GeneralChooser ->
-                    convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.generalchooserkeyboard
+                    convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.maniquinkeyboard
 
                 KeyboardMode.GroupChooser ->
                     convertotkeyboardmsg keyboardcommand DisplayChoosers chooserskeyboard.groupchooserkeyboard

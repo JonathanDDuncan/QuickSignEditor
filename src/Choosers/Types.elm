@@ -46,7 +46,7 @@ import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 type alias Model =
     { lastmdlid : Int
     , mdl : Material.Model
-    , choosings : List ChoosingModel
+    , maniquinchoosings : List ChoosingModel
     , handgroupchoosings : HandGroupModel
     , allgroupchoosings : AllGroupChoosings
     , clicked : String
@@ -61,7 +61,7 @@ type alias Model =
 
 
 type alias ChoosersKeyboard =
-    { generalchooserkeyboard : List (KeyAction Msg)
+    { maniquinkeyboard : List (KeyAction Msg)
     , groupchooserkeyboard : List (KeyAction Msg)
     , symbolchooserkeyboard : List (KeyAction Msg)
     , keyboardpage : Int
@@ -82,7 +82,7 @@ type Msg
     | Editor Editor
       -- | Initial Initial
     | RequestInitialChoosings
-    | ReceiveInitialChoosings (List ChoosingImportModel)
+    | LoadManiquinChoosings (List ChoosingImportModel)
     | ReceiveInitialGroupHandChoosings HandGroupImportModel
     | UpdatePortableSignDimentions PortableSign
       --   | Keyboard Keyboard

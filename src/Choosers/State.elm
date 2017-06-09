@@ -47,7 +47,7 @@ init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
 init =
     ( { lastmdlid = 0
       , mdl = Material.model
-      , choosings = []
+      , maniquinchoosings = []
       , clicked = ""
       , selectedcolumn = 1
       , handgroupchoosings = []
@@ -62,7 +62,7 @@ init =
       , handsymbol = handsymbolinit
       , handgroupchooseritems = []
       , chooserskeyboard =
-            { generalchooserkeyboard = []
+            { maniquinkeyboard = []
             , groupchooserkeyboard = []
             , symbolchooserkeyboard = []
             , keyboardpage = 1
@@ -90,26 +90,17 @@ update action model =
             , requestInitialChoosings ""
             )
 
-        ReceiveInitialChoosings choosings1 ->
+        LoadManiquinChoosings choosings ->
             let
-                choosing2 =
-                    getchoosingsdimentions choosings1 model.symbolsizes
+                choosingwithdimentions =
+                    getchoosingsdimentions choosings model.symbolsizes
 
-                choosings =
-                    List.map (toModel 0) choosing2
-
-                generalchooserkeyboard =
-                    creategeneralchooserkeyboard choosings
-
-                chooserskeyboard1 =
-                    model.chooserskeyboard
-
-                chooserskeyboard2 =
-                    { chooserskeyboard1 | generalchooserkeyboard = generalchooserkeyboard }
+                maniquinchoosings =
+                    List.map (toModel 0) choosingwithdimentions
             in
                 ( { model
-                    | choosings = choosings
-                    , chooserskeyboard = chooserskeyboard2
+                    | maniquinchoosings = maniquinchoosings
+                    , chooserskeyboard = updatemaniquinkeyboard model maniquinchoosings
                   }
                 , Cmd.none
                 )
@@ -299,6 +290,21 @@ update action model =
                     setportablesigndimentions model.symbolsizes portablesign
             in
                 ( model, cmdaddsigntosignview sizedportablesign )
+
+
+updatemaniquinkeyboard :
+    { c | chooserskeyboard : { b | maniquinkeyboard : a } }
+    -> List Hands.ChoosingModel
+    -> { b | maniquinkeyboard : List (Keyboard.Shared.KeyAction Msg) }
+updatemaniquinkeyboard model maniquinchoosings =
+    let
+        maniquinkeyboard =
+            creategeneralchooserkeyboard maniquinchoosings
+
+        chooserskeyboard =
+            model.chooserskeyboard
+    in
+        { chooserskeyboard | maniquinkeyboard = maniquinkeyboard }
 
 
 editorupdate : Choosers.Types.Editor -> Choosers.Types.Model -> ( Choosers.Types.Model, Cmd Choosers.Types.Msg )
@@ -692,7 +698,7 @@ getvalue name itemsvalues =
 subscriptions : Sub Choosers.Types.Msg
 subscriptions =
     Sub.batch
-        [ receiveInitialChoosings ReceiveInitialChoosings
+        [ receiveInitialChoosings LoadManiquinChoosings
         , receiveInitialGroupHandChoosings ReceiveInitialGroupHandChoosings
         , receiveKeyboardCommand Keyboard
         , receiveSign UpdatePortableSignDimentions

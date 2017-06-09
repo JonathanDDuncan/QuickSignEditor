@@ -19,7 +19,7 @@ runKeyboardCommand model command update =
 
         updatetuple =
             if mode == GeneralChooser then
-                runKeyboard model command update model.chooserskeyboard.generalchooserkeyboard
+                runKeyboard model command update model.chooserskeyboard.maniquinkeyboard
             else if mode == GroupChooser then
                 runKeyboard model command update model.chooserskeyboard.groupchooserkeyboard
             else if mode == SymbolChooser then
