@@ -1,7 +1,6 @@
 module Choosers.HandPng exposing (handpngspan, gethandpng)
 
-import Choosers.Types exposing (Model, Msg, HandPng, gethandtype)
-import Choosers.Types as Hands exposing (Hands)
+import Choosers.Types exposing (Model, Msg, HandPng, Hands(Right, Left), gethandtype)
 import Choosers.Types as HandFills exposing (HandFills)
 import String exposing (toLower)
 import Html exposing (Html)
@@ -47,26 +46,20 @@ handpngspan handpng classes morestyle moretransform displaystyle =
 
 gethandpng : String -> Int -> Int -> HandFills -> HandPng
 gethandpng key rotation fill filltype =
-    let
-        handtype =
-            gethandtype filltype
-
-        pngcss1 =
-            handpngcss key fill filltype
-
-        rotate =
-            gethandpngrotation rotation handtype
-
-        miror =
-            gethandpngmiror handtype
-    in
-        { pngcss = pngcss1, rotate = rotate, miror = miror }
+    { pngcss = handpngcss key fill filltype
+    , rotate =
+        gethandtype filltype
+            |> gethandpngrotation rotation
+    , miror =
+        gethandtype filltype
+            |> gethandpngmiror
+    }
 
 
 gethandpngrotation : Int -> Hands -> Int
 gethandpngrotation rotation handtype =
     case handtype of
-        Hands.Right ->
+        Right ->
             case rotation of
                 2 ->
                     315
@@ -92,7 +85,7 @@ gethandpngrotation rotation handtype =
                 _ ->
                     0
 
-        Hands.Left ->
+        Left ->
             case rotation of
                 2 ->
                     45
@@ -145,7 +138,7 @@ gethandpngrotation rotation handtype =
 
 gethandpngmiror : Hands -> Bool
 gethandpngmiror handtype =
-    if handtype == Hands.Right then
+    if handtype == Right then
         False
     else
         True
