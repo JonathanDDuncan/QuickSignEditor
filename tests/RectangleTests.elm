@@ -2,7 +2,7 @@ module RectangleTests exposing (..)
 
 import Test exposing (..)
 import Expect
-import SWEditor.Rectangle exposing (..)
+import SW.Rectangle exposing (..)
 
 
 rectangleTests : Test

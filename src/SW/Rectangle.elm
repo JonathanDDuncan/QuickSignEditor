@@ -1,4 +1,4 @@
-module SWEditor.Rectangle exposing (Rect, rect, minrectangle, intersect)
+module SW.Rectangle exposing (Rect, rect, minrectangle, intersect)
 
 
 type alias Rect =

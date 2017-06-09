@@ -1,7 +1,7 @@
 module SWEditor.RectangleSelect exposing (rectangleselect, rectangleStartCurrent)
 
 import SWEditor.Types exposing (Model, Msg)
-import SWEditor.Rectangle exposing (Rect, rect, minrectangle, intersect)
+import SW.Rectangle exposing (Rect, rect, minrectangle, intersect)
 import SWEditor.EditorSymbol exposing (getsymbolRectangle)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)

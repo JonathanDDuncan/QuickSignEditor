@@ -2,8 +2,8 @@ module RectangleSelectTests exposing (..)
 
 import Test exposing (..)
 import Expect
-import SWEditor.Rectangle exposing (..)
-import SWEditor.RectangleSelect exposing (..)
+import SW.Rectangle exposing (..)
+import SW.RectangleSelect exposing (..)
 import SW.Types exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import SWEditor.Types exposing (Model, Msg)

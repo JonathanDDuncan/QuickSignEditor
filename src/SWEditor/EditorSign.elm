@@ -16,7 +16,7 @@ import SWEditor.EditorSymbol exposing (updateIds, moveSymbols, colorsymbol, size
 import SW.Types exposing (Colors, NamedPosition, maximumBy)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
-import SWEditor.Rectangle exposing (Rect)
+import SW.Rectangle exposing (Rect)
 import Helpers.ResultExtra exposing (andThentoResult)
 
 
