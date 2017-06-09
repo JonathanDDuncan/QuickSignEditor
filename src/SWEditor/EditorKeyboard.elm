@@ -24,17 +24,10 @@ runKeyboardCommand :
     -> (Msg -> Model -> ( Model, Cmd Msg ))
     -> ( Model, Cmd Msg )
 runKeyboardCommand model command update =
-    let
-        mode =
-            getKeyboardMode command.mode
-
-        updatetuple =
-            if mode == KeyboardMode.SignView then
-                runKeyboard model command update configKeyboardSignView
-            else
-                model ! []
-    in
-        updatetuple
+    if (getKeyboardMode command.mode) == KeyboardMode.SignView then
+        runKeyboard model command update configKeyboardSignView
+    else
+        model ! []
 
 
 configKeyboardSignView : List (KeyAction Msg)
@@ -135,39 +128,30 @@ getkeyaction :
         , test : { alt : Bool, ctrl : Bool, key : a, shift : c }
         }
 getkeyaction dist zoom shift range =
-    let
-        values =
-            [ { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = MoveSymbols Up dist
-              , display = arrowupdisplay zoom
-              }
-            , { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = MoveSymbols Down dist
-              , display = arrowdowndisplay zoom
-              }
-            , { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = MoveSymbols Right dist
-              , display = arrowrightdisplay zoom
-              }
-            , { test = { key = 0, ctrl = False, shift = False, alt = False }
-              , action = MoveSymbols Left dist
-              , display = arrowleftdisplay zoom
-              }
-            ]
-
-        keyrange =
-            List.Extra.zip range values
-
-        viewkeylist =
-            List.map
-                (\( key, value ) ->
-                    { value
-                        | test = { key = key, ctrl = False, shift = shift, alt = False }
-                    }
-                )
-                keyrange
-    in
-        viewkeylist
+    [ { test = { key = 0, ctrl = False, shift = False, alt = False }
+      , action = MoveSymbols Up dist
+      , display = arrowupdisplay zoom
+      }
+    , { test = { key = 0, ctrl = False, shift = False, alt = False }
+      , action = MoveSymbols Down dist
+      , display = arrowdowndisplay zoom
+      }
+    , { test = { key = 0, ctrl = False, shift = False, alt = False }
+      , action = MoveSymbols Right dist
+      , display = arrowrightdisplay zoom
+      }
+    , { test = { key = 0, ctrl = False, shift = False, alt = False }
+      , action = MoveSymbols Left dist
+      , display = arrowleftdisplay zoom
+      }
+    ]
+        |> List.Extra.zip range
+        |> List.map
+            (\( key, value ) ->
+                { value
+                    | test = { key = key, ctrl = False, shift = shift, alt = False }
+                }
+            )
 
 
 arrowupdisplay :
@@ -181,8 +165,7 @@ arrowupdisplay scale =
     { width = 24
     , height = 24
     , backgroundcolor = Nothing
-    , view =
-        arrowupicon scale
+    , view = arrowupicon scale
     }
 
 
@@ -197,8 +180,7 @@ arrowdowndisplay scale =
     { width = 24
     , height = 24
     , backgroundcolor = Nothing
-    , view =
-        arrowdownicon scale
+    , view = arrowdownicon scale
     }
 
 
@@ -213,8 +195,7 @@ arrowrightdisplay scale =
     { width = 18
     , height = 18
     , backgroundcolor = Nothing
-    , view =
-        arrowrighticon scale
+    , view = arrowrighticon scale
     }
 
 
@@ -229,6 +210,5 @@ arrowleftdisplay scale =
     { width = 18
     , height = 18
     , backgroundcolor = Nothing
-    , view =
-        arrowlefticon scale
+    , view = arrowlefticon scale
     }
