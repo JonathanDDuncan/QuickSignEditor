@@ -31,7 +31,6 @@ module Choosers.Types
         , getchoosings
         , handsymbolinit
         , chooseriteminit
-        , ishandgroupchooser
         , Update
         )
 
@@ -416,17 +415,3 @@ type alias ChoosingImportModel =
 
 -- Plus any other types unique to this feature
 -- Plus any library function to run on the types
-
-
-ishandgroupchooser : String -> Bool
-ishandgroupchooser clicked =
-    let
-        basesymbol =
-            String.slice 0 4 clicked
-    in
-        case basesymbol of
-            "S14c" ->
-                True
-
-            _ ->
-                False

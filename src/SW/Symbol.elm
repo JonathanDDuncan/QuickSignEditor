@@ -10,6 +10,7 @@ module SW.Symbol
         , getvalidrotations
         , Key
         , iskey
+        , ishand
         , Code
         )
 
@@ -94,6 +95,11 @@ iskey key typename =
                 |> Maybe.withDefault 0
     in
         start <= char && end >= char
+
+
+ishand : String -> Bool
+ishand key =
+    iskey key "hand"
 
 
 

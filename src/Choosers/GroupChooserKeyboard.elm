@@ -6,12 +6,11 @@ import Choosers.Types
         , Msg(EditorMsg, KeyboardMsg)
         , Editor(GroupSelected)
         , KeyboardType(NextKeyboardPage)
-        , ishandgroupchooser
         )
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SW.Display exposing (symbolsvg)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, ishand)
 import List.Extra exposing (unique)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
@@ -20,7 +19,7 @@ import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 
 creategroupchooserkeyboard : Model -> List (KeyAction Msg)
 creategroupchooserkeyboard model =
-    if ishandgroupchooser model.clicked then
+    if ishand model.clicked then
         handgroupchooserkeyboard model
     else
         generalgroupchooserkeyboard model
@@ -28,7 +27,7 @@ creategroupchooserkeyboard model =
 
 totalkeyboardpages : Model -> Int
 totalkeyboardpages model =
-    (if ishandgroupchooser model.clicked then
+    (if ishand model.clicked then
         getprepagedatahand <| createhandgroupchooserdata model
      else
         getprepagedatageneral <| creategeneralgroupchooserdata model

@@ -7,7 +7,7 @@ import Material exposing (Model)
 import Material.Tooltip as Tooltip
 import Material.Options as Options
 import Choosers.HandPng exposing (gethandpng, handpngspan)
-import SW.Symbol exposing (iskey)
+import SW.Symbol exposing (ishand)
 
 
 handsymboltooltip :
@@ -21,11 +21,8 @@ handsymboltooltip :
     -> List (Html Choosers.Types.Msg)
 handsymboltooltip mdl mdlid name key rotation handfill content =
     let
-        ishand =
-            iskey key "hand"
-
         handpngs =
-            if ishand then
+            if ishand key then
                 handpnglist key rotation handfill
             else
                 []

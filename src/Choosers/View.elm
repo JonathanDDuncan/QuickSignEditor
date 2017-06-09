@@ -2,14 +2,14 @@ module Choosers.View exposing (root)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style, class)
-import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel, ishandgroupchooser)
+import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchooserdata)
 import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 import Choosers.HandSymbolChooser exposing (handsymbolchooser)
-import SW.Symbol exposing (Symbol, symbolinit, iskey)
+import SW.Symbol exposing (Symbol, symbolinit, ishand)
 import Choosers.Maniquin exposing (..)
 
 
@@ -83,7 +83,7 @@ getsymbolchooser model halfwidth =
         chooser =
             if model.groupselected.symbolkey == "" then
                 { display = text "", width = 1, height = 1 }
-            else if iskey model.groupselected.symbolkey "hand" then
+            else if ishand model.groupselected.symbolkey then
                 handsymbolchooser model halfwidth
             else
                 gensymbolchooser model halfwidth
@@ -102,7 +102,7 @@ gensymbolchooser model halfwidth =
 
 choosesubgroupchooser : Choosers.Types.Model -> Html Choosers.Types.Msg
 choosesubgroupchooser model =
-    if ishandgroupchooser model.clicked then
+    if ishand model.clicked then
         handgroupchooser <| createhandgroupchooserdata model
     else
         generalgroupchooser <| creategeneralgroupchooserdata model

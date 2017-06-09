@@ -1,7 +1,7 @@
 module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 import Html exposing (Html)
-import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill), ishandgroupchooser)
+import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill))
 import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as Planes exposing (Planes)
@@ -12,12 +12,12 @@ import SW.Display exposing (signdisplaysvg)
 import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)
 import Helpers.MaybeExtra exposing (removeNothings)
 import SW.Sign exposing (signinit)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, ishand)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)
 createsymbolchooserkeyboard model =
-    if ishandgroupchooser model.clicked then
+    if ishand model.clicked then
         createhandsymbolchooserkeyboard model
     else
         creategeneralsymbolchooserkeyboard model
