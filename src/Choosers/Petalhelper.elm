@@ -1,6 +1,6 @@
 module Choosers.Petalhelper exposing (getoutersymbolpetals, getoutersymbolpetalsMaybe)
 
-import Choosers.Types exposing (Model, Msg(Editor, SignView))
+import Choosers.Types exposing (Model, Msg(EditorMsg, SignView))
 import Choosers.Types as Editor exposing (Editor)
 import SW.Display exposing (symbolsvg)
 import SW.Symbol exposing (Symbol)
@@ -47,9 +47,9 @@ symbolpetal ( attrib, symb ) =
             div
                 [ attribute "position" "relative"
                 , attribute "style" "width:100%; height: inherit"
-                , onMouseDown ((Editor << Editor.DragSymbol) symbol.key)
+                , onMouseDown ((EditorMsg << Editor.DragSymbol) symbol.key)
                 , onDoubleClick
-                    ((Editor << Editor.ReplaceSymbol) symbol.key)
+                    ((EditorMsg << Editor.ReplaceSymbol) symbol.key)
                 ]
                 [ div attrib
                     [ Html.map SignView

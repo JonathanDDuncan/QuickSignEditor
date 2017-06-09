@@ -3,7 +3,7 @@ module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(Editor, SignView), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
+import Choosers.Types exposing (Model, Msg(EditorMsg, SignView), ChooserItem, GeneralGroupChooserColumData, GeneralGroupChooserSymbolData, bkcolor, getchoosings)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvg)
@@ -45,9 +45,9 @@ column columndata =
 symbol : GeneralGroupChooserSymbolData -> Html Msg
 symbol symboldata =
     Html.div
-        [ onClick ((Editor << Editor.GroupSelected) symboldata.chooseritem)
-        , onMouseDown ((Editor << Editor.DragSymbol) symboldata.symbol.key)
-        , onDoubleClick ((Editor << Editor.ReplaceSymbol) symboldata.symbol.key)
+        [ onClick ((EditorMsg << Editor.GroupSelected) symboldata.chooseritem)
+        , onMouseDown ((EditorMsg << Editor.DragSymbol) symboldata.symbol.key)
+        , onDoubleClick ((EditorMsg << Editor.ReplaceSymbol) symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]

@@ -1,6 +1,6 @@
 module Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, ishandgroupchooser, totalkeyboardpages)
 
-import Choosers.Types exposing (Model, Msg(Editor, SignView, NextKeyboardPage), Editor(GroupSelected))
+import Choosers.Types exposing (Model, Msg(EditorMsg, SignView, NextKeyboardPage), Editor(GroupSelected))
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SW.Display exposing (symbolsvg)
@@ -110,7 +110,7 @@ createkeyactionlist data =
             List.map
                 (\( key, item ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (Editor << GroupSelected) item.chooseritem
+                    , action = (EditorMsg << GroupSelected) item.chooseritem
                     , display =
                         { width =
                             item.symbol.width

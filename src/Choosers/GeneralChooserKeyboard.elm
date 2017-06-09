@@ -1,6 +1,6 @@
 module Choosers.GeneralChooserKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard)
 
-import Choosers.Types exposing (Model, ChoosingModel, Msg(Editor))
+import Choosers.Types exposing (Model, ChoosingModel, Msg(EditorMsg))
 import Choosers.Types as Editor exposing (Editor)
 import Html
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
@@ -41,7 +41,7 @@ creategeneralchooserkeyboard choosings =
                     getlayoutsettings i layout
             in
                 { test = { key = layoutsetting.key, ctrl = False, shift = False, alt = False }
-                , action = (Editor << Editor.Clicked) choosing.value
+                , action = (EditorMsg << Editor.Clicked) choosing.value
                 , display =
                     { width = choosing.displaySign.width
                     , height = choosing.displaySign.height

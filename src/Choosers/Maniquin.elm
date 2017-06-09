@@ -3,7 +3,7 @@ module Choosers.Maniquin exposing (..)
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style, class)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(Editor, SignView), ChoosingModel)
+import Choosers.Types exposing (Model, Msg(EditorMsg, SignView), ChoosingModel)
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import SW.Symbol exposing (Symbol, symbolinit, iskey)
@@ -66,10 +66,10 @@ choosingsview choosings bottompadding =
 displayChoosing : ChoosingModel -> Html Choosers.Types.Msg
 displayChoosing choosing =
     div
-        [ onClick ((Editor << Editor.Clicked) choosing.value)
-        , onMouseDown ((Editor << Editor.DragSymbol) (firstsymbol choosing).key)
+        [ onClick ((EditorMsg << Editor.Clicked) choosing.value)
+        , onMouseDown ((EditorMsg << Editor.DragSymbol) (firstsymbol choosing).key)
         , onDoubleClick
-            ((Editor << Editor.ReplaceSymbol) (firstsymbol choosing).key)
+            ((EditorMsg << Editor.ReplaceSymbol) (firstsymbol choosing).key)
         ]
         [ Html.map SignView
             (SW.Display.signdisplaysvgposition "hover" choosing.displaySign choosing.offset.offsetx choosing.offset.offsety)

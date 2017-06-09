@@ -13,7 +13,7 @@ import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as HandFills exposing (HandFills)
 import Ports
-    exposing
+    exposing 
         ( requestInitialGroupHandChoosings
         , requestInitialChoosings
         , sendKeyboardMode
@@ -121,7 +121,7 @@ update action model =
                 , requestInitialChoosings ""
                 )
 
-        Editor msg ->
+        EditorMsg msg ->
             editorupdate msg model
 
         SymbolView _ ->

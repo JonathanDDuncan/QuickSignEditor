@@ -3,7 +3,7 @@ module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, flo
 import Choosers.Types
     exposing
         ( Model
-        , Msg(Editor, SelectHandFill, SignView, SelectHand, SelectPlane)
+        , Msg(EditorMsg, SelectHandFill, SignView, SelectHand, SelectPlane)
         , HandSymbol
         , HandItem
         , HandFillItem
@@ -105,8 +105,8 @@ fillsview handsymbol =
         (\( handfillitem, description ) ->
             td
                 [ onClick (SelectHandFill handfillitem.filltype)
-                , onMouseDown ((Editor << Editor.DragSymbol) handfillitem.symbol.key)
-                , onDoubleClick ((Editor << Editor.ReplaceSymbol) handfillitem.symbol.key)
+                , onMouseDown ((EditorMsg << Editor.DragSymbol) handfillitem.symbol.key)
+                , onDoubleClick ((EditorMsg << Editor.ReplaceSymbol) handfillitem.symbol.key)
                 , selectedbackground handfillitem.filltype handsymbol.handfill
                 ]
                 [ div

@@ -1,7 +1,7 @@
 module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 import Html exposing (Html)
-import Choosers.Types exposing (Model, Msg(Editor, SelectHand, SelectPlane, SelectHandFill))
+import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill))
 import Choosers.Types as Editor exposing (Editor)
 import Choosers.Types as Hands exposing (Hands)
 import Choosers.Types as Planes exposing (Planes)
@@ -64,7 +64,7 @@ creategeneralsymbolchooserkeyboard model =
             createflowerkeyactionlist firstcolumn
                 flower1keyidrange
                 { key = 0, ctrl = False, shift = False, alt = False }
-                (Editor << Editor.AddSymbol)
+                (EditorMsg << Editor.AddSymbol)
                 "green"
                 |> setassamesize
 
@@ -72,7 +72,7 @@ creategeneralsymbolchooserkeyboard model =
             createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn)
                 flower2keyidrange
                 { key = 0, ctrl = False, shift = False, alt = False }
-                (Editor << Editor.AddSymbol)
+                (EditorMsg << Editor.AddSymbol)
                 "green"
                 |> setassamesize
 
@@ -80,7 +80,7 @@ creategeneralsymbolchooserkeyboard model =
             createflowerkeyactionlist firstcolumn
                 flower1keyidrange
                 { key = 0, ctrl = False, shift = True, alt = False }
-                (Editor << Editor.ReplaceSymbol)
+                (EditorMsg << Editor.ReplaceSymbol)
                 "red"
                 |> setassamesize
 
@@ -88,7 +88,7 @@ creategeneralsymbolchooserkeyboard model =
             createflowerkeyactionlist (reorderedcolumnforpetal2 secondcolumn)
                 flower2keyidrange
                 { key = 0, ctrl = False, shift = True, alt = False }
-                (Editor << Editor.ReplaceSymbol)
+                (EditorMsg << Editor.ReplaceSymbol)
                 "red"
                 |> setassamesize
 
@@ -143,7 +143,7 @@ createkeyactionlist data range =
             List.map
                 (\( key, item ) ->
                     { test = { key = key, ctrl = False, shift = False, alt = False }
-                    , action = (Choosers.Types.Editor << Editor.SelectedColumn) item.fill
+                    , action = (Choosers.Types.EditorMsg << Editor.SelectedColumn) item.fill
                     , display =
                         { width =
                             item.symbol.width
@@ -186,7 +186,7 @@ createhandsymbolchooserkeyboard model =
             createflowerkeyactionlist petals
                 handflowerkeyidrange
                 { key = 0, ctrl = False, shift = False, alt = False }
-                (Editor << Editor.AddSymbol)
+                (EditorMsg << Editor.AddSymbol)
                 "green"
                 |> setassamesize
 
@@ -194,7 +194,7 @@ createhandsymbolchooserkeyboard model =
             createflowerkeyactionlist petals
                 handflowerkeyidrange
                 { key = 0, ctrl = False, shift = True, alt = False }
-                (Editor << Editor.ReplaceSymbol)
+                (EditorMsg << Editor.ReplaceSymbol)
                 "red"
                 |> setassamesize
 

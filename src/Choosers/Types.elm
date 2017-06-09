@@ -79,7 +79,7 @@ type Msg
     | SelectPlane Planes
     | SelectHandFill HandFills
     | UpdateHandSymbolChooser
-    | Editor Editor
+    | EditorMsg Editor
       -- | Initial Initial
     | RequestInitialChoosings
     | LoadManiquinChoosings (List ChoosingImportModel)

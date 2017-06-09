@@ -3,7 +3,7 @@ module Choosers.HandGroupChooser exposing (gethandgroupchooserdata, createhandgr
 import Choosers.Types
     exposing
         ( Model
-        , Msg(Editor, FilterHandGroup, SignView)
+        , Msg(EditorMsg, FilterHandGroup, SignView)
         , ChooserItem
         , HandGroupChooserViewColumnData
         , HandGroupChooserViewSymbolData
@@ -64,9 +64,9 @@ column columndata =
 symbol : HandGroupChooserViewSymbolData -> Html Msg
 symbol symboldata =
     Html.div
-        [ Html.Events.onClick ((Editor << Editor.GroupSelected) symboldata.chooseritem)
-        , onMouseDown ((Editor << Editor.DragSymbol) symboldata.symbol.key)
-        , onDoubleClick ((Editor << Editor.ReplaceSymbol) symboldata.symbol.key)
+        [ Html.Events.onClick ((EditorMsg << Editor.GroupSelected) symboldata.chooseritem)
+        , onMouseDown ((EditorMsg << Editor.DragSymbol) symboldata.symbol.key)
+        , onDoubleClick ((EditorMsg << Editor.ReplaceSymbol) symboldata.symbol.key)
         , style
             [ "margin-top" => px 3 ]
         ]
