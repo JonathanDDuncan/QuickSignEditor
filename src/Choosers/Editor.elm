@@ -40,29 +40,17 @@ editorupdate action model update =
                 |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SymbolChooser)
 
         AddSymbol key ->
-            let
-                editorsymbol =
-                    getSymbolbyKey key model.symbolsizes
-            in
-                ( model
-                , cmdAddSymbol editorsymbol
-                )
-                    |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SignView)
+            ( model
+            , cmdAddSymbol <| getSymbolbyKey key model.symbolsizes
+            )
+                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SignView)
 
         DragSymbol key ->
-            let
-                editorsymbol =
-                    getSymbolbyKey key model.symbolsizes
-            in
-                ( model
-                , cmdDragSymbol editorsymbol
-                )
+            ( model
+            , cmdDragSymbol <| getSymbolbyKey key model.symbolsizes
+            )
 
         ReplaceSymbol key ->
-            let
-                editorsymbol =
-                    getSymbolbyKey key model.symbolsizes
-            in
-                ( model
-                , cmdReplaceSymbol editorsymbol
-                )
+            ( model
+            , cmdReplaceSymbol <| getSymbolbyKey key model.symbolsizes
+            )
