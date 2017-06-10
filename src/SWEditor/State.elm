@@ -13,7 +13,7 @@ import Ports
         , subReplaceSymbol
         , receiveKeyboardCommand
         )
-import Update.Extra exposing (updateModel)
+import Update.Extra
 import SWEditor.Types
     exposing
         ( Model
@@ -50,7 +50,7 @@ import SW.Identifier exposing (updateId)
 
 init : ( Model, Cmd Msg )
 init =
-    ( { fsw = "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468"
+    ( { fsw = ""
       , sign = signinit
       , xy = Position 0 0
       , dragstart = Position 0 0
@@ -88,7 +88,8 @@ update action model =
                     refreshsign model.uid (portableSigntoSign portablesign)
 
                 lastuid =
-                    lastsignid <| editorSign
+                    editorSign
+                        |> lastsignid
             in
                 { model | sign = editorSign, uid = lastuid }
                     ! []
@@ -100,7 +101,10 @@ update action model =
         ReceiveElementPosition namedposition ->
             let
                 adjustedformargin =
-                    { namedposition | x = namedposition.x + model.signviewmargin, y = namedposition.y + model.signviewmargin }
+                    { namedposition
+                        | x = namedposition.x + model.signviewmargin
+                        , y = namedposition.y + model.signviewmargin
+                    }
             in
                 { model | viewposition = adjustedformargin }
                     ! []
@@ -112,16 +116,16 @@ update action model =
                 |> Update.Extra.andThen update (RequestElementPosition "signView")
 
         CenterSign ->
-            model
+            { model | sign = centersignarea model.viewposition model.sign }
                 ! []
-                |> updateModel
-                    (\model1 ->
-                        { model1 | sign = centersignarea model.viewposition model.sign }
-                    )
                 |> addUndoEntry True "CenterSign"
 
         StartRectangleSelect ->
-            { model | editormode = RectangleSelect, rectanglestart = model.xy } ! []
+            { model
+                | editormode = RectangleSelect
+                , rectanglestart = model.xy
+            }
+                ! []
 
         EndRectangleSelect ->
             let
@@ -131,12 +135,8 @@ update action model =
                 changed =
                     symbolshavechanged model.sign.syms newsign.syms
             in
-                model
+                { model | editormode = Awaiting, sign = newsign }
                     ! []
-                    |> updateModel
-                        (\model1 ->
-                            { model1 | editormode = Awaiting, sign = newsign }
-                        )
                     |> addUndoEntry changed "EndRectangleSelect"
 
         SelectSymbol id ->
@@ -147,9 +147,8 @@ update action model =
                 changed =
                     symbolshavechanged model.sign.syms newsign.syms
             in
-                model
+                { model | sign = newsign }
                     ! []
-                    |> updateModel (\model1 -> { model1 | sign = newsign })
                     |> addUndoEntry changed "SelectSymbol"
                     |> Update.Extra.andThen update StartDragging
 
@@ -161,9 +160,8 @@ update action model =
                 changed =
                     symbolshavechanged model.sign.syms newsign.syms
             in
-                model
+                { model | sign = newsign }
                     ! []
-                    |> updateModel (\model1 -> { model1 | sign = newsign })
                     |> addUndoEntry changed "UnSelectSymbols"
 
         MouseDown position ->
@@ -201,53 +199,35 @@ update action model =
                         )
 
         MouseUp position ->
-            let
-                signviewposition =
-                    signViewPosition position model.viewposition model.signviewmargin
-            in
-                model
-                    ! []
-                    |> Update.Extra.filter (model.editormode == RectangleSelect)
-                        (Update.Extra.andThen update EndRectangleSelect)
-                    |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
-                        (Update.Extra.andThen update EndDragging)
+            model
+                ! []
+                |> Update.Extra.filter (model.editormode == RectangleSelect)
+                    (Update.Extra.andThen update EndRectangleSelect)
+                |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
+                    (Update.Extra.andThen update EndDragging)
 
         MouseMove position ->
-            let
-                signviewposition =
-                    signViewPosition position model.viewposition model.signviewmargin
-
-                symbolsunderposition =
-                    symbolsUnderPosition signviewposition model.sign.syms
-            in
-                { model | xy = signviewposition }
-                    ! []
-                    |> Update.Extra.filter model.windowresized
-                        (Update.Extra.andThen update UpdateSignViewPosition)
-                    |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
-                        (Update.Extra.andThen update DragSelected)
+            { model | xy = signViewPosition position model.viewposition model.signviewmargin }
+                ! []
+                |> Update.Extra.filter model.windowresized
+                    (Update.Extra.andThen update UpdateSignViewPosition)
+                |> Update.Extra.filter (model.editormode == Dragging || model.editormode == AddingSymbol)
+                    (Update.Extra.andThen update DragSelected)
 
         ReplaceSymbol symbol ->
             let
-                selectedsymbols =
-                    countselectedsymbols model.sign.syms
-
-                syms =
-                    if selectedsymbols == 1 then
-                        replaceselectedsymbols model.sign.syms symbol
-                    else
-                        model.sign.syms
-
                 sign1 =
                     model.sign
-
-                sign =
-                    { sign1
-                        | syms = syms
-                    }
             in
                 { model
-                    | sign = sign
+                    | sign =
+                        { sign1
+                            | syms =
+                                if (countselectedsymbols model.sign.syms) == 1 then
+                                    replaceselectedsymbols model.sign.syms symbol
+                                else
+                                    model.sign.syms
+                        }
                 }
                     ! []
 
@@ -325,25 +305,20 @@ update action model =
 
                 lastuid =
                     lastsignid sign
-
-                newmodel =
-                    { model
-                        | uid = lastuid
-                        , editormode = Awaiting
-                        , sign = sign
-                    }
             in
-                newmodel
+                { model
+                    | uid = lastuid
+                    , editormode = Awaiting
+                    , sign = sign
+                }
                     ! []
                     |> addUndoEntry True "AddSymbol"
 
         EndDragging ->
             let
-                undroppedsymbol =
-                    getundroppedsymbol model.editormode model.sign.syms
-
                 undroppediswithinview =
-                    issymbolwithinview model.viewposition undroppedsymbol
+                    getundroppedsymbol model.editormode model.sign.syms
+                        |> issymbolwithinview model.viewposition
 
                 newmodel =
                     if not undroppediswithinview then
@@ -354,15 +329,11 @@ update action model =
                 signwithinbounds =
                     putsymbolswithinbounds newmodel.sign newmodel.viewposition
             in
-                newmodel
+                { newmodel
+                    | sign = signwithinbounds
+                    , editormode = Awaiting
+                }
                     ! []
-                    |> updateModel
-                        (\model1 ->
-                            { model1
-                                | sign = signwithinbounds
-                                , editormode = Awaiting
-                            }
-                        )
                     |> addUndoEntry True "EndDragging"
 
         AddUndo changed actiononame model1 ->
@@ -375,61 +346,37 @@ update action model =
             redo model ! []
 
         DeleteSymbols ->
-            model
+            deletesymbols model
                 ! []
-                |> updateModel
-                    (\model1 ->
-                        deletesymbols model1
-                    )
                 |> addUndoEntry True "DeleteSymbols"
 
         DuplicateSymbols ->
-            model
+            duplicatesymbols model
                 ! []
-                |> updateModel
-                    (\model1 ->
-                        duplicatesymbols model1
-                    )
                 |> addUndoEntry True "DuplicateSymbols"
 
         SizeIncreaseSymbols ->
-            model
+            changesizesymbols model 0.1
                 ! []
-                |> updateModel
-                    (\model1 ->
-                        changesizesymbols model1 0.1
-                    )
                 |> addUndoEntry True "SizeIncreaseSymbols"
 
         SizeDecreaseSymbols ->
-            model
+            changesizesymbols model -0.1
                 ! []
-                |> updateModel
-                    (\model1 ->
-                        changesizesymbols model1 -0.1
-                    )
                 |> addUndoEntry True "SizeDecreaseSymbols"
 
         Keyboard command ->
             runKeyboardCommand model command update
 
         MoveSymbols direction distance ->
-            model
+            movesymbols model direction distance
                 ! []
-                |> updateModel
-                    (\model1 ->
-                        movesymbols model1 direction distance
-                    )
                 |> addUndoEntry True "MoveSymbols"
 
         SetKeyboardMode mode ->
-            let
-                num =
-                    Keyboard.Shared.getKeyboardModeCode mode
-            in
-                ( model
-                , sendKeyboardMode num
-                )
+            ( model
+            , sendKeyboardMode <| Keyboard.Shared.getKeyboardModeCode mode
+            )
 
 
 addUndoEntry :
@@ -437,15 +384,10 @@ addUndoEntry :
     -> String
     -> ( Model, Cmd Msg )
     -> ( Model, Cmd Msg )
-addUndoEntry changed name updatetuple =
+addUndoEntry changed name (( model, _ ) as updatetuple) =
     updatetuple
-        |> \(( model, _ ) as updatetuple1) ->
-            updatetuple1
-                |> Update.Extra.andThen update
-                    (AddUndo changed
-                        name
-                        model
-                    )
+        |> Update.Extra.andThen update
+            (AddUndo changed name model)
 
 
 replaceselectedsymbols : List Symbol -> Symbol -> List Symbol
@@ -469,7 +411,8 @@ replaceselected sym symbol =
 
 symbolshavechanged : List a -> List a -> Bool
 symbolshavechanged firstsymbols secondsymbols =
-    not <| List.Extra.isPermutationOf firstsymbols secondsymbols
+    List.Extra.isPermutationOf firstsymbols secondsymbols
+        |> not
 
 
 subscriptions : Model -> Sub Msg
