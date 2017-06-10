@@ -86,14 +86,17 @@ commandsview =
 
 symbolView : Symbol -> Html Msg
 symbolView symbol =
-    let
-        nbcolor =
-            if symbol.selected then
-                "blue"
-            else
-                symbol.nbcolor
+    div [ style [ "left" => px symbol.x, "top" => px symbol.y ] ]
+        [ symbolsvgmargincolor 0 (colorselected symbol) 1 "" symbol
+        ]
 
-        divattributes =
-            [ style [ "left" => px symbol.x, "top" => px symbol.y ] ]
-    in
-        div divattributes [ symbolsvgmargincolor 0 (Just nbcolor) 1 "" symbol ]
+
+colorselected : { a | nbcolor : String, selected : Bool } -> Maybe String
+colorselected symbol =
+    (Just
+        (if symbol.selected then
+            "blue"
+         else
+            symbol.nbcolor
+        )
+    )
