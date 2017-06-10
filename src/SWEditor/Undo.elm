@@ -7,17 +7,13 @@ import SW.Sign exposing (Sign)
 
 addUndo : Bool -> String -> Model -> Model
 addUndo changed actionname model =
-    let
-        newmodel =
-            if changed then
-                { model
-                    | undolist = List.append model.undolist [ createundoitem actionname model.sign ]
-                    , redolist = []
-                }
-            else
-                model
-    in
-        newmodel
+    if changed then
+        { model
+            | undolist = List.append model.undolist [ createundoitem actionname model.sign ]
+            , redolist = []
+        }
+    else
+        model
 
 
 undo : Model -> Model
@@ -49,46 +45,41 @@ undo model =
 
 redo : Model -> Model
 redo model =
-    let
-        redoitem1 =
-            List.Extra.last model.redolist
+    case List.Extra.last model.redolist of
+        Just item ->
+            let
+                len =
+                    List.length model.redolist
 
-        model1 =
-            case redoitem1 of
-                Just item ->
-                    let
-                        sign =
-                            item.sign
+                length1 =
+                    if len >= 0 then
+                        len
+                    else
+                        1
 
-                        len =
-                            List.length model.redolist
+                undolist =
+                    List.append model.undolist [ createundoitem "Redo" model.sign ]
 
-                        length1 =
-                            if len >= 0 then
-                                len
-                            else
-                                1
+                redolist2 =
+                    List.take (length1 - 1) model.redolist
 
-                        undolist =
-                            List.append model.undolist [ createundoitem "Redo" model.sign ]
+                sign =
+                    item.sign
+            in
+                { model
+                    | sign =
+                        sign
+                    , undolist =
+                        undolist
+                    , redolist = redolist2
+                }
 
-                        redolist2 =
-                            List.take (length1 - 1) model.redolist
-                    in
-                        { model
-                            | sign =
-                                sign
-                            , undolist =
-                                undolist
-                            , redolist = redolist2
-                        }
-
-                Nothing ->
-                    model
-    in
-        model1
+        Nothing ->
+            model
 
 
 createundoitem : String -> Sign -> UndoItem
 createundoitem actionname value =
-    { actionname = actionname, sign = value }
+    { actionname = actionname
+    , sign = value
+    }
