@@ -142,7 +142,7 @@ update action model =
         SelectSymbol id ->
             let
                 newsign =
-                    selectSymbolId id model
+                    selectSymbolId id model.sign
 
                 changed =
                     symbolshavechanged model.sign.syms newsign.syms
