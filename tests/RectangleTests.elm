@@ -32,18 +32,18 @@ rectangleTests =
         , test "Rectangle rect2 height 0" <|
             \() ->
                 Expect.equal rect2.height 10
-        , test "Rectangle minrectangle rect1 5 5 width" <|
+        , test "Rectangle minrectangle  5 5 rect1 width" <|
             \() ->
-                Expect.equal (minrectangle rect1 5 5).width 10
+                Expect.equal (minrectangle 5 5 rect1).width 10
         , test "Rectangle minrectangle rect1 5 5 height" <|
             \() ->
-                Expect.equal (minrectangle rect1 5 5).height 10
+                Expect.equal (minrectangle 5 5 rect1).height 10
         , test "Rectangle minrectangle rect1 20 20 width" <|
             \() ->
-                Expect.equal (minrectangle rect1 20 20).width 20
+                Expect.equal (minrectangle 20 20 rect1).width 20
         , test "Rectangle minrectangle rect1 20 20 height" <|
             \() ->
-                Expect.equal (minrectangle rect1 20 20).height 20
+                Expect.equal (minrectangle 20 20 rect1).height 20
         , test "Rectangle intersect rect1 rect2" <|
             \() ->
                 Expect.equal (intersect rect1 rect2) True

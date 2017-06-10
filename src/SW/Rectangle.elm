@@ -49,8 +49,8 @@ rect px1 px2 py1 py2 =
         }
 
 
-minrectangle : Rect -> Int -> Int -> Rect
-minrectangle rectangle minwidth minheight =
+minrectangle : Int -> Int -> Rect -> Rect
+minrectangle minwidth minheight rectangle =
     let
         newwidth =
             if abs rectangle.width < minwidth then

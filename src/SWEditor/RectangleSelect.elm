@@ -13,14 +13,8 @@ rectangleselect model =
 
 rectangleStartCurrent : Model -> Rect
 rectangleStartCurrent model =
-    let
-        rectangle =
-            rect model.rectanglestart.x model.xy.x model.rectanglestart.y model.xy.y
-
-        minimumsizerectangle =
-            minrectangle rectangle 1 1
-    in
-        minimumsizerectangle
+    rect model.rectanglestart.x model.xy.x model.rectanglestart.y model.xy.y
+        |> minrectangle 1 1
 
 
 selectSymbolsIntersection : Rect -> Sign -> Sign
