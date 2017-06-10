@@ -13,10 +13,10 @@ import Choosers.Types as Editor exposing (Editor)
 import SW.Symbol as Hands exposing (Hands)
 import SW.Symbol as HandFills exposing (HandFills)
 import SW.Symbol as Planes exposing (Planes)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Display exposing (symbolsvg)
 import SW.Types exposing (Size)
-import SW.Symbol exposing (Symbol, Base, symbolinit)
+import SW.Symbol exposing (Symbol, symbolinit, createSymbolbyBaseFillRotation)
+import SW.Pua exposing (Base)
 import Dict exposing (Dict)
 import Choosers.HandPng exposing (handpngspan, gethandpng)
 import Choosers.Petalhelper exposing (getoutersymbolpetals)
@@ -319,7 +319,7 @@ createhandfillitem base symbolsizes basefillitem =
     , rotation = basefillitem.rotation
     , filltype = basefillitem.filltype
     , planetype = basefillitem.planetype
-    , symbol = getSymbolbyBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
+    , symbol = createSymbolbyBaseFillRotation base basefillitem.fill basefillitem.rotation symbolsizes
     }
 
 
@@ -333,7 +333,7 @@ createpetal symbolsizes base selectedhandfillitem rotationoffset =
             selectedhandfillitem.rotation + finalrotationoffset
 
         symbol =
-            getSymbolbyBaseFillRotation base selectedhandfillitem.fill rotation symbolsizes
+            createSymbolbyBaseFillRotation base selectedhandfillitem.fill rotation symbolsizes
 
         handpng =
             gethandpng symbol.key rotation selectedhandfillitem.fill selectedhandfillitem.filltype

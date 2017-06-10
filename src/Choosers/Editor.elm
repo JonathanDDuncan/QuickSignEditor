@@ -4,7 +4,7 @@ import Choosers.Types exposing (Model, Msg(KeyboardMsg, UpdateHandSymbolChooser)
 import Choosers.Types as KeyboardType exposing (KeyboardType)
 import Choosers.Types exposing (Loading)
 import Ports exposing (cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol)
-import SWEditor.EditorSymbol exposing (getSymbolbyKey)
+import SW.Symbol exposing (createSymbolbyKey)
 import Update.Extra
 import Keyboard.Shared exposing (KeyboardMode)
 
@@ -39,16 +39,16 @@ editorupdate action model update =
 
         AddSymbol key ->
             ( model
-            , cmdAddSymbol <| getSymbolbyKey key model.symbolsizes
+            , cmdAddSymbol <| createSymbolbyKey key model.symbolsizes
             )
                 |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SignView)
 
         DragSymbol key ->
             ( model
-            , cmdDragSymbol <| getSymbolbyKey key model.symbolsizes
+            , cmdDragSymbol <| createSymbolbyKey key model.symbolsizes
             )
 
         ReplaceSymbol key ->
             ( model
-            , cmdReplaceSymbol <| getSymbolbyKey key model.symbolsizes
+            , cmdReplaceSymbol <| createSymbolbyKey key model.symbolsizes
             )

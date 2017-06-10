@@ -1,10 +1,41 @@
-module SW.Pua exposing (createkey, puaCharCode, linecodefromkey, fillcodefromkey, codefromkey)
+module SW.Pua
+    exposing
+        ( Base
+        , Fill
+        , Rotation
+        , Key
+        , Code
+        , createkey
+        , puaCharCode
+        , linecodefromkey
+        , fillcodefromkey
+        , codefromkey
+        )
 
 import ParseInt as ParseInt
 import String as String exposing (slice)
 import Char as Char
 import Bitwise as Bitwise
-import SW.Symbol exposing (Base, Fill, Rotation, Key, Code)
+
+
+type alias Base =
+    Int
+
+
+type alias Fill =
+    Int
+
+
+type alias Rotation =
+    Int
+
+
+type alias Code =
+    Int
+
+
+type alias Key =
+    String
 
 
 linecode : Base -> Fill -> Rotation -> Int

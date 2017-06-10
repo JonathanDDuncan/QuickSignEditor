@@ -2,16 +2,11 @@ module SW.Symbol
     exposing
         ( Symbol
         , symbolinit
-        , Base
-        , Fill
         , getvalidfills
-        , Rotation
         , isValidRotation
         , getvalidrotations
-        , Key
         , iskey
         , ishand
-        , Code
         , HandFills(..)
         , Hands(..)
         , Planes(..)
@@ -19,9 +14,15 @@ module SW.Symbol
         , gethandtype
         , moveSymbols
         , moveSymbol
+        , createSymbolbyBaseFillRotation
+        , createSymbolbyKey
         )
 
 import ParseInt exposing (parseIntHex)
+import SW.Pua exposing (Base, Fill, Rotation, Key, Code, createkey)
+import SW.Types exposing (Size)
+import SW.Identifier exposing (updateId)
+import Dict exposing (Dict)
 
 
 type alias Symbol =
@@ -51,26 +52,6 @@ symbolinit =
     , nwcolor = ""
     , nbcolor = ""
     }
-
-
-type alias Base =
-    Int
-
-
-type alias Fill =
-    Int
-
-
-type alias Rotation =
-    Int
-
-
-type alias Code =
-    Int
-
-
-type alias Key =
-    String
 
 
 type alias TypeRange =
@@ -317,3 +298,45 @@ moveSymbols movex movey symbols =
 moveSymbol : Int -> Int -> Symbol -> Symbol
 moveSymbol movex movey symbol =
     { symbol | x = symbol.x + movex, y = symbol.y + movey }
+
+
+createSymbolbyBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> Symbol
+createSymbolbyBaseFillRotation base fill rotation symbolsizes =
+    let
+        key =
+            createkey base fill rotation
+    in
+        createSymbolbyKey key symbolsizes
+
+
+createSymbolbyKey : Key -> Dict String Size -> Symbol
+createSymbolbyKey key symbolsizes =
+    let
+        symbolsizeresult =
+            Dict.get key symbolsizes
+
+        size =
+            case symbolsizeresult of
+                Just value ->
+                    value
+
+                Nothing ->
+                    let
+                        _ =
+                            Debug.log "symbols size search not found " key
+                    in
+                        { width = 58, height = 58 }
+
+        symbol =
+            { symbolinit
+                | x = 0
+                , y = 0
+                , width = size.width
+                , height = size.height
+                , size = 1
+                , nwcolor = "white"
+                , key = key
+                , nbcolor = "black"
+            }
+    in
+        updateId 0 0 symbol

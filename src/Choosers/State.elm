@@ -11,12 +11,11 @@ import Choosers.Types
 import Choosers.Types as KeyboardType exposing (KeyboardType)
 import Choosers.Types as Loading exposing (Loading)
 import SW.Symbol as Hands exposing (Hands)
-import SW.Symbol as HandFills exposing (HandFills)
+import SW.Symbol as HandFills exposing (HandFills, createSymbolbyBaseFillRotation)
 import Ports exposing (requestInitialGroupHandChoosings, subLoadManiquinChoosings, loadGroupChoosings, receiveKeyboardCommand, loadPortableSign)
 import Dict exposing (Dict)
 import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import Update.Extra
 import Choosers.Loading exposing (loadingupdate)
 import Choosers.Editor exposing (editorupdate)
@@ -162,8 +161,8 @@ update action model =
                 newhandsymbol =
                     { handsymbol
                         | flowersymbols = createflowersymbols model.handsymbol model.groupselected.base model.symbolsizes
-                        , symbollefthand = getSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
-                        , symbolrighthand = getSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
+                        , symbollefthand = createSymbolbyBaseFillRotation model.groupselected.base 3 9 model.symbolsizes
+                        , symbolrighthand = createSymbolbyBaseFillRotation model.groupselected.base 3 1 model.symbolsizes
                         , handfillitems = gethandfillitems model.groupselected.base model.symbolsizes model.handsymbol.hand model.handsymbol.plane
                     }
             in

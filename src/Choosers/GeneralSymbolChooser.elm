@@ -4,11 +4,11 @@ import Html exposing (Html, div, table, tr, td, text)
 import Html.Attributes exposing (style, class, attribute)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Helpers.ViewExtra exposing (px, (=>), shrinkdontzoom)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import Choosers.Types exposing (Model, Msg(EditorMsg, Noop), Editor(SelectedColumn, DragSymbol, ReplaceSymbol))
 import SW.Display exposing (symbolsvgscale)
 import SW.Types exposing (Size)
-import SW.Symbol exposing (Symbol, Base, Fill, Rotation, getvalidrotations, getvalidfills, isValidRotation)
+import SW.Pua exposing (Base, Fill, Rotation)
+import SW.Symbol exposing (Symbol, getvalidrotations, getvalidfills, isValidRotation, createSymbolbyBaseFillRotation)
 import Dict exposing (Dict)
 import Helpers.MaybeExtra exposing (removeNothings)
 import List.Extra
@@ -365,7 +365,7 @@ getsymbolcolumnsdata base column vr symbolsizes =
 getsymbol : Base -> Fill -> Int -> List Rotation -> Dict String Size -> Maybe Symbol
 getsymbol base fill rotation validrotations symbolsizes =
     if isValidRotation rotation validrotations then
-        Just <| getSymbolbyBaseFillRotation base fill rotation symbolsizes
+        Just <| createSymbolbyBaseFillRotation base fill rotation symbolsizes
     else
         Nothing
 
@@ -379,7 +379,7 @@ getsymbolfill :
 getsymbolfill base rotation validfills symbolsizes =
     List.map
         (\fill ->
-            { symbol = getSymbolbyBaseFillRotation base fill rotation symbolsizes
+            { symbol = createSymbolbyBaseFillRotation base fill rotation symbolsizes
             , fill = fill
             }
         )

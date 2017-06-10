@@ -7,11 +7,10 @@ import Choosers.Types exposing (Model, Msg(EditorMsg), ChooserItem, bkcolor, get
 import Choosers.Types as Editor exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvg)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import Exts.List exposing (unique)
-import SW.Pua exposing (codefromkey)
+import SW.Pua exposing (Fill, Base, Key, codefromkey)
 import Choosers.SymbolToolTip exposing (symboltooltip)
-import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..))
+import SW.Symbol exposing (Symbol, HandFills(..), Hands(..), Planes(..), createSymbolbyBaseFillRotation)
 import Material as Material exposing (Model)
 
 
@@ -125,7 +124,7 @@ creategeneralgroupchoosersymboldata : Choosers.Types.Model -> ChooserItem -> Gen
 creategeneralgroupchoosersymboldata model chooseritem =
     let
         symbol =
-            getSymbolbyBaseFillRotation chooseritem.base 1 1 model.symbolsizes
+            createSymbolbyBaseFillRotation chooseritem.base 1 1 model.symbolsizes
 
         mdlid =
             codefromkey symbol.key + 1000

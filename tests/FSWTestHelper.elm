@@ -4,7 +4,7 @@ import SW.FSW as FSW exposing (..)
 import Dict
 import SW.Types exposing (Sign, Size, signinit)
 import SW.Symbol exposing (Symbol)
-import SWEditor.EditorSymbol exposing (getSymbolbyKey)
+import SWEditor.EditorSymbol exposing (createSymbolbyKey)
 
 
 worldsign : Sign
@@ -16,7 +16,7 @@ symbol1 : Symbol
 symbol1 =
     let
         symbol =
-            getSymbolbyKey "S1870a" partialsymbolsizes
+            createSymbolbyKey "S1870a" partialsymbolsizes
     in
         { symbol | x = 295, y = 289 }
 
@@ -25,7 +25,7 @@ symbol2 : Symbol
 symbol2 =
     let
         symbol =
-            getSymbolbyKey "S18701" partialsymbolsizes
+            createSymbolbyKey "S18701" partialsymbolsizes
     in
         { symbol | x = 288, y = 264 }
 
@@ -34,7 +34,7 @@ symbol3 : Symbol
 symbol3 =
     let
         symbol =
-            getSymbolbyKey "S20500" partialsymbolsizes
+            createSymbolbyKey "S20500" partialsymbolsizes
     in
         { symbol | x = 314, y = 270 }
 
@@ -43,7 +43,7 @@ symbol4 : Symbol
 symbol4 =
     let
         symbol =
-            getSymbolbyKey "S2e734" partialsymbolsizes
+            createSymbolbyKey "S2e734" partialsymbolsizes
     in
         { symbol | x = 306, y = 242 }
 

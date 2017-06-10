@@ -7,27 +7,14 @@ module SWEditor.EditorSymbol
         , sizeSymbol
         , adjustposition
         , getsymbolRectangle
-        , getSymbolbyKey
-        , getSymbolbyBaseFillRotation
         , symbolsUnderPosition
         , countselectedsymbols
         )
 
 import SW.Types exposing (Size, Position, Colors)
-import SW.Symbol exposing (Symbol, Rotation, Fill, Base, Key, symbolinit)
+import SW.Symbol exposing (Symbol, symbolinit)
 import SW.Rectangle exposing (Rect)
-import SW.Pua
 import Dict exposing (Dict)
-import SW.Identifier exposing (updateId)
-
-
-getSymbolbyBaseFillRotation : Base -> Fill -> Rotation -> Dict String Size -> Symbol
-getSymbolbyBaseFillRotation base fill rotation symbolsizes =
-    let
-        key =
-            SW.Pua.createkey base fill rotation
-    in
-        getSymbolbyKey key symbolsizes
 
 
 sizeSymbol : Dict String Size -> Symbol -> Symbol
@@ -52,39 +39,6 @@ sizeSymbol symbolsizes symbol =
             | width = size.width
             , height = size.height
         }
-
-
-getSymbolbyKey : Key -> Dict String Size -> Symbol
-getSymbolbyKey key symbolsizes =
-    let
-        symbolsizeresult =
-            Dict.get key symbolsizes
-
-        size =
-            case symbolsizeresult of
-                Just value ->
-                    value
-
-                Nothing ->
-                    let
-                        _ =
-                            Debug.log "symbols size search not found " key
-                    in
-                        { width = 58, height = 58 }
-
-        symbol =
-            { symbolinit
-                | x = 0
-                , y = 0
-                , width = size.width
-                , height = size.height
-                , size = 1
-                , nwcolor = "white"
-                , key = key
-                , nbcolor = "black"
-            }
-    in
-        updateId 0 0 symbol
 
 
 getsymbolRectangle : Symbol -> Rect

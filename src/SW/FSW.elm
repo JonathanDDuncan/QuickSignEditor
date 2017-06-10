@@ -1,12 +1,11 @@
 module SW.FSW exposing (fswtoSign, getFsw)
 
 import Regex exposing (regex, contains, HowMany(All))
-import SWEditor.EditorSymbol exposing (getSymbolbyKey)
 import SWEditor.EditorSign exposing (colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
 import Dict
 import SW.Types exposing (Size, Colors)
 import SW.Sign exposing (Sign, Lane, getlane, lanes, signinit, centerSign)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, createSymbolbyKey)
 import Helpers.ResultExtra exposing (andThentoResult)
 
 
@@ -271,7 +270,7 @@ createsymbol symbolsizes symbolstring =
             getcoordinatestr symbolstring
 
         symbolonly =
-            Result.andThen (\key1 -> getSymbolbyKey key1 symbolsizes |> Ok) keystr
+            Result.andThen (\key1 -> createSymbolbyKey key1 symbolsizes |> Ok) keystr
 
         coordinateresult =
             getcooordinate coordinatestr

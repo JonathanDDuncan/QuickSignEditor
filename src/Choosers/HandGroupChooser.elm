@@ -11,9 +11,8 @@ import Choosers.Types
         )
 import Choosers.Types as Editor exposing (Editor)
 import SW.Symbol as HandFills exposing (HandFills)
-import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import SW.Types exposing (Size)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, createSymbolbyBaseFillRotation)
 import Dict exposing (Dict)
 import List.Extra
 import SW.Pua exposing (codefromkey)
@@ -295,7 +294,7 @@ createdisplayhanditem symbolsizes chooseritem =
             1
 
         symbol =
-            getSymbolbyBaseFillRotation base fill rotation symbolsizes
+            createSymbolbyBaseFillRotation base fill rotation symbolsizes
 
         mdlid =
             codefromkey symbol.key + 1000
