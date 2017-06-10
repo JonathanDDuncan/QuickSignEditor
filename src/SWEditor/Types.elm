@@ -51,36 +51,36 @@ type alias UndoItem =
 
 type Msg
     = ChangeFSW String
-    | RequestSign
-    | RequestSignfromOtherApp
+      -- | RequestSign
+      -- | RequestSignfromOtherApp
     | SetSign PortableSign
+    | UpdateSignViewPosition
     | RequestElementPosition String
     | ReceiveElementPosition NamedPosition
     | CenterSign
+    | Keyboard KeyboardCommand
+    | SetKeyboardMode KeyboardMode
     | MouseDown Position
     | MouseUp Position
     | MouseMove Position
-    | UpdateSignViewPosition
-    | SelectSymbol Int
-    | UnSelectSymbols
     | StartRectangleSelect
     | EndRectangleSelect
     | StartDragging
     | DragSelected
     | EndDragging
     | DragSymbol Symbol
+    | SelectSymbol Int
+    | UnSelectSymbols
     | AddSymbol Symbol
     | ReplaceSymbol Symbol
+    | DeleteSymbols
+    | DuplicateSymbols
+    | MoveSymbols Direction Distance
+    | SizeIncreaseSymbols
+    | SizeDecreaseSymbols
     | AddUndo Bool String Model
     | Undo
     | Redo
-    | DeleteSymbols
-    | DuplicateSymbols
-    | Keyboard KeyboardCommand
-    | MoveSymbols Direction Distance
-    | SetKeyboardMode KeyboardMode
-    | SizeIncreaseSymbols
-    | SizeDecreaseSymbols
 
 
 type alias Distance =

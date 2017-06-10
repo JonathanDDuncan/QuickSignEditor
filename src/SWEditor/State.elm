@@ -76,12 +76,10 @@ update action model =
         ChangeFSW newfsw ->
             { model | fsw = newfsw, sign = signinit } ! []
 
-        RequestSign ->
-            ( model, requestSign model.fsw )
-
-        RequestSignfromOtherApp ->
-            ( model, requestSignfromOtherApp "" )
-
+        -- RequestSign ->
+        --     ( model, requestSign model.fsw )
+        -- RequestSignfromOtherApp ->
+        --     ( model, requestSignfromOtherApp "" )
         SetSign portablesign ->
             let
                 editorSign =
