@@ -20,14 +20,11 @@ import SW.Rectangle exposing (getBounding)
 
 deletesymbols : Model -> Model
 deletesymbols model =
-    let
-        newsyms =
+    { model
+        | sign =
             List.filter (\syms -> not syms.selected) model.sign.syms
-
-        newsign =
-            updatesignsymbols model.sign newsyms
-    in
-        { model | sign = newsign }
+                |> updatesignsymbols model.sign
+    }
 
 
 duplicatesymbols : Model -> Model
@@ -57,8 +54,8 @@ duplicatesymbols model =
 
 changesizesymbols : Model -> Float -> Model
 changesizesymbols model sizediff =
-    let
-        newsyms =
+    { model
+        | sign =
             List.map
                 (\sym ->
                     if sym.selected then
@@ -67,20 +64,13 @@ changesizesymbols model sizediff =
                         sym
                 )
                 model.sign.syms
-
-        newsign =
-            updatesignsymbols model.sign newsyms
-    in
-        { model | sign = newsign }
+                |> updatesignsymbols model.sign
+    }
 
 
 changesizesymbol : { a | size : Float } -> Float -> { a | size : Float }
 changesizesymbol symbol sizediff =
-    let
-        newsize =
-            symbol.size + sizediff
-    in
-        { symbol | size = newsize }
+    { symbol | size = symbol.size + sizediff }
 
 
 updatesignsymbols : Sign -> List Symbol -> Sign
@@ -88,17 +78,14 @@ updatesignsymbols sign newsymbols =
     let
         bounds =
             getBounding newsymbols
-
-        newsign =
-            { sign
-                | syms = newsymbols
-                , width = bounds.width
-                , height = bounds.height
-                , x = bounds.x
-                , y = bounds.y
-            }
     in
-        newsign
+        { sign
+            | syms = newsymbols
+            , width = bounds.width
+            , height = bounds.height
+            , x = bounds.x
+            , y = bounds.y
+        }
 
 
 getundroppedsymbol :
@@ -148,14 +135,11 @@ issymbolwithinview viewposition undroppedsymbol =
                 withintop =
                     symbolbounds.top
                         >= viewbounds.top
-
-                iswithin =
-                    withinleft
-                        && withinright
-                        && withintop
-                        && withinbottom
             in
-                iswithin
+                withinleft
+                    && withinright
+                    && withintop
+                    && withinbottom
 
         Nothing ->
             True
@@ -163,8 +147,8 @@ issymbolwithinview viewposition undroppedsymbol =
 
 movesymbols : Model -> Direction -> Distance -> Model
 movesymbols model direction distance =
-    let
-        newsymbols =
+    { model
+        | sign =
             List.map
                 (\symbol ->
                     if symbol.selected then
@@ -173,34 +157,27 @@ movesymbols model direction distance =
                         symbol
                 )
                 model.sign.syms
-
-        newsign =
-            updatesignsymbols model.sign newsymbols
-    in
-        { model | sign = newsign }
+                |> updatesignsymbols model.sign
+    }
 
 
 movesymbol : Symbol -> Direction -> Distance -> Symbol
 movesymbol symbol direction distance =
-    let
-        newsymbol =
-            case direction of
-                Up ->
-                    { symbol | y = symbol.y - distance }
+    case direction of
+        Up ->
+            { symbol | y = symbol.y - distance }
 
-                Down ->
-                    { symbol | y = symbol.y + distance }
+        Down ->
+            { symbol | y = symbol.y + distance }
 
-                Right ->
-                    { symbol | x = symbol.x + distance }
+        Right ->
+            { symbol | x = symbol.x + distance }
 
-                Left ->
-                    { symbol | x = symbol.x - distance }
-    in
-        newsymbol
+        Left ->
+            { symbol | x = symbol.x - distance }
 
 
-putsymbolswithinbounds : Sign -> { f | height : number, width : number_ } -> Sign
+putsymbolswithinbounds : Sign -> { f | height : Int, width : Int } -> Sign
 putsymbolswithinbounds sign bounds =
     let
         movedsyms =
@@ -218,7 +195,7 @@ putsymbolswithinbounds sign bounds =
         }
 
 
-maintainwithinbounds : Symbol -> { b | height : number__, width : number___ } -> Symbol
+maintainwithinbounds : Symbol -> { b | height : Int, width : Int } -> Symbol
 maintainwithinbounds sym bounds =
     let
         left =
