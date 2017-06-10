@@ -3,16 +3,12 @@ module Keyboard.View exposing (root)
 import Html exposing (Html, Attribute, div, text, span)
 import Html.Attributes exposing (style, class)
 import Keyboard.Types exposing (Model, Msg(DisplaySignView, DisplayChoosers), Keypress(None))
-import Array
 import String
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyConfig, createKeyboardCommand)
 import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg, ChoosersKeyboard)
 import Helpers.ViewExtra exposing (px, shrinkdontzoom, transformscale)
-
-
---import SubFeature.View exposing (root)
 
 
 root :
@@ -243,4 +239,5 @@ getKeyDisplay n model =
 
 nth : Int -> List a -> Maybe a
 nth i list =
-    Array.get i (Array.fromList list)
+    List.drop i list
+        |> List.head
