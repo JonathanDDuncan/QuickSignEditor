@@ -7,7 +7,8 @@ import Material exposing (Model)
 import Material.Tooltip as Tooltip
 import Material.Options as Options
 import Choosers.HandPng exposing (gethandpng, handpngspan)
-import SW.Symbol exposing (ishand, HandFills)
+import SW.Symbol exposing (HandFills)
+import SW.Pua exposing (ishand)
 
 
 handsymboltooltip :

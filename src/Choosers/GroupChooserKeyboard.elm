@@ -10,7 +10,8 @@ import Choosers.Types
 import Html
 import Keyboard.Shared exposing (KeyAction)
 import SW.Display exposing (symbolsvg)
-import SW.Symbol exposing (Symbol, ishand)
+import SW.Symbol exposing (Symbol)
+import SW.Pua exposing (ishand)
 import List.Extra exposing (unique)
 import Exts.List exposing (chunk)
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)

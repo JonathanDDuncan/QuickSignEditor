@@ -12,7 +12,8 @@ import SW.Display exposing (signdisplaysvg)
 import Choosers.HandSymbolChooser exposing (wallplaneimg, floorplaneimg)
 import Helpers.MaybeExtra exposing (removeNothings)
 import SW.Sign exposing (signinit)
-import SW.Symbol exposing (Symbol, ishand)
+import SW.Symbol exposing (Symbol)
+import SW.Pua exposing (ishand)
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)

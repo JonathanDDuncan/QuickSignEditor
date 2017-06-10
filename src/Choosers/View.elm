@@ -9,7 +9,7 @@ import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchoo
 import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 import Choosers.HandSymbolChooser exposing (handsymbolchooser)
-import SW.Symbol exposing (Symbol, ishand)
+import SW.Pua exposing (ishand)
 import Choosers.Maniquin exposing (..)
 
 
