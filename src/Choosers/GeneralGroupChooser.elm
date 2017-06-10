@@ -11,7 +11,7 @@ import SWEditor.EditorSymbol exposing (getSymbolbyBaseFillRotation)
 import Exts.List exposing (unique)
 import SW.Pua exposing (codefromkey)
 import Choosers.SymbolToolTip exposing (symboltooltip)
-import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..), symbolinit)
+import SW.Symbol exposing (Symbol, Fill, Base, Key, HandFills(..), Hands(..), Planes(..))
 import Material as Material exposing (Model)
 
 

@@ -1,7 +1,7 @@
 module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 import Html exposing (Html)
-import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill), ishandgroupchooser)
+import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill))
 import Choosers.Types as Editor exposing (Editor)
 import SW.Symbol as Hands exposing (Hands)
 import SW.Symbol as Planes exposing (Planes)

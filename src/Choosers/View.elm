@@ -2,14 +2,14 @@ module Choosers.View exposing (root)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style, class)
-import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel)
-import Choosers.Types as Editor exposing (Editor)
+import Choosers.Types exposing (Model, Msg, ChoosingModel)
+import Choosers.Types exposing (Editor)
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchooserdata)
 import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, generalsymbolchooser)
 import Choosers.HandSymbolChooser exposing (handsymbolchooser)
-import SW.Symbol exposing (Symbol, symbolinit, ishand)
+import SW.Symbol exposing (Symbol, ishand)
 import Choosers.Maniquin exposing (..)
 
 

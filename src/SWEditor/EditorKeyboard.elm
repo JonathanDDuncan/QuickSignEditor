@@ -24,7 +24,7 @@ runKeyboardCommand :
     -> (Msg -> Model -> ( Model, Cmd Msg ))
     -> ( Model, Cmd Msg )
 runKeyboardCommand model command update =
-    if (getKeyboardMode command.mode) == KeyboardMode.SignView then
+    if getKeyboardMode command.mode == KeyboardMode.SignView then
         runKeyboard model command update configKeyboardSignView
     else
         model ! []

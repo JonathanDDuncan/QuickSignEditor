@@ -159,7 +159,6 @@ update msg model =
             , Cmd.none
             )
 
-     
         Mdl msg_ ->
             Material.update Mdl msg_ model
 

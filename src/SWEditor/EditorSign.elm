@@ -1,7 +1,7 @@
 module SWEditor.EditorSign
     exposing
         ( centerSign
-        , centerSignViewposition
+        , centersignposition
         , colorallsymbols
         , colorsymbols
         , sizesymbols
@@ -16,8 +16,8 @@ import SW.Rectangle exposing (Rect, getBounding)
 import Helpers.ResultExtra exposing (andThentoResult)
 
 
-centerSignViewposition : NamedPosition -> Sign -> Sign
-centerSignViewposition viewposition sign =
+centersignposition : NamedPosition -> Sign -> Sign
+centersignposition viewposition sign =
     let
         width =
             viewposition.width
