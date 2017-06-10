@@ -25,11 +25,10 @@ import SWEditor.Types
 import SWEditor.RectangleSelect exposing (rectangleselect)
 import SWEditor.Drag as Drag
 import SWEditor.Select exposing (selectSymbolId, unselectSignSymbols)
-import SWEditor.EditorSign exposing (centersignposition)
 import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId)
 import SWEditor.Undo exposing (addUndo, undo, redo)
 import SW.Types exposing (Position)
-import SW.Sign exposing (signinit, lastsignid, refreshsign)
+import SW.Sign exposing (signinit, lastsignid, refreshsign, centersignarea)
 import SW.PortableSign exposing (portableSigntoSign)
 import SW.Symbol exposing (Symbol)
 import Mouse as Mouse
@@ -117,7 +116,7 @@ update action model =
                 ! []
                 |> updateModel
                     (\model1 ->
-                        { model1 | sign = centersignposition model.viewposition model.sign }
+                        { model1 | sign = centersignarea model.viewposition model.sign }
                     )
                 |> addUndoEntry True "CenterSign"
 

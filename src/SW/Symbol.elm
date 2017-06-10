@@ -17,6 +17,8 @@ module SW.Symbol
         , Planes(..)
         , SymbolSize
         , gethandtype
+        , moveSymbols
+        , moveSymbol
         )
 
 import ParseInt exposing (parseIntHex)
@@ -305,3 +307,13 @@ type alias SymbolSize =
     , h : Int
     , w : Int
     }
+
+
+moveSymbols : Int -> Int -> List Symbol -> List Symbol
+moveSymbols movex movey symbols =
+    List.map (moveSymbol movex movey) symbols
+
+
+moveSymbol : Int -> Int -> Symbol -> Symbol
+moveSymbol movex movey symbol =
+    { symbol | x = symbol.x + movex, y = symbol.y + movey }

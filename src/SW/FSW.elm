@@ -2,10 +2,10 @@ module SW.FSW exposing (fswtoSign, getFsw)
 
 import Regex exposing (regex, contains, HowMany(All))
 import SWEditor.EditorSymbol exposing (getSymbolbyKey)
-import SWEditor.EditorSign exposing (centerSign, colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
+import SWEditor.EditorSign exposing (colorallsymbols, colorsymbols, sizesymbols, adjustpositionsymbols)
 import Dict
 import SW.Types exposing (Size, Colors)
-import SW.Sign exposing (Sign, Lane, getlane, lanes, signinit)
+import SW.Sign exposing (Sign, Lane, getlane, lanes, signinit, centerSign)
 import SW.Symbol exposing (Symbol)
 import Helpers.ResultExtra exposing (andThentoResult)
 

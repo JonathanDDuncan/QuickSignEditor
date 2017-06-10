@@ -7,9 +7,17 @@ module SW.Sign
         , lanes
         , lastsignid
         , refreshsign
+        , centerSignSmallest
+        , centerSign
+        , centersignarea
         )
 
-import SW.Symbol exposing (Symbol)
+import SW.Symbol
+    exposing
+        ( Symbol
+        , moveSymbols
+        , moveSymbol
+        )
 import SW.Identifier exposing (updateIds, lastid)
 import SW.Rectangle exposing (Rect, getBounding)
 
@@ -90,7 +98,45 @@ refreshsign : Int -> Sign -> Sign
 refreshsign idstart sign =
     updatesignids idstart sign
         |> boundsign
+        |> centerSignSmallest
 
 
+centerSign : Int -> Int -> Sign -> Sign
+centerSign desiredxcenter desiredycenter sign =
+    let
+        bounding =
+            getBounding sign.syms
 
--- |> centersign
+        movex =
+            desiredxcenter - (bounding.x + bounding.width // 2)
+
+        movey =
+            desiredycenter - (bounding.y + bounding.height // 2)
+
+        movedsymbols =
+            moveSymbols movex movey sign.syms
+
+        newbounding =
+            getBounding movedsymbols
+    in
+        { sign
+            | width = newbounding.width
+            , height = newbounding.height
+            , x = newbounding.x
+            , y = newbounding.y
+            , syms = movedsymbols
+        }
+
+
+centersignarea : { a | height : Int, width : Int } -> Sign -> Sign
+centersignarea area sign =
+    centerSign (area.width // 2) (area.height // 2) sign
+
+
+centerSignSmallest : Sign -> Sign
+centerSignSmallest sign =
+    let
+        bounding =
+            getBounding sign.syms
+    in
+        centerSign (bounding.width // 2) (bounding.height // 2) sign
