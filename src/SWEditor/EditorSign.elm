@@ -40,14 +40,17 @@ colorsymbols symbolscolors sign =
 
 colorsymbols1 : List { colors : Colors, pos : Int } -> Sign -> Sign
 colorsymbols1 symbolscolors sign =
-    { sign
-        | syms =
+    let
+        syms =
             List.indexedMap
                 (\index symbol ->
                     applychangetoSymbol (\symbolcolor -> colorsymbol symbolcolor.colors symbol) symbol (index + 1) symbolscolors
                 )
                 sign.syms
-    }
+    in
+        { sign
+            | syms = syms
+        }
 
 
 sizesymbols : Result String (List { size : Float, pos : Int, adjustment : { x : Int, y : Int } }) -> Result String Sign -> Result String Sign
