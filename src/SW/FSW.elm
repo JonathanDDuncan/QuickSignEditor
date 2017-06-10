@@ -66,7 +66,6 @@ stylesign stylingstring sign =
             |> colorsymbols symbolcolors
             |> sizesymbols symbolssizes
             |> adjustpositionsymbols symbolssizes
-            |> Debug.log "sign"
 
 
 

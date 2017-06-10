@@ -1,6 +1,6 @@
 module SWEditor.State exposing (init, update, subscriptions)
 
-import Ports exposing (requestSignfromOtherApp, requestElementPosition, sendKeyboardMode, subaddsigntosignview, receiveElementPosition, subDragSymbol, subAddSymbol, subReplaceSymbol, receiveKeyboardCommand)
+import Ports exposing (requestElementPosition, sendKeyboardMode, subaddsigntosignview, receiveElementPosition, subDragSymbol, subAddSymbol, subReplaceSymbol, receiveKeyboardCommand)
 import Update.Extra
 import SWEditor.Types
     exposing
