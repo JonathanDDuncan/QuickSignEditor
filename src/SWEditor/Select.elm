@@ -25,11 +25,8 @@ selectSymbolId id model =
     let
         sign =
             model.sign
-
-        symbols =
-            selectId id sign.syms
     in
-        { sign | syms = symbols }
+        { sign | syms = selectId id sign.syms }
 
 
 selectId : Int -> List Symbol -> List Symbol
