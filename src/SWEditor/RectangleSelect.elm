@@ -2,9 +2,8 @@ module SWEditor.RectangleSelect exposing (rectangleselect, rectangleStartCurrent
 
 import SWEditor.Types exposing (Model, Msg)
 import SW.Rectangle exposing (Rect, rect, minrectangle, intersect)
-import SWEditor.EditorSymbol exposing (getsymbolRectangle)
 import SW.Sign exposing (Sign)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, getsymbolBound)
 
 
 rectangleselect : Model -> Sign
@@ -31,7 +30,7 @@ selectSymbolsIntersection rectangle sign =
 
 selectIntersected : Rect -> Symbol -> Symbol
 selectIntersected rectangle symbol =
-    if intersect rectangle (getsymbolRectangle symbol) then
+    if intersect rectangle (getsymbolBound symbol) then
         { symbol | selected = True }
     else
         symbol

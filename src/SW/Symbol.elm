@@ -16,11 +16,13 @@ module SW.Symbol
         , moveSymbol
         , createSymbolbyBaseFillRotation
         , createSymbolbyKey
+        , getsymbolBound
         )
 
 import ParseInt exposing (parseIntHex)
 import SW.Pua exposing (Base, Fill, Rotation, Key, Code, createkey)
 import SW.Types exposing (Size)
+import SW.Rectangle exposing (Rect)
 import SW.Identifier exposing (updateId)
 import Dict exposing (Dict)
 
@@ -340,3 +342,12 @@ createSymbolbyKey key symbolsizes =
             }
     in
         updateId 0 0 symbol
+
+
+getsymbolBound : Symbol -> Rect
+getsymbolBound symbol =
+    { x = symbol.x
+    , y = symbol.y
+    , width = round <| toFloat symbol.width * symbol.size
+    , height = round <| toFloat symbol.height * symbol.size
+    }

@@ -6,13 +6,12 @@ module SWEditor.EditorSymbol
         , sizesymbol
         , sizeSymbol
         , adjustposition
-        , getsymbolRectangle
         , symbolsUnderPosition
         , countselectedsymbols
         )
 
 import SW.Types exposing (Size, Position, Colors)
-import SW.Symbol exposing (Symbol, symbolinit)
+import SW.Symbol exposing (Symbol, getsymbolBound, symbolinit)
 import SW.Rectangle exposing (Rect)
 import Dict exposing (Dict)
 
@@ -39,15 +38,6 @@ sizeSymbol symbolsizes symbol =
             | width = size.width
             , height = size.height
         }
-
-
-getsymbolRectangle : Symbol -> Rect
-getsymbolRectangle symbol =
-    { x = symbol.x
-    , y = symbol.y
-    , width = round <| toFloat symbol.width * symbol.size
-    , height = round <| toFloat symbol.height * symbol.size
-    }
 
 
 symbolId : Maybe Symbol -> Int
@@ -87,7 +77,7 @@ symbolsUnderPosition signviewposition symbols =
         seachrectangle =
             { x = signviewposition.x, y = signviewposition.y, width = 1, height = 1 }
     in
-        List.filter (\symbol -> SW.Rectangle.intersect seachrectangle (getsymbolRectangle symbol)) symbols
+        List.filter (\symbol -> SW.Rectangle.intersect seachrectangle (getsymbolBound symbol)) symbols
 
 
 colorsymbol : Colors -> Symbol -> Symbol
