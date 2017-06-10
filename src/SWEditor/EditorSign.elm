@@ -6,7 +6,7 @@ module SWEditor.EditorSign
         , adjustpositionsymbols
         )
 
-import SWEditor.EditorSymbol exposing (moveSymbols, colorsymbol, sizesymbol, adjustposition)
+import SWEditor.EditorSymbol exposing (colorsymbol, sizesymbol, adjustposition)
 import SW.Types exposing (Colors, NamedPosition)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)

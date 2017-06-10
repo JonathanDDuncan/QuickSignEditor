@@ -25,12 +25,12 @@ import SWEditor.Types
 import SWEditor.RectangleSelect exposing (rectangleselect)
 import SWEditor.Drag as Drag
 import SWEditor.Select exposing (selectSymbolId, unselectSignSymbols)
-import SWEditor.EditorSymbol exposing (symbolsUnderPosition, countselectedsymbols, symbolId)
+import SWEditor.EditorSymbol exposing (symbolId)
 import SWEditor.Undo exposing (addUndo, undo, redo)
 import SW.Types exposing (Position)
 import SW.Sign exposing (signinit, lastsignid, refreshsign, centersignarea)
 import SW.PortableSign exposing (portableSigntoSign)
-import SW.Symbol exposing (Symbol)
+import SW.Symbol exposing (Symbol, symbolsUnderPosition, countselectedsymbols)
 import Mouse as Mouse
 import List.Extra
 import SWEditor.SignArea

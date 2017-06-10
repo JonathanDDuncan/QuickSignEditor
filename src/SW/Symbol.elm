@@ -17,6 +17,9 @@ module SW.Symbol
         , createSymbolbyBaseFillRotation
         , createSymbolbyKey
         , getsymbolBound
+        , sizeSymbol
+        , symbolsUnderPosition
+        , countselectedsymbols
         )
 
 import ParseInt exposing (parseIntHex)
@@ -351,3 +354,47 @@ getsymbolBound symbol =
     , width = round <| toFloat symbol.width * symbol.size
     , height = round <| toFloat symbol.height * symbol.size
     }
+
+
+sizeSymbol : Dict String Size -> Symbol -> Symbol
+sizeSymbol symbolsizes symbol =
+    let
+        symbolsizeresult =
+            Dict.get symbol.key symbolsizes
+
+        size =
+            case symbolsizeresult of
+                Just value ->
+                    value
+
+                Nothing ->
+                    let
+                        _ =
+                            Debug.log "symbols size search not found " symbol.key
+                    in
+                        { width = 58, height = 58 }
+    in
+        { symbol
+            | width = size.width
+            , height = size.height
+        }
+
+
+countselectedsymbols : List Symbol -> Int
+countselectedsymbols symbols =
+    List.length
+        (List.filter
+            (\symbol ->
+                symbol.selected
+            )
+            symbols
+        )
+
+
+symbolsUnderPosition : { a | x : Int, y : Int } -> List Symbol -> List Symbol
+symbolsUnderPosition signviewposition symbols =
+    let
+        seachrectangle =
+            { x = signviewposition.x, y = signviewposition.y, width = 1, height = 1 }
+    in
+        List.filter (\symbol -> SW.Rectangle.intersect seachrectangle (getsymbolBound symbol)) symbols
