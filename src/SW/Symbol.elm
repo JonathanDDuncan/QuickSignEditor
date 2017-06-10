@@ -164,7 +164,7 @@ getvalidrotations validrotationsstring =
 
         _ ->
             let
-                a =
+                _ =
                     Debug.log "Could not match valid rotations string" validrotationsstring
             in
                 []

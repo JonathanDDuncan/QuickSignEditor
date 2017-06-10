@@ -7,7 +7,7 @@ module SWEditor.EditorSymbol
         )
 
 import SW.Types exposing (Size, Position, Colors)
-import SW.Symbol exposing (Symbol, getsymbolBound, symbolinit)
+import SW.Symbol exposing (Symbol)
 
 
 symbolId : Maybe Symbol -> Int

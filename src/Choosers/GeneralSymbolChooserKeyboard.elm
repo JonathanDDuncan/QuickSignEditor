@@ -93,11 +93,11 @@ setassamesize flowerkeyactionlist =
                     | display =
                         { previousdisplay
                             | height =
-                                List.map (\fka -> fka.display.height) flowerkeyactionlist
+                                List.map (\fka1 -> fka1.display.height) flowerkeyactionlist
                                     |> List.maximum
                                     |> Maybe.withDefault 0
                             , width =
-                                List.map (\fka -> fka.display.width) flowerkeyactionlist
+                                List.map (\fka2 -> fka2.display.width) flowerkeyactionlist
                                     |> List.maximum
                                     |> Maybe.withDefault 0
                         }

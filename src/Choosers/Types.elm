@@ -103,10 +103,6 @@ type Editor
     | ReplaceSymbol Key
 
 
-type alias HandGroupChooser =
-    List (List HandGroupChooserSubList)
-
-
 type alias HandGroupChooserSubList =
     { backgroundcolor : String
     , displayhanditems :
@@ -245,10 +241,6 @@ chooseriteminit =
     }
 
 
-type alias HandGroupModel =
-    List ChooserItem
-
-
 type alias GroupChoosing =
     { basesymbol : String
     , choosings : List ChooserItem
@@ -280,8 +272,8 @@ getchoosings groupchoosings basesymbol =
 
         choosings =
             case firstfound of
-                Just groupchoosings ->
-                    groupchoosings.choosings
+                Just groupchoosings1 ->
+                    groupchoosings1.choosings
 
                 Nothing ->
                     []

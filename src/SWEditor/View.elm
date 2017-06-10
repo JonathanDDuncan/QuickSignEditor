@@ -93,10 +93,9 @@ symbolView symbol =
 
 colorselected : { a | nbcolor : String, selected : Bool } -> Maybe String
 colorselected symbol =
-    (Just
+    Just
         (if symbol.selected then
             "blue"
          else
             symbol.nbcolor
         )
-    )

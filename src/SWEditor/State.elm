@@ -1,18 +1,6 @@
 module SWEditor.State exposing (init, update, subscriptions)
 
-import Ports
-    exposing
-        ( requestSign
-        , requestSignfromOtherApp
-        , requestElementPosition
-        , sendKeyboardMode
-        , subaddsigntosignview
-        , receiveElementPosition
-        , subDragSymbol
-        , subAddSymbol
-        , subReplaceSymbol
-        , receiveKeyboardCommand
-        )
+import Ports exposing (requestSignfromOtherApp, requestElementPosition, sendKeyboardMode, subaddsigntosignview, receiveElementPosition, subDragSymbol, subAddSymbol, subReplaceSymbol, receiveKeyboardCommand)
 import Update.Extra
 import SWEditor.Types
     exposing
@@ -196,7 +184,7 @@ update action model =
                             >> Update.Extra.andThen update StartRectangleSelect
                         )
 
-        MouseUp position ->
+        MouseUp _ ->
             model
                 ! []
                 |> Update.Extra.filter (model.editormode == RectangleSelect)
@@ -221,7 +209,7 @@ update action model =
                     | sign =
                         { sign1
                             | syms =
-                                if (countselectedsymbols model.sign.syms) == 1 then
+                                if countselectedsymbols model.sign.syms == 1 then
                                     replaceselectedsymbols model.sign.syms symbol
                                 else
                                     model.sign.syms

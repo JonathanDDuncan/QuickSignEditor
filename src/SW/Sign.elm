@@ -12,12 +12,7 @@ module SW.Sign
         , centersignarea
         )
 
-import SW.Symbol
-    exposing
-        ( Symbol
-        , moveSymbols
-        , moveSymbol
-        )
+import SW.Symbol exposing (Symbol, moveSymbols)
 import SW.Identifier exposing (updateIds, lastid)
 import SW.Rectangle exposing (Rect, getBounding)
 
