@@ -13,7 +13,7 @@ import SW.Sign exposing (signinit)
 import SW.Symbol exposing (Symbol)
 import SW.Pua exposing (ishand)
 import SW.HandsType as Hands exposing (Hands(..))
-import SW.HandFillsType as HandFills exposing (HandFills(..))
+import SW.HandFillsType exposing (HandFills(..))
 import SW.PlanesType as Planes exposing (Planes(..))
 
 
