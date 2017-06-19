@@ -350,19 +350,11 @@ update action model =
             model ! [ cmdchangenormallyblack "#000000" ]
 
         ChangeNormallyWhite color ->
-            -- let
-            --     a =
-            --         Debug.log "color " color
-            -- in
             colornwsymbols model color
                 ! []
                 |> addUndoEntry True "ChangeNormallyWhite"
 
         ChangeNormallyBlack color ->
-            -- let
-            --     a =
-            --         Debug.log "color " color
-            -- in
             colornbsymbols model color
                 ! []
                 |> addUndoEntry True "ChangeNormallyBlack"

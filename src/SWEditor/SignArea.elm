@@ -88,10 +88,7 @@ colornbsymbols model color =
 
 colornbsymbol : { a | nbcolor : String } -> String -> { a | nbcolor : String }
 colornbsymbol symbol color =
-    let
-        a =
-            Debug.log "nbcolor" color
-    in
+ 
         { symbol | nbcolor = color }
 
 
@@ -113,10 +110,7 @@ colornwsymbols model color =
 
 colornwsymbol : { a | nwcolor : String } -> String -> { a | nwcolor : String }
 colornwsymbol symbol color =
-    let
-        a =
-            Debug.log "nwcolor" color
-    in
+ 
         { symbol | nwcolor = color }
 
 
