@@ -8,7 +8,7 @@ import Choosers.Types
         )
 import Choosers.ChooserItemType exposing (chooseriteminit)
 import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
-import Choosers.Types as Loading exposing (Loading)
+import Choosers.LoadingType as Loading exposing (Loading)
 import SW.Symbol as Hands exposing (Hands)
 import SW.Symbol as HandFills exposing (HandFills, createSymbolbyBaseFillRotation)
 import Ports exposing (requestInitialGroupHandChoosings, subLoadManiquinChoosings, loadGroupChoosings, receiveKeyboardCommand, loadPortableSign)

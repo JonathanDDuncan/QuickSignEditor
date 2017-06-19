@@ -3,19 +3,14 @@ module Choosers.Types
         ( Model
         , Msg(..)
         , ChoosingModel
-        , HandGroupImportModel
-        , ChoosingImportModel
         , GroupChoosing
         , ChoosersKeyboard
         , HandSymbol
         , HandPng
-        , BaseChooserItem
-        , ChooserItemValue
         , HandGroupChooserSubList
         , HandItem
         , HandFillItem
         , Petal
-        , Loading(..)
         , gethandtype
         , bkcolor
         , getchoosings
@@ -30,7 +25,6 @@ import SWEditor.Types exposing (Model, Msg, Offset)
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
 import SW.Pua exposing (Fill, Base, Key)
-import SW.PortableSign exposing (PortableSign)
 import SW.Symbol exposing (Symbol, HandFills(..), Hands(..), Planes(..), symbolinit)
 import Material exposing (Model)
 import Dict exposing (Dict)
@@ -38,6 +32,7 @@ import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
 import Choosers.KeyboardType exposing (KeyboardType)
 import Choosers.ChooserItemType exposing (ChooserItem)
 import Choosers.EditorType exposing (Editor)
+import Choosers.LoadingType exposing (Loading)
 
 
 type alias Update =
@@ -80,12 +75,6 @@ type Msg
     | LoadingMsg Loading
 
 
-type Loading
-    = LoadManiquinChoosings (List ChoosingImportModel)
-    | LoadGroupChoosings HandGroupImportModel
-    | LoadPortableSign PortableSign
-
-
 type alias HandGroupChooserSubList =
     { backgroundcolor : String
     , displayhanditems :
@@ -94,13 +83,6 @@ type alias HandGroupChooserSubList =
             , mdlid : Int
             , symbol : Symbol
             }
-    }
-
-
-type alias HandGroupImportModel =
-    { chooseritemvalues : List ChooserItemValue
-    , basechooseritems : List BaseChooserItem
-    , symbolsizes : List SymbolSize
     }
 
 
@@ -155,38 +137,6 @@ gethandtype filltype =
 
         RightBabyEdge ->
             Right
-
-
-type alias SymbolSize =
-    { k : String
-    , h : Int
-    , w : Int
-    }
-
-
-type alias ChooserItemValue =
-    { choosertype : String
-    , name : String
-    , value : Int
-    , symbolgroup : String
-    }
-
-
-type alias BaseChooserItem =
-    { base : Int
-    , name : String
-    , symbolid : String
-    , symbolkey : String
-    , unicodepua : String
-    , validfills : String
-    , validrotations : String
-    , groupchooser : String
-    , common : Bool
-    , feature : String
-    , rowname : String
-    , colname : String
-    , rank : Int
-    }
 
 
 type alias GroupChoosing =
@@ -277,14 +227,6 @@ bkcolor cat =
 
 type alias ChoosingModel =
     { displaySign : Sign
-    , valuestoAdd : List Symbol
-    , value : String
-    , offset : Offset
-    }
-
-
-type alias ChoosingImportModel =
-    { displaySign : PortableSign
     , valuestoAdd : List Symbol
     , value : String
     , offset : Offset
