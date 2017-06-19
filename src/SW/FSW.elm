@@ -22,11 +22,8 @@ getFsw sign =
 
         styling =
             symbolstylingFsw centered.syms
-
-        fsw =
-            boundingbox ++ symbols ++ styling
     in
-        fsw
+        boundingbox ++ symbols ++ styling
 
 
 symbolsFsw : Symbol -> String
