@@ -1,7 +1,7 @@
 module Choosers.ManiquinKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard, updatemaniquinkeyboard)
 
 import Choosers.Types exposing (Model, ChoosingModel, Msg(EditorMsg))
-import Choosers.Types as Editor exposing (Editor)
+import Choosers.EditorType as Editor exposing (Editor(..))
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyboardMode(..), getKeyboardMode, runKeyboard)
 import SW.Display exposing (signsvgnoscale)
 

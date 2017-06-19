@@ -4,11 +4,10 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(..)
-        , Editor
         , handsymbolinit
-        , chooseriteminit
         )
-import Choosers.Types as KeyboardType exposing (KeyboardType)
+import Choosers.ChooserItemType exposing (chooseriteminit)
+import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
 import Choosers.Types as Loading exposing (Loading)
 import SW.Symbol as Hands exposing (Hands)
 import SW.Symbol as HandFills exposing (HandFills, createSymbolbyBaseFillRotation)

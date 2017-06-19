@@ -9,7 +9,7 @@ import Choosers.Types
         , HandFillItem
         , Petal
         )
-import Choosers.Types as Editor exposing (Editor)
+import Choosers.EditorType as Editor exposing (Editor)
 import SW.Symbol as Hands exposing (Hands)
 import SW.Symbol as HandFills exposing (HandFills)
 import SW.Symbol as Planes exposing (Planes)

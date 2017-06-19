@@ -1,7 +1,7 @@
 module Choosers.Keyboard exposing (keyboardupdate)
 
-import Choosers.Types exposing (Model, Msg, Editor, Update)
-import Choosers.Types as KeyboardType exposing (KeyboardType)
+import Choosers.Types exposing (Model, Msg, Update)
+import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
 import Ports exposing (sendKeyboardMode)
 import Choosers.ManiquinKeyboard exposing (runKeyboardCommand)
 import Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, totalkeyboardpages)

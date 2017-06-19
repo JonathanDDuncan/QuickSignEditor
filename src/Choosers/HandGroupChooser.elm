@@ -4,12 +4,12 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(EditorMsg, FilterHandGroup)
-        , ChooserItem
         , HandGroupChooserSubList
         , getchoosings
         , bkcolor
         )
-import Choosers.Types as Editor exposing (Editor)
+import Choosers.EditorType as Editor exposing (Editor)
+import Choosers.ChooserItemType as ChooserItem exposing (ChooserItem)
 import SW.Symbol as HandFills exposing (HandFills)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, createSymbolbyBaseFillRotation)

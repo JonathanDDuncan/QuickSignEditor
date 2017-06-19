@@ -4,8 +4,6 @@ import Choosers.Types
     exposing
         ( Model
         , Msg(EditorMsg, KeyboardMsg)
-        , Editor(GroupSelected)
-        , KeyboardType(NextKeyboardPage)
         )
 import Html
 import Keyboard.Shared exposing (KeyAction)
@@ -14,6 +12,9 @@ import SW.Symbol exposing (Symbol)
 import SW.Pua exposing (ishand)
 import List.Extra exposing (unique)
 import Exts.List exposing (chunk)
+import Choosers.EditorType exposing (Editor(GroupSelected))
+import Choosers.ChooserItemType exposing (ChooserItem)
+import Choosers.KeyboardType exposing (KeyboardType(NextKeyboardPage))
 import Choosers.HandGroupChooser exposing (createhandgroupchooserdata)
 import Choosers.GeneralGroupChooser exposing (creategeneralgroupchooserdata)
 
@@ -64,7 +65,7 @@ createkeyactionlist :
     List
         (List
             { a
-                | chooseritem : Choosers.Types.ChooserItem
+                | chooseritem : ChooserItem
                 , symbol : Symbol
             }
         )

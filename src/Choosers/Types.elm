@@ -9,21 +9,17 @@ module Choosers.Types
         , ChoosersKeyboard
         , HandSymbol
         , HandPng
-        , ChooserItem
         , BaseChooserItem
         , ChooserItemValue
         , HandGroupChooserSubList
         , HandItem
         , HandFillItem
         , Petal
-        , Editor(..)
-        , KeyboardType(..)
         , Loading(..)
         , gethandtype
         , bkcolor
         , getchoosings
         , handsymbolinit
-        , chooseriteminit
         , ishandgroupchooser
         , Update
         )
@@ -39,6 +35,9 @@ import SW.Symbol exposing (Symbol, HandFills(..), Hands(..), Planes(..), symboli
 import Material exposing (Model)
 import Dict exposing (Dict)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
+import Choosers.KeyboardType exposing (KeyboardType)
+import Choosers.ChooserItemType exposing (ChooserItem)
+import Choosers.EditorType exposing (Editor)
 
 
 type alias Update =
@@ -85,22 +84,6 @@ type Loading
     = LoadManiquinChoosings (List ChoosingImportModel)
     | LoadGroupChoosings HandGroupImportModel
     | LoadPortableSign PortableSign
-
-
-type KeyboardType
-    = Keyboard KeyboardCommand
-    | SetKeyboardMode KeyboardMode
-    | UpdateChooserKeyboards
-    | NextKeyboardPage
-
-
-type Editor
-    = SelectedColumn Int
-    | Clicked String
-    | GroupSelected ChooserItem
-    | AddSymbol Key
-    | DragSymbol Key
-    | ReplaceSymbol Key
 
 
 type alias HandGroupChooserSubList =
@@ -203,41 +186,6 @@ type alias BaseChooserItem =
     , rowname : String
     , colname : String
     , rank : Int
-    }
-
-
-type alias ChooserItem =
-    { base : Base
-    , name : String
-    , symbolid : String
-    , symbolkey : String
-    , unicodepua : String
-    , validfills : String
-    , validrotations : String
-    , groupchooser : Int
-    , common : Bool
-    , feature : Int
-    , row : Int
-    , col : Int
-    , rank : Int
-    }
-
-
-chooseriteminit : ChooserItem
-chooseriteminit =
-    { base = 256
-    , name = "Index"
-    , symbolid = "01-01-001-01"
-    , symbolkey = ""
-    , unicodepua = "U+FD830"
-    , validfills = "1 - 6"
-    , validrotations = "1 - 16"
-    , groupchooser = 1
-    , common = True
-    , feature = 0
-    , row = 1
-    , col = 1
-    , rank = 1
     }
 
 
