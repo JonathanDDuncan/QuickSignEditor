@@ -16,7 +16,8 @@ import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
 import Update.Extra
 import Choosers.Loading exposing (loadingupdate)
-import Choosers.Editor exposing (editorupdate)
+import Choosers.EditorType exposing (Editor)
+import Choosers.EditorUpdate exposing (editorupdate)
 import Choosers.Keyboard exposing (keyboardupdate)
 import SW.HandsType as Hands exposing (Hands(..))
 import SW.HandFillsType as HandFills exposing (HandFills(..))

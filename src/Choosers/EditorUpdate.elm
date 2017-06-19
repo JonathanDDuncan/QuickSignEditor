@@ -1,8 +1,8 @@
-module Choosers.Editor exposing (editorupdate)
+module Choosers.EditorUpdate exposing (editorupdate)
 
 import Choosers.Types exposing (Model, Msg(KeyboardMsg, UpdateHandSymbolChooser), Update)
 import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
-import Choosers.EditorType exposing (Editor(..))
+import Choosers.EditorType as Editor exposing (Editor(..))
 import Ports exposing (cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol)
 import SW.Symbol exposing (createSymbolbyKey)
 import Update.Extra
