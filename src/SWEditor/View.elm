@@ -22,7 +22,17 @@ import SWEditor.RectangleSelect exposing (rectangleStartCurrent)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvgmargincolor)
 import SW.Symbol exposing (Symbol)
-import SWEditor.Icons exposing (undoicon, redoicon, duplicateicon, garbagecanicon, circleplus, circleminus)
+import SWEditor.Icons
+    exposing
+        ( undoicon
+        , redoicon
+        , duplicateicon
+        , garbagecanicon
+        , circleplus
+        , circleminus
+        , nbicon
+        , nwicon
+        )
 
 
 root : Model -> Html Msg
@@ -96,15 +106,15 @@ commandsview =
         , div [] [ a [ onClick SizeIncreaseSymbols, title "Increase Size" ] [ button [] [ circleplus ] ] ]
         , div [] [ a [ onClick SizeDecreaseSymbols, title "Decrease Size" ] [ button [] [ circleminus ] ] ]
         , div []
-            [ a [ id "colorpickerblack", onClick NormallyBlackNewColor, title "Normally Black" ]
+            [ a [ onClick NormallyBlackNewColor, title "Normally Black" ]
                 [ div [] [ input [ type_ "hidden", class "cp-hidden-input-black" ] [] ]
-                , button [] [ circleminus ]
+                , button [] [ nbicon ]
                 ]
             ]
         , div []
-            [ a [ id "colorpickerwhite", onClick NormallyWhiteNewColor, title "Normally White" ]
+            [ a [ onClick NormallyWhiteNewColor, title "Normally White" ]
                 [ input [ type_ "hidden", class "cp-hidden-input-white" ] []
-                , button [ class "cp-basic" ] [ circleminus ]
+                , button [ class "cp-basic" ] [ nwicon ]
                 ]
             ]
         ]
