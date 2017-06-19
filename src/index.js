@@ -167,6 +167,27 @@ function requestSignDelayed(str) {
 }
 app.ports.requestSignfromOtherAppDelayed.subscribe(requestSignDelayed);
 
+app.ports.cmdchangenormallywhite.subscribe(function (color) {
+    var dialogHidden = $('.cp-hidden-input-white').colorpicker({
+        inline: false,
+        parts: 'popup',
+        select: function (newcolor) {
+            app.ports.subchangenormallywhite.send(newcolor.target.value);
+        }
+    });
+    dialogHidden.colorpicker('open');
+});
+app.ports.cmdchangenormallyblack.subscribe(function (color) {
+    var dialogHidden = $('.cp-hidden-input-black').colorpicker({
+        inline: false,
+        parts: 'popup',
+        select: function (newcolor) {
+            app.ports.subchangenormallyblack.send(newcolor.target.value);
+        }
+    });
+    dialogHidden.colorpicker('open');
+});
+
 
 function touchHandler(event) {
     var touches = event.changedTouches

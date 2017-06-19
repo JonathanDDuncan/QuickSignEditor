@@ -25,6 +25,10 @@ port module Ports
         , requestSignfromOtherAppDelayed
         , hideOverlay
         , shareFsw
+        , cmdchangenormallywhite
+        , subchangenormallywhite
+        , cmdchangenormallyblack
+        , subchangenormallyblack
         )
 
 import SW.Types exposing (NamedPosition)
@@ -110,3 +114,15 @@ port cmdaddsigntosignview : PortableSign -> Cmd msg
 
 
 port subaddsigntosignview : (PortableSign -> msg) -> Sub msg
+
+
+port cmdchangenormallywhite : String -> Cmd msg
+
+
+port subchangenormallywhite : (String -> msg) -> Sub msg
+
+
+port cmdchangenormallyblack : String -> Cmd msg
+
+
+port subchangenormallyblack : (String -> msg) -> Sub msg

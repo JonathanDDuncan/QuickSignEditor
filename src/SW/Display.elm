@@ -15,6 +15,7 @@ import Svg exposing (Svg, svg, g)
 import SW.Pua exposing (puaCharCode, linecodefromkey, fillcodefromkey)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
+import ParseInt as ParseInt exposing (parseIntHex)
 
 
 signdisplaysvg : String -> Sign -> Html msg
@@ -123,7 +124,7 @@ symbolview x y color scale symbol =
 
         defaultfillchararttributes =
             [ attribute "class" "sym-fill"
-            , attribute "style" <| "pointer-events:none;font-family:'SuttonSignWritingFill';font-size:30px;fill:" ++ symbol.nwcolor ++ ";"
+            , attribute "style" <| "pointer-events:none;font-family:'SuttonSignWritingFill';font-size:30px;fill:" ++ fixcolor symbol.nwcolor ++ ";"
             ]
 
         fillcharattributes =
@@ -131,7 +132,7 @@ symbolview x y color scale symbol =
 
         defaultlinechararttributes =
             [ attribute "class" "sym-line"
-            , attribute "style" <| "pointer-events:none;font-family:'SuttonSignWriting';font-size:30px;fill:" ++ symbolcolor ++ ";"
+            , attribute "style" <| "pointer-events:none;font-family:'SuttonSignWriting';font-size:30px;fill:" ++ fixcolor symbolcolor ++ ";"
             ]
 
         linecharattributes =
@@ -152,3 +153,21 @@ symbolview x y color scale symbol =
 scaling : a -> String
 scaling scalevalue =
     "scale(" ++ toString scalevalue ++ ") "
+
+
+fixcolor : String -> String
+fixcolor color =
+    if ishexvalue color then
+        "#" ++ color
+    else
+        color
+
+
+ishexvalue : String -> Bool
+ishexvalue value =
+    case parseIntHex value of
+        Ok _ ->
+            True
+
+        Err _ ->
+            False

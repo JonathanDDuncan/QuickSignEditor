@@ -52,8 +52,6 @@ type alias UndoItem =
 
 type Msg
     = ChangeFSW String
-      -- | RequestSign
-      -- | RequestSignfromOtherApp
     | SetSign PortableSign
     | UpdateSignViewPosition
     | RequestElementPosition String
@@ -82,6 +80,10 @@ type Msg
     | AddUndo Bool String Model
     | Undo
     | Redo
+    | NormallyWhiteNewColor
+    | NormallyBlackNewColor
+    | ChangeNormallyWhite String
+    | ChangeNormallyBlack String
 
 
 type alias Distance =

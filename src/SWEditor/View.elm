@@ -1,9 +1,23 @@
 module SWEditor.View exposing (root)
 
-import Html exposing (Html, Attribute, div, button, a)
-import Html.Attributes exposing (style, title)
+import Html exposing (Html, Attribute, div, button, a, input)
+import Html.Attributes exposing (style, title, id, class, type_)
 import Html.Events exposing (onClick)
-import SWEditor.Types exposing (Model, Msg(Undo, Redo, DuplicateSymbols, DeleteSymbols, SizeIncreaseSymbols, SizeDecreaseSymbols), EditorMode(RectangleSelect))
+import SWEditor.Types
+    exposing
+        ( Model
+        , Msg
+            ( Undo
+            , Redo
+            , DuplicateSymbols
+            , DeleteSymbols
+            , SizeIncreaseSymbols
+            , SizeDecreaseSymbols
+            , NormallyWhiteNewColor
+            , NormallyBlackNewColor
+            )
+        , EditorMode(RectangleSelect)
+        )
 import SWEditor.RectangleSelect exposing (rectangleStartCurrent)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvgmargincolor)
@@ -81,6 +95,18 @@ commandsview =
         , div [] [ a [ onClick DeleteSymbols, title "Delete" ] [ button [] [ garbagecanicon ] ] ]
         , div [] [ a [ onClick SizeIncreaseSymbols, title "Increase Size" ] [ button [] [ circleplus ] ] ]
         , div [] [ a [ onClick SizeDecreaseSymbols, title "Decrease Size" ] [ button [] [ circleminus ] ] ]
+        , div []
+            [ a [ id "colorpickerblack", onClick NormallyBlackNewColor, title "Normally Black" ]
+                [ div [] [ input [ type_ "hidden", class "cp-hidden-input-black" ] [] ]
+                , button [] [ circleminus ]
+                ]
+            ]
+        , div []
+            [ a [ id "colorpickerwhite", onClick NormallyWhiteNewColor, title "Normally White" ]
+                [ input [ type_ "hidden", class "cp-hidden-input-white" ] []
+                , button [ class "cp-basic" ] [ circleminus ]
+                ]
+            ]
         ]
 
 
@@ -93,9 +119,7 @@ symbolView symbol =
 
 colorselected : { a | nbcolor : String, selected : Bool } -> Maybe String
 colorselected symbol =
-    Just
-        (if symbol.selected then
-            "blue"
-         else
-            symbol.nbcolor
-        )
+    if symbol.selected then
+        Just "blue"
+    else
+        Nothing

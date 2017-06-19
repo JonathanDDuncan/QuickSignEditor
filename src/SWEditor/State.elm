@@ -1,6 +1,20 @@
 module SWEditor.State exposing (init, update, subscriptions)
 
-import Ports exposing (requestElementPosition, sendKeyboardMode, subaddsigntosignview, receiveElementPosition, subDragSymbol, subAddSymbol, subReplaceSymbol, receiveKeyboardCommand)
+import Ports
+    exposing
+        ( requestElementPosition
+        , sendKeyboardMode
+        , subaddsigntosignview
+        , receiveElementPosition
+        , subDragSymbol
+        , subAddSymbol
+        , subReplaceSymbol
+        , receiveKeyboardCommand
+        , cmdchangenormallywhite
+        , cmdchangenormallyblack
+        , subchangenormallywhite
+        , subchangenormallyblack
+        )
 import Update.Extra
 import SWEditor.Types
     exposing
@@ -30,6 +44,8 @@ import SWEditor.SignArea
         , duplicatesymbols
         , changesizesymbols
         , movesymbols
+        , colornbsymbols
+        , colornwsymbols
         )
 import SWEditor.EditorKeyboard exposing (configKeyboardSignView, runKeyboardCommand)
 import Keyboard.Shared
@@ -64,10 +80,6 @@ update action model =
         ChangeFSW newfsw ->
             { model | fsw = newfsw, sign = signinit } ! []
 
-        -- RequestSign ->
-        --     ( model, requestSign model.fsw )
-        -- RequestSignfromOtherApp ->
-        --     ( model, requestSignfromOtherApp "" )
         SetSign portablesign ->
             let
                 editorSign =
@@ -331,6 +343,30 @@ update action model =
         Redo ->
             redo model ! []
 
+        NormallyWhiteNewColor ->
+            model ! [ cmdchangenormallywhite "#ffffff" ]
+
+        NormallyBlackNewColor ->
+            model ! [ cmdchangenormallyblack "#000000" ]
+
+        ChangeNormallyWhite color ->
+            -- let
+            --     a =
+            --         Debug.log "color " color
+            -- in
+            colornwsymbols model color
+                ! []
+                |> addUndoEntry True "ChangeNormallyWhite"
+
+        ChangeNormallyBlack color ->
+            -- let
+            --     a =
+            --         Debug.log "color " color
+            -- in
+            colornbsymbols model color
+                ! []
+                |> addUndoEntry True "ChangeNormallyBlack"
+
         DeleteSymbols ->
             deletesymbols model
                 ! []
@@ -413,6 +449,8 @@ subscriptions model =
         , subAddSymbol AddSymbol
         , subReplaceSymbol ReplaceSymbol
         , receiveKeyboardCommand Keyboard
+        , subchangenormallywhite ChangeNormallyWhite
+        , subchangenormallyblack ChangeNormallyBlack
         ]
 
 

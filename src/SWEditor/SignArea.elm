@@ -7,6 +7,8 @@ module SWEditor.SignArea
         , duplicatesymbols
         , changesizesymbols
         , movesymbols
+        , colornbsymbols
+        , colornwsymbols
         )
 
 import SWEditor.Types exposing (Model, Msg, EditorMode(..), Direction(..), Distance)
@@ -66,6 +68,56 @@ changesizesymbols model sizediff =
                 model.sign.syms
                 |> updatesignsymbols model.sign
     }
+
+
+colornbsymbols : Model -> String -> Model
+colornbsymbols model color =
+    { model
+        | sign =
+            List.map
+                (\sym ->
+                    if sym.selected then
+                        colornbsymbol sym color
+                    else
+                        sym
+                )
+                model.sign.syms
+                |> updatesignsymbols model.sign
+    }
+
+
+colornbsymbol : { a | nbcolor : String } -> String -> { a | nbcolor : String }
+colornbsymbol symbol color =
+    let
+        a =
+            Debug.log "nbcolor" color
+    in
+        { symbol | nbcolor = color }
+
+
+colornwsymbols : Model -> String -> Model
+colornwsymbols model color =
+    { model
+        | sign =
+            List.map
+                (\sym ->
+                    if sym.selected then
+                        colornwsymbol sym color
+                    else
+                        sym
+                )
+                model.sign.syms
+                |> updatesignsymbols model.sign
+    }
+
+
+colornwsymbol : { a | nwcolor : String } -> String -> { a | nwcolor : String }
+colornwsymbol symbol color =
+    let
+        a =
+            Debug.log "nwcolor" color
+    in
+        { symbol | nwcolor = color }
 
 
 changesizesymbol : { a | size : Float } -> Float -> { a | size : Float }
