@@ -3,7 +3,6 @@ module Keyboard.Shared
         ( KeyAction
         , KeyboardCommand
         , KeyConfig
-        , KeyboardMode(..)
         , getKeyboardMode
         , runKeyboard
         , createKeyboardCommand
@@ -13,13 +12,7 @@ module Keyboard.Shared
 
 import Update.Extra exposing (andThen)
 import Html exposing (Html)
-
-
-type KeyboardMode
-    = GeneralChooser
-    | GroupChooser
-    | SymbolChooser
-    | SignView
+import Keyboard.KeyboardModeType exposing (..)
 
 
 keyboardModeCode : List ( Int, KeyboardMode )

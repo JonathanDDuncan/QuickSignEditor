@@ -5,10 +5,10 @@ import Html.Attributes exposing (style, class)
 import Keyboard.Types exposing (Model, Msg(DisplaySignView, DisplayChoosers), Keypress(None))
 import String
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyConfig, createKeyboardCommand)
-import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
 import SWEditor.Types exposing (Msg)
 import Choosers.Types exposing (Msg, ChoosersKeyboard)
 import Helpers.ViewExtra exposing (px, shrinkdontzoom, transformscale)
+import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
 
 
 root :

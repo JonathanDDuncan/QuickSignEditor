@@ -21,6 +21,7 @@ import Choosers.EditorUpdate exposing (editorupdate)
 import Choosers.Keyboard exposing (keyboardupdate)
 import SW.HandsType as Hands exposing (Hands(..))
 import SW.HandFillsType as HandFills exposing (HandFills(..))
+import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
 
 
 init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )

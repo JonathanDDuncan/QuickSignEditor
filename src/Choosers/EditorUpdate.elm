@@ -6,7 +6,7 @@ import Choosers.EditorType as Editor exposing (Editor(..))
 import Ports exposing (cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol)
 import SW.Symbol exposing (createSymbolbyKey)
 import Update.Extra
-import Keyboard.Shared exposing (KeyboardMode)
+import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
 
 
 editorupdate : Editor -> Model -> Update -> ( Model, Cmd Msg )
@@ -25,7 +25,7 @@ editorupdate action model update =
             , Cmd.none
             )
                 |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
-                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.GroupChooser)
+                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) KeyboardMode.GroupChooser)
 
         GroupSelected choosing ->
             ( { model
@@ -35,13 +35,13 @@ editorupdate action model update =
             )
                 |> Update.Extra.andThen update (KeyboardMsg <| KeyboardType.UpdateChooserKeyboards)
                 |> Update.Extra.andThen update UpdateHandSymbolChooser
-                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SymbolChooser)
+                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) KeyboardMode.SymbolChooser)
 
         AddSymbol key ->
             ( model
             , cmdAddSymbol <| createSymbolbyKey key model.symbolsizes
             )
-                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) Keyboard.Shared.SignView)
+                |> Update.Extra.andThen update ((KeyboardMsg << KeyboardType.SetKeyboardMode) KeyboardMode.SignView)
 
         DragSymbol key ->
             ( model

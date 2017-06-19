@@ -3,8 +3,8 @@ module Keyboard.State exposing (init, update, subscriptions)
 import Keyboard.Types exposing (Model, Msg(..), Key)
 import Keyboard.KeyboardLayouts exposing (querty, fingerspellingQueryAsl)
 import Keyboard.Extra
-import Keyboard.Shared exposing (KeyboardMode, createKeyboardCommand, getKeyboardMode, isPressedShift)
-import Keyboard.Shared as KeyboardMode exposing (KeyboardMode)
+import Keyboard.Shared exposing (createKeyboardCommand, getKeyboardMode, isPressedShift)
+import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
 import Ports exposing (sendKeyboardCommand, receiveKeyboardMode)
 
 

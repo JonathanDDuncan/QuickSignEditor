@@ -32,7 +32,7 @@ import SWEditor.SignArea
         , movesymbols
         )
 import SWEditor.EditorKeyboard exposing (configKeyboardSignView, runKeyboardCommand)
-import Keyboard.Shared exposing (KeyboardMode)
+import Keyboard.Shared exposing (getKeyboardModeCode)
 import SW.Identifier exposing (updateId)
 
 
