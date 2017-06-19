@@ -10,9 +10,9 @@ import Choosers.Types
         , Petal
         )
 import Choosers.EditorType as Editor exposing (Editor)
-import SW.Symbol as Hands exposing (Hands)
-import SW.Symbol as HandFills exposing (HandFills)
-import SW.Symbol as Planes exposing (Planes)
+import SW.HandsType as Hands exposing (Hands)
+import SW.HandFillsType as HandFills exposing (HandFills)
+import SW.PlanesType as Planes exposing (Planes)
 import SW.Display exposing (symbolsvg)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, symbolinit, createSymbolbyBaseFillRotation)

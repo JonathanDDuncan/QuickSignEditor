@@ -11,7 +11,7 @@ import SW.Display exposing (symbolsvg)
 import Exts.List exposing (unique)
 import SW.Pua exposing (Fill, Base, Key, codefromkey)
 import Choosers.SymbolToolTip exposing (symboltooltip)
-import SW.Symbol exposing (Symbol, HandFills(..), Hands(..), Planes(..), createSymbolbyBaseFillRotation)
+import SW.Symbol exposing (Symbol, createSymbolbyBaseFillRotation)
 import Material as Material exposing (Model)
 
 

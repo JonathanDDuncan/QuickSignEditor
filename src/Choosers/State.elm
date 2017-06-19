@@ -9,8 +9,7 @@ import Choosers.Types
 import Choosers.ChooserItemType exposing (chooseriteminit)
 import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
 import Choosers.LoadingType as Loading exposing (Loading)
-import SW.Symbol as Hands exposing (Hands)
-import SW.Symbol as HandFills exposing (HandFills, createSymbolbyBaseFillRotation)
+import SW.Symbol exposing (createSymbolbyBaseFillRotation)
 import Ports exposing (requestInitialGroupHandChoosings, subLoadManiquinChoosings, loadGroupChoosings, receiveKeyboardCommand, loadPortableSign)
 import Dict exposing (Dict)
 import Material
@@ -19,6 +18,8 @@ import Update.Extra
 import Choosers.Loading exposing (loadingupdate)
 import Choosers.Editor exposing (editorupdate)
 import Choosers.Keyboard exposing (keyboardupdate)
+import SW.HandsType as Hands exposing (Hands(..))
+import SW.HandFillsType as HandFills exposing (HandFills(..))
 
 
 init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )

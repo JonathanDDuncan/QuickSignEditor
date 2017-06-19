@@ -25,7 +25,7 @@ import SWEditor.Types exposing (Model, Msg, Offset)
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign)
 import SW.Pua exposing (Fill, Base, Key)
-import SW.Symbol exposing (Symbol, HandFills(..), Hands(..), Planes(..), symbolinit)
+import SW.Symbol exposing (Symbol, symbolinit)
 import Material exposing (Model)
 import Dict exposing (Dict)
 import Keyboard.Shared exposing (KeyAction, KeyboardCommand, KeyboardMode)
@@ -33,6 +33,9 @@ import Choosers.KeyboardType exposing (KeyboardType)
 import Choosers.ChooserItemType exposing (ChooserItem)
 import Choosers.EditorType exposing (Editor)
 import Choosers.LoadingType exposing (Loading)
+import SW.HandFillsType exposing (HandFills(..))
+import SW.HandsType exposing (Hands(..))
+import SW.PlanesType exposing (Planes(..))
 
 
 type alias Update =

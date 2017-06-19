@@ -1,11 +1,12 @@
 module Choosers.HandPng exposing (handpngspan, gethandpng)
 
 import Choosers.Types exposing (Model, Msg, HandPng)
-import SW.Symbol as HandFills exposing (HandFills)
-import SW.Symbol exposing (Hands(Right, Left), gethandtype)
+import SW.Symbol exposing (gethandtype)
 import String exposing (toLower)
 import Html exposing (Html)
 import Html.Attributes exposing (class, attribute)
+import SW.HandFillsType as HandFills exposing (HandFills(..))
+import SW.HandsType exposing (Hands(..))
 
 
 handpngspan : { a | miror : Bool, pngcss : String, rotate : number } -> String -> String -> String -> String -> Html c

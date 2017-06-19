@@ -1,7 +1,7 @@
 module Choosers.ImportModelType exposing (HandGroupImportModel, ChoosingImportModel, BaseChooserItem, ChooserItemValue)
 
 import SW.PortableSign exposing (PortableSign)
-import SW.Symbol exposing (Symbol, HandFills(..), Hands(..), Planes(..))
+import SW.Symbol exposing (Symbol)
 import SWEditor.Types exposing (Model, Msg, Offset)
 
 

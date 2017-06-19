@@ -10,13 +10,13 @@ import Choosers.Types
         )
 import Choosers.EditorType as Editor exposing (Editor)
 import Choosers.ChooserItemType exposing (ChooserItem)
-import SW.Symbol as HandFills exposing (HandFills)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, createSymbolbyBaseFillRotation)
 import Dict exposing (Dict)
 import List.Extra
 import SW.Pua exposing (codefromkey)
 import Material
+import SW.HandFillsType as HandFills exposing (HandFills(..))
 
 
 --View

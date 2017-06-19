@@ -2,9 +2,6 @@ module SW.Symbol
     exposing
         ( Symbol
         , symbolinit
-        , HandFills(..)
-        , Hands(..)
-        , Planes(..)
         , SymbolSize
         , moveSymbols
         , moveSymbol
@@ -22,6 +19,8 @@ import SW.Types exposing (Size)
 import SW.Rectangle exposing (Rect)
 import SW.Identifier exposing (updateId)
 import Dict exposing (Dict)
+import SW.HandFillsType exposing (HandFills(..))
+import SW.HandsType exposing (Hands(..))
 
 
 type alias Symbol =
@@ -79,27 +78,6 @@ gethandtype filltype =
 
         RightBabyEdge ->
             Right
-
-
-type HandFills
-    = LeftBack
-    | LeftThumbEdge
-    | LeftPalm
-    | LeftBabyEdge
-    | RightBack
-    | RightThumbEdge
-    | RightPalm
-    | RightBabyEdge
-
-
-type Hands
-    = Right
-    | Left
-
-
-type Planes
-    = Wall
-    | Floor
 
 
 type alias SymbolSize =

@@ -3,8 +3,6 @@ module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboa
 import Html exposing (Html)
 import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill))
 import Choosers.EditorType as Editor exposing (Editor)
-import SW.Symbol as Hands exposing (Hands)
-import SW.Symbol as Planes exposing (Planes)
 import Keyboard.Shared exposing (KeyAction)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
 import List.Extra
@@ -14,6 +12,9 @@ import Helpers.MaybeExtra exposing (removeNothings)
 import SW.Sign exposing (signinit)
 import SW.Symbol exposing (Symbol)
 import SW.Pua exposing (ishand)
+import SW.HandsType as Hands exposing (Hands(..))
+import SW.HandFillsType as HandFills exposing (HandFills(..))
+import SW.PlanesType as Planes exposing (Planes(..))
 
 
 createsymbolchooserkeyboard : Model -> List (KeyAction Msg)
@@ -163,7 +164,7 @@ createhandsymbolchooserkeyboard model =
 createfillkeyactionlist :
     List
         { b
-            | filltype : Hands.HandFills
+            | filltype : HandFills
             , symbol :
                 { height : Int
                 , id : Int
