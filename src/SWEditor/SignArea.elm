@@ -88,8 +88,7 @@ colornbsymbols model color =
 
 colornbsymbol : { a | nbcolor : String } -> String -> { a | nbcolor : String }
 colornbsymbol symbol color =
- 
-        { symbol | nbcolor = color }
+    { symbol | nbcolor = color }
 
 
 colornwsymbols : Model -> String -> Model
@@ -110,8 +109,7 @@ colornwsymbols model color =
 
 colornwsymbol : { a | nwcolor : String } -> String -> { a | nwcolor : String }
 colornwsymbol symbol color =
- 
-        { symbol | nwcolor = color }
+    { symbol | nwcolor = color }
 
 
 changesizesymbol : { a | size : Float } -> Float -> { a | size : Float }

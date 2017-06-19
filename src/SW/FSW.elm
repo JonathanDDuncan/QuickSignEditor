@@ -1,6 +1,6 @@
 module SW.FSW exposing (getFsw)
 
-import SW.Sign exposing (Sign, Lane, getlane, lanes, signinit, centerSign)
+import SW.Sign exposing (Sign, Lane, centerSign)
 import SW.Symbol exposing (Symbol)
 
 
@@ -24,7 +24,7 @@ getFsw sign =
             symbolstylingFsw centered.syms
 
         fsw =
-            Debug.log "getFsw" <| boundingbox ++ symbols ++ styling
+            boundingbox ++ symbols ++ styling
     in
         fsw
 
@@ -110,4 +110,4 @@ twodigits value =
         List.range 1 toadd
             |> List.map (\_ -> "0")
             |> List.foldr (++) ""
-            |> (\chain -> chain ++ str)
+            |> \chain -> chain ++ str

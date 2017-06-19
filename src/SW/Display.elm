@@ -15,7 +15,7 @@ import Svg exposing (Svg, svg, g)
 import SW.Pua exposing (puaCharCode, linecodefromkey, fillcodefromkey)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
-import ParseInt as ParseInt exposing (parseIntHex)
+import ParseInt exposing (parseIntHex)
 
 
 signdisplaysvg : String -> Sign -> Html msg
