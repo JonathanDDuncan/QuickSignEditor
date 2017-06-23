@@ -148,7 +148,10 @@ getsymbolBound symbol =
     }
 
 
-sizeSymbol : Dict String Size -> Symbol -> Symbol
+sizeSymbol :
+    Dict String { width : Int, height : Int }
+    -> { c | key : String, height : Int, width : Int }
+    -> { c | key : String, height : Int, width : Int }
 sizeSymbol symbolsizes symbol =
     let
         symbolsizeresult =

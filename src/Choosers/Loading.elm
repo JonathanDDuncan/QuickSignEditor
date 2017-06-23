@@ -12,7 +12,7 @@ import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, sizeSymbol)
 import SW.Sign exposing (lastsignid, refreshsign)
 import SW.Rectangle exposing (getBounding)
-import SW.PortableSign exposing (PortableSign, portableSigntoSign)
+import SW.PortableSign exposing (PortableSign, PortableSymbol, portableSigntoSign)
 import Helpers.ViewExtra exposing ((=>))
 import Choosers.ManiquinKeyboard exposing (updatemaniquinkeyboard)
 import SW.Identifier exposing (updateId, lastid)
@@ -182,7 +182,10 @@ getvalue name itemsvalues =
             List.filter (\item -> item.name == name) itemsvalues
 
 
-sizeportablesign : Dict String Size -> PortableSign -> PortableSign
+sizeportablesign :
+    Dict String Size
+    -> PortableSign
+    -> PortableSign
 sizeportablesign symbolsizes portablesign =
     let
         syms =
@@ -198,7 +201,10 @@ sizeportablesign symbolsizes portablesign =
         }
 
 
-sizesymbols : Dict String Size -> List Symbol -> List Symbol
+sizesymbols :
+    Dict String Size
+    -> List { c | height : Int, key : String, width : Int }
+    -> List { c | height : Int, key : String, width : Int }
 sizesymbols symbolsizes symbols =
     List.map (sizeSymbol symbolsizes) symbols
 
