@@ -85,7 +85,7 @@ editorattributes height signviewmargin maxwidthheight =
 signView : Model -> Html Msg
 signView model =
     div
-        (List.append (editorattributes model.containerheight model.signviewmargin 610) [])
+        (List.append (editorattributes model.containerheight model.signviewmargin 575) [])
         (List.map symbolView model.sign.syms)
 
 
