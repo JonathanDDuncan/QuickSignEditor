@@ -14,7 +14,7 @@ module SW.Sign
 
 import SW.Symbol exposing (Symbol, moveSymbols)
 import SW.Identifier exposing (updateIds, lastid)
-import SW.Rectangle exposing (Rect, getBounding)
+import SW.Rectangle exposing (getBounding)
 
 
 type alias Sign =

@@ -1,15 +1,7 @@
 module Choosers.HandSymbolChooser exposing (handsymbolchooser, wallplaneimg, floorplaneimg, gethandfillitems, createflowersymbols)
 
-import Choosers.Types
-    exposing
-        ( Model
-        , Msg(EditorMsg, SelectHandFill, SelectHand, SelectPlane)
-        , HandSymbol
-        , HandItem
-        , HandFillItem
-        , Petal
-        )
-import Choosers.EditorType as Editor exposing (Editor)
+import Choosers.Types exposing (Msg(EditorMsg, SelectHandFill, SelectHand, SelectPlane), HandSymbol, HandItem, HandFillItem, Petal)
+import Choosers.EditorType as Editor
 import SW.HandsType as Hands exposing (Hands)
 import SW.HandFillsType as HandFills exposing (HandFills)
 import SW.PlanesType as Planes exposing (Planes)

@@ -14,7 +14,7 @@ module SW.Symbol
         , gethandtype
         )
 
-import SW.Pua exposing (Base, Fill, Rotation, Key, Code, createkey)
+import SW.Pua exposing (Base, Fill, Rotation, Key, createkey)
 import SW.Types exposing (Size)
 import SW.Rectangle exposing (Rect)
 import SW.Identifier exposing (updateId)

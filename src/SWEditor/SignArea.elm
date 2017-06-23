@@ -11,7 +11,7 @@ module SWEditor.SignArea
         , colornwsymbols
         )
 
-import SWEditor.Types exposing (Model, Msg, EditorMode(..), Direction(..), Distance)
+import SWEditor.Types exposing (Model, EditorMode(..), Direction(..), Distance)
 import SW.Types exposing (NamedPosition)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)

@@ -8,7 +8,7 @@ import Choosers.Types
         , getchoosings
         , bkcolor
         )
-import Choosers.EditorType as Editor exposing (Editor)
+import Choosers.EditorType as Editor
 import Choosers.ChooserItemType exposing (ChooserItem)
 import SW.Types exposing (Size)
 import SW.Symbol exposing (Symbol, createSymbolbyBaseFillRotation)

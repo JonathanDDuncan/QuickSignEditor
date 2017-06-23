@@ -1,6 +1,6 @@
 module Choosers.ManiquinKeyboard exposing (runKeyboardCommand, creategeneralchooserkeyboard, updatemaniquinkeyboard)
 
-import Choosers.Types exposing (Model, ChoosingModel, Msg(EditorMsg))
+import Choosers.Types exposing (ChoosingModel, Msg(EditorMsg))
 import Choosers.EditorType as Editor exposing (Editor(..))
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, getKeyboardMode, runKeyboard)
 import Keyboard.KeyboardModeType exposing (KeyboardMode(..))

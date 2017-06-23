@@ -1,6 +1,6 @@
 module SW.FSW exposing (getFsw)
 
-import SW.Sign exposing (Sign, Lane, centerSign)
+import SW.Sign exposing (Sign, centerSign)
 import SW.Symbol exposing (Symbol)
 
 

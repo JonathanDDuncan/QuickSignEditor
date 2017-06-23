@@ -2,7 +2,7 @@ module Choosers.ImportModelType exposing (HandGroupImportModel, ChoosingImportMo
 
 import SW.PortableSign exposing (PortableSign)
 import SW.Symbol exposing (Symbol)
-import SWEditor.Types exposing (Model, Msg, Offset)
+import SWEditor.Types exposing (Offset)
 
 
 type alias HandGroupImportModel =

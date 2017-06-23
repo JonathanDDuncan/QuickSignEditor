@@ -3,16 +3,16 @@ module Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneral
 import Html exposing (Html, table, tr, td)
 import Html.Attributes exposing (class, style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
-import Choosers.Types exposing (Model, Msg(EditorMsg), bkcolor, getchoosings)
-import Choosers.EditorType as Editor exposing (Editor)
+import Choosers.Types exposing (Msg(EditorMsg), bkcolor, getchoosings)
+import Choosers.EditorType as Editor
 import Choosers.ChooserItemType exposing (ChooserItem)
 import Helpers.ViewExtra exposing (px, (=>))
 import SW.Display exposing (symbolsvg)
 import Exts.List exposing (unique)
-import SW.Pua exposing (Fill, Base, Key, codefromkey)
+import SW.Pua exposing (codefromkey)
 import Choosers.SymbolToolTip exposing (symboltooltip)
 import SW.Symbol exposing (Symbol, createSymbolbyBaseFillRotation)
-import Material as Material exposing (Model)
+import Material as Material
 
 
 -- View

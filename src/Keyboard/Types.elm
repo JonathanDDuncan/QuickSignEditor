@@ -11,8 +11,8 @@ module Keyboard.Types
 
 import Keyboard.Extra
 import Keyboard.KeyboardModeType exposing (KeyboardMode)
-import SWEditor.Types exposing (Msg)
-import Choosers.Types exposing (Msg)
+import SWEditor.Types
+import Choosers.Types
 import SW.Sign exposing (Sign)
 
 

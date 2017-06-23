@@ -7,7 +7,7 @@ module SWEditor.EditorSign
         )
 
 import SWEditor.EditorSymbol exposing (colorsymbol, sizesymbol, adjustposition)
-import SW.Types exposing (Colors, NamedPosition)
+import SW.Types exposing (Colors)
 import SW.Sign exposing (Sign)
 import SW.Symbol exposing (Symbol)
 import Helpers.ResultExtra exposing (andThentoResult)

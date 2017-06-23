@@ -2,7 +2,7 @@ module Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboa
 
 import Html exposing (Html)
 import Choosers.Types exposing (Model, Msg(EditorMsg, SelectHand, SelectPlane, SelectHandFill))
-import Choosers.EditorType as Editor exposing (Editor)
+import Choosers.EditorType as Editor
 import Keyboard.Shared exposing (KeyAction)
 import Choosers.GeneralSymbolChooser exposing (getgeneralsymbolchooser, reorderedcolumnforpetal2)
 import List.Extra

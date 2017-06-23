@@ -4,7 +4,7 @@ import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick, onMouseDown, onDoubleClick)
 import Choosers.Types exposing (Model, Msg(EditorMsg), ChoosingModel)
-import Choosers.EditorType as Editor exposing (Editor)
+import Choosers.EditorType as Editor
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import SW.Symbol exposing (Symbol, symbolinit)
 import SW.Display

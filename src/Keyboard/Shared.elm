@@ -11,7 +11,7 @@ module Keyboard.Shared
         )
 
 import Update.Extra exposing (andThen)
-import Html exposing (Html)
+import Html
 import Keyboard.KeyboardModeType exposing (..)
 
 

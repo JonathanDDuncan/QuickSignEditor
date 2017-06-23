@@ -1,12 +1,12 @@
 module Keyboard.View exposing (root)
 
-import Html exposing (Html, Attribute, div, text, span)
+import Html exposing (Html, div, text, span)
 import Html.Attributes exposing (style, class)
 import Keyboard.Types exposing (Model, Msg(DisplaySignView, DisplayChoosers), Keypress(None))
 import String
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, KeyConfig, createKeyboardCommand)
-import SWEditor.Types exposing (Msg)
-import Choosers.Types exposing (Msg, ChoosersKeyboard)
+import SWEditor.Types
+import Choosers.Types exposing (ChoosersKeyboard)
 import Helpers.ViewExtra exposing (px, shrinkdontzoom, transformscale)
 import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
 

@@ -1,6 +1,6 @@
 module Choosers.EditorType exposing (Editor(..))
 
-import SW.Pua exposing (Fill, Base, Key)
+import SW.Pua exposing (Key)
 import Choosers.ChooserItemType exposing (ChooserItem)
 
 

@@ -1,6 +1,6 @@
 module Choosers.ChooserItemType exposing (ChooserItem, chooseriteminit)
 
-import SW.Pua exposing (Fill, Base, Key)
+import SW.Pua exposing (Base)
 
 
 type alias ChooserItem =

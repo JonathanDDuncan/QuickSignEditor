@@ -1,27 +1,22 @@
 module Choosers.State exposing (init, update, subscriptions)
 
-import Choosers.Types
-    exposing
-        ( Model
-        , Msg(..)
-        , handsymbolinit
-        )
+import Choosers.Types exposing (Msg(..), handsymbolinit)
 import Choosers.ChooserItemType exposing (chooseriteminit)
-import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
-import Choosers.LoadingType as Loading exposing (Loading)
+import Choosers.KeyboardType as KeyboardType
+import Choosers.LoadingType as Loading
 import SW.Symbol exposing (createSymbolbyBaseFillRotation)
 import Ports exposing (requestInitialGroupHandChoosings, subLoadManiquinChoosings, loadGroupChoosings, receiveKeyboardCommand, loadPortableSign)
-import Dict exposing (Dict)
+import Dict
 import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
 import Update.Extra
 import Choosers.Loading exposing (loadingupdate)
-import Choosers.EditorType exposing (Editor)
+import Choosers.EditorType
 import Choosers.EditorUpdate exposing (editorupdate)
 import Choosers.Keyboard exposing (keyboardupdate)
 import SW.HandsType as Hands exposing (Hands(..))
 import SW.HandFillsType as HandFills exposing (HandFills(..))
-import Keyboard.KeyboardModeType exposing (KeyboardMode)
+import Keyboard.KeyboardModeType
 
 
 init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )

@@ -6,7 +6,7 @@ module SWEditor.EditorSymbol
         , adjustposition
         )
 
-import SW.Types exposing (Size, Position, Colors)
+import SW.Types exposing (Colors)
 import SW.Symbol exposing (Symbol)
 
 

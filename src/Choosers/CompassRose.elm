@@ -1,6 +1,6 @@
 module Choosers.CompassRose exposing (compassrosediv)
 
-import Html exposing (Html, Attribute, div)
+import Html exposing (Html, div)
 import Html.Attributes exposing (style, class)
 import Helpers.ViewExtra exposing (px, (=>))
 import List.Extra

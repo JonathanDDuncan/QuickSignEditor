@@ -5,7 +5,7 @@ import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
 import Ports exposing (sendKeyboardMode)
 import Choosers.ManiquinKeyboard exposing (runKeyboardCommand)
 import Choosers.GroupChooserKeyboard exposing (creategroupchooserkeyboard, totalkeyboardpages)
-import Keyboard.Shared exposing (KeyboardMode)
+import Keyboard.Shared
 import Choosers.GeneralSymbolChooserKeyboard exposing (createsymbolchooserkeyboard)
 
 

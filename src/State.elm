@@ -1,6 +1,6 @@
 module State exposing (init, update, subscriptions)
 
-import Types exposing (Model, Msg(..))
+import Types exposing (Msg(..))
 import PlatformHelpers exposing (lift)
 import Overlay.State
 

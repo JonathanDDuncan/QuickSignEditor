@@ -2,8 +2,8 @@ module Choosers.View exposing (root)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style, class)
-import Choosers.Types exposing (Model, Msg, ChoosingModel)
-import Choosers.EditorType exposing (Editor)
+import Choosers.Types
+import Choosers.EditorType
 import Helpers.ViewExtra exposing (px, (=>), calculatescale, transformscale)
 import Choosers.HandGroupChooser exposing (handgroupchooser, createhandgroupchooserdata)
 import Choosers.GeneralGroupChooser exposing (generalgroupchooser, creategeneralgroupchooserdata)

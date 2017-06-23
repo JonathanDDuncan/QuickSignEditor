@@ -1,12 +1,12 @@
 module Choosers.EditorUpdate exposing (editorupdate)
 
 import Choosers.Types exposing (Model, Msg(KeyboardMsg, UpdateHandSymbolChooser), Update)
-import Choosers.KeyboardType as KeyboardType exposing (KeyboardType)
+import Choosers.KeyboardType as KeyboardType
 import Choosers.EditorType exposing (Editor(..))
 import Ports exposing (cmdAddSymbol, cmdDragSymbol, cmdReplaceSymbol)
 import SW.Symbol exposing (createSymbolbyKey)
 import Update.Extra
-import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
+import Keyboard.KeyboardModeType as KeyboardMode
 
 
 editorupdate : Editor -> Model -> Update -> ( Model, Cmd Msg )

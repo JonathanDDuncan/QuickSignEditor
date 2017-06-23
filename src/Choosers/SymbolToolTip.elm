@@ -2,8 +2,8 @@ module Choosers.SymbolToolTip exposing (handsymboltooltip, symboltooltip)
 
 import Html exposing (Html, text, br)
 import Html.Attributes exposing (attribute)
-import Choosers.Types exposing (Model, Msg(Mdl))
-import Material exposing (Model)
+import Choosers.Types exposing (Msg(Mdl))
+import Material
 import Material.Tooltip as Tooltip
 import Material.Options as Options
 import Choosers.HandPng exposing (gethandpng, handpngspan)

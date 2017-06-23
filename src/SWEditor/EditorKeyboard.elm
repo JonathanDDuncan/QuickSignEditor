@@ -2,7 +2,7 @@ module SWEditor.EditorKeyboard exposing (runKeyboardCommand, configKeyboardSignV
 
 import SWEditor.Types exposing (Model, Msg(Undo, Redo, DeleteSymbols, DuplicateSymbols, MoveSymbols), Direction(..))
 import Keyboard.Shared exposing (KeyboardCommand, KeyAction, getKeyboardMode, runKeyboard)
-import Keyboard.KeyboardModeType as KeyboardMode exposing (KeyboardMode)
+import Keyboard.KeyboardModeType as KeyboardMode
 import List.Extra
 import Html
 import SWEditor.Icons

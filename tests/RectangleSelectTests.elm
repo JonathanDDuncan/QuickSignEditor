@@ -4,9 +4,9 @@ import Test exposing (..)
 import Expect
 import SW.Rectangle exposing (..)
 import SWEditor.RectangleSelect exposing (..)
-import SW.Sign exposing (Sign)
-import SW.Symbol exposing (Symbol, symbolinit)
-import SWEditor.Types exposing (Model, Msg)
+import SW.Sign
+import SW.Symbol exposing (symbolinit)
+import SWEditor.Types
 import SWEditor.State exposing (..)
 
 
