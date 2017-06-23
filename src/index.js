@@ -8,7 +8,9 @@ var app = Elm.QuickSignEditor.embed(document.getElementById('quicksigneditor'));
 window.app = app;
 
 //subscribe javacript functions to Elm command ports
-app.ports.requestSign.subscribe(function (fsw) {
+app.ports.requestSign.subscribe(loadfsw);
+
+function loadfsw(fsw) {
     try {
         var signparser = peg.generate(fswpeg.sign);
         var parsed = signparser.parse(fsw);
@@ -18,7 +20,37 @@ app.ports.requestSign.subscribe(function (fsw) {
         app.ports.loadPortableSign.send(sign);
     } catch (e) { console.log(e) }
 
-});
+}
+
+function requestSignDelayed(str) {
+    try {
+        window.setTimeout(requestSign, 15);
+
+    } catch (e) { console.log(e) }
+}
+
+app.ports.requestSignfromOtherApp.subscribe(requestSign);
+app.ports.requestSignfromOtherAppDelayed.subscribe(requestSignDelayed);
+
+function requestSign(str) {
+    try {
+
+        if ("signmaker" in window) {
+            var fsw = signmaker.vm.fsw("");
+        } else {
+            var fsw = window.initialFSW
+        }
+         loadfsw(fsw);
+        // var signparser = peg.generate(fswpeg.sign);
+        // var parsed = signparser.parse(fsw);
+
+        // var sign = denormalizesign(parsed);
+      
+        // //send values to Elm subscription ports
+        // app.ports.loadPortableSign.send(sign);
+    } catch (e) { console.log(e) }
+}
+
 
 app.ports.requestElementPosition.subscribe(function (id) {
     try {
@@ -139,33 +171,6 @@ function getgrouphandchoosings() {
     return grouphandchoosings;
 }
 
-app.ports.requestSignfromOtherApp.subscribe(requestSign);
-
-function requestSign(str) {
-    try {
-
-        if ("signmaker" in window) {
-            var fsw = signmaker.vm.fsw("");
-        } else {
-            var fsw = window.initialFSW
-        }
-        var signparser = peg.generate(fswpeg.sign);
-        var parsed = signparser.parse(fsw);
-
-        var sign = denormalizesign(parsed);
-      
-        //send values to Elm subscription ports
-        app.ports.loadPortableSign.send(sign);
-    } catch (e) { console.log(e) }
-}
-
-function requestSignDelayed(str) {
-    try {
-        window.setTimeout(requestSign, 15);
-
-    } catch (e) { console.log(e) }
-}
-app.ports.requestSignfromOtherAppDelayed.subscribe(requestSignDelayed);
 
 app.ports.cmdchangenormallywhite.subscribe(function (color) {
     var dialogHidden = $('.cp-hidden-input-white').colorpicker({
