@@ -69,11 +69,11 @@ rectangleselect model =
                 div [] []
 
 
-editorattributes : Int -> Int -> List (Attribute Msg)
-editorattributes height signviewmargin =
+editorattributes : Int -> Int -> Int -> List (Attribute Msg)
+editorattributes height signviewmargin maxwidthheight =
     [ Html.Attributes.style
-        [ "height" => px (height - 50)
-        , "width" => px (height - 60)
+        [ "height" => px (min (height - 50) maxwidthheight)
+        , "width" => px (min (height - 60) maxwidthheight)
         , "margin" => px signviewmargin
         , "float" => "left"
         ]
@@ -85,7 +85,7 @@ editorattributes height signviewmargin =
 signView : Model -> Html Msg
 signView model =
     div
-        (List.append (editorattributes model.containerheight model.signviewmargin) [])
+        (List.append (editorattributes model.containerheight model.signviewmargin 610) [])
         (List.map symbolView model.sign.syms)
 
 
