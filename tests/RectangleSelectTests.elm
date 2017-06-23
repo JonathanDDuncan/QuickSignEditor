@@ -2,11 +2,8 @@ module RectangleSelectTests exposing (..)
 
 import Test exposing (..)
 import Expect
-import SW.Rectangle exposing (..)
 import SWEditor.RectangleSelect exposing (..)
-import SW.Sign
 import SW.Symbol exposing (symbolinit)
-import SWEditor.Types
 import SWEditor.State exposing (..)
 
 
@@ -119,7 +116,7 @@ symbol9 =
 
 
 currentRectangle =
-    (rectangleStartCurrent model1)
+     rectangleStartCurrent model1
 
 
 model1 =

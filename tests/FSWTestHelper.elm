@@ -1,11 +1,9 @@
 module FSWTestHelper exposing (..)
 
-import SW.FSW as FSW exposing (..)
 import Dict
 import SW.Types exposing (Size)
 import SW.Sign exposing (Sign, signinit)
-import SW.Symbol exposing (Symbol)
-import SW.Symbol exposing (createSymbolbyKey)
+import SW.Symbol exposing (Symbol, createSymbolbyKey)
 import Helpers.ViewExtra exposing ((=>))
 
 
@@ -52,14 +50,14 @@ symbol4 =
 
 getfield : (a -> String) -> Maybe a -> String
 getfield getter recd =
-    (\mayb ->
+     \mayb ->
         case mayb of
             Nothing ->
                 "Nothing"
 
             Just value ->
                 getter value
-    )
+    
         recd
 
 
@@ -118,4 +116,4 @@ partialsymbolsizes =
             ]
     in
         Dict.fromList <|
-            List.map (\symbolsize -> (.k symbolsize) => (Size (.w symbolsize) (.h symbolsize))) symbolsizes
+            List.map (\symbolsize ->  .k symbolsize =>  Size (.w symbolsize) (.h symbolsize)) symbolsizes

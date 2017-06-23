@@ -11,12 +11,10 @@ import Material
 import Choosers.HandSymbolChooser exposing (createflowersymbols, gethandfillitems)
 import Update.Extra
 import Choosers.Loading exposing (loadingupdate)
-import Choosers.EditorType
 import Choosers.EditorUpdate exposing (editorupdate)
 import Choosers.Keyboard exposing (keyboardupdate)
 import SW.HandsType as Hands exposing (Hands(..))
 import SW.HandFillsType as HandFills exposing (HandFills(..))
-import Keyboard.KeyboardModeType
 
 
 init : ( Choosers.Types.Model, Cmd Choosers.Types.Msg )

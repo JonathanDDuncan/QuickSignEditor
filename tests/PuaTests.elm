@@ -2,7 +2,6 @@ module PuaTests exposing (..)
 
 import Test exposing (..)
 import Expect
-import String
 import String as String exposing (..)
 import SW.Pua exposing (..)
 
@@ -39,8 +38,8 @@ puaTests =
                 Expect.equal "a" (String.left 1 "abcdefg")
         , test "fillcodefromkey S1870a" <|
             \() ->
-                Expect.equal (puaCharCode <| fillcodefromkey "S1870a") ("\x1032AB")
+                Expect.equal (puaCharCode <| fillcodefromkey "S1870a")  "\x1032AB"
         , test "linecodefromkey S1870a" <|
             \() ->
-                Expect.equal (puaCharCode <| linecodefromkey "S1870a") ("\x432AB")
+                Expect.equal (puaCharCode <| linecodefromkey "S1870a")  "\x432AB"
         ]
