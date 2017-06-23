@@ -3,9 +3,9 @@ module RectangleSelectTests exposing (..)
 import Test exposing (..)
 import Expect
 import SW.Rectangle exposing (..)
-import SW.RectangleSelect exposing (..)
-import SW.Types exposing (Sign)
-import SW.Symbol exposing (Symbol)
+import SWEditor.RectangleSelect exposing (..)
+import SW.Sign exposing (Sign)
+import SW.Symbol exposing (Symbol, symbolinit)
 import SWEditor.Types exposing (Model, Msg)
 import SWEditor.State exposing (..)
 
@@ -49,7 +49,7 @@ rectangleselectTests =
 symbol1 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 40, y = 40, width = 30, height = 30 }
 
@@ -57,7 +57,7 @@ symbol1 =
 symbol2 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 10, y = 30, width = 20, height = 20 }
 
@@ -65,7 +65,7 @@ symbol2 =
 symbol3 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 11, y = 30, width = 20, height = 20 }
 
@@ -73,7 +73,7 @@ symbol3 =
 symbol4 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 30, y = 10, width = 20, height = 20 }
 
@@ -81,7 +81,7 @@ symbol4 =
 symbol5 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 30, y = 11, width = 20, height = 20 }
 
@@ -89,7 +89,7 @@ symbol5 =
 symbol6 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 75, y = 30, width = 20, height = 20 }
 
@@ -97,7 +97,7 @@ symbol6 =
 symbol7 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 74, y = 30, width = 20, height = 20 }
 
@@ -105,7 +105,7 @@ symbol7 =
 symbol8 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 30, y = 75, width = 20, height = 20 }
 
@@ -113,7 +113,7 @@ symbol8 =
 symbol9 =
     let
         initialsymbol =
-            SW.Types.symbolinit
+            symbolinit
     in
         { initialsymbol | x = 30, y = 74, width = 20, height = 20 }
 

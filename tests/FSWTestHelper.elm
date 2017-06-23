@@ -2,9 +2,11 @@ module FSWTestHelper exposing (..)
 
 import SW.FSW as FSW exposing (..)
 import Dict
-import SW.Types exposing (Sign, Size, signinit)
+import SW.Types exposing (Size)
+import SW.Sign exposing (Sign, signinit)
 import SW.Symbol exposing (Symbol)
-import SWEditor.EditorSymbol exposing (createSymbolbyKey)
+import SW.Symbol exposing (createSymbolbyKey)
+import Helpers.ViewExtra exposing ((=>))
 
 
 worldsign : Sign
@@ -69,25 +71,6 @@ world =
 worldspelling : String
 worldspelling =
     "AS18701S1870aS2e734S20500" ++ world
-
-
-defaultResultsign : String -> Sign
-defaultResultsign fsw =
-    Result.withDefault signinit <| FSW.fswtoSign partialsymbolsizes fsw
-
-
-getsignerrmessage : String -> String
-getsignerrmessage fsw =
-    let
-        result =
-            FSW.fswtoSign partialsymbolsizes fsw
-    in
-        case result of
-            Ok value ->
-                "Ok"
-
-            Err msg ->
-                msg
 
 
 worldbluegreen : String

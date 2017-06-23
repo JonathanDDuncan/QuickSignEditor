@@ -15,6 +15,11 @@ module SW.Pua
         , getvalidrotations
         , iskey
         , ishand
+        , hexbaseFromKey
+        , hexfillFromKey
+        , hexrotationFromKey
+        , lefthalf
+        , righthalf
         )
 
 import ParseInt as ParseInt exposing (parseIntHex)

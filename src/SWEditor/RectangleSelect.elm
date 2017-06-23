@@ -1,4 +1,4 @@
-module SWEditor.RectangleSelect exposing (rectangleselect, rectangleStartCurrent)
+module SWEditor.RectangleSelect exposing (rectangleselect, rectangleStartCurrent, selectIntersected)
 
 import SWEditor.Types exposing (Model, Msg)
 import SW.Rectangle exposing (Rect, rect, minrectangle, intersect)
