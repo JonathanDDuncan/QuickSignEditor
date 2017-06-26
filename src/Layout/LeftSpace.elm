@@ -1,8 +1,16 @@
 module Layout.LeftSpace exposing (leftspace)
 
-import Html exposing (Html, div)
+import Html exposing (..)
+
+
+-- import Html exposing (Html, div, text, span)
+
 import Layout.State exposing (Model, Msg(Mdl, ShareFsw, HideOverlay), iswidescreen, ismediumscreen)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, style)
+
+
+-- import Html.Attributes exposing (class, style)
+
 import Material.Button as Button
 import Material.Grid exposing (grid, cell, Cell, size)
 import Material.Options exposing (Style, css, onClick)
@@ -49,6 +57,24 @@ leftspace model =
                 ]
           ]
             |> grid []
+        , div
+            [ style
+                [ ( "position", "absolute" )
+                , ( "width", "100%" )
+                , ( "bottom", "0px" )
+                ]
+            ]
+            [ div
+                [ style
+                    [ ( "text-align", "center" )
+                    , ( "margin-bottom", "20px" )
+                    ]
+                ]
+                [ span
+                    []
+                    [ text "About ..." ]
+                ]
+            ]
         ]
 
 
