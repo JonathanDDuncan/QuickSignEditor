@@ -8,12 +8,14 @@ import Layout.LeftSpace exposing (leftspace)
 import Layout.RightSpace exposing (rightspace)
 import Layout.Footer exposing (stickyFooter)
 import Layout.Drawer exposing (drawer)
+import Layout.AboutDialog exposing (aboutdialog)
 
 
 root : Model -> Html Msg
 root model =
     div []
-        [ div
+        [ aboutdialog model
+        , div
             []
             [ screenlayout model
             ]
