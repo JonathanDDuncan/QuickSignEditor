@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import Layout.View
 import PlatformHelpers exposing (lift)
 import Layout.State exposing (Model, Msg(HideOverlay, ShareFsw, PleaseShareFsw))
-import Ports exposing (requestSignfromOtherAppDelayed, hideOverlay, shareFsw)
+import Ports exposing (requestSignfromOtherAppDelayed, hideOverlay, showOverlay, shareFsw)
 import SW.FSW exposing (getFsw)
 
 
@@ -26,6 +26,9 @@ update msg model =
             ( { model | show = False }, Cmd.none )
 
         Show ->
+            ( { model | show = True }, requestSignfromOtherAppDelayed "" )
+
+        ShowOverlay str ->
             ( { model | show = True }, requestSignfromOtherAppDelayed "" )
 
         Layout action ->
@@ -66,6 +69,7 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ Layout.State.subscriptions model.layout |> Sub.map Layout
+        , showOverlay ShowOverlay
         ]
 
 
@@ -98,4 +102,5 @@ type alias Model =
 type Msg
     = Hide
     | Show
+    | ShowOverlay String
     | Layout Layout.State.Msg

@@ -24,6 +24,7 @@ port module Ports
         , pleaseShareFsw
         , requestSignfromOtherAppDelayed
         , hideOverlay
+        , showOverlay
         , shareFsw
         , cmdchangenormallywhite
         , subchangenormallywhite
@@ -66,6 +67,9 @@ port shareFsw : String -> Cmd msg
 
 
 port hideOverlay : String -> Cmd msg
+
+
+port showOverlay : (String -> msg) -> Sub msg
 
 
 port pleaseShareFsw : (String -> msg) -> Sub msg
