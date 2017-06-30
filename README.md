@@ -29,13 +29,6 @@ For more information about SignWriting see www.signwriting.org created by Valeri
 >Hand images photographed by Adam Frost.
 >http://www.movementwriting.org/symbolbank/downloads/ISWA2010/ISWA2010_Photos/
 
-### Changelog
-
-**Ver 1.0.0**
-* 
-* 
-* 
-
 ### Browser compatibility
 * IE 11.576.14393:   Not compatible
 * Microsoft Edge 38.14393.0.0:  Works but not the keyboard
