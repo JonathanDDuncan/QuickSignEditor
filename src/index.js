@@ -55,19 +55,21 @@ function requestSign(str) {
 app.ports.requestElementPosition.subscribe(function (id) {
     try {
         var element = document.getElementById(id);
+        var bodyRect = document.body.getBoundingClientRect()
 
-        var bodyRect = document.body.getBoundingClientRect(),
-            elemRect = element.getBoundingClientRect();
+        if (element) {
+            var elemRect = element.getBoundingClientRect();
 
-        var result = {};
-        result.name = id;
-        result.x = Math.trunc(elemRect.left - bodyRect.left);
-        result.y = Math.trunc(elemRect.top - bodyRect.top);
-        result.width = element.offsetWidth;
-        result.height = element.offsetHeight;
+            var result = {};
+            result.name = id;
+            result.x = Math.trunc(elemRect.left - bodyRect.left);
+            result.y = Math.trunc(elemRect.top - bodyRect.top);
+            result.width = element.offsetWidth;
+            result.height = element.offsetHeight;
 
-        //send values to Elm subscription ports
-        app.ports.receiveElementPosition.send(result);
+            //send values to Elm subscription ports
+            app.ports.receiveElementPosition.send(result);
+        }
     } catch (e) { console.log(e) }
 
 });
