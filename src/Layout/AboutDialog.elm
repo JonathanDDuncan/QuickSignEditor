@@ -34,21 +34,43 @@ aboutdialog model =
         ]
 
 
+markdown : String
 markdown =
-    """**QuickSignEditor** is [Licensed under the MIT License](https://github.com/JonathanDDuncan/QuickSignEditor/blob/master/LICENSE)\x0D
+    """## *QuickSignEditor* \x0D
+is [Licensed under the MIT License](https://github.com/JonathanDDuncan/QuickSignEditor/blob/master/LICENSE)\x0D
 by Jonathan Duncan\x0D
-The latest version of this project is hosted at https://jonathandduncan.github.io/QuickSignEditor/\x0D
 \x0D
 You may have to install the Sutton SignWriting Fonts below on your computer to use it.\x0D
 \x0D
+The latest version of this project is hosted at https://jonathandduncan.github.io/QuickSignEditor/\x0D
+\x0D
+The code is available at https://github.com/JonathanDDuncan/QuickSignEditor\x0D
+\x0D
 There is a version that can run inside SignMaker2015 \x0D
-(http://signbank.org/signmaker.html https://github.com/Slevinski/signmaker)\x0D
+\x0D
+http://signbank.org/signmaker.html\x0D
+\x0D
+https://github.com/Slevinski/signmaker\x0D
+\x0D
 is available at https://jonathandduncan.github.io/QuickSignEditor/signmaker/#?ui=en\x0D
 \x0D
 A version also runs inside the SignWriter Studio, Windows program which can be downloaded at http://www.signwriterstudio.com/\x0D
 \x0D
 For more information about SignWriting see http://www.SignWriting.org\x0D
 \x0D
+### Font Installation Instructions\x0D
+* * *\x0D
+\x0D
+For Windows, Mac, or Linux, install these 2 fonts.\x0D
+\x0D
+*   [Sutton SignWriting TrueType Font](https://slevinski.github.io/SuttonSignWriting/assets/SuttonSignWriting.ttf)\x0D
+*   [Sutton SignWriting Fill TrueType Font](https://slevinski.github.io/SuttonSignWriting/assets/SuttonSignWritingFill.ttf)\x0D
+\x0D
+* * *\x0D
+\x0D
+For iOS, install this configuration profile.\x0D
+\x0D
+*   [Sutton SignWriting Configuration Profile](https://slevinski.github.io/SuttonSignWriting/assets/SuttonSignWriting.mobileconfig)\x0D
 \x0D
 ### Acknowledgements\x0D
  ![Valerie Sutton](./assets/img/Valerie_Sutton.jpg)\x0D
