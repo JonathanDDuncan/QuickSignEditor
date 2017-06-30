@@ -12,12 +12,14 @@ app.ports.requestSign.subscribe(loadfsw);
 
 function loadfsw(fsw) {
     try {
-        var signparser = peg.generate(fswpeg.sign);
-        var parsed = signparser.parse(fsw);
-        var sign = denormalizesign(parsed);
-       
-        //send values to Elm subscription ports
-        app.ports.loadPortableSign.send(sign);
+        if (fsw) {
+            var signparser = peg.generate(fswpeg.sign);
+            var parsed = signparser.parse(fsw);
+            var sign = denormalizesign(parsed);
+
+            //send values to Elm subscription ports
+            app.ports.loadPortableSign.send(sign);
+        }
     } catch (e) { console.log(e) }
 
 }
@@ -40,12 +42,12 @@ function requestSign(str) {
         } else {
             var fsw = window.initialFSW
         }
-         loadfsw(fsw);
+        loadfsw(fsw);
         // var signparser = peg.generate(fswpeg.sign);
         // var parsed = signparser.parse(fsw);
 
         // var sign = denormalizesign(parsed);
-      
+
         // //send values to Elm subscription ports
         // app.ports.loadPortableSign.send(sign);
     } catch (e) { console.log(e) }
