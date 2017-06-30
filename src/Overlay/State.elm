@@ -2,7 +2,6 @@ module Overlay.State exposing (init, update, subscriptions, root, Model, Msg)
 
 import Html exposing (Html, div, button, text)
 import Html.Attributes exposing (class)
-import Html.Events exposing (onClick)
 import Layout.View
 import PlatformHelpers exposing (lift)
 import Layout.State exposing (Model, Msg(HideOverlay, ShareFsw, PleaseShareFsw))
@@ -13,7 +12,7 @@ import SW.FSW exposing (getFsw)
 init : ( Model, Cmd Msg )
 init =
     ( { layout = Tuple.first Layout.State.init
-      , show = True
+      , show = False
       }
     , Cmd.map Layout (Tuple.second Layout.State.init)
     )
@@ -24,9 +23,6 @@ update msg model =
     case msg of
         Hide ->
             ( { model | show = False }, Cmd.none )
-
-        Show ->
-            ( { model | show = True }, requestSignfromOtherAppDelayed "" )
 
         ShowOverlay str ->
             ( { model | show = True }, requestSignfromOtherAppDelayed "" )
@@ -84,9 +80,7 @@ root model =
             [ Html.map Layout (Layout.View.root model.layout)
             ]
     else
-        div [ class "readytoshow" ]
-            [ button [ onClick Show ] [ text "Quick" ]
-            ]
+        div [] []
 
 
 
@@ -101,6 +95,5 @@ type alias Model =
 
 type Msg
     = Hide
-    | Show
     | ShowOverlay String
     | Layout Layout.State.Msg
