@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -14,7 +13,7 @@
         @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
         @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500|Roboto+Mono|Roboto+Condensed:400,700&subset=latin,latin-ext);
     </style>
-        <script src="./assets/lib/peg-0.10.0.min.js"></script>
+    <script src="./assets/lib/peg-0.10.0.min.js"></script>
     <script src="./assets/lib/fswpeg.js"></script>
     <script src="./assets/lib/initialchoosings.js"></script>
     <script src="./assets/lib/chooserclassification.js"></script>
@@ -23,6 +22,8 @@
     <script src="./assets/lib/jquery.min.js"></script>
     <script src="./assets/lib/jquery-ui.min.js"></script>
     <script src="./assets/lib/jquery.colorpicker.js"></script>
+    <script src="./assets/lib/dialog-polyfill.min.js"></script>
+    <link rel="stylesheet" href="./assets/styles/dialog-polyfill.css">
     <link rel="stylesheet" href="./assets/styles/quickSignEditor.css">
     <link rel="stylesheet" href="./assets/images/hands12.png.css">
     <link rel="stylesheet" href="./assets/images/hands34.png.css">
@@ -32,9 +33,12 @@
     <link rel="stylesheet" type="text/css" href="./assets/styles/jquery.colorpicker.css">
     <link rel="stylesheet" type="text/css" href="./assets/styles/jquery-ui.css">
 </head>
-<body style="background-color:#ffffe0">
-<div id="quicksigneditor"></div>
-<script type="text/javascript" src="./assets/lib/elm.js"></script>
+
+<body style="background-color: lightyellow">
+    <div id="quicksigneditor"></div>
+    <script>
+        window.onload = function () { app.ports.showOverlay.send(""); }
+    </script>
 </body>
 
-</html> 
+</html>
