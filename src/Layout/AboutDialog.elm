@@ -63,8 +63,8 @@ For more information about SignWriting see http://www.SignWriting.org\x0D
 \x0D
 For Windows, Mac, or Linux, install these 2 fonts.\x0D
 \x0D
-*   [Sutton SignWriting TrueType Font](https://slevinski.github.io/SuttonSignWriting/assets/SuttonSignWriting.ttf)\x0D
-*   [Sutton SignWriting Fill TrueType Font](https://slevinski.github.io/SuttonSignWriting/assets/SuttonSignWritingFill.ttf)\x0D
+*   [Sutton SignWriting TrueType Font](https://cdn.rawgit.com/Slevinski/signwriting_2010_fonts/master/fonts/SuttonSignWriting.ttf)\x0D
+*   [Sutton SignWriting Fill TrueType Font](https://cdn.rawgit.com/Slevinski/signwriting_2010_fonts/master/fonts/SuttonSignWritingFill.ttf)\x0D
 \x0D
 * * *\x0D
 \x0D
