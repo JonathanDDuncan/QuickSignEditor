@@ -1,6 +1,7 @@
 import { writable, type Writable } from 'svelte/store';
 import type { SignData } from './utils/types';
 import { createHistory, undo, redo, record } from './utils/history';
+import chooserData from '../../legacy/chooserclassification.json';
 
 // Initial sign data (empty sign)
 const initialSignData: SignData = {
@@ -39,3 +40,21 @@ export const signStore = {
     return present;
   }
 };
+
+// Fix type error: explicitly type the store to allow any[] for maniquinchoosings
+export const signModel = writable<{ maniquinchoosings: any[] }>({ maniquinchoosings: [] });
+
+export function loadManiquinData() {
+  // Example: use the first 5 items for the maniquin
+  const maniquinchoosings = chooserData.basechooseritems.slice(0, 5).map((item, i) => ({
+    displaySign: {
+      svg: `<svg width="40" height="40"><rect x="0" y="0" width="40" height="40" fill="#e6f0fa" stroke="#0078d4"/><text x="5" y="20" font-size="10">${item.name}</text></svg>`,
+      width: 40,
+      height: 40,
+      label: item.name
+    },
+    offset: { offsetx: i * 45, offsety: 0 }
+  }));
+
+  signModel.set({ maniquinchoosings });
+}

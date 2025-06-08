@@ -2,8 +2,11 @@
   import SignEditor from './lib/SignEditor.svelte';
   import SymbolChooser from './lib/SymbolChooser.svelte';
   import Toolbar from './lib/Toolbar.svelte';
-  import { signStore } from './lib/signStore';
-  import { get } from 'svelte/store';
+  import { signStore, signModel, loadManiquinData } from './lib/signStore';
+  import { get, writable } from 'svelte/store';
+  import ChooserPanel from './lib/ChooserPanel.svelte';
+  import { onMount } from 'svelte';
+  import Maniquin from './lib/Maniquin.svelte';
 
   // Example symbol library
   let symbols = [
@@ -42,6 +45,27 @@
     else if (action === 'redo') signStore.redo();
     else alert(`Toolbar action: ${action}`);
   }
+
+  // Example model for demo/testing
+  let chooserModel = {
+    groupselected: { symbolkey: 'S10000' },
+    symbols: [
+      { id: 'S10000', code: 'S10000', rowname: 'fist', category: 'Hand' },
+      { id: 'S20000', code: 'S20000', rowname: 'circle', category: 'Hand' }
+    ],
+    filter: '',
+    categories: ['Hand', 'Face'],
+    selectedCategory: 'Hand',
+    handGroupData: { label: 'Hand Group', items: [1, 2, 3] },
+    generalGroupData: { label: 'General Group', items: [4, 5, 6] }
+  };
+
+  let maniquinModel;
+  const unsubscribe = signModel.subscribe(value => maniquinModel = value);
+  onMount(() => {
+    loadManiquinData();
+    return () => unsubscribe();
+  });
 </script>
 
 <main>
@@ -51,6 +75,9 @@
     <SymbolChooser {symbols} on:select={e => handleSymbolSelect(e.detail)} />
     <SignEditor {signData} on:select={handleSymbolSelection} />
   </div>
+  <ChooserPanel model={chooserModel} parentWidth={800} parentHeight={400} />
+  <!-- Add Maniquin preview using loaded data -->
+  <Maniquin model={maniquinModel} width={400} height={80} />
 </main>
 
 <style>
