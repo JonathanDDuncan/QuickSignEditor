@@ -45,20 +45,59 @@ This implementation guide provides the technical roadmap for QuickSignEditor 202
 
 ### Three-Tier Development Approach
 
-#### Tier 1: Pure Functions (JavaScript/TypeScript)
-Write and test business logic without side effects:
-```javascript
-// Good: Pure function
-export function validateSignData(signData) {
-  if (!signData?.name) return { isValid: false, error: 'Name required' };
-  if (!signData?.symbols) return { isValid: false, error: 'Symbols required' };
-  return { isValid: true };
-}
+#### Tier 1: Pure Functions (TypeScript, no mocks)
+```typescript
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { validateSignData } from '../lib/utils/validation';
 
-// Test
-import { validateSignData } from './validation.js';
-test('validates sign data correctly', () => {
-  expect(validateSignData({ name: 'test', symbols: [] })).toEqual({ isValid: true });
+describe('validateSignData', () => {
+  beforeEach(() => {
+    // Reset any global state if needed
+  });
+
+  afterEach(() => {
+    // Clean up after each test if needed
+  });
+
+  it('returns valid for complete data', () => {
+    const input = { name: 'test', symbols: ['symbol1'] };
+    const result = validateSignData(input);
+    expect(result.isValid).toBe(true);
+    expect(result).toMatchSnapshot();
+  });
+
+  it('returns invalid for missing name', () => {
+    const input = { symbols: ['symbol1'] };
+    const result = validateSignData(input);
+    expect(result.isValid).toBe(false);
+    expect(result.error).toBe('Name required');
+  });
+
+  it.each([
+    [null, false, 'Invalid input'],
+    [undefined, false, 'Invalid input'],
+    [{}, false, 'Name required'],
+    [{ name: '' }, false, 'Name required'],
+    [{ name: 'test' }, false, 'Symbols required'],
+    [{ name: 'test', symbols: null }, false, 'Invalid symbols'],
+    [{ name: 'test', symbols: [] }, true, ''],
+  ])('validates input %p correctly', (input, expectedValid, expectedError) => {
+    const result = validateSignData(input);
+    expect(result.isValid).toBe(expectedValid);
+    if (!expectedValid) {
+      expect(result.error).toContain(expectedError);
+    }
+  });
+
+  it('performs well with large symbol arrays', () => {
+    const largeSymbolArray = Array(1000).fill('').map((_, i) => `symbol${i}`);
+    const input = { name: 'test', symbols: largeSymbolArray };
+    const start = performance.now();
+    const result = validateSignData(input);
+    const end = performance.now();
+    expect(result.isValid).toBe(true);
+    expect(end - start).toBeLessThan(10);
+  });
 });
 ```
 
@@ -208,46 +247,31 @@ src/
 ```javascript
 // validation.test.js
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { validateSignData } from '../lib/utils/validation.js';
+import { validateSignData } from '../lib/utils/validation';
 
 describe('validateSignData', () => {
-  // Debugging helper for complex test scenarios
-  const debugLog = (label, data) => {
-    if (process.env.NODE_ENV === 'test' && process.env.DEBUG_TESTS) {
-      console.log(`[DEBUG] ${label}:`, JSON.stringify(data, null, 2));
-    }
-  };
-
   beforeEach(() => {
-    // Reset any global state
-    vi.clearAllMocks();
+    // Reset any global state if needed
   });
 
   afterEach(() => {
-    // Clean up after each test
-    vi.restoreAllMocks();
+    // Clean up after each test if needed
   });
 
   it('returns valid for complete data', () => {
     const input = { name: 'test', symbols: ['symbol1'] };
-    debugLog('Input', input);
-    
     const result = validateSignData(input);
-    debugLog('Result', result);
-    
     expect(result.isValid).toBe(true);
-    expect(result).toMatchSnapshot(); // Snapshot testing for complex objects
+    expect(result).toMatchSnapshot();
   });
-  
+
   it('returns invalid for missing name', () => {
     const input = { symbols: ['symbol1'] };
     const result = validateSignData(input);
-    
     expect(result.isValid).toBe(false);
     expect(result.error).toBe('Name required');
   });
 
-  // Property-based testing for edge cases
   it.each([
     [null, false, 'Invalid input'],
     [undefined, false, 'Invalid input'],
@@ -264,17 +288,14 @@ describe('validateSignData', () => {
     }
   });
 
-  // Performance testing for large datasets
   it('performs well with large symbol arrays', () => {
-    const largeSymbolArray = Array(1000).fill().map((_, i) => `symbol${i}`);
+    const largeSymbolArray = Array(1000).fill('').map((_, i) => `symbol${i}`);
     const input = { name: 'test', symbols: largeSymbolArray };
-    
     const start = performance.now();
     const result = validateSignData(input);
     const end = performance.now();
-    
     expect(result.isValid).toBe(true);
-    expect(end - start).toBeLessThan(10); // Should complete in under 10ms
+    expect(end - start).toBeLessThan(10);
   });
 });
 ```
@@ -1454,62 +1475,6 @@ describe('validateSignData resilience', () => {
 });
 ```
 
-### Test Data Management
-
-#### Fixture Management
-```typescript
-// fixtures/sign-data.ts
-export const FIXTURE_SIGNS = {
-  EMPTY: createMockSignData({ symbols: [] }),
-  SINGLE_SYMBOL: createMockSignData({
-    symbols: [createMockSymbol({ id: 'single', code: 'S10000' })]
-  }),
-  MULTIPLE_SYMBOLS: createMockSignData({
-    symbols: [
-      createMockSymbol({ id: 'first', code: 'S10000', x: 100, y: 100 }),
-      createMockSymbol({ id: 'second', code: 'S20000', x: 200, y: 150 }),
-    ]
-  }),
-  COMPLEX: createMockSignData({
-    name: 'Complex Sign',
-    symbols: Array.from({ length: 10 }, (_, i) => 
-      createMockSymbol({ 
-        id: `symbol-${i}`, 
-        x: i * 50, 
-        y: i * 30 
-      })
-    )
-  }),
-};
-
-// Usage
-test('handles empty signs', () => {
-  const result = validateSignData(FIXTURE_SIGNS.EMPTY);
-  expect(result.isValid).toBe(true);
-});
-```
-
-#### Snapshot Testing for Complex Objects
-```typescript
-// tests/snapshots.test.ts
-import { FIXTURE_SIGNS } from '../fixtures/sign-data.js';
-
-describe('Sign data structure snapshots', () => {
-  it('maintains consistent structure for empty signs', () => {
-    expect(FIXTURE_SIGNS.EMPTY).toMatchSnapshot();
-  });
-
-  it('maintains consistent structure for complex signs', () => {
-    expect(FIXTURE_SIGNS.COMPLEX).toMatchSnapshot();
-  });
-
-  it('validates transformation results', () => {
-    const transformed = transformSignData(FIXTURE_SIGNS.MULTIPLE_SYMBOLS);
-    expect(transformed).toMatchSnapshot();
-  });
-});
-```
-
 ## Continuous Integration & Quality Gates
 
 ### GitHub Actions Workflow
@@ -1776,8 +1741,6 @@ test.describe('Accessibility tests', () => {
   });
 });
 ```
-
-## Advanced Testing & Debugging Patterns
 
 ### Visual Regression Testing
 ```javascript
