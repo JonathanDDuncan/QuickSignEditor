@@ -6,9 +6,7 @@ The latest version of this project is hosted at https://jonathandduncan.github.i
 
 You may have to install the Sutton SignWriting Fonts below on your computer to use it.
 
-A version running inside SignMaker2015 
-(http://signbank.org/signmaker.html https://github.com/Slevinski/signmaker)
-is available at https://jonathandduncan.github.io/QuickSignEditor/signmaker/#?ui=en
+ 
 
 A version also runs inside the SignWriter Studio, Windows program which can be download at http://www.signwriterstudio.com/
 

@@ -36,12 +36,7 @@ app.ports.requestSignfromOtherAppDelayed.subscribe(requestSignDelayed);
 
 function requestSign(str) {
     try {
-
-        if ("signmaker" in window) {
-            var fsw = signmaker.vm.fsw("");
-        } else {
-            var fsw = window.initialFSW
-        }
+ 
         loadfsw(fsw);
         // var signparser = peg.generate(fswpeg.sign);
         // var parsed = signparser.parse(fsw);
@@ -75,26 +70,9 @@ app.ports.requestElementPosition.subscribe(function (id) {
     } catch (e) { console.log(e) }
 
 });
+ 
 
-app.ports.shareFsw.subscribe(function (fsw) {
-    try {
-        if ("signmaker" in window) {
-            signmaker.vm.load(fsw)
-        } else {
-            window.resultFSW = fsw
-            callbackObj.setFsw(fsw);
-        }
-    } catch (e) { console.log(e) }
-});
-
-app.ports.hideOverlay.subscribe(function (val) {
-    try {
-        if ("signmaker" in window) {
-        } else {
-            callbackObj.hideOverlay("");
-        }
-    } catch (e) { console.log(e) }
-});
+ 
 
 app.ports.cmdRequestChoosings.subscribe(function (str) {
     try {

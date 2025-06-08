@@ -46,13 +46,7 @@ The latest version of this project is hosted at https://jonathandduncan.github.i
 \x0D
 The code is available at https://github.com/JonathanDDuncan/QuickSignEditor\x0D
 \x0D
-There is a version that can run inside SignMaker2015 \x0D
-\x0D
-http://signbank.org/signmaker.html\x0D
-\x0D
-https://github.com/Slevinski/signmaker\x0D
-\x0D
-is available at https://jonathandduncan.github.io/QuickSignEditor/signmaker/#?ui=en\x0D
+ 
 \x0D
 A version also runs inside the SignWriter Studio, Windows program which can be downloaded at http://www.signwriterstudio.com/\x0D
 \x0D
