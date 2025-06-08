@@ -2,13 +2,12 @@
   "name": "quicksigneditor-2025",
   "version": "1.0.0",
   "description": "QuickSignEditor 2025 - Modern SignWriting Editor built with Svelte 3",
-  "type": "module",
-  "scripts": {
+  "type": "module",  "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
+    "test": "vitest --run",
+    "test:coverage": "vitest --coverage --run",
     "test:watch": "vitest --watch",
     "test:e2e": "playwright test",
     "lint": "eslint src",
