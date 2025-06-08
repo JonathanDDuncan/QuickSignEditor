@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import type { Symbol } from './utils/types';
   // Props
   export let symbols: Symbol[] = [];
@@ -11,6 +11,12 @@
 
   const dispatch = createEventDispatcher();
 
+  // Focus the search input on mount for accessibility and legacy parity
+  let searchInput: HTMLInputElement | null = null;
+  onMount(() => {
+    if (searchInput) searchInput.focus();
+  });
+
   // Filtered and sorted symbols with category
   $: filteredSymbols = symbols.filter(s => {
     const matchesCategory = !selectedCategory || (s.category === selectedCategory);
@@ -18,12 +24,82 @@
     return matchesCategory && matchesFilter;
   });
 
+  // --- Legacy parity: Keyboard navigation for symbol chooser list ---
+  let focusedIndex = -1;
+  $: visibleSymbols = filteredSymbols;
+
+  function focusSymbol(idx: number) {
+    focusedIndex = idx;
+    // Focus the button in the DOM
+    setTimeout(() => {
+      const btns = document.querySelectorAll('.symbol-list .symbol-item');
+      if (btns[idx]) (btns[idx] as HTMLElement).focus();
+    }, 0);
+  }
+
+  function onSearchKeyDown(e: KeyboardEvent) {
+    // ArrowDown: focus first/next symbol
+    if (e.key === 'ArrowDown') {
+      if (visibleSymbols.length > 0) {
+        focusSymbol(0);
+        e.preventDefault();
+      }
+    }
+    // ArrowUp: focus last symbol
+    if (e.key === 'ArrowUp') {
+      if (visibleSymbols.length > 0) {
+        focusSymbol(visibleSymbols.length - 1);
+        e.preventDefault();
+      }
+    }
+    // Enter key: if only one result, select it (legacy behavior)
+    if (e.key === 'Enter' && visibleSymbols.length === 1) {
+      dispatch('select', visibleSymbols[0]);
+      e.preventDefault();
+    }
+    // Escape key: clear search
+    if (e.key === 'Escape') {
+      filter = '';
+      e.preventDefault();
+    }
+  }
+
+  function onSymbolKeyDown(e: KeyboardEvent, idx: number) {
+    if (e.key === 'ArrowDown') {
+      if (idx < visibleSymbols.length - 1) focusSymbol(idx + 1);
+      e.preventDefault();
+    }
+    if (e.key === 'ArrowUp') {
+      if (idx > 0) focusSymbol(idx - 1);
+      else searchInput?.focus();
+      e.preventDefault();
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      dispatch('select', visibleSymbols[idx]);
+      e.preventDefault();
+    }
+  }
+
   function onCategoryChange(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
     selectedCategory = value;
     // Optionally, dispatch event for parent to react
     dispatch('category', value);
   }
+
+  // --- Legacy parity: Layout and visual grouping ---
+  // Group symbols by row/col if present (legacy chooser style)
+  $: groupedSymbols = (() => {
+    // If symbols have row/col, group by row (legacy: rowname/colname)
+    const groups: Record<string, Symbol[]> = {};
+    for (const s of visibleSymbols) {
+      const row = (s as any).rowname || 'Other';
+      if (!groups[row]) groups[row] = [];
+      groups[row].push(s);
+    }
+    return groups;
+  })();
+  $: groupOrder = Object.keys(groupedSymbols);
 </script>
 
 <div class="symbol-chooser">
@@ -44,21 +120,50 @@
     placeholder="Search symbols..."
     bind:value={filter}
     aria-label="Search symbols"
+    bind:this={searchInput}
+    autocomplete="off"
+    spellcheck="false"
+    autocapitalize="off"
+    on:keydown={onSearchKeyDown}
   />
   <div class="symbol-list" data-testid="symbol-list">
-    {#each filteredSymbols as symbol (symbol.id)}
-      <button
-        class="symbol-item"
-        type="button"
-        on:click={() => dispatch('select', symbol)}
-        aria-label={symbol.id}
-        data-testid={`symbol-${symbol.id}`}
-      >
-        <!-- Render symbol SVG or image here -->
-        <span>{symbol.id}</span>
-      </button>
-    {/each}
-    {#if filteredSymbols.length === 0}
+    {#if groupOrder.length > 1}
+      {#each groupOrder as row}
+        <div class="symbol-group">
+          <div class="symbol-group-label">{row}</div>
+          <div class="symbol-group-row">
+            {#each groupedSymbols[row] as symbol, idx (symbol.id)}
+              <button
+                class="symbol-item"
+                type="button"
+                on:click={() => dispatch('select', symbol)}
+                aria-label={symbol.id}
+                data-testid={`symbol-${symbol.id}`}
+                tabindex="0"
+                on:keydown={(e) => onSymbolKeyDown(e, idx)}
+              >
+                <span>{symbol.id}</span>
+              </button>
+            {/each}
+          </div>
+        </div>
+      {/each}
+    {:else}
+      {#each visibleSymbols as symbol, idx (symbol.id)}
+        <button
+          class="symbol-item"
+          type="button"
+          on:click={() => dispatch('select', symbol)}
+          aria-label={symbol.id}
+          data-testid={`symbol-${symbol.id}`}
+          tabindex="0"
+          on:keydown={(e) => onSymbolKeyDown(e, idx)}
+        >
+          <span>{symbol.id}</span>
+        </button>
+      {/each}
+    {/if}
+    {#if visibleSymbols.length === 0}
       <div class="no-results">No symbols found.</div>
     {/if}
   </div>
@@ -122,6 +227,20 @@
   margin: 24px auto;
   text-align: center;
   width: 100%;
+}
+.symbol-group {
+  margin-bottom: 12px;
+}
+.symbol-group-label {
+  font-weight: bold;
+  font-size: 1em;
+  margin: 4px 0 2px 4px;
+  color: #444;
+}
+.symbol-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 @media (max-width: 800px) {
   .symbol-chooser {

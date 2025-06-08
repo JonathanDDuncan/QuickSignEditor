@@ -35,7 +35,8 @@ describe('SymbolChooser.svelte', () => {
   it('calls select event when a symbol is clicked', async () => {
     const { component } = render(SymbolChooserComponent, { symbols });
     const handler = vi.fn();
-    component.$on('select', e => handler(e.detail));
+    // @ts-expect-error Svelte event typing
+    component.$on('select', (e: any) => handler(e.detail));
     const btn = screen.getByTestId('symbol-S10000');
     await fireEvent.click(btn);
     expect(handler).toHaveBeenCalledWith(symbols[0]);
@@ -77,6 +78,32 @@ describe('SymbolChooser.svelte', () => {
     // Select 'All Categories'
     await fireEvent.change(select, { target: { value: '' } });
     expect(screen.getByTestId('symbol-list').children.length).toBe(3);
+  });
+
+  it('focuses the search input on mount', async () => {
+    render(SymbolChooserComponent, { symbols });
+    const input = screen.getByPlaceholderText('Search symbols...');
+    expect(document.activeElement).toBe(input);
+  });
+
+  it('selects the only result with Enter key', async () => {
+    const { component } = render(SymbolChooserComponent, { symbols });
+    const handler = vi.fn();
+    // @ts-expect-error Svelte event typing
+    component.$on('select', (e: any) => handler(e.detail));
+    const input = screen.getByPlaceholderText('Search symbols...');
+    await fireEvent.input(input, { target: { value: 'S20000' } });
+    await fireEvent.keyDown(input, { key: 'Enter' });
+    expect(handler).toHaveBeenCalledWith(symbols[2]);
+  });
+
+  it('clears the search with Escape key', async () => {
+    render(SymbolChooserComponent, { symbols });
+    const input = screen.getByPlaceholderText('Search symbols...');
+    await fireEvent.input(input, { target: { value: 'S1000' } });
+    expect(input).toHaveValue('S1000');
+    await fireEvent.keyDown(input, { key: 'Escape' });
+    expect(input).toHaveValue('');
   });
 
   it('dummy test', () => {
