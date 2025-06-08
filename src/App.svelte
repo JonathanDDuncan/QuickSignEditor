@@ -60,7 +60,7 @@
     generalGroupData: { label: 'General Group', items: [4, 5, 6] }
   };
 
-  let maniquinModel;
+  let maniquinModel: { maniquinchoosings: any[] } = { maniquinchoosings: [] };
   const unsubscribe = signModel.subscribe(value => maniquinModel = value);
   onMount(() => {
     loadManiquinData();
@@ -96,12 +96,6 @@
     .editor-layout {
       flex-direction: column;
       gap: 1rem;
-    }
-    .symbol-chooser,
-    .sign-editor-canvas {
-      width: 100% !important;
-      min-width: 0;
-      max-width: 100vw;
     }
   }
   @media (max-width: 500px) {

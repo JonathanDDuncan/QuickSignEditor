@@ -36,12 +36,11 @@ function getchoosingsview(choosings: any[], bottompadding: number) {
 // Svelte: we render SVG for each choosing (stub for now)
 
 // --- FIX: move scale calculation to a reactive statement ---
+let scale = 1;
 let viewSize = { width: 0, height: 0, left: 0, top: 0 };
 $: scale = calculatescale(viewSize.width, viewSize.height, width, height);
 
 // --- REACTIVE STATE FOR VIEW AND SCALE ---
-let scale = 1;
-
 $: if (model && model.maniquinchoosings && model.maniquinchoosings.length > 0) {
   viewSize = getchoosingsview(model.maniquinchoosings, 10);
   scale = calculatescale(viewSize.width, viewSize.height, width, height);
@@ -70,7 +69,6 @@ $: if (model && model.maniquinchoosings && model.maniquinchoosings.length > 0) {
               {#each model.maniquinchoosings as choosing}
                 <g
                   transform="translate({choosing.offset.offsetx}, {choosing.offset.offsety})"
-                  tabindex="0"
                   aria-label="Choosing"
                 >
                   {#if choosing.displaySign && choosing.displaySign.svg}

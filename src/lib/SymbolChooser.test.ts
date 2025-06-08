@@ -35,7 +35,6 @@ describe('SymbolChooser.svelte', () => {
   it('calls select event when a symbol is clicked', async () => {
     const { component } = render(SymbolChooserComponent, { symbols });
     const handler = vi.fn();
-    // @ts-expect-error Svelte event typing
     component.$on('select', (e: any) => handler(e.detail));
     const btn = screen.getByTestId('symbol-S10000');
     await fireEvent.click(btn);
@@ -90,7 +89,6 @@ describe('SymbolChooser.svelte', () => {
   it('selects the only result with Enter key', async () => {
     const { component } = render(SymbolChooserComponent, { symbols });
     const handler = vi.fn();
-    // @ts-expect-error Svelte event typing
     component.$on('select', (e: any) => handler(e.detail));
     const input = screen.getByPlaceholderText('Search symbols...');
     await fireEvent.input(input, { target: { value: 'S20000' } });

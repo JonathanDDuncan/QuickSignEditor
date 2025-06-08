@@ -97,8 +97,8 @@
     resizeStart = {
       x: event.clientX,
       y: event.clientY,
-      width: symbol.width || 44,
-      height: symbol.height || 44
+      width: Number(symbol.width) || 44,
+      height: Number(symbol.height) || 44
     };
     window.addEventListener('mousemove', onResizeMouseMove);
     window.addEventListener('mouseup', onResizeMouseUp);
@@ -206,8 +206,8 @@
       if (event.key === 'ArrowDown') dHeight = 5;
       // Only resize the first selected symbol
       if (selected) {
-        const newWidth = Math.max(20, (selected.width || 44) + dWidth);
-        const newHeight = Math.max(20, (selected.height || 44) + dHeight);
+        const newWidth = Math.max(20, (Number(selected.width) || 44) + dWidth);
+        const newHeight = Math.max(20, (Number(selected.height) || 44) + dHeight);
         if (signData) {
           dispatch('resize', { id: selected.id, width: newWidth, height: newHeight });
         } else {
@@ -269,7 +269,7 @@
   }
 </script>
 
-<div class="sign-editor-canvas" aria-label="Sign canvas" tabindex="0" on:keydown={onKeyDown}>
+<div class="sign-editor-canvas" aria-label="Sign canvas" role="region" tabindex="0" on:keydown={onKeyDown}>
   {#if showPlaceholder}
     <div class="placeholder">SignEditor canvas coming soon...</div>
   {/if}
@@ -279,7 +279,7 @@
       class="symbol"
       class:selected={symbol.selected}
       data-testid={`canvas-symbol-${symbol.id}`}
-      style="left: {symbol.x}px; top: {symbol.y}px; width: {symbol.width || 44}px; height: {symbol.height || 44}px; transform: rotate({symbol.rotation || 0}deg); background: {symbol.color || '#fff'};"
+      style="left: {symbol.x}px; top: {symbol.y}px; width: {Number(symbol.width) || 44}px; height: {Number(symbol.height) || 44}px; transform: rotate({symbol.rotation || 0}deg); background: {symbol.color || '#fff'};"
       aria-selected={symbol.selected ? 'true' : 'false'}
       role="option"
       on:click|stopPropagation={(e) => selectSymbol(symbol.id, e)}
@@ -293,11 +293,17 @@
           class="resize-handle"
           data-testid={`resize-handle-${symbol.id}`}
           on:mousedown|stopPropagation={(e) => onResizeHandleMouseDown(e, symbol)}
+          role="slider"
+          tabindex="0"
+          aria-valuenow={Number(symbol.width) || 44}
         />
         <div
           class="rotate-handle"
           data-testid={`rotate-handle-${symbol.id}`}
           on:mousedown|stopPropagation={(e) => onRotateHandleMouseDown(e, symbol)}
+          role="slider"
+          tabindex="0"
+          aria-valuenow={Number(symbol.rotation) || 0}
         >
           &#8635;
         </div>
@@ -308,7 +314,6 @@
           value={symbol.color || '#ffffff'}
           on:input={(e) => onColorChange(e, symbol)}
           aria-label="Pick symbol color"
-          tabindex="0"
         />
       {/if}
     </button>
