@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { signStore } from './signStore';
   import { validateSignData } from './utils/validation';
   import transformSymbols from './utils/transform';
@@ -7,7 +7,6 @@
 
   export let signData: SignData | undefined;
   let validation: { isValid: boolean; error?: string } = { isValid: true };
-  let unsubscribe: (() => void) | undefined;
   const dispatch = createEventDispatcher();
 
   // Always derive symbols from signData or store
@@ -15,14 +14,6 @@
   $: symbols = transformSymbols(currentSignData.symbols);
   $: validation = validateSignData(currentSignData);
   $: showPlaceholder = symbols.length === 0 && validation.isValid;
-
-  onMount(() => {
-    return () => { if (unsubscribe) unsubscribe(); };
-  });
-
-  function handleCanvasClick(event: MouseEvent) {
-    // Placeholder for symbol selection logic
-  }
 
   function selectSymbol(id: string) {
     if (signData) {
@@ -38,22 +29,23 @@
   }
 </script>
 
-<div class="sign-editor-canvas" tabindex="0" on:click={handleCanvasClick} aria-label="Sign canvas">
+<div class="sign-editor-canvas" aria-label="Sign canvas">
   {#if showPlaceholder}
     <div class="placeholder">SignEditor canvas coming soon...</div>
   {/if}
   {#each symbols as symbol (symbol.id)}
-    <div
+    <button
+      type="button"
       class="symbol{symbol.selected ? ' selected' : ''}"
       data-testid={`canvas-symbol-${symbol.id}`}
       style="left: {symbol.x}px; top: {symbol.y}px; transform: rotate({symbol.rotation || 0}deg);"
       aria-selected={symbol.selected}
-      tabindex="0"
+      role="option"
       on:click|stopPropagation={() => selectSymbol(symbol.id)}
     >
       <!-- Render symbol SVG or image here -->
       <span>{symbol.id}</span>
-    </div>
+    </button>
   {/each}
   {#if !validation.isValid}
     <div class="error">{validation.error}</div>
@@ -88,6 +80,10 @@
 .symbol.selected {
   box-shadow: 0 0 0 2px #0078d4;
   background: #e6f0fa;
+}
+.symbol:focus {
+  outline: 2px solid #0078d4;
+  z-index: 1;
 }
 .error {
   position: absolute;
