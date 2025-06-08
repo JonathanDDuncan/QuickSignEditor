@@ -48,6 +48,7 @@
   height: 100%;
   border-right: 1px solid #ccc;
   background: #fafbfc;
+  min-width: 0;
 }
 .symbol-search {
   margin: 8px;
@@ -62,7 +63,7 @@
   padding: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 .symbol-item {
   display: flex;
@@ -73,9 +74,11 @@
   background: #fff;
   border: 1px solid #bbb;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   transition: box-shadow 0.1s, border-color 0.1s;
+  box-sizing: border-box;
+  padding: 0.5em 0.7em;
 }
 .symbol-item:focus, .symbol-item:hover {
   border-color: #0078d4;
@@ -87,5 +90,35 @@
   margin: 24px auto;
   text-align: center;
   width: 100%;
+}
+@media (max-width: 800px) {
+  .symbol-chooser {
+    width: 100% !important;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+  }
+  .symbol-list {
+    gap: 10px;
+  }
+  .symbol-item {
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 16px;
+    padding: 0.5em 0.5em;
+  }
+}
+@media (max-width: 500px) {
+  .symbol-chooser {
+    width: 100% !important;
+    padding: 0;
+  }
+  .symbol-item {
+    min-width: 38px;
+    min-height: 38px;
+    font-size: 15px;
+    padding: 0.4em 0.4em;
+  }
 }
 </style>

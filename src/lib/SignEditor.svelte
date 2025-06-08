@@ -61,29 +61,51 @@
   border: 1px solid #ccc;
   overflow: auto;
   outline: none;
+  min-width: 0;
 }
 .symbol {
   position: absolute;
   cursor: pointer;
   user-select: none;
-  padding: 2px 4px;
+  padding: 8px 10px;
   background: #fff;
   border: 1px solid #bbb;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 16px;
   transition: box-shadow 0.1s;
+  min-width: 44px;
+  min-height: 44px;
+  box-sizing: border-box;
 }
-.symbol[aria-selected="true"] {
-  box-shadow: 0 0 0 2px #0078d4;
-  background: #e6f0fa;
-}
-.symbol.selected {
+.symbol[aria-selected="true"], .symbol.selected {
   box-shadow: 0 0 0 2px #0078d4;
   background: #e6f0fa;
 }
 .symbol:focus {
   outline: 2px solid #0078d4;
   z-index: 1;
+}
+@media (max-width: 800px) {
+  .sign-editor-canvas {
+    height: 300px;
+  }
+  .symbol {
+    font-size: 15px;
+    padding: 8px 8px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+@media (max-width: 500px) {
+  .sign-editor-canvas {
+    height: 220px;
+  }
+  .symbol {
+    font-size: 14px;
+    padding: 6px 6px;
+    min-width: 36px;
+    min-height: 36px;
+  }
 }
 .error {
   position: absolute;

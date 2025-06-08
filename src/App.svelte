@@ -49,7 +49,7 @@
 <main>
   <h1>QuickSignEditor Demo</h1>
   <Toolbar on:action={e => handleToolbarAction(e.detail)} />
-  <div style="display: flex; gap: 2rem;">
+  <div class="editor-layout">
     <SymbolChooser {symbols} on:select={e => handleSymbolSelect(e.detail)} />
     <SignEditor signData={signData} on:select={e => handleSymbolSelection(e.detail)} />
   </div>
@@ -59,5 +59,33 @@
   main {
     padding: 2rem;
     font-family: system-ui, sans-serif;
+  }
+  .editor-layout {
+    display: flex;
+    gap: 2rem;
+  }
+  @media (max-width: 800px) {
+    main {
+      padding: 1rem;
+    }
+    .editor-layout {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .symbol-chooser,
+    .sign-editor-canvas {
+      width: 100% !important;
+      min-width: 0;
+      max-width: 100vw;
+    }
+  }
+  @media (max-width: 500px) {
+    main {
+      padding: 0.5rem;
+      font-size: 15px;
+    }
+    h1 {
+      font-size: 1.2em;
+    }
   }
 </style>
