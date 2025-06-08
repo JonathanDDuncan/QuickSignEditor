@@ -1,0 +1,17 @@
+// svelte-check config for QuickSignEditor
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "esnext",
+    "target": "es2021",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.js", "src/**/*.svelte"]
+}

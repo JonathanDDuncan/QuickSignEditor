@@ -36,7 +36,7 @@ export interface Symbol {
 }
 
 export interface Sign {
-  syms: Symbol[];
+  syms: symbol[];
   spelling?: string;
   width?: number;
   height?: number;
@@ -55,7 +55,7 @@ export interface FswData {
 
 export interface EditorState {
   sign: Sign;
-  selectedSymbols: Symbol[];
+  selectedSymbols: symbol[];
   viewPosition: Position;
   canvasSize: Size;
   editorMode: 'awaiting' | 'dragging' | 'selecting' | 'adding';

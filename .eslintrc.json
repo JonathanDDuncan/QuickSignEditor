@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:svelte/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "svelte"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-undef": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "svelte/no-at-html-tags": "off"
+  }
+}
