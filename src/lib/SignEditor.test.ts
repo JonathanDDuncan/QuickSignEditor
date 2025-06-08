@@ -86,6 +86,27 @@ describe('SignEditor.svelte', () => {
     expect(screen.getByText(/Invalid symbols|Name required|Symbols required/)).toBeInTheDocument();
   });
 
+  it('dispatches move event with correct coordinates on drag', async () => {
+    const signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S10000', code: 'S10000', x: 10, y: 20, selected: false }
+      ]
+    };
+    const { component } = render(SignEditorComponent, { signData });
+    const symbolBtn = screen.getByTestId('canvas-symbol-S10000');
+    let moveEventDetail = null;
+    component.$on('move', (e: CustomEvent<any>) => { moveEventDetail = e.detail; });
+    // Simulate mousedown at (15, 25) (5px offset from symbol's x/y)
+    await fireEvent.mouseDown(symbolBtn, { clientX: 15, clientY: 25 });
+    // Simulate mousemove to (100, 200)
+    await fireEvent.mouseMove(window, { clientX: 100, clientY: 200 });
+    // Simulate mouseup
+    await fireEvent.mouseUp(window);
+    // The new position should be (100 - 5, 200 - 5) = (95, 195)
+    expect(moveEventDetail).toEqual({ id: 'S10000', x: 95, y: 195 });
+  });
+
   // Add a dummy test to ensure Vitest recognizes the suite
   it('dummy test', () => {
     expect(true).toBe(true);

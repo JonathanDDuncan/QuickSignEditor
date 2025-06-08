@@ -27,6 +27,45 @@
       }));
     }
   }
+
+  let draggingId: string | null = null;
+  let dragOffset = { x: 0, y: 0 };
+  let startPos = { x: 0, y: 0 };
+
+  function onSymbolMouseDown(event: MouseEvent, symbol: Symbol) {
+    draggingId = symbol.id;
+    startPos = { x: symbol.x, y: symbol.y };
+    dragOffset = {
+      x: event.clientX - symbol.x,
+      y: event.clientY - symbol.y
+    };
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  }
+
+  function onMouseMove(event: MouseEvent) {
+    if (!draggingId) return;
+    const newX = event.clientX - dragOffset.x;
+    const newY = event.clientY - dragOffset.y;
+    if (signData) {
+      // Prop-driven: dispatch event for parent to handle position update
+      dispatch('move', { id: draggingId, x: newX, y: newY });
+    } else {
+      // Store-driven: update position in the store
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s =>
+          s.id === draggingId ? { ...s, x: newX, y: newY } : s
+        )
+      }));
+    }
+  }
+
+  function onMouseUp() {
+    draggingId = null;
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
+  }
 </script>
 
 <div class="sign-editor-canvas" aria-label="Sign canvas">
@@ -42,6 +81,8 @@
       aria-selected={symbol.selected}
       role="option"
       on:click|stopPropagation={() => selectSymbol(symbol.id)}
+      on:mousedown|stopPropagation={(e) => onSymbolMouseDown(e, symbol)}
+      draggable="false"
     >
       <!-- Render symbol SVG or image here -->
       <span>{symbol.id}</span>
