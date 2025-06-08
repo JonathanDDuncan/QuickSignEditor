@@ -166,6 +166,89 @@ describe('SignEditor.svelte', () => {
     expect(colorEventDetail).toEqual({ id: 'S10000', color: '#00ff00' });
   });
 
+  it('moves selected symbol with arrow keys', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, selected: true },
+        { id: 'S2', x: 100, y: 200, selected: false }
+      ]
+    };
+    function handleMove(e: CustomEvent<any>) {
+      signData = {
+        ...signData,
+        symbols: signData.symbols.map(s =>
+          s.id === e.detail.id ? { ...s, x: e.detail.x, y: e.detail.y } : s
+        )
+      };
+      rerender({ signData });
+    }
+    const { rerender, component, container } = render(SignEditorComponent, { signData });
+    component.$on('move', handleMove);
+    const canvas = screen.getByLabelText('Sign canvas');
+    canvas.focus();
+    await fireEvent.keyDown(canvas, { key: 'ArrowRight' });
+    await tick();
+    expect(signData.symbols[0].x).toBe(15);
+    await fireEvent.keyDown(canvas, { key: 'ArrowDown' });
+    await tick();
+    expect(signData.symbols[0].y).toBe(25);
+  });
+
+  it('deletes selected symbol with Delete key', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, selected: true },
+        { id: 'S2', x: 100, y: 200, selected: false }
+      ]
+    };
+    function handleDelete(e: CustomEvent<any>) {
+      signData = {
+        ...signData,
+        symbols: signData.symbols.filter(s => s.id !== e.detail.id)
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('delete', handleDelete);
+    const canvas = screen.getByLabelText('Sign canvas');
+    canvas.focus();
+    await fireEvent.keyDown(canvas, { key: 'Delete' });
+    await tick();
+    expect(signData.symbols.length).toBe(1);
+    expect(signData.symbols[0].id).toBe('S2');
+  });
+
+  it('cycles selection with Tab and Shift+Tab', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, selected: true },
+        { id: 'S2', x: 100, y: 200, selected: false },
+        { id: 'S3', x: 50, y: 60, selected: false }
+      ]
+    };
+    function handleSelect(e: CustomEvent<string>) {
+      const id = e.detail;
+      signData = {
+        ...signData,
+        symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('select', handleSelect);
+    const canvas = screen.getByLabelText('Sign canvas');
+    canvas.focus();
+    await fireEvent.keyDown(canvas, { key: 'Tab' });
+    await tick();
+    expect(signData.symbols[1].selected).toBe(true);
+    await fireEvent.keyDown(canvas, { key: 'Tab', shiftKey: true });
+    await tick();
+    expect(signData.symbols[0].selected).toBe(true);
+  });
+
   // Add a dummy test to ensure Vitest recognizes the suite
   it('dummy test', () => {
     expect(true).toBe(true);

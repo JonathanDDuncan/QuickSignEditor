@@ -167,9 +167,58 @@
       }));
     }
   }
+
+  // Keyboard accessibility for symbol manipulation
+  function onKeyDown(event: KeyboardEvent) {
+    if (!symbols.length) return;
+    const selectedIdx = symbols.findIndex(s => s.selected);
+    if (selectedIdx === -1) return;
+    const selected = symbols[selectedIdx];
+    let handled = false;
+    // Move with arrow keys
+    let dx = 0, dy = 0;
+    if (event.key === 'ArrowLeft') { dx = -5; handled = true; }
+    if (event.key === 'ArrowRight') { dx = 5; handled = true; }
+    if (event.key === 'ArrowUp') { dy = -5; handled = true; }
+    if (event.key === 'ArrowDown') { dy = 5; handled = true; }
+    if (handled) {
+      if (signData) {
+        dispatch('move', { id: selected.id, x: selected.x + dx, y: selected.y + dy });
+      } else {
+        signStore.update(sd => ({
+          ...sd,
+          symbols: sd.symbols.map(s =>
+            s.id === selected.id ? { ...s, x: s.x + dx, y: s.y + dy } : s
+          )
+        }));
+      }
+      event.preventDefault();
+      return;
+    }
+    // Delete selected symbol
+    if (event.key === 'Delete' || event.key === 'Backspace') {
+      if (signData) {
+        dispatch('delete', { id: selected.id });
+      } else {
+        signStore.update(sd => ({
+          ...sd,
+          symbols: sd.symbols.filter(s => s.id !== selected.id)
+        }));
+      }
+      event.preventDefault();
+      return;
+    }
+    // Tab/Shift+Tab to cycle selection
+    if (event.key === 'Tab') {
+      let nextIdx = event.shiftKey ? (selectedIdx - 1 + symbols.length) % symbols.length : (selectedIdx + 1) % symbols.length;
+      const nextId = symbols[nextIdx].id;
+      selectSymbol(nextId);
+      event.preventDefault();
+    }
+  }
 </script>
 
-<div class="sign-editor-canvas" aria-label="Sign canvas">
+<div class="sign-editor-canvas" aria-label="Sign canvas" tabindex="0" on:keydown={onKeyDown}>
   {#if showPlaceholder}
     <div class="placeholder">SignEditor canvas coming soon...</div>
   {/if}
