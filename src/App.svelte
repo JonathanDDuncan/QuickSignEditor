@@ -3,15 +3,8 @@
   import SignEditor from './lib/SignEditor.svelte';
   import SymbolChooser from './lib/SymbolChooser.svelte';
   import Toolbar from './lib/Toolbar.svelte';
-
-  // Example sign data with a couple of symbols
-  let signData = {
-    name: "Test Sign",
-    symbols: [
-      { id: 'S1001', x: 50, y: 60, selected: false },
-      { id: 'S1002', x: 120, y: 100, selected: false }
-    ]
-  };
+  import { signStore } from './lib/signStore';
+  import { get } from 'svelte/store';
 
   // Example symbol library
   let symbols = [
@@ -20,29 +13,33 @@
     { id: 'S1003', name: 'Face Smile', x: 0, y: 0 }
   ];
 
+  // Use signStore for signData
+  $: signData = $signStore.present;
+
   function handleSymbolSelect(symbol: { id: string; name: string; [key: string]: any }) {
-    // Add symbol to signData at default position, with all properties from the chooser symbol
+    // Add symbol to signStore at default position, with all properties from the chooser symbol
     const newSymbol = { ...symbol, code: symbol.id, x: 80, y: 80, selected: false };
-    signData = {
-      ...signData,
-      symbols: [...signData.symbols.filter(s => s.id !== newSymbol.id), newSymbol]
-    };
-    signData = { ...signData, symbols: [...signData.symbols] }; // Force Svelte reactivity
-    console.log('signData.symbols after add:', signData.symbols);
+    signStore.update(sd => ({
+      ...sd,
+      symbols: [...sd.symbols.filter(s => s.id !== newSymbol.id), newSymbol],
+      // Force new object reference for history
+      name: sd.name ? (sd.name + '') : '',
+      metadata: { ...(sd.metadata || {}) }
+    }));
   }
 
   function handleSymbolSelection(id: string) {
-    // Update signData so only the selected symbol is marked selected
-    signData = {
-      ...signData,
-      symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
-    };
-    signData = { ...signData };
+    // Update signStore so only the selected symbol is marked selected
+    signStore.update(sd => ({
+      ...sd,
+      symbols: sd.symbols.map(s => ({ ...s, selected: s.id === id }))
+    }));
   }
 
   function handleToolbarAction(action: string) {
-    // Placeholder for toolbar actions
-    alert(`Toolbar action: ${action}`);
+    if (action === 'undo') signStore.undo();
+    else if (action === 'redo') signStore.redo();
+    else alert(`Toolbar action: ${action}`);
   }
 </script>
 
@@ -51,7 +48,7 @@
   <Toolbar on:action={e => handleToolbarAction(e.detail)} />
   <div class="editor-layout">
     <SymbolChooser {symbols} on:select={e => handleSymbolSelect(e.detail)} />
-    <SignEditor signData={signData} on:select={e => handleSymbolSelection(e.detail)} />
+    <SignEditor {signData} on:select={e => handleSymbolSelection(e.detail)} />
   </div>
 </main>
 

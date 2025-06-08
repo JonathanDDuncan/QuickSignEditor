@@ -5,15 +5,39 @@
   export let symbols: Symbol[] = [];
   export let filter: string = '';
 
+  // Add category support
+  export let categories: string[] = [];
+  export let selectedCategory: string = '';
+
   const dispatch = createEventDispatcher();
 
-  // Filtered and sorted symbols
-  $: filteredSymbols = filter
-    ? symbols.filter(s => s.id.includes(filter) || (s.code && s.code.includes(filter)))
-    : symbols;
+  // Filtered and sorted symbols with category
+  $: filteredSymbols = symbols.filter(s => {
+    const matchesCategory = !selectedCategory || (s.category === selectedCategory);
+    const matchesFilter = !filter || s.id.includes(filter) || (s.code && s.code.includes(filter));
+    return matchesCategory && matchesFilter;
+  });
+
+  function onCategoryChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    selectedCategory = value;
+    // Optionally, dispatch event for parent to react
+    dispatch('category', value);
+  }
 </script>
 
 <div class="symbol-chooser">
+  <select
+    class="symbol-category"
+    bind:value={selectedCategory}
+    on:change={onCategoryChange}
+    aria-label="Filter by category"
+  >
+    <option value="">All Categories</option>
+    {#each categories as cat}
+      <option value={cat}>{cat}</option>
+    {/each}
+  </select>
   <input
     class="symbol-search"
     type="text"
@@ -49,6 +73,14 @@
   border-right: 1px solid #ccc;
   background: #fafbfc;
   min-width: 0;
+}
+.symbol-category {
+  margin: 8px 8px 0 8px;
+  padding: 6px 10px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 15px;
+  background: #fff;
 }
 .symbol-search {
   margin: 8px;

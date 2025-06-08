@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/svelte';
+import { render, screen, fireEvent, waitFor } from '@testing-library/svelte';
 import { describe, it, expect, vi } from 'vitest';
 import App from '../App.svelte';
+import { signStore } from './signStore';
 
 describe('Integrated UI', () => {
   it('renders the SignEditor and SymbolChooser and allows adding a symbol to the canvas', async () => {
@@ -16,15 +17,32 @@ describe('Integrated UI', () => {
   });
 
   it('handles toolbar action events', async () => {
-    // Mock window.alert
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    // Reset store to initial state for a clean undo history
+    signStore.set({
+      name: 'Demo Sign',
+      symbols: [
+        { id: 'S1001', x: 50, y: 60, selected: false },
+        { id: 'S1002', x: 120, y: 100, selected: false }
+      ],
+      metadata: {}
+    });
     render(App);
-    const toolbar = screen.getByRole('toolbar');
-    // Simulate a toolbar action (e.g., undo)
+    // Add a symbol to create undo history
+    const chooserBtn = screen.getByTestId('symbol-S1003');
+    await fireEvent.click(chooserBtn);
+    // Confirm symbol added
+    expect(await screen.findByTestId('canvas-symbol-S1003')).toBeInTheDocument();
+    // There should be 3 symbols now
+    expect(screen.getAllByTestId(/canvas-symbol-/).length).toBe(3);
+    // Simulate undo
     const undoBtn = screen.getByTestId('undo-btn');
     await fireEvent.click(undoBtn);
-    expect(alertSpy).toHaveBeenCalledWith(expect.stringContaining('undo'));
-    alertSpy.mockRestore();
+    // Wait for the DOM to update after undo
+    await waitFor(() => {
+      expect(screen.queryByTestId('canvas-symbol-S1003')).not.toBeInTheDocument();
+    }, { timeout: 2000 });
+    // There should be 2 symbols now
+    expect(screen.getAllByTestId(/canvas-symbol-/).length).toBe(2);
   });
 
   it('handles symbol selection from canvas', async () => {

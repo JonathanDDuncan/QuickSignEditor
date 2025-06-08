@@ -57,6 +57,28 @@ describe('SymbolChooser.svelte', () => {
     expect(screen.getByText('No symbols found.')).toBeInTheDocument();
   });
 
+  it('filters symbols by category', async () => {
+    const symbols = [
+      { id: 'S10000', code: 'S10000', x: 0, y: 0, category: 'Hand' },
+      { id: 'S20000', code: 'S20000', x: 1, y: 1, category: 'Face' },
+      { id: 'S30000', code: 'S30000', x: 2, y: 2, category: 'Hand' }
+    ];
+    const categories = ['Hand', 'Face'];
+    render(SymbolChooserComponent, { symbols, categories });
+    // Default: all categories
+    expect(screen.getByTestId('symbol-list').children.length).toBe(3);
+    // Select 'Hand' category
+    const select = screen.getByLabelText('Filter by category');
+    await fireEvent.change(select, { target: { value: 'Hand' } });
+    expect(screen.getByTestId('symbol-list').children.length).toBe(2);
+    // Select 'Face' category
+    await fireEvent.change(select, { target: { value: 'Face' } });
+    expect(screen.getByTestId('symbol-list').children.length).toBe(1);
+    // Select 'All Categories'
+    await fireEvent.change(select, { target: { value: '' } });
+    expect(screen.getByTestId('symbol-list').children.length).toBe(3);
+  });
+
   it('dummy test', () => {
     expect(true).toBe(true);
   });

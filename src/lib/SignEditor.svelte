@@ -10,7 +10,7 @@
   const dispatch = createEventDispatcher();
 
   // Always derive symbols from signData or store
-  $: currentSignData = signData ? signData : $signStore;
+  $: currentSignData = signData ? signData : $signStore.present;
   $: symbols = transformSymbols(currentSignData.symbols);
   $: validation = validateSignData(currentSignData);
   $: showPlaceholder = symbols.length === 0 && validation.isValid;
