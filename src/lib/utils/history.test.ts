@@ -46,7 +46,7 @@ describe('history pure functions', () => {
   });
 
   it('does not record if present is unchanged', () => {
-    let h = createHistory('a');
+    const h = createHistory('a');
     const h2 = record(h, 'a');
     expect(h2).toBe(h);
   });

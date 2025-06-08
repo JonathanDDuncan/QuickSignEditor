@@ -2,7 +2,7 @@
 // Checks if a string is a valid Formal SignWriting (FSW) sign string
 // See https://tools.ietf.org/id/draft-slevinski-formal-signwriting-07.html for FSW spec
 
-export function isValidFSW(input: any): boolean {
+export function isValidFSW(input: unknown): boolean {
   if (typeof input !== 'string' || !input.trim()) return false;
   // Basic FSW sign pattern: starts with 'M' or 'S', contains only allowed chars
   // This is a simplified check for demo purposes

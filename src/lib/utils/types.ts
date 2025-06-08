@@ -9,14 +9,14 @@ export interface Symbol {
   rotation?: number;
   fill?: string;
   selected?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // SignData type for a complete sign
 export interface SignData {
   name: string;
-  symbols: Symbol[];
-  metadata?: Record<string, any>;
+  symbols: symbol[];
+  metadata?: Record<string, unknown>;
 }
 
 // UI state for editor
@@ -26,7 +26,7 @@ export interface UIState {
   tool: 'select' | 'hand' | 'zoom' | 'pen';
   zoom: number;
   pan: { x: number; y: number };
-  clipboard: Symbol[] | null;
+  clipboard: symbol[] | null;
   showGrid: boolean;
   snapToGrid: boolean;
 }
