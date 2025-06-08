@@ -2,6 +2,7 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/svelte';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import SignEditor from './SignEditor.svelte';
 import type { ComponentType } from 'svelte';
+import { tick } from 'svelte';
 
 const SignEditorComponent = SignEditor as unknown as ComponentType;
 
@@ -30,8 +31,8 @@ describe('SignEditor.svelte', () => {
       ]
     };
     render(SignEditorComponent, { signData });
-    const symbol0 = screen.getByTestId('symbol-S10000');
-    const symbol1 = screen.getByTestId('symbol-S10001');
+    const symbol0 = screen.getByTestId('canvas-symbol-S10000');
+    const symbol1 = screen.getByTestId('canvas-symbol-S10001');
     expect(symbol0).toBeInTheDocument();
     expect(symbol1).toBeInTheDocument();
     expect(symbol0.style.left).toBe('10px');
@@ -41,20 +42,31 @@ describe('SignEditor.svelte', () => {
   });
 
   it('selects a symbol when clicked', async () => {
-    const signData = {
+    let signData = {
       name: 'Test',
       symbols: [
-        { id: 'S10000', code: 'S10000', x: 10, y: 20 },
-        { id: 'S10001', code: 'S10001', x: 100, y: 200 }
+        { id: 'S10000', code: 'S10000', x: 10, y: 20, selected: false },
+        { id: 'S10001', code: 'S10001', x: 100, y: 200, selected: false }
       ]
     };
-    render(SignEditorComponent, { signData });
-    const symbol0 = screen.getByTestId('symbol-S10000');
-    const symbol1 = screen.getByTestId('symbol-S10001');
+    function handleSelect(e: CustomEvent<string>) {
+      const id = e.detail;
+      signData = {
+        ...signData,
+        symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('select', handleSelect);
+    const symbol0 = screen.getByTestId('canvas-symbol-S10000');
+    const symbol1 = screen.getByTestId('canvas-symbol-S10001');
     await fireEvent.click(symbol1);
+    await tick();
     expect(symbol1.className).toContain('selected');
     expect(symbol0.className).not.toContain('selected');
     await fireEvent.click(symbol0);
+    await tick();
     expect(symbol0.className).toContain('selected');
     expect(symbol1.className).not.toContain('selected');
   });

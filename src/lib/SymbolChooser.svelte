@@ -1,46 +1,41 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import type { Symbol } from './utils/types';
-  import { onMount } from 'svelte';
-
-  export let symbols: Symbol[];
+  // Props
+  export let symbols: Symbol[] = [];
   export let filter: string = '';
-  export let onSelect: (symbol: Symbol) => void = () => {};
 
-  let filteredSymbols: Symbol[] = [];
+  const dispatch = createEventDispatcher();
 
+  // Filtered and sorted symbols
   $: filteredSymbols = filter
-    ? symbols.filter(s =>
-        (s.code || '').toLowerCase().includes(filter.toLowerCase())
-      )
+    ? symbols.filter(s => s.id.includes(filter) || (s.code && s.code.includes(filter)))
     : symbols;
-
-  function handleSelect(symbol: Symbol) {
-    onSelect(symbol);
-  }
 </script>
 
 <div class="symbol-chooser">
   <input
+    class="symbol-search"
     type="text"
     placeholder="Search symbols..."
     bind:value={filter}
     aria-label="Search symbols"
-    class="symbol-search"
   />
   <div class="symbol-list" data-testid="symbol-list">
+    {#each filteredSymbols as symbol (symbol.id)}
+      <button
+        class="symbol-item"
+        type="button"
+        on:click={() => dispatch('select', symbol)}
+        aria-label={symbol.id}
+        data-testid={`symbol-${symbol.id}`}
+      >
+        <!-- Render symbol SVG or image here -->
+        <span>{symbol.id}</span>
+      </button>
+    {/each}
     {#if filteredSymbols.length === 0}
       <div class="no-results">No symbols found.</div>
-    {:else}
-      {#each filteredSymbols as symbol (symbol.id)}
-        <button
-          class="symbol-item"
-          type="button"
-          on:click={() => handleSelect(symbol)}
-          data-testid={`symbol-${symbol.id}`}
-        >
-          {symbol.code || symbol.id}
-        </button>
-      {/each}
     {/if}
   </div>
 </div>
@@ -49,34 +44,48 @@
 .symbol-chooser {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  width: 300px;
+  width: 260px;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  background: #fafbfc;
 }
 .symbol-search {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+  margin: 8px;
+  padding: 6px 10px;
+  border: 1px solid #bbb;
   border-radius: 4px;
+  font-size: 15px;
 }
 .symbol-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
-  min-height: 2rem;
+  gap: 6px;
 }
 .symbol-item {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #aaa;
-  background: #f9f9f9;
-  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
-  font-family: monospace;
+  transition: box-shadow 0.1s, border-color 0.1s;
 }
-.symbol-item:hover {
-  background: #e0e0e0;
+.symbol-item:focus, .symbol-item:hover {
+  border-color: #0078d4;
+  box-shadow: 0 0 0 2px #0078d4;
+  outline: none;
 }
 .no-results {
   color: #888;
-  font-size: 0.95rem;
+  margin: 24px auto;
+  text-align: center;
+  width: 100%;
 }
 </style>

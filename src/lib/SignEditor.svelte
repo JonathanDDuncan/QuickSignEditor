@@ -1,109 +1,109 @@
 <script lang="ts">
+  import { createEventDispatcher, onMount } from 'svelte';
+  import { signStore } from './signStore';
   import { validateSignData } from './utils/validation';
-  import type { SignData, Symbol as SignSymbol } from './utils/types';
+  import transformSymbols from './utils/transform';
+  import type { SignData, Symbol } from './utils/types';
 
-  export let signData: SignData = { name: '', symbols: [] };
+  export let signData: SignData | undefined;
+  let validation: { isValid: boolean; error?: string } = { isValid: true };
+  let unsubscribe: (() => void) | undefined;
+  const dispatch = createEventDispatcher();
 
-  let selectedSymbolId: string | null = null;
-  let draggingId: string | null = null;
-  let dragOffset = { x: 0, y: 0 };
+  // Always derive symbols from signData or store
+  $: currentSignData = signData ? signData : $signStore;
+  $: symbols = transformSymbols(currentSignData.symbols);
+  $: validation = validateSignData(currentSignData);
+  $: showPlaceholder = symbols.length === 0 && validation.isValid;
+
+  onMount(() => {
+    return () => { if (unsubscribe) unsubscribe(); };
+  });
+
+  function handleCanvasClick(event: MouseEvent) {
+    // Placeholder for symbol selection logic
+  }
 
   function selectSymbol(id: string) {
-    selectedSymbolId = id;
-  }
-
-  function onSymbolMouseDown(event: MouseEvent, symbol: SignSymbol) {
-    draggingId = symbol.id;
-    dragOffset = {
-      x: event.clientX - symbol.x,
-      y: event.clientY - symbol.y
-    };
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
-  }
-
-  function onMouseMove(event: MouseEvent) {
-    if (!draggingId) return;
-    const idx = signData.symbols.findIndex(s => s.id === draggingId);
-    if (idx !== -1) {
-      signData.symbols[idx].x = event.clientX - dragOffset.x;
-      signData.symbols[idx].y = event.clientY - dragOffset.y;
+    if (signData) {
+      // Prop-driven: dispatch event for parent to handle selection
+      dispatch('select', id);
+    } else {
+      // Store-driven: update selection in the store
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s => ({ ...s, selected: s.id === id }))
+      }));
     }
   }
-
-  function onMouseUp() {
-    draggingId = null;
-    window.removeEventListener('mousemove', onMouseMove);
-    window.removeEventListener('mouseup', onMouseUp);
-  }
-
-  $: validation = validateSignData(signData);
 </script>
 
-{#if !validation.isValid}
-  <div class="error">{validation.error}</div>
-{/if}
-
-<!-- Canvas with rendered symbols -->
-<div class="sign-canvas" role="region" aria-label="Sign canvas">
-  {#if signData.symbols.length === 0}
-    <p>SignEditor canvas coming soon...</p>
-  {:else}
-    {#each signData.symbols as symbol (symbol.id)}
-      <div
-        class="symbol-render {selectedSymbolId === symbol.id ? 'selected' : ''} {draggingId === symbol.id ? 'dragging' : ''}"
-        style="left: {symbol.x}px; top: {symbol.y}px;"
-        data-testid={`symbol-${symbol.id}`}
-        tabIndex={0}
-        role="button"
-        on:click={() => selectSymbol(symbol.id)}
-        on:keydown={(e) => e.key === 'Enter' && selectSymbol(symbol.id)}
-        on:mousedown={(e) => onSymbolMouseDown(e, symbol)}
-      >
-        {symbol.code || symbol.id}
-      </div>
-    {/each}
+<div class="sign-editor-canvas" tabindex="0" on:click={handleCanvasClick} aria-label="Sign canvas">
+  {#if showPlaceholder}
+    <div class="placeholder">SignEditor canvas coming soon...</div>
+  {/if}
+  {#each symbols as symbol (symbol.id)}
+    <div
+      class="symbol{symbol.selected ? ' selected' : ''}"
+      data-testid={`canvas-symbol-${symbol.id}`}
+      style="left: {symbol.x}px; top: {symbol.y}px; transform: rotate({symbol.rotation || 0}deg);"
+      aria-selected={symbol.selected}
+      tabindex="0"
+      on:click|stopPropagation={() => selectSymbol(symbol.id)}
+    >
+      <!-- Render symbol SVG or image here -->
+      <span>{symbol.id}</span>
+    </div>
+  {/each}
+  {#if !validation.isValid}
+    <div class="error">{validation.error}</div>
   {/if}
 </div>
 
 <style>
-.sign-canvas {
-  width: 500px;
-  height: 500px;
-  border: 1px solid #ccc;
-  margin: 1rem 0;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.sign-editor-canvas {
   position: relative;
+  width: 100%;
+  height: 400px;
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  overflow: auto;
+  outline: none;
 }
-.symbol-render {
+.symbol {
   position: absolute;
-  background: #f0f8ff;
-  border: 1px solid #b0c4de;
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-family: monospace;
-  font-size: 1rem;
-  pointer-events: auto;
+  cursor: pointer;
   user-select: none;
-  transition: box-shadow 0.15s, border 0.15s;
-  cursor: grab;
+  padding: 2px 4px;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: box-shadow 0.1s;
 }
-.symbol-render.selected {
-  border: 2px solid #0074d9;
-  box-shadow: 0 0 0 2px #b3e0ff;
-  background: #e6f7ff;
-  z-index: 1;
+.symbol[aria-selected="true"] {
+  box-shadow: 0 0 0 2px #0078d4;
+  background: #e6f0fa;
 }
-.symbol-render.dragging {
-  opacity: 0.7;
-  cursor: grabbing;
-  z-index: 2;
+.symbol.selected {
+  box-shadow: 0 0 0 2px #0078d4;
+  background: #e6f0fa;
 }
 .error {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
   color: #b00;
-  margin-bottom: 0.5rem;
+  background: #fff0f0;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 13px;
+  border: 1px solid #fbb;
+}
+.placeholder {
+  color: #888;
+  text-align: center;
+  margin-top: 160px;
+  font-size: 1.2em;
 }
 </style>

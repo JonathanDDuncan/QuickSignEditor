@@ -4,7 +4,6 @@ import { vi } from 'vitest';
 import SymbolChooser from './SymbolChooser.svelte';
 import type { ComponentType } from 'svelte';
 
-// Use the correct type for Svelte component in render
 const SymbolChooserComponent = SymbolChooser as unknown as ComponentType;
 
 describe('SymbolChooser.svelte', () => {
@@ -33,15 +32,15 @@ describe('SymbolChooser.svelte', () => {
     expect(screen.getByText('No symbols found.')).toBeInTheDocument();
   });
 
-  it('calls onSelect when a symbol is clicked', async () => {
-    const onSelect = vi.fn();
-    render(SymbolChooserComponent, { symbols, onSelect });
+  it('calls select event when a symbol is clicked', async () => {
+    const { component } = render(SymbolChooserComponent, { symbols });
+    const handler = vi.fn();
+    component.$on('select', e => handler(e.detail));
     const btn = screen.getByTestId('symbol-S10000');
     await fireEvent.click(btn);
-    expect(onSelect).toHaveBeenCalledWith(symbols[0]);
+    expect(handler).toHaveBeenCalledWith(symbols[0]);
   });
 
-  // Add a dummy test to ensure Vitest recognizes the suite
   it('dummy test', () => {
     expect(true).toBe(true);
   });
