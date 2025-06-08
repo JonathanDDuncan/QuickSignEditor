@@ -55,8 +55,9 @@
         style="left: {symbol.x}px; top: {symbol.y}px;"
         data-testid={`symbol-${symbol.id}`}
         tabIndex={0}
-        aria-selected={selectedSymbolId === symbol.id}
+        role="button"
         on:click={() => selectSymbol(symbol.id)}
+        on:keydown={(e) => e.key === 'Enter' && selectSymbol(symbol.id)}
         on:mousedown={(e) => onSymbolMouseDown(e, symbol)}
       >
         {symbol.code || symbol.id}
