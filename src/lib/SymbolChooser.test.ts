@@ -41,6 +41,22 @@ describe('SymbolChooser.svelte', () => {
     expect(handler).toHaveBeenCalledWith(symbols[0]);
   });
 
+  it('filters symbols when code is missing', async () => {
+    const symbolsWithMissingCode = [
+      { id: 'S1', x: 0, y: 0 },
+      { id: 'S2', code: 'S2', x: 1, y: 1 }
+    ];
+    render(SymbolChooserComponent, { symbols: symbolsWithMissingCode });
+    const input = screen.getByPlaceholderText('Search symbols...');
+    await fireEvent.input(input, { target: { value: 'S1' } });
+    expect(screen.getByTestId('symbol-list').children.length).toBe(1);
+  });
+
+  it('shows no results when symbols array is empty', () => {
+    render(SymbolChooserComponent, { symbols: [] });
+    expect(screen.getByText('No symbols found.')).toBeInTheDocument();
+  });
+
   it('dummy test', () => {
     expect(true).toBe(true);
   });

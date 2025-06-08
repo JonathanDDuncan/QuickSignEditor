@@ -13,7 +13,7 @@
   const dispatch = createEventDispatcher();
 
   function handle(action: string) {
-    dispatch(action);
+    dispatch('action', action);
     switch (action) {
       case 'undo': onUndo && onUndo(); break;
       case 'redo': onRedo && onRedo(); break;
