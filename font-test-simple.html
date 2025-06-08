@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignWriting Font Test - Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .font-test {
+            font-size: 48px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        code {
+            background: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-family: monospace;
+        }
+        
+        /* Official SignWriting Font Classes */
+        text.sym-fill {
+            font-family: 'SuttonSignWritingFill', monospace;
+            fill: white;
+        }
+        
+        text.sym-line {
+            font-family: 'SuttonSignWriting', monospace;
+            fill: black;
+        }
+        
+        .test-font-fill {
+            font-family: 'SuttonSignWritingFill', monospace;
+            color: white;
+            background: black;
+            display: inline-block;
+            padding: 5px;
+        }
+        
+        .test-font-line {
+            font-family: 'SuttonSignWriting', monospace;
+            color: black;
+            background: white;
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    
+    <!-- Load fonts from CDN -->
+    <style>
+        @font-face {
+            font-family: "SuttonSignWritingFill";
+            src: url('https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingFill.ttf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: "SuttonSignWriting";
+            src: url('https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWriting.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖐️ SignWriting Font Test</h1>
+        <p>Testing SignWriting font loading and display capabilities.</p>
+        
+        <div class="test-section">
+            <h2>📋 Font Loading Status</h2>
+            <div id="font-status">
+                <div class="status warning">⏳ Checking font availability...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔤 Font Display Tests</h2>
+            
+            <h3>Unicode Test Characters</h3>
+            <div class="font-test">
+                <div>Default font: 󽠰󽠱󽠲󽠳</div>
+                <div class="test-font-fill">SuttonSignWritingFill: 󽠰󽠱󽠲󽠳</div>
+                <div class="test-font-line">SuttonSignWriting: 󽠰󽠱󽠲󽠳</div>
+            </div>
+            
+            <h3>SVG Dual-Font Test</h3>
+            <div id="svg-test-container">
+                <div class="status warning">⏳ Generating SVG test...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 SSW Library Test</h2>
+            <div id="ssw-test">
+                <div class="status warning">⏳ Loading SuttonSignWriting.js library...</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Manual SVG Test</h2>
+            <p>This SVG should show a SignWriting symbol with dual fonts if everything is working:</p>
+            
+            <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style>
+                        .manual-sym-fill {
+                            font-family: 'SuttonSignWritingFill';
+                            font-size: 60px;
+                            fill: white;
+                            text-anchor: middle;
+                            dominant-baseline: central;
+                        }
+                        .manual-sym-line {
+                            font-family: 'SuttonSignWriting';
+                            font-size: 60px;
+                            fill: black;
+                            text-anchor: middle;
+                            dominant-baseline: central;
+                        }
+                    </style>
+                </defs>
+                <rect width="100%" height="100%" fill="#f0f0f0" stroke="#ccc"/>
+                <g transform="translate(50,50)">
+                    <text x="0" y="0" class="manual-sym-fill">󽠰</text>
+                    <text x="0" y="0" class="manual-sym-line">󽠰</text>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <script>
+        // Wait for fonts to load
+        function checkFonts() {
+            const statusDiv = document.getElementById('font-status');
+            
+            // Check if fonts are loaded using font detection
+            const fillTest = document.createElement('span');
+            fillTest.style.fontFamily = 'SuttonSignWritingFill, monospace';
+            fillTest.style.fontSize = '72px';
+            fillTest.textContent = '󽠰';
+            fillTest.style.visibility = 'hidden';
+            fillTest.style.position = 'absolute';
+            document.body.appendChild(fillTest);
+            
+            const lineTest = document.createElement('span');
+            lineTest.style.fontFamily = 'SuttonSignWriting, monospace';
+            lineTest.style.fontSize = '72px';
+            lineTest.textContent = '󽠰';
+            lineTest.style.visibility = 'hidden';
+            lineTest.style.position = 'absolute';
+            document.body.appendChild(lineTest);
+            
+            setTimeout(() => {
+                const fillWidth = fillTest.offsetWidth;
+                const lineWidth = lineTest.offsetWidth;
+                
+                document.body.removeChild(fillTest);
+                document.body.removeChild(lineTest);
+                
+                let status = '';
+                if (fillWidth > 0 && lineWidth > 0) {
+                    status = '<div class="status success">✅ Both fonts appear to be loaded!</div>';
+                    status += `<div>SuttonSignWritingFill width: ${fillWidth}px</div>`;
+                    status += `<div>SuttonSignWriting width: ${lineWidth}px</div>`;
+                } else {
+                    status = '<div class="status error">❌ Fonts may not be loaded properly</div>';
+                    status += `<div>SuttonSignWritingFill width: ${fillWidth}px</div>`;
+                    status += `<div>SuttonSignWriting width: ${lineWidth}px</div>`;
+                    status += '<div>This could mean the fonts are still loading or failed to load.</div>';
+                }
+                
+                statusDiv.innerHTML = status;
+            }, 2000);
+        }
+        
+        // Test SSW library
+        function testSswLibrary() {
+            const sswDiv = document.getElementById('ssw-test');
+            
+            setTimeout(() => {
+                if (typeof window.ssw !== 'undefined') {
+                    try {
+                        const testKey = 'S10000';
+                        const puaChar = window.ssw.pua(testKey);
+                        const codeChar = window.ssw.code(testKey);
+                        
+                        let html = '<div class="status success">✅ SuttonSignWriting.js library loaded!</div>';
+                        html += `<div>Test symbol: ${testKey}</div>`;
+                        html += `<div>PUA character: ${puaChar || 'undefined'}</div>`;
+                        html += `<div>Code character: ${codeChar || 'undefined'}</div>`;
+                        
+                        sswDiv.innerHTML = html;
+                        
+                        // Generate SVG test
+                        generateSvgTest(testKey, puaChar, codeChar);
+                        
+                    } catch (error) {
+                        sswDiv.innerHTML = `<div class="status error">❌ Error using SSW library: ${error.message}</div>`;
+                    }
+                } else {
+                    sswDiv.innerHTML = '<div class="status error">❌ SuttonSignWriting.js library not found</div>';
+                }
+            }, 1000);
+        }
+        
+        // Generate SVG test
+        function generateSvgTest(symbolKey, puaChar, codeChar) {
+            const container = document.getElementById('svg-test-container');
+            
+            if (!puaChar || !codeChar) {
+                container.innerHTML = '<div class="status error">❌ Could not get symbol characters</div>';
+                return;
+            }
+            
+            const svg = `
+                <div class="status success">✅ Generated SVG with dual fonts:</div>
+                <div style="margin: 10px 0;">
+                    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #ccc; background: #f9f9f9;">
+                        <defs>
+                            <style>
+                                .test-sym-fill {
+                                    font-family: 'SuttonSignWritingFill';
+                                    font-size: 60px;
+                                    fill: white;
+                                    text-anchor: middle;
+                                    dominant-baseline: central;
+                                }
+                                .test-sym-line {
+                                    font-family: 'SuttonSignWriting';
+                                    font-size: 60px;
+                                    fill: black;
+                                    text-anchor: middle;
+                                    dominant-baseline: central;
+                                }
+                            </style>
+                        </defs>
+                        <g transform="translate(50,50)">
+                            <text x="0" y="0" class="test-sym-fill">${puaChar}</text>
+                            <text x="0" y="0" class="test-sym-line">${codeChar}</text>
+                        </g>
+                    </svg>
+                </div>
+                <div>Symbol: ${symbolKey}</div>
+                <div>Fill char (PUA): ${puaChar}</div>
+                <div>Line char (Code): ${codeChar}</div>
+            `;
+            
+            container.innerHTML = svg;
+        }
+        
+        // Start tests
+        setTimeout(() => {
+            checkFonts();
+            testSswLibrary();
+        }, 500);
+    </script>
+</body>
+</html>

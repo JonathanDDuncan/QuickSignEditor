@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Test Corrected</title>
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        
+        /* Test our font classes */
+        .sym-fill {
+            font-family: 'SuttonSignWritingFill';
+            font-size: 48px;
+            fill: white;
+            stroke: none;
+        }
+        .sym-line {
+            font-family: 'SuttonSignWriting';
+            font-size: 48px;
+            fill: black;
+            stroke: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Font Class Test</h1>
+    
+    <div class="test-section">
+        <h2>Official SSW Output:</h2>
+        <div id="official-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Our Implementation:</h2>
+        <div id="our-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Manual Dual Font Test:</h2>
+        <svg width="60" height="60" viewBox="0 0 60 60">
+            <g transform="translate(30,30)">
+                <text x="0" y="0" class="sym-fill" text-anchor="middle" dominant-baseline="central" id="fill-test">?</text>
+                <text x="0" y="0" class="sym-line" text-anchor="middle" dominant-baseline="central" id="line-test">?</text>
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        function runTests() {
+            try {
+                const symbolKey = 'S10000';
+                
+                // Official output
+                const officialSVG = ssw.svg(symbolKey);
+                document.getElementById('official-output').innerHTML = officialSVG;
+                
+                // Get unicode characters
+                const puaChar = ssw.pua(symbolKey);
+                const codeChar = ssw.code(symbolKey);
+                
+                // Update manual test
+                document.getElementById('fill-test').textContent = puaChar;
+                document.getElementById('line-test').textContent = codeChar;
+                
+                // Our implementation
+                const ourSVG = `<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <style>
+                      .sym-fill {
+                        font-family: 'SuttonSignWritingFill';
+                        font-size: 48px;
+                        fill: #ffffff;
+                        text-anchor: middle;
+                        dominant-baseline: central;
+                        pointer-events: none;
+                      }
+                      .sym-line {
+                        font-family: 'SuttonSignWriting';
+                        font-size: 48px;
+                        fill: #000000;
+                        text-anchor: middle;
+                        dominant-baseline: central;
+                        pointer-events: none;
+                      }
+                    </style>
+                  </defs>
+                  <g transform="translate(30,30)">
+                    <text x="0" y="0" class="sym-fill">${puaChar}</text>
+                    <text x="0" y="0" class="sym-line">${codeChar}</text>
+                  </g>
+                </svg>`;
+                
+                document.getElementById('our-output').innerHTML = ourSVG;
+                
+                console.log('Symbol:', symbolKey);
+                console.log('PUA char:', puaChar, '(code:', puaChar.charCodeAt(0), ')');
+                console.log('Code char:', codeChar, '(code:', codeChar.charCodeAt(0), ')');
+                console.log('Official SVG:', officialSVG);
+                
+            } catch (error) {
+                console.error('Test error:', error);
+                document.getElementById('official-output').textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        // Wait for library to load
+        function waitForSSW() {
+            if (typeof ssw !== 'undefined') {
+                runTests();
+            } else {
+                setTimeout(waitForSSW, 100);
+            }
+        }
+        
+        waitForSSW();
+    </script>
+</body>
+</html>

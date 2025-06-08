@@ -41,6 +41,7 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
+    "@sutton-signwriting/font-ttf": "^1.6.0",
     "svelte": "^4.0.5"
   },
   "keywords": [

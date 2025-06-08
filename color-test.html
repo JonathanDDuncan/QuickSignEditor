@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignWriting Color Test</title>
+    <link rel="stylesheet" href="/src/css/SuttonSignWriting.css" />
+    <script src="/src/js/SuttonSignWriting.js"></script>
+    <script src="/src/js/symboldata.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .symbol-container {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+        .symbol-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>SignWriting Color Test</h1>
+    
+    <div class="test-section">
+        <h2>Testing Color Properties</h2>
+        <p>This test verifies that SignWriting symbols render with correct colors using the dual-font approach.</p>
+        <div id="color-test-results"></div>
+    </div>
+
+    <script type="module">
+        // Import the SignWriting font functions
+        import { generateSymbolSVG } from '/src/lib/signWritingFont.ts';
+        
+        // Wait for libraries to load
+        function waitForLibraries() {
+            return new Promise((resolve) => {
+                const checkLibrary = () => {
+                    if (typeof window.ssw !== 'undefined' && 
+                        typeof window.ssw.pua === 'function' &&
+                        typeof generateSymbolSVG === 'function') {
+                        resolve();
+                    } else {
+                        setTimeout(checkLibrary, 100);
+                    }
+                };
+                checkLibrary();
+            });
+        }
+
+        async function testColors() {
+            try {
+                await waitForLibraries();
+                
+                const container = document.getElementById('color-test-results');
+                
+                // Test symbols with different colors
+                const testSymbols = [
+                    {
+                        key: 'S10000', 
+                        nwcolor: 'white', 
+                        nbcolor: 'black',
+                        label: 'Default Colors (white fill, black line)'
+                    },
+                    {
+                        key: 'S10000', 
+                        nwcolor: 'red', 
+                        nbcolor: 'blue',
+                        label: 'Custom Colors (red fill, blue line)'
+                    },
+                    {
+                        key: 'S10000', 
+                        nwcolor: 'yellow', 
+                        nbcolor: 'purple',
+                        label: 'Custom Colors (yellow fill, purple line)'
+                    },
+                    {
+                        key: 'S20500', 
+                        nwcolor: 'lightgreen', 
+                        nbcolor: 'darkgreen',
+                        label: 'Movement Symbol (lightgreen fill, darkgreen line)'
+                    }
+                ];
+
+                for (const symbol of testSymbols) {
+                    try {
+                        console.log('Testing symbol:', symbol);
+                        
+                        const svg = generateSymbolSVG(symbol, { size: 60 });
+                        
+                        const symbolDiv = document.createElement('div');
+                        symbolDiv.className = 'symbol-container';
+                        symbolDiv.innerHTML = `
+                            ${svg}
+                            <div class="symbol-info">
+                                ${symbol.label}<br>
+                                Key: ${symbol.key}<br>
+                                Fill: ${symbol.nwcolor}, Line: ${symbol.nbcolor}
+                            </div>
+                        `;
+                        
+                        container.appendChild(symbolDiv);
+                        
+                    } catch (error) {
+                        console.error('Error testing symbol:', symbol.key, error);
+                        
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'symbol-container';
+                        errorDiv.style.color = 'red';
+                        errorDiv.innerHTML = `
+                            <div>Error with ${symbol.key}: ${error.message}</div>
+                            <div class="symbol-info">${symbol.label}</div>
+                        `;
+                        container.appendChild(errorDiv);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Failed to test colors:', error);
+                document.getElementById('color-test-results').innerHTML = 
+                    `<div style="color: red;">Failed to load libraries: ${error.message}</div>`;
+            }
+        }
+
+        // Start the test
+        testColors();
+    </script>
+</body>
+</html>

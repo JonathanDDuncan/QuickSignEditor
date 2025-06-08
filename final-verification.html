@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignWriting Dual-Font Final Verification</title>
+    <link rel="stylesheet" href="/src/css/SuttonSignWriting.css" />
+    <script src="/src/js/SuttonSignWriting.js"></script>
+    <script src="/src/js/symboldata.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .symbol-display {
+            font-size: 4rem;
+            margin: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .dual-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+        .dual-container .sw-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .dual-container .sw-line {
+            position: relative;
+            z-index: 2;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .test-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .test-card h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        .svg-container {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .console {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #005a9e;
+        }
+        button.secondary {
+            background: #6c757d;
+        }
+        button.secondary:hover {
+            background: #545b62;
+        }
+        .results-summary {
+            background: #e7f3ff;
+            border: 2px solid #007acc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .results-summary h3 {
+            margin-top: 0;
+            color: #007acc;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏁 SignWriting Dual-Font Final Verification</h1>
+    <p>This page tests the complete dual-font SignWriting implementation to ensure proper rendering with white fills and black outlines.</p>
+    
+    <div class="test-section">
+        <h2>🎯 Quick Visual Test</h2>
+        <div class="symbol-display">
+            <div class="dual-container">
+                <div class="sw-fill">󽠰</div>
+                <div class="sw-line">󽠰</div>
+            </div>
+            <div class="dual-container">
+                <div class="sw-fill">󽠱</div>
+                <div class="sw-line">󽠱</div>
+            </div>
+            <div class="dual-container">
+                <div class="sw-fill">󽠲</div>
+                <div class="sw-line">󽠲</div>
+            </div>
+            <div class="dual-container">
+                <div class="sw-fill">󽠳</div>
+                <div class="sw-line">󽠳</div>
+            </div>
+        </div>
+        <p><strong>Expected:</strong> You should see SignWriting symbols with white interiors and black outlines. If you see boxes or solid black symbols, the fonts are not loading correctly.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Automated Tests</h2>
+        <button onclick="runAllTests()">Run Complete Test Suite</button>
+        <button onclick="testFontLoading()" class="secondary">Test Font Loading Only</button>
+        <button onclick="testSVGGeneration()" class="secondary">Test SVG Generation Only</button>
+        <button onclick="clearResults()" class="secondary">Clear Results</button>
+        
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Test Details</h2>
+        <div id="console-output" class="console">Console output will appear here...</div>
+    </div>
+
+    <script type="module">
+        // Import the generateSymbolSVG function
+        import { generateSymbolSVG } from '/src/lib/signWritingFont.ts';
+        
+        // Console capture
+        const consoleDiv = document.getElementById('console-output');
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function logToConsole(type, ...args) {
+            const timestamp = new Date().toLocaleTimeString();
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            
+            const div = document.createElement('div');
+            div.innerHTML = `<span style="color: #666;">[${timestamp}]</span> <span style="color: ${
+                type === 'error' ? '#ff6b6b' : 
+                type === 'warn' ? '#ffd93d' : '#4ecdc4'
+            };">${type.toUpperCase()}:</span> ${message}`;
+            consoleDiv.appendChild(div);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+        
+        console.log = (...args) => {
+            originalLog.apply(console, args);
+            logToConsole('log', ...args);
+        };
+        
+        console.error = (...args) => {
+            originalError.apply(console, args);
+            logToConsole('error', ...args);
+        };
+        
+        console.warn = (...args) => {
+            originalWarn.apply(console, args);
+            logToConsole('warn', ...args);
+        };
+
+        // Test results object
+        let testResults = {
+            fontLoading: null,
+            libraryStatus: null,
+            svgGeneration: null,
+            symbolData: null,
+            overall: null
+        };
+
+        // Font loading test
+        async function testFontLoading() {
+            console.log('=== Testing Font Loading ===');
+            
+            try {
+                // Check if fonts are available via FontFace API
+                const fillFont = new FontFace('SuttonSignWritingFill', 'url(https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingFill.ttf)');
+                const lineFont = new FontFace('SuttonSignWritingLine', 'url(https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingLine.ttf)');
+                
+                const [fillResult, lineResult] = await Promise.allSettled([
+                    fillFont.load(),
+                    lineFont.load()
+                ]);
+                
+                const results = {
+                    fillFont: fillResult.status === 'fulfilled',
+                    lineFont: lineResult.status === 'fulfilled',
+                    bothLoaded: fillResult.status === 'fulfilled' && lineResult.status === 'fulfilled'
+                };
+                
+                console.log('Font loading results:', results);
+                testResults.fontLoading = results;
+                
+                return results;
+                
+            } catch (error) {
+                console.error('Font loading test failed:', error);
+                testResults.fontLoading = { error: error.message };
+                return { error: error.message };
+            }
+        }
+
+        // Library status test
+        function testLibraryStatus() {
+            console.log('=== Testing Library Status ===');
+            
+            const results = {
+                sswLoaded: typeof window.ssw !== 'undefined',
+                symbolSizesLoaded: typeof window.ssw !== 'undefined' && window.ssw.sizes && Object.keys(window.ssw.sizes).length > 0,
+                generateSVGAvailable: typeof generateSymbolSVG === 'function',
+                keyFunctions: {}
+            };
+            
+            if (results.sswLoaded) {
+                const functions = ['svg', 'pua', 'size', 'key', 'colorize'];
+                functions.forEach(func => {
+                    results.keyFunctions[func] = typeof window.ssw[func] === 'function';
+                });
+                
+                if (results.symbolSizesLoaded) {
+                    results.symbolCount = Object.keys(window.ssw.sizes).length;
+                    results.sampleSymbols = Object.keys(window.ssw.sizes).slice(0, 5);
+                }
+            }
+            
+            console.log('Library status:', results);
+            testResults.libraryStatus = results;
+            
+            return results;
+        }
+
+        // SVG generation test
+        async function testSVGGeneration() {
+            console.log('=== Testing SVG Generation ===');
+            
+            if (typeof generateSymbolSVG !== 'function') {
+                const error = 'generateSymbolSVG function not available';
+                console.error(error);
+                testResults.svgGeneration = { error };
+                return { error };
+            }
+            
+            const testSymbols = [
+                { key: 'S10000', label: 'Index finger' },
+                { key: 'S10001', label: 'Index finger variant' },
+                { key: 'S20000', label: 'Movement symbol' }
+            ];
+            
+            const results = {
+                tested: 0,
+                successful: 0,
+                failed: 0,
+                details: []
+            };
+            
+            for (const symbol of testSymbols) {
+                try {
+                    console.log(`Testing SVG generation for ${symbol.key} (${symbol.label})`);
+                    
+                    const svg = await generateSymbolSVG(symbol, { size: 50 });
+                    results.tested++;
+                    
+                    if (svg && svg.includes('<svg') && svg.includes('sw-fill') && svg.includes('sw-line')) {
+                        results.successful++;
+                        results.details.push({
+                            symbol: symbol.key,
+                            status: 'success',
+                            hasFill: svg.includes('sw-fill'),
+                            hasLine: svg.includes('sw-line'),
+                            hasFillFont: svg.includes('SuttonSignWritingFill'),
+                            hasLineFont: svg.includes('SuttonSignWritingLine'),
+                            svgLength: svg.length
+                        });
+                        console.log(`✅ ${symbol.key}: SVG generated successfully`);
+                    } else {
+                        results.failed++;
+                        results.details.push({
+                            symbol: symbol.key,
+                            status: 'partial',
+                            error: 'Missing dual-font elements',
+                            svgLength: svg ? svg.length : 0
+                        });
+                        console.warn(`⚠️ ${symbol.key}: SVG generated but missing dual-font elements`);
+                    }
+                    
+                } catch (error) {
+                    results.tested++;
+                    results.failed++;
+                    results.details.push({
+                        symbol: symbol.key,
+                        status: 'error',
+                        error: error.message
+                    });
+                    console.error(`❌ ${symbol.key}: ${error.message}`);
+                }
+            }
+            
+            console.log('SVG generation results:', results);
+            testResults.svgGeneration = results;
+            
+            return results;
+        }
+
+        // Display test results
+        function displayResults() {
+            const resultsDiv = document.getElementById('test-results');
+            let html = '<div class="results-summary"><h3>Test Results Summary</h3>';
+            
+            // Overall status
+            const allPassed = testResults.fontLoading?.bothLoaded && 
+                             testResults.libraryStatus?.sswLoaded && 
+                             testResults.svgGeneration?.successful > 0;
+            
+            html += `<div class="status ${allPassed ? 'success' : 'error'}">
+                <strong>Overall Status: ${allPassed ? '✅ PASSED' : '❌ ISSUES FOUND'}</strong>
+            </div></div>`;
+            
+            // Font Loading Results
+            if (testResults.fontLoading) {
+                html += '<div class="test-card"><h4>📁 Font Loading</h4>';
+                if (testResults.fontLoading.error) {
+                    html += `<div class="status error">❌ Error: ${testResults.fontLoading.error}</div>`;
+                } else {
+                    html += `<div class="status ${testResults.fontLoading.fillFont ? 'success' : 'error'}">
+                        Fill Font: ${testResults.fontLoading.fillFont ? '✅ Loaded' : '❌ Failed'}
+                    </div>`;
+                    html += `<div class="status ${testResults.fontLoading.lineFont ? 'success' : 'error'}">
+                        Line Font: ${testResults.fontLoading.lineFont ? '✅ Loaded' : '❌ Failed'}
+                    </div>`;
+                }
+                html += '</div>';
+            }
+            
+            // Library Status
+            if (testResults.libraryStatus) {
+                html += '<div class="test-card"><h4>📚 Library Status</h4>';
+                html += `<div class="status ${testResults.libraryStatus.sswLoaded ? 'success' : 'error'}">
+                    SSW Library: ${testResults.libraryStatus.sswLoaded ? '✅ Loaded' : '❌ Not loaded'}
+                </div>`;
+                html += `<div class="status ${testResults.libraryStatus.symbolSizesLoaded ? 'success' : 'warning'}">
+                    Symbol Data: ${testResults.libraryStatus.symbolSizesLoaded ? `✅ ${testResults.libraryStatus.symbolCount} symbols` : '⚠️ Not loaded'}
+                </div>`;
+                html += `<div class="status ${testResults.libraryStatus.generateSVGAvailable ? 'success' : 'error'}">
+                    Generate SVG: ${testResults.libraryStatus.generateSVGAvailable ? '✅ Available' : '❌ Not available'}
+                </div>`;
+                html += '</div>';
+            }
+            
+            // SVG Generation
+            if (testResults.svgGeneration) {
+                html += '<div class="test-card"><h4>🎨 SVG Generation</h4>';
+                if (testResults.svgGeneration.error) {
+                    html += `<div class="status error">❌ ${testResults.svgGeneration.error}</div>`;
+                } else {
+                    html += `<div class="status ${testResults.svgGeneration.successful > 0 ? 'success' : 'error'}">
+                        Success Rate: ${testResults.svgGeneration.successful}/${testResults.svgGeneration.tested} symbols
+                    </div>`;
+                    
+                    testResults.svgGeneration.details.forEach(detail => {
+                        const statusClass = detail.status === 'success' ? 'success' : 
+                                          detail.status === 'partial' ? 'warning' : 'error';
+                        html += `<div class="status ${statusClass}">
+                            ${detail.symbol}: ${detail.status === 'success' ? '✅' : detail.status === 'partial' ? '⚠️' : '❌'} 
+                            ${detail.error || 'Generated successfully'}
+                        </div>`;
+                    });
+                }
+                html += '</div>';
+            }
+            
+            resultsDiv.innerHTML = `<div class="grid">${html}</div>`;
+        }
+
+        // Run all tests
+        async function runAllTests() {
+            console.log('🚀 Starting complete test suite...');
+            
+            // Clear previous results
+            testResults = {
+                fontLoading: null,
+                libraryStatus: null,
+                svgGeneration: null,
+                overall: null
+            };
+            
+            // Run tests sequentially
+            try {
+                await testFontLoading();
+                testLibraryStatus();
+                await testSVGGeneration();
+                
+                console.log('✅ All tests completed');
+                displayResults();
+                
+            } catch (error) {
+                console.error('❌ Test suite failed:', error);
+                displayResults();
+            }
+        }
+
+        // Clear results
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+            document.getElementById('console-output').innerHTML = 'Console output cleared...';
+            testResults = {};
+        }
+
+        // Make functions globally available
+        window.runAllTests = runAllTests;
+        window.testFontLoading = testFontLoading;
+        window.testSVGGeneration = testSVGGeneration;
+        window.clearResults = clearResults;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Final verification page loaded');
+            console.log('Available functions:', {
+                generateSymbolSVG: typeof generateSymbolSVG,
+                ssw: typeof window.ssw,
+                SYMBOL_SIZES: typeof window.SYMBOL_SIZES
+            });
+        });
+    </script>
+</body>
+</html>

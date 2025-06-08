@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .implementation {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .svg-output {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .visual-test {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+            background: #f9f9f9;
+        }
+    </style>
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Implementation Comparison</h1>
+        <p>Comparing the official <code>ssw.svg()</code> output with our TypeScript implementation.</p>
+        
+        <div class="comparison">
+            <div class="implementation">
+                <h3>✅ Official ssw.svg() (Working)</h3>
+                <div class="visual-test" id="official-visual">
+                    <!-- Official implementation visual -->
+                </div>
+                <h4>SVG Source:</h4>
+                <div class="svg-output" id="official-output">
+                    Loading...
+                </div>
+            </div>
+            
+            <div class="implementation">
+                <h3>🔧 Our TypeScript Implementation</h3>
+                <div class="visual-test" id="our-visual">
+                    <!-- Our implementation visual -->
+                </div>
+                <h4>SVG Source:</h4>
+                <div class="svg-output" id="our-output">
+                    Loading...
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis">
+            <h3>📊 Analysis</h3>
+            <div id="analysis-results">
+                Loading...
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Our TypeScript implementation (simplified for browser testing)
+        async function generateOurSymbolSVG(symbolKey, options = {}) {
+            if (!window.ssw) {
+                throw new Error('SSW library not loaded');
+            }
+
+            const baseSize = options.size || 30;
+            const scale = options.scale || 1;
+            const finalSize = Math.round(baseSize * scale);
+            
+            // Get both PUA and code representations like our TypeScript implementation
+            const fillChar = window.ssw.pua(symbolKey);
+            const lineChar = window.ssw.code(symbolKey);
+            
+            console.log('Our implementation - Symbol:', symbolKey, 'Fill char:', fillChar, 'Line char:', lineChar);
+            
+            // Create SVG using our dual-font structure
+            const svg = `<svg width="${finalSize}" height="${finalSize}" viewBox="0 0 ${finalSize} ${finalSize}" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <style>
+                  .sym-fill {
+                    font-family: 'SuttonSignWritingFill';
+                    font-size: ${finalSize}px;
+                    fill: ${options.fill || '#ffffff'};
+                    text-anchor: middle;
+                    dominant-baseline: central;
+                    pointer-events: none;
+                  }
+                  .sym-line {
+                    font-family: 'SuttonSignWriting';
+                    font-size: ${finalSize}px;
+                    fill: ${options.line || '#000000'};
+                    text-anchor: middle;
+                    dominant-baseline: central;
+                    pointer-events: none;
+                  }
+                </style>
+              </defs>
+              <g transform="translate(${finalSize/2},${finalSize/2})">
+                <text x="0" y="0" class="sym-fill">${fillChar}</text>
+                <text x="0" y="0" class="sym-line">${lineChar}</text>
+              </g>
+            </svg>`;
+            
+            return svg;
+        }
+
+        function runComparison() {
+            const testSymbol = 'S10000';
+            
+            // Get official implementation
+            const officialSvg = ssw.svg(testSymbol);
+            const officialVisual = document.getElementById('official-visual');
+            const officialOutput = document.getElementById('official-output');
+            
+            officialVisual.innerHTML = officialSvg;
+            officialOutput.textContent = officialSvg;
+            
+            // Get our implementation
+            generateOurSymbolSVG(testSymbol, { size: 60 }).then(ourSvg => {
+                const ourVisual = document.getElementById('our-visual');
+                const ourOutput = document.getElementById('our-output');
+                
+                ourVisual.innerHTML = ourSvg;
+                ourOutput.textContent = ourSvg;
+                
+                // Analysis
+                const analysisResults = document.getElementById('analysis-results');
+                
+                const officialHasSymFill = officialSvg.includes('sym-fill');
+                const officialHasSymLine = officialSvg.includes('sym-line');
+                const officialHasFillFont = officialSvg.includes('SuttonSignWritingFill');
+                const officialHasLineFont = officialSvg.includes('SuttonSignWriting');
+                
+                const ourHasSymFill = ourSvg.includes('sym-fill');
+                const ourHasSymLine = ourSvg.includes('sym-line');
+                const ourHasFillFont = ourSvg.includes('SuttonSignWritingFill');
+                const ourHasLineFont = ourSvg.includes('SuttonSignWriting');
+                
+                analysisResults.innerHTML = `
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #f0f0f0;">
+                                <th style="border: 1px solid #ccc; padding: 8px;">Feature</th>
+                                <th style="border: 1px solid #ccc; padding: 8px;">Official ssw.svg()</th>
+                                <th style="border: 1px solid #ccc; padding: 8px;">Our Implementation</th>
+                                <th style="border: 1px solid #ccc; padding: 8px;">Match</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #ccc; padding: 8px;">sym-fill class</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasSymFill ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${ourHasSymFill ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasSymFill === ourHasSymFill ? '✅' : '❌'}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ccc; padding: 8px;">sym-line class</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasSymLine ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${ourHasSymLine ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasSymLine === ourHasSymLine ? '✅' : '❌'}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ccc; padding: 8px;">SuttonSignWritingFill font</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasFillFont ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${ourHasFillFont ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasFillFont === ourHasFillFont ? '✅' : '❌'}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ccc; padding: 8px;">SuttonSignWriting font</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasLineFont ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${ourHasLineFont ? '✅' : '❌'}</td>
+                                <td style="border: 1px solid #ccc; padding: 8px;">${officialHasLineFont === ourHasLineFont ? '✅' : '❌'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h4 style="margin-top: 20px;">Key Differences:</h4>
+                    <ul>
+                        <li><strong>Official structure:</strong> ${officialSvg.includes('<g ') ? 'Uses groups' : 'No groups'}</li>
+                        <li><strong>Our structure:</strong> ${ourSvg.includes('<g ') ? 'Uses groups' : 'No groups'}</li>
+                        <li><strong>Official inline styles:</strong> ${officialSvg.includes('style=') ? 'Yes' : 'No'}</li>
+                        <li><strong>Our inline styles:</strong> ${ourSvg.includes('style=') ? 'Yes' : 'No'}</li>
+                    </ul>
+                    
+                    <h4>Unicode Characters Used:</h4>
+                    <ul>
+                        <li><strong>Official:</strong> Check console for details</li>
+                        <li><strong>Ours:</strong> Fill: ${window.ssw.pua(testSymbol)}, Line: ${window.ssw.code(testSymbol)}</li>
+                    </ul>
+                `;
+                
+                // Log the unicode characters being used
+                console.log('Official SVG:', officialSvg);
+                console.log('Our SVG:', ourSvg);
+                
+            }).catch(error => {
+                document.getElementById('our-output').textContent = 'Error: ' + error.message;
+                document.getElementById('analysis-results').innerHTML = '<div style="color: red;">Error generating our implementation: ' + error.message + '</div>';
+            });
+        }
+
+        // Wait for the SSW library to load, then run the comparison
+        if (typeof ssw !== 'undefined') {
+            runComparison();
+        } else {
+            setTimeout(() => {
+                if (typeof ssw !== 'undefined') {
+                    runComparison();
+                } else {
+                    console.error('SSW library not loaded');
+                    document.getElementById('analysis-results').innerHTML = '<div style="color: red;">❌ SSW library not loaded</div>';
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

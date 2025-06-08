@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FSW Function Direct Test</title>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        
+        .success {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        
+        .error {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+        
+        .info {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            color: #1565c0;
+        }
+        
+        .sign-display {
+            background: white;
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 15px 0;
+            display: inline-block;
+            min-height: 100px;
+            min-width: 200px;
+        }
+        
+        .fsw-string {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 8px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        .code-output {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>FSW Direct Function Test</h1>
+    
+    <div class="test-result info">
+        <strong>Goal:</strong> Test the FSW string directly with ssw.svg() and verify it shows SignWriting symbols
+    </div>
+    
+    <div class="fsw-string">
+        Test FSW: AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520
+    </div>
+    
+    <div id="test-results"></div>
+    
+    <div class="sign-display" id="sign-output">
+        Loading...
+    </div>
+    
+    <h3>Generated SVG Code:</h3>
+    <div class="code-output" id="svg-code"></div>
+    
+    <h3>Symbol Analysis:</h3>
+    <div id="symbol-analysis"></div>
+
+    <script>
+        const fswString = "AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520";
+        
+        function testFSW() {
+            const resultsDiv = document.getElementById('test-results');
+            const signDiv = document.getElementById('sign-output');
+            const codeDiv = document.getElementById('svg-code');
+            const analysisDiv = document.getElementById('symbol-analysis');
+            
+            let results = '';
+            
+            try {
+                // Check if SSW library is loaded
+                if (typeof window.ssw === 'undefined') {
+                    results += '<div class="test-result error">❌ SSW library not loaded!</div>';
+                    resultsDiv.innerHTML = results;
+                    return;
+                }
+                
+                results += '<div class="test-result success">✅ SSW library loaded successfully</div>';
+                
+                // Test basic library functions
+                try {
+                    const testSymbol = 'S10000';
+                    const size = window.ssw.size(testSymbol);
+                    const pua = window.ssw.pua(testSymbol);
+                    const code = window.ssw.code(testSymbol);
+                    
+                    results += `<div class="test-result success">✅ Library functions working:</div>`;
+                    results += `<div class="test-result info">
+                        • ssw.size("${testSymbol}") = ${size}<br>
+                        • ssw.pua("${testSymbol}") = ${pua}<br>
+                        • ssw.code("${testSymbol}") = ${code}
+                    </div>`;
+                } catch (error) {
+                    results += `<div class="test-result error">❌ Library function test failed: ${error.message}</div>`;
+                }
+                
+                // Generate SVG from FSW
+                console.log('Generating SVG for FSW:', fswString);
+                const svgOutput = window.ssw.svg(fswString);
+                
+                if (!svgOutput || svgOutput.trim() === '') {
+                    results += '<div class="test-result error">❌ Empty SVG generated from FSW</div>';
+                    resultsDiv.innerHTML = results;
+                    return;
+                }
+                
+                results += `<div class="test-result success">✅ SVG generated successfully (${svgOutput.length} characters)</div>`;
+                
+                // Display the SVG
+                signDiv.innerHTML = svgOutput;
+                codeDiv.textContent = svgOutput;
+                
+                // Analyze the SVG structure
+                let analysis = '<h4>SVG Analysis:</h4><ul>';
+                analysis += `<li>Contains &lt;svg&gt; tag: ${svgOutput.includes('<svg') ? '✅ Yes' : '❌ No'}</li>`;
+                analysis += `<li>Contains &lt;text&gt; elements: ${svgOutput.includes('<text') ? '✅ Yes' : '❌ No'}</li>`;
+                analysis += `<li>Contains sym-fill class: ${svgOutput.includes('sym-fill') ? '✅ Yes' : '❌ No'}</li>`;
+                analysis += `<li>Contains sym-line class: ${svgOutput.includes('sym-line') ? '✅ Yes' : '❌ No'}</li>`;
+                analysis += `<li>Contains SuttonSignWritingFill font: ${svgOutput.includes('SuttonSignWritingFill') ? '✅ Yes' : '❌ No'}</li>`;
+                analysis += `<li>Contains SuttonSignWriting font: ${svgOutput.includes('SuttonSignWriting') ? '✅ Yes' : '❌ No'}</li>`;
+                
+                // Count Unicode characters
+                const unicodeMatches = svgOutput.match(/&\#x[0-9a-fA-F]+;|[\uFD00-\uFDFF\uFE00-\uFEFF]/g);
+                analysis += `<li>Unicode characters found: ${unicodeMatches ? unicodeMatches.length : 0}</li>`;
+                
+                // Check for groups (symbols)
+                const groups = svgOutput.match(/<g[^>]*>/g);
+                analysis += `<li>Symbol groups found: ${groups ? groups.length : 0}</li>`;
+                
+                analysis += '</ul>';
+                
+                // Parse individual symbols from FSW
+                const symbolMatches = fswString.match(/S[0-9a-f]{5}/gi);
+                if (symbolMatches) {
+                    analysis += `<h4>Individual Symbols in FSW (${symbolMatches.length} found):</h4><ul>`;
+                    symbolMatches.forEach((symbol, index) => {
+                        try {
+                            const symbolPua = window.ssw.pua(symbol);
+                            const symbolCode = window.ssw.code(symbol);
+                            const symbolSize = window.ssw.size(symbol);
+                            analysis += `<li><strong>${symbol}:</strong> PUA=${symbolPua}, Code=${symbolCode}, Size=${symbolSize}</li>`;
+                        } catch (error) {
+                            analysis += `<li><strong>${symbol}:</strong> Error - ${error.message}</li>`;
+                        }
+                    });
+                    analysis += '</ul>';
+                }
+                
+                analysisDiv.innerHTML = analysis;
+                
+                // Final result
+                const hasVisibleContent = svgOutput.includes('<text') || svgOutput.includes('<g');
+                if (hasVisibleContent) {
+                    results += '<div class="test-result success">✅ FSW processing completed successfully!</div>';
+                } else {
+                    results += '<div class="test-result error">❌ SVG generated but may not contain visible content</div>';
+                }
+                
+            } catch (error) {
+                console.error('FSW test error:', error);
+                results += `<div class="test-result error">❌ Error: ${error.message}</div>`;
+                signDiv.innerHTML = `<div style="color: red;">Error: ${error.message}</div>`;
+            }
+            
+            resultsDiv.innerHTML = results;
+        }
+        
+        // Run test when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', testFSW);
+        } else {
+            testFSW();
+        }
+        
+        // Also run after a delay to ensure everything is loaded
+        setTimeout(testFSW, 1000);
+    </script>
+</body>
+</html>

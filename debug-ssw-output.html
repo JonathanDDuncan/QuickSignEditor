@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug SSW Output</title>
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .debug-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        .code-output {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #333;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug SSW SVG Output</h1>
+    
+    <div class="debug-section">
+        <h2>Test Symbol: S10000</h2>
+        <div id="symbol-display"></div>
+        <h3>Generated SVG Code:</h3>
+        <div id="svg-code" class="code-output"></div>
+        
+        <h3>Unicode Output:</h3>
+        <div id="unicode-output" class="code-output"></div>
+    </div>
+
+    <script>
+        function debugSymbol() {
+            try {
+                // Test symbol
+                const symbolKey = 'S10000';
+                
+                // Generate SVG using official ssw.svg()
+                const svgOutput = ssw.svg(symbolKey);
+                
+                // Display the symbol
+                document.getElementById('symbol-display').innerHTML = svgOutput;
+                
+                // Show the raw SVG code
+                document.getElementById('svg-code').textContent = svgOutput;
+                
+                // Show unicode conversions
+                const puaChar = ssw.pua(symbolKey);
+                const codeChar = ssw.code(symbolKey);
+                
+                document.getElementById('unicode-output').textContent = 
+                    `Symbol: ${symbolKey}
+PUA: ${puaChar} (${puaChar.charCodeAt(0)})
+Code: ${codeChar} (${codeChar.charCodeAt(0)})`;
+                
+            } catch (error) {
+                document.getElementById('svg-code').textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        // Wait for library to load
+        function waitForSSW() {
+            if (typeof ssw !== 'undefined') {
+                debugSymbol();
+            } else {
+                setTimeout(waitForSSW, 100);
+            }
+        }
+        
+        waitForSSW();
+    </script>
+</body>
+</html>

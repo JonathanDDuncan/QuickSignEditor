@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Direct Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .font-sample {
+            font-size: 48px;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .info { background: #e7f3ff; }
+        .success { background: #d4edda; }
+        .error { background: #f8d7da; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Direct Font Loading Test</h1>
+        
+        <div class="status info">
+            <strong>Testing Strategy:</strong>
+            <ol>
+                <li>Load fonts directly from CDN</li>
+                <li>Test with known Unicode characters</li>
+                <li>Check font loading status</li>
+                <li>Display results</li>
+            </ol>
+        </div>
+
+        <div id="status">Loading...</div>
+        
+        <h2>Font Tests</h2>
+        
+        <div class="font-sample" style="font-family: Arial;">
+            Arial (fallback): 󽠰󽠱󽠲󽠳
+        </div>
+        
+        <div class="font-sample" id="fill-test" style="font-family: 'SuttonSignWritingFill', Arial; color: white; background: black;">
+            SuttonSignWritingFill: 󽠰󽠱󽠲󽠳
+        </div>
+        
+        <div class="font-sample" id="line-test" style="font-family: 'SuttonSignWriting', Arial;">
+            SuttonSignWriting: 󽠰󽠱󽠲󽠳
+        </div>
+
+        <h2>Manual SVG Test</h2>
+        <div id="svg-container">
+            <!-- SVG will be inserted here -->
+        </div>
+
+        <h2>Font Loading Details</h2>
+        <div id="details"></div>
+    </div>
+
+    <script>
+        console.log('Script starting...');
+        
+        // Load fonts from CDN
+        const fillFontUrl = 'https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingFill.ttf';
+        const lineFontUrl = 'https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWriting.ttf';
+        
+        // Create font faces dynamically
+        const fillFont = new FontFace('SuttonSignWritingFill', `url(${fillFontUrl})`);
+        const lineFont = new FontFace('SuttonSignWriting', `url(${lineFontUrl})`);
+        
+        document.getElementById('status').innerHTML = '<div class="status info">Loading fonts from CDN...</div>';
+        
+        Promise.all([
+            fillFont.load(),
+            lineFont.load()
+        ]).then(fonts => {
+            console.log('Fonts loaded successfully!', fonts);
+            
+            // Add fonts to document
+            document.fonts.add(fillFont);
+            document.fonts.add(lineFont);
+            
+            document.getElementById('status').innerHTML = '<div class="status success">✅ Fonts loaded successfully!</div>';
+            
+            // Update details
+            document.getElementById('details').innerHTML = `
+                <div>Fill font status: ${fillFont.status}</div>
+                <div>Line font status: ${lineFont.status}</div>
+                <div>Document fonts count: ${document.fonts.size}</div>
+            `;
+            
+            // Create SVG test
+            createSvgTest();
+            
+        }).catch(error => {
+            console.error('Font loading failed:', error);
+            document.getElementById('status').innerHTML = `<div class="status error">❌ Font loading failed: ${error.message}</div>`;
+            
+            // Try alternative approach with CSS @font-face
+            tryAlternativeApproach();
+        });
+        
+        function createSvgTest() {
+            const svg = `
+                <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="border: 2px solid #333; background: #f5f5f5;">
+                    <defs>
+                        <style>
+                            .svg-fill {
+                                font-family: 'SuttonSignWritingFill', Arial;
+                                font-size: 80px;
+                                fill: white;
+                                stroke: #333;
+                                stroke-width: 1;
+                                text-anchor: middle;
+                                dominant-baseline: central;
+                            }
+                            .svg-line {
+                                font-family: 'SuttonSignWriting', Arial;
+                                font-size: 80px;
+                                fill: black;
+                                text-anchor: middle;
+                                dominant-baseline: central;
+                            }
+                        </style>
+                    </defs>
+                    <circle cx="60" cy="60" r="50" fill="#eee" stroke="#ccc"/>
+                    <g transform="translate(60,60)">
+                        <text x="0" y="0" class="svg-fill">󽠰</text>
+                        <text x="0" y="0" class="svg-line">󽠰</text>
+                    </g>
+                </svg>
+            `;
+            
+            document.getElementById('svg-container').innerHTML = svg;
+        }
+        
+        function tryAlternativeApproach() {
+            console.log('Trying CSS @font-face approach...');
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @font-face {
+                    font-family: 'SuttonSignWritingFill';
+                    src: url('${fillFontUrl}') format('truetype');
+                    font-display: swap;
+                }
+                @font-face {
+                    font-family: 'SuttonSignWriting';
+                    src: url('${lineFontUrl}') format('truetype');
+                    font-display: swap;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Wait a bit for fonts to load
+            setTimeout(() => {
+                document.getElementById('status').innerHTML = '<div class="status info">⏳ Trying CSS approach... fonts should appear shortly</div>';
+                createSvgTest();
+            }, 2000);
+        }
+        
+        // Test if fonts are available
+        setTimeout(() => {
+            const testElement = document.createElement('span');
+            testElement.style.fontFamily = 'SuttonSignWritingFill, Arial';
+            testElement.style.fontSize = '100px';
+            testElement.textContent = '󽠰';
+            testElement.style.position = 'absolute';
+            testElement.style.left = '-9999px';
+            document.body.appendChild(testElement);
+            
+            const width = testElement.offsetWidth;
+            document.body.removeChild(testElement);
+            
+            console.log('Test element width:', width);
+            
+            if (width > 50) { // Reasonable width for a SignWriting symbol
+                document.getElementById('details').innerHTML += '<div>✅ Font appears to be rendering (width: ' + width + 'px)</div>';
+            } else {
+                document.getElementById('details').innerHTML += '<div>⚠️ Font may not be rendering properly (width: ' + width + 'px)</div>';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

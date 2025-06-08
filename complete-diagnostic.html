@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Font Diagnostic</title>
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #333;
+            background: #f0f0f0;
+        }
+        .success { border-left-color: #5cb85c; background: #dff0d8; }
+        .error { border-left-color: #d9534f; background: #f2dede; }
+        .warning { border-left-color: #f0ad4e; background: #fcf8e3; }
+        
+        /* Test font loading */
+        .font-test {
+            font-size: 48px;
+            margin: 10px 0;
+        }
+        .font-fill { font-family: 'SuttonSignWritingFill'; }
+        .font-line { font-family: 'SuttonSignWriting'; }
+        .font-oned { font-family: 'SuttonSignWritingOneD'; }
+    </style>
+</head>
+<body>
+    <h1>Complete Font Diagnostic</h1>
+    
+    <div class="test-section">
+        <h2>1. Font Loading Status</h2>
+        <div id="font-loading-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. SSW Library Status</h2>
+        <div id="ssw-library-status"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Font Face Detection</h2>
+        <div id="font-face-detection"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Font Rendering Test</h2>
+        <div class="font-test font-fill" id="fill-test">Test Fill Font</div>
+        <div class="font-test font-line" id="line-test">Test Line Font</div>
+        <div class="font-test font-oned" id="oned-test">Test OneD Font</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>5. Official SSW Output</h2>
+        <div id="official-output"></div>
+        <h3>Raw SVG Code:</h3>
+        <pre id="official-svg-code" style="font-size: 12px; background: #f8f8f8; padding: 10px; overflow-x: auto;"></pre>
+    </div>
+    
+    <div class="test-section">
+        <h2>6. Our Implementation</h2>
+        <div id="our-output"></div>
+        <h3>Raw SVG Code:</h3>
+        <pre id="our-svg-code" style="font-size: 12px; background: #f8f8f8; padding: 10px; overflow-x: auto;"></pre>
+    </div>
+    
+    <div class="test-section">
+        <h2>7. Direct Font Test with Unicode</h2>
+        <div id="direct-unicode-test"></div>
+    </div>
+
+    <script>
+        async function runCompleteDiagnostic() {
+            console.log('Starting complete diagnostic...');
+            
+            // 1. Font Loading Status
+            await checkFontLoading();
+            
+            // 2. SSW Library Status
+            checkSSWLibrary();
+            
+            // 3. Font Face Detection
+            await checkFontFaces();
+            
+            // 4. Font Rendering (already in HTML)
+            
+            // 5. Official SSW Output
+            await testOfficialSSW();
+            
+            // 6. Our Implementation
+            await testOurImplementation();
+            
+            // 7. Direct Unicode Test
+            await testDirectUnicode();
+        }
+        
+        async function checkFontLoading() {
+            const statusDiv = document.getElementById('font-loading-status');
+            
+            try {
+                if ('fonts' in document) {
+                    const fonts = await document.fonts.ready;
+                    
+                    // Check if specific fonts are loaded
+                    const fillFont = new FontFace('SuttonSignWritingFill', 'url(https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingFill.ttf)');
+                    const lineFont = new FontFace('SuttonSignWriting', 'url(https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingLine.ttf)');
+                    
+                    try {
+                        await fillFont.load();
+                        await lineFont.load();
+                        statusDiv.innerHTML = '<div class="test-result success">✓ Fonts loaded successfully via Font Loading API</div>';
+                    } catch (e) {
+                        statusDiv.innerHTML = '<div class="test-result warning">⚠ Font Loading API available but fonts failed to load: ' + e.message + '</div>';
+                    }
+                } else {
+                    statusDiv.innerHTML = '<div class="test-result warning">⚠ Font Loading API not supported</div>';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '<div class="test-result error">✗ Font loading check failed: ' + error.message + '</div>';
+            }
+        }
+        
+        function checkSSWLibrary() {
+            const statusDiv = document.getElementById('ssw-library-status');
+            
+            if (typeof ssw !== 'undefined') {
+                const functions = ['svg', 'pua', 'code', 'size', 'colors'];
+                const available = functions.filter(fn => typeof ssw[fn] === 'function');
+                
+                statusDiv.innerHTML = `
+                    <div class="test-result success">✓ SSW Library loaded</div>
+                    <div class="test-result">Available functions: ${available.join(', ')}</div>
+                `;
+            } else {
+                statusDiv.innerHTML = '<div class="test-result error">✗ SSW Library not loaded</div>';
+            }
+        }
+        
+        async function checkFontFaces() {
+            const statusDiv = document.getElementById('font-face-detection');
+            
+            if ('fonts' in document) {
+                const allFonts = [];
+                document.fonts.forEach(font => {
+                    allFonts.push(font.family);
+                });
+                
+                const sswFonts = allFonts.filter(family => 
+                    family.includes('SuttonSignWriting') || 
+                    family.includes('SuttonSignWritingFill') ||
+                    family.includes('SuttonSignWritingLine') ||
+                    family.includes('SuttonSignWritingOneD')
+                );
+                
+                if (sswFonts.length > 0) {
+                    statusDiv.innerHTML = `
+                        <div class="test-result success">✓ SignWriting fonts detected: ${sswFonts.join(', ')}</div>
+                        <div class="test-result">Total fonts loaded: ${allFonts.length}</div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <div class="test-result warning">⚠ No SignWriting fonts detected in document.fonts</div>
+                        <div class="test-result">Available fonts: ${allFonts.slice(0, 10).join(', ')}${allFonts.length > 10 ? '...' : ''}</div>
+                    `;
+                }
+            } else {
+                statusDiv.innerHTML = '<div class="test-result warning">⚠ Font detection API not available</div>';
+            }
+        }
+        
+        async function testOfficialSSW() {
+            const outputDiv = document.getElementById('official-output');
+            const codeDiv = document.getElementById('official-svg-code');
+            
+            try {
+                const symbolKey = 'S10000';
+                const officialSVG = ssw.svg(symbolKey);
+                
+                outputDiv.innerHTML = officialSVG;
+                codeDiv.textContent = officialSVG;
+                
+                console.log('Official SSW SVG:', officialSVG);
+            } catch (error) {
+                outputDiv.innerHTML = '<div class="test-result error">✗ Failed to generate official SVG: ' + error.message + '</div>';
+                codeDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function testOurImplementation() {
+            const outputDiv = document.getElementById('our-output');
+            const codeDiv = document.getElementById('our-svg-code');
+            
+            try {
+                const symbolKey = 'S10000';
+                const puaChar = ssw.pua(symbolKey);
+                const codeChar = ssw.code(symbolKey);
+                
+                const ourSVG = `<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <style>
+                      .sym-fill {
+                        font-family: 'SuttonSignWritingFill';
+                        font-size: 48px;
+                        fill: #ffffff;
+                        text-anchor: middle;
+                        dominant-baseline: central;
+                        pointer-events: none;
+                      }
+                      .sym-line {
+                        font-family: 'SuttonSignWriting';
+                        font-size: 48px;
+                        fill: #000000;
+                        text-anchor: middle;
+                        dominant-baseline: central;
+                        pointer-events: none;
+                      }
+                    </style>
+                  </defs>
+                  <g transform="translate(30,30)">
+                    <text x="0" y="0" class="sym-fill">${puaChar}</text>
+                    <text x="0" y="0" class="sym-line">${codeChar}</text>
+                  </g>
+                </svg>`;
+                
+                outputDiv.innerHTML = ourSVG;
+                codeDiv.textContent = ourSVG;
+                
+                console.log('Our implementation SVG:', ourSVG);
+                console.log('PUA char:', puaChar, 'Code:', puaChar.charCodeAt(0));
+                console.log('Code char:', codeChar, 'Code:', codeChar.charCodeAt(0));
+                
+            } catch (error) {
+                outputDiv.innerHTML = '<div class="test-result error">✗ Failed to generate our SVG: ' + error.message + '</div>';
+                codeDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function testDirectUnicode() {
+            const outputDiv = document.getElementById('direct-unicode-test');
+            
+            try {
+                const symbolKey = 'S10000';
+                const puaChar = ssw.pua(symbolKey);
+                const codeChar = ssw.code(symbolKey);
+                
+                // Update the font test elements
+                document.getElementById('fill-test').textContent = puaChar;
+                document.getElementById('line-test').textContent = codeChar;
+                document.getElementById('oned-test').textContent = codeChar;
+                
+                outputDiv.innerHTML = `
+                    <div class="test-result">Symbol: ${symbolKey}</div>
+                    <div class="test-result">PUA Character: ${puaChar} (U+${puaChar.charCodeAt(0).toString(16).toUpperCase()})</div>
+                    <div class="test-result">Code Character: ${codeChar} (U+${codeChar.charCodeAt(0).toString(16).toUpperCase()})</div>
+                    <div class="font-test" style="font-family: 'SuttonSignWritingFill'; background: black; color: white;">Fill: ${puaChar}</div>
+                    <div class="font-test" style="font-family: 'SuttonSignWriting'; background: white; color: black; border: 1px solid #ccc;">Line: ${codeChar}</div>
+                    <div class="font-test" style="font-family: 'SuttonSignWritingOneD'; background: #f0f0f0; color: black;">OneD: ${codeChar}</div>
+                `;
+            } catch (error) {
+                outputDiv.innerHTML = '<div class="test-result error">✗ Direct Unicode test failed: ' + error.message + '</div>';
+            }
+        }
+        
+        // Wait for library to load and run diagnostic
+        function waitForSSW() {
+            if (typeof ssw !== 'undefined') {
+                runCompleteDiagnostic();
+            } else {
+                setTimeout(waitForSSW, 100);
+            }
+        }
+        
+        waitForSSW();
+    </script>
+</body>
+</html>

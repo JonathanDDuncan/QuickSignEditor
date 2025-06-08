@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Font Loading Test</title>
+    <style>
+        @font-face {
+            font-family: "SuttonSignWriting";
+            src: url('https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingLine.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "SuttonSignWritingFill";
+            src: url('https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingFill.ttf') format('truetype');
+            font-display: swap;
+        }
+        
+        .font-test {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        
+        .test-fill {
+            font-family: "SuttonSignWritingFill", Arial, sans-serif;
+            color: white;
+            background: black;
+            padding: 10px;
+        }
+        
+        .test-line {
+            font-family: "SuttonSignWriting", Arial, sans-serif;
+            color: black;
+            padding: 10px;
+        }
+        
+        .dual-layer {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+        }
+        
+        .dual-layer .fill {
+            font-family: "SuttonSignWritingFill";
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .dual-layer .line { 
+            font-family: "SuttonSignWriting";
+            color: black;
+            position: relative;
+        }
+        
+        #status {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>SignWriting Font Loading Test</h1>
+    
+    <div id="status">
+        <h3>Font Loading Status:</h3>
+        <div id="font-status">Checking...</div>
+    </div>
+    
+    <h3>Test Characters (Unicode SignWriting PUA):</h3>
+    
+    <div class="font-test test-fill">
+        <div>Fill Font: &#xFD800; &#xFD801; &#xFD802; &#xFD803;</div>
+    </div>
+    
+    <div class="font-test test-line">
+        <div>Line Font: &#xFD800; &#xFD801; &#xFD802; &#xFD803;</div>
+    </div>
+    
+    <h3>Dual Layer Test:</h3>
+    <div class="font-test dual-layer">
+        <div class="fill">&#xFD800;</div>
+        <div class="line">&#xFD800;</div>
+    </div>
+    
+    <div class="font-test dual-layer">
+        <div class="fill">&#xFD801;</div>
+        <div class="line">&#xFD801;</div>
+    </div>
+    
+    <script>
+        // Check if fonts are loaded
+        function checkFonts() {
+            const statusDiv = document.getElementById('font-status');
+            
+            if (!document.fonts) {
+                statusDiv.innerHTML = 'Font Loading API not supported';
+                return;
+            }
+            
+            const fillFont = new FontFace('SuttonSignWritingFill', 'url(https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingFill.ttf)');
+            const lineFont = new FontFace('SuttonSignWriting', 'url(https://unpkg.com/@sutton-signwriting/font-ttf@1.0.0/font/SuttonSignWritingLine.ttf)');
+            
+            Promise.all([
+                fillFont.load(),
+                lineFont.load()
+            ]).then(() => {
+                document.fonts.add(fillFont);
+                document.fonts.add(lineFont);
+                statusDiv.innerHTML = `
+                    <div style="color: green;">✓ Both fonts loaded successfully!</div>
+                    <div>Fill Font Status: ${fillFont.status}</div>
+                    <div>Line Font Status: ${lineFont.status}</div>
+                `;
+            }).catch(error => {
+                statusDiv.innerHTML = `<div style="color: red;">✗ Font loading failed: ${error.message}</div>`;
+            });
+            
+            // Also check using document.fonts.check
+            setTimeout(() => {
+                const fillReady = document.fonts.check('48px SuttonSignWritingFill');
+                const lineReady = document.fonts.check('48px SuttonSignWriting');
+                
+                statusDiv.innerHTML += `
+                    <div>Fill Font Ready: ${fillReady ? '✓' : '✗'}</div>
+                    <div>Line Font Ready: ${lineReady ? '✓' : '✗'}</div>
+                `;
+            }, 2000);
+        }
+        
+        // Wait for page to load then check fonts
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkFonts);
+        } else {
+            checkFonts();
+        }
+    </script>
+</body>
+</html>

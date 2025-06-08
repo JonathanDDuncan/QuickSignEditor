@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignWriting Dual-Font Test</title>    <link rel="stylesheet" href="/src/css/SuttonSignWriting.css" />
+    <script src="/src/js/SuttonSignWriting.js"></script>
+    <script src="/src/js/symboldata.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .dual-font-container {
+            position: relative;
+            display: inline-block;
+            font-size: 4rem;
+            background: #f0f0f0;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+        }
+        .fill-layer {
+            font-family: 'SuttonSignWritingFill', monospace;
+            color: white;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .line-layer {
+            font-family: 'SuttonSignWriting', monospace;
+            color: black;
+        }
+        .single-font {
+            font-family: 'SuttonSignWriting', monospace;
+            font-size: 3rem;
+            margin: 10px;
+        }
+        #test-results {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #007acc;
+        }
+    </style>
+</head>
+<body>
+    <h1>SignWriting Dual-Font Rendering Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Font Loading Test</h2>
+        <div id="font-status">Checking font loading...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Direct Font Rendering Test</h2>
+        <p>SuttonSignWriting (Line): <span class="single-font">󽠰 󽠱 󽠲 󽠳</span></p>
+        <p>SuttonSignWritingFill: <span style="font-family: 'SuttonSignWritingFill', monospace; font-size: 3rem; color: white; background: black;">󽠰 󽠱 󽠲 󽠳</span></p>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Dual-Font Overlay Test</h2>
+        <div class="dual-font-container">
+            <span class="fill-layer">󽠰 󽠱 󽠲 󽠳</span>
+            <span class="line-layer">󽠰 󽠱 󽠲 󽠳</span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. SVG Generation Test</h2>
+        <button onclick="testSVGGeneration()">Generate Test SVG</button>
+        <div id="svg-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. SuttonSignWriting.js Library Test</h2>
+        <button onclick="testLibraryFunctions()">Test Library Functions</button>
+        <div id="test-results"></div>
+    </div>
+
+    <script>
+        // Check font loading
+        function checkFonts() {
+            const fontStatus = document.getElementById('font-status');
+            
+            // Check if fonts are loaded by measuring text width
+            const testChar = '󽠰';
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.font = '30px SuttonSignWriting';
+            const lineWidth = ctx.measureText(testChar).width;
+            
+            ctx.font = '30px SuttonSignWritingFill';
+            const fillWidth = ctx.measureText(testChar).width;
+            
+            ctx.font = '30px monospace';
+            const fallbackWidth = ctx.measureText(testChar).width;
+            
+            const status = {
+                lineFont: lineWidth !== fallbackWidth,
+                fillFont: fillWidth !== fallbackWidth,
+                libraryLoaded: typeof window.ssw !== 'undefined'
+            };
+            
+            fontStatus.innerHTML = `
+                <div>SuttonSignWriting (Line) Font: ${status.lineFont ? '✅ Loaded' : '❌ Not loaded'}</div>
+                <div>SuttonSignWritingFill Font: ${status.fillFont ? '✅ Loaded' : '❌ Not loaded'}</div>
+                <div>SuttonSignWriting.js Library: ${status.libraryLoaded ? '✅ Loaded' : '❌ Not loaded'}</div>
+            `;
+            
+            return status;
+        }
+
+        function testSVGGeneration() {
+            const resultDiv = document.getElementById('svg-test-result');
+            
+            // Create dual-font SVG manually
+            const testChar = '󽠰';
+            const svg = `
+                <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <style>
+                            .sw-fill {
+                                font-family: 'SuttonSignWritingFill';
+                                font-size: 60px;
+                                fill: #ffffff;
+                                text-anchor: middle;
+                                dominant-baseline: central;
+                            }
+                            .sw-line {
+                                font-family: 'SuttonSignWriting';
+                                font-size: 60px;
+                                fill: #000000;
+                                text-anchor: middle;
+                                dominant-baseline: central;
+                            }
+                        </style>
+                    </defs>
+                    <rect width="100%" height="100%" fill="#f0f0f0" stroke="#ccc"/>
+                    <text x="50%" y="50%" class="sw-fill">${testChar}</text>
+                    <text x="50%" y="50%" class="sw-line">${testChar}</text>
+                </svg>
+            `;
+            
+            resultDiv.innerHTML = `
+                <div style="margin: 10px 0;">Generated dual-font SVG:</div>
+                <div style="background: #f9f9f9; padding: 10px; border: 1px solid #ddd;">
+                    ${svg}
+                </div>
+            `;
+        }
+
+        function testLibraryFunctions() {
+            const results = document.getElementById('test-results');
+            
+            if (typeof window.ssw === 'undefined') {
+                results.innerHTML = '<div style="color: red;">❌ SuttonSignWriting.js library not loaded</div>';
+                return;
+            }
+            
+            try {
+                const testSymbol = 'S10000';
+                const testCodes = ['S10000', 'S20000', 'S30000'];
+                
+                let output = '<h4>Library Function Tests:</h4>';
+                
+                // Test size function
+                testCodes.forEach(code => {
+                    try {
+                        const size = window.ssw.size(code);
+                        output += `<div>ssw.size("${code}"): ${size || 'undefined'}</div>`;
+                    } catch (e) {
+                        output += `<div style="color: red;">ssw.size("${code}") error: ${e.message}</div>`;
+                    }
+                });
+                
+                // Test key function
+                testCodes.forEach(code => {
+                    try {
+                        const key = window.ssw.key(code);
+                        output += `<div>ssw.key("${code}"): ${key || 'undefined'}</div>`;
+                    } catch (e) {
+                        output += `<div style="color: red;">ssw.key("${code}") error: ${e.message}</div>`;
+                    }
+                });
+                
+                // Test pua function
+                testCodes.forEach(code => {
+                    try {
+                        const pua = window.ssw.pua(code);
+                        output += `<div>ssw.pua("${code}"): ${pua || 'undefined'} (${pua ? pua.codePointAt(0).toString(16) : 'N/A'})</div>`;
+                    } catch (e) {
+                        output += `<div style="color: red;">ssw.pua("${code}") error: ${e.message}</div>`;
+                    }
+                });
+                
+                // Test svg function
+                testCodes.forEach(code => {
+                    try {
+                        const svg = window.ssw.svg(code);
+                        output += `<div>ssw.svg("${code}"): ${svg ? 'Generated' : 'Empty'}</div>`;
+                    } catch (e) {
+                        output += `<div style="color: red;">ssw.svg("${code}") error: ${e.message}</div>`;
+                    }
+                });
+                
+                // Check available sizes
+                if (window.ssw.sizes) {
+                    const sizeKeys = Object.keys(window.ssw.sizes);
+                    output += `<div><strong>Available size entries:</strong> ${sizeKeys.length} symbols</div>`;
+                    if (sizeKeys.length > 0) {
+                        output += `<div>First 10: ${sizeKeys.slice(0, 10).join(', ')}</div>`;
+                    }
+                }
+                
+                results.innerHTML = output;
+                
+            } catch (error) {
+                results.innerHTML = `<div style="color: red;">Test error: ${error.message}</div>`;
+            }
+        }
+
+        // Run font check when page loads
+        window.addEventListener('load', () => {
+            setTimeout(checkFonts, 1000); // Wait for fonts to load
+        });
+    </script>
+</body>
+</html>

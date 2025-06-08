@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple FSW Test</title>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .sign-display {
+            background: white;
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .fsw-string {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .success { background: #e8f5e8; border-left: 4px solid #4caf50; }
+        .error { background: #ffebee; border-left: 4px solid #f44336; }
+        
+        .code-output {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple FSW Test - Your Sign</h1>
+    
+    <div class="container">
+        <h2>Your FSW String:</h2>
+        <div class="fsw-string" id="fsw-display">AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520</div>
+        
+        <button onclick="testFSW()">Generate Sign</button>
+        <button onclick="testIndividualSymbols()">Test Individual Symbols</button>
+        
+        <div id="status"></div>
+    </div>
+    
+    <div class="container">
+        <h2>Generated Sign:</h2>
+        <div class="sign-display" id="sign-output">
+            <div style="color: #666;">Click "Generate Sign" to see the result</div>
+        </div>
+        
+        <h3>Raw SVG Code:</h3>
+        <div class="code-output" id="svg-code"></div>
+    </div>
+    
+    <div class="container">
+        <h2>Individual Symbols Analysis:</h2>
+        <div id="symbols-analysis"></div>
+    </div>
+
+    <script>
+        const fswString = "AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520";
+        
+        function testFSW() {
+            const statusDiv = document.getElementById('status');
+            const signOutput = document.getElementById('sign-output');
+            const codeOutput = document.getElementById('svg-code');
+            
+            try {
+                // Check if SSW library is loaded
+                if (typeof window.ssw === 'undefined') {
+                    statusDiv.innerHTML = '<div class="error">❌ SSW library not loaded!</div>';
+                    return;
+                }
+                
+                statusDiv.innerHTML = '<div class="success">✅ Generating sign with ssw.svg()...</div>';
+                
+                // Generate the complete sign
+                console.log('Generating SVG for FSW:', fswString);
+                const svgResult = window.ssw.svg(fswString);
+                
+                if (svgResult && svgResult.includes('<svg')) {
+                    signOutput.innerHTML = svgResult;
+                    codeOutput.textContent = svgResult;
+                    
+                    // Analyze the result
+                    const symbolCount = (svgResult.match(/sym-fill|sym-line/g) || []).length;
+                    const unicodeCount = (svgResult.match(/&#x[0-9a-fA-F]+;/g) || []).length;
+                    
+                    statusDiv.innerHTML = `
+                        <div class="success">✅ Sign generated successfully!</div>
+                        <div>SVG length: ${svgResult.length} characters</div>
+                        <div>Dual-font classes found: ${symbolCount}</div>
+                        <div>Unicode characters: ${unicodeCount}</div>
+                    `;
+                    
+                    console.log('Generated SVG:', svgResult);
+                } else {
+                    statusDiv.innerHTML = '<div class="error">❌ Failed to generate SVG or empty result</div>';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        function testIndividualSymbols() {
+            const analysisDiv = document.getElementById('symbols-analysis');
+            
+            try {
+                // Extract symbols from FSW string
+                const symbolMatches = fswString.match(/S[0-9a-f]{5}/gi);
+                
+                if (!symbolMatches) {
+                    analysisDiv.innerHTML = '<div class="error">No symbols found in FSW string</div>';
+                    return;
+                }
+                
+                let html = `<h3>Found ${symbolMatches.length} symbols:</h3>`;
+                
+                symbolMatches.forEach((symbol, index) => {
+                    html += `<div style="margin: 15px 0; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">`;
+                    html += `<h4>Symbol ${index + 1}: ${symbol}</h4>`;
+                    
+                    try {
+                        // Test individual symbol
+                        const symbolSvg = window.ssw.svg(symbol);
+                        const puaChar = window.ssw.pua(symbol);
+                        const codeChar = window.ssw.code(symbol);
+                        const size = window.ssw.size(symbol);
+                        
+                        html += `<div style="display: flex; gap: 20px; align-items: center;">`;
+                        html += `<div>${symbolSvg}</div>`;
+                        html += `<div>`;
+                        html += `<div><strong>PUA:</strong> ${puaChar} (${puaChar ? puaChar.codePointAt(0).toString(16) : 'N/A'})</div>`;
+                        html += `<div><strong>Code:</strong> ${codeChar} (${codeChar ? codeChar.codePointAt(0).toString(16) : 'N/A'})</div>`;
+                        html += `<div><strong>Size:</strong> ${size || 'Unknown'}</div>`;
+                        html += `</div>`;
+                        html += `</div>`;
+                        
+                    } catch (error) {
+                        html += `<div style="color: red;">Error: ${error.message}</div>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+                
+                analysisDiv.innerHTML = html;
+                
+            } catch (error) {
+                analysisDiv.innerHTML = `<div class="error">Analysis error: ${error.message}</div>`;
+            }
+        }
+        
+        // Auto-run test when page loads if library is available
+        setTimeout(() => {
+            if (typeof window.ssw !== 'undefined') {
+                console.log('SSW library loaded automatically');
+                document.getElementById('status').innerHTML = '<div class="success">✅ SSW library loaded - Ready to test!</div>';
+            } else {
+                document.getElementById('status').innerHTML = '<div class="error">❌ SSW library not loaded</div>';
+            }
+        }, 500);
+    </script>
+</body>
+</html>
