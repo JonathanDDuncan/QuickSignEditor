@@ -4,8 +4,18 @@ export let data: any;
 </script>
 
 <div class="general-group-chooser">
-  <!-- TODO: Render general group options from data -->
-  <div class="placeholder">General Group Chooser (stub)</div>
+  {#if data?.label}
+    <div class="group-label">{data.label}</div>
+  {/if}
+  {#if data?.items && data.items.length > 0}
+    <ul class="group-items">
+      {#each data.items as item}
+        <li class="group-item">General Group Item: {item}</li>
+      {/each}
+    </ul>
+  {:else}
+    <div class="placeholder">No general group items.</div>
+  {/if}
 </div>
 
 <style>
@@ -18,5 +28,19 @@ export let data: any;
 .placeholder {
   color: #888;
   font-size: 1em;
+}
+.group-label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.group-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 8px;
+}
+.group-item {
+  padding: 2px 0 2px 8px;
+  font-size: 0.97em;
+  color: #333;
 }
 </style>
