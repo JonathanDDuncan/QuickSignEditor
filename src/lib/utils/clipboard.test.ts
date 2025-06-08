@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { copySymbols, alignSymbols } from './clipboard';
+import type { Symbol } from './types';
 
 describe('copySymbols', () => {
   it('returns a deep copy of the symbols array', () => {
-    const symbols: import('./types').Symbol[] = [
+    const symbols: Symbol[] = [
       { id: 'a', x: 1, y: 2 },
       { id: 'b', x: 3, y: 4 }
     ];
@@ -14,13 +15,13 @@ describe('copySymbols', () => {
   });
 
   it('returns empty array for invalid input', () => {
-    expect(copySymbols(null as unknown as import('./types').Symbol[])).toEqual([]);
-    expect(copySymbols(undefined as unknown as import('./types').Symbol[])).toEqual([]);
+    expect(copySymbols(null as unknown as Symbol[])).toEqual([]);
+    expect(copySymbols(undefined as unknown as Symbol[])).toEqual([]);
   });
 });
 
 describe('alignSymbols', () => {
-  const symbols: import('./types').Symbol[] = [
+  const symbols: Symbol[] = [
     { id: 'a', x: 10, y: 20 },
     { id: 'b', x: 30, y: 40 }
   ];
@@ -38,8 +39,8 @@ describe('alignSymbols', () => {
   });
 
   it('returns empty array for invalid input', () => {
-    expect(alignSymbols(null as unknown as import('./types').Symbol[])).toEqual([]);
-    expect(alignSymbols(undefined as unknown as import('./types').Symbol[])).toEqual([]);
+    expect(alignSymbols(null as unknown as Symbol[])).toEqual([]);
+    expect(alignSymbols(undefined as unknown as Symbol[])).toEqual([]);
     expect(alignSymbols([], 'left')).toEqual([]);
   });
 

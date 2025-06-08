@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { transformSymbols, Symbol } from './transform';
+import { transformSymbols } from './transform';
+import type { Symbol } from './types';
 
 describe('transformSymbols', () => {
-  const symbols: symbol[] = [
+  const symbols: Symbol[] = [
     { id: 'a', x: 10, y: 10 },
     { id: 'b', x: 110, y: 110 },
   ];
@@ -22,8 +23,8 @@ describe('transformSymbols', () => {
   });
 
   it('returns empty array for invalid input', () => {
-    expect(transformSymbols(null as unknown as import('./types').Symbol[])).toEqual([]);
-    expect(transformSymbols(undefined as unknown as import('./types').Symbol[])).toEqual([]);
+    expect(transformSymbols(null as unknown as Symbol[])).toEqual([]);
+    expect(transformSymbols(undefined as unknown as Symbol[])).toEqual([]);
   });
 
   // Add a dummy test to ensure Vitest recognizes the suite

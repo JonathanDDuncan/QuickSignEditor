@@ -4,7 +4,7 @@ import type { Symbol } from './types';
 // Example: center all symbols on a 500x500 canvas
 // Accepts array of symbols with x/y, returns new array with transformed positions
 
-export function transformSymbols(symbols: symbol[], options?: { center?: boolean }): symbol[] {
+export function transformSymbols(symbols: Symbol[], options?: { center?: boolean }): Symbol[] {
   if (!Array.isArray(symbols)) return [];
   if (!options?.center) return symbols;
   // Find bounding box

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { validateSignData } from './validation';
 

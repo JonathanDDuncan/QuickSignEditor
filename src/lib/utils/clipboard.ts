@@ -3,14 +3,14 @@
 
 import type { Symbol } from './types';
 
-export function copySymbols(symbols: symbol[]): symbol[] {
+export function copySymbols(symbols: Symbol[]): Symbol[] {
   if (!Array.isArray(symbols)) return [];
   return symbols.map(s => ({ ...s }));
 }
 
 // Pure function: alignSymbols
 // Aligns all symbols to the leftmost x or topmost y
-export function alignSymbols(symbols: symbol[], direction: 'left' | 'top' = 'left'): symbol[] {
+export function alignSymbols(symbols: Symbol[], direction: 'left' | 'top' = 'left'): Symbol[] {
   if (!Array.isArray(symbols) || symbols.length === 0) return [];
   if (direction === 'left') {
     const minX = Math.min(...symbols.map(s => s.x));

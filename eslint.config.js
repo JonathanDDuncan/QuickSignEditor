@@ -29,5 +29,8 @@ export default [
       'no-var': 'error',
     },
   },
+  {
+    ignores: ['**/*.svelte'],
+  },
   prettier,
 ];

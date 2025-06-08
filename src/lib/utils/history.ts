@@ -2,7 +2,7 @@ import type { Symbol, History } from './types';
 
 // Pure function: createHistory
 // Returns a new history object with initial state
-export function createHistory<T>(initial: T) {
+export function createHistory<T>(initial: T): { past: T[]; present: T; future: T[] } {
   return {
     past: [],
     present: initial,
@@ -12,7 +12,7 @@ export function createHistory<T>(initial: T) {
 
 // Pure function: undo
 // Moves present to future, pops past to present
-export function undo<T>(history: { past: T[]; present: T; future: T[] }) {
+export function undo<T>(history: { past: T[]; present: T; future: T[] }): { past: T[]; present: T; future: T[] } {
   if (history.past.length === 0) return history;
   const previous = history.past[history.past.length - 1];
   return {
@@ -24,7 +24,7 @@ export function undo<T>(history: { past: T[]; present: T; future: T[] }) {
 
 // Pure function: redo
 // Moves present to past, shifts future to present
-export function redo<T>(history: { past: T[]; present: T; future: T[] }) {
+export function redo<T>(history: { past: T[]; present: T; future: T[] }): { past: T[]; present: T; future: T[] } {
   if (history.future.length === 0) return history;
   const next = history.future[0];
   return {
@@ -36,7 +36,7 @@ export function redo<T>(history: { past: T[]; present: T; future: T[] }) {
 
 // Pure function: record
 // Pushes present to past, sets new present, clears future
-export function record<T>(history: { past: T[]; present: T; future: T[] }, newPresent: T) {
+export function record<T>(history: { past: T[]; present: T; future: T[] }, newPresent: T): { past: T[]; present: T; future: T[] } {
   if (history.present === newPresent) return history;
   return {
     past: [...history.past, history.present],

@@ -15,7 +15,7 @@ export interface Symbol {
 // SignData type for a complete sign
 export interface SignData {
   name: string;
-  symbols: symbol[];
+  symbols: Symbol[];
   metadata?: Record<string, unknown>;
 }
 
@@ -26,7 +26,7 @@ export interface UIState {
   tool: 'select' | 'hand' | 'zoom' | 'pen';
   zoom: number;
   pan: { x: number; y: number };
-  clipboard: symbol[] | null;
+  clipboard: Symbol[] | null;
   showGrid: boolean;
   snapToGrid: boolean;
 }
