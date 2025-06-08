@@ -125,9 +125,8 @@ export async function generateSymbolSVG(symbol: SignWritingSymbol, options: {
             text-anchor: middle;
             dominant-baseline: central;
             pointer-events: none;
-          }
-          .sym-line {
-            font-family: 'SuttonSignWriting';
+          }          .sym-line {
+            font-family: 'SuttonSignWritingLine';
             font-size: ${finalSize}px;
             fill: ${options.line || symbol.nbcolor || '#000000'};
             text-anchor: middle;
@@ -303,9 +302,8 @@ export async function generateFSWSVG(fsw: string, options: {
             text-anchor: middle;
             dominant-baseline: central;
             pointer-events: none;
-          }
-          .sym-line {
-            font-family: 'SuttonSignWriting';
+          }          .sym-line {
+            font-family: 'SuttonSignWritingLine';
             fill: ${options.line || '#000000'};
             text-anchor: middle;
             dominant-baseline: central;

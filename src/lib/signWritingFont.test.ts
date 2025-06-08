@@ -46,10 +46,9 @@ describe('SignWriting Dual-Font System', () => {  beforeAll(() => {
     // Verify the SVG contains both font classes (official implementation)
     expect(svg).toContain('class="sym-fill"');
     expect(svg).toContain('class="sym-line"');
-    
-    // Verify the SVG contains the correct fonts
+      // Verify the SVG contains the correct fonts
     expect(svg).toContain("font-family: 'SuttonSignWritingFill'");
-    expect(svg).toContain("font-family: 'SuttonSignWriting'");
+    expect(svg).toContain("font-family: 'SuttonSignWritingLine'");
     
     // Verify the colors are set correctly
     expect(svg).toContain('fill: #ffffff'); // White fill

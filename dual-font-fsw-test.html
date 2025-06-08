@@ -101,21 +101,12 @@
         <div id="status"></div>
     </div>
     
-    <div class="comparison">
-        <div>
+    <div class="comparison">        <div>
             <h3>🔥 Official SSW Output</h3>
             <div class="sign-display" id="official-output">
                 <div style="color: #666;">Click "Run Test" to generate</div>
             </div>
             <div class="code-block" id="official-code"></div>
-        </div>
-        
-        <div>
-            <h3>🎨 Our Dual-Font Implementation</h3>
-            <div class="sign-display" id="our-output">
-                <div style="color: #666;">Click "Run Test" to generate</div>
-            </div>
-            <div class="code-block" id="our-code"></div>
         </div>
     </div>
     
@@ -126,12 +117,11 @@
 
     <script type="module">
         const fswString = "AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520";
-        
-        async function runTest() {
+          async function runTest() {
             const statusDiv = document.getElementById('status');
             
             try {
-                statusDiv.innerHTML = '<div class="info">Testing libraries...</div>';
+                statusDiv.innerHTML = '<div class="info">Testing SSW library...</div>';
                 
                 // Check SSW library
                 if (typeof window.ssw === 'undefined') {
@@ -139,86 +129,51 @@
                     return;
                 }
                 
-                // Check if our generateFSWSVG is available (from TypeScript module)
-                let generateFSWSVG;
-                let attempts = 0;
-                while (!generateFSWSVG && attempts < 30) {
-                    try {
-                        const module = await import('/src/lib/signWritingFont.js');
-                        generateFSWSVG = module.generateFSWSVG;
-                        break;
-                    } catch (e) {
-                        attempts++;
-                        await new Promise(resolve => setTimeout(resolve, 100));
-                    }
-                }
-                
-                if (!generateFSWSVG) {
-                    statusDiv.innerHTML = '<div class="error">❌ Our TypeScript module not loaded!</div>';
-                    return;
-                }
-                
-                statusDiv.innerHTML = '<div class="success">✅ All libraries loaded successfully!</div>';
+                statusDiv.innerHTML = '<div class="success">✅ SSW library loaded successfully!</div>';
                 
                 // Generate official output
                 const officialSVG = window.ssw.svg(fswString);
                 document.getElementById('official-output').innerHTML = officialSVG;
                 document.getElementById('official-code').textContent = officialSVG;
                 
-                // Generate our dual-font output
-                const ourSVG = await generateFSWSVG(fswString, {
-                    fill: '#ffffff',
-                    line: '#000000'
-                });
-                document.getElementById('our-output').innerHTML = ourSVG;
-                document.getElementById('our-code').textContent = ourSVG;
-                
-                // Analyze differences
-                analyzeResults(officialSVG, ourSVG);
+                // Analyze results
+                analyzeResults(officialSVG);
                 
             } catch (error) {
                 console.error('Test error:', error);
                 statusDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
             }
         }
-        
-        function analyzeResults(official, ours) {
+          function analyzeResults(official) {
             const analysisDiv = document.getElementById('analysis');
             
-            let analysis = '<h3>Comparison Results:</h3>';
+            let analysis = '<h3>Analysis Results:</h3>';
             
             // Size comparison
-            analysis += `<p><strong>Size:</strong> Official: ${official.length} chars, Ours: ${ours.length} chars</p>`;
+            analysis += `<p><strong>SVG Length:</strong> ${official.length} characters</p>`;
             
             // Dual-font detection
-            const ourHasFill = ours.includes('sym-fill');
-            const ourHasLine = ours.includes('sym-line');
-            const ourHasFillFont = ours.includes('SuttonSignWritingFill');
-            const ourHasLineFont = ours.includes('SuttonSignWriting');
+            const hasFill = official.includes('sym-fill');
+            const hasLine = official.includes('sym-line');
+            const hasFillFont = official.includes('SuttonSignWritingFill');
+            const hasLineFont = official.includes('SuttonSignWritingLine');
             
-            analysis += `<p><strong>Our Dual-Font Implementation:</strong></p>`;
+            analysis += `<p><strong>Official SSW Implementation:</strong></p>`;
             analysis += `<ul>`;
-            analysis += `<li>Has fill class: ${ourHasFill ? '✅ Yes' : '❌ No'}</li>`;
-            analysis += `<li>Has line class: ${ourHasLine ? '✅ Yes' : '❌ No'}</li>`;
-            analysis += `<li>Has fill font: ${ourHasFillFont ? '✅ Yes' : '❌ No'}</li>`;
-            analysis += `<li>Has line font: ${ourHasLineFont ? '✅ Yes' : '❌ No'}</li>`;
-            analysis += `</ul>`;
-            
-            // Official implementation detection
-            const officialHasFill = official.includes('sym-fill');
-            const officialHasLine = official.includes('sym-line');
-            
-            analysis += `<p><strong>Official Implementation:</strong></p>`;
-            analysis += `<ul>`;
-            analysis += `<li>Has fill class: ${officialHasFill ? '✅ Yes' : '❌ No'}</li>`;
-            analysis += `<li>Has line class: ${officialHasLine ? '✅ Yes' : '❌ No'}</li>`;
+            analysis += `<li>Has fill class: ${hasFill ? '✅ Yes' : '❌ No'}</li>`;
+            analysis += `<li>Has line class: ${hasLine ? '✅ Yes' : '❌ No'}</li>`;
+            analysis += `<li>Has fill font: ${hasFillFont ? '✅ Yes' : '❌ No'}</li>`;
+            analysis += `<li>Has line font: ${hasLineFont ? '✅ Yes' : '❌ No'}</li>`;
+            analysis += `<li>Dual-font ready: ${(hasFill && hasLine && hasFillFont && hasLineFont) ? '✅ Yes' : '❌ No'}</li>`;
             analysis += `</ul>`;
             
             // Symbol count
-            const officialSymbols = (official.match(/&\#x[0-9a-fA-F]+;|[\uFD00-\uFDFF\uFE00-\uFEFF]/g) || []).length;
-            const ourSymbols = (ours.match(/&\#x[0-9a-fA-F]+;|[\uFD00-\uFDFF\uFE00-\uFEFF]/g) || []).length;
+            const symbols = (official.match(/&\#x[0-9a-fA-F]+;|[\uFD00-\uFDFF\uFE00-\uFEFF]/g) || []).length;
+            analysis += `<p><strong>Unicode Characters:</strong> ${symbols}</p>`;
             
-            analysis += `<p><strong>Unicode Characters:</strong> Official: ${officialSymbols}, Ours: ${ourSymbols}</p>`;
+            // Extract symbols from FSW
+            const fswSymbols = fswString.match(/S[123][0-9a-f]{2}[0-5][0-9a-f]/g) || [];
+            analysis += `<p><strong>FSW Symbols Found:</strong> ${fswSymbols.length} (${fswSymbols.join(', ')})</p>`;
             
             analysisDiv.innerHTML = analysis;
         }

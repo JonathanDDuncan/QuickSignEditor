@@ -1,12 +1,11 @@
 <script lang="ts">  import SignEditor from './lib/SignEditor.svelte';
   import SymbolChooser from './lib/SymbolChooser.svelte';
-  import Toolbar from './lib/Toolbar.svelte';
-  import { signStore, signModel, loadManiquinData } from './lib/signStore';
+  import Toolbar from './lib/Toolbar.svelte';  import { signStore, signModel, loadManiquinData } from './lib/signStore';
   import { get, writable } from 'svelte/store';
-  import ChooserPanel from './lib/ChooserPanel.svelte';  import { onMount } from 'svelte';
+  import ChooserPanel from './lib/ChooserPanel.svelte';  
+  import { onMount } from 'svelte';
   import Maniquin from './lib/Maniquin.svelte';
   import SymbolSVG from './lib/SymbolSVG.svelte';
-  import { loadSignWritingFonts, generateSymbolSVG } from './lib/signWritingFont';
   // SignWriting uses dual-font rendering (fill + line together) - no toggle needed
 
   // Example symbol library
@@ -46,7 +45,6 @@
     else alert(`Toolbar action: ${action}`);
   }
   // SignWriting font toggle removed - dual-font rendering is always used
-
   // Test function using the official SSW library (now working!)
   async function testOfficialSSW() {
     try {
@@ -84,17 +82,43 @@
     }
   }
 
-  // Test function to demonstrate dual-font rendering
-  async function testDualFontRendering() {
+  // Test additional FSW strings
+  async function testMultipleFSWStrings() {
+    if (!window.ssw) {
+      alert('SSW library not loaded!');
+      return;
+    }
+
+    const testStrings = [
+      "AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520",
+      "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468",
+      "S10000482x483",
+      "S20000500x500"
+    ];
+
+    console.log('Testing multiple FSW strings...');
+    testStrings.forEach((fsw, index) => {
+      try {
+        const svg = window.ssw.svg(fsw);
+        const hasDualFont = svg.includes('sym-fill') && svg.includes('sym-line');
+        console.log(`Test ${index + 1}: ${fsw}`);
+        console.log(`  - SVG length: ${svg.length} chars`);
+        console.log(`  - Has dual-font: ${hasDualFont}`);
+        console.log(`  - SVG preview: ${svg.substring(0, 100)}...`);
+      } catch (error) {
+        console.error(`Error with FSW string ${index + 1}:`, error);
+      }
+    });
+  }  async function testDualFontRendering() {
     try {
-      const testSymbol = {
-        key: 'S10000',
-        width: 40,
-        height: 40,
-        size: 1
-      };
+      if (!window.ssw) {
+        alert('SSW library not loaded!');
+        return;
+      }
       
-      const svg = await generateSymbolSVG(testSymbol, { size: 60 });
+      const testSymbol = 'S10000';
+      const svg = window.ssw.svg(testSymbol);
+      
       console.log('Test SVG generated:', svg);
       
       // Create a visual test element
@@ -111,7 +135,7 @@
       `;
       
       testDiv.innerHTML = `
-        <h4>Generated Dual-Font SVG Test</h4>
+        <h4>Generated Official SSW SVG Test</h4>
         <div style="background: #f0f0f0; padding: 10px; margin: 10px 0;">
           ${svg}
         </div>
@@ -144,26 +168,38 @@
   const unsubscribe = signModel.subscribe(value => maniquinModel = value);  onMount(() => {
     loadManiquinData();
 
-    // Load SignWriting fonts and test library
-    console.log('Testing SuttonSignWriting.js library...');
-    loadSignWritingFonts().then(() => {
-      console.log('SignWriting fonts loaded successfully');// Test the library directly with various calls
+    // Wait for SSW library to load and test
+    console.log('Checking for SSW library...');
+    const checkSSW = () => {
       if (window.ssw) {
-        console.log('Testing direct ssw calls:');
-        console.log('- ssw.sizes object:', window.ssw.sizes);
-        console.log('- Object.keys(ssw.sizes):', Object.keys(window.ssw.sizes));
-        console.log('- ssw.size("S10000"):', window.ssw.size('S10000'));
-        console.log('- ssw.key("S10000"):', window.ssw.key('S10000'));
-          // Test if we can manually add the size
-        (window.ssw.sizes as any)['S10000'] = '76,76';
-        console.log('- After manual size addition, ssw.size("S10000"):', window.ssw.size('S10000'));
-        console.log('- After manual size addition, ssw.svg("S10000"):', window.ssw.svg('S10000'));
+        console.log('SSW library loaded successfully');
+        console.log('Testing SSW functions:');
+        console.log('- ssw.svg function available:', typeof window.ssw.svg === 'function');
+        console.log('- ssw.size function available:', typeof window.ssw.size === 'function');
+        console.log('- ssw.key function available:', typeof window.ssw.key === 'function');
+        
+        // Test basic functionality
+        try {
+          const testSize = window.ssw.size('S10000');
+          console.log('- Test size for S10000:', testSize);
+          
+          const testSVG = window.ssw.svg('S10000');
+          console.log('- Test SVG generation successful, length:', testSVG.length);
+          console.log('- Contains dual-font classes:', testSVG.includes('sym-fill') && testSVG.includes('sym-line'));
+        } catch (error) {
+          console.warn('SSW function test failed:', error);
+        }
+      } else {
+        console.log('SSW library not yet loaded, retrying...');
+        setTimeout(checkSSW, 100);
       }
-    }).catch(error => {
-      console.warn('Failed to load SignWriting fonts:', error);
-    });
+    };
+    
+    // Start checking after a brief delay
+    setTimeout(checkSSW, 100);
+    
     return () => unsubscribe();
-  });  // Example symbol for demo (uses proper SignWriting symbol key)
+  });// Example symbol for demo (uses proper SignWriting symbol key)
   const demoSymbol = {
     key: 'S100', // Index finger - confirmed valid SignWriting symbol key
     width: 40,
@@ -201,12 +237,14 @@
         </div>
       </div>
       
-      <div style="margin-top: 1rem;">
-        <button on:click={testOfficialSSW} style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+      <div style="margin-top: 1rem;">        <button on:click={testOfficialSSW} style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
           Generate Sign with Official SSW
         </button>
-        <button on:click={testDualFontRendering} style="padding: 8px 16px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer;">
-          Test Custom SVG Generation
+        <button on:click={testDualFontRendering} style="padding: 8px 16px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+          Test Symbol Generation
+        </button>
+        <button on:click={testMultipleFSWStrings} style="padding: 8px 16px; background: #6610f2; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Test Multiple FSW Strings
         </button>
       </div>
       
