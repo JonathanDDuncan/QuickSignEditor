@@ -283,6 +283,7 @@
           value={symbol.color || '#ffffff'}
           on:input={(e) => onColorChange(e, symbol)}
           aria-label="Pick symbol color"
+          tabindex="0"
         />
       {/if}
     </button>
