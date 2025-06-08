@@ -2,6 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/svelte';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { vi } from 'vitest';
 import SymbolChooser from './SymbolChooser.svelte';
+import type { ComponentType } from 'svelte';
+
+// Use the correct type for Svelte component in render
+const SymbolChooserComponent = SymbolChooser as unknown as ComponentType;
 
 describe('SymbolChooser.svelte', () => {
   const symbols = [
@@ -11,19 +15,19 @@ describe('SymbolChooser.svelte', () => {
   ];
 
   it('renders all symbols by default', () => {
-    render(SymbolChooser, { symbols });
+    render(SymbolChooserComponent, { symbols });
     expect(screen.getByTestId('symbol-list').children.length).toBe(3);
   });
 
   it('filters symbols by search', async () => {
-    render(SymbolChooser, { symbols });
+    render(SymbolChooserComponent, { symbols });
     const input = screen.getByPlaceholderText('Search symbols...');
     await fireEvent.input(input, { target: { value: 'S1000' } });
     expect(screen.getByTestId('symbol-list').children.length).toBe(2);
   });
 
   it('shows no results if filter does not match', async () => {
-    render(SymbolChooser, { symbols });
+    render(SymbolChooserComponent, { symbols });
     const input = screen.getByPlaceholderText('Search symbols...');
     await fireEvent.input(input, { target: { value: 'ZZZ' } });
     expect(screen.getByText('No symbols found.')).toBeInTheDocument();
@@ -31,7 +35,7 @@ describe('SymbolChooser.svelte', () => {
 
   it('calls onSelect when a symbol is clicked', async () => {
     const onSelect = vi.fn();
-    render(SymbolChooser, { symbols, onSelect });
+    render(SymbolChooserComponent, { symbols, onSelect });
     const btn = screen.getByTestId('symbol-S10000');
     await fireEvent.click(btn);
     expect(onSelect).toHaveBeenCalledWith(symbols[0]);
