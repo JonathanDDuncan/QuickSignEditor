@@ -49,10 +49,12 @@ describe('Integrated UI', () => {
     render(App);
     // Click a symbol on the canvas
     const symbolBtn = screen.getByTestId('canvas-symbol-S1001');
-    await fireEvent.click(symbolBtn);
-    // S1001 should be selected, S1002 not
-    expect(symbolBtn).toHaveAttribute('aria-selected', 'true');
-    const symbolBtn2 = screen.getByTestId('canvas-symbol-S1002');
-    expect(symbolBtn2).toHaveAttribute('aria-selected', 'false');
+    await fireEvent.click(symbolBtn);    // Wait for DOM update
+    await waitFor(() => {
+      expect(symbolBtn).toHaveAttribute('aria-selected', 'true');
+    });
+    const symbolBtn2 = screen.getByTestId('canvas-symbol-S1002');    await waitFor(() => {
+      expect(symbolBtn2).toHaveAttribute('aria-selected', 'false');
+    });
   });
 });

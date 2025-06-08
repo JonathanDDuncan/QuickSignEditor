@@ -15,16 +15,36 @@
   $: validation = validateSignData(currentSignData);
   $: showPlaceholder = symbols.length === 0 && validation.isValid;
 
-  function selectSymbol(id: string) {
+  function selectSymbol(id: string, event?: MouseEvent | KeyboardEvent) {
+    // Multi-select logic: Shift/Ctrl/Meta toggles selection
+    const isMulti = event && (event.shiftKey || event.ctrlKey || event.metaKey);
     if (signData) {
       // Prop-driven: dispatch event for parent to handle selection
-      dispatch('select', id);
+      dispatch('select', { id, multi: !!isMulti });
     } else {
-      // Store-driven: update selection in the store
-      signStore.update(sd => ({
-        ...sd,
-        symbols: sd.symbols.map(s => ({ ...s, selected: s.id === id }))
-      }));
+      signStore.update(sd => {
+        if (!isMulti) {
+          // Single selection
+          return {
+            ...sd,
+            symbols: sd.symbols.map(s => ({ ...s, selected: s.id === id }))
+          };
+        } else {
+          // Toggle selection (multi): only toggle the clicked symbol, keep others as is
+          return {
+            ...sd,
+            symbols: sd.symbols.map(s =>
+              s.id === id ? { ...s, selected: !s.selected } : s
+            )
+          };
+        }
+      });
+    }
+    // Force Svelte reactivity for prop-driven mode
+    if (signData && typeof signData === 'object' && 'symbols' in signData) {
+      signData.symbols = signData.symbols.map(s =>
+        (!isMulti && s.id !== id) ? { ...s, selected: false } : s
+      );
     }
   }
 
@@ -182,27 +202,33 @@
     if (event.key === 'ArrowUp') { dy = -5; handled = true; }
     if (event.key === 'ArrowDown') { dy = 5; handled = true; }
     if (handled) {
+      const selectedSymbols = symbols.filter(s => s.selected);
       if (signData) {
-        dispatch('move', { id: selected.id, x: selected.x + dx, y: selected.y + dy });
+        selectedSymbols.forEach(sel => {
+          dispatch('move', { id: sel.id, x: sel.x + dx, y: sel.y + dy });
+        });
       } else {
         signStore.update(sd => ({
           ...sd,
           symbols: sd.symbols.map(s =>
-            s.id === selected.id ? { ...s, x: s.x + dx, y: s.y + dy } : s
+            s.selected ? { ...s, x: s.x + dx, y: s.y + dy } : s
           )
         }));
       }
       event.preventDefault();
       return;
     }
-    // Delete selected symbol
+    // Delete selected symbol(s)
     if (event.key === 'Delete' || event.key === 'Backspace') {
+      const selectedSymbols = symbols.filter(s => s.selected);
       if (signData) {
-        dispatch('delete', { id: selected.id });
+        selectedSymbols.forEach(sel => {
+          dispatch('delete', { id: sel.id });
+        });
       } else {
         signStore.update(sd => ({
           ...sd,
-          symbols: sd.symbols.filter(s => s.id !== selected.id)
+          symbols: sd.symbols.filter(s => !s.selected)
         }));
       }
       event.preventDefault();
@@ -212,7 +238,7 @@
     if (event.key === 'Tab') {
       let nextIdx = event.shiftKey ? (selectedIdx - 1 + symbols.length) % symbols.length : (selectedIdx + 1) % symbols.length;
       const nextId = symbols[nextIdx].id;
-      selectSymbol(nextId);
+      selectSymbol(nextId, event); // clear others
       event.preventDefault();
     }
   }
@@ -225,12 +251,13 @@
   {#each symbols as symbol (symbol.id)}
     <button
       type="button"
-      class="symbol{symbol.selected ? ' selected' : ''}"
+      class="symbol"
+      class:selected={symbol.selected}
       data-testid={`canvas-symbol-${symbol.id}`}
       style="left: {symbol.x}px; top: {symbol.y}px; width: {symbol.width || 44}px; height: {symbol.height || 44}px; transform: rotate({symbol.rotation || 0}deg); background: {symbol.color || '#fff'};"
-      aria-selected={symbol.selected}
+      aria-selected={symbol.selected ? 'true' : 'false'}
       role="option"
-      on:click|stopPropagation={() => selectSymbol(symbol.id)}
+      on:click|stopPropagation={(e) => selectSymbol(symbol.id, e)}
       on:mousedown|stopPropagation={(e) => onSymbolMouseDown(e, symbol)}
       draggable="false"
     >

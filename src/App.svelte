@@ -1,5 +1,4 @@
 <script lang="ts">
-      console.log("App.svelte loaded");
   import SignEditor from './lib/SignEditor.svelte';
   import SymbolChooser from './lib/SymbolChooser.svelte';
   import Toolbar from './lib/Toolbar.svelte';
@@ -27,12 +26,14 @@
       metadata: { ...(sd.metadata || {}) }
     }));
   }
-
-  function handleSymbolSelection(id: string) {
-    // Update signStore so only the selected symbol is marked selected
+  function handleSymbolSelection(event: CustomEvent<{ id: string; multi: boolean }>) {
+    const { id, multi } = event.detail;
+    // Update signStore based on selection mode
     signStore.update(sd => ({
       ...sd,
-      symbols: sd.symbols.map(s => ({ ...s, selected: s.id === id }))
+      symbols: multi 
+        ? sd.symbols.map(s => s.id === id ? { ...s, selected: !s.selected } : s)
+        : sd.symbols.map(s => ({ ...s, selected: s.id === id }))
     }));
   }
 
@@ -48,7 +49,7 @@
   <Toolbar on:action={e => handleToolbarAction(e.detail)} />
   <div class="editor-layout">
     <SymbolChooser {symbols} on:select={e => handleSymbolSelect(e.detail)} />
-    <SignEditor {signData} on:select={e => handleSymbolSelection(e.detail)} />
+    <SignEditor {signData} on:select={handleSymbolSelection} />
   </div>
 </main>
 

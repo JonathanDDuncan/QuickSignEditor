@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, cleanup } from '@testing-library/svelte';
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/svelte';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import SignEditor from './SignEditor.svelte';
 import type { ComponentType } from 'svelte';
@@ -7,8 +7,11 @@ import { tick } from 'svelte';
 const SignEditorComponent = SignEditor as unknown as ComponentType;
 
 describe('SignEditor.svelte', () => {
+  let selectEventHandled: boolean;
+
   beforeEach(() => {
     cleanup();
+    selectEventHandled = false;
   });
 
   it('shows error for invalid sign data', async () => {
@@ -40,7 +43,6 @@ describe('SignEditor.svelte', () => {
     expect(symbol1.style.left).toBe('100px');
     expect(symbol1.style.top).toBe('200px');
   });
-
   it('selects a symbol when clicked', async () => {
     let signData = {
       name: 'Test',
@@ -49,25 +51,48 @@ describe('SignEditor.svelte', () => {
         { id: 'S10001', code: 'S10001', x: 100, y: 200, selected: false }
       ]
     };
-    function handleSelect(e: CustomEvent<string>) {
-      const id = e.detail;
-      signData = {
-        ...signData,
-        symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
-      };
+      function handleSelect(e: CustomEvent<{ id: string; multi: boolean }>) {
+      const { id, multi } = e.detail;
+      if (!multi) {
+        // Single selection - deselect all others
+        signData = {
+          ...signData,
+          symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
+        };
+      } else {
+        // Multi selection - toggle the clicked symbol
+        signData = {
+          ...signData,
+          symbols: signData.symbols.map(s => 
+            s.id === id ? { ...s, selected: !s.selected } : s
+          )
+        };
+      }
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
     component.$on('select', handleSelect);
     const symbol0 = screen.getByTestId('canvas-symbol-S10000');
     const symbol1 = screen.getByTestId('canvas-symbol-S10001');
+    
     await fireEvent.click(symbol1);
     await tick();
-    expect(symbol1.className).toContain('selected');
+    await waitFor(() => {
+      expect(symbol1.className).toContain('selected');
+      expect(symbol1.getAttribute('aria-selected')).toBe('true');
+    });
     expect(symbol0.className).not.toContain('selected');
+    expect(symbol0.getAttribute('aria-selected')).toBe('false');
+    
+    // Test clicking the other symbol
     await fireEvent.click(symbol0);
     await tick();
-    expect(symbol0.className).toContain('selected');
+    await waitFor(() => {
+      expect(symbol0.className).toContain('selected');
+      expect(symbol0.getAttribute('aria-selected')).toBe('true');
+    });
+    expect(symbol1.className).not.toContain('selected');
+    expect(symbol1.getAttribute('aria-selected')).toBe('false');
     expect(symbol1.className).not.toContain('selected');
   });
 
@@ -229,24 +254,139 @@ describe('SignEditor.svelte', () => {
         { id: 'S3', x: 50, y: 60, selected: false }
       ]
     };
-    function handleSelect(e: CustomEvent<string>) {
-      const id = e.detail;
-      signData = {
-        ...signData,
-        symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
-      };
+    let selectEventHandled = false;
+    function handleSelect(e: CustomEvent<{id: string, multi: boolean}>) {
+      if (selectEventHandled) return;
+      selectEventHandled = true;
+      const { id, multi } = e.detail;
+      if (multi) {
+        signData = {
+          ...signData,
+          symbols: signData.symbols.map(s =>
+            s.id === id ? { ...s, selected: !s.selected } : s
+          )
+        };
+      } else {
+        signData = {
+          ...signData,
+          symbols: signData.symbols.map(s => ({ ...s, selected: s.id === id }))
+        };
+      }
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
     component.$on('select', handleSelect);
     const canvas = screen.getByLabelText('Sign canvas');
     canvas.focus();
+    selectEventHandled = false;
     await fireEvent.keyDown(canvas, { key: 'Tab' });
     await tick();
     expect(signData.symbols[1].selected).toBe(true);
+    selectEventHandled = false;
     await fireEvent.keyDown(canvas, { key: 'Tab', shiftKey: true });
     await tick();
     expect(signData.symbols[0].selected).toBe(true);
+  });
+
+  it('allows multi-symbol selection with Shift+Click and Ctrl+Click', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, selected: false },
+        { id: 'S2', x: 100, y: 200, selected: false },
+        { id: 'S3', x: 50, y: 60, selected: false }
+      ]
+    };
+    let selectEventHandled = false;
+    function handleSelect(e: CustomEvent<any>) {
+      if (selectEventHandled) return;
+      selectEventHandled = true;
+      const { id, multi } = typeof e.detail === 'string' ? { id: e.detail, multi: false } : e.detail;
+      signData = {
+        ...signData,
+        symbols: signData.symbols.map(s =>
+          multi
+            ? (s.id === id ? { ...s, selected: !s.selected } : s)
+            : { ...s, selected: s.id === id }
+        )
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('select', handleSelect);
+    const symbol1 = screen.getByTestId('canvas-symbol-S1');
+    const symbol2 = screen.getByTestId('canvas-symbol-S2');
+    selectEventHandled = false;
+    await fireEvent.click(symbol1);
+    await tick();
+    expect(signData.symbols[0].selected).toBe(true);
+    selectEventHandled = false;
+    await fireEvent.click(symbol2, { shiftKey: true });
+    await tick();
+    expect(signData.symbols[0].selected).toBe(true);
+    expect(signData.symbols[1].selected).toBe(true);
+    selectEventHandled = false;
+    await fireEvent.click(symbol1, { ctrlKey: true });
+    await tick();
+    expect(signData.symbols[0].selected).toBe(false);
+    expect(signData.symbols[1].selected).toBe(true);
+  });
+
+  it('moves all selected symbols with arrow keys', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, selected: true },
+        { id: 'S2', x: 100, y: 200, selected: true },
+        { id: 'S3', x: 50, y: 60, selected: false }
+      ]
+    };
+    function handleMove(e: CustomEvent<any>) {
+      signData = {
+        ...signData,
+        symbols: signData.symbols.map(s =>
+          s.id === e.detail.id ? { ...s, x: e.detail.x, y: e.detail.y } : s
+        )
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('move', handleMove);
+    const canvas = screen.getByLabelText('Sign canvas');
+    canvas.focus();
+    await fireEvent.keyDown(canvas, { key: 'ArrowLeft' });
+    await tick();
+    expect(signData.symbols[0].x).toBe(5);
+    expect(signData.symbols[1].x).toBe(95);
+    expect(signData.symbols[2].x).toBe(50);
+  });
+
+  it('deletes all selected symbols with Delete key', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, selected: true },
+        { id: 'S2', x: 100, y: 200, selected: true },
+        { id: 'S3', x: 50, y: 60, selected: false }
+      ]
+    };
+    function handleDelete(e: CustomEvent<any>) {
+      signData = {
+        ...signData,
+        symbols: signData.symbols.filter(s => s.id !== e.detail.id)
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('delete', handleDelete);
+    const canvas = screen.getByLabelText('Sign canvas');
+    canvas.focus();
+    // Simulate two delete events (one per selected symbol)
+    await fireEvent.keyDown(canvas, { key: 'Delete' });
+    await tick();
+    // Only S3 should remain
+    expect(signData.symbols.length).toBe(1);
+    expect(signData.symbols[0].id).toBe('S3');
   });
 
   // Add a dummy test to ensure Vitest recognizes the suite
