@@ -107,6 +107,65 @@ describe('SignEditor.svelte', () => {
     expect(moveEventDetail).toEqual({ id: 'S10000', x: 95, y: 195 });
   });
 
+  it('dispatches resize event with correct dimensions on resize', async () => {
+    const signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S10000', code: 'S10000', x: 10, y: 20, width: 44, height: 44, selected: true }
+      ]
+    };
+    const { component } = render(SignEditorComponent, { signData });
+    const handle = screen.getByTestId('resize-handle-S10000');
+    let resizeEventDetail = null;
+    component.$on('resize', (e: CustomEvent<any>) => { resizeEventDetail = e.detail; });
+    // Simulate mousedown on handle at (54, 64) (bottom-right corner)
+    await fireEvent.mouseDown(handle, { clientX: 54, clientY: 64 });
+    // Simulate mousemove to (74, 84) (+20px width, +20px height)
+    await fireEvent.mouseMove(window, { clientX: 74, clientY: 84 });
+    // Simulate mouseup
+    await fireEvent.mouseUp(window);
+    expect(resizeEventDetail).toEqual({ id: 'S10000', width: 64, height: 64 });
+  });
+
+  it('dispatches rotate event with correct angle on rotate', async () => {
+    const signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S10000', code: 'S10000', x: 100, y: 100, width: 44, height: 44, rotation: 0, selected: true }
+      ]
+    };
+    const { component } = render(SignEditorComponent, { signData });
+    const handle = screen.getByTestId('rotate-handle-S10000');
+    let rotateEventDetail: any = null;
+    component.$on('rotate', (e: CustomEvent<any>) => { rotateEventDetail = e.detail; });
+    // Simulate mousedown on handle at (122, 82) (above center)
+    await fireEvent.mouseDown(handle, { clientX: 122, clientY: 82 });
+    // Simulate mousemove to the right of center (simulate 0 degrees)
+    await fireEvent.mouseMove(window, { clientX: 144, clientY: 122 });
+    // Simulate mouseup
+    await fireEvent.mouseUp(window);
+    expect(rotateEventDetail).not.toBeNull();
+    expect(typeof rotateEventDetail.rotation).toBe('number');
+    expect(rotateEventDetail.id).toBe('S10000');
+  });
+
+  it('dispatches color event with correct value on color change', async () => {
+    const signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S10000', code: 'S10000', x: 10, y: 20, color: '#ff0000', selected: true }
+      ]
+    };
+    const { component } = render(SignEditorComponent, { signData });
+    const colorInput = screen.getByTestId('color-picker-S10000');
+    let colorEventDetail: any = null;
+    component.$on('color', (e: CustomEvent<any>) => { colorEventDetail = e.detail; });
+    // Simulate color input change
+    await fireEvent.input(colorInput, { target: { value: '#00ff00' } });
+    expect(colorEventDetail).not.toBeNull();
+    expect(colorEventDetail).toEqual({ id: 'S10000', color: '#00ff00' });
+  });
+
   // Add a dummy test to ensure Vitest recognizes the suite
   it('dummy test', () => {
     expect(true).toBe(true);

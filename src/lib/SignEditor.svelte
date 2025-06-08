@@ -66,6 +66,107 @@
     window.removeEventListener('mousemove', onMouseMove);
     window.removeEventListener('mouseup', onMouseUp);
   }
+
+  // Add resizing state
+  let resizingId: string | null = null;
+  let resizeStart = { x: 0, y: 0, width: 0, height: 0 };
+
+  function onResizeHandleMouseDown(event: MouseEvent, symbol: Symbol) {
+    event.stopPropagation();
+    resizingId = symbol.id;
+    resizeStart = {
+      x: event.clientX,
+      y: event.clientY,
+      width: symbol.width || 44,
+      height: symbol.height || 44
+    };
+    window.addEventListener('mousemove', onResizeMouseMove);
+    window.addEventListener('mouseup', onResizeMouseUp);
+  }
+
+  function onResizeMouseMove(event: MouseEvent) {
+    if (!resizingId) return;
+    const dx = event.clientX - resizeStart.x;
+    const dy = event.clientY - resizeStart.y;
+    const newWidth = Math.max(20, resizeStart.width + dx);
+    const newHeight = Math.max(20, resizeStart.height + dy);
+    if (signData) {
+      dispatch('resize', { id: resizingId, width: newWidth, height: newHeight });
+    } else {
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s =>
+          s.id === resizingId ? { ...s, width: newWidth, height: newHeight } : s
+        )
+      }));
+    }
+  }
+
+  function onResizeMouseUp() {
+    resizingId = null;
+    window.removeEventListener('mousemove', onResizeMouseMove);
+    window.removeEventListener('mouseup', onResizeMouseUp);
+  }
+
+  // Add rotation state
+  let rotatingId: string | null = null;
+  let rotateStart = { x: 0, y: 0, angle: 0, centerX: 0, centerY: 0 };
+
+  function onRotateHandleMouseDown(event: MouseEvent, symbol: Symbol) {
+    event.stopPropagation();
+    rotatingId = symbol.id;
+    const rect = (event.target as HTMLElement).parentElement?.getBoundingClientRect();
+    if (rect) {
+      rotateStart = {
+        x: event.clientX,
+        y: event.clientY,
+        angle: symbol.rotation || 0,
+        centerX: rect.left + (rect.width / 2),
+        centerY: rect.top + (rect.height / 2)
+      };
+      window.addEventListener('mousemove', onRotateMouseMove);
+      window.addEventListener('mouseup', onRotateMouseUp);
+    }
+  }
+
+  function onRotateMouseMove(event: MouseEvent) {
+    if (!rotatingId) return;
+    const dx = event.clientX - rotateStart.centerX;
+    const dy = event.clientY - rotateStart.centerY;
+    const angleRad = Math.atan2(dy, dx);
+    const angleDeg = (angleRad * 180) / Math.PI;
+    const newAngle = Math.round(angleDeg);
+    if (signData) {
+      dispatch('rotate', { id: rotatingId, rotation: newAngle });
+    } else {
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s =>
+          s.id === rotatingId ? { ...s, rotation: newAngle } : s
+        )
+      }));
+    }
+  }
+
+  function onRotateMouseUp() {
+    rotatingId = null;
+    window.removeEventListener('mousemove', onRotateMouseMove);
+    window.removeEventListener('mouseup', onRotateMouseUp);
+  }
+
+  function onColorChange(event: Event, symbol: Symbol) {
+    const color = (event.target as HTMLInputElement).value;
+    if (signData) {
+      dispatch('color', { id: symbol.id, color });
+    } else {
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s =>
+          s.id === symbol.id ? { ...s, color } : s
+        )
+      }));
+    }
+  }
 </script>
 
 <div class="sign-editor-canvas" aria-label="Sign canvas">
@@ -77,7 +178,7 @@
       type="button"
       class="symbol{symbol.selected ? ' selected' : ''}"
       data-testid={`canvas-symbol-${symbol.id}`}
-      style="left: {symbol.x}px; top: {symbol.y}px; transform: rotate({symbol.rotation || 0}deg);"
+      style="left: {symbol.x}px; top: {symbol.y}px; width: {symbol.width || 44}px; height: {symbol.height || 44}px; transform: rotate({symbol.rotation || 0}deg); background: {symbol.color || '#fff'};"
       aria-selected={symbol.selected}
       role="option"
       on:click|stopPropagation={() => selectSymbol(symbol.id)}
@@ -86,6 +187,28 @@
     >
       <!-- Render symbol SVG or image here -->
       <span>{symbol.id}</span>
+      {#if symbol.selected}
+        <div
+          class="resize-handle"
+          data-testid={`resize-handle-${symbol.id}`}
+          on:mousedown|stopPropagation={(e) => onResizeHandleMouseDown(e, symbol)}
+        />
+        <div
+          class="rotate-handle"
+          data-testid={`rotate-handle-${symbol.id}`}
+          on:mousedown|stopPropagation={(e) => onRotateHandleMouseDown(e, symbol)}
+        >
+          &#8635;
+        </div>
+        <input
+          type="color"
+          class="color-picker"
+          data-testid={`color-picker-${symbol.id}`}
+          value={symbol.color || '#ffffff'}
+          on:input={(e) => onColorChange(e, symbol)}
+          aria-label="Pick symbol color"
+        />
+      {/if}
     </button>
   {/each}
   {#if !validation.isValid}
@@ -105,6 +228,7 @@
   min-width: 0;
 }
 .symbol {
+  /* Add relative for handle positioning */
   position: absolute;
   cursor: pointer;
   user-select: none;
@@ -117,6 +241,7 @@
   min-width: 44px;
   min-height: 44px;
   box-sizing: border-box;
+  overflow: visible;
 }
 .symbol[aria-selected="true"], .symbol.selected {
   box-shadow: 0 0 0 2px #0078d4;
@@ -164,5 +289,52 @@
   text-align: center;
   margin-top: 160px;
   font-size: 1.2em;
+}
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  background: #0078d4;
+  border-radius: 0 0 3px 0;
+  cursor: se-resize;
+  z-index: 2;
+}
+.rotate-handle {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #0078d4;
+  border-radius: 50%;
+  color: #0078d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: grab;
+  z-index: 3;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  user-select: none;
+}
+.rotate-handle:active {
+  cursor: grabbing;
+}
+.color-picker {
+  position: absolute;
+  left: 50%;
+  bottom: -28px;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 4;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 </style>
