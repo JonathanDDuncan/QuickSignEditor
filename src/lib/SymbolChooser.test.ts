@@ -11,13 +11,11 @@ describe('SymbolChooser.svelte', () => {
   ];
 
   it('renders all symbols by default', () => {
-    // @ts-expect-error Svelte component type workaround
     render(SymbolChooser, { symbols });
     expect(screen.getByTestId('symbol-list').children.length).toBe(3);
   });
 
   it('filters symbols by search', async () => {
-    // @ts-expect-error Svelte component type workaround
     render(SymbolChooser, { symbols });
     const input = screen.getByPlaceholderText('Search symbols...');
     await fireEvent.input(input, { target: { value: 'S1000' } });
@@ -25,7 +23,6 @@ describe('SymbolChooser.svelte', () => {
   });
 
   it('shows no results if filter does not match', async () => {
-    // @ts-expect-error Svelte component type workaround
     render(SymbolChooser, { symbols });
     const input = screen.getByPlaceholderText('Search symbols...');
     await fireEvent.input(input, { target: { value: 'ZZZ' } });
@@ -34,7 +31,6 @@ describe('SymbolChooser.svelte', () => {
 
   it('calls onSelect when a symbol is clicked', async () => {
     const onSelect = vi.fn();
-    // @ts-expect-error Svelte component type workaround
     render(SymbolChooser, { symbols, onSelect });
     const btn = screen.getByTestId('symbol-S10000');
     await fireEvent.click(btn);
