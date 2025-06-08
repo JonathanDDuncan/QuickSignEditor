@@ -389,6 +389,48 @@ describe('SignEditor.svelte', () => {
     expect(signData.symbols[0].id).toBe('S3');
   });
 
+  it('resizes selected symbol with Shift+Arrow keys', async () => {
+    let signData = {
+      name: 'Test',
+      symbols: [
+        { id: 'S1', x: 10, y: 20, width: 44, height: 44, selected: true },
+        { id: 'S2', x: 100, y: 200, width: 44, height: 44, selected: false }
+      ]
+    };
+    let resizeEventDetail: any = null;
+    function handleResize(e: CustomEvent<any>) {
+      resizeEventDetail = e.detail;
+      // Simulate parent updating the symbol size
+      signData = {
+        ...signData,
+        symbols: signData.symbols.map(s =>
+          s.id === e.detail.id ? { ...s, width: e.detail.width, height: e.detail.height } : s
+        )
+      };
+      rerender({ signData });
+    }
+    const { rerender, component } = render(SignEditorComponent, { signData });
+    component.$on('resize', handleResize);
+    const canvas = screen.getByLabelText('Sign canvas');
+    canvas.focus();
+    // Shift+ArrowRight (increase width)
+    await fireEvent.keyDown(canvas, { key: 'ArrowRight', shiftKey: true });
+    await tick();
+    expect(resizeEventDetail).toEqual({ id: 'S1', width: 49, height: 44 });
+    // Shift+ArrowDown (increase height)
+    await fireEvent.keyDown(canvas, { key: 'ArrowDown', shiftKey: true });
+    await tick();
+    expect(resizeEventDetail).toEqual({ id: 'S1', width: 49, height: 49 });
+    // Shift+ArrowLeft (decrease width)
+    await fireEvent.keyDown(canvas, { key: 'ArrowLeft', shiftKey: true });
+    await tick();
+    expect(resizeEventDetail).toEqual({ id: 'S1', width: 44, height: 49 });
+    // Shift+ArrowUp (decrease height)
+    await fireEvent.keyDown(canvas, { key: 'ArrowUp', shiftKey: true });
+    await tick();
+    expect(resizeEventDetail).toEqual({ id: 'S1', width: 44, height: 44 });
+  });
+
   // Add a dummy test to ensure Vitest recognizes the suite
   it('dummy test', () => {
     expect(true).toBe(true);

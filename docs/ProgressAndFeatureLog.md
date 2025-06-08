@@ -40,7 +40,8 @@ This document tracks the ongoing progress, completed features, and pending work 
 ### Phase 3: Integration & Features (Tier 3 - Full App)
 - [x] Implement drag and drop functionality
 - [x] Add canvas operation: color symbols (color picker for selected symbol)
-- [ ] Add canvas operations (resize, rotate symbols)
+- [x] Add canvas operation: resize symbols (resize handle for selected symbol)
+- [x] Add canvas operation: rotate symbols
 - [ ] Build comprehensive symbol library with search/filter
 - [ ] Create undo/redo history management
 - [ ] Implement clipboard operations (copy, paste, align)
@@ -52,6 +53,9 @@ This document tracks the ongoing progress, completed features, and pending work 
 
 ### Core Application Features
 - [ ] **Canvas Operations**: Drag, drop, resize, rotate, and color symbols
+  - [x] Color symbols on canvas (color picker for selected symbol)
+  - [x] Resize symbols on canvas (resize handle for selected symbol)
+  - [x] Keyboard resizing (Shift+Arrow keys for selected symbol)
 - [ ] **Symbol Library**: Browse, search, and filter symbol collection
 - [ ] **History Management**: Full undo/redo with state transitions
 - [ ] **Clipboard Operations**: Copy, paste, and align symbols or groups
@@ -103,6 +107,8 @@ This document tracks the ongoing progress, completed features, and pending work 
 | 2025-06-08 | Responsive design for mobile/tablet completed for all main components |
 | 2025-06-08 | Drag and drop functionality implemented in SignEditor.svelte |
 | 2025-06-08 | Symbol color picking (canvas color picker for selected symbol) implemented and tested |
+| 2025-06-08 | Symbol resizing (canvas resize handle for selected symbol) implemented and tested |
+| 2025-06-08 | Keyboard resizing (Shift+Arrow keys for selected symbol) implemented and tested |
  
 ---
 

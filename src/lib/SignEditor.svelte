@@ -197,6 +197,31 @@
     let handled = false;
     // Move with arrow keys
     let dx = 0, dy = 0;
+    // Keyboard resizing with Shift+Arrow
+    if (event.shiftKey && (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+      let dWidth = 0, dHeight = 0;
+      if (event.key === 'ArrowLeft') dWidth = -5;
+      if (event.key === 'ArrowRight') dWidth = 5;
+      if (event.key === 'ArrowUp') dHeight = -5;
+      if (event.key === 'ArrowDown') dHeight = 5;
+      // Only resize the first selected symbol
+      if (selected) {
+        const newWidth = Math.max(20, (selected.width || 44) + dWidth);
+        const newHeight = Math.max(20, (selected.height || 44) + dHeight);
+        if (signData) {
+          dispatch('resize', { id: selected.id, width: newWidth, height: newHeight });
+        } else {
+          signStore.update(sd => ({
+            ...sd,
+            symbols: sd.symbols.map(s =>
+              s.id === selected.id ? { ...s, width: newWidth, height: newHeight } : s
+            )
+          }));
+        }
+      }
+      event.preventDefault();
+      return;
+    }
     if (event.key === 'ArrowLeft') { dx = -5; handled = true; }
     if (event.key === 'ArrowRight') { dx = 5; handled = true; }
     if (event.key === 'ArrowUp') { dy = -5; handled = true; }
