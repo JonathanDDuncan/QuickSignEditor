@@ -1,28 +1,38 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { generateSymbolSVG } from './signWritingFont';
+import ssw from './utils/SuttonSignWriting';
 
-// Mock the global window object for browser environment
-Object.defineProperty(globalThis, 'window', {
-  value: {
-    ssw: {
-      pua: vi.fn(() => '󽠰'),
-      code: vi.fn(() => '󽠰'), // Add proper mock for code function
-      size: vi.fn(() => '76,76'),
-      svg: vi.fn(),
-      key: vi.fn(),
-      fsw: vi.fn(),
-      colorize: vi.fn(),
-      sizes: {}
-    }
-  },
-  writable: true
-});
+// Mock the SSW module
+vi.mock('./utils/SuttonSignWriting', () => ({
+  default: {
+    pua: vi.fn(() => '󽠰'),
+    code: vi.fn(() => '󽠰'), // Add proper mock for code function
+    size: vi.fn(() => '76,76'),
+    svg: vi.fn(),
+    symbol: vi.fn(),
+    fsw: vi.fn(),
+    colorize: vi.fn(),
+    sizes: {}
+  }
+}));
+vi.mock('./utils/SuttonSignWriting', () => ({
+  default: {
+    pua: vi.fn(() => '󽠰'),
+    code: vi.fn(() => '󽠰'), // Add proper mock for code function
+    size: vi.fn(() => '76,76'),
+    svg: vi.fn(),
+    symbol: vi.fn(),
+    fsw: vi.fn(),
+    colorize: vi.fn(),
+    sizes: {}
+  }
+}));
 
 describe('SignWriting Dual-Font System', () => {
   beforeEach(() => {
     // Reset mocks and set up default dual-font SVG return value
     vi.clearAllMocks();
-    (window.ssw.svg as any).mockReturnValue(`
+    (ssw.svg as any).mockReturnValue(`
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
         <text style="font-size:0%;">S10000</text>
         <g transform="translate(15,15)">

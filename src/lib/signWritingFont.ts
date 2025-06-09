@@ -1,8 +1,6 @@
-// SignWriting font utilities using the existing SuttonSignWriting.js library
-// Note: The ssw object will be available globally after loading SuttonSignWriting.js
-
+// SignWriting font utilities using the SuttonSignWriting.ts library
+import ssw from './utils/SuttonSignWriting';
 import type { SignWritingSymbol, SignWritingSign, SignWritingOptions } from '../types/signwriting';
-import '../types/signwriting'; // Import global type declarations
 
 // Re-export types for convenience
 export type { SignWritingSymbol, SignWritingSign, SignWritingOptions } from '../types/signwriting';
@@ -16,76 +14,30 @@ export interface SignWritingSymbolOptions {
 }
 
 /**
- * Check if SuttonSignWriting.js library is loaded
- */
-function isSswLoaded(): boolean {
-  return typeof window !== 'undefined' && 
-         typeof window.ssw !== 'undefined' && 
-         typeof window.ssw.svg === 'function';
-}
-
-/**
- * Load the SuttonSignWriting.js library dynamically if not already loaded
- */
-async function loadSswLibrary(): Promise<void> {
-  if (isSswLoaded()) {
-    return Promise.resolve();
-  }
-
-  // Wait for library to be available (it should load from index.html)
-  return new Promise((resolve, reject) => {
-    const maxAttempts = 50; // 5 seconds max
-    let attempts = 0;
-    
-    const checkLibrary = () => {
-      attempts++;
-      console.log(`Checking for SSW library... attempt ${attempts}`);
-      
-      if (isSswLoaded()) {
-        console.log('SSW library found!');
-        resolve();
-      } else if (attempts >= maxAttempts) {
-        console.error('SSW library not found after max attempts');
-        reject(new Error('SuttonSignWriting library not available'));
-      } else {
-        setTimeout(checkLibrary, 100);
-      }
-    };
-    
-    checkLibrary();
-  });
-}
-
-/**
  * SignWriting Symbol Rendering System
  * 
  * This module provides functions to render SignWriting symbols using the
- * official SuttonSignWriting.js library. The ssw.svg() function generates
+ * official SuttonSignWriting.ts library. The ssw.svg() function generates
  * properly formatted SVG elements that display SignWriting symbols correctly.
  */
 
 /**
- * Generate SVG for a SignWriting symbol using the simple ssw.svg() approach
- * This uses the official SSW library function that works reliably
+ * Generate SVG for a SignWriting symbol using the ssw.svg() approach
  */
-export async function generateSymbolSVG(symbol: SignWritingSymbol, options: {
+export function generateSymbolSVG(symbol: SignWritingSymbol, options: {
   scale?: number;
   size?: number;
   line?: string;
   fill?: string;
-} = {}): Promise<string> {
+} = {}): string {
   try {
-    // Ensure the library is loaded
-    await loadSswLibrary();
-    
     const symbolKey = symbol.key || '';
     
     if (!symbolKey) {
       throw new Error('No symbol key provided');
     }
-    
-    // Use the official ssw.svg() function directly - this works reliably
-    const svg = window.ssw.svg(symbolKey);
+      // Use the official ssw.svg() function directly with options
+    const svg = ssw.svg(symbolKey, options);
     
     if (!svg || !svg.includes('<svg')) {
       throw new Error('Failed to generate SVG from symbol key');
@@ -100,118 +52,49 @@ export async function generateSymbolSVG(symbol: SignWritingSymbol, options: {
     const size = options.size || symbol.size || 40;
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
-      <text x="50%" y="50%" text-anchor="middle" font-size="${size * 0.3}" fill="#666">?</text>
+      <text x="${size/2}" y="${size/2 + 4}" text-anchor="middle" font-size="12" fill="#666">?</text>
     </svg>`;
   }
 }
 
 /**
- * Generate PNG data URL for a SignWriting symbol
- * Note: This converts SVG to PNG using canvas
+ * Calculate the size of a SignWriting symbol
  */
-export async function generateSymbolPNG(symbol: SignWritingSymbol, options: {
-  scale?: number;
-  size?: number;
-  line?: string;
-  fill?: string;
-} = {}): Promise<string> {
+export function calculateSymbolSize(symbolKey: string): { width: number; height: number } {
   try {
-    // For now, we'll convert SVG to canvas and then to PNG
-    const svg = await generateSymbolSVG(symbol, options);
+    if (!symbolKey) {
+      return { width: 40, height: 40 };
+    }
     
-    // Create a canvas and draw the SVG
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const size = options.size || symbol.size || 40;
+    // Use ssw.size() if available
+    if (typeof ssw.size === 'function') {
+      const size = ssw.size(symbolKey);
+      console.log('Symbol size for', symbolKey, ':', size);
+      return size || { width: 40, height: 40 };
+    }
     
-    canvas.width = size;
-    canvas.height = size;
-    
-    // Create an image from the SVG
-    const img = new Image();
-    const svgBlob = new Blob([svg], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(svgBlob);
-    
-    return new Promise((resolve, reject) => {
-      img.onload = () => {
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, size, size);
-          const pngDataUrl = canvas.toDataURL('image/png');
-          URL.revokeObjectURL(url);
-          resolve(pngDataUrl);
-        } else {
-          reject(new Error('Canvas context not available'));
-        }
-      };
-      img.onerror = () => {
-        URL.revokeObjectURL(url);
-        reject(new Error('Failed to load SVG image'));
-      };
-      img.src = url;
-    });
+    return { width: 40, height: 40 };
   } catch (error) {
-    console.warn('Failed to generate PNG for symbol:', symbol.key, String(error));
-    return 'data:image/png;base64,';
+    console.warn('Failed to calculate symbol size:', symbolKey, String(error));
+    return { width: 40, height: 40 };
   }
 }
 
 /**
- * Load SignWriting fonts using the SuttonSignWriting.css
+ * Generate SVG for a FSW (Formal SignWriting) string
  */
-export async function loadSignWritingFonts(): Promise<void> {
-  // Load the library first
-  await loadSswLibrary();
-  
-  // The fonts should be loaded via the CSS file that's already included
-  // Check if fonts are available by testing if we can get symbol sizes
-  return new Promise((resolve, reject) => {
-    const checkFonts = () => {
-      try {
-        // Test with a known symbol
-        const testSymbol = 'S10000';
-        const size = window.ssw.size(testSymbol);
-        if (size && size !== '') {
-          resolve();
-        } else {
-          // Retry after a short delay
-          setTimeout(checkFonts, 100);
-        }
-      } catch (error) {
-        // Retry after a short delay
-        setTimeout(checkFonts, 100);
-      }
-    };
-    
-    // Start checking after a brief delay to allow fonts to load
-    setTimeout(checkFonts, 100);
-    
-    // Timeout after 5 seconds
-    setTimeout(() => {
-      reject(new Error('SignWriting fonts failed to load within 5 seconds'));
-    }, 5000);
-  });
-}
-
-/**
- * Generate SVG for a complete FSW (Formal SignWriting) string
- * Uses the official ssw.svg() function which works correctly with the SSW library
- */
-export async function generateFSWSVG(fsw: string, options: {
+export function generateFSWSVG(fsw: string, options: {
   scale?: number;
   size?: number;
   line?: string;
   fill?: string;
-} = {}): Promise<string> {
+} = {}): string {
   try {
-    // Ensure the library is loaded
-    await loadSswLibrary();
-    
     if (!fsw || typeof fsw !== 'string') {
       throw new Error('No FSW string provided');
     }
-    
-    // Use the official ssw.svg() function directly - this works in all the test files
-    const svg = window.ssw.svg(fsw);
+      // Use the official ssw.svg() function directly with options
+    const svg = ssw.svg(fsw, options);
     
     if (!svg || !svg.includes('<svg')) {
       throw new Error('Failed to generate SVG from FSW');
@@ -228,7 +111,7 @@ export async function generateFSWSVG(fsw: string, options: {
 }
 
 /**
- * Synchronous version of generateFSWSVG for cases where the SSW library is already loaded
+ * Synchronous version of generateFSWSVG 
  * This is more efficient for components that render many symbols
  */
 export function generateFSWSVGSync(fsw: string, options: {
@@ -240,23 +123,17 @@ export function generateFSWSVGSync(fsw: string, options: {
   try {
     console.log('generateFSWSVGSync called with FSW:', fsw, 'options:', options);
     
-    if (!isSswLoaded()) {
-      console.error('SSW library not loaded - window.ssw is:', typeof window !== 'undefined' ? typeof window.ssw : 'window undefined');
-      throw new Error('SSW library not loaded - use async version');
-    }
-    
     if (!fsw || typeof fsw !== 'string') {
       console.error('No FSW string provided:', fsw);
       throw new Error('No FSW string provided');
     }
+      // Use the official ssw.svg() function directly with options
+    console.log('Calling ssw.svg with FSW:', fsw);
+    console.log('ssw.svg function available:', typeof ssw.svg === 'function');
     
-    // Use the official ssw.svg() function directly - this works in all the test files
-    console.log('Calling window.ssw.svg with FSW:', fsw);
-    console.log('window.ssw.svg function available:', typeof window.ssw.svg === 'function');
+    const svg = ssw.svg(fsw, options);
     
-    const svg = window.ssw.svg(fsw);
-    
-    console.log('window.ssw.svg returned:', typeof svg, 'length:', svg?.length);
+    console.log('ssw.svg returned:', typeof svg, 'length:', svg?.length);
     
     if (!svg || !svg.includes('<svg')) {
       console.error('Failed to generate SVG from FSW:', fsw, 'result:', svg);
@@ -276,5 +153,152 @@ export function generateFSWSVGSync(fsw: string, options: {
       <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
       <text x="20" y="24" text-anchor="middle" font-size="12" fill="#666">?</text>
     </svg>`;
+  }
+}
+
+/**
+ * Generate SVG for a sign (collection of symbols with positions)
+ */
+export function generateSignSVG(sign: SignWritingSign, options: SignWritingOptions = {}): string {
+  try {
+    if (!sign || !sign.symbols || sign.symbols.length === 0) {
+      throw new Error('No sign data provided');
+    }
+    
+    // Convert sign to FSW format if needed
+    let fsw = '';
+    if (typeof sign === 'string') {
+      fsw = sign;
+    } else {
+      // Build FSW string from symbols      // Generate FSW string from symbols (simplified version)
+      fsw = sign.symbols.map(sym => sym.key).join('');
+    }
+    
+    return generateFSWSVG(fsw, options);
+    
+  } catch (error) {
+    console.warn('Failed to generate sign SVG:', String(error));
+    return `<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
+      <text x="50" y="54" text-anchor="middle" font-size="12" fill="#666">Sign Error</text>
+    </svg>`;
+  }
+}
+
+/**
+ * Generate SVG with styling options
+ */
+export function generateStyledSVG(input: string, style: string = ''): string {
+  try {
+    if (!input) {
+      throw new Error('No input provided');
+    }
+    
+    // Apply style if provided
+    const styleOptions = parseStyleString(style);
+    const svg = ssw.svg(input, styleOptions);
+    
+    if (!svg || !svg.includes('<svg')) {
+      throw new Error('Failed to generate styled SVG');
+    }
+    
+    return svg;
+    
+  } catch (error) {
+    console.warn('Failed to generate styled SVG:', String(error));
+    return generateFSWSVG(input);
+  }
+}
+
+/**
+ * Parse style string into options object
+ */
+function parseStyleString(style: string): any {
+  const options: any = {};
+  
+  if (!style) return options;
+  
+  // Parse common style options
+  if (style.includes('fill:')) {
+    const fillMatch = style.match(/fill:\s*([^;]+)/);
+    if (fillMatch) options.fill = fillMatch[1].trim();
+  }
+  
+  if (style.includes('stroke:')) {
+    const strokeMatch = style.match(/stroke:\s*([^;]+)/);
+    if (strokeMatch) options.line = strokeMatch[1].trim();
+  }
+  
+  return options;
+}
+
+/**
+ * Get symbol information
+ */
+export function getSymbolInfo(symbolKey: string): any {
+  try {
+    if (!symbolKey) return null;
+    
+    const info: any = { key: symbolKey };
+    
+    // Get size if available
+    if (typeof ssw.size === 'function') {
+      info.size = ssw.size(symbolKey);
+    }
+      // Get symbol information using available functions
+    if (typeof ssw.symbol === 'function') {
+      const symbol = ssw.symbol(symbolKey, false);
+      if (symbol) info.symbol = symbol;
+    }
+    
+    return info;
+    
+  } catch (error) {
+    console.warn('Failed to get symbol info:', symbolKey, String(error));
+    return { key: symbolKey, error: String(error) };
+  }
+}
+
+/**
+ * Utility function to check if a string is a valid FSW
+ */
+export function isValidFSW(input: string): boolean {
+  try {
+    if (!input || typeof input !== 'string') return false;
+    
+    // Use ssw.re.fsw.sign regex if available
+    if (ssw.re && ssw.re.fsw && ssw.re.fsw.sign) {
+      const regex = new RegExp(ssw.re.fsw.sign);
+      return regex.test(input);
+    }
+    
+    // Basic FSW pattern check
+    return /^[AM]?S[0-9a-fA-F]+/.test(input);
+    
+  } catch (error) {
+    console.warn('Failed to validate FSW:', input, String(error));
+    return false;
+  }
+}
+
+/**
+ * Utility function to check if a string is a valid symbol key
+ */
+export function isValidSymbolKey(input: string): boolean {
+  try {
+    if (!input || typeof input !== 'string') return false;
+    
+    // Use ssw.re.fsw.symbol regex if available
+    if (ssw.re && ssw.re.fsw && ssw.re.fsw.symbol) {
+      const regex = new RegExp(ssw.re.fsw.symbol);
+      return regex.test(input);
+    }
+    
+    // Basic symbol key pattern check
+    return /^S[0-9a-fA-F]{5}$/.test(input);
+    
+  } catch (error) {
+    console.warn('Failed to validate symbol key:', input, String(error));
+    return false;
   }
 }

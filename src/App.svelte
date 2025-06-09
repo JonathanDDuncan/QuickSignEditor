@@ -3,6 +3,7 @@
   import MainLayout from './lib/layout/MainLayout.svelte';
   import { signStore, signModel, loadManiquinData } from './lib/signStore';
   import { onMount } from 'svelte';
+  import ssw from './lib/utils/SuttonSignWriting';
 
   // Layout state
   let showAboutDialog = false;
@@ -47,20 +48,14 @@
     else if (action === 'redo') signStore.redo();
     else alert(`Toolbar action: ${action}`);
   }
-  // SignWriting font toggle removed - dual-font rendering is always used
-  // Test function using the official SSW library (now working!)
+  // SignWriting font toggle removed - dual-font rendering is always used  // Test function using the official SSW library (now working!)
   async function testOfficialSSW() {
     try {
-      if (!window.ssw) {
-        alert('SSW library not loaded!');
-        return;
-      }
-
       // Test FSW string from our successful test
       const testFSW = "AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520";
       
       // Generate SVG using official library
-      const svg = window.ssw.svg(testFSW);
+      const svg = ssw.svg(testFSW, {});
       
       // Display it in the demo area
       const demoOutput = document.getElementById('fsw-demo-output');
@@ -83,14 +78,8 @@
       alert('Official SSW test failed: ' + String(error));
     }
   }
-
   // Test additional FSW strings
   async function testMultipleFSWStrings() {
-    if (!window.ssw) {
-      alert('SSW library not loaded!');
-      return;
-    }
-
     const testStrings = [
       "AS20310S26b02S33100M521x547S33100482x483S20310506x500S26b02503x520",
       "M518x533S1870a489x515S18701482x490S20500508x496S2e734500x468",
@@ -101,7 +90,7 @@
     console.log('Testing multiple FSW strings...');
     testStrings.forEach((fsw, index) => {
       try {
-        const svg = window.ssw.svg(fsw);
+        const svg = ssw.svg(fsw, {});
         const hasDualFont = svg.includes('sym-fill') && svg.includes('sym-line');
         console.log(`Test ${index + 1}: ${fsw}`);
         console.log(`  - SVG length: ${svg.length} chars`);
@@ -113,13 +102,8 @@
     });
   }  async function testDualFontRendering() {
     try {
-      if (!window.ssw) {
-        alert('SSW library not loaded!');
-        return;
-      }
-      
       const testSymbol = 'S10000';
-      const svg = window.ssw.svg(testSymbol);
+      const svg = ssw.svg(testSymbol, {});
       
       console.log('Test SVG generated:', svg);
       
@@ -147,7 +131,7 @@
       
       document.body.appendChild(testDiv);
       
-      return svg;    } catch (error) {
+      return svg;} catch (error) {
       console.error('Test failed:', error);
       alert('Test failed: ' + String(error));
     }
@@ -190,38 +174,24 @@
       setTimeout(() => {
         console.log('After reload - symbols:', $signModel.maniquinchoosings?.length || 0);
       }, 100);
-    };
-
-    // Wait for SSW library to load and test
-    console.log('Checking for SSW library...');
-    const checkSSW = () => {
-      if (window.ssw) {
-        console.log('SSW library loaded successfully');
-        console.log('Testing SSW functions:');
-        console.log('- ssw.svg function available:', typeof window.ssw.svg === 'function');
-        console.log('- ssw.size function available:', typeof window.ssw.size === 'function');
-        console.log('- ssw.key function available:', typeof window.ssw.key === 'function');
-        
-        // Test basic functionality
-        try {
-          const testSize = window.ssw.size('S10000');
-          console.log('- Test size for S10000:', testSize);
-          
-          const testSVG = window.ssw.svg('S10000');
-          console.log('- Test SVG generation successful, length:', testSVG.length);
-          console.log('- Contains dual-font classes:', testSVG.includes('sym-fill') && testSVG.includes('sym-line'));
-        } catch (error) {
-          console.warn('SSW function test failed:', error);
-        }
-      } else {
-        console.log('SSW library not yet loaded, retrying...');
-        setTimeout(checkSSW, 100);
-      }
-    };
+    };    // Wait for SSW library to load and test
+    console.log('SSW library is now imported directly');
+    console.log('Testing SSW functions:');
+    console.log('- ssw.svg function available:', typeof ssw.svg === 'function');
+    console.log('- ssw.size function available:', typeof ssw.size === 'function');
+    console.log('- ssw.symbol function available:', typeof ssw.symbol === 'function');
     
-    // Start checking after a brief delay
-    setTimeout(checkSSW, 100);
-    
+    // Test basic functionality
+    try {
+      const testSize = ssw.size('S10000');
+      console.log('- Test size for S10000:', testSize);
+      
+      const testSVG = ssw.svg('S10000', {});
+      console.log('- Test SVG generation successful, length:', testSVG.length);
+      console.log('- Contains dual-font classes:', testSVG.includes('sym-fill') && testSVG.includes('sym-line'));
+    } catch (error) {
+      console.warn('SSW function test failed:', error);
+    }
     return () => unsubscribe();
   });// Example symbol for demo (uses proper SignWriting symbol key)
   const demoSymbol = {

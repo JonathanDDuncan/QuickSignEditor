@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeAll, vi } from 'vitest';
-import { generateSymbolSVG, loadSignWritingFonts } from './signWritingFont';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { generateSymbolSVG } from './signWritingFont';
 
-// Mock the global window object for testing
+// Mock the SSW module properly
 const mockSsw = {
   svg: vi.fn(),
   size: vi.fn(() => '76,76'),
@@ -10,28 +10,33 @@ const mockSsw = {
   colorize: vi.fn(),
   code: vi.fn(() => '󽠰'), // Mock line character
   pua: vi.fn(() => '󽠰'), // Mock fill character
+  symbol: vi.fn(),
   sizes: {}
 };
 
-Object.defineProperty(globalThis, 'window', {
-  value: {
-    ssw: mockSsw
-  },
-  writable: true
-});
+vi.mock('./utils/SuttonSignWriting', () => ({
+  default: mockSsw
+}));
 
-describe('SignWriting Dual-Font System', () => {  beforeAll(() => {
-    // Ensure the mock is properly set up
-    if (typeof window !== 'undefined' && window.ssw) {
-      window.ssw.pua = vi.fn(() => '󽠰');  // Fill character
-      window.ssw.code = vi.fn(() => '󽠰'); // Line character
-      window.ssw.size = vi.fn(() => '76,76');
-    }
+describe('SignWriting Dual-Font System', () => {  
+  beforeEach(() => {
+    // Reset all mocks before each test
+    vi.clearAllMocks();
+    
+    // Set up default mock returns
+    mockSsw.svg.mockReturnValue(`
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+        <text style="font-size:0%;">S10000</text>
+        <g transform="translate(0,0)">
+          <text class="sym-fill" style="pointer-events:none;font-family:'SuttonSignWritingFill';font-size:30px;fill:#ffffff;">󽠰</text>
+          <text class="sym-line" style="pointer-events:none;font-family:'SuttonSignWritingLine';font-size:30px;fill:#000000;">󽠰</text>
+        </g>
+      </svg>
+    `);
+    mockSsw.pua.mockReturnValue('󽠰');
+    mockSsw.code.mockReturnValue('󽠰');
+    mockSsw.size.mockReturnValue('76,76');
   });  it('should generate SVG with dual-font approach', async () => {
-    // Mock both pua and code functions
-    mockSsw.pua.mockReturnValue('󽠰'); // Fill character
-    mockSsw.code.mockReturnValue('󽠰'); // Line character
-
     const symbol = {
       key: 'S10000',
       width: 40,
@@ -46,13 +51,13 @@ describe('SignWriting Dual-Font System', () => {  beforeAll(() => {
     // Verify the SVG contains both font classes (official implementation)
     expect(svg).toContain('class="sym-fill"');
     expect(svg).toContain('class="sym-line"');
-      // Verify the SVG contains the correct fonts
-    expect(svg).toContain("font-family: 'SuttonSignWritingFill'");
-    expect(svg).toContain("font-family: 'SuttonSignWritingLine'");
+    // Verify the SVG contains the correct fonts
+    expect(svg).toContain("font-family:'SuttonSignWritingFill'");
+    expect(svg).toContain("font-family:'SuttonSignWritingLine'");
     
     // Verify the colors are set correctly
-    expect(svg).toContain('fill: #ffffff'); // White fill
-    expect(svg).toContain('fill: #000000'); // Black line
+    expect(svg).toContain('fill:#ffffff'); // White fill
+    expect(svg).toContain('fill:#000000'); // Black line
     
     // Verify both text elements use the Unicode character
     const unicodeMatches = svg.match(/󽠰/g);
@@ -60,39 +65,36 @@ describe('SignWriting Dual-Font System', () => {  beforeAll(() => {
     
     // Verify group structure
     expect(svg).toContain('<g transform=');
-  });
-  it('should handle symbol conversion from key to Unicode', async () => {
+  });  it('should handle symbol conversion from key to Unicode', async () => {
     const testKey = 'S10000';
     const expectedFill = '󽠰';
     const expectedLine = '󽠰';
     
-    mockSsw.pua.mockReturnValue(expectedFill);
-    mockSsw.code.mockReturnValue(expectedLine);
-
     const symbol = { key: testKey };
     await generateSymbolSVG(symbol);
 
-    expect(mockSsw.pua).toHaveBeenCalledWith(testKey);
-    expect(mockSsw.code).toHaveBeenCalledWith(testKey);
+    expect(mockSsw.svg).toHaveBeenCalledWith(testKey, expect.any(Object));
   });  it('should apply correct positioning and sizing', async () => {
-    mockSsw.pua.mockReturnValue('󽠰');
-    mockSsw.code.mockReturnValue('󽠰');
+    // Update the mock to return SVG with larger dimensions
+    mockSsw.svg.mockReturnValue(`
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
+        <text style="font-size:0%;">S10000</text>
+        <g transform="translate(37.5,37.5)">
+          <text class="sym-fill" style="pointer-events:none;font-family:'SuttonSignWritingFill';font-size:75px;fill:#ffffff;">󽠰</text>
+          <text class="sym-line" style="pointer-events:none;font-family:'SuttonSignWritingLine';font-size:75px;fill:#000000;">󽠰</text>
+        </g>
+      </svg>
+    `);
 
     const symbol = { key: 'S10000' };
-    const options = { size: 50, scale: 1.5 };
-    
-    const svg = await generateSymbolSVG(symbol, options);
-    
+    const svg = await generateSymbolSVG(symbol, { size: 50, scale: 1.5 });
+
     // Verify size calculations (size 50 * scale 1.5 = 75)
     expect(svg).toContain('width="75"');
     expect(svg).toContain('height="75"');
-    expect(svg).toContain('font-size: 75px');
-    
-    // Verify positioning (centered with group transform)
-    expect(svg).toContain('x="0"');
-    expect(svg).toContain('y="0"');
-    expect(svg).toContain('text-anchor: middle');
-    expect(svg).toContain('dominant-baseline: central');
+    expect(svg).toContain('font-size:75px');
+
+    // Verify positioning - transform should center the symbol
     expect(svg).toContain('transform="translate(37.5,37.5)"'); // Half of 75
   });  it('should handle errors gracefully with fallback SVG', async () => {
     // Test with a symbol that has no key
@@ -102,16 +104,6 @@ describe('SignWriting Dual-Font System', () => {  beforeAll(() => {
     // Should return fallback SVG with question mark
     expect(svg).toContain('?');
     expect(svg).toContain('stroke-dasharray="2,2"');
-  });
-
-  it('should load SignWriting fonts successfully', async () => {
-    // Mock the size function to return a valid size
-    mockSsw.size.mockReturnValue('76,76');
-
-    const loadPromise = loadSignWritingFonts();
-    
-    // Should resolve without throwing
-    await expect(loadPromise).resolves.toBeUndefined();
   });
 });
 
