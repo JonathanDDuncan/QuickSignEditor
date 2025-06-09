@@ -8,17 +8,19 @@
   export let percentage: number;
   export let marginLeftPercentage: number;
   export let showKeyboard = false;
-
   // Sign editor state (will be connected to stores later)
-  let signData = {};
+  let signData = {
+    name: 'New Sign',
+    symbols: []
+  };
   
   // Editor toolbar actions
-  function handleToolbarAction(event) {
+  function handleToolbarAction(event: CustomEvent) {
     console.log('Toolbar action:', event.detail);
   }
   
   // Keyboard input handler
-  function handleKeyboardInput(event) {
+  function handleKeyboardInput(event: CustomEvent) {
     console.log('Keyboard input:', event.detail);
   }
 </script>

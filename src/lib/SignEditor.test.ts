@@ -18,10 +18,9 @@ describe('SignEditor.svelte', () => {
     render(SignEditorComponent, { signData: { name: '', symbols: [] } });
     expect(screen.getByText('Name required')).toBeInTheDocument();
   });
-
   it('renders canvas placeholder', async () => {
     render(SignEditorComponent, { signData: { name: 'Test', symbols: [] } });
-    expect(screen.getByLabelText('Sign canvas')).toBeInTheDocument();
+    expect(screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select')).toBeInTheDocument();
     expect(screen.getByText('SignEditor canvas coming soon...')).toBeInTheDocument();
   });
 
@@ -103,7 +102,7 @@ describe('SignEditor.svelte', () => {
     // Add a symbol to the store
     // This assumes signStore is set up for testing; otherwise, mock or skip
     // For now, just check that the component renders without crashing
-    expect(screen.getByLabelText('Sign canvas')).toBeInTheDocument();
+    expect(screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select')).toBeInTheDocument();
   });
 
   it('shows error for invalid sign data (missing symbols)', async () => {
@@ -190,7 +189,6 @@ describe('SignEditor.svelte', () => {
     expect(colorEventDetail).not.toBeNull();
     expect(colorEventDetail).toEqual({ id: 'S10000', color: '#00ff00' });
   });
-
   it('moves selected symbol with arrow keys', async () => {
     let signData = {
       name: 'Test',
@@ -210,7 +208,7 @@ describe('SignEditor.svelte', () => {
     }
     const { rerender, component, container } = render(SignEditorComponent, { signData });
     component.$on('move', handleMove);
-    const canvas = screen.getByLabelText('Sign canvas');
+    const canvas = screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select');
     canvas.focus();
     await fireEvent.keyDown(canvas, { key: 'ArrowRight' });
     await tick();
@@ -236,8 +234,7 @@ describe('SignEditor.svelte', () => {
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
-    component.$on('delete', handleDelete);
-    const canvas = screen.getByLabelText('Sign canvas');
+    component.$on('delete', handleDelete);    const canvas = screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select');
     canvas.focus();
     await fireEvent.keyDown(canvas, { key: 'Delete' });
     await tick();
@@ -275,8 +272,7 @@ describe('SignEditor.svelte', () => {
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
-    component.$on('select', handleSelect);
-    const canvas = screen.getByLabelText('Sign canvas');
+    component.$on('select', handleSelect);    const canvas = screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select');
     canvas.focus();
     selectEventHandled = false;
     await fireEvent.keyDown(canvas, { key: 'Tab' });
@@ -351,8 +347,7 @@ describe('SignEditor.svelte', () => {
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
-    component.$on('move', handleMove);
-    const canvas = screen.getByLabelText('Sign canvas');
+    component.$on('move', handleMove);    const canvas = screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select');
     canvas.focus();
     await fireEvent.keyDown(canvas, { key: 'ArrowLeft' });
     await tick();
@@ -378,8 +373,7 @@ describe('SignEditor.svelte', () => {
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
-    component.$on('delete', handleDelete);
-    const canvas = screen.getByLabelText('Sign canvas');
+    component.$on('delete', handleDelete);    const canvas = screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select');
     canvas.focus();
     // Simulate two delete events (one per selected symbol)
     await fireEvent.keyDown(canvas, { key: 'Delete' });
@@ -410,8 +404,7 @@ describe('SignEditor.svelte', () => {
       rerender({ signData });
     }
     const { rerender, component } = render(SignEditorComponent, { signData });
-    component.$on('resize', handleResize);
-    const canvas = screen.getByLabelText('Sign canvas');
+    component.$on('resize', handleResize);    const canvas = screen.getByLabelText('Sign canvas - use arrow keys to navigate, Enter to select');
     canvas.focus();
     // Shift+ArrowRight (increase width)
     await fireEvent.keyDown(canvas, { key: 'ArrowRight', shiftKey: true });

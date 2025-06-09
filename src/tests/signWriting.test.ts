@@ -1,25 +1,5 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest';
-
-// Mock the global SSW library
-declare global {
-  interface Window {
-    ssw: {
-      svg: (text: string, options?: any) => string;
-      size: (text: string) => string;
-      key: (text: string, style?: boolean) => string;
-      fsw: (text: string, style?: boolean) => string;
-      colorize: (key: string) => string;
-      code: (text: string, hexval?: boolean) => string;
-      pua: (text: string, hexval?: boolean) => string;
-      uni: (text: string, type?: string) => string;
-      bbox: (text: string) => string;
-      symbol: (text: string) => string;
-      parse: (text: string) => any;
-      sign: (text: string, style?: boolean) => string;
-      chars: (text: string) => string;
-    };
-  }
-}
+import '../types/signwriting'; // Import global type declarations
 
 // Mock SSW library functions
 const mockSSW = {

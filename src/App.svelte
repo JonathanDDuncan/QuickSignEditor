@@ -242,19 +242,12 @@
 
 <!-- Use MainLayout for proper layout hierarchy -->
 <MainLayout
-  {signData}
   {showAboutDialog}
   {showDrawer}
   {showKeyboard}
   on:toggleAbout={() => showAboutDialog = !showAboutDialog}
   on:toggleDrawer={() => showDrawer = !showDrawer}
   on:toggleKeyboard={() => showKeyboard = !showKeyboard}
-  on:toolbarAction={e => handleToolbarAction(e.detail)}
-  on:symbolSelect={e => handleSymbolSelect(e.detail)}
-  on:symbolSelection={handleSymbolSelection}
-  {chooserModel}
-  {maniquinModel}
-  {symbols}
 />
 
 <!-- Development/Testing Section - Can be removed in production -->

@@ -7,9 +7,8 @@
   // Props from MainLayout
   export let containerHeight: number;
   export let windowWidth: number;
-  export let isWidescreen: boolean;
-  export let isMediumscreen: boolean;
-  export let isSmallscreen: boolean;
+  export let isWidescreen: boolean;  export let isMediumscreen: boolean;
+  export let isSmallscreen: boolean; // Passed but not used yet - reserved for future mobile features
 
   // Layout percentages (from Layout.State.elm)
   $: leftspacePercentage = isWidescreen ? 20 : 0;
@@ -54,10 +53,8 @@
       {windowWidth}
       percentage={rightspacePercentage}
       marginLeftPercentage={rightspaceMarginLeft}
-    />
-    <Drawer 
-      {containerHeight}
-      showing={drawerShowing}
+    />    <Drawer 
+      isOpen={drawerShowing}
       on:toggle={() => drawerShowing = !drawerShowing}
     >
       <LeftSpace 
@@ -73,10 +70,8 @@
       {containerHeight}
       percentage={centerspacePercentage}
       marginLeftPercentage={centerspaceMarginLeft}
-    />
-    <Drawer 
-      {containerHeight}
-      showing={drawerShowing}
+    />    <Drawer 
+      isOpen={drawerShowing}
       on:toggle={() => drawerShowing = !drawerShowing}
     >
       <div class="drawer-content">

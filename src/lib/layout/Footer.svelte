@@ -8,15 +8,12 @@
   export let height: number = 200;
   
   const dispatch = createEventDispatcher();
-  
-  function handleKeyPress(event) {
+    function handleKeyPress(event: CustomEvent) {
     dispatch('keypress', event.detail);
   }
-  
-  function handleToggleKeyboard() {
+    function handleToggleKeyboard() {
     dispatch('keyboardToggle');
   }
-</script>
 </script>
 
 {#if isVisible}
@@ -36,14 +33,7 @@
       <div class="keyboard-container">
         <VirtualKeyboard 
           layout="signwriting"
-          on:keypress={handleKeyPress}
-        />
-      </div>
-    {/if}
-  </footer>
-{/if}
-          </ul>
-        </div>
+          on:keypress={handleKeyPress}        />
       </div>
     {/if}
   </footer>
@@ -106,13 +96,11 @@
     .footer-header {
       padding: 6px 12px;
     }
-    
-    .keyboard-container {
+      .keyboard-container {
       padding: 6px;
       max-height: 250px;
     }
   }
-</style>
   
   .keyboard-row {
     display: flex;

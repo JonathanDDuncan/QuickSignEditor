@@ -9,8 +9,19 @@
 </script>
 
 <!-- Modal Overlay -->
-<div class="modal-overlay" on:click={handleClose}>
-  <div class="about-dialog" on:click|stopPropagation>
+<div 
+  class="modal-overlay" 
+  role="dialog" 
+  aria-modal="true"
+  on:click={handleClose}
+  on:keydown={(e) => e.key === 'Escape' && handleClose()}
+>
+  <div 
+    class="about-dialog" 
+    role="document"
+    on:click|stopPropagation
+    on:keydown={(e) => e.key === 'Escape' && handleClose()}
+  >
     <div class="dialog-header">
       <h2>About QuickSignEditor</h2>
       <button type="button" class="close-button" on:click={handleClose}>×</button>

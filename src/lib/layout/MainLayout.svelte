@@ -30,12 +30,11 @@
     windowWidth = window.innerWidth;
     windowHeight = window.innerHeight;
   }
-
   onMount(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  });  });
+  });
 
   // Layout state handlers
   function handleAboutClose() {
@@ -67,14 +66,12 @@
   {/if}
 
   <!-- Main Content Area -->
-  <div class="main-content">
-    <ScreenLayout 
+  <div class="main-content">    <ScreenLayout 
       {containerHeight}
       {windowWidth}
       {isWidescreen}
       {isMediumscreen}
       {isSmallscreen}
-      {showDrawer}
     />
   </div>
 

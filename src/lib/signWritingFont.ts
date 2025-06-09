@@ -1,24 +1,13 @@
 // SignWriting font utilities using the existing SuttonSignWriting.js library
 // Note: The ssw object will be available globally after loading SuttonSignWriting.js
 
-// Declare the global ssw object from SuttonSignWriting.js
-declare global {
-  interface Window {
-    ssw: {
-      svg: (text: string, options?: any) => string;
-      size: (text: string) => string;
-      key: (text: string, style?: boolean) => string;
-      fsw: (text: string, style?: boolean) => string;
-      colorize: (key: string) => string;
-      code: (text: string, hexval?: boolean) => string;
-      pua: (text: string, hexval?: boolean) => string;
-    };
-  }
-}
+import type { SignWritingSymbol, SignWritingSign, SignWritingOptions } from '../types/signwriting';
+import '../types/signwriting'; // Import global type declarations
 
-export interface SignWritingSymbol {
-  key: string;
-  unicodepua?: string;
+// Re-export types for convenience
+export type { SignWritingSymbol, SignWritingSign, SignWritingOptions } from '../types/signwriting';
+
+export interface SignWritingSymbolOptions {
   width?: number;
   height?: number;
   size?: number;

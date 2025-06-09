@@ -4,11 +4,16 @@
   import { validateSignData } from './utils/validation';
   import transformSymbols from './utils/transform';
   import type { SignData, Symbol } from './utils/types';
-  import type { EditorMode, EditorState, SelectionArea } from './types/editorTypes';
-  import SelectionToolbar from './components/SelectionToolbar.svelte';
-  import RectangleSelect, { isRectangleIntersect, getSelectionBounds as getRectangleBounds } from './components/RectangleSelect.svelte';
-  import CircleSelect, { isRectangleInCircle, getSelectionBounds as getCircleBounds } from './components/CircleSelect.svelte';
+  import type { EditorMode, EditorState, SelectionArea } from './types/editorTypes';  import SelectionToolbar from './components/SelectionToolbar.svelte';
+  import RectangleSelect from './components/RectangleSelect.svelte';
+  import CircleSelect from './components/CircleSelect.svelte';
   import HandCursor from './components/HandCursor.svelte';
+  import { 
+    isRectangleIntersect, 
+    isRectangleInCircle, 
+    getSelectionBounds as getRectangleBounds,
+    getCircleBounds 
+  } from './utils/selectionUtils';
   export let signData: SignData | undefined;
   export let showSelectionTools = true;
   
@@ -103,8 +108,7 @@
           width: Number(symbol.width) || 44,
           height: Number(symbol.height) || 44
         };
-        
-        if (isRectangleIntersect(rectBounds, symbolBounds)) {
+          if (isRectangleIntersect(symbolBounds, rectBounds)) {
           dispatch('select', { id: symbol.id, multi: true });
         }
       });
@@ -119,10 +123,9 @@
             width: Number(s.width) || 44,
             height: Number(s.height) || 44
           };
-          
-          return {
+            return {
             ...s,
-            selected: isRectangleIntersect(rectBounds, symbolBounds)
+            selected: isRectangleIntersect(symbolBounds, rectBounds)
           };
         })
       }));
@@ -142,8 +145,7 @@
           width: Number(symbol.width) || 44,
           height: Number(symbol.height) || 44
         };
-        
-        if (isRectangleInCircle(symbolBounds, { x: circleBounds.centerX, y: circleBounds.centerY }, circleBounds.radius)) {
+          if (isRectangleInCircle(symbolBounds, circleBounds)) {
           dispatch('select', { id: symbol.id, multi: true });
         }
       });
@@ -158,10 +160,9 @@
             width: Number(s.width) || 44,
             height: Number(s.height) || 44
           };
-          
-          return {
+            return {
             ...s,
-            selected: isRectangleInCircle(symbolBounds, { x: circleBounds.centerX, y: circleBounds.centerY }, circleBounds.radius)
+            selected: isRectangleInCircle(symbolBounds, circleBounds)
           };
         })
       }));
@@ -389,7 +390,19 @@
   }
 </script>
 
-<div class="sign-editor-canvas" aria-label="Sign canvas" role="region" tabindex="0" on:keydown={onKeyDown}>
+{#if showSelectionTools}  <SelectionToolbar 
+    currentMode={editorState.mode}
+    on:modeChange={handleModeChange}
+  />
+{/if}
+
+<section 
+  class="sign-editor-canvas" 
+  aria-label="Sign canvas - use arrow keys to navigate, Enter to select" 
+  role="application"
+  tabindex="0" 
+  on:keydown={onKeyDown}
+>
   {#if showPlaceholder}
     <div class="placeholder">SignEditor canvas coming soon...</div>
   {/if}
@@ -437,11 +450,10 @@
         />
       {/if}
     </button>
-  {/each}
-  {#if !validation.isValid}
+  {/each}  {#if !validation.isValid}
     <div class="error">{validation.error}</div>
   {/if}
-</div>
+</section>
 
 <style>
 .sign-editor-canvas {

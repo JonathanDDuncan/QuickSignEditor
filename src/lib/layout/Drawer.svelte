@@ -61,11 +61,13 @@
 <svelte:window on:keydown={handleKeydown} />
 
 {#if isOpen}
-  <!-- Overlay -->
-  {#if overlay}
-    <div 
-      class="drawer-overlay" 
+  <!-- Overlay -->  {#if overlay}
+    <div
+      class="drawer-overlay"
+      role="button"
+      tabindex="0"
       on:click={handleOverlayClick}
+      on:keydown={(e) => (e.key === 'Enter' || e.key === ' ') && handleOverlayClick()}
       transition:slide={{ duration: 200 }}
     ></div>
   {/if}
