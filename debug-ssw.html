@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug SSW Library</title>
+    <script src="src/js/SuttonSignWriting.js"></script>
+</head>
+<body>
+    <h1>Debug SSW Library</h1>
+    <div id="output"></div>
+    
+    <script>
+        console.log('Testing SSW library...');
+        
+        // Check if SSW is loaded
+        if (typeof ssw !== 'undefined') {
+            console.log('SSW library is loaded');
+            console.log('SSW object:', ssw);
+            
+            // Test simple symbol
+            const testFSW = 'AS10000S26a00S30100500x500';
+            console.log('Testing FSW:', testFSW);
+            
+            try {
+                const svg = ssw.svg(testFSW);
+                console.log('Generated SVG:', svg);
+                document.getElementById('output').innerHTML = svg;
+            } catch (error) {
+                console.error('Error generating SVG:', error);
+                document.getElementById('output').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        } else {
+            console.error('SSW library not loaded');
+            document.getElementById('output').innerHTML = '<p>SSW library not loaded</p>';
+        }
+    </script>
+</body>
+</html>

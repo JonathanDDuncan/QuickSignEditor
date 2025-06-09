@@ -6,19 +6,7 @@ import ssw from './utils/SuttonSignWriting';
 vi.mock('./utils/SuttonSignWriting', () => ({
   default: {
     pua: vi.fn(() => '󽠰'),
-    code: vi.fn(() => '󽠰'), // Add proper mock for code function
-    size: vi.fn(() => '76,76'),
-    svg: vi.fn(),
-    symbol: vi.fn(),
-    fsw: vi.fn(),
-    colorize: vi.fn(),
-    sizes: {}
-  }
-}));
-vi.mock('./utils/SuttonSignWriting', () => ({
-  default: {
-    pua: vi.fn(() => '󽠰'),
-    code: vi.fn(() => '󽠰'), // Add proper mock for code function
+    code: vi.fn(() => '󽠰'), 
     size: vi.fn(() => '76,76'),
     svg: vi.fn(),
     symbol: vi.fn(),
@@ -70,10 +58,9 @@ describe('SignWriting Dual-Font System', () => {
     expect(svg).toContain('fill:#ffffff');
     expect(svg).toContain('fill:#000000');
   });
-
   it('handles custom colors', async () => {
     // Set up mock for custom colors
-    (window.ssw.svg as any).mockReturnValue(`
+    (ssw.svg as any).mockReturnValue(`
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
         <text style="font-size:0%;">S10000</text>
         <g transform="translate(20,20)">

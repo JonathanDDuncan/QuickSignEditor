@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mannequin SignWriting Test</title>
+    <!-- Load SignWriting fonts -->
+    <link rel="preload" href="/src/fonts/SuttonSignWritingFill.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/src/fonts/SuttonSignWritingLine.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Load SuttonSignWriting.js library -->
+    <script src="/src/js/SuttonSignWriting.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .symbol-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        .symbol-display {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            background: white;
+            border: 1px solid #eee;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <h1>Mannequin SignWriting Symbol Test</h1>
+    
+    <div class="test-container">
+        <h2>Testing Mannequin Symbol Keys</h2>
+        <p>These are the exact symbol keys used in the mannequin component:</p>
+        <div id="test-results"></div>
+        <div class="symbol-grid" id="symbol-grid"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Library Status</h2>
+        <div id="library-status"></div>
+    </div>
+
+    <script>
+        // Test the exact symbols used in the mannequin
+        const mannequinSymbols = [
+            { key: 'S10000', name: 'Index Finger' },
+            { key: 'S26a00', name: 'Double Movement' },
+            { key: 'S30100', name: 'Head Movement' },
+            { key: 'S10001', name: 'Index Finger Variant' },
+            { key: 'S2f500', name: 'Arrow' }
+        ];
+
+        function testMannequinSymbols() {
+            const resultsDiv = document.getElementById('test-results');
+            const gridDiv = document.getElementById('symbol-grid');
+            const statusDiv = document.getElementById('library-status');
+            
+            // Check library status
+            if (typeof window.ssw === 'undefined') {
+                statusDiv.innerHTML = '<div class="error">❌ SSW library not loaded!</div>';
+                return;
+            }
+            
+            statusDiv.innerHTML = '<div class="success">✅ SSW library loaded successfully</div>';
+            
+            let results = '<h3>Symbol Generation Results:</h3>';
+            let gridHtml = '';
+            
+            mannequinSymbols.forEach((symbol, index) => {
+                try {
+                    console.log(`Testing symbol ${index + 1}: ${symbol.key}`);
+                    
+                    // Test individual functions
+                    const size = window.ssw.size ? window.ssw.size(symbol.key) : 'N/A';
+                    const pua = window.ssw.pua ? window.ssw.pua(symbol.key) : 'N/A';
+                    const code = window.ssw.code ? window.ssw.code(symbol.key) : 'N/A';
+                    
+                    // Generate SVG
+                    const svg = window.ssw.svg(symbol.key);
+                    
+                    results += `<div class="info">
+                        <strong>${symbol.key}</strong> (${symbol.name}):<br>
+                        • Size: ${size}<br>
+                        • PUA: ${pua}<br>
+                        • Code: ${code}<br>
+                        • SVG length: ${svg.length} chars<br>
+                        • Contains dual-font: ${svg.includes('sym-fill') && svg.includes('sym-line') ? '✅' : '❌'}
+                    </div>`;
+                    
+                    gridHtml += `
+                        <div class="symbol-item">
+                            <div class="symbol-display">${svg}</div>
+                            <div><strong>${symbol.key}</strong></div>
+                            <div style="font-size: 0.9em; color: #666;">${symbol.name}</div>
+                        </div>
+                    `;
+                    
+                } catch (error) {
+                    console.error(`Error with symbol ${symbol.key}:`, error);
+                    results += `<div class="error">❌ ${symbol.key}: ${error.message}</div>`;
+                    
+                    gridHtml += `
+                        <div class="symbol-item">
+                            <div class="symbol-display" style="color: red;">Error</div>
+                            <div><strong>${symbol.key}</strong></div>
+                            <div style="font-size: 0.9em; color: #666;">${symbol.name}</div>
+                        </div>
+                    `;
+                }
+            });
+            
+            resultsDiv.innerHTML = results;
+            gridDiv.innerHTML = gridHtml;
+        }
+
+        // Wait for library to load
+        function checkAndTest() {
+            if (typeof window.ssw !== 'undefined') {
+                console.log('SSW library ready, testing mannequin symbols...');
+                testMannequinSymbols();
+            } else {
+                console.log('Waiting for SSW library...');
+                setTimeout(checkAndTest, 100);
+            }
+        }
+        
+        // Start testing
+        setTimeout(checkAndTest, 500);
+    </script>
+</body>
+</html>

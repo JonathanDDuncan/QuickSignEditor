@@ -1,0 +1,1 @@
+window.addEventListener('load', () => { setTimeout(() => { console.log('=== SSW Library Status ==='); console.log('SSW available:', typeof window.ssw); if (window.ssw) { console.log('SSW.svg function:', typeof window.ssw.svg); console.log('Test S10000:', window.ssw.svg('S10000').substring(0, 100)); } }, 1000); });

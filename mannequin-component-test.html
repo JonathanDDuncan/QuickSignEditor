@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mannequin Component Test</title>
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-container { 
+            background: white; 
+            border: 2px solid #ccc; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 8px;
+        }
+        .mannequin-content {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+        }
+        svg { border: 1px dashed #999; margin: 5px; }
+        .symbol-info { 
+            font-size: 12px; 
+            color: #666; 
+            margin: 5px 0; 
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Mannequin Component Direct Test</h1>
+    
+    <div class="test-container">
+        <h2>📊 Library Status</h2>
+        <div id="library-status">Loading...</div>
+    </div>
+    
+    <div class="test-container">
+        <h2>🎯 generateFSWSVGSync Function Test</h2>
+        <div id="function-test">Loading...</div>
+    </div>
+    
+    <div class="test-container">
+        <h2>🖼️ Mannequin Symbol Rendering</h2>
+        <div class="mannequin-content" id="mannequin-display">
+            <!-- SVG symbols will be rendered here -->
+        </div>
+    </div>
+
+    <script>
+        // Exact implementation from signWritingFont.ts
+        function isSswLoaded() {
+            return typeof window !== 'undefined' && 
+                   typeof window.ssw !== 'undefined' && 
+                   typeof window.ssw.svg === 'function';
+        }
+
+        function generateFSWSVGSync(fsw, options = {}) {
+            try {
+                console.log('generateFSWSVGSync called with:', fsw);
+                
+                if (!isSswLoaded()) {
+                    console.error('SSW library not loaded');
+                    throw new Error('SSW library not loaded');
+                }
+                
+                if (!fsw || typeof fsw !== 'string') {
+                    console.error('No FSW string provided:', fsw);
+                    throw new Error('No FSW string provided');
+                }
+                
+                console.log('Calling window.ssw.svg with:', fsw);
+                const svg = window.ssw.svg(fsw);
+                
+                if (!svg || !svg.includes('<svg')) {
+                    console.error('Failed to generate SVG from FSW:', fsw, 'result:', svg);
+                    throw new Error('Failed to generate SVG from FSW');
+                }
+                
+                console.log('Generated SVG for FSW (sync):', fsw, '- Length:', svg.length);
+                return svg;
+                
+            } catch (error) {
+                console.warn('Failed to generate FSW SVG (sync):', String(error));
+                return `<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
+                  <text x="20" y="24" text-anchor="middle" font-size="12" fill="#666">?</text>
+                </svg>`;
+            }
+        }
+
+        // Exact data structure from signStore.ts
+        const exampleSymbols = [
+            { symbolkey: 'S10000', name: 'Index Finger', x: 0, y: 0 },
+            { symbolkey: 'S26a00', name: 'Double Movement', x: 70, y: 0 },
+            { symbolkey: 'S30100', name: 'Head Movement', x: 140, y: 0 },
+            { symbolkey: 'S10001', name: 'Index Finger Variant', x: 210, y: 0 },
+            { symbolkey: 'S2f500', name: 'Arrow', x: 280, y: 0 }
+        ];
+
+        const maniquinchoosings = exampleSymbols.map((sym, i) => ({
+            displaySign: {
+                fsw: sym.symbolkey,
+                width: 60,
+                height: 60,
+                label: sym.name
+            },
+            offset: { offsetx: sym.x, offsety: sym.y },
+            value: sym.symbolkey
+        }));
+
+        function runTest() {
+            console.log('=== MANNEQUIN COMPONENT TEST ===');
+            
+            // Check library status
+            const libraryStatus = document.getElementById('library-status');
+            if (isSswLoaded()) {
+                libraryStatus.innerHTML = `
+                    <div style="color: green;">
+                        ✅ SSW Library Status: LOADED<br>
+                        - ssw.svg: ${typeof window.ssw.svg}<br>
+                        - ssw.size: ${typeof window.ssw.size}<br>
+                        - ssw.key: ${typeof window.ssw.key}
+                    </div>
+                `;
+            } else {
+                libraryStatus.innerHTML = `<div style="color: red;">❌ SSW Library NOT LOADED</div>`;
+                return;
+            }
+
+            // Test generateFSWSVGSync function
+            const functionTest = document.getElementById('function-test');
+            let testResults = '';
+            
+            exampleSymbols.forEach(symbol => {
+                try {
+                    const svg = generateFSWSVGSync(symbol.symbolkey);
+                    testResults += `✅ ${symbol.symbolkey} (${symbol.name}): SUCCESS - ${svg.length} chars<br>`;
+                } catch (error) {
+                    testResults += `❌ ${symbol.symbolkey} (${symbol.name}): ERROR - ${error.message}<br>`;
+                }
+            });
+            
+            functionTest.innerHTML = testResults;
+
+            // Render mannequin symbols
+            const mannequinDisplay = document.getElementById('mannequin-display');
+            let svgContent = '';
+            
+            // Create SVG container
+            svgContent += '<svg width="400" height="100" style="background: white; border: 1px solid #333;">';
+            
+            maniquinchoosings.forEach(choosing => {
+                try {
+                    const symbolSvg = generateFSWSVGSync(choosing.displaySign.fsw);
+                    
+                    // Extract viewBox and content from generated SVG
+                    const viewBoxMatch = symbolSvg.match(/viewBox="([^"]+)"/);
+                    const viewBox = viewBoxMatch ? viewBoxMatch[1] : '0 0 40 40';
+                    
+                    // Extract inner content (everything between <svg> tags)
+                    const contentMatch = symbolSvg.match(/<svg[^>]*>(.*)<\/svg>/s);
+                    const content = contentMatch ? contentMatch[1] : symbolSvg;
+                    
+                    // Add positioned group
+                    svgContent += `
+                        <g transform="translate(${choosing.offset.offsetx}, ${choosing.offset.offsety})">
+                            <g viewBox="${viewBox}">
+                                ${content}
+                            </g>
+                        </g>
+                    `;
+                    
+                } catch (error) {
+                    console.error('Error rendering symbol:', choosing.displaySign.fsw, error);
+                    svgContent += `
+                        <g transform="translate(${choosing.offset.offsetx}, ${choosing.offset.offsety})">
+                            <rect width="40" height="40" fill="#ffeeee" stroke="#cc0000"/>
+                            <text x="20" y="25" text-anchor="middle" font-size="10" fill="#cc0000">Error</text>
+                        </g>
+                    `;
+                }
+            });
+            
+            svgContent += '</svg>';
+            
+            mannequinDisplay.innerHTML = svgContent + `
+                <div class="symbol-info">
+                    <strong>Symbols rendered:</strong> ${maniquinchoosings.length}<br>
+                    <strong>Data structure:</strong> Each symbol has fsw, offset (x,y), and display properties
+                </div>
+            `;
+            
+            console.log('Mannequin data:', maniquinchoosings);
+        }
+
+        // Wait for SSW library and run test
+        function waitAndTest() {
+            if (isSswLoaded()) {
+                runTest();
+            } else {
+                console.log('Waiting for SSW library...');
+                setTimeout(waitAndTest, 100);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(waitAndTest, 100);
+        });
+    </script>
+</body>
+</html>

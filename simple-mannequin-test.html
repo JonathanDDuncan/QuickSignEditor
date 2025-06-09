@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Mannequin Test</title>
+    <script src="https://unpkg.com/@sutton-signwriting/suttonjs@latest/dist/sutton-signwriting.js"></script>
+</head>
+<body>
+    <h1>Simple Mannequin Test</h1>
+    
+    <h2>Test the same FSW keys that should appear in the Svelte mannequin:</h2>
+    
+    <div id="symbol-tests"></div>
+    
+    <script>
+        // Wait for SSW library to load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                console.log('Testing SSW library availability...');
+                console.log('window.ssw:', typeof window.ssw);
+                console.log('window.ssw.svg:', typeof window.ssw?.svg);
+                
+                if (!window.ssw || typeof window.ssw.svg !== 'function') {
+                    document.getElementById('symbol-tests').innerHTML = '<p style="color: red;">ERROR: SSW library not loaded!</p>';
+                    return;
+                }
+                
+                // Test the exact same symbols used in signStore.ts
+                const testSymbols = [
+                    { key: 'S10000', name: 'Index Finger' },
+                    { key: 'S26a00', name: 'Double Movement' },
+                    { key: 'S30100', name: 'Head Movement' },
+                    { key: 'S10001', name: 'Index Finger Variant' },
+                    { key: 'S2f500', name: 'Arrow' }
+                ];
+                
+                let html = '<div style="display: flex; gap: 20px; flex-wrap: wrap;">';
+                
+                testSymbols.forEach(symbol => {
+                    console.log(`Testing symbol ${symbol.key} (${symbol.name})`);
+                    
+                    try {
+                        const svg = window.ssw.svg(symbol.key);
+                        console.log(`${symbol.key} generated SVG length:`, svg?.length);
+                        
+                        if (svg && svg.includes('<svg')) {
+                            html += `
+                                <div style="border: 1px solid #ccc; padding: 10px; text-align: center;">
+                                    <div style="margin-bottom: 10px;">${svg}</div>
+                                    <div style="font-size: 12px; font-weight: bold;">${symbol.name}</div>
+                                    <div style="font-size: 10px; color: #666;">${symbol.key}</div>
+                                </div>
+                            `;
+                        } else {
+                            html += `
+                                <div style="border: 1px solid red; padding: 10px; text-align: center;">
+                                    <div style="color: red; margin-bottom: 10px;">FAILED</div>
+                                    <div style="font-size: 12px; font-weight: bold;">${symbol.name}</div>
+                                    <div style="font-size: 10px; color: #666;">${symbol.key}</div>
+                                </div>
+                            `;
+                        }
+                    } catch (error) {
+                        console.error(`Error generating ${symbol.key}:`, error);
+                        html += `
+                            <div style="border: 1px solid red; padding: 10px; text-align: center;">
+                                <div style="color: red; margin-bottom: 10px;">ERROR</div>
+                                <div style="font-size: 12px; font-weight: bold;">${symbol.name}</div>
+                                <div style="font-size: 10px; color: #666;">${symbol.key}</div>
+                                <div style="font-size: 9px; color: red;">${error.message}</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                html += '</div>';
+                document.getElementById('symbol-tests').innerHTML = html;
+                
+            }, 1000); // Wait 1 second for library to load
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSW Parsing Test</title>
+</head>
+<body>
+    <h1>FSW Parsing Test</h1>
+    
+    <div id="output"></div>
+    
+    <script>
+        // Test our FSW parsing logic
+        function parseFSWString(fsw) {
+            const symbols = [];
+            
+            // Regular expression to match symbols like "S33000476x489"
+            const symbolRegex = /S[0-9a-f]{5}(\d{3})x(\d{3})/gi;
+            let match;
+            
+            console.log('Starting FSW parsing with regex:', symbolRegex);
+            console.log('FSW string length:', fsw.length);
+            
+            while ((match = symbolRegex.exec(fsw)) !== null) {
+                const key = match[0].substring(0, 6); // Extract S33000 part
+                const x = parseInt(match[1]);
+                const y = parseInt(match[2]);
+                
+                console.log(`Parsed symbol: ${key} at position (${x}, ${y})`);
+                symbols.push({ key, x, y });
+            }
+            
+            console.log(`Finished parsing FSW, found ${symbols.length} symbols`);
+            return symbols;
+        }
+        
+        // Use the same complex FSW string as the Svelte implementation
+        const complexFSW = "M600x697S33000476x489S2ff00484x488S30a50495x490S30a40516x490S31430498x500S33e10501x520S33110510x511S36d10481x558S36a10498x538S37601546x560S37609463x560S14c10554x555S20500576x542S21600552x542S22800463x558S2f700562x519S22a00470x636S22e00583x587S23800487x631S24200506x631S24b00534x628S28800468x668S29900491x663S2e300534x665S2ed00568x587S2f100448x542S2f500564x655S36b10463x454S36c00493x447S38500534x443S37e0f440x559S29600511x663S38700476x695--Z01,1.48Z02,1.51Z05,1.21Z06,1.45Z08,1.63Z09,1.45Z10,1.6Z11,1.6Z25,0.79Z28,0.79Z29,0.79Z30,0.79";
+        
+        console.log('Testing FSW parsing...');
+        console.log('Complex FSW string:', complexFSW.substring(0, 100) + '...');
+        
+        const symbols = parseFSWString(complexFSW);
+        
+        // Display results
+        const output = document.getElementById('output');
+        output.innerHTML = `
+            <h2>Parsing Results</h2>
+            <p><strong>FSW String Length:</strong> ${complexFSW.length}</p>
+            <p><strong>Symbols Found:</strong> ${symbols.length}</p>
+            
+            <h3>Symbol List:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
+                ${symbols.map((symbol, i) => `
+                    <div style="border: 1px solid #ccc; padding: 10px;">
+                        <strong>${i + 1}. ${symbol.key}</strong><br>
+                        Position: (${symbol.x}, ${symbol.y})<br>
+                        Offset: (${symbol.x - 500}, ${symbol.y - 500})
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        console.log('Symbols array:', symbols);
+    </script>
+</body>
+</html>

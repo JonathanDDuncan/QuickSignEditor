@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct Mannequin Data Test</title>
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { 
+            border: 2px solid #333; 
+            padding: 15px; 
+            margin: 15px 0; 
+            background: #f9f9f9; 
+        }
+        .symbol-preview {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px;
+            display: inline-block;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Direct Mannequin Data Test</h1>
+    <p>Testing the exact data loading and rendering process used in the Svelte app</p>
+    
+    <div class="test-section">
+        <h3>📊 Library Status</h3>
+        <div id="library-status">Checking...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>📂 loadManiquinData() Function Test</h3>
+        <button onclick="testLoadManiquinData()">Test loadManiquinData()</button>
+        <div id="data-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>🎯 Symbol Rendering Test</h3>
+        <div id="symbol-test"></div>
+    </div>
+
+    <script>
+        // Replicate the exact loadManiquinData function from signStore.ts
+        function loadManiquinData() {
+            console.log('=== Testing loadManiquinData() ===');
+            
+            const exampleSymbols = [
+                { symbolkey: 'S10000', name: 'Index Finger', x: 0, y: 0 },
+                { symbolkey: 'S26a00', name: 'Double Movement', x: 70, y: 0 },
+                { symbolkey: 'S30100', name: 'Head Movement', x: 140, y: 0 },
+                { symbolkey: 'S10001', name: 'Index Finger Variant', x: 210, y: 0 },
+                { symbolkey: 'S2f500', name: 'Arrow', x: 280, y: 0 }
+            ];
+
+            const maniquinchoosings = exampleSymbols.map((sym, i) => ({
+                displaySign: {
+                    fsw: sym.symbolkey,
+                    width: 60,
+                    height: 60,
+                    label: sym.name
+                },
+                offset: { offsetx: sym.x, offsety: sym.y },
+                value: sym.symbolkey
+            }));
+
+            console.log('Generated mannequin choosings:', maniquinchoosings);
+            return { maniquinchoosings };
+        }
+
+        // Replicate the generateFSWSVGSync function
+        function generateFSWSVGSync(fsw, options = {}) {
+            try {
+                if (!window.ssw || typeof window.ssw.svg !== 'function') {
+                    throw new Error('SSW library not loaded');
+                }
+                
+                if (!fsw || typeof fsw !== 'string') {
+                    throw new Error('No FSW string provided');
+                }
+                
+                const svg = window.ssw.svg(fsw);
+                
+                if (!svg || !svg.includes('<svg')) {
+                    throw new Error('Failed to generate SVG from FSW');
+                }
+                
+                console.log('Generated SVG for FSW (sync):', fsw, '- Length:', svg.length);
+                return svg;
+                
+            } catch (error) {
+                console.warn('Failed to generate FSW SVG (sync):', String(error));
+                return `<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
+                  <text x="20" y="24" text-anchor="middle" font-size="12" fill="#666">?</text>
+                </svg>`;
+            }
+        }
+
+        function testLoadManiquinData() {
+            const output = document.getElementById('data-output');
+            const symbolTest = document.getElementById('symbol-test');
+            
+            try {
+                const model = loadManiquinData();
+                
+                output.innerHTML = `
+                    <h4>✅ Data Generated Successfully</h4>
+                    <p><strong>Number of symbols:</strong> ${model.maniquinchoosings.length}</p>
+                    <p><strong>Sample symbol:</strong></p>
+                    <pre>${JSON.stringify(model.maniquinchoosings[0], null, 2)}</pre>
+                `;
+                
+                // Test symbol rendering
+                let symbolHtml = '<h4>Symbol Rendering Test:</h4>';
+                
+                model.maniquinchoosings.forEach((choosing, index) => {
+                    try {
+                        const svg = generateFSWSVGSync(choosing.displaySign.fsw);
+                        symbolHtml += `
+                            <div class="symbol-preview">
+                                <div><strong>${choosing.displaySign.label}</strong></div>
+                                <div>FSW: ${choosing.displaySign.fsw}</div>
+                                <div>${svg}</div>
+                            </div>
+                        `;
+                    } catch (error) {
+                        symbolHtml += `
+                            <div class="symbol-preview" style="border-color: red;">
+                                <div><strong>${choosing.displaySign.label}</strong></div>
+                                <div>FSW: ${choosing.displaySign.fsw}</div>
+                                <div style="color: red;">Error: ${error.message}</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                symbolTest.innerHTML = symbolHtml;
+                
+            } catch (error) {
+                output.innerHTML = `
+                    <h4>❌ Error in loadManiquinData()</h4>
+                    <p style="color: red;">${error.message}</p>
+                `;
+            }
+        }
+
+        // Check library status
+        function checkLibrary() {
+            const status = document.getElementById('library-status');
+            
+            if (typeof window.ssw !== 'undefined' && window.ssw.svg) {
+                status.innerHTML = `
+                    <div style="color: green;">
+                        ✅ SSW Library loaded successfully<br>
+                        - ssw.svg: ${typeof window.ssw.svg}<br>
+                        - ssw.size: ${typeof window.ssw.size}<br>
+                        - ssw.key: ${typeof window.ssw.key}
+                    </div>
+                `;
+                
+                // Auto-test when library is ready
+                setTimeout(testLoadManiquinData, 100);
+            } else {
+                status.innerHTML = `
+                    <div style="color: red;">
+                        ❌ SSW Library NOT loaded<br>
+                        Retrying in 100ms...
+                    </div>
+                `;
+                setTimeout(checkLibrary, 100);
+            }
+        }
+
+        // Start checking when page loads
+        window.addEventListener('load', () => {
+            setTimeout(checkLibrary, 100);
+        });
+    </script>
+</body>
+</html>

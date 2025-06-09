@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Mannequin Test</title>
+    <script src="https://unpkg.com/@sutton-signwriting/suttonjs@latest/dist/sutton-signwriting.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { border: 2px solid #333; padding: 15px; margin: 15px 0; background: #f9f9f9; }
+        .fsw-display { border: 1px solid #ccc; padding: 20px; background: white; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Current Mannequin State Test</h1>
+    <p>Testing the exact same FSW string and rendering logic used in the updated Svelte component</p>
+    
+    <div class="test-section">
+        <h3>📊 Library Status</h3>
+        <div id="library-status">Checking...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>🎯 Complete FSW Rendering Test</h3>
+        <p>This should match exactly what appears in the Svelte mannequin:</p>
+        <div class="fsw-display" id="fsw-display">Loading...</div>
+    </div>
+    
+    <div class="test-section">
+        <h3>📏 SVG Dimensions Analysis</h3>
+        <div id="dimensions-analysis">Loading...</div>
+    </div>
+
+    <script>
+        // Use the exact same complete FSW string from signStore.ts
+        const complexFSW = "M600X697S33000476X489S2FF00484X488S30A50495X490S30A40516X490S31430498X500S33E10501X520S33110510X511S36D10481X558S36A10498X538S37601546X560S37609463X560S14C10554X555S20500576X542S21600552X542S22800463X558S2F700562X519S22A00470X636S22E00583X587S23800487X631S24200506X631S24B00534X628S28800468X668S29900491X663S2E300534X665S2ED00568X587S2F100448X542S2F500564X655S36B10463X454S36C00493X447S38500534X443S37E0F440X559S29600511X663S38700476X695--Z01,1.48Z02,1.51Z05,1.21Z06,1.45Z08,1.63Z09,1.45Z10,1.6Z11,1.6Z25,0.79Z28,0.79Z29,0.79Z30,0.79";
+
+        function waitForSSW() {
+            if (typeof window !== 'undefined' && window.ssw && typeof window.ssw.svg === 'function') {
+                console.log('SSW library loaded successfully');
+                runTests();
+            } else {
+                console.log('Waiting for SSW library...');
+                setTimeout(waitForSSW, 100);
+            }
+        }
+
+        function runTests() {
+            // Library status
+            const libraryStatus = document.getElementById('library-status');
+            libraryStatus.innerHTML = `
+                <div style="color: green;">
+                    ✅ SSW Library Status: LOADED<br>
+                    📦 ssw.svg function: ${typeof window.ssw.svg}<br>
+                    📦 ssw.size function: ${typeof window.ssw.size}<br>
+                    📦 ssw.key function: ${typeof window.ssw.key}
+                </div>
+            `;
+
+            // Test complete FSW rendering
+            console.log('Testing complete FSW rendering...');
+            console.log('FSW string:', complexFSW);
+            console.log('FSW length:', complexFSW.length);
+
+            try {
+                // Use the exact same options as the Svelte component
+                const svgOutput = window.ssw.svg(complexFSW, { scale: 1.0, fill: '#ffffff', line: '#000000' });
+                console.log('Generated SVG length:', svgOutput.length);
+                console.log('SVG preview (first 200 chars):', svgOutput.substring(0, 200));
+
+                // Display the FSW
+                const fswDisplay = document.getElementById('fsw-display');
+                fswDisplay.innerHTML = svgOutput;
+
+                // Analyze dimensions
+                const svgElement = fswDisplay.querySelector('svg');
+                if (svgElement) {
+                    const width = svgElement.getAttribute('width');
+                    const height = svgElement.getAttribute('height');
+                    const viewBox = svgElement.getAttribute('viewBox');
+                    
+                    const dimensionsAnalysis = document.getElementById('dimensions-analysis');
+                    dimensionsAnalysis.innerHTML = `
+                        <div style="background: #e6f3ff; padding: 10px; border-radius: 4px;">
+                            <strong>SVG Dimensions:</strong><br>
+                            📏 Width: ${width}<br>
+                            📏 Height: ${height}<br>
+                            📐 ViewBox: ${viewBox}<br>
+                            🎯 Natural size: ${svgElement.getBBox ? 'Available for analysis' : 'Not available'}
+                        </div>
+                    `;
+
+                    // Try to get bounding box if available
+                    if (svgElement.getBBox) {
+                        try {
+                            const bbox = svgElement.getBBox();
+                            dimensionsAnalysis.innerHTML += `
+                                <div style="background: #fff3cd; padding: 10px; border-radius: 4px; margin-top: 10px;">
+                                    <strong>Computed Bounding Box:</strong><br>
+                                    📍 X: ${bbox.x}<br>
+                                    📍 Y: ${bbox.y}<br>
+                                    📏 Width: ${bbox.width}<br>
+                                    📏 Height: ${bbox.height}
+                                </div>
+                            `;
+                        } catch (e) {
+                            console.log('Could not get bounding box:', e);
+                        }
+                    }
+                } else {
+                    document.getElementById('dimensions-analysis').innerHTML = '<div style="color: red;">❌ No SVG element found in output</div>';
+                }
+
+            } catch (error) {
+                console.error('Error rendering FSW:', error);
+                document.getElementById('fsw-display').innerHTML = `<div style="color: red;">❌ Error: ${error.message}</div>`;
+            }
+        }
+
+        // Start the test
+        window.addEventListener('load', () => {
+            setTimeout(waitForSSW, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mannequin Debug - Why Not Showing</title>
+    <script src="https://unpkg.com/@sutton-signwriting/suttonjs@latest/dist/sutton-signwriting.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .debug-section { 
+            background: white; 
+            border: 2px solid #007acc; 
+            border-radius: 8px;
+            padding: 20px; 
+            margin: 20px 0; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .error { color: #dc3545; font-weight: bold; }
+        .success { color: #28a745; font-weight: bold; }
+        .warning { color: #ffc107; font-weight: bold; }
+        .info { color: #17a2b8; font-weight: bold; }
+        .test-result { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+            border-left: 4px solid #ddd;
+        }
+        .test-result.pass { background: #d4edda; border-left-color: #28a745; }
+        .test-result.fail { background: #f8d7da; border-left-color: #dc3545; }
+        .test-result.warn { background: #fff3cd; border-left-color: #ffc107; }
+        .code { background: #f8f9fa; padding: 10px; border-radius: 4px; font-family: monospace; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Mannequin Debug - Why Not Showing?</h1>
+    <p>Comprehensive diagnostic to identify why the mannequin isn't displaying in the Svelte app</p>
+    
+    <div class="debug-section">
+        <h2>1. 📚 Library Loading Test</h2>
+        <div id="library-test"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>2. 🎯 FSW Rendering Test</h2>
+        <div id="fsw-test"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>3. 🔗 Svelte App Connection Test</h2>
+        <div id="svelte-test"></div>
+        <button onclick="testSvelteConnection()" style="padding: 10px 20px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">
+            Test Svelte App Connection
+        </button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>4. 🧪 Exact Reproduction Test</h2>
+        <div id="reproduction-test"></div>
+    </div>
+
+    <script>
+        // The exact same FSW string used in the Svelte app
+        const complexFSW = "M600X697S33000476X489S2FF00484X488S30A50495X490S30A40516X490S31430498X500S33E10501X520S33110510X511S36D10481X558S36A10498X538S37601546X560S37609463X560S14C10554X555S20500576X542S21600552X542S22800463X558S2F700562X519S22A00470X636S22E00583X587S23800487X631S24200506X631S24B00534X628S28800468X668S29900491X663S2E300534X665S2ED00568X587S2F100448X542S2F500564X655S36B10463X454S36C00493X447S38500534X443S37E0F440X559S29600511X663S38700476X695--Z01,1.48Z02,1.51Z05,1.21Z06,1.45Z08,1.63Z09,1.45Z10,1.6Z11,1.6Z25,0.79Z28,0.79Z29,0.79Z30,0.79";
+
+        function waitForSSW() {
+            if (typeof window !== 'undefined' && window.ssw && typeof window.ssw.svg === 'function') {
+                console.log('🎯 SSW library ready, running diagnostic tests...');
+                runDiagnosticTests();
+            } else {
+                console.log('⏳ Waiting for SSW library...');
+                setTimeout(waitForSSW, 100);
+            }
+        }
+
+        function runDiagnosticTests() {
+            // Test 1: Library Loading
+            testLibraryLoading();
+            
+            // Test 2: FSW Rendering
+            testFSWRendering();
+            
+            // Test 3: Svelte connection (manual)
+            setupSvelteTest();
+            
+            // Test 4: Exact reproduction
+            testExactReproduction();
+        }
+
+        function testLibraryLoading() {
+            const container = document.getElementById('library-test');
+            const tests = [];
+
+            // Test SSW object
+            const sswExists = typeof window.ssw !== 'undefined';
+            tests.push({
+                name: 'SSW Object Exists',
+                pass: sswExists,
+                message: sswExists ? 'window.ssw is available' : 'window.ssw is NOT available'
+            });
+
+            // Test SSW functions
+            const sswSvgExists = sswExists && typeof window.ssw.svg === 'function';
+            tests.push({
+                name: 'SSW SVG Function',
+                pass: sswSvgExists,
+                message: sswSvgExists ? 'window.ssw.svg is a function' : 'window.ssw.svg is NOT a function'
+            });
+
+            // Test basic SSW functionality
+            let basicTest = false;
+            let basicMessage = '';
+            if (sswSvgExists) {
+                try {
+                    const testResult = window.ssw.svg('S10000');
+                    basicTest = testResult && testResult.includes('<svg');
+                    basicMessage = basicTest ? `Basic test successful (${testResult.length} chars)` : 'Basic test failed - no SVG output';
+                } catch (e) {
+                    basicMessage = `Basic test failed: ${e.message}`;
+                }
+            } else {
+                basicMessage = 'Cannot test - SSW not available';
+            }
+
+            tests.push({
+                name: 'Basic SSW Functionality',
+                pass: basicTest,
+                message: basicMessage
+            });
+
+            // Render results
+            container.innerHTML = tests.map(test => `
+                <div class="test-result ${test.pass ? 'pass' : 'fail'}">
+                    <strong>${test.pass ? '✅' : '❌'} ${test.name}:</strong> ${test.message}
+                </div>
+            `).join('');
+        }
+
+        function testFSWRendering() {
+            const container = document.getElementById('fsw-test');
+            
+            if (!window.ssw || typeof window.ssw.svg !== 'function') {
+                container.innerHTML = '<div class="test-result fail">❌ Cannot test - SSW library not available</div>';
+                return;
+            }
+
+            try {
+                console.log('Testing FSW rendering with string:', complexFSW.substring(0, 50) + '...');
+                
+                // Test with exact same parameters as Svelte component
+                const svgOutput = window.ssw.svg(complexFSW, { 
+                    scale: 1.0, 
+                    fill: '#ffffff', 
+                    line: '#000000' 
+                });
+
+                const success = svgOutput && svgOutput.includes('<svg');
+                
+                container.innerHTML = `
+                    <div class="test-result ${success ? 'pass' : 'fail'}">
+                        <strong>${success ? '✅' : '❌'} FSW Rendering Test:</strong>
+                        ${success ? `Successfully generated SVG (${svgOutput.length} characters)` : 'Failed to generate SVG'}
+                    </div>
+                    ${success ? `
+                        <div style="border: 1px solid #ddd; padding: 10px; margin: 10px 0; background: white;">
+                            <strong>Generated SVG Preview:</strong><br>
+                            ${svgOutput}
+                        </div>
+                        <div class="code">
+                            <strong>SVG Info:</strong><br>
+                            Length: ${svgOutput.length} characters<br>
+                            Contains &lt;svg&gt;: ${svgOutput.includes('<svg')}<br>
+                            Contains viewBox: ${svgOutput.includes('viewBox')}<br>
+                            Number of &lt;g&gt; elements: ${(svgOutput.match(/<g/g) || []).length}
+                        </div>
+                    ` : ''}
+                `;
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="test-result fail">
+                        <strong>❌ FSW Rendering Error:</strong> ${error.message}
+                    </div>
+                    <div class="code">
+                        Error details: ${error.stack}
+                    </div>
+                `;
+            }
+        }
+
+        function setupSvelteTest() {
+            const container = document.getElementById('svelte-test');
+            container.innerHTML = `
+                <div class="test-result warn">
+                    <strong>⚠️ Manual Test Required:</strong> This test requires manual interaction with the Svelte app
+                </div>
+                <div class="code">
+                    <strong>Steps to test Svelte connection:</strong><br>
+                    1. Open a new tab: <a href="http://localhost:5175/" target="_blank">http://localhost:5175/</a><br>
+                    2. Open browser console (F12)<br>
+                    3. Look for these console messages:<br>
+                    &nbsp;&nbsp;- "Using complete FSW string: M600X697..."<br>
+                    &nbsp;&nbsp;- "Generated single mannequin choosing with complete FSW"<br>
+                    &nbsp;&nbsp;- "Mannequin: Data loaded with 1 symbols"<br>
+                    4. Run: <code>window.debugMannequin()</code><br>
+                    5. Run: <code>window.reloadMannequinData()</code>
+                </div>
+                <div id="svelte-connection-result"></div>
+            `;
+        }
+
+        function testSvelteConnection() {
+            // Try to connect to the Svelte app running on localhost:5175
+            const container = document.getElementById('svelte-connection-result');
+            
+            // Since we can't directly access the other tab, provide instructions
+            container.innerHTML = `
+                <div class="test-result warn">
+                    <strong>🔗 Connection Test Instructions:</strong>
+                </div>
+                <div class="code">
+                    <strong>If mannequin is not showing, check these in the Svelte app console:</strong><br><br>
+                    1. <strong>Data Loading:</strong><br>
+                    &nbsp;&nbsp;<code>console.log('Current model:', window.maniquinModel || 'not available')</code><br><br>
+                    2. <strong>SSW Library:</strong><br>
+                    &nbsp;&nbsp;<code>console.log('SSW available:', typeof window.ssw)</code><br><br>
+                    3. <strong>Component State:</strong><br>
+                    &nbsp;&nbsp;<code>document.querySelector('.maniquin-complete-fsw')?.innerHTML || 'component not found'</code><br><br>
+                    4. <strong>Error Check:</strong><br>
+                    &nbsp;&nbsp;Look for any red error messages in console
+                </div>
+            `;
+        }
+
+        function testExactReproduction() {
+            const container = document.getElementById('reproduction-test');
+            
+            if (!window.ssw || typeof window.ssw.svg !== 'function') {
+                container.innerHTML = '<div class="test-result fail">❌ Cannot test - SSW library not available</div>';
+                return;
+            }
+
+            // Simulate the exact Svelte component logic
+            try {
+                // Step 1: Create the data structure exactly like Svelte
+                const maniquinchoosings = [{
+                    displaySign: {
+                        fsw: complexFSW,
+                        completeFSW: true,
+                        label: 'Complete SignWriting Mannequin'
+                    },
+                    offset: { 
+                        offsetx: 0,
+                        offsety: 0 
+                    },
+                    value: complexFSW,
+                    valuestoAdd: []
+                }];
+
+                // Step 2: Check the condition that Svelte uses
+                const model = { maniquinchoosings };
+                const hasData = model && model.maniquinchoosings && model.maniquinchoosings.length > 0;
+                const isCompleteFSW = hasData && model.maniquinchoosings[0].displaySign?.completeFSW;
+
+                // Step 3: Generate SVG exactly like Svelte
+                let svgOutput = '';
+                let error = null;
+                if (isCompleteFSW) {
+                    try {
+                        svgOutput = window.ssw.svg(model.maniquinchoosings[0].displaySign.fsw, { 
+                            scale: 1.0, 
+                            fill: '#ffffff', 
+                            line: '#000000' 
+                        });
+                    } catch (e) {
+                        error = e;
+                    }
+                }
+
+                // Step 4: Render results
+                container.innerHTML = `
+                    <div class="test-result ${hasData ? 'pass' : 'fail'}">
+                        <strong>${hasData ? '✅' : '❌'} Data Structure:</strong> 
+                        ${hasData ? `Model has ${model.maniquinchoosings.length} choosings` : 'No data available'}
+                    </div>
+                    <div class="test-result ${isCompleteFSW ? 'pass' : 'fail'}">
+                        <strong>${isCompleteFSW ? '✅' : '❌'} Complete FSW Flag:</strong> 
+                        ${isCompleteFSW ? 'completeFSW is true' : 'completeFSW is false or missing'}
+                    </div>
+                    <div class="test-result ${svgOutput && !error ? 'pass' : 'fail'}">
+                        <strong>${svgOutput && !error ? '✅' : '❌'} SVG Generation:</strong> 
+                        ${error ? `Error: ${error.message}` : svgOutput ? `Success (${svgOutput.length} chars)` : 'No output'}
+                    </div>
+                    ${svgOutput ? `
+                        <div style="border: 1px solid #ddd; padding: 20px; margin: 10px 0; background: white;">
+                            <strong>🎯 Exact Reproduction Result:</strong><br>
+                            ${svgOutput}
+                        </div>
+                    ` : ''}
+                `;
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="test-result fail">
+                        <strong>❌ Reproduction Test Failed:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-start diagnostic
+        window.addEventListener('load', () => {
+            setTimeout(waitForSSW, 100);
+        });
+    </script>
+</body>
+</html>

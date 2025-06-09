@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Mannequin Debug</title>
+    <script src="js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" href="css/SuttonSignWriting.css">
+</head>
+<body>
+    <h1>🔍 Current Mannequin State Debug</h1>
+    
+    <div id="debug-info"></div>
+    
+    <script>
+        function waitForSSWAndTest() {
+            if (typeof window !== 'undefined' && window.ssw && typeof window.ssw.svg === 'function') {
+                console.log('✅ SSW library loaded, running debug tests...');
+                runMannequinDebug();
+            } else {
+                console.log('⏳ Waiting for SSW library...');
+                setTimeout(waitForSSWAndTest, 100);
+            }
+        }
+        
+        function runMannequinDebug() {
+            console.log('🔍 CURRENT MANNEQUIN DEBUG SESSION');
+            
+            // Test the exact same setup as the Svelte app
+            const complexFSW = "M600X697S33000476X489S2FF00484X488S30A50495X490S30A40516X490S31430498X500S33E10501X520S33110510X511S36D10481X558S36A10498X538S37601546X560S37609463X560S14C10554X555S20500576X542S21600552X542S22800463X558S2F700562X519S22A00470X636S22E00583X587S23800487X631S24200506X631S24B00534X628S28800468X668S29900491X663S2E300534X665S2ED00568X587S2F100448X542S2F500564X655S36B10463X454S36C00493X447S38500534X443S37E0F440X559S29600511X663S38700476X695--Z01,1.48Z02,1.51Z05,1.21Z06,1.45Z08,1.63Z09,1.45Z10,1.6Z11,1.6Z25,0.79Z28,0.79Z29,0.79Z30,0.79";
+            
+            console.log('📝 Testing with FSW:', complexFSW.substring(0, 50) + '...');
+            console.log('📊 FSW length:', complexFSW.length, 'characters');
+            
+            // Test the exact same data structure as signStore.ts
+            const maniquinchoosings = [{
+                displaySign: {
+                    fsw: complexFSW,
+                    completeFSW: true,
+                    label: 'Complete SignWriting Mannequin'
+                },
+                offset: { 
+                    offsetx: 0,
+                    offsety: 0 
+                },
+                value: complexFSW,
+                valuestoAdd: []
+            }];
+            
+            console.log('🗂️ Created mannequin choosings:', maniquinchoosings);
+            console.log('📊 Number of choosings:', maniquinchoosings.length);
+            console.log('🎯 First choosing data:', maniquinchoosings[0]);
+            
+            // Test the generateFSWSVGSync function
+            try {
+                console.log('🔧 Testing generateFSWSVGSync function...');
+                
+                // Replicate the exact function used in Mannequin.svelte
+                function generateFSWSVGSync(fsw, options = {}) {
+                    try {
+                        console.log('🔧 generateFSWSVGSync called with FSW:', fsw.substring(0, 30) + '...');
+                        
+                        if (!window.ssw || typeof window.ssw.svg !== 'function') {
+                            throw new Error('SSW library not loaded');
+                        }
+                        
+                        if (!fsw || typeof fsw !== 'string') {
+                            throw new Error('No FSW string provided');
+                        }
+                        
+                        const svg = window.ssw.svg(fsw);
+                        
+                        if (!svg || !svg.includes('<svg')) {
+                            throw new Error('Failed to generate SVG from FSW');
+                        }
+                        
+                        console.log('✅ Generated SVG for FSW - Length:', svg.length);
+                        return svg;
+                        
+                    } catch (error) {
+                        console.error('❌ generateFSWSVGSync error:', error);
+                        return `<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
+                          <text x="20" y="24" text-anchor="middle" font-size="12" fill="#666">?</text>
+                        </svg>`;
+                    }
+                }
+                
+                const svgResult = generateFSWSVGSync(complexFSW, { scale: 1.0, fill: '#ffffff', line: '#000000' });
+                console.log('🎨 SVG generation result:', svgResult.length, 'characters');
+                console.log('📋 SVG preview:', svgResult.substring(0, 200) + '...');
+                
+                // Display the result
+                const debugDiv = document.getElementById('debug-info');
+                debugDiv.innerHTML = `
+                    <h2>✅ Debug Results</h2>
+                    <div style="background: #f0f8ff; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                        <strong>📊 Data Structure:</strong><br>
+                        • FSW Length: ${complexFSW.length} characters<br>
+                        • Mannequin Choosings: ${maniquinchoosings.length}<br>
+                        • Complete FSW Flag: ${maniquinchoosings[0].displaySign.completeFSW}<br>
+                        • Has displaySign.fsw: ${!!maniquinchoosings[0].displaySign.fsw}<br>
+                    </div>
+                    
+                    <div style="background: #f0fff0; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                        <strong>🎨 SVG Generation:</strong><br>
+                        • Generated SVG Length: ${svgResult.length} characters<br>
+                        • Contains &lt;svg&gt;: ${svgResult.includes('<svg>')}<br>
+                        • Contains dual-font classes: ${svgResult.includes('sym-fill') && svgResult.includes('sym-line')}<br>
+                    </div>
+                    
+                    <h3>🖼️ Generated Mannequin:</h3>
+                    <div style="background: #fff; border: 2px solid #333; padding: 20px; margin: 10px 0;">
+                        ${svgResult}
+                    </div>
+                    
+                    <h3>📝 Raw SVG Code (first 500 chars):</h3>
+                    <pre style="background: #f5f5f5; padding: 10px; font-size: 12px; overflow-x: auto;">${svgResult.substring(0, 500)}...</pre>
+                `;
+                
+            } catch (error) {
+                console.error('❌ Debug test failed:', error);
+                document.getElementById('debug-info').innerHTML = `
+                    <h2>❌ Debug Failed</h2>
+                    <div style="background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px;">
+                        Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Start the test
+        setTimeout(waitForSSWAndTest, 500);
+    </script>
+</body>
+</html>

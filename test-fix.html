@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Fixed Implementation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .symbol-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .symbol-key {
+            font-family: monospace;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+    <!-- Load the CSS and JS files exactly like the working example -->
+    <script src="src/js/SuttonSignWriting.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/css/SuttonSignWriting.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Test Fixed Implementation</h1>
+        <p>Testing the same symbol keys that the Svelte mannequin uses:</p>
+        
+        <div class="test-section">
+            <h2>📋 Mannequin Symbol Keys Test</h2>
+            <div class="symbol-grid" id="symbol-grid">
+                <!-- Symbols will be inserted here -->
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Result</h2>
+            <div id="result">
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runTest() {
+            console.log('SSW object:', typeof ssw, ssw);
+            
+            // Test the exact same symbols used in the Svelte mannequin
+            const mannequinSymbols = [
+                'S10000',  // Index Finger
+                'S26a00',  // Double Movement  
+                'S30100',  // Head Movement
+                'S10001',  // Index Finger Variant
+                'S2f500'   // Arrow
+            ];
+
+            // Generate symbols using ssw.svg() 
+            const symbolGrid = document.getElementById('symbol-grid');
+            let gridHtml = '';
+            let successCount = 0;
+            let errorCount = 0;
+
+            // Test individual symbols
+            mannequinSymbols.forEach(key => {
+                try {
+                    const svg = ssw.svg(key);
+                    if (svg && svg.includes('<svg')) {
+                        gridHtml += `
+                            <div class="symbol-item">
+                                ${svg}
+                                <div class="symbol-key">${key} ✅</div>
+                            </div>
+                        `;
+                        successCount++;
+                    } else {
+                        throw new Error('Empty or invalid SVG');
+                    }
+                } catch (error) {
+                    gridHtml += `
+                        <div class="symbol-item">
+                            <div style="color: red; font-size: 20px;">❌</div>
+                            <div class="symbol-key">${key}<br>Error: ${error.message}</div>
+                        </div>
+                    `;
+                    errorCount++;
+                }
+            });
+
+            symbolGrid.innerHTML = gridHtml;
+
+            // Update result
+            const result = document.getElementById('result');
+            if (errorCount === 0) {
+                result.innerHTML = `
+                    <p style="color: green; font-weight: bold;">
+                        ✅ All ${successCount} symbols rendered successfully!
+                        The fixed implementation should work in the Svelte mannequin.
+                    </p>
+                `;
+            } else {
+                result.innerHTML = `
+                    <p style="color: orange; font-weight: bold;">
+                        ⚠️ ${successCount} symbols succeeded, ${errorCount} failed.
+                        There may still be issues with the implementation.
+                    </p>
+                `;
+            }
+        }
+
+        // Wait for SSW library to load, then run test
+        function waitForSSW() {
+            if (typeof ssw !== 'undefined' && ssw.svg) {
+                runTest();
+            } else {
+                console.log('Waiting for SSW library...');
+                setTimeout(waitForSSW, 100);
+            }
+        }
+
+        // Start when page loads
+        window.addEventListener('load', waitForSSW);
+    </script>
+</body>
+</html>

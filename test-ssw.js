@@ -1,0 +1,1 @@
+console.log("Testing SSW library"); if (typeof window !== "undefined" && window.ssw) { console.log("SSW available:", typeof window.ssw.svg); const svg = window.ssw.svg("S10000"); console.log("Generated SVG length:", svg.length); } else { console.log("SSW not available"); }
