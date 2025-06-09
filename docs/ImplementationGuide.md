@@ -4,6 +4,12 @@
 
 This implementation guide provides the technical roadmap for QuickSignEditor 2025, a modern rewrite of the legacy Elm-based SignWriting editor as a Svelte 3 application. The project emphasizes maintainability, comprehensive testing, and AI-optimized development patterns.
 
+### Live Reference Application
+**Current Elm Version**: https://jonathandduncan.github.io/QuickSignEditor/
+- Use this live version to verify feature parity and behavior
+- Compare selection tools, editor modes, and user interactions
+- Test FSW import/export functionality against live version
+
 ### Key Project Goals
 - **Feature Parity**: Full compatibility with legacy Elm application functionality
 - **Modern Architecture**: Svelte 3 + TypeScript with reactive state management
@@ -276,7 +282,12 @@ This structure provides:
 - **Clear component hierarchy** matching the original Elm architecture
 - **Layout containers** that manage responsive behavior
 
-## Current Implementation Status
+## Current Implementation Status (Updated June 8, 2025)
+
+### Live Reference Implementation
+- **Elm Version**: Available at https://jonathandduncan.github.io/QuickSignEditor/
+- **Target Functionality**: Svelte implementation should match Elm version features
+- **Comparison Tool**: Use live Elm version to verify feature parity
 
 ### Actual Implementation Analysis
 
@@ -284,8 +295,15 @@ The current Svelte implementation is **significantly simpler** than the original
 
 #### Comparison Metrics
 - **Elm Implementation**: 76 files across 9 major systems, 7-level deep nesting
-- **Svelte Implementation**: ~10 main components, 2-3 level maximum depth  
-- **Migration Status**: 60% fully implemented, 20% partial, 20% planned
+- **Svelte Implementation**: ~15 main components, 3-4 level maximum depth  
+- **Migration Status**: 65% fully implemented, 25% partial, 10% planned
+
+### Recent Progress (June 2025)
+- ✅ **Selection Tools Framework**: EditorMode types, SelectionToolbar component
+- 🚧 **Rectangle Selection**: Component created, integration in progress
+- 🚧 **Circle Selection**: Component created, needs testing
+- 🚧 **Hand Tool (Pan)**: Component created, needs integration
+- 📝 **SignEditor Integration**: Selection tools being integrated into main editor
 
 #### Current Working Components
 ```
@@ -296,13 +314,49 @@ src/
 │   ├── GeneralGroupChooser.svelte # 📝 Stub implementation
 │   ├── HandGroupChooser.svelte   # 📝 Stub implementation  
 │   ├── Maniquin.svelte           # ✅ KEY TARGET - Full FSW rendering
-│   ├── SignEditor.svelte         # ✅ Full editing functionality
+│   ├── SignEditor.svelte         # 🚧 Full editing functionality + selection tools
 │   ├── SymbolChooser.svelte      # ✅ Working symbol selection
 │   ├── SymbolSVG.svelte          # ✅ Symbol display utility
 │   ├── Toolbar.svelte            # ✅ All toolbar actions
 │   ├── signStore.ts              # ✅ Centralized state management
-│   └── signWritingFont.ts        # ✅ SignWriting utilities
+│   ├── signWritingFont.ts        # ✅ SignWriting utilities
+│   ├── types/
+│   │   └── editorTypes.ts        # ✅ NEW - Editor mode types
+│   └── components/
+│       ├── SelectionToolbar.svelte # ✅ NEW - Tool selection interface
+│       ├── RectangleSelect.svelte  # ✅ NEW - Rectangle selection tool
+│       ├── CircleSelect.svelte     # ✅ NEW - Circle selection tool
+│       └── HandCursor.svelte       # ✅ NEW - Pan/navigation tool
 ```
+
+### Selection Tools Implementation (NEW - January 2025)
+
+#### Completed Components
+1. **EditorTypes**: TypeScript interfaces for editor modes and selection areas
+2. **SelectionToolbar**: Tool picker with keyboard shortcuts (V, R, C, H)
+3. **RectangleSelect**: Drag-to-select rectangle with intersection detection
+4. **CircleSelect**: Drag-to-select circle with radius-based selection
+5. **HandCursor**: Pan/zoom navigation with keyboard arrow support
+
+#### Editor Modes Available
+- `'select'` - Default selection mode (V key)
+- `'rectangleSelect'` - Rectangle selection (R key)
+- `'circleSelect'` - Circle selection (C key)  
+- `'handCursor'` - Pan/navigation mode (H key)
+
+#### Integration Status
+- 🚧 **SignEditor Integration**: Selection components created, template integration in progress
+- 📝 **Event Handling**: Mode switching and selection area calculations implemented
+- 📝 **Testing**: Need comprehensive tests for all selection tools
+- 📝 **UI Polish**: Visual feedback and cursor states need refinement
+- 📝 **Feature Verification**: Compare with live Elm version behavior
+
+#### Next Steps
+1. Complete SignEditor template integration with selection tools
+2. Test selection functionality with existing symbol selection patterns
+3. Implement proper cursor states for each editor mode
+4. Add comprehensive tests for all selection components
+5. Verify feature parity with live Elm version at https://jonathandduncan.github.io/QuickSignEditor/
 
 ### Mannequin Component Success Story
 

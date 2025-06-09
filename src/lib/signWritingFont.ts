@@ -68,22 +68,16 @@ async function loadSswLibrary(): Promise<void> {
 }
 
 /**
- * SignWriting Dual-Font Rendering System
+ * SignWriting Symbol Rendering System
  * 
- * SignWriting symbols require two overlapping fonts to render correctly:
- * 1. SuttonSignWritingFill - Provides white interior/fill
- * 2. SuttonSignWriting (Line) - Provides black outline/stroke
- * 
- * Both fonts are rendered simultaneously in the same SVG, with the fill font
- * drawn first (as a base layer) and the line font drawn on top (as an outline).
- * This creates properly formed SignWriting symbols with white interiors and
- * black outlines.
+ * This module provides functions to render SignWriting symbols using the
+ * official SuttonSignWriting.js library. The ssw.svg() function generates
+ * properly formatted SVG elements that display SignWriting symbols correctly.
  */
 
 /**
- * Generate SVG for a SignWriting symbol using the dual-font approach
- * This creates two overlapping text elements: one with SuttonSignWritingFill (white) 
- * and one with SuttonSignWriting (black outline), following the official implementation
+ * Generate SVG for a SignWriting symbol using the simple ssw.svg() approach
+ * This uses the official SSW library function that works reliably
  */
 export async function generateSymbolSVG(symbol: SignWritingSymbol, options: {
   scale?: number;
@@ -101,54 +95,17 @@ export async function generateSymbolSVG(symbol: SignWritingSymbol, options: {
       throw new Error('No symbol key provided');
     }
     
-    // Calculate size - use provided size or default
-    const baseSize = options.size || symbol.size || 30;
-    const scale = options.scale || 1;
-    const finalSize = Math.round(baseSize * scale);
+    // Use the official ssw.svg() function directly - this works reliably
+    const svg = window.ssw.svg(symbolKey);
     
-    // Create SVG with dual-font approach following official implementation
-    // Structure: <g> group containing two <text> elements
-    // 1. sym-fill: SuttonSignWritingFill font with ssw.pua() content
-    // 2. sym-line: SuttonSignWriting font with ssw.code() content
-    const fillChar = window.ssw.pua(symbolKey);
-    const lineChar = window.ssw.code(symbolKey);
-    
-    console.log('Symbol:', symbolKey, 'Fill char:', fillChar, 'Line char:', lineChar);
-    
-    const svg = `<svg width="${finalSize}" height="${finalSize}" viewBox="0 0 ${finalSize} ${finalSize}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <style>
-          .sym-fill {
-            font-family: 'SuttonSignWritingFill';
-            font-size: ${finalSize}px;
-            fill: ${options.fill || symbol.nwcolor || '#ffffff'};
-            text-anchor: middle;
-            dominant-baseline: central;
-            pointer-events: none;
-          }          .sym-line {
-            font-family: 'SuttonSignWritingLine';
-            font-size: ${finalSize}px;
-            fill: ${options.line || symbol.nbcolor || '#000000'};
-            text-anchor: middle;
-            dominant-baseline: central;
-            pointer-events: none;
-          }
-        </style>
-      </defs>
-      <g transform="translate(${finalSize/2},${finalSize/2})">
-        <text x="0" y="0" class="sym-fill">${fillChar}</text>
-        <text x="0" y="0" class="sym-line">${lineChar}</text>
-      </g>
-    </svg>`;
-    
-    console.log('Generated dual-font SVG for', symbolKey);
-    
-    if (!svg || svg.trim() === '') {
-      console.warn('Empty SVG generated for symbol:', symbolKey);
-      throw new Error('Empty SVG generated');
+    if (!svg || !svg.includes('<svg')) {
+      throw new Error('Failed to generate SVG from symbol key');
     }
     
+    console.log('Generated SVG for symbol:', symbolKey, '- Length:', svg.length);
+    
     return svg;
+    
   } catch (error) {
     console.warn('Failed to generate SVG for symbol:', symbol.key, String(error));
     const size = options.size || symbol.size || 40;
@@ -247,8 +204,8 @@ export async function loadSignWritingFonts(): Promise<void> {
 }
 
 /**
- * Generate SVG for a complete FSW (Formal SignWriting) string using dual-font approach
- * This creates a complete sign with multiple symbols positioned correctly
+ * Generate SVG for a complete FSW (Formal SignWriting) string
+ * Uses the official ssw.svg() function which works correctly with the SSW library
  */
 export async function generateFSWSVG(fsw: string, options: {
   scale?: number;
@@ -264,99 +221,71 @@ export async function generateFSWSVG(fsw: string, options: {
       throw new Error('No FSW string provided');
     }
     
-    // Use the official ssw.svg() to get the base structure, but we'll modify it for dual-font
-    const officialSVG = window.ssw.svg(fsw);
+    // Use the official ssw.svg() function directly - this works in all the test files
+    const svg = window.ssw.svg(fsw);
     
-    if (!officialSVG || !officialSVG.includes('<svg')) {
+    if (!svg || !svg.includes('<svg')) {
       throw new Error('Failed to generate SVG from FSW');
     }
     
-    console.log('Original SVG:', officialSVG);
+    console.log('Generated SVG for FSW:', fsw, '- Length:', svg.length);
     
-    // Parse the FSW to extract symbols and positions
-    const symbolMatches = fsw.match(/S[0-9a-f]{5}\d+x\d+/gi);
-    
-    if (!symbolMatches) {
-      throw new Error('No positioned symbols found in FSW');
-    }
-    
-    // Extract viewBox and dimensions from original SVG
-    const viewBoxMatch = officialSVG.match(/viewBox="([^"]+)"/);
-    const widthMatch = officialSVG.match(/width="([^"]+)"/);
-    const heightMatch = officialSVG.match(/height="([^"]+)"/);
-    
-    const viewBox = viewBoxMatch ? viewBoxMatch[1] : '0 0 100 100';
-    const width = widthMatch ? widthMatch[1] : '100';
-    const height = heightMatch ? heightMatch[1] : '100';
-    
-    // Generate dual-font version
-    let dualFontSVG = `<svg width="${width}" height="${height}" viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg">`;
-    
-    // Add CSS for dual-font approach
-    dualFontSVG += `
-      <defs>
-        <style>
-          .sym-fill {
-            font-family: 'SuttonSignWritingFill';
-            fill: ${options.fill || '#ffffff'};
-            text-anchor: middle;
-            dominant-baseline: central;
-            pointer-events: none;
-          }          .sym-line {
-            font-family: 'SuttonSignWritingLine';
-            fill: ${options.line || '#000000'};
-            text-anchor: middle;
-            dominant-baseline: central;
-            pointer-events: none;
-          }
-        </style>
-      </defs>`;
-    
-    // Process each symbol
-    symbolMatches.forEach((symbolPos) => {
-      try {
-        const symbolKey = symbolPos.slice(0, 6); // Extract S##### part
-        const coords = symbolPos.slice(6); // Extract coordinates
-        const [x, y] = coords.split('x').map(n => parseInt(n));
-        
-        // Get both font characters
-        const fillChar = window.ssw.pua(symbolKey);
-        const lineChar = window.ssw.code(symbolKey);
-        
-        // Get symbol size for font-size calculation
-        const symbolSize = window.ssw.size(symbolKey);
-        let fontSize = 30;
-        if (symbolSize) {
-          const [w, h] = symbolSize.split('x').map(n => parseInt(n));
-          fontSize = Math.max(w, h) * (options.scale || 1);
-        }
-        
-        // Add dual-font group for this symbol
-        dualFontSVG += `
-          <g transform="translate(${x},${y})">
-            <text x="0" y="0" class="sym-fill" style="font-size:${fontSize}px">${fillChar}</text>
-            <text x="0" y="0" class="sym-line" style="font-size:${fontSize}px">${lineChar}</text>
-          </g>`;
-          
-      } catch (error) {
-        console.warn('Failed to process symbol:', symbolPos, error);
-      }
-    });
-    
-    dualFontSVG += '</svg>';
-    
-    console.log('Generated dual-font FSW SVG');
-    return dualFontSVG;
+    return svg;
     
   } catch (error) {
-    console.warn('Failed to generate dual-font FSW SVG:', String(error));
+    console.warn('Failed to generate FSW SVG:', String(error));
+    throw new Error(`Failed to generate FSW SVG: ${String(error)}`);
+  }
+}
+
+/**
+ * Synchronous version of generateFSWSVG for cases where the SSW library is already loaded
+ * This is more efficient for components that render many symbols
+ */
+export function generateFSWSVGSync(fsw: string, options: {
+  scale?: number;
+  size?: number;
+  line?: string;
+  fill?: string;
+} = {}): string {
+  try {
+    console.log('generateFSWSVGSync called with FSW:', fsw, 'options:', options);
     
-    // Fallback to official SSW SVG
-    try {
-      await loadSswLibrary();
-      return window.ssw.svg(fsw);
-    } catch (fallbackError) {
-      throw new Error(`Failed to generate FSW SVG: ${String(error)}`);
+    if (!isSswLoaded()) {
+      console.error('SSW library not loaded - window.ssw is:', typeof window !== 'undefined' ? typeof window.ssw : 'window undefined');
+      throw new Error('SSW library not loaded - use async version');
     }
+    
+    if (!fsw || typeof fsw !== 'string') {
+      console.error('No FSW string provided:', fsw);
+      throw new Error('No FSW string provided');
+    }
+    
+    // Use the official ssw.svg() function directly - this works in all the test files
+    console.log('Calling window.ssw.svg with FSW:', fsw);
+    console.log('window.ssw.svg function available:', typeof window.ssw.svg === 'function');
+    
+    const svg = window.ssw.svg(fsw);
+    
+    console.log('window.ssw.svg returned:', typeof svg, 'length:', svg?.length);
+    
+    if (!svg || !svg.includes('<svg')) {
+      console.error('Failed to generate SVG from FSW:', fsw, 'result:', svg);
+      throw new Error('Failed to generate SVG from FSW');
+    }
+    
+    console.log('Successfully generated SVG for FSW:', fsw, '- SVG length:', svg.length);
+    console.log('SVG preview (first 200 chars):', svg.substring(0, 200));
+    
+    return svg;
+    
+  } catch (error) {
+    console.warn('Failed to generate FSW SVG (sync):', String(error));
+    console.log('Returning placeholder SVG');
+    // Return a placeholder SVG instead of throwing
+    return `<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="none" stroke="#ccc" stroke-dasharray="2,2"/>
+      <text x="20" y="24" text-anchor="middle" font-size="12" fill="#666">?</text>
+    </svg>`;
   }
 }

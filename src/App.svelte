@@ -1,12 +1,13 @@
-<script lang="ts">  import SignEditor from './lib/SignEditor.svelte';
-  import SymbolChooser from './lib/SymbolChooser.svelte';
-  import Toolbar from './lib/Toolbar.svelte';  import { signStore, signModel, loadManiquinData } from './lib/signStore';
-  import { get, writable } from 'svelte/store';
-  import ChooserPanel from './lib/ChooserPanel.svelte';  
+<script lang="ts">
+  // New layout structure using MainLayout
+  import MainLayout from './lib/layout/MainLayout.svelte';
+  import { signStore, signModel, loadManiquinData } from './lib/signStore';
   import { onMount } from 'svelte';
-  import Maniquin from './lib/Maniquin.svelte';
-  import SymbolSVG from './lib/SymbolSVG.svelte';
-  // SignWriting uses dual-font rendering (fill + line together) - no toggle needed
+
+  // Layout state
+  let showAboutDialog = false;
+  let showDrawer = false;
+  let showKeyboard = false;
 
   // Example symbol library
   let symbols = [
@@ -29,6 +30,7 @@
       metadata: { ...(sd.metadata || {}) }
     }));
   }
+
   function handleSymbolSelection(event: CustomEvent<{ id: string; multi: boolean }>) {
     const { id, multi } = event.detail;
     // Update signStore based on selection mode
@@ -39,6 +41,7 @@
         : sd.symbols.map(s => ({ ...s, selected: s.id === id }))
     }));
   }
+
   function handleToolbarAction(action: string) {
     if (action === 'undo') signStore.undo();
     else if (action === 'redo') signStore.redo();
@@ -75,10 +78,9 @@
       
       console.log('Official SSW SVG generated:', svg);
       console.log('SVG contains dual-font classes:', svg.includes('sym-fill') && svg.includes('sym-line'));
-      
-    } catch (error) {
+        } catch (error) {
       console.error('Official SSW test failed:', error);
-      alert('Official SSW test failed: ' + error.message);
+      alert('Official SSW test failed: ' + String(error));
     }
   }
 
@@ -145,10 +147,9 @@
       
       document.body.appendChild(testDiv);
       
-      return svg;
-    } catch (error) {
+      return svg;    } catch (error) {
       console.error('Test failed:', error);
-      alert('Test failed: ' + error.message);
+      alert('Test failed: ' + String(error));
     }
   }// Example model for demo/testing
   let chooserModel = {
@@ -166,7 +167,30 @@
 
   let maniquinModel: { maniquinchoosings: any[] } = { maniquinchoosings: [] };
   const unsubscribe = signModel.subscribe(value => maniquinModel = value);  onMount(() => {
+    console.log('App onMount - calling loadManiquinData');
     loadManiquinData();
+    
+    // Debug: Check if data was loaded immediately
+    setTimeout(() => {
+      console.log('Checking mannequin data after load:', $signModel);
+    }, 100);    // Make debugging functions available globally
+    (window as any).debugMannequin = () => {
+      console.log('=== MANNEQUIN DEBUG ===');
+      console.log('Current mannequin model:', maniquinModel);
+      console.log('Number of symbols:', maniquinModel.maniquinchoosings?.length || 0);
+      if (maniquinModel.maniquinchoosings?.length > 0) {
+        console.log('First few symbols:', maniquinModel.maniquinchoosings.slice(0, 5));
+        console.log('Sample symbol structure:', maniquinModel.maniquinchoosings[0]);
+      }
+    };
+    
+    (window as any).reloadMannequinData = () => {
+      console.log('=== RELOADING MANNEQUIN DATA ===');
+      loadManiquinData();
+      setTimeout(() => {
+        console.log('After reload - symbols:', $signModel.maniquinchoosings?.length || 0);
+      }, 100);
+    };
 
     // Wait for SSW library to load and test
     console.log('Checking for SSW library...');
@@ -216,79 +240,52 @@
   ];
 </script>
 
-<main>
-  <h1>QuickSignEditor Demo</h1>
-  <!-- Demo: SuttonSignWriting font rendering example -->  <section style="margin-bottom: 2rem;">
-    <h2>SignWriting Dual-Font Demo</h2>    <p style="color: #666; margin-bottom: 1rem;">
-      SignWriting symbols use two overlapping fonts: SuttonSignWritingFill (white interior) and SuttonSignWritingLine (black outline)
-    </p>
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-      <SymbolSVG symbol={demoSymbol} scale={2} margin={4} />
-      <span style="font-family: SuttonSignWriting, sans-serif; font-size: 2.5rem;">{String.fromCodePoint(0xFD830)}</span>
-      <span style="font-size: 1.1rem; color: #666;">(Direct font rendering for comparison)</span>
-    </div>    <!-- Official SSW Library Dual-Font Test -->
-    <div style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 4px;">
-      <p><strong>✅ Working Dual-Font Implementation:</strong></p>
-      
-      <!-- Test FSW String rendering -->
-      <div style="background: white; border: 2px solid #333; padding: 15px; margin: 10px 0; text-align: center;">
-        <div id="fsw-demo-output" style="min-height: 80px; display: flex; align-items: center; justify-content: center;">
-          <span style="color: #666;">Click "Generate Sign" to see dual-font rendering</span>
-        </div>
-      </div>
-      
-      <div style="margin-top: 1rem;">        <button on:click={testOfficialSSW} style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
-          Generate Sign with Official SSW
-        </button>
-        <button on:click={testDualFontRendering} style="padding: 8px 16px; background: #007acc; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
-          Test Symbol Generation
-        </button>
-        <button on:click={testMultipleFSWStrings} style="padding: 8px 16px; background: #6610f2; color: white; border: none; border-radius: 4px; cursor: pointer;">
-          Test Multiple FSW Strings
-        </button>
-      </div>
-      
-      <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
-        The official SSW library now generates proper dual-font SVG with SuttonSignWritingLine (black outline) and SuttonSignWritingFill (white interior).
-      </p>
-    </div></section>
-    <div class="toolbar-section">
-    <Toolbar on:action={e => handleToolbarAction(e.detail)} />
-  </div>
-  <div class="editor-layout">
-    <SymbolChooser {symbols} on:select={e => handleSymbolSelect(e.detail)} />
-    <SignEditor {signData} on:select={handleSymbolSelection} />
-  </div>
-  <ChooserPanel model={chooserModel} parentWidth={800} parentHeight={400} />
-  <!-- Add Maniquin preview using loaded data -->
-  <Maniquin model={maniquinModel} width={400} height={80} />
-</main>
+<!-- Use MainLayout for proper layout hierarchy -->
+<MainLayout
+  {signData}
+  {showAboutDialog}
+  {showDrawer}
+  {showKeyboard}
+  on:toggleAbout={() => showAboutDialog = !showAboutDialog}
+  on:toggleDrawer={() => showDrawer = !showDrawer}
+  on:toggleKeyboard={() => showKeyboard = !showKeyboard}
+  on:toolbarAction={e => handleToolbarAction(e.detail)}
+  on:symbolSelect={e => handleSymbolSelect(e.detail)}
+  on:symbolSelection={handleSymbolSelection}
+  {chooserModel}
+  {maniquinModel}
+  {symbols}
+/>
+
+<!-- Development/Testing Section - Can be removed in production -->
+<div style="position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 4px; font-size: 12px; z-index: 1000;">
+  <div>Layout Hierarchy Active</div>
+  <div>Keyboard: {showKeyboard ? 'On' : 'Off'}</div>
+  <div>Drawer: {showDrawer ? 'On' : 'Off'}</div>
+  <div>Symbols: {signData.symbols.length}</div>
+</div>
 
 <style>
-  main {
-    padding: 2rem;
-    font-family: system-ui, sans-serif;
+  /* Global styles for the app */
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f5f5f5;
   }
-  .editor-layout {
-    display: flex;
-    gap: 2rem;
-  }
-  @media (max-width: 800px) {
-    main {
-      padding: 1rem;
-    }
-    .editor-layout {
-      flex-direction: column;
-      gap: 1rem;
-    }
-  }
-  @media (max-width: 500px) {
-    main {
-      padding: 0.5rem;
-      font-size: 15px;
-    }
-    h1 {
-      font-size: 1.2em;
-    }
+
+  /* Development indicator styles */
+  :global(.dev-indicator) {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: monospace;
+    z-index: 1000;
+    pointer-events: none;
   }
 </style>

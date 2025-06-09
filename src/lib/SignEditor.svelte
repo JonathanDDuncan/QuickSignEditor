@@ -4,8 +4,21 @@
   import { validateSignData } from './utils/validation';
   import transformSymbols from './utils/transform';
   import type { SignData, Symbol } from './utils/types';
-
+  import type { EditorMode, EditorState, SelectionArea } from './types/editorTypes';
+  import SelectionToolbar from './components/SelectionToolbar.svelte';
+  import RectangleSelect, { isRectangleIntersect, getSelectionBounds as getRectangleBounds } from './components/RectangleSelect.svelte';
+  import CircleSelect, { isRectangleInCircle, getSelectionBounds as getCircleBounds } from './components/CircleSelect.svelte';
+  import HandCursor from './components/HandCursor.svelte';
   export let signData: SignData | undefined;
+  export let showSelectionTools = true;
+  
+  // Editor state
+  let editorState: EditorState = {
+    mode: 'select',
+    selectionArea: null
+  };
+  
+  let canvasElement: HTMLElement;
   let validation: { isValid: boolean; error?: string } = { isValid: true };
   const dispatch = createEventDispatcher();
 
@@ -14,8 +27,10 @@
   $: symbols = transformSymbols(currentSignData.symbols);
   $: validation = validateSignData(currentSignData);
   $: showPlaceholder = symbols.length === 0 && validation.isValid;
-
   function selectSymbol(id: string, event?: MouseEvent | KeyboardEvent) {
+    // Don't allow individual selection in selection modes other than 'select'
+    if (editorState.mode !== 'select') return;
+    
     // Multi-select logic: Shift/Ctrl/Meta toggles selection
     const isMulti = event && (event.shiftKey || event.ctrlKey || event.metaKey);
     if (signData) {
@@ -45,6 +60,111 @@
       signData.symbols = signData.symbols.map(s =>
         (!isMulti && s.id !== id) ? { ...s, selected: false } : s
       );
+    }
+  }
+
+  // Handle editor mode changes
+  function handleModeChange(event: CustomEvent<EditorMode>) {
+    editorState.mode = event.detail;
+    editorState.selectionArea = null;
+    dispatch('modeChange', editorState.mode);
+  }
+
+  // Handle selection area events
+  function handleSelectionStart(event: CustomEvent<SelectionArea>) {
+    editorState.selectionArea = event.detail;
+  }
+
+  function handleSelectionMove(event: CustomEvent<SelectionArea>) {
+    editorState.selectionArea = event.detail;
+    
+    // Perform real-time selection based on current mode
+    if (editorState.mode === 'rectangleSelect' && editorState.selectionArea) {
+      selectSymbolsInRectangle(editorState.selectionArea);
+    } else if (editorState.mode === 'circleSelect' && editorState.selectionArea) {
+      selectSymbolsInCircle(editorState.selectionArea);
+    }
+  }
+
+  function handleSelectionEnd() {
+    editorState.selectionArea = null;
+  }
+
+  // Select symbols within rectangle
+  function selectSymbolsInRectangle(area: SelectionArea) {
+    const rectBounds = getRectangleBounds(area);
+    
+    if (signData) {
+      // Prop-driven: dispatch selections
+      symbols.forEach(symbol => {
+        const symbolBounds = {
+          x: symbol.x,
+          y: symbol.y,
+          width: Number(symbol.width) || 44,
+          height: Number(symbol.height) || 44
+        };
+        
+        if (isRectangleIntersect(rectBounds, symbolBounds)) {
+          dispatch('select', { id: symbol.id, multi: true });
+        }
+      });
+    } else {
+      // Store-driven: update selections
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s => {
+          const symbolBounds = {
+            x: s.x,
+            y: s.y,
+            width: Number(s.width) || 44,
+            height: Number(s.height) || 44
+          };
+          
+          return {
+            ...s,
+            selected: isRectangleIntersect(rectBounds, symbolBounds)
+          };
+        })
+      }));
+    }
+  }
+
+  // Select symbols within circle
+  function selectSymbolsInCircle(area: SelectionArea) {
+    const circleBounds = getCircleBounds(area);
+    
+    if (signData) {
+      // Prop-driven: dispatch selections
+      symbols.forEach(symbol => {
+        const symbolBounds = {
+          x: symbol.x,
+          y: symbol.y,
+          width: Number(symbol.width) || 44,
+          height: Number(symbol.height) || 44
+        };
+        
+        if (isRectangleInCircle(symbolBounds, { x: circleBounds.centerX, y: circleBounds.centerY }, circleBounds.radius)) {
+          dispatch('select', { id: symbol.id, multi: true });
+        }
+      });
+    } else {
+      // Store-driven: update selections
+      signStore.update(sd => ({
+        ...sd,
+        symbols: sd.symbols.map(s => {
+          const symbolBounds = {
+            x: s.x,
+            y: s.y,
+            width: Number(s.width) || 44,
+            height: Number(s.height) || 44
+          };
+          
+          return {
+            ...s,
+            selected: isRectangleInCircle(symbolBounds, { x: circleBounds.centerX, y: circleBounds.centerY }, circleBounds.radius)
+          };
+        })
+      }));
     }
   }
 

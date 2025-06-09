@@ -30,11 +30,10 @@ $: isHand = model?.groupselected?.symbolkey?.startsWith('S1');
 
 </script>
 
-<div class="chooser-panel">
-  <!-- Maniquin (hand preview) -->
+<div class="chooser-panel">  <!-- Maniquin (hand preview) -->
   <div class="maniquin-area">
     <h2 style="margin:0; font-size:1.1em; padding:4px 0 0 8px;">Maniquin Preview</h2>
-    <Maniquin {model} width={parentWidth} height={80} />
+    <Maniquin {model} />
   </div>
 
   <!-- Main symbol chooser (left) -->
